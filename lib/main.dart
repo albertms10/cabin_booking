@@ -52,6 +52,8 @@ class CabinBookingApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      onGenerateTitle: (BuildContext context) =>
+          AppLocalizations.of(context).title,
       localizationsDelegates: [
         const AppLocalizationsDelegate(),
         GlobalMaterialLocalizations.delegate,
@@ -62,7 +64,6 @@ class CabinBookingApp extends StatelessWidget {
         const Locale('en'),
         const Locale('es'),
       ],
-      title: 'Cabin Booking',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
