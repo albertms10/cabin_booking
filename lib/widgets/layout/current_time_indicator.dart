@@ -13,39 +13,33 @@ class CurrentTimeIndicator extends StatelessWidget {
     return _difference > 0
         ? Column(
             children: [
-              SizedBox(height: _difference * bookingHeightRatio),
-              Row(
-                children: [
-                  Container(
-                    height: 14,
-                    width: 14,
-                    decoration: BoxDecoration(
+              SizedBox(
+                height: _difference * bookingHeightRatio,
+                child: Container(
+                  alignment: Alignment.bottomLeft,
+                  padding: EdgeInsets.all(8),
+                  child: Text(
+                    DateFormat('HH:mm').format(DateTime.now()),
+                    style: TextStyle(
                       color: Colors.red[400],
-                      shape: BoxShape.circle,
-                      boxShadow: [
-                        const BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 3,
-                          offset: Offset(3, 4),
-                        ),
-                      ],
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Container(
-                    height: 4,
-                    width: MediaQuery.of(context).size.width - 14,
-                    decoration: BoxDecoration(
-                      color: Colors.red[400],
-                      boxShadow: [
-                        const BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 3,
-                          offset: Offset(3, 4),
-                        ),
-                      ],
+                ),
+              ),
+              Container(
+                height: 3,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Colors.red[400],
+                  boxShadow: [
+                    const BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 3,
+                      offset: Offset(3, 4),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ],
           )
