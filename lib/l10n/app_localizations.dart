@@ -15,16 +15,22 @@ class AppLocalizations {
       'title': 'Reserva de cabines',
       'cabin': 'Cabina',
       'booking': 'Reserva',
+      'edit': 'Editar',
+      'delete': 'Eliminar',
     },
     'en': {
       'title': 'Cabin Booking',
       'cabin': 'Cabin',
       'booking': 'Booking',
+      'edit': 'Edit',
+      'delete': 'Delete',
     },
     'es': {
       'title': 'Reserva de cabinas',
       'cabin': 'Cabina',
       'booking': 'Reserva',
+      'edit': 'Editar',
+      'delete': 'Eliminar',
     },
   };
 
@@ -38,6 +44,14 @@ class AppLocalizations {
 
   String get booking {
     return _localizedValues[locale.languageCode]['booking'];
+  }
+
+  String get edit {
+    return _localizedValues[locale.languageCode]['edit'];
+  }
+
+  String get delete {
+    return _localizedValues[locale.languageCode]['delete'];
   }
 }
 
