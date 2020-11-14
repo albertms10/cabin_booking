@@ -15,7 +15,13 @@ class TimeColumn extends StatelessWidget {
           Container(
             height: 60 * bookingHeightRatio,
             padding: EdgeInsets.all(16),
-            child: Text('$time:00'),
+            child: Text(
+              '$time:00',
+              style: Theme.of(context)
+                  .textTheme
+                  .headline5
+                  .copyWith(color: Colors.black45),
+            ),
           ),
       ],
     );
