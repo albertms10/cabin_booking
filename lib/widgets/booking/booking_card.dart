@@ -1,6 +1,5 @@
 import 'package:cabin_booking/model/booking.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart' show DateFormat;
 
 class BookingCard extends StatelessWidget {
   final Booking booking;
@@ -21,9 +20,9 @@ class BookingCard extends StatelessWidget {
             children: [
               Text(booking.studentName),
               Text(
-                DateFormat('HH:mm').format(booking.dateStart),
+                booking.dateRange,
                 style: TextStyle(color: Colors.black38),
-              )
+              ),
             ],
           ),
         ),
