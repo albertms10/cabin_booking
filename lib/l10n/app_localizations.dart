@@ -19,7 +19,7 @@ class AppLocalizations {
       'delete': 'Eliminar',
       'previousDay': 'Dia anterior',
       'today': 'Avui',
-      'next_day': 'Dia següent',
+      'nextDay': 'Dia següent',
     },
     'en': {
       'title': 'Cabin Booking',
@@ -29,7 +29,7 @@ class AppLocalizations {
       'delete': 'Delete',
       'previousDay': 'Previous day',
       'today': 'Today',
-      'next_day': 'Next day',
+      'nextDay': 'Next day',
     },
     'es': {
       'title': 'Reserva de cabinas',
