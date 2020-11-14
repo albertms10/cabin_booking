@@ -31,7 +31,7 @@ List<Cabin> cabins = [
         dateEnd: DateTime.parse('2020-11-14 20:00:00'),
         studentName: 'Joan',
       ),
-    ],
+    ]..sort((a, b) => a.dateStart.compareTo(b.dateStart)),
   ),
   Cabin(
     number: 2,
@@ -70,7 +70,7 @@ List<Cabin> cabins = [
         dateEnd: DateTime.parse('2020-11-14 22:00:00'),
         studentName: 'Paolo',
       ),
-    ],
+    ]..sort((a, b) => a.dateStart.compareTo(b.dateStart)),
   ),
   Cabin(
     number: 5,
