@@ -23,9 +23,7 @@ class BookingsTable extends StatelessWidget {
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Expanded(
-                  child: TimeColumn(start: 15, end: 22),
-                ),
+                child,
                 for (int cabin = 0; cabin < cabins.length; cabin++)
                   Expanded(
                     child: BookingsStack(
@@ -46,6 +44,9 @@ class BookingsTable extends StatelessWidget {
               ],
             );
           },
+          child: Expanded(
+            child: TimeColumn(start: 15, end: 22),
+          ),
         ),
         CurrentTimeIndicator(),
       ],
