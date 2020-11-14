@@ -10,14 +10,21 @@ class BookingStack extends StatelessWidget {
   BookingStack({this.bookings = const []});
 
   List<Widget> _spacedBookings({int start = 15, int end = 22}) {
-    List<Widget> spacedBookings = [];
+    final spacedBookings = <Widget>[];
 
-    if (bookings.length == 0) return spacedBookings;
+    final startDate = DateTime.parse(
+      DateFormat('yyyy-MM-dd').format(
+            bookings.length > 0 ? bookings[0].dateStart : DateTime.now(),
+          ) +
+          ' $start:00',
+    );
 
-    DateTime startDate = DateTime.parse(
-        DateFormat('yyyy-MM-dd').format(bookings[0].dateStart) + ' $start:00');
-    DateTime endDate = DateTime.parse(
-        DateFormat('yyyy-MM-dd').format(bookings[0].dateEnd) + ' $end:00');
+    final endDate = DateTime.parse(
+      DateFormat('yyyy-MM-dd').format(
+            bookings.length > 0 ? bookings[0].dateEnd : DateTime.now(),
+          ) +
+          ' $end:00',
+    );
 
     for (int i = -1; i < bookings.length; i++) {
       DateTime currentBookingDate = i >= 0 ? bookings[i].dateEnd : startDate;
@@ -34,10 +41,23 @@ class BookingStack extends StatelessWidget {
           ),
         );
 
-      if (difference > 0)
+      if (difference > 0) {
+        final maxDuration = 60;
+
+        int currentDifference = difference;
+
+        while (currentDifference > maxDuration) {
+          spacedBookings.add(
+            EmptyBooking(duration: maxDuration),
+          );
+
+          currentDifference -= maxDuration;
+        }
+
         spacedBookings.add(
-          EmptyBooking(duration: difference),
+          EmptyBooking(duration: currentDifference),
         );
+      }
     }
 
     return spacedBookings;
@@ -49,10 +69,7 @@ class BookingStack extends StatelessWidget {
 
     return Column(
       children: [
-        if (bookings.length > 0)
-          for (int i = 0; i < spacedBookings.length; i++) spacedBookings[i]
-        else
-          Container(),
+        for (int i = 0; i < spacedBookings.length; i++) spacedBookings[i]
       ],
     );
   }
