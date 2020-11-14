@@ -9,7 +9,7 @@ class BookingStack extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
+    return Column(
       children: [
         if (bookings.length > 0)
           for (int booking = 0; booking < bookings.length; booking++)
