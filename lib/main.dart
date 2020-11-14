@@ -1,51 +1,12 @@
-import 'package:flutter/foundation.dart' show SynchronousFuture;
+import 'package:cabin_booking/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:intl/intl_browser.dart' show findSystemLocale;
 
 void main() {
-  runApp(CabinBookingApp());
-}
-
-class AppLocalizations {
-  AppLocalizations(this.locale);
-
-  final Locale locale;
-
-  static AppLocalizations of(BuildContext context) {
-    return Localizations.of<AppLocalizations>(context, AppLocalizations);
-  }
-
-  static Map<String, Map<String, String>> _localizedValues = {
-    'ca': {
-      'title': 'Reserva de cabines',
-    },
-    'en': {
-      'title': 'Cabin Booking',
-    },
-    'es': {
-      'title': 'Reserva de cabinas',
-    },
-  };
-
-  String get title {
-    return _localizedValues[locale.languageCode]['title'];
-  }
-}
-
-class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
-  const AppLocalizationsDelegate();
-
-  @override
-  bool isSupported(Locale locale) =>
-      ['ca', 'en', 'es'].contains(locale.languageCode);
-
-  @override
-  Future<AppLocalizations> load(Locale locale) {
-    return SynchronousFuture<AppLocalizations>(AppLocalizations(locale));
-  }
-
-  @override
-  bool shouldReload(AppLocalizationsDelegate old) => false;
+  findSystemLocale().then((value) {
+    runApp(CabinBookingApp());
+  });
 }
 
 class CabinBookingApp extends StatelessWidget {
