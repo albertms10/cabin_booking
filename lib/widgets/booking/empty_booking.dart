@@ -12,7 +12,6 @@ class EmptyBooking extends StatelessWidget {
       child: Container(
         margin: EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: Color.fromARGB(10, 0, 0, 0),
           borderRadius: BorderRadius.all(Radius.circular(4)),
         ),
         child: Tooltip(
@@ -23,7 +22,7 @@ class EmptyBooking extends StatelessWidget {
             child: Icon(
               Icons.add,
               size: 18,
-              color: Colors.black54,
+              color: Colors.black38,
             ),
           ),
         ),
