@@ -12,7 +12,7 @@ class TimeColumn extends StatelessWidget {
       children: [
         for (int time = start; time <= end; time++)
           Container(
-            height: 75,
+            height: 60 * 1.7,
             padding: EdgeInsets.all(16),
             child: Text('$time:00'),
           ),

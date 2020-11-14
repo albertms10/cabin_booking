@@ -4,7 +4,7 @@ class StrippedBackground extends StatelessWidget {
   final int count;
   final double height;
 
-  StrippedBackground({this.count = 0, this.height = 75});
+  StrippedBackground({this.count = 0, this.height = 60 * 1.7});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class StrippedBackground extends StatelessWidget {
           Container(
             height: height,
             color: i % 2 == 0 ? null : Color.fromARGB(8, 0, 0, 0),
-          )
+          ),
       ],
     );
   }

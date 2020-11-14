@@ -14,6 +14,7 @@ class BookingCard extends StatelessWidget {
       child: InkWell(
         onTap: () => {},
         child: Container(
+          height: booking.duration.inMinutes * 1.7,
           padding: EdgeInsets.all(8),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
