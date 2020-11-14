@@ -1,6 +1,7 @@
 import 'package:cabin_booking/model/data/cabin_data.dart';
 import 'package:cabin_booking/widgets/booking/booking_stack.dart';
 import 'package:cabin_booking/widgets/cabin/cabins_row.dart';
+import 'package:cabin_booking/widgets/layout/current_time_indicator.dart';
 import 'package:cabin_booking/widgets/layout/stripped_background.dart';
 import 'package:cabin_booking/widgets/layout/time_column.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +29,7 @@ class TimeTable extends StatelessWidget {
                     ),
                 ],
               ),
+              CurrentTimeIndicator(),
             ],
           ),
         ],
