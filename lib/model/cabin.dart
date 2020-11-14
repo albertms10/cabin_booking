@@ -1,6 +1,5 @@
+import 'package:cabin_booking/model/booking.dart';
 import 'package:flutter/material.dart';
-
-import 'booking.dart';
 
 class Cabin {
   final String id;
