@@ -8,28 +8,30 @@ import 'package:flutter/material.dart';
 class TimeTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        CabinsRow(cabins: cabins),
-        Stack(
-          children: [
-            StrippedBackground(count: 8),
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: TimeColumn(start: 15, end: 22),
-                ),
-                for (int cabin = 0; cabin < cabins.length; cabin++)
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          CabinsRow(cabins: cabins),
+          Stack(
+            children: [
+              StrippedBackground(count: 8),
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
                   Expanded(
-                    child: BookingStack(bookings: cabins[cabin].bookings),
+                    child: TimeColumn(start: 15, end: 22),
                   ),
-              ],
-            ),
-          ],
-        ),
-      ],
+                  for (int cabin = 0; cabin < cabins.length; cabin++)
+                    Expanded(
+                      child: BookingStack(bookings: cabins[cabin].bookings),
+                    ),
+                ],
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
