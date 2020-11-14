@@ -1,4 +1,5 @@
 import 'package:cabin_booking/l10n/app_localizations.dart';
+import 'package:cabin_booking/widgets/layout/time_table.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl_browser.dart' show findSystemLocale;
@@ -40,7 +41,9 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text(AppLocalizations.of(context).title),
       ),
-      body: Container(),
+      body: SafeArea(
+        child: TimeTable(),
+      ),
     );
   }
 }
