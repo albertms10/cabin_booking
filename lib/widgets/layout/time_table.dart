@@ -15,7 +15,6 @@ class TimeTable extends StatelessWidget {
           children: [
             StrippedBackground(count: 8),
             Row(
-              // scrollable content
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -25,7 +24,7 @@ class TimeTable extends StatelessWidget {
                 for (int cabin = 0; cabin < cabins.length; cabin++)
                   Expanded(
                     child: BookingStack(bookings: cabins[cabin].bookings),
-                  )
+                  ),
               ],
             ),
           ],
