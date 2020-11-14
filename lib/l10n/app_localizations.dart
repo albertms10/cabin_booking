@@ -17,6 +17,9 @@ class AppLocalizations {
       'booking': 'Reserva',
       'edit': 'Editar',
       'delete': 'Eliminar',
+      'previousDay': 'Dia anterior',
+      'today': 'Avui',
+      'next_day': 'Dia següent',
     },
     'en': {
       'title': 'Cabin Booking',
@@ -24,6 +27,9 @@ class AppLocalizations {
       'booking': 'Booking',
       'edit': 'Edit',
       'delete': 'Delete',
+      'previousDay': 'Previous day',
+      'today': 'Today',
+      'next_day': 'Next day',
     },
     'es': {
       'title': 'Reserva de cabinas',
@@ -31,6 +37,9 @@ class AppLocalizations {
       'booking': 'Reserva',
       'edit': 'Editar',
       'delete': 'Eliminar',
+      'previousDay': 'Día anterior',
+      'today': 'Hoy',
+      'nextDay': 'Dia siguiente',
     },
   };
 
@@ -52,6 +61,18 @@ class AppLocalizations {
 
   String get delete {
     return _localizedValues[locale.languageCode]['delete'];
+  }
+
+  String get previousDay {
+    return _localizedValues[locale.languageCode]['previousDay'];
+  }
+
+  String get today {
+    return _localizedValues[locale.languageCode]['today'];
+  }
+
+  String get nextDay {
+    return _localizedValues[locale.languageCode]['nextDay'];
   }
 }
 
