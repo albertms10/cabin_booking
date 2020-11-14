@@ -13,27 +13,23 @@ List<Cabin> cabins = [
     bookings: [
       Booking(
         dateStart: DateTime.parse('2020-11-14 21:00:00'),
+        dateEnd: DateTime.parse('2020-11-14 22:00:00'),
         studentName: 'Albert',
       ),
       Booking(
         dateStart: DateTime.parse('2020-11-14 16:00:00'),
+        dateEnd: DateTime.parse('2020-11-14 17:00:00'),
         studentName: 'Eric',
       ),
       Booking(
         dateStart: DateTime.parse('2020-11-14 17:30:00'),
+        dateEnd: DateTime.parse('2020-11-14 18:00:00'),
         studentName: 'Guillem',
       ),
       Booking(
         dateStart: DateTime.parse('2020-11-14 18:30:00'),
+        dateEnd: DateTime.parse('2020-11-14 20:00:00'),
         studentName: 'Joan',
-      ),
-      Booking(
-        dateStart: DateTime.parse('2020-11-14 19:00:00'),
-        studentName: 'Dani',
-      ),
-      Booking(
-        dateStart: DateTime.parse('2020-11-14 20:00:00'),
-        studentName: 'Paolo',
       ),
     ],
   ),
@@ -65,12 +61,14 @@ List<Cabin> cabins = [
     },
     bookings: [
       Booking(
-        dateStart: DateTime.now(),
-        studentName: 'Albert',
+        dateStart: DateTime.parse('2020-11-14 19:00:00'),
+        dateEnd: DateTime.parse('2020-11-14 20:00:00'),
+        studentName: 'Dani',
       ),
       Booking(
-        dateStart: DateTime.now(),
-        studentName: 'Eric',
+        dateStart: DateTime.parse('2020-11-14 20:00:00'),
+        dateEnd: DateTime.parse('2020-11-14 22:00:00'),
+        studentName: 'Paolo',
       ),
     ],
   ),
