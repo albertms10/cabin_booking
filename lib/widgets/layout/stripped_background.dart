@@ -1,10 +1,14 @@
+import 'package:cabin_booking/constants.dart';
 import 'package:flutter/material.dart';
 
 class StrippedBackground extends StatelessWidget {
   final int count;
   final double height;
 
-  StrippedBackground({this.count = 0, this.height = 60 * 1.7});
+  StrippedBackground({
+    this.count = 0,
+    this.height = 60 * bookingHeightRatio,
+  });
 
   @override
   Widget build(BuildContext context) {

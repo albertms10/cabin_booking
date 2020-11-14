@@ -1,3 +1,4 @@
+import 'package:cabin_booking/constants.dart';
 import 'package:flutter/material.dart';
 
 class TimeColumn extends StatelessWidget {
@@ -12,7 +13,7 @@ class TimeColumn extends StatelessWidget {
       children: [
         for (int time = start; time <= end; time++)
           Container(
-            height: 60 * 1.7,
+            height: 60 * bookingHeightRatio,
             padding: EdgeInsets.all(16),
             child: Text('$time:00'),
           ),
