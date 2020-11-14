@@ -4,10 +4,10 @@ import 'package:cabin_booking/widgets/booking/empty_booking.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class BookingStack extends StatelessWidget {
+class BookingsStack extends StatelessWidget {
   final List<Booking> bookings;
 
-  BookingStack({this.bookings = const []});
+  BookingsStack({this.bookings = const []});
 
   List<Widget> _spacedBookings({int start = 15, int end = 22}) {
     final spacedBookings = <Widget>[];
