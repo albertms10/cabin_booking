@@ -11,7 +11,8 @@ class CurrentTimeIndicator extends StatelessWidget {
       builder: (context) {
         int _difference = DateTime.now()
             .difference(DateTime.parse(
-                DateFormat('yyyy-MM-dd').format(DateTime.now()) + ' 15:00'))
+                DateFormat('yyyy-MM-dd').format(DateTime.now()) +
+                    ' ${timeTableStartTime.format(context)}'))
             .inMinutes;
 
         return _difference > 0

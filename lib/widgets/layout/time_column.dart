@@ -5,7 +5,10 @@ class TimeColumn extends StatelessWidget {
   final TimeOfDay start;
   final TimeOfDay end;
 
-  TimeColumn({@required this.start, @required this.end});
+  TimeColumn({
+    this.start = timeTableStartTime,
+    this.end = timeTableEndTime,
+  });
 
   @override
   Widget build(BuildContext context) {

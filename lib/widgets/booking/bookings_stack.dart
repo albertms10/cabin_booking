@@ -1,3 +1,4 @@
+import 'package:cabin_booking/constants.dart';
 import 'package:cabin_booking/model/booking.dart';
 import 'package:cabin_booking/model/cabin.dart';
 import 'package:cabin_booking/model/day_handler.dart';
@@ -13,17 +14,19 @@ class BookingsStack extends StatelessWidget {
 
   BookingsStack({this.cabin, this.bookings = const []});
 
-  List<Widget> _distributedBookings(context, {int start = 15, int end = 22}) {
+  List<Widget> _distributedBookings(BuildContext context) {
     final distributedBookings = <Widget>[];
 
     DayHandler _dayHandler = Provider.of<DayHandler>(context);
 
     final startDate = DateTime.parse(
-      DateFormat('yyyy-MM-dd').format(_dayHandler.dateTime) + ' $start:00',
+      DateFormat('yyyy-MM-dd').format(_dayHandler.dateTime) +
+          ' ${timeTableStartTime.format(context)}',
     );
 
     final endDate = DateTime.parse(
-      DateFormat('yyyy-MM-dd').format(_dayHandler.dateTime) + ' $end:00',
+      DateFormat('yyyy-MM-dd').format(_dayHandler.dateTime) +
+          ' ${timeTableEndTime.format(context)}',
     );
 
     for (int i = -1; i < bookings.length; i++) {
