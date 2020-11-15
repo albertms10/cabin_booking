@@ -1,10 +1,20 @@
 import 'package:cabin_booking/constants.dart';
+import 'package:cabin_booking/model/cabin.dart';
+import 'package:cabin_booking/widgets/booking/booking_dialog.dart';
 import 'package:flutter/material.dart';
 
 class EmptyBooking extends StatelessWidget {
+  final Cabin cabin;
+  final DateTime startDate;
+  final DateTime endDate;
   final int duration;
 
-  EmptyBooking({this.duration = 60});
+  EmptyBooking({
+    @required this.cabin,
+    @required this.startDate,
+    @required this.endDate,
+    this.duration = 60,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +28,16 @@ class EmptyBooking extends StatelessWidget {
           message: '$duration min',
           child: InkWell(
             borderRadius: BorderRadius.all(Radius.circular(4)),
-            onTap: () {},
+            onTap: () {
+              showDialog(
+                context: context,
+                builder: (context) => BookingDialog(
+                  cabin: cabin,
+                  startDate: startDate,
+                  endDate: endDate,
+                ),
+              );
+            },
             child: Icon(
               Icons.add,
               size: 18,
