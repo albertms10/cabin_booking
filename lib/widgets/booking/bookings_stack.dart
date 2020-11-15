@@ -47,6 +47,9 @@ class BookingsStack extends StatelessWidget {
         int currentDifference = difference;
 
         while (currentDifference > maxDuration) {
+          nextBookingDate =
+              currentBookingDate.add(Duration(minutes: maxDuration));
+
           distributedBookings.add(
             EmptyBooking(
               cabin: cabin,
@@ -58,10 +61,12 @@ class BookingsStack extends StatelessWidget {
 
           currentBookingDate =
               currentBookingDate.add(Duration(minutes: maxDuration));
-          nextBookingDate = nextBookingDate.add(Duration(minutes: maxDuration));
 
           currentDifference -= maxDuration;
         }
+
+        nextBookingDate =
+            currentBookingDate.add(Duration(minutes: currentDifference));
 
         distributedBookings.add(
           EmptyBooking(
