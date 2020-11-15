@@ -27,7 +27,9 @@ class BookingPopupMenu extends StatelessWidget {
           case 'edit':
             final _booking = await showDialog<Booking>(
               context: context,
-              builder: (context) => BookingDialog(booking),
+              builder: (context) => BookingDialog(
+                booking..cabinNumber = cabin.number,
+              ),
             );
 
             if (_booking != null)

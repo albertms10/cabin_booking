@@ -5,12 +5,14 @@ class Booking {
   String studentName;
   DateTime dateStart;
   DateTime dateEnd;
+  int cabinNumber;
 
   Booking({
     this.id,
     this.studentName,
     this.dateStart,
     this.dateEnd,
+    this.cabinNumber,
   });
 
   Booking.fromJson(Map<String, dynamic> json)
@@ -38,5 +40,6 @@ class Booking {
   }
 
   @override
-  String toString() => '$studentName $dateRange';
+  String toString() =>
+      '$studentName ${cabinNumber != null ? 'Cabin $cabinNumber ' : ''}$dateRange';
 }
