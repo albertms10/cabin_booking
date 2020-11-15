@@ -11,17 +11,32 @@ class CurrentTimeIndicator extends StatelessWidget {
     return TimerBuilder.periodic(
       Duration(seconds: 5),
       builder: (context) {
-        int _difference = DateTime.now()
-            .difference(DateTime.parse(DateFormat('yyyy-MM-dd')
-                    .format(Provider.of<DayHandler>(context).dateTime) +
-                ' ${timeTableStartTime.format(context)}'))
-            .inMinutes;
+        final viewStartTime = DateTime.parse(
+          DateFormat('yyyy-MM-dd').format(
+                Provider.of<DayHandler>(context).dateTime,
+              ) +
+              ' ${timeTableStartTime.format(context)}',
+        );
 
-        return _difference > 0
+        final viewEndTime = DateTime.parse(
+          DateFormat('yyyy-MM-dd').format(
+                Provider.of<DayHandler>(context).dateTime,
+              ) +
+              ' ${timeTableEndTime.format(context)}',
+        );
+
+        final int _differenceFromViewStartTime =
+            DateTime.now().difference(viewStartTime).inMinutes;
+
+        final int _differenceFromViewEndTime =
+            DateTime.now().difference(viewEndTime).inMinutes;
+
+        return _differenceFromViewStartTime > 0 &&
+                _differenceFromViewEndTime < 0
             ? Column(
                 children: [
                   SizedBox(
-                    height: _difference * bookingHeightRatio,
+                    height: _differenceFromViewStartTime * bookingHeightRatio,
                     child: Container(
                       alignment: Alignment.bottomLeft,
                       padding: const EdgeInsets.all(8),
