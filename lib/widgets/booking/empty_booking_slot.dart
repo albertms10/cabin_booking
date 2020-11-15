@@ -8,14 +8,14 @@ import 'package:provider/provider.dart';
 
 class EmptyBookingSlot extends StatelessWidget {
   final Cabin cabin;
-  final DateTime startDate;
-  final DateTime endDate;
+  final DateTime dateStart;
+  final DateTime dateEnd;
   final Duration duration;
 
   EmptyBookingSlot({
     @required this.cabin,
-    @required this.startDate,
-    @required this.endDate,
+    @required this.dateStart,
+    @required this.dateEnd,
     this.duration = maxSlotDuration,
   });
 
@@ -40,8 +40,8 @@ class EmptyBookingSlot extends StatelessWidget {
                 context: context,
                 builder: (context) => BookingDialog(
                   Booking(
-                    dateStart: startDate,
-                    dateEnd: endDate,
+                    dateStart: dateStart,
+                    dateEnd: dateEnd,
                   ),
                 ),
               );

@@ -19,20 +19,20 @@ class BookingsStack extends StatelessWidget {
 
     DayHandler _dayHandler = Provider.of<DayHandler>(context);
 
-    final startDate = DateTime.parse(
+    final dateStart = DateTime.parse(
       DateFormat('yyyy-MM-dd').format(_dayHandler.dateTime) +
           ' ${timeTableStartTime.format(context)}',
     );
 
-    final endDate = DateTime.parse(
+    final dateEnd = DateTime.parse(
       DateFormat('yyyy-MM-dd').format(_dayHandler.dateTime) +
           ' ${timeTableEndTime.format(context)}',
     );
 
     for (int i = -1; i < bookings.length; i++) {
-      DateTime currentBookingDate = i >= 0 ? bookings[i].dateEnd : startDate;
+      DateTime currentBookingDate = i >= 0 ? bookings[i].dateEnd : dateStart;
       DateTime nextBookingDate =
-          i < bookings.length - 1 ? bookings[i + 1].dateStart : endDate;
+          i < bookings.length - 1 ? bookings[i + 1].dateStart : dateEnd;
 
       final Duration duration = nextBookingDate.difference(currentBookingDate);
       final int durationMinutes = duration.inMinutes;
@@ -57,8 +57,8 @@ class BookingsStack extends StatelessWidget {
           distributedBookings.add(
             EmptyBookingSlot(
               cabin: cabin,
-              startDate: currentBookingDate,
-              endDate: nextBookingDate,
+              dateStart: currentBookingDate,
+              dateEnd: nextBookingDate,
             ),
           );
 
@@ -74,8 +74,8 @@ class BookingsStack extends StatelessWidget {
         distributedBookings.add(
           EmptyBookingSlot(
             cabin: cabin,
-            startDate: currentBookingDate,
-            endDate: nextBookingDate,
+            dateStart: currentBookingDate,
+            dateEnd: nextBookingDate,
             duration: restDuration,
           ),
         );
