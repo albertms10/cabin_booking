@@ -4,13 +4,13 @@ import 'package:cabin_booking/model/cabin.dart';
 import 'package:cabin_booking/widgets/booking/booking_dialog.dart';
 import 'package:flutter/material.dart';
 
-class EmptyBooking extends StatelessWidget {
+class EmptyBookingSlot extends StatelessWidget {
   final Cabin cabin;
   final DateTime startDate;
   final DateTime endDate;
   final int duration;
 
-  EmptyBooking({
+  EmptyBookingSlot({
     @required this.cabin,
     @required this.startDate,
     @required this.endDate,
