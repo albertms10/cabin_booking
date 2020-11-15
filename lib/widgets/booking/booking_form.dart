@@ -4,15 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class BookingForm extends StatefulWidget {
-  final String studentName;
-  final DateTime startDate;
-  final DateTime endDate;
+  final Booking booking;
 
-  BookingForm({
-    this.studentName,
-    @required this.startDate,
-    @required this.endDate,
-  });
+  BookingForm(this.booking);
 
   @override
   _BookingFormState createState() => _BookingFormState();
@@ -21,7 +15,7 @@ class BookingForm extends StatefulWidget {
 class _BookingFormState extends State<BookingForm> {
   final _formKey = GlobalKey<FormState>();
 
-  final Booking booking = Booking();
+  final Booking _booking = Booking();
 
   final _startTimeController = TextEditingController();
   final _endTimeController = TextEditingController();
@@ -33,13 +27,13 @@ class _BookingFormState extends State<BookingForm> {
   void initState() {
     super.initState();
 
-    _startTime = TimeOfDay.fromDateTime(widget.startDate);
-    _endTime = TimeOfDay.fromDateTime(widget.endDate);
+    _startTime = TimeOfDay.fromDateTime(widget.booking.dateStart);
+    _endTime = TimeOfDay.fromDateTime(widget.booking.dateEnd);
   }
 
   DateTime _tryTimeParse(String value) {
     return DateTime.tryParse(
-      DateFormat('yyyy-MM-dd').format(widget.startDate) + ' $value',
+      DateFormat('yyyy-MM-dd').format(widget.booking.dateStart) + ' $value',
     );
   }
 
@@ -53,7 +47,7 @@ class _BookingFormState extends State<BookingForm> {
       child: Column(
         children: [
           TextFormField(
-            initialValue: widget.studentName,
+            initialValue: widget.booking.studentName,
             autofocus: true,
             autovalidateMode: AutovalidateMode.onUserInteraction,
             validator: (String value) {
@@ -63,7 +57,7 @@ class _BookingFormState extends State<BookingForm> {
               return null;
             },
             onSaved: (value) {
-              booking.studentName = value;
+              _booking.studentName = value;
             },
             decoration: InputDecoration(
               labelText: AppLocalizations.of(context).student,
@@ -88,20 +82,21 @@ class _BookingFormState extends State<BookingForm> {
               return null;
             },
             onTap: () async {
-              TimeOfDay time = await showTimePicker(
+              final _time = await showTimePicker(
                 context: context,
                 initialTime: _startTime,
               );
 
-              if (time != null)
+              if (_time != null)
                 setState(() {
-                  _startTime = time;
-                  _startTimeController.text = time.format(context);
+                  _startTime = _time;
+                  _startTimeController.text = _time.format(context);
                 });
             },
             onSaved: (value) {
-              booking.dateStart = DateTime.parse(
-                DateFormat('yyyy-MM-dd').format(widget.startDate) + ' $value',
+              _booking.dateStart = DateTime.parse(
+                DateFormat('yyyy-MM-dd').format(widget.booking.dateStart) +
+                    ' $value',
               );
             },
             decoration: InputDecoration(
@@ -128,20 +123,21 @@ class _BookingFormState extends State<BookingForm> {
               return null;
             },
             onTap: () async {
-              TimeOfDay time = await showTimePicker(
+              final _time = await showTimePicker(
                 context: context,
                 initialTime: _endTime,
               );
 
-              if (time != null)
+              if (_time != null)
                 setState(() {
-                  _endTime = time;
-                  _endTimeController.text = time.format(context);
+                  _endTime = _time;
+                  _endTimeController.text = _time.format(context);
                 });
             },
             onSaved: (value) {
-              booking.dateEnd = DateTime.parse(
-                DateFormat('yyyy-MM-dd').format(widget.endDate) + ' $value',
+              _booking.dateEnd = DateTime.parse(
+                DateFormat('yyyy-MM-dd').format(widget.booking.dateEnd) +
+                    ' $value',
               );
             },
             decoration: InputDecoration(
@@ -155,7 +151,10 @@ class _BookingFormState extends State<BookingForm> {
             onPressed: () {
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();
-                Navigator.of(context).pop<Booking>(booking);
+
+                if (widget.booking.id != null) _booking.id = widget.booking.id;
+
+                Navigator.of(context).pop<Booking>(_booking);
               }
             },
             icon: const Icon(Icons.add),

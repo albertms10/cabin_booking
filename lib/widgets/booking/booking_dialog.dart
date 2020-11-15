@@ -1,17 +1,12 @@
 import 'package:cabin_booking/l10n/app_localizations.dart';
+import 'package:cabin_booking/model/booking.dart';
 import 'package:cabin_booking/widgets/booking/booking_form.dart';
 import 'package:flutter/material.dart';
 
 class BookingDialog extends StatelessWidget {
-  final String studentName;
-  final DateTime startDate;
-  final DateTime endDate;
+  final Booking booking;
 
-  BookingDialog({
-    this.studentName,
-    this.startDate,
-    this.endDate,
-  });
+  BookingDialog(this.booking);
 
   @override
   Widget build(BuildContext context) {
@@ -30,11 +25,7 @@ class BookingDialog extends StatelessWidget {
       contentPadding: const EdgeInsets.only(left: 24, right: 24, bottom: 24),
       titlePadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 18),
       children: [
-        BookingForm(
-          studentName: studentName,
-          startDate: startDate,
-          endDate: endDate,
-        ),
+        BookingForm(booking),
       ],
     );
   }
