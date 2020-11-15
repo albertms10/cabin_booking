@@ -21,8 +21,8 @@ class BookingManager with ChangeNotifier {
     notifyListeners();
   }
 
-  void removeBooking(int index) {
-    bookings.removeAt(index);
+  void removeBookingById(String id) {
+    bookings.removeWhere((booking) => booking.id == id);
     notifyListeners();
   }
 }

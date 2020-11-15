@@ -11,13 +11,20 @@ class CabinManager with ChangeNotifier {
     cabins = data.cabins;
   }
 
+  Cabin getCabinById(String id) => cabins.firstWhere((cabin) => cabin.id == id);
+
   void addCabin(Cabin cabin) {
     cabins.add(cabin);
     notifyListeners();
   }
 
-  void removeCabin(int index) {
-    cabins.removeAt(index);
+  void removeCabinById(String id) {
+    cabins.removeWhere((cabin) => cabin.id == id);
+    notifyListeners();
+  }
+
+  void removeBookingById(String cabinId, String bookingId) {
+    getCabinById(cabinId).bookingManager.removeBookingById(bookingId);
     notifyListeners();
   }
 }
