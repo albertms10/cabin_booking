@@ -27,6 +27,7 @@ class AppLocalizations {
       'enterStudentName': 'Introdueix el nom de l’estudiant',
       'enterStartTime': 'Introdueix l’hora d’inici',
       'enterEndTime': 'Introdueix l’hora d’acabament',
+      'enterValidRange': 'Introdueix un rang vàlid',
     },
     'en': {
       'title': 'Cabin Booking',
@@ -44,6 +45,7 @@ class AppLocalizations {
       'enterStudentName': 'Enter student name',
       'enterStartTime': 'Enter start time',
       'enterEndTime': 'Enter end time',
+      'enterValidRange': 'Enter a valid range',
     },
     'es': {
       'title': 'Reserva de cabinas',
@@ -61,6 +63,7 @@ class AppLocalizations {
       'enterStudentName': 'Introduzca el nombre del / de la estudiante',
       'enterStartTime': 'Introduzca la hora de inicio',
       'enterEndTime': 'Introduzca la hora de finalización',
+      'enterValidRange': 'Introduzca un rangp válido',
     },
   };
 
@@ -122,6 +125,10 @@ class AppLocalizations {
 
   String get enterEndTime {
     return _localizedValues[locale.languageCode]['enterEndTime'];
+  }
+
+  String get enterValidRange {
+    return _localizedValues[locale.languageCode]['enterValidRange'];
   }
 }
 
