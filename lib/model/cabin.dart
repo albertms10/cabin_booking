@@ -15,4 +15,7 @@ class Cabin {
   });
 
   Cabin get simple => Cabin(id: id, number: number);
+
+  @override
+  String toString() => 'Cabin $number (${bookings.length} bookings)';
 }
