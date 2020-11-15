@@ -20,13 +20,13 @@ class DayNavigation extends StatelessWidget {
           ),
           IconButton(
             onPressed: () => _dayHandler.previousDay(),
-            icon: Icon(Icons.chevron_left),
+            icon: const Icon(Icons.chevron_left),
             tooltip: AppLocalizations.of(context).previousDay,
             splashRadius: 22,
           ),
           IconButton(
             onPressed: () => _dayHandler.nextDay(),
-            icon: Icon(Icons.chevron_right),
+            icon: const Icon(Icons.chevron_right),
             tooltip: AppLocalizations.of(context).nextDay,
             splashRadius: 22,
           ),

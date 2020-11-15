@@ -41,7 +41,7 @@ class EmptyBookingSlot extends StatelessWidget {
 
               print(booking);
             },
-            child: Icon(
+            child: const Icon(
               Icons.add,
               size: 18,
               color: Colors.black38,

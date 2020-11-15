@@ -104,7 +104,7 @@ class _BookingFormState extends State<BookingForm> {
             decoration: InputDecoration(
               labelText: AppLocalizations.of(context).start,
               border: const OutlineInputBorder(),
-              icon: Icon(Icons.schedule),
+              icon: const Icon(Icons.schedule),
             ),
           ),
           const SizedBox(height: 16),
@@ -144,7 +144,7 @@ class _BookingFormState extends State<BookingForm> {
             decoration: InputDecoration(
               labelText: AppLocalizations.of(context).end,
               border: const OutlineInputBorder(),
-              icon: Icon(Icons.schedule),
+              icon: const Icon(Icons.schedule),
             ),
           ),
           const SizedBox(height: 16),
@@ -155,7 +155,7 @@ class _BookingFormState extends State<BookingForm> {
                 Navigator.of(context).pop<Booking>(booking);
               }
             },
-            icon: Icon(Icons.add),
+            icon: const Icon(Icons.add),
             label: Text(AppLocalizations.of(context).book.toUpperCase()),
           )
         ],

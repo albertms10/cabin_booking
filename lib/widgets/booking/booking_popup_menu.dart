@@ -6,7 +6,7 @@ class BookingPopupMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return PopupMenuButton(
       onSelected: (choice) {},
-      icon: Icon(
+      icon: const Icon(
         Icons.more_vert,
         size: 16,
         color: Colors.black54,
