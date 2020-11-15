@@ -22,13 +22,13 @@ List<Cabin> cabins = [
         studentName: 'Eric',
       ),
       Booking(
-        dateStart: DateTime.parse('2020-11-14 17:30:00'),
-        dateEnd: DateTime.parse('2020-11-14 18:00:00'),
+        dateStart: DateTime.parse('2020-11-15 17:30:00'),
+        dateEnd: DateTime.parse('2020-11-15 18:00:00'),
         studentName: 'Guillem',
       ),
       Booking(
-        dateStart: DateTime.parse('2020-11-14 18:30:00'),
-        dateEnd: DateTime.parse('2020-11-14 20:00:00'),
+        dateStart: DateTime.parse('2020-11-15 18:30:00'),
+        dateEnd: DateTime.parse('2020-11-15 20:00:00'),
         studentName: 'Joan',
       ),
     ]..sort((a, b) => a.dateStart.compareTo(b.dateStart)),
@@ -41,6 +41,23 @@ List<Cabin> cabins = [
       'lecterns': 2,
       'chairs': 1,
     },
+    bookings: [
+      Booking(
+        dateStart: DateTime.parse('2020-11-16 19:00:00'),
+        dateEnd: DateTime.parse('2020-11-16 20:00:00'),
+        studentName: 'Dani',
+      ),
+      Booking(
+        dateStart: DateTime.parse('2020-11-14 20:00:00'),
+        dateEnd: DateTime.parse('2020-11-14 22:00:00'),
+        studentName: 'Paolo',
+      ),
+      Booking(
+        dateStart: DateTime.parse('2020-11-15 20:00:00'),
+        dateEnd: DateTime.parse('2020-11-15 22:00:00'),
+        studentName: 'Paolo',
+      ),
+    ]..sort((a, b) => a.dateStart.compareTo(b.dateStart)),
   ),
   Cabin(
     number: 3,
@@ -61,8 +78,8 @@ List<Cabin> cabins = [
     },
     bookings: [
       Booking(
-        dateStart: DateTime.parse('2020-11-14 19:00:00'),
-        dateEnd: DateTime.parse('2020-11-14 20:00:00'),
+        dateStart: DateTime.parse('2020-11-15 19:00:00'),
+        dateEnd: DateTime.parse('2020-11-15 20:00:00'),
         studentName: 'Dani',
       ),
       Booking(
