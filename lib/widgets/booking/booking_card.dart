@@ -19,7 +19,7 @@ class BookingCard extends StatelessWidget {
         return Card(
           margin: const EdgeInsets.all(8),
           color: booking.dateEnd.isBefore(DateTime.now())
-              ? Color.fromARGB(8, 0, 0, 0)
+              ? Colors.grey[200]
               : null,
           child: Container(
             height: booking.duration.inMinutes * bookingHeightRatio - 16,
