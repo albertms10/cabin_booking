@@ -3,10 +3,26 @@ import 'package:cabin_booking/widgets/layout/time_table.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl_browser.dart' show findSystemLocale;
+import 'package:provider/provider.dart';
+
+import 'model/cabin_manager.dart';
+import 'model/day_handler.dart';
 
 void main() {
-  findSystemLocale().then((value) {
-    runApp(CabinBookingApp());
+  findSystemLocale().then((locale) {
+    runApp(
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider<CabinManager>(
+            create: (context) => CabinManager.dummy(),
+          ),
+          ChangeNotifierProvider<DayHandler>(
+            create: (context) => DayHandler(),
+          ),
+        ],
+        child: CabinBookingApp(),
+      ),
+    );
   });
 }
 
