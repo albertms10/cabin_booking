@@ -13,6 +13,19 @@ class Booking {
     this.dateEnd,
   });
 
+  Booking.fromJson(Map<String, dynamic> json)
+      : id = json['id'],
+        studentName = json['studentName'],
+        dateStart = json['dateStart'],
+        dateEnd = json['dateEnd'];
+
+  Map<String, dynamic> get toJson => {
+        'id': id,
+        'studentName': studentName,
+        'dateStart': dateStart,
+        'dateEnd': dateEnd,
+      };
+
   Duration get duration => dateEnd.difference(dateStart);
 
   String get dateRange =>

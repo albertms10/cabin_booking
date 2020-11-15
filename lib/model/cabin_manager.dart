@@ -8,9 +8,7 @@ class CabinManager with ChangeNotifier {
 
   CabinManager({this.cabins});
 
-  CabinManager.dummy() {
-    cabins = data.cabins;
-  }
+  CabinManager.dummy() : cabins = data.cabins;
 
   Cabin getCabinById(String id) => cabins.firstWhere((cabin) => cabin.id == id);
 

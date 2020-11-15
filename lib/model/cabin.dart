@@ -2,7 +2,7 @@ import 'package:cabin_booking/model/booking.dart';
 import 'package:cabin_booking/model/booking_manager.dart';
 
 class Cabin {
-  final String id;
+  String id;
   int number;
   Map<String, int> components;
   BookingManager bookingManager;
@@ -12,14 +12,22 @@ class Cabin {
     this.number,
     this.components,
     List<Booking> bookings,
-  }) {
+  }) : bookingManager = BookingManager(bookings: bookings) {
     if (components == null) components = Map<String, int>();
-
-    bookingManager = BookingManager(
-      bookings: bookings,
-      cabinNumber: number,
-    );
   }
+
+  Cabin.fromJson(Map<String, dynamic> json)
+      : id = json['id'],
+        number = json['number'],
+        components = json['components'],
+        bookingManager = BookingManager(bookings: json['bookings']);
+
+  Map<String, dynamic> get toJson => {
+        'id': id,
+        'number': number,
+        'components': components,
+        'bookings': bookings,
+      };
 
   Cabin get simple => Cabin(id: id, number: number);
 
