@@ -15,10 +15,9 @@ class AppLocalizations {
       'title': 'Reserva de cabines',
       'cabin': 'Cabina',
       'booking': 'Reserva',
-      'book': 'Reservar',
+      'book': 'Reserva',
       'student': 'Estudiant',
-      'edit': 'Editar',
-      'delete': 'Eliminar',
+      'edit': 'Edita',
       'previousDay': 'Dia anterior',
       'today': 'Avui',
       'nextDay': 'Dia següent',
@@ -28,9 +27,8 @@ class AppLocalizations {
       'enterStartTime': 'Introdueix l’hora d’inici',
       'enterEndTime': 'Introdueix l’hora d’acabament',
       'enterValidRange': 'Introdueix un rang vàlid',
-      'deleteBookingTitle': 'Confirmes que vols eliminar la reserva?',
+      'deleteBookingTitle': 'Confirmes que vols suprimir la reserva?',
       'actionUndone': 'Aquesta acció no es pot desfer.',
-      'cancel': 'Cancel·lar',
     },
     'en': {
       'title': 'Cabin Booking',
@@ -39,7 +37,6 @@ class AppLocalizations {
       'book': 'Book',
       'student': 'Student',
       'edit': 'Edit',
-      'delete': 'Delete',
       'previousDay': 'Previous day',
       'today': 'Today',
       'nextDay': 'Next day',
@@ -51,7 +48,6 @@ class AppLocalizations {
       'enterValidRange': 'Enter a valid range',
       'deleteBookingTitle': 'Are you sure you want to delete the booking?',
       'actionUndone': 'You can’t undo this action.',
-      'cancel': 'Cancel',
     },
     'es': {
       'title': 'Reserva de cabinas',
@@ -60,7 +56,6 @@ class AppLocalizations {
       'book': 'Reservar',
       'student': 'Estudiante',
       'edit': 'Editar',
-      'delete': 'Eliminar',
       'previousDay': 'Día anterior',
       'today': 'Hoy',
       'nextDay': 'Día siguiente',
@@ -70,9 +65,8 @@ class AppLocalizations {
       'enterStartTime': 'Introduzca la hora de inicio',
       'enterEndTime': 'Introduzca la hora de finalización',
       'enterValidRange': 'Introduzca un rangp válido',
-      'deleteBookingTitle': '¿Seguro que desea eliminar la reserva?',
+      'deleteBookingTitle': '¿Seguro que desea suprimir la reserva?',
       'actionUndone': 'Esta acción no se puede deshacer.',
-      'cancel': 'Cancelar',
     },
   };
 
@@ -100,10 +94,6 @@ class AppLocalizations {
 
   String get edit {
     return _localizedValues[locale.languageCode]['edit'];
-  }
-
-  String get delete {
-    return _localizedValues[locale.languageCode]['delete'];
   }
 
   String get previousDay {
@@ -148,10 +138,6 @@ class AppLocalizations {
 
   String get actionUndone {
     return _localizedValues[locale.languageCode]['actionUndone'];
-  }
-
-  String get cancel {
-    return _localizedValues[locale.languageCode]['cancel'];
   }
 }
 
