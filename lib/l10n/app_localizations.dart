@@ -24,6 +24,9 @@ class AppLocalizations {
       'nextDay': 'Dia següent',
       'start': 'Inici',
       'end': 'Final',
+      'enterStudentName': 'Introdueix el nom de l’estudiant',
+      'enterStartTime': 'Introdueix l’hora d’inici',
+      'enterEndTime': 'Introdueix l’hora d’acabament',
     },
     'en': {
       'title': 'Cabin Booking',
@@ -38,6 +41,9 @@ class AppLocalizations {
       'nextDay': 'Next day',
       'start': 'Start',
       'end': 'End',
+      'enterStudentName': 'Enter student name',
+      'enterStartTime': 'Enter start time',
+      'enterEndTime': 'Enter end time',
     },
     'es': {
       'title': 'Reserva de cabinas',
@@ -52,6 +58,9 @@ class AppLocalizations {
       'nextDay': 'Día siguiente',
       'start': 'Inicio',
       'end': 'Final',
+      'enterStudentName': 'Introduzca el nombre del / de la estudiante',
+      'enterStartTime': 'Introduzca la hora de inicio',
+      'enterEndTime': 'Introduzca la hora de finalización',
     },
   };
 
@@ -101,6 +110,18 @@ class AppLocalizations {
 
   String get end {
     return _localizedValues[locale.languageCode]['end'];
+  }
+
+  String get enterStudentName {
+    return _localizedValues[locale.languageCode]['enterStudentName'];
+  }
+
+  String get enterStartTime {
+    return _localizedValues[locale.languageCode]['enterStartTime'];
+  }
+
+  String get enterEndTime {
+    return _localizedValues[locale.languageCode]['enterEndTime'];
   }
 }
 
