@@ -1,7 +1,7 @@
 import 'package:intl/intl.dart';
 
 class Booking {
-  final String id;
+  String id;
   String studentName;
   DateTime dateStart;
   DateTime dateEnd;
@@ -17,6 +17,12 @@ class Booking {
 
   String get dateRange =>
       '${DateFormat('HH:mm').format(dateStart)}–${DateFormat('HH:mm').format(dateEnd)}';
+
+  void replaceWith(Booking booking) {
+    studentName = booking.studentName;
+    dateStart = booking.dateStart;
+    dateEnd = booking.dateEnd;
+  }
 
   @override
   String toString() => '$studentName $dateRange';
