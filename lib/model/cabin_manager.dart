@@ -6,7 +6,7 @@ import 'package:cabin_booking/model/data/cabin_data.dart' as data;
 class CabinManager with ChangeNotifier {
   List<Cabin> cabins;
 
-  CabinManager({this.cabins = const []});
+  CabinManager({this.cabins});
 
   CabinManager.dummy() {
     cabins = data.cabins;

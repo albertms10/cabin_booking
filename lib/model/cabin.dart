@@ -10,9 +10,11 @@ class Cabin {
   Cabin({
     this.id,
     this.number,
-    this.components = const {},
-    List<Booking> bookings = const [],
+    this.components,
+    List<Booking> bookings,
   }) {
+    if (components == null) components = Map<String, int>();
+
     bookingManager = BookingManager(
       bookings: bookings,
       cabinNumber: number,

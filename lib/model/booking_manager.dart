@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 
 class BookingManager with ChangeNotifier {
   int cabinNumber;
-  final List<Booking> bookings;
+  List<Booking> bookings;
 
-  BookingManager({this.cabinNumber, @required this.bookings});
+  BookingManager({this.cabinNumber, this.bookings}) {
+    if (bookings == null) bookings = List<Booking>();
+  }
 
   List<Booking> bookingsOn(DateTime dateTime) => bookings
       .where(
