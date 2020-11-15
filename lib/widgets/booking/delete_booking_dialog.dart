@@ -14,7 +14,9 @@ class DeleteBookingDialog extends StatelessWidget {
             Navigator.of(context).pop(false);
           },
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-          child: Text(AppLocalizations.of(context).cancel.toUpperCase()),
+          child: Text(
+            MaterialLocalizations.of(context).cancelButtonLabel.toUpperCase(),
+          ),
         ),
         FlatButton(
           onPressed: () {
@@ -22,7 +24,7 @@ class DeleteBookingDialog extends StatelessWidget {
           },
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
           child: Text(
-            AppLocalizations.of(context).delete.toUpperCase(),
+            MaterialLocalizations.of(context).deleteButtonTooltip.toUpperCase(),
             style: TextStyle(color: Colors.red),
           ),
           hoverColor: Colors.red[50],

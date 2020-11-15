@@ -4,6 +4,7 @@ import 'package:cabin_booking/model/cabin.dart';
 import 'package:cabin_booking/model/cabin_manager.dart';
 import 'package:cabin_booking/widgets/booking/booking_dialog.dart';
 import 'package:cabin_booking/widgets/booking/delete_booking_dialog.dart';
+import 'package:cabin_booking/widgets/layout/icon_menu_item_content.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -51,16 +52,24 @@ class BookingPopupMenu extends StatelessWidget {
         color: Colors.black54,
       ),
       itemBuilder: (BuildContext context) {
-        return {'edit', 'delete'}.map((String choice) {
-          return PopupMenuItem(
-            value: choice,
-            child: Text(
-              AppLocalizations.of(context).getValue(choice),
-              style: const TextStyle(fontSize: 14),
+        return [
+          PopupMenuItem(
+            value: 'edit',
+            child: IconMenuItemContent(
+              text: AppLocalizations.of(context).edit,
+              icon: Icons.edit,
             ),
-            height: 36,
-          );
-        }).toList();
+            height: 41,
+          ),
+          PopupMenuItem(
+            value: 'delete',
+            child: IconMenuItemContent(
+              text: MaterialLocalizations.of(context).deleteButtonTooltip,
+              icon: Icons.delete,
+            ),
+            height: 41,
+          )
+        ];
       },
     );
   }

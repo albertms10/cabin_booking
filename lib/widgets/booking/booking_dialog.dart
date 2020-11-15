@@ -14,6 +14,7 @@ class BookingDialog extends StatelessWidget {
       title: Row(children: [
         IconButton(
           icon: const Icon(Icons.arrow_back),
+          tooltip: MaterialLocalizations.of(context).backButtonTooltip,
           onPressed: () {
             Navigator.of(context).pop();
           },
