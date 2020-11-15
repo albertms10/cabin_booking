@@ -1,8 +1,10 @@
 import 'package:cabin_booking/constants.dart';
 import 'package:cabin_booking/model/booking.dart';
 import 'package:cabin_booking/model/cabin.dart';
+import 'package:cabin_booking/model/cabin_manager.dart';
 import 'package:cabin_booking/widgets/booking/booking_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class EmptyBookingSlot extends StatelessWidget {
   final Cabin cabin;
@@ -19,6 +21,8 @@ class EmptyBookingSlot extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cabinManager = Provider.of<CabinManager>(context);
+
     return SizedBox(
       width: double.infinity,
       height: duration.inMinutes * bookingHeightRatio,
@@ -32,15 +36,17 @@ class EmptyBookingSlot extends StatelessWidget {
           child: InkWell(
             borderRadius: BorderRadius.all(Radius.circular(4)),
             onTap: () async {
-              final booking = await showDialog<Booking>(
+              final _booking = await showDialog<Booking>(
                 context: context,
                 builder: (context) => BookingDialog(
-                  startDate: startDate,
-                  endDate: endDate,
+                  Booking(
+                    dateStart: startDate,
+                    dateEnd: endDate,
+                  ),
                 ),
               );
 
-              print(booking);
+              if (_booking != null) cabinManager.addBooking(cabin.id, _booking);
             },
             child: const Icon(
               Icons.add,
