@@ -91,8 +91,7 @@ class BookingsStack extends StatelessWidget {
 
     return Column(
       children: [
-        for (int i = 0; i < distributedBookings.length; i++)
-          distributedBookings[i]
+        for (Widget booking in distributedBookings) booking,
       ],
     );
   }
