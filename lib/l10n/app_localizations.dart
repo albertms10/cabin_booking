@@ -28,6 +28,9 @@ class AppLocalizations {
       'enterStartTime': 'Introdueix l’hora d’inici',
       'enterEndTime': 'Introdueix l’hora d’acabament',
       'enterValidRange': 'Introdueix un rang vàlid',
+      'deleteBookingTitle': 'Confirmes que vols eliminar la reserva?',
+      'actionUndone': 'Aquesta acció no es pot desfer.',
+      'cancel': 'Cancel·lar',
     },
     'en': {
       'title': 'Cabin Booking',
@@ -46,6 +49,9 @@ class AppLocalizations {
       'enterStartTime': 'Enter start time',
       'enterEndTime': 'Enter end time',
       'enterValidRange': 'Enter a valid range',
+      'deleteBookingTitle': 'Are you sure you want to delete the booking?',
+      'actionUndone': 'You can’t undo this action.',
+      'cancel': 'Cancel',
     },
     'es': {
       'title': 'Reserva de cabinas',
@@ -64,8 +70,13 @@ class AppLocalizations {
       'enterStartTime': 'Introduzca la hora de inicio',
       'enterEndTime': 'Introduzca la hora de finalización',
       'enterValidRange': 'Introduzca un rangp válido',
+      'deleteBookingTitle': '¿Seguro que desea eliminar la reserva?',
+      'actionUndone': 'Esta acción no se puede deshacer.',
+      'cancel': 'Cancelar',
     },
   };
+
+  String getValue(String value) => _localizedValues[locale.languageCode][value];
 
   String get title {
     return _localizedValues[locale.languageCode]['title'];
@@ -129,6 +140,18 @@ class AppLocalizations {
 
   String get enterValidRange {
     return _localizedValues[locale.languageCode]['enterValidRange'];
+  }
+
+  String get deleteBookingTitle {
+    return _localizedValues[locale.languageCode]['deleteBookingTitle'];
+  }
+
+  String get actionUndone {
+    return _localizedValues[locale.languageCode]['actionUndone'];
+  }
+
+  String get cancel {
+    return _localizedValues[locale.languageCode]['cancel'];
   }
 }
 
