@@ -10,7 +10,10 @@ class CabinManager with ChangeNotifier {
 
   CabinManager.dummy() : cabins = data.cabins;
 
-  Cabin getCabinById(String id) => cabins.firstWhere((cabin) => cabin.id == id);
+  Cabin getFromId(String id) => cabins.firstWhere((cabin) => cabin.id == id);
+
+  Cabin getFromNumber(int number) =>
+      cabins.firstWhere((cabin) => cabin.number == number);
 
   void addCabin(Cabin cabin) {
     cabins.add(cabin);
@@ -23,21 +26,26 @@ class CabinManager with ChangeNotifier {
   }
 
   void addBooking(String cabinId, Booking booking) {
-    getCabinById(cabinId).bookingManager.addBooking(booking);
+    getFromId(booking.cabinId ?? cabinId).bookingManager.addBooking(booking);
 
     // TODO: Improve notifier
     notifyListeners();
   }
 
   void modifyBooking(String cabinId, Booking booking) {
-    getCabinById(cabinId).bookingManager.modifyBooking(booking);
+    if (booking.cabinId == null || booking.cabinId == cabinId) {
+      getFromId(cabinId).bookingManager.modifyBooking(booking);
+    } else {
+      getFromId(cabinId).bookingManager.removeBookingById(booking.id);
+      getFromId(booking.cabinId).bookingManager.addBooking(booking);
+    }
 
     // TODO: Improve notifier
     notifyListeners();
   }
 
   void removeBookingById(String cabinId, String bookingId) {
-    getCabinById(cabinId).bookingManager.removeBookingById(bookingId);
+    getFromId(cabinId).bookingManager.removeBookingById(bookingId);
 
     // TODO: Improve notifier
     notifyListeners();
