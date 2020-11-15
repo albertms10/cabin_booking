@@ -2,10 +2,9 @@ import 'package:cabin_booking/model/booking.dart';
 import 'package:flutter/material.dart';
 
 class BookingManager with ChangeNotifier {
-  int cabinNumber;
   List<Booking> bookings;
 
-  BookingManager({this.cabinNumber, this.bookings}) {
+  BookingManager({this.bookings}) {
     if (bookings == null) bookings = List<Booking>();
   }
 
