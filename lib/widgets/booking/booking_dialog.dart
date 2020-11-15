@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 
 class BookingDialog extends StatelessWidget {
   final int cabinNumber;
+  final String studentName;
   final DateTime startDate;
   final DateTime endDate;
 
   BookingDialog({
     this.cabinNumber,
+    this.studentName,
     this.startDate,
     this.endDate,
   });
@@ -16,10 +18,22 @@ class BookingDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SimpleDialog(
-      title: Text(AppLocalizations.of(context).booking),
-      contentPadding: const EdgeInsets.all(24),
+      title: Row(children: [
+        IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          splashRadius: 24,
+        ),
+        const SizedBox(width: 8),
+        Text(AppLocalizations.of(context).booking)
+      ]),
+      contentPadding: const EdgeInsets.only(left: 24, right: 24, bottom: 24),
+      titlePadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 18),
       children: [
         BookingForm(
+          studentName: studentName,
           startDate: startDate,
           endDate: endDate,
         ),

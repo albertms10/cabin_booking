@@ -33,6 +33,7 @@ class BookingCard extends StatelessWidget {
             ),
             BookingPopupMenu(
               cabinNumber: cabinNumber,
+              studentName: booking.studentName,
               startDate: booking.dateStart,
               endDate: booking.dateEnd,
             ),

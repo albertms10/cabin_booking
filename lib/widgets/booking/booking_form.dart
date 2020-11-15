@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class BookingForm extends StatefulWidget {
+  final String studentName;
   final DateTime startDate;
   final DateTime endDate;
 
   BookingForm({
+    this.studentName,
     @required this.startDate,
     @required this.endDate,
   });
@@ -51,6 +53,7 @@ class _BookingFormState extends State<BookingForm> {
       child: Column(
         children: [
           TextFormField(
+            initialValue: widget.studentName,
             autofocus: true,
             autovalidateMode: AutovalidateMode.onUserInteraction,
             validator: (String value) {
