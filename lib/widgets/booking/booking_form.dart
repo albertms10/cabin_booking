@@ -1,7 +1,10 @@
 import 'package:cabin_booking/l10n/app_localizations.dart';
 import 'package:cabin_booking/model/booking.dart';
+import 'package:cabin_booking/model/cabin.dart';
+import 'package:cabin_booking/model/cabin_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class BookingForm extends StatefulWidget {
   final Booking booking;
@@ -29,6 +32,8 @@ class _BookingFormState extends State<BookingForm> {
 
     _startTime = TimeOfDay.fromDateTime(widget.booking.dateStart);
     _endTime = TimeOfDay.fromDateTime(widget.booking.dateEnd);
+
+    _booking.cabinNumber = widget.booking.cabinNumber;
   }
 
   DateTime _tryTimeParse(String value) {
@@ -42,10 +47,32 @@ class _BookingFormState extends State<BookingForm> {
     _startTimeController.text = _startTime.format(context);
     _endTimeController.text = _endTime.format(context);
 
+    final cabinManager = Provider.of<CabinManager>(context);
+
     return Form(
       key: _formKey,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          DropdownButton<int>(
+            value: _booking.cabinNumber,
+            onChanged: (value) {
+              setState(() {
+                _booking.cabinNumber = value;
+              });
+            },
+            items: [
+              for (Cabin cabin in cabinManager.cabins)
+                DropdownMenuItem(
+                  value: cabin.number,
+                  child: Text(
+                    '${AppLocalizations.of(context).cabin} ${cabin.number}',
+                  ),
+                ),
+            ],
+            isExpanded: true,
+          ),
+          const SizedBox(height: 24),
           TextFormField(
             initialValue: widget.booking.studentName,
             autofocus: true,
@@ -65,86 +92,96 @@ class _BookingFormState extends State<BookingForm> {
             ),
           ),
           const SizedBox(height: 16),
-          TextFormField(
-            controller: _startTimeController,
-            autovalidateMode: AutovalidateMode.onUserInteraction,
-            validator: (value) {
-              final _parsedTime = _tryTimeParse(value);
+          Row(
+            children: [
+              Expanded(
+                flex: 10,
+                child: TextFormField(
+                  controller: _startTimeController,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: (value) {
+                    final _parsedTime = _tryTimeParse(value);
 
-              if (value.isEmpty || _parsedTime == null)
-                return AppLocalizations.of(context).enterStartTime;
+                    if (value.isEmpty || _parsedTime == null)
+                      return AppLocalizations.of(context).enterStartTime;
 
-              if (_parsedTime.compareTo(
-                    _tryTimeParse(_endTime.format(context)),
-                  ) >
-                  0) return AppLocalizations.of(context).enterValidRange;
+                    if (_parsedTime.compareTo(
+                          _tryTimeParse(_endTime.format(context)),
+                        ) >
+                        0) return AppLocalizations.of(context).enterValidRange;
 
-              return null;
-            },
-            onTap: () async {
-              final _time = await showTimePicker(
-                context: context,
-                initialTime: _startTime,
-              );
+                    return null;
+                  },
+                  onTap: () async {
+                    final _time = await showTimePicker(
+                      context: context,
+                      initialTime: _startTime,
+                    );
 
-              if (_time != null)
-                setState(() {
-                  _startTime = _time;
-                  _startTimeController.text = _time.format(context);
-                });
-            },
-            onSaved: (value) {
-              _booking.dateStart = DateTime.parse(
-                DateFormat('yyyy-MM-dd').format(widget.booking.dateStart) +
-                    ' $value',
-              );
-            },
-            decoration: InputDecoration(
-              labelText: AppLocalizations.of(context).start,
-              border: const OutlineInputBorder(),
-              icon: const Icon(Icons.schedule),
-            ),
-          ),
-          const SizedBox(height: 16),
-          TextFormField(
-            controller: _endTimeController,
-            autovalidateMode: AutovalidateMode.onUserInteraction,
-            validator: (value) {
-              final _parsedTime = _tryTimeParse(value);
+                    if (_time != null)
+                      setState(() {
+                        _startTime = _time;
+                        _startTimeController.text = _time.format(context);
+                      });
+                  },
+                  onSaved: (value) {
+                    _booking.dateStart = DateTime.parse(
+                      DateFormat('yyyy-MM-dd')
+                              .format(widget.booking.dateStart) +
+                          ' $value',
+                    );
+                  },
+                  decoration: InputDecoration(
+                    labelText: AppLocalizations.of(context).start,
+                    border: const OutlineInputBorder(),
+                    icon: const Icon(Icons.schedule),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                flex: 7,
+                child: TextFormField(
+                  controller: _endTimeController,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: (value) {
+                    final _parsedTime = _tryTimeParse(value);
 
-              if (value.isEmpty || _parsedTime == null)
-                return AppLocalizations.of(context).enterEndTime;
+                    if (value.isEmpty || _parsedTime == null)
+                      return AppLocalizations.of(context).enterEndTime;
 
-              if (_parsedTime.compareTo(
-                    _tryTimeParse(_startTime.format(context)),
-                  ) <
-                  0) return AppLocalizations.of(context).enterValidRange;
+                    if (_parsedTime.compareTo(
+                          _tryTimeParse(_startTime.format(context)),
+                        ) <
+                        0) return AppLocalizations.of(context).enterValidRange;
 
-              return null;
-            },
-            onTap: () async {
-              final _time = await showTimePicker(
-                context: context,
-                initialTime: _endTime,
-              );
+                    return null;
+                  },
+                  onTap: () async {
+                    final _time = await showTimePicker(
+                      context: context,
+                      initialTime: _endTime,
+                    );
 
-              if (_time != null)
-                setState(() {
-                  _endTime = _time;
-                  _endTimeController.text = _time.format(context);
-                });
-            },
-            onSaved: (value) {
-              _booking.dateEnd = DateTime.parse(
-                DateFormat('yyyy-MM-dd').format(widget.booking.dateEnd) +
-                    ' $value',
-              );
-            },
-            decoration: InputDecoration(
-              labelText: AppLocalizations.of(context).end,
-              border: const OutlineInputBorder(),
-              icon: const Icon(Icons.schedule),
-            ),
+                    if (_time != null)
+                      setState(() {
+                        _endTime = _time;
+                        _endTimeController.text = _time.format(context);
+                      });
+                  },
+                  onSaved: (value) {
+                    _booking.dateEnd = DateTime.parse(
+                      DateFormat('yyyy-MM-dd').format(widget.booking.dateEnd) +
+                          ' $value',
+                    );
+                  },
+                  decoration: InputDecoration(
+                    labelText: AppLocalizations.of(context).end,
+                    border: const OutlineInputBorder(),
+                  ),
+                ),
+              ),
+            ],
           ),
           const SizedBox(height: 16),
           ElevatedButton.icon(
