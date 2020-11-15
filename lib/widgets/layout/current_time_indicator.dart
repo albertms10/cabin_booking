@@ -22,9 +22,9 @@ class CurrentTimeIndicator extends StatelessWidget {
                     height: _difference * bookingHeightRatio,
                     child: Container(
                       alignment: Alignment.bottomLeft,
-                      padding: EdgeInsets.all(8),
+                      padding: const EdgeInsets.all(8),
                       child: Text(
-                        DateFormat('HH:mm').format(DateTime.now()),
+                        TimeOfDay.fromDateTime(DateTime.now()).format(context),
                         style: TextStyle(
                           color: Colors.red[400],
                           fontWeight: FontWeight.bold,

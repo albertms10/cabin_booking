@@ -10,11 +10,11 @@ class DayNavigation extends StatelessWidget {
     final _dayHandler = Provider.of<DayHandler>(context, listen: false);
 
     return Container(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       child: Row(
         children: [
           FlatButton(
-            padding: EdgeInsets.symmetric(vertical: 16),
+            padding: const EdgeInsets.symmetric(vertical: 16),
             onPressed: () => _dayHandler.now(),
             child: Text(AppLocalizations.of(context).today),
           ),

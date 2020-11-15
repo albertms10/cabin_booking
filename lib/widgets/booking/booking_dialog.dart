@@ -18,7 +18,7 @@ class BookingDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return SimpleDialog(
       title: Text(AppLocalizations.of(context).booking),
-      contentPadding: EdgeInsets.all(24),
+      contentPadding: const EdgeInsets.all(24),
       children: [
         BookingForm(
           startDate: startDate,

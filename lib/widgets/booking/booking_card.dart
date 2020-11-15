@@ -11,10 +11,10 @@ class BookingCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.all(8),
+      margin: const EdgeInsets.all(8),
       child: Container(
         height: booking.duration.inMinutes * bookingHeightRatio - 16,
-        padding: EdgeInsets.all(8),
+        padding: const EdgeInsets.all(8),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

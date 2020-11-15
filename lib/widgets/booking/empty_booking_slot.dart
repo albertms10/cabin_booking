@@ -21,7 +21,7 @@ class EmptyBookingSlot extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       child: Container(
-        margin: EdgeInsets.all(8),
+        margin: const EdgeInsets.all(8),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(4)),
         ),

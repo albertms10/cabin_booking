@@ -17,7 +17,7 @@ class TimeColumn extends StatelessWidget {
         for (int hour = start.hour; hour <= end.hour; hour++)
           Container(
             height: 60 * bookingHeightRatio,
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16),
             child: Text(
               TimeOfDay(hour: hour, minute: 00).format(context),
               style: Theme.of(context)
