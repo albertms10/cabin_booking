@@ -27,6 +27,7 @@ class BookingsTable extends StatelessWidget {
                 for (int cabin = 0; cabin < cabins.length; cabin++)
                   Expanded(
                     child: BookingsStack(
+                      cabin: cabins[cabin].simple,
                       bookings: cabins[cabin]
                           .bookings
                           .where(

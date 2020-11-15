@@ -1,29 +1,29 @@
 import 'package:cabin_booking/model/booking.dart';
+import 'package:cabin_booking/model/cabin.dart';
+import 'package:cabin_booking/model/day_handler.dart';
 import 'package:cabin_booking/widgets/booking/booking_card.dart';
 import 'package:cabin_booking/widgets/booking/empty_booking.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class BookingsStack extends StatelessWidget {
+  final Cabin cabin;
   final List<Booking> bookings;
 
-  BookingsStack({this.bookings = const []});
+  BookingsStack({this.cabin, this.bookings = const []});
 
-  List<Widget> _spacedBookings({int start = 15, int end = 22}) {
-    final spacedBookings = <Widget>[];
+  List<Widget> _distributedBookings(context, {int start = 15, int end = 22}) {
+    final distributedBookings = <Widget>[];
+
+    DayHandler _dayHandler = Provider.of<DayHandler>(context);
 
     final startDate = DateTime.parse(
-      DateFormat('yyyy-MM-dd').format(
-            bookings.length > 0 ? bookings[0].dateStart : DateTime.now(),
-          ) +
-          ' $start:00',
+      DateFormat('yyyy-MM-dd').format(_dayHandler.dateTime) + ' $start:00',
     );
 
     final endDate = DateTime.parse(
-      DateFormat('yyyy-MM-dd').format(
-            bookings.length > 0 ? bookings[0].dateEnd : DateTime.now(),
-          ) +
-          ' $end:00',
+      DateFormat('yyyy-MM-dd').format(_dayHandler.dateTime) + ' $end:00',
     );
 
     for (int i = -1; i < bookings.length; i++) {
@@ -34,7 +34,7 @@ class BookingsStack extends StatelessWidget {
       int difference = nextBookingDate.difference(currentBookingDate).inMinutes;
 
       if (i >= 0)
-        spacedBookings.add(
+        distributedBookings.add(
           SizedBox(
             width: double.infinity,
             child: BookingCard(booking: bookings[i]),
@@ -47,29 +47,44 @@ class BookingsStack extends StatelessWidget {
         int currentDifference = difference;
 
         while (currentDifference > maxDuration) {
-          spacedBookings.add(
-            EmptyBooking(duration: maxDuration),
+          distributedBookings.add(
+            EmptyBooking(
+              cabin: cabin,
+              startDate: currentBookingDate,
+              endDate: nextBookingDate,
+              duration: maxDuration,
+            ),
           );
+
+          currentBookingDate =
+              currentBookingDate.add(Duration(minutes: maxDuration));
+          nextBookingDate = nextBookingDate.add(Duration(minutes: maxDuration));
 
           currentDifference -= maxDuration;
         }
 
-        spacedBookings.add(
-          EmptyBooking(duration: currentDifference),
+        distributedBookings.add(
+          EmptyBooking(
+            cabin: cabin,
+            startDate: currentBookingDate,
+            endDate: nextBookingDate,
+            duration: currentDifference,
+          ),
         );
       }
     }
 
-    return spacedBookings;
+    return distributedBookings;
   }
 
   @override
   Widget build(BuildContext context) {
-    final spacedBookings = _spacedBookings();
+    final distributedBookings = _distributedBookings(context);
 
     return Column(
       children: [
-        for (int i = 0; i < spacedBookings.length; i++) spacedBookings[i]
+        for (int i = 0; i < distributedBookings.length; i++)
+          distributedBookings[i]
       ],
     );
   }
