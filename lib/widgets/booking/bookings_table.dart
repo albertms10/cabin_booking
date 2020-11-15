@@ -46,7 +46,10 @@ class BookingsTable extends StatelessWidget {
             );
           },
           child: Expanded(
-            child: TimeColumn(start: 15, end: 22),
+            child: TimeColumn(
+              start: TimeOfDay(hour: 15, minute: 0),
+              end: TimeOfDay(hour: 22, minute: 0),
+            ),
           ),
         ),
         CurrentTimeIndicator(),

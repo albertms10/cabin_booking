@@ -2,8 +2,8 @@ import 'package:cabin_booking/constants.dart';
 import 'package:flutter/material.dart';
 
 class TimeColumn extends StatelessWidget {
-  final int start;
-  final int end;
+  final TimeOfDay start;
+  final TimeOfDay end;
 
   TimeColumn({@required this.start, @required this.end});
 
@@ -11,12 +11,12 @@ class TimeColumn extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        for (int time = start; time <= end; time++)
+        for (int hour = start.hour; hour <= end.hour; hour++)
           Container(
             height: 60 * bookingHeightRatio,
             padding: EdgeInsets.all(16),
             child: Text(
-              '$time:00',
+              TimeOfDay(hour: hour, minute: 00).format(context),
               style: Theme.of(context)
                   .textTheme
                   .headline5
