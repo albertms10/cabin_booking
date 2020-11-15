@@ -3,6 +3,7 @@ import 'package:cabin_booking/model/booking.dart';
 import 'package:cabin_booking/model/cabin.dart';
 import 'package:cabin_booking/widgets/booking/booking_popup_menu.dart';
 import 'package:flutter/material.dart';
+import 'package:timer_builder/timer_builder.dart';
 
 class BookingCard extends StatelessWidget {
   final Cabin cabin;
@@ -12,33 +13,41 @@ class BookingCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.all(8),
-      child: Container(
-        height: booking.duration.inMinutes * bookingHeightRatio - 16,
-        padding: const EdgeInsets.all(8),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(booking.studentName),
-                  Text(
-                    booking.dateRange,
-                    style: TextStyle(color: Colors.black38),
+    return TimerBuilder.periodic(
+      Duration(minutes: 1),
+      builder: (context) {
+        return Card(
+          margin: const EdgeInsets.all(8),
+          color: booking.dateEnd.isBefore(DateTime.now())
+              ? Color.fromARGB(8, 0, 0, 0)
+              : null,
+          child: Container(
+            height: booking.duration.inMinutes * bookingHeightRatio - 16,
+            padding: const EdgeInsets.all(8),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(booking.studentName),
+                      Text(
+                        booking.dateRange,
+                        style: TextStyle(color: Colors.black38),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+                BookingPopupMenu(
+                  cabin: cabin,
+                  booking: booking,
+                ),
+              ],
             ),
-            BookingPopupMenu(
-              cabin: cabin,
-              booking: booking,
-            ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }
