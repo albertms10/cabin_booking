@@ -34,7 +34,8 @@ class BookingsStack extends StatelessWidget {
       DateTime nextBookingDate =
           i < bookings.length - 1 ? bookings[i + 1].dateStart : endDate;
 
-      int difference = nextBookingDate.difference(currentBookingDate).inMinutes;
+      final Duration duration = nextBookingDate.difference(currentBookingDate);
+      final int durationMinutes = duration.inMinutes;
 
       if (i >= 0)
         distributedBookings.add(
@@ -44,39 +45,35 @@ class BookingsStack extends StatelessWidget {
           ),
         );
 
-      if (difference > 0) {
-        final maxDuration = 60;
+      if (durationMinutes > 0) {
+        int runningDurationMinutes = durationMinutes;
 
-        int currentDifference = difference;
-
-        while (currentDifference > maxDuration) {
-          nextBookingDate =
-              currentBookingDate.add(Duration(minutes: maxDuration));
+        while (runningDurationMinutes > maxSlotDuration.inMinutes) {
+          nextBookingDate = currentBookingDate.add(maxSlotDuration);
 
           distributedBookings.add(
             EmptyBookingSlot(
               cabin: cabin,
               startDate: currentBookingDate,
               endDate: nextBookingDate,
-              duration: maxDuration,
             ),
           );
 
-          currentBookingDate =
-              currentBookingDate.add(Duration(minutes: maxDuration));
+          currentBookingDate = currentBookingDate.add(maxSlotDuration);
 
-          currentDifference -= maxDuration;
+          runningDurationMinutes -= maxSlotDuration.inMinutes;
         }
 
-        nextBookingDate =
-            currentBookingDate.add(Duration(minutes: currentDifference));
+        final Duration restDuration = Duration(minutes: runningDurationMinutes);
+
+        nextBookingDate = currentBookingDate.add(restDuration);
 
         distributedBookings.add(
           EmptyBookingSlot(
             cabin: cabin,
             startDate: currentBookingDate,
             endDate: nextBookingDate,
-            duration: currentDifference,
+            duration: restDuration,
           ),
         );
       }
