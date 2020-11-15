@@ -42,7 +42,7 @@ class EmptyBookingSlot extends StatelessWidget {
                   Booking(
                     dateStart: dateStart,
                     dateEnd: dateEnd,
-                    cabinNumber: cabin.number,
+                    cabinId: cabin.id,
                   ),
                 ),
               );
