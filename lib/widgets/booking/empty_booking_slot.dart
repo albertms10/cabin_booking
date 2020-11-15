@@ -1,16 +1,17 @@
 import 'package:cabin_booking/constants.dart';
 import 'package:cabin_booking/model/booking.dart';
+import 'package:cabin_booking/model/cabin.dart';
 import 'package:cabin_booking/widgets/booking/booking_dialog.dart';
 import 'package:flutter/material.dart';
 
 class EmptyBookingSlot extends StatelessWidget {
-  final int cabinNumber;
+  final Cabin cabin;
   final DateTime startDate;
   final DateTime endDate;
   final Duration duration;
 
   EmptyBookingSlot({
-    @required this.cabinNumber,
+    @required this.cabin,
     @required this.startDate,
     @required this.endDate,
     this.duration = maxSlotDuration,
@@ -34,7 +35,6 @@ class EmptyBookingSlot extends StatelessWidget {
               final booking = await showDialog<Booking>(
                 context: context,
                 builder: (context) => BookingDialog(
-                  cabinNumber: cabinNumber,
                   startDate: startDate,
                   endDate: endDate,
                 ),

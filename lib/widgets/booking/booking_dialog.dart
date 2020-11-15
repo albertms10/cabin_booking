@@ -3,13 +3,11 @@ import 'package:cabin_booking/widgets/booking/booking_form.dart';
 import 'package:flutter/material.dart';
 
 class BookingDialog extends StatelessWidget {
-  final int cabinNumber;
   final String studentName;
   final DateTime startDate;
   final DateTime endDate;
 
   BookingDialog({
-    this.cabinNumber,
     this.studentName,
     this.startDate,
     this.endDate,

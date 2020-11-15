@@ -1,5 +1,6 @@
 import 'package:cabin_booking/constants.dart';
 import 'package:cabin_booking/model/booking.dart';
+import 'package:cabin_booking/model/cabin.dart';
 import 'package:cabin_booking/model/day_handler.dart';
 import 'package:cabin_booking/widgets/booking/booking_card.dart';
 import 'package:cabin_booking/widgets/booking/empty_booking_slot.dart';
@@ -8,10 +9,10 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class BookingsStack extends StatelessWidget {
-  final int cabinNumber;
+  final Cabin cabin;
   final List<Booking> bookings;
 
-  BookingsStack({this.cabinNumber, this.bookings = const []});
+  BookingsStack({this.cabin, this.bookings = const []});
 
   List<Widget> _distributedBookings(BuildContext context) {
     final distributedBookings = <Widget>[];
@@ -41,7 +42,7 @@ class BookingsStack extends StatelessWidget {
           SizedBox(
             width: double.infinity,
             child: BookingCard(
-              cabinNumber: cabinNumber,
+              cabin: cabin,
               booking: bookings[i],
             ),
           ),
@@ -55,7 +56,7 @@ class BookingsStack extends StatelessWidget {
 
           distributedBookings.add(
             EmptyBookingSlot(
-              cabinNumber: cabinNumber,
+              cabin: cabin,
               startDate: currentBookingDate,
               endDate: nextBookingDate,
             ),
@@ -72,7 +73,7 @@ class BookingsStack extends StatelessWidget {
 
         distributedBookings.add(
           EmptyBookingSlot(
-            cabinNumber: cabinNumber,
+            cabin: cabin,
             startDate: currentBookingDate,
             endDate: nextBookingDate,
             duration: restDuration,
