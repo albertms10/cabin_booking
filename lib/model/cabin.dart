@@ -13,4 +13,6 @@ class Cabin {
     this.components = const {},
     this.bookings = const [],
   });
+
+  Cabin get simple => Cabin(id: id, number: number);
 }
