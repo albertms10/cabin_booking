@@ -2,9 +2,10 @@ import 'package:cabin_booking/model/booking.dart';
 import 'package:flutter/material.dart';
 
 class BookingManager with ChangeNotifier {
-  List<Booking> bookings;
+  int cabinNumber;
+  final List<Booking> bookings;
 
-  BookingManager(this.bookings);
+  BookingManager({this.cabinNumber, @required this.bookings});
 
   List<Booking> bookingsOn(DateTime dateTime) => bookings
       .where(
@@ -17,9 +18,11 @@ class BookingManager with ChangeNotifier {
 
   void addBooking(Booking booking) {
     bookings.add(booking);
+    notifyListeners();
   }
 
   void removeBooking(int index) {
     bookings.removeAt(index);
+    notifyListeners();
   }
 }

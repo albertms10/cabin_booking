@@ -13,7 +13,10 @@ class Cabin {
     this.components = const {},
     List<Booking> bookings = const [],
   }) {
-    bookingManager = BookingManager(bookings);
+    bookingManager = BookingManager(
+      bookings: bookings,
+      cabinNumber: number,
+    );
   }
 
   Cabin get simple => Cabin(id: id, number: number);

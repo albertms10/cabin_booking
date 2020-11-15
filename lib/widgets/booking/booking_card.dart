@@ -4,9 +4,10 @@ import 'package:cabin_booking/widgets/booking/booking_popup_menu.dart';
 import 'package:flutter/material.dart';
 
 class BookingCard extends StatelessWidget {
+  final int cabinNumber;
   final Booking booking;
 
-  BookingCard({@required this.booking});
+  BookingCard({@required this.cabinNumber, @required this.booking});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +31,11 @@ class BookingCard extends StatelessWidget {
                 ],
               ),
             ),
-            BookingPopupMenu(),
+            BookingPopupMenu(
+              cabinNumber: cabinNumber,
+              startDate: booking.dateStart,
+              endDate: booking.dateEnd,
+            ),
           ],
         ),
       ),

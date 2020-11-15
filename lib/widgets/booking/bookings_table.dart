@@ -24,7 +24,7 @@ class BookingsTable extends StatelessWidget {
                 for (Cabin cabin in cabinManager.cabins)
                   Expanded(
                     child: BookingsStack(
-                      cabin: cabin.simple,
+                      cabinNumber: cabin.number,
                       bookings: cabin.bookingsOn(dayHandler.dateTime),
                     ),
                   ),

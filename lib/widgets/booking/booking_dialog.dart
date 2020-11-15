@@ -1,15 +1,14 @@
 import 'package:cabin_booking/l10n/app_localizations.dart';
-import 'package:cabin_booking/model/cabin.dart';
 import 'package:cabin_booking/widgets/booking/booking_form.dart';
 import 'package:flutter/material.dart';
 
 class BookingDialog extends StatelessWidget {
-  final Cabin cabin;
+  final int cabinNumber;
   final DateTime startDate;
   final DateTime endDate;
 
   BookingDialog({
-    this.cabin,
+    this.cabinNumber,
     this.startDate,
     this.endDate,
   });

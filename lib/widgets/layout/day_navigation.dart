@@ -30,7 +30,7 @@ class DayNavigation extends StatelessWidget {
             tooltip: AppLocalizations.of(context).nextDay,
             splashRadius: 22,
           ),
-          SizedBox(width: 24),
+          const SizedBox(width: 24),
           Consumer<DayHandler>(
             builder: (context, dayHandler, child) {
               return Text(
