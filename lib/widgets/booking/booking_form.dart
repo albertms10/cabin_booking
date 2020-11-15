@@ -33,7 +33,7 @@ class _BookingFormState extends State<BookingForm> {
     _startTime = TimeOfDay.fromDateTime(widget.booking.dateStart);
     _endTime = TimeOfDay.fromDateTime(widget.booking.dateEnd);
 
-    _booking.cabinNumber = widget.booking.cabinNumber;
+    _booking.cabinId = widget.booking.cabinId;
   }
 
   DateTime _tryTimeParse(String value) {
@@ -54,17 +54,17 @@ class _BookingFormState extends State<BookingForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          DropdownButton<int>(
-            value: _booking.cabinNumber,
+          DropdownButton<String>(
+            value: _booking.cabinId,
             onChanged: (value) {
               setState(() {
-                _booking.cabinNumber = value;
+                _booking.cabinId = value;
               });
             },
             items: [
               for (Cabin cabin in cabinManager.cabins)
                 DropdownMenuItem(
-                  value: cabin.number,
+                  value: cabin.id,
                   child: Text(
                     '${AppLocalizations.of(context).cabin} ${cabin.number}',
                   ),
@@ -183,19 +183,34 @@ class _BookingFormState extends State<BookingForm> {
               ),
             ],
           ),
-          const SizedBox(height: 16),
-          ElevatedButton.icon(
-            onPressed: () {
-              if (_formKey.currentState.validate()) {
-                _formKey.currentState.save();
+          const SizedBox(height: 32),
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton.icon(
+              onPressed: () {
+                if (_formKey.currentState.validate()) {
+                  _formKey.currentState.save();
 
-                if (widget.booking.id != null) _booking.id = widget.booking.id;
+                  if (widget.booking.id != null)
+                    _booking.id = widget.booking.id;
 
-                Navigator.of(context).pop<Booking>(_booking);
-              }
-            },
-            icon: const Icon(Icons.add),
-            label: Text(AppLocalizations.of(context).book.toUpperCase()),
+                  Navigator.of(context).pop<Booking>(_booking);
+                }
+              },
+              icon: widget.booking.studentName == null
+                  ? const Icon(Icons.add)
+                  : const Icon(Icons.check),
+              label: Container(
+                margin: const EdgeInsets.symmetric(vertical: 12),
+                child: Text(
+                  widget.booking.studentName == null
+                      ? AppLocalizations.of(context).book.toUpperCase()
+                      : MaterialLocalizations.of(context)
+                          .saveButtonLabel
+                          .toUpperCase(),
+                ),
+              ),
+            ),
           )
         ],
       ),
