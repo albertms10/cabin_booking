@@ -8,25 +8,27 @@ class EmptyBookingSlot extends StatelessWidget {
   final Cabin cabin;
   final DateTime startDate;
   final DateTime endDate;
-  final int duration;
+  final Duration duration;
 
   EmptyBookingSlot({
     @required this.cabin,
     @required this.startDate,
     @required this.endDate,
-    this.duration = 60,
+    this.duration = maxSlotDuration,
   });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
+      width: double.infinity,
+      height: duration.inMinutes * bookingHeightRatio,
       child: Container(
         margin: const EdgeInsets.all(8),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(4)),
         ),
         child: Tooltip(
-          message: '$duration min',
+          message: '${duration.inMinutes} min',
           child: InkWell(
             borderRadius: BorderRadius.all(Radius.circular(4)),
             onTap: () async {
@@ -49,8 +51,6 @@ class EmptyBookingSlot extends StatelessWidget {
           ),
         ),
       ),
-      width: double.infinity,
-      height: duration * bookingHeightRatio,
     );
   }
 }
