@@ -1,6 +1,8 @@
 import 'package:cabin_booking/constants.dart';
+import 'package:cabin_booking/model/day_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:timer_builder/timer_builder.dart';
 
 class CurrentTimeIndicator extends StatelessWidget {
@@ -10,9 +12,9 @@ class CurrentTimeIndicator extends StatelessWidget {
       Duration(seconds: 5),
       builder: (context) {
         int _difference = DateTime.now()
-            .difference(DateTime.parse(
-                DateFormat('yyyy-MM-dd').format(DateTime.now()) +
-                    ' ${timeTableStartTime.format(context)}'))
+            .difference(DateTime.parse(DateFormat('yyyy-MM-dd')
+                    .format(Provider.of<DayHandler>(context).dateTime) +
+                ' ${timeTableStartTime.format(context)}'))
             .inMinutes;
 
         return _difference > 0
