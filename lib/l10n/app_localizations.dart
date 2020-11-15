@@ -15,31 +15,43 @@ class AppLocalizations {
       'title': 'Reserva de cabines',
       'cabin': 'Cabina',
       'booking': 'Reserva',
+      'book': 'Reservar',
+      'student': 'Estudiant',
       'edit': 'Editar',
       'delete': 'Eliminar',
       'previousDay': 'Dia anterior',
       'today': 'Avui',
       'nextDay': 'Dia següent',
+      'start': 'Inici',
+      'end': 'Final',
     },
     'en': {
       'title': 'Cabin Booking',
       'cabin': 'Cabin',
       'booking': 'Booking',
+      'book': 'Book',
+      'student': 'Student',
       'edit': 'Edit',
       'delete': 'Delete',
       'previousDay': 'Previous day',
       'today': 'Today',
       'nextDay': 'Next day',
+      'start': 'Start',
+      'end': 'End',
     },
     'es': {
       'title': 'Reserva de cabinas',
       'cabin': 'Cabina',
       'booking': 'Reserva',
+      'book': 'Reservar',
+      'student': 'Estudiante',
       'edit': 'Editar',
       'delete': 'Eliminar',
       'previousDay': 'Día anterior',
       'today': 'Hoy',
-      'nextDay': 'Dia siguiente',
+      'nextDay': 'Día siguiente',
+      'start': 'Inicio',
+      'end': 'Final',
     },
   };
 
@@ -53,6 +65,14 @@ class AppLocalizations {
 
   String get booking {
     return _localizedValues[locale.languageCode]['booking'];
+  }
+
+  String get book {
+    return _localizedValues[locale.languageCode]['book'];
+  }
+
+  String get student {
+    return _localizedValues[locale.languageCode]['student'];
   }
 
   String get edit {
@@ -73,6 +93,14 @@ class AppLocalizations {
 
   String get nextDay {
     return _localizedValues[locale.languageCode]['nextDay'];
+  }
+
+  String get start {
+    return _localizedValues[locale.languageCode]['start'];
+  }
+
+  String get end {
+    return _localizedValues[locale.languageCode]['end'];
   }
 }
 
