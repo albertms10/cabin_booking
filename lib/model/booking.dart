@@ -24,8 +24,8 @@ class Booking {
   Map<String, dynamic> toMap() => {
         'id': id,
         'studentName': studentName,
-        'dateStart': dateStart.toString(),
-        'dateEnd': dateEnd.toString(),
+        'dateStart': dateStart.toIso8601String(),
+        'dateEnd': dateEnd.toIso8601String(),
       };
 
   Duration get duration => dateEnd.difference(dateStart);
