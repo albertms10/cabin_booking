@@ -8,7 +8,13 @@ import 'package:provider/provider.dart';
 class TimeTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Provider.of<CabinManager>(context, listen: false).loadCabinsFromFile();
+    final cabinManager = Provider.of<CabinManager>(context, listen: false);
+
+    cabinManager
+      ..loadCabinsFromFile()
+      ..addListener(() {
+        cabinManager.writeCabinsToFile();
+      });
 
     return SingleChildScrollView(
       child: Column(
