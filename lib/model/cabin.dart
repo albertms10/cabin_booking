@@ -19,8 +19,8 @@ class Cabin {
   Cabin.from(Map<String, dynamic> other)
       : id = other['id'],
         number = other['number'],
-        components = Map<String, int>.from(other['components']),
-        bookingManager = BookingManager.from(other['bookings']);
+        components = Map<String, int>.from(other['components'] ?? const {}),
+        bookingManager = BookingManager.from(other['bookings'] ?? const []);
 
   Map<String, dynamic> toMap() => {
         'id': id,
