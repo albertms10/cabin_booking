@@ -20,7 +20,7 @@ void main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider<CabinManager>(
-          create: (context) => CabinManager.dummy(),
+          create: (context) => CabinManager(),
         ),
         ChangeNotifierProvider<DayHandler>(
           create: (context) => DayHandler(),

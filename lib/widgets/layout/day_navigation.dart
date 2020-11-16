@@ -1,4 +1,5 @@
 import 'package:cabin_booking/l10n/app_localizations.dart';
+import 'package:cabin_booking/model/cabin_manager.dart';
 import 'package:cabin_booking/model/day_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -41,7 +42,19 @@ class DayNavigation extends StatelessWidget {
                     .copyWith(color: Colors.black87),
               );
             },
-          )
+          ),
+          Expanded(
+            child: Container(),
+          ),
+          IconButton(
+            onPressed: () {
+              Provider.of<CabinManager>(context, listen: false)
+                  .writeCabinsToFile();
+            },
+            icon: const Icon(Icons.save),
+            splashRadius: 22,
+            tooltip: MaterialLocalizations.of(context).saveButtonLabel,
+          ),
         ],
       ),
     );
