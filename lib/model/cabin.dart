@@ -16,17 +16,17 @@ class Cabin {
     if (components == null) components = Map<String, int>();
   }
 
-  Cabin.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        number = json['number'],
-        components = json['components'],
-        bookingManager = BookingManager(bookings: json['bookings']);
+  Cabin.from(Map<String, dynamic> other)
+      : id = other['id'],
+        number = other['number'],
+        components = Map<String, int>.from(other['components']),
+        bookingManager = BookingManager.from(other['bookings']);
 
-  Map<String, dynamic> get toJson => {
+  Map<String, dynamic> toMap() => {
         'id': id,
         'number': number,
         'components': components,
-        'bookings': bookings,
+        'bookings': bookingManager.bookingsToMapList(),
       };
 
   Cabin get simple => Cabin(id: id, number: number);

@@ -15,17 +15,17 @@ class Booking {
     this.cabinId,
   });
 
-  Booking.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        studentName = json['studentName'],
-        dateStart = json['dateStart'],
-        dateEnd = json['dateEnd'];
+  Booking.from(Map<String, dynamic> other)
+      : id = other['id'],
+        studentName = other['studentName'],
+        dateStart = DateTime.tryParse(other['dateStart']),
+        dateEnd = DateTime.tryParse(other['dateEnd']);
 
-  Map<String, dynamic> get toJson => {
+  Map<String, dynamic> toMap() => {
         'id': id,
         'studentName': studentName,
-        'dateStart': dateStart,
-        'dateEnd': dateEnd,
+        'dateStart': dateStart.toString(),
+        'dateEnd': dateEnd.toString(),
       };
 
   Duration get duration => dateEnd.difference(dateStart);
