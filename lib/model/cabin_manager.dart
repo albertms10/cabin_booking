@@ -4,6 +4,7 @@ import 'package:cabin_booking/model/booking.dart';
 import 'package:cabin_booking/model/cabin.dart';
 import 'package:cabin_booking/model/file_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
 
 class CabinManager with ChangeNotifier, FileManager {
   List<Cabin> cabins;
@@ -13,7 +14,7 @@ class CabinManager with ChangeNotifier, FileManager {
   }
 
   List<Cabin> _generateCabins(int number) => [
-        for (int i = 1; i <= number; i++) Cabin(id: '$i', number: i),
+        for (int i = 1; i <= number; i++) Cabin(id: Uuid().v1(), number: i),
       ];
 
   List<Cabin> parseCabins(String jsonString) =>

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:cabin_booking/model/booking.dart';
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
 
 class BookingManager with ChangeNotifier {
   List<Booking> bookings;
@@ -31,6 +32,8 @@ class BookingManager with ChangeNotifier {
       .toList();
 
   void addBooking(Booking booking) {
+    booking.id = Uuid().v1();
+
     bookings.add(booking);
 
     // TODO: Remove when implementing Firestore
