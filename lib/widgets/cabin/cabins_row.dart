@@ -27,9 +27,7 @@ class CabinsRow extends StatelessWidget {
                 ],
               );
             },
-            child: Expanded(
-              child: Container(),
-            ),
+            child: Container(width: 180),
           ),
         ),
       ),

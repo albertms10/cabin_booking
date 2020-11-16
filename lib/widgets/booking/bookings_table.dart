@@ -18,6 +18,7 @@ class BookingsTable extends StatelessWidget {
           builder: (context, cabinManager, dayHandler, child) {
             return Row(
               mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 child,
@@ -31,9 +32,7 @@ class BookingsTable extends StatelessWidget {
               ],
             );
           },
-          child: Expanded(
-            child: TimeColumn(),
-          ),
+          child: TimeColumn(),
         ),
         CurrentTimeIndicator(),
       ],

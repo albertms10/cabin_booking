@@ -13,11 +13,14 @@ class TimeColumn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         for (int hour = start.hour; hour <= end.hour; hour++)
           Container(
             height: 60 * bookingHeightRatio,
+            width: 180,
             padding: const EdgeInsets.all(16),
+            alignment: Alignment.topCenter,
             child: Text(
               TimeOfDay(hour: hour, minute: 00).format(context),
               style: Theme.of(context)
