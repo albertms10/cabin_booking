@@ -43,18 +43,6 @@ class DayNavigation extends StatelessWidget {
               );
             },
           ),
-          Expanded(
-            child: Container(),
-          ),
-          IconButton(
-            onPressed: () {
-              Provider.of<CabinManager>(context, listen: false)
-                  .writeCabinsToFile();
-            },
-            icon: const Icon(Icons.save),
-            splashRadius: 22,
-            tooltip: MaterialLocalizations.of(context).saveButtonLabel,
-          ),
         ],
       ),
     );
