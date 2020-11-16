@@ -1,3 +1,4 @@
+import 'package:cabin_booking/l10n/app_localizations.dart';
 import 'package:cabin_booking/model/cabin_manager.dart';
 import 'package:cabin_booking/widgets/booking/bookings_table.dart';
 import 'package:cabin_booking/widgets/cabin/cabins_row.dart';
@@ -10,20 +11,33 @@ class TimeTable extends StatelessWidget {
   Widget build(BuildContext context) {
     final cabinManager = Provider.of<CabinManager>(context, listen: false);
 
-    cabinManager
-      ..loadCabinsFromFile()
-      ..addListener(() {
-        cabinManager.writeCabinsToFile();
-      });
+    cabinManager.addListener(() {
+      cabinManager.writeCabinsToFile();
+    });
 
-    return SingleChildScrollView(
-      child: Column(
-        children: [
-          DayNavigation(),
-          CabinsRow(),
-          BookingsTable(),
-        ],
-      ),
+    return FutureBuilder(
+      future: cabinManager.loadCabinsFromFile(),
+      builder: (context, snapshot) {
+        if (snapshot.hasError)
+          return Center(
+            child: Text(
+              AppLocalizations.of(context).dataCouldNotBeLoaded,
+              style: Theme.of(context).textTheme.headline4,
+            ),
+          );
+        else if (snapshot.hasData)
+          return SingleChildScrollView(
+            child: Column(
+              children: [
+                DayNavigation(),
+                CabinsRow(),
+                BookingsTable(),
+              ],
+            ),
+          );
+        else
+          return Center(child: CircularProgressIndicator());
+      },
     );
   }
 }

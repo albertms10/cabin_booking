@@ -89,9 +89,11 @@ class CabinManager with ChangeNotifier, FileManager {
     }
   }
 
-  void loadCabinsFromFile() async {
+  Future<bool> loadCabinsFromFile() async {
     cabins = await readCabinsFromFile();
 
     notifyListeners();
+
+    return true;
   }
 }
