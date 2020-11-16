@@ -38,4 +38,10 @@ class Cabin {
 
   @override
   String toString() => 'Cabin $number (${bookings.length} bookings)';
+
+  @override
+  bool operator ==(other) => other is Cabin && this.id == other.id;
+
+  @override
+  int get hashCode => id.hashCode;
 }

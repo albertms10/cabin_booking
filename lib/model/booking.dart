@@ -41,4 +41,10 @@ class Booking {
 
   @override
   String toString() => '$studentName $dateRange';
+
+  @override
+  bool operator ==(other) => other is Booking && this.id == other.id;
+
+  @override
+  int get hashCode => id.hashCode;
 }
