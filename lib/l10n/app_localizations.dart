@@ -29,6 +29,7 @@ class AppLocalizations {
       'enterValidRange': 'Introdueix un rang vàlid',
       'deleteBookingTitle': 'Confirmes que vols suprimir la reserva?',
       'actionUndone': 'Aquesta acció no es pot desfer.',
+      'dataCouldNotBeLoaded': 'Les dades no s’han pogut carregar.',
     },
     'en': {
       'title': 'Cabin Booking',
@@ -48,6 +49,7 @@ class AppLocalizations {
       'enterValidRange': 'Enter a valid range',
       'deleteBookingTitle': 'Are you sure you want to delete the booking?',
       'actionUndone': 'You can’t undo this action.',
+      'dataCouldNotBeLoaded': 'Data could not be loaded.',
     },
     'es': {
       'title': 'Reserva de cabinas',
@@ -67,10 +69,9 @@ class AppLocalizations {
       'enterValidRange': 'Introduzca un rangp válido',
       'deleteBookingTitle': '¿Seguro que desea suprimir la reserva?',
       'actionUndone': 'Esta acción no se puede deshacer.',
+      'dataCouldNotBeLoaded': 'Los datos no se han podido cargar.',
     },
   };
-
-  String getValue(String value) => _localizedValues[locale.languageCode][value];
 
   String get title {
     return _localizedValues[locale.languageCode]['title'];
@@ -138,6 +139,10 @@ class AppLocalizations {
 
   String get actionUndone {
     return _localizedValues[locale.languageCode]['actionUndone'];
+  }
+
+  String get dataCouldNotBeLoaded {
+    return _localizedValues[locale.languageCode]['dataCouldNotBeLoaded'];
   }
 }
 
