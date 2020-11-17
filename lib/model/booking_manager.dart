@@ -35,10 +35,10 @@ class BookingManager with ChangeNotifier {
     notifyListeners();
   }
 
-  void modifyBooking(Booking booking) {
+  void modifyBooking(Booking _booking) {
     bookings
-        .firstWhere((_booking) => booking.id == _booking.id)
-        .replaceWith(booking);
+        .firstWhere((booking) => _booking.id == booking.id)
+        .replaceWith(_booking);
 
     // TODO: Remove when implementing Firestore
     bookings.sort((a, b) => a.dateStart.compareTo(b.dateStart));
