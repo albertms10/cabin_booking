@@ -16,7 +16,7 @@ DateTime tryParseDateTimeWithFormattedTimeOfDay({
 TimeOfDay tryParseTimeOfDay(String formattedString) {
   if (formattedString == null) return null;
 
-  final particles = formattedString.split(':');
+  final particles = formattedString.split(RegExp('[:.]'));
 
   if (particles.length < 2) return null;
 
@@ -27,3 +27,6 @@ TimeOfDay tryParseTimeOfDay(String formattedString) {
 
   return TimeOfDay(hour: hour, minute: minute);
 }
+
+String parsedTimeOfDayFromDateTime(DateTime dateTime) =>
+    dateTime.toString().split(RegExp('[ T]'))[1];
