@@ -33,7 +33,7 @@ class BookingCard extends StatelessWidget {
                     children: [
                       Text(booking.studentName),
                       Text(
-                        booking.dateRange,
+                        booking.timeRange,
                         style: TextStyle(color: Colors.black38),
                       ),
                     ],

@@ -1,3 +1,4 @@
+import 'package:cabin_booking/utils/time_of_day.dart';
 import 'package:intl/intl.dart';
 
 class Booking {
@@ -30,8 +31,24 @@ class Booking {
 
   Duration get duration => dateEnd.difference(dateStart);
 
-  String get dateRange =>
+  String get timeRange =>
       '${DateFormat('HH:mm').format(dateStart)}–${DateFormat('HH:mm').format(dateEnd)}';
+
+  String get dateRange => '${DateFormat.yMd().format(dateStart)} $timeRange';
+
+  Booking movedTo(DateTime dateTime) => Booking(
+        id: id,
+        studentName: studentName,
+        dateStart: tryParseDateTimeWithFormattedTimeOfDay(
+          dateTime: dateTime,
+          formattedTimeOfDay: parsedTimeOfDayFromDateTime(dateStart),
+        ),
+        dateEnd: tryParseDateTimeWithFormattedTimeOfDay(
+          dateTime: dateTime,
+          formattedTimeOfDay: parsedTimeOfDayFromDateTime(dateStart),
+        ),
+        cabinId: cabinId,
+      );
 
   void replaceWith(Booking booking) {
     studentName = booking.studentName;
