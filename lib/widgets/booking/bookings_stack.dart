@@ -39,7 +39,7 @@ class BookingsStack extends StatelessWidget {
       final Duration duration = nextBookingDate.difference(currentBookingDate);
       final int durationMinutes = duration.inMinutes;
 
-      if (i >= 0)
+      if (!isFirst)
         distributedBookings.add(
           SizedBox(
             width: double.infinity,
@@ -84,8 +84,7 @@ class BookingsStack extends StatelessWidget {
           ),
         );
 
-        distributedBookings
-            .addAll(isLast ? runningSlotList.reversed : runningSlotList);
+        distributedBookings.addAll(runningSlotList);
       }
     }
 
