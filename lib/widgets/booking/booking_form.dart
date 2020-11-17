@@ -2,8 +2,8 @@ import 'package:cabin_booking/l10n/app_localizations.dart';
 import 'package:cabin_booking/model/booking.dart';
 import 'package:cabin_booking/model/cabin.dart';
 import 'package:cabin_booking/model/cabin_manager.dart';
+import 'package:cabin_booking/utils/time_of_day.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class BookingForm extends StatefulWidget {
@@ -34,12 +34,6 @@ class _BookingFormState extends State<BookingForm> {
     _endTime = TimeOfDay.fromDateTime(widget.booking.dateEnd);
 
     _booking.cabinId = widget.booking.cabinId;
-  }
-
-  DateTime _tryTimeParse(String value) {
-    return DateTime.tryParse(
-      DateFormat('yyyy-MM-dd').format(widget.booking.dateStart) + ' $value',
-    );
   }
 
   @override
@@ -100,13 +94,20 @@ class _BookingFormState extends State<BookingForm> {
                   controller: _startTimeController,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   validator: (value) {
-                    final _parsedTime = _tryTimeParse(value);
+                    final _parsedDateTime =
+                        tryParseDateTimeWithFormattedTimeOfDay(
+                      dateTime: widget.booking.dateStart,
+                      formattedTimeOfDay: value,
+                    );
 
-                    if (value.isEmpty || _parsedTime == null)
+                    if (value.isEmpty || _parsedDateTime == null)
                       return AppLocalizations.of(context).enterStartTime;
 
-                    if (_parsedTime.compareTo(
-                          _tryTimeParse(_endTime.format(context)),
+                    if (_parsedDateTime.compareTo(
+                          tryParseDateTimeWithFormattedTimeOfDay(
+                            dateTime: widget.booking.dateStart,
+                            formattedTimeOfDay: _endTime.format(context),
+                          ),
                         ) >
                         0) return AppLocalizations.of(context).enterValidRange;
 
@@ -125,10 +126,9 @@ class _BookingFormState extends State<BookingForm> {
                       });
                   },
                   onSaved: (value) {
-                    _booking.dateStart = DateTime.parse(
-                      DateFormat('yyyy-MM-dd')
-                              .format(widget.booking.dateStart) +
-                          ' $value',
+                    _booking.dateStart = tryParseDateTimeWithFormattedTimeOfDay(
+                      dateTime: widget.booking.dateStart,
+                      formattedTimeOfDay: value,
                     );
                   },
                   decoration: InputDecoration(
@@ -145,13 +145,20 @@ class _BookingFormState extends State<BookingForm> {
                   controller: _endTimeController,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   validator: (value) {
-                    final _parsedTime = _tryTimeParse(value);
+                    final _parsedDateTime =
+                        tryParseDateTimeWithFormattedTimeOfDay(
+                      dateTime: widget.booking.dateStart,
+                      formattedTimeOfDay: value,
+                    );
 
-                    if (value.isEmpty || _parsedTime == null)
+                    if (value.isEmpty || _parsedDateTime == null)
                       return AppLocalizations.of(context).enterEndTime;
 
-                    if (_parsedTime.compareTo(
-                          _tryTimeParse(_startTime.format(context)),
+                    if (_parsedDateTime.compareTo(
+                          tryParseDateTimeWithFormattedTimeOfDay(
+                            dateTime: widget.booking.dateStart,
+                            formattedTimeOfDay: _startTime.format(context),
+                          ),
                         ) <
                         0) return AppLocalizations.of(context).enterValidRange;
 
@@ -170,9 +177,9 @@ class _BookingFormState extends State<BookingForm> {
                       });
                   },
                   onSaved: (value) {
-                    _booking.dateEnd = DateTime.parse(
-                      DateFormat('yyyy-MM-dd').format(widget.booking.dateEnd) +
-                          ' $value',
+                    _booking.dateEnd = tryParseDateTimeWithFormattedTimeOfDay(
+                      dateTime: widget.booking.dateEnd,
+                      formattedTimeOfDay: value,
                     );
                   },
                   decoration: InputDecoration(

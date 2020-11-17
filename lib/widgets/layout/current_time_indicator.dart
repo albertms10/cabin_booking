@@ -1,7 +1,7 @@
 import 'package:cabin_booking/constants.dart';
 import 'package:cabin_booking/model/day_handler.dart';
+import 'package:cabin_booking/utils/time_of_day.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:timer_builder/timer_builder.dart';
 
@@ -11,25 +11,21 @@ class CurrentTimeIndicator extends StatelessWidget {
     return TimerBuilder.periodic(
       Duration(seconds: 5),
       builder: (context) {
-        final viewStartTime = DateTime.parse(
-          DateFormat('yyyy-MM-dd').format(
-                Provider.of<DayHandler>(context).dateTime,
-              ) +
-              ' ${timeTableStartTime.format(context)}',
+        final viewStartDateTime = tryParseDateTimeWithFormattedTimeOfDay(
+          dateTime: Provider.of<DayHandler>(context).dateTime,
+          formattedTimeOfDay: timeTableStartTime.format(context),
         );
 
-        final viewEndTime = DateTime.parse(
-          DateFormat('yyyy-MM-dd').format(
-                Provider.of<DayHandler>(context).dateTime,
-              ) +
-              ' ${timeTableEndTime.format(context)}',
+        final viewEndDateTime = tryParseDateTimeWithFormattedTimeOfDay(
+          dateTime: Provider.of<DayHandler>(context).dateTime,
+          formattedTimeOfDay: timeTableEndTime.format(context),
         );
 
         final int _differenceFromViewStartTime =
-            DateTime.now().difference(viewStartTime).inMinutes;
+            DateTime.now().difference(viewStartDateTime).inMinutes;
 
         final int _differenceFromViewEndTime =
-            DateTime.now().difference(viewEndTime).inMinutes;
+            DateTime.now().difference(viewEndDateTime).inMinutes;
 
         return _differenceFromViewStartTime > 0 &&
                 _differenceFromViewEndTime < 0

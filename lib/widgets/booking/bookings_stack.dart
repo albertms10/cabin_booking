@@ -2,10 +2,10 @@ import 'package:cabin_booking/constants.dart';
 import 'package:cabin_booking/model/booking.dart';
 import 'package:cabin_booking/model/cabin.dart';
 import 'package:cabin_booking/model/day_handler.dart';
+import 'package:cabin_booking/utils/time_of_day.dart';
 import 'package:cabin_booking/widgets/booking/booking_card.dart';
 import 'package:cabin_booking/widgets/booking/empty_booking_slot.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class BookingsStack extends StatelessWidget {
@@ -19,14 +19,14 @@ class BookingsStack extends StatelessWidget {
 
     DayHandler _dayHandler = Provider.of<DayHandler>(context);
 
-    final dateStart = DateTime.parse(
-      DateFormat('yyyy-MM-dd').format(_dayHandler.dateTime) +
-          ' ${timeTableStartTime.format(context)}',
+    final dateStart = tryParseDateTimeWithFormattedTimeOfDay(
+      dateTime: _dayHandler.dateTime,
+      formattedTimeOfDay: timeTableStartTime.format(context),
     );
 
-    final dateEnd = DateTime.parse(
-      DateFormat('yyyy-MM-dd').format(_dayHandler.dateTime) +
-          ' ${timeTableEndTime.format(context)}',
+    final dateEnd = tryParseDateTimeWithFormattedTimeOfDay(
+      dateTime: _dayHandler.dateTime,
+      formattedTimeOfDay: timeTableEndTime.format(context),
     );
 
     for (int i = -1; i < bookings.length; i++) {
