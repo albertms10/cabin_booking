@@ -70,12 +70,14 @@ class CabinManager with ChangeNotifier, FileManager {
   static final _fileName = 'cabin_manager';
   static final _defaultCabinNumber = 6;
 
-  void writeCabinsToFile() async {
+  Future<bool> writeCabinsToFile() async {
     final file = await localFile(_fileName);
 
     file.writeAsString(
       json.encode(cabinsToMapList()),
     );
+
+    return true;
   }
 
   Future<List<Cabin>> readCabinsFromFile() async {

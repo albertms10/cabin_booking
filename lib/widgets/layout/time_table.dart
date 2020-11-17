@@ -10,8 +10,14 @@ class TimeTable extends StatelessWidget {
   Widget build(BuildContext context) {
     final cabinManager = Provider.of<CabinManager>(context, listen: false);
 
-    cabinManager.addListener(() {
-      cabinManager.writeCabinsToFile();
+    cabinManager.addListener(() async {
+      await cabinManager.writeCabinsToFile();
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(AppLocalizations.of(context).changesSaved),
+        ),
+      );
     });
 
     return FutureBuilder(
