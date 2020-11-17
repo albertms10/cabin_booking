@@ -1,12 +1,15 @@
 import 'package:cabin_booking/model/booking.dart';
+import 'package:cabin_booking/model/recurring_booking.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
 class BookingManager with ChangeNotifier {
   List<Booking> bookings;
+  List<RecurringBooking> recurringBookings;
 
-  BookingManager({this.bookings}) {
+  BookingManager({this.bookings, this.recurringBookings}) {
     if (bookings == null) bookings = List<Booking>();
+    if (recurringBookings == null) recurringBookings = List<RecurringBooking>();
   }
 
   BookingManager.from(List<dynamic> other)
