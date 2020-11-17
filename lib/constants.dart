@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 const double bookingHeightRatio = 2.2;
 
+const Duration minSlotDuration = const Duration(minutes: 30);
 const Duration maxSlotDuration = const Duration(minutes: 60);
 
 const TimeOfDay timeTableStartTime = const TimeOfDay(hour: 15, minute: 0);
