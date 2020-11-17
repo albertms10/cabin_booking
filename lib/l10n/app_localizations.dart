@@ -30,6 +30,7 @@ class AppLocalizations {
       'deleteBookingTitle': 'Confirmes que vols suprimir la reserva?',
       'actionUndone': 'Aquesta acció no es pot desfer.',
       'dataCouldNotBeLoaded': 'Les dades no s’han pogut carregar.',
+      'changesSaved': 'S’han desat els canvis',
     },
     'en': {
       'title': 'Cabin Booking',
@@ -50,6 +51,7 @@ class AppLocalizations {
       'deleteBookingTitle': 'Are you sure you want to delete the booking?',
       'actionUndone': 'You can’t undo this action.',
       'dataCouldNotBeLoaded': 'Data could not be loaded.',
+      'changesSaved': 'Changes saved',
     },
     'es': {
       'title': 'Reserva de cabinas',
@@ -70,80 +72,56 @@ class AppLocalizations {
       'deleteBookingTitle': '¿Seguro que desea suprimir la reserva?',
       'actionUndone': 'Esta acción no se puede deshacer.',
       'dataCouldNotBeLoaded': 'Los datos no se han podido cargar.',
+      'changesSaved': 'Se han guardado los cambios',
     },
   };
 
-  String get title {
-    return _localizedValues[locale.languageCode]['title'];
-  }
+  String get title => _localizedValues[locale.languageCode]['title'];
 
-  String get cabin {
-    return _localizedValues[locale.languageCode]['cabin'];
-  }
+  String get cabin => _localizedValues[locale.languageCode]['cabin'];
 
-  String get booking {
-    return _localizedValues[locale.languageCode]['booking'];
-  }
+  String get booking => _localizedValues[locale.languageCode]['booking'];
 
-  String get book {
-    return _localizedValues[locale.languageCode]['book'];
-  }
+  String get book => _localizedValues[locale.languageCode]['book'];
 
-  String get student {
-    return _localizedValues[locale.languageCode]['student'];
-  }
+  String get student => _localizedValues[locale.languageCode]['student'];
 
-  String get edit {
-    return _localizedValues[locale.languageCode]['edit'];
-  }
+  String get edit => _localizedValues[locale.languageCode]['edit'];
 
-  String get previousDay {
-    return _localizedValues[locale.languageCode]['previousDay'];
-  }
+  String get previousDay =>
+      _localizedValues[locale.languageCode]['previousDay'];
 
-  String get today {
-    return _localizedValues[locale.languageCode]['today'];
-  }
+  String get today => _localizedValues[locale.languageCode]['today'];
 
-  String get nextDay {
-    return _localizedValues[locale.languageCode]['nextDay'];
-  }
+  String get nextDay => _localizedValues[locale.languageCode]['nextDay'];
 
-  String get start {
-    return _localizedValues[locale.languageCode]['start'];
-  }
+  String get start => _localizedValues[locale.languageCode]['start'];
 
-  String get end {
-    return _localizedValues[locale.languageCode]['end'];
-  }
+  String get end => _localizedValues[locale.languageCode]['end'];
 
-  String get enterStudentName {
-    return _localizedValues[locale.languageCode]['enterStudentName'];
-  }
+  String get enterStudentName =>
+      _localizedValues[locale.languageCode]['enterStudentName'];
 
-  String get enterStartTime {
-    return _localizedValues[locale.languageCode]['enterStartTime'];
-  }
+  String get enterStartTime =>
+      _localizedValues[locale.languageCode]['enterStartTime'];
 
-  String get enterEndTime {
-    return _localizedValues[locale.languageCode]['enterEndTime'];
-  }
+  String get enterEndTime =>
+      _localizedValues[locale.languageCode]['enterEndTime'];
 
-  String get enterValidRange {
-    return _localizedValues[locale.languageCode]['enterValidRange'];
-  }
+  String get enterValidRange =>
+      _localizedValues[locale.languageCode]['enterValidRange'];
 
-  String get deleteBookingTitle {
-    return _localizedValues[locale.languageCode]['deleteBookingTitle'];
-  }
+  String get deleteBookingTitle =>
+      _localizedValues[locale.languageCode]['deleteBookingTitle'];
 
-  String get actionUndone {
-    return _localizedValues[locale.languageCode]['actionUndone'];
-  }
+  String get actionUndone =>
+      _localizedValues[locale.languageCode]['actionUndone'];
 
-  String get dataCouldNotBeLoaded {
-    return _localizedValues[locale.languageCode]['dataCouldNotBeLoaded'];
-  }
+  String get dataCouldNotBeLoaded =>
+      _localizedValues[locale.languageCode]['dataCouldNotBeLoaded'];
+
+  String get changesSaved =>
+      _localizedValues[locale.languageCode]['changesSaved'];
 }
 
 class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
