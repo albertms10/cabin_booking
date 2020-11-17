@@ -24,10 +24,12 @@ class TimeTable extends StatelessWidget {
       future: cabinManager.loadCabinsFromFile(),
       builder: (context, snapshot) {
         if (snapshot.hasError)
-          return Center(
-            child: Text(
-              AppLocalizations.of(context).dataCouldNotBeLoaded,
-              style: Theme.of(context).textTheme.headline4,
+          return Expanded(
+            child: Center(
+              child: Text(
+                AppLocalizations.of(context).dataCouldNotBeLoaded,
+                style: Theme.of(context).textTheme.headline4,
+              ),
             ),
           );
         else if (snapshot.hasData)
@@ -49,7 +51,9 @@ class TimeTable extends StatelessWidget {
             ),
           );
         else
-          return Center(child: CircularProgressIndicator());
+          return Expanded(
+            child: Center(child: CircularProgressIndicator()),
+          );
       },
     );
   }
