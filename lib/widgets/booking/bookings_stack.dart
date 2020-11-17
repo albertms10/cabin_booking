@@ -30,9 +30,11 @@ class BookingsStack extends StatelessWidget {
     );
 
     for (int i = -1; i < bookings.length; i++) {
-      DateTime currentBookingDate = i >= 0 ? bookings[i].dateEnd : dateStart;
-      DateTime nextBookingDate =
-          i < bookings.length - 1 ? bookings[i + 1].dateStart : dateEnd;
+      final isFirst = i == -1;
+      final isLast = i == bookings.length - 1;
+
+      DateTime currentBookingDate = isFirst ? dateStart : bookings[i].dateEnd;
+      DateTime nextBookingDate = isLast ? dateEnd : bookings[i + 1].dateStart;
 
       final Duration duration = nextBookingDate.difference(currentBookingDate);
       final int durationMinutes = duration.inMinutes;
