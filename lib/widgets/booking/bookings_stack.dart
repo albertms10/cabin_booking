@@ -50,13 +50,15 @@ class BookingsStack extends StatelessWidget {
           ),
         );
 
+      final runningSlotList = List<EmptyBookingSlot>();
+
       if (durationMinutes > 0) {
         int runningDurationMinutes = durationMinutes;
 
         while (runningDurationMinutes > maxSlotDuration.inMinutes) {
           nextBookingDate = currentBookingDate.add(maxSlotDuration);
 
-          distributedBookings.add(
+          runningSlotList.add(
             EmptyBookingSlot(
               cabin: cabin,
               dateStart: currentBookingDate,
@@ -73,7 +75,7 @@ class BookingsStack extends StatelessWidget {
 
         nextBookingDate = currentBookingDate.add(restDuration);
 
-        distributedBookings.add(
+        runningSlotList.add(
           EmptyBookingSlot(
             cabin: cabin,
             dateStart: currentBookingDate,
@@ -81,6 +83,9 @@ class BookingsStack extends StatelessWidget {
             duration: restDuration,
           ),
         );
+
+        distributedBookings
+            .addAll(isLast ? runningSlotList.reversed : runningSlotList);
       }
     }
 
