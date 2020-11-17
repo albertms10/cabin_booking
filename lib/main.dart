@@ -1,4 +1,5 @@
 import 'package:cabin_booking/l10n/app_localizations.dart';
+import 'package:cabin_booking/widgets/layout/day_navigation.dart';
 import 'package:cabin_booking/widgets/layout/time_table.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -63,7 +64,12 @@ class HomePage extends StatelessWidget {
         title: Text(AppLocalizations.of(context).title),
       ),
       body: SafeArea(
-        child: TimeTable(),
+        child: Column(
+          children: [
+            DayNavigation(),
+            TimeTable(),
+          ],
+        ),
       ),
     );
   }

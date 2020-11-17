@@ -7,28 +7,25 @@ import 'package:provider/provider.dart';
 class CabinsRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 32),
-      child: Material(
-        elevation: 2,
-        child: Container(
-          color: Colors.white,
-          padding: const EdgeInsets.symmetric(vertical: 24),
-          child: Consumer<CabinManager>(
-            builder: (context, cabinManager, child) {
-              return Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  child,
-                  for (Cabin cabin in cabinManager.cabins)
-                    Expanded(
-                      child: CabinIcon(number: cabin.number),
-                    ),
-                ],
-              );
-            },
-            child: Container(width: 180),
-          ),
+    return Material(
+      elevation: 2,
+      color: Colors.white,
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 24),
+        child: Consumer<CabinManager>(
+          builder: (context, cabinManager, child) {
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                child,
+                for (Cabin cabin in cabinManager.cabins)
+                  Expanded(
+                    child: CabinIcon(number: cabin.number),
+                  ),
+              ],
+            );
+          },
+          child: Container(width: 180),
         ),
       ),
     );

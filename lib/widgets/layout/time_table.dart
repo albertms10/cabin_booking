@@ -2,7 +2,6 @@ import 'package:cabin_booking/l10n/app_localizations.dart';
 import 'package:cabin_booking/model/cabin_manager.dart';
 import 'package:cabin_booking/widgets/booking/bookings_table.dart';
 import 'package:cabin_booking/widgets/cabin/cabins_row.dart';
-import 'package:cabin_booking/widgets/layout/day_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -26,12 +25,20 @@ class TimeTable extends StatelessWidget {
             ),
           );
         else if (snapshot.hasData)
-          return SingleChildScrollView(
+          return Expanded(
             child: Column(
               children: [
-                DayNavigation(),
                 CabinsRow(),
-                BookingsTable(),
+                Expanded(
+                  child: ListView(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.only(top: 16),
+                        child: BookingsTable(),
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           );
