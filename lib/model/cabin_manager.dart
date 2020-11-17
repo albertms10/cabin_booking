@@ -3,8 +3,12 @@ import 'dart:convert' show json;
 import 'package:cabin_booking/model/booking.dart';
 import 'package:cabin_booking/model/cabin.dart';
 import 'package:cabin_booking/model/file_manager.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
+
+List<Cabin> _parseCabins(String jsonString) =>
+    json.decode(jsonString).map<Cabin>((json) => Cabin.from(json)).toList();
 
 class CabinManager with ChangeNotifier, FileManager {
   List<Cabin> cabins;
@@ -16,9 +20,6 @@ class CabinManager with ChangeNotifier, FileManager {
   List<Cabin> _generateCabins(int number) => [
         for (int i = 1; i <= number; i++) Cabin(id: Uuid().v1(), number: i),
       ];
-
-  List<Cabin> parseCabins(String jsonString) =>
-      json.decode(jsonString).map<Cabin>((json) => Cabin.from(json)).toList();
 
   List<Map<String, dynamic>> cabinsToMapList() =>
       cabins.map((cabin) => cabin.toMap()).toList();
@@ -81,7 +82,7 @@ class CabinManager with ChangeNotifier, FileManager {
     try {
       final file = await localFile(_fileName);
 
-      final cabins = parseCabins(await file.readAsString());
+      final cabins = await compute(_parseCabins, await file.readAsString());
 
       return cabins.length > 0 ? cabins : _generateCabins(_defaultCabinNumber);
     } catch (e) {
