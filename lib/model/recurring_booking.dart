@@ -25,6 +25,24 @@ class RecurringBooking extends Booking {
           cabinId: cabinId,
         );
 
+  RecurringBooking.from(Map<String, dynamic> other)
+      : periodicity = Duration(days: other['periodicity']),
+        _until = DateTime.tryParse(other['until']),
+        _times = other['times'],
+        super(
+          id: other['id'],
+          studentName: other['studentName'],
+          dateStart: DateTime.tryParse(other['dateStart']),
+          dateEnd: DateTime.tryParse(other['dateEnd']),
+        );
+
+  Map<String, dynamic> toMap() => {
+        ...super.toMap(),
+        'periodicity': periodicity.inDays,
+        'until': until.toIso8601String(),
+        'times': times,
+      };
+
   DateTime get until {
     if (_until != null) return _until;
 
