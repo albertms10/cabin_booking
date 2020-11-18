@@ -50,7 +50,7 @@ class BookingsStack extends StatelessWidget {
           ),
         );
 
-      final runningSlotList = List<EmptyBookingSlot>();
+      final runningSlotList = <EmptyBookingSlot>[];
 
       if (durationMinutes > 0) {
         int runningDurationMinutes = durationMinutes;
