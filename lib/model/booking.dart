@@ -36,6 +36,11 @@ class Booking {
 
   String get dateRange => '${DateFormat.yMd().format(dateStart)} $timeRange';
 
+  bool isOn(DateTime dateTime) =>
+      dateStart.year == dateTime.year &&
+      dateStart.month == dateTime.month &&
+      dateStart.day == dateTime.day;
+
   Booking movedTo(DateTime dateTime) => Booking(
         id: id,
         studentName: studentName,

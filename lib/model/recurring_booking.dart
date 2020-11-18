@@ -73,6 +73,9 @@ class RecurringBooking extends Booking {
     return _bookings;
   }
 
+  bool hasBookingOn(DateTime dateTime) =>
+      bookings.contains((booking) => booking.isOn(dateTime));
+
   @override
   String toString() => '$times × ' + super.toString();
 }
