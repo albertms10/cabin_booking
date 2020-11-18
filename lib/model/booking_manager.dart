@@ -14,8 +14,13 @@ class BookingManager with ChangeNotifier {
     if (recurringBookings == null) recurringBookings = <RecurringBooking>[];
   }
 
-  BookingManager.from(List<dynamic> other)
-      : bookings = other.map((item) => Booking.from(item)).toList();
+  BookingManager.from({
+    List<dynamic> bookings,
+    List<dynamic> recurringBookings,
+  })  : bookings = bookings.map((booking) => Booking.from(booking)).toList(),
+        recurringBookings = recurringBookings
+            .map((recurringBooking) => RecurringBooking.from(recurringBooking))
+            .toList();
 
   List<Map<String, dynamic>> bookingsToMapList() =>
       bookings.map((booking) => booking.toMap()).toList();
@@ -31,7 +36,7 @@ class BookingManager with ChangeNotifier {
       ]..sort(_sortBookings);
 
   void addBooking(Booking booking) {
-    booking.id = Uuid().v1();
+    booking.id = Uuid().v4();
 
     bookings.add(booking);
 
@@ -40,18 +45,45 @@ class BookingManager with ChangeNotifier {
     notifyListeners();
   }
 
-  void modifyBooking(Booking _booking) {
+  void addRecurringBooking(RecurringBooking recurringBooking) {
+    recurringBooking.id = Uuid().v4();
+
+    recurringBookings.add(recurringBooking);
+
+    recurringBookings.sort(_sortBookings);
+
+    notifyListeners();
+  }
+
+  void modifyBooking(Booking booking) {
     bookings
-        .firstWhere((booking) => _booking.id == booking.id)
-        .replaceWith(_booking);
+        .firstWhere((_booking) => booking.id == _booking.id)
+        .replaceWith(booking);
 
     bookings.sort(_sortBookings);
 
     notifyListeners();
   }
 
+  void modifyRecurringBooking(RecurringBooking recurringBooking) {
+    recurringBookings
+        .firstWhere(
+            (_recurringBooking) => recurringBooking.id == _recurringBooking.id)
+        .replaceWith(recurringBooking);
+
+    recurringBookings.sort(_sortBookings);
+
+    notifyListeners();
+  }
+
   void removeBookingById(String id) {
     bookings.removeWhere((booking) => booking.id == id);
+    notifyListeners();
+  }
+
+  void removeRecurringBookingById(String id) {
+    recurringBookings
+        .removeWhere((_recurringBooking) => _recurringBooking.id == id);
     notifyListeners();
   }
 }

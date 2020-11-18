@@ -18,7 +18,7 @@ class CabinManager with ChangeNotifier, FileManager {
   }
 
   List<Cabin> _generateCabins(int number) => [
-        for (int i = 1; i <= number; i++) Cabin(id: Uuid().v1(), number: i),
+        for (int i = 1; i <= number; i++) Cabin(id: Uuid().v4(), number: i),
       ];
 
   List<Map<String, dynamic>> cabinsToMapList() =>
@@ -42,7 +42,7 @@ class CabinManager with ChangeNotifier, FileManager {
   }
 
   void addBooking(String cabinId, Booking booking) {
-    getFromId(booking.cabinId ?? cabinId).bookingManager.addBooking(booking);
+    getFromId(booking.cabinId ?? cabinId).addBooking(booking);
 
     // TODO: Improve notifier
     notifyListeners();
@@ -50,10 +50,10 @@ class CabinManager with ChangeNotifier, FileManager {
 
   void modifyBooking(String cabinId, Booking booking) {
     if (booking.cabinId == null || booking.cabinId == cabinId) {
-      getFromId(cabinId).bookingManager.modifyBooking(booking);
+      getFromId(cabinId).modifyBooking(booking);
     } else {
-      getFromId(cabinId).bookingManager.removeBookingById(booking.id);
-      getFromId(booking.cabinId).bookingManager.addBooking(booking);
+      getFromId(cabinId).removeBookingById(booking.id);
+      getFromId(booking.cabinId).addBooking(booking);
     }
 
     // TODO: Improve notifier
@@ -61,7 +61,7 @@ class CabinManager with ChangeNotifier, FileManager {
   }
 
   void removeBookingById(String cabinId, String bookingId) {
-    getFromId(cabinId).bookingManager.removeBookingById(bookingId);
+    getFromId(cabinId).removeBookingById(bookingId);
 
     // TODO: Improve notifier
     notifyListeners();
