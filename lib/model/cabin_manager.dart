@@ -14,7 +14,7 @@ class CabinManager with ChangeNotifier, FileManager {
   List<Cabin> cabins;
 
   CabinManager({this.cabins}) {
-    if (cabins == null) cabins = List<Cabin>();
+    if (cabins == null) cabins = <Cabin>[];
   }
 
   List<Cabin> _generateCabins(int number) => [

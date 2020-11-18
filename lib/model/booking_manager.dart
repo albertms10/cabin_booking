@@ -3,13 +3,15 @@ import 'package:cabin_booking/model/recurring_booking.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
+int _sortBookings(Booking a, Booking b) => a.dateStart.compareTo(b.dateStart);
+
 class BookingManager with ChangeNotifier {
   List<Booking> bookings;
   List<RecurringBooking> recurringBookings;
 
   BookingManager({this.bookings, this.recurringBookings}) {
-    if (bookings == null) bookings = List<Booking>();
-    if (recurringBookings == null) recurringBookings = List<RecurringBooking>();
+    if (bookings == null) bookings = <Booking>[];
+    if (recurringBookings == null) recurringBookings = <RecurringBooking>[];
   }
 
   BookingManager.from(List<dynamic> other)
@@ -18,22 +20,22 @@ class BookingManager with ChangeNotifier {
   List<Map<String, dynamic>> bookingsToMapList() =>
       bookings.map((booking) => booking.toMap()).toList();
 
-  List<Booking> bookingsOn(DateTime dateTime) => bookings
-      .where(
-        (booking) =>
-            booking.dateStart.year == dateTime.year &&
-            booking.dateStart.month == dateTime.month &&
-            booking.dateStart.day == dateTime.day,
-      )
+  List<Map<String, dynamic>> recurringBookingsToMapList() => recurringBookings
+      .map((recurringBooking) => recurringBooking.toMap())
       .toList();
+
+  List<Booking> bookingsOn(DateTime dateTime) => [
+        ...bookings.where((booking) => booking.isOn(dateTime)),
+        ...recurringBookings.where(
+            (recurringBooking) => recurringBooking.hasBookingOn(dateTime))
+      ]..sort(_sortBookings);
 
   void addBooking(Booking booking) {
     booking.id = Uuid().v1();
 
     bookings.add(booking);
 
-    // TODO: Remove when implementing Firestore
-    bookings.sort((a, b) => a.dateStart.compareTo(b.dateStart));
+    bookings.sort(_sortBookings);
 
     notifyListeners();
   }
@@ -43,8 +45,7 @@ class BookingManager with ChangeNotifier {
         .firstWhere((booking) => _booking.id == booking.id)
         .replaceWith(_booking);
 
-    // TODO: Remove when implementing Firestore
-    bookings.sort((a, b) => a.dateStart.compareTo(b.dateStart));
+    bookings.sort(_sortBookings);
 
     notifyListeners();
   }
