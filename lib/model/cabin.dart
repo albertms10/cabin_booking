@@ -18,16 +18,17 @@ class Cabin {
           bookings: bookings,
           recurringBookings: recurringBookings,
         ) {
-    if (components == null) components = Map<String, int>();
+    if (components == null) components = <String, int>{};
   }
 
   Cabin.from(Map<String, dynamic> other)
       : id = other['id'],
         number = other['number'],
-        components = Map<String, int>.from(other['components'] ?? const {}),
+        components =
+            Map<String, int>.from(other['components'] ?? <String, int>{}),
         _bookingManager = BookingManager.from(
-          bookings: other['bookings'] ?? const [],
-          recurringBookings: other['recurringBookings'] ?? const [],
+          bookings: other['bookings'] ?? <Booking>[],
+          recurringBookings: other['recurringBookings'] ?? <Booking>[],
         );
 
   Map<String, dynamic> toMap() => {
