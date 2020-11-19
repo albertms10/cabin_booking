@@ -32,6 +32,7 @@ class AppLocalizations {
       'dataCouldNotBeLoaded': 'Les dades no s’han pogut carregar.',
       'changesSaved': 'S’han desat els canvis',
       'disabled': 'Desactivada',
+      'description': 'Descripció',
     },
     'en': {
       'title': 'Cabin Booking',
@@ -54,6 +55,7 @@ class AppLocalizations {
       'dataCouldNotBeLoaded': 'Data could not be loaded.',
       'changesSaved': 'Changes saved',
       'disabled': 'disabled',
+      'description': 'Description',
     },
     'es': {
       'title': 'Reserva de cabinas',
@@ -76,6 +78,7 @@ class AppLocalizations {
       'dataCouldNotBeLoaded': 'Los datos no se han podido cargar.',
       'changesSaved': 'Se han guardado los cambios',
       'disabled': 'Desactivada',
+      'description': 'Descripción',
     },
   };
 
@@ -127,6 +130,9 @@ class AppLocalizations {
       _localizedValues[locale.languageCode]['changesSaved'];
 
   String get disabled => _localizedValues[locale.languageCode]['disabled'];
+
+  String get description =>
+      _localizedValues[locale.languageCode]['description'];
 }
 
 class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
