@@ -31,6 +31,7 @@ class AppLocalizations {
       'actionUndone': 'Aquesta acció no es pot desfer.',
       'dataCouldNotBeLoaded': 'Les dades no s’han pogut carregar.',
       'changesSaved': 'S’han desat els canvis',
+      'disabled': 'Desactivada',
     },
     'en': {
       'title': 'Cabin Booking',
@@ -52,6 +53,7 @@ class AppLocalizations {
       'actionUndone': 'You can’t undo this action.',
       'dataCouldNotBeLoaded': 'Data could not be loaded.',
       'changesSaved': 'Changes saved',
+      'disabled': 'disabled',
     },
     'es': {
       'title': 'Reserva de cabinas',
@@ -73,6 +75,7 @@ class AppLocalizations {
       'actionUndone': 'Esta acción no se puede deshacer.',
       'dataCouldNotBeLoaded': 'Los datos no se han podido cargar.',
       'changesSaved': 'Se han guardado los cambios',
+      'disabled': 'Desactivada',
     },
   };
 
@@ -122,6 +125,8 @@ class AppLocalizations {
 
   String get changesSaved =>
       _localizedValues[locale.languageCode]['changesSaved'];
+
+  String get disabled => _localizedValues[locale.languageCode]['disabled'];
 }
 
 class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

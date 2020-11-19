@@ -7,6 +7,7 @@ class Booking {
   DateTime dateStart;
   DateTime dateEnd;
   String cabinId;
+  bool isDisabled;
 
   Booking({
     this.id,
@@ -14,19 +15,22 @@ class Booking {
     this.dateStart,
     this.dateEnd,
     this.cabinId,
+    this.isDisabled = false,
   });
 
   Booking.from(Map<String, dynamic> other)
       : id = other['id'],
         studentName = other['studentName'],
         dateStart = DateTime.tryParse(other['dateStart']),
-        dateEnd = DateTime.tryParse(other['dateEnd']);
+        dateEnd = DateTime.tryParse(other['dateEnd']),
+        isDisabled = other['isDisabled'];
 
   Map<String, dynamic> toMap() => {
         'id': id,
         'studentName': studentName,
         'dateStart': dateStart.toIso8601String(),
         'dateEnd': dateEnd.toIso8601String(),
+        'isDisabled': isDisabled,
       };
 
   Duration get duration => dateEnd.difference(dateStart);
@@ -53,16 +57,19 @@ class Booking {
           formattedTimeOfDay: parsedTimeOfDayFromDateTime(dateStart),
         ),
         cabinId: cabinId,
+        isDisabled: isDisabled,
       );
 
   void replaceWith(Booking booking) {
     studentName = booking.studentName;
     dateStart = booking.dateStart;
     dateEnd = booking.dateEnd;
+    isDisabled = booking.isDisabled;
   }
 
   @override
-  String toString() => '$studentName $dateRange';
+  String toString() =>
+      '$studentName $dateRange ${isDisabled ? ' (disabled)' : ''}';
 
   @override
   bool operator ==(other) => other is Booking && this.id == other.id;

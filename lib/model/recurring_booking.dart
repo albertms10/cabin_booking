@@ -11,6 +11,7 @@ class RecurringBooking extends Booking {
     dateStart,
     dateEnd,
     cabinId,
+    isDisabled,
     this.periodicity = const Duration(days: 7),
     until,
     times,
@@ -23,6 +24,7 @@ class RecurringBooking extends Booking {
           dateStart: dateStart,
           dateEnd: dateEnd,
           cabinId: cabinId,
+          isDisabled: isDisabled,
         );
 
   RecurringBooking.from(Map<String, dynamic> other)
@@ -34,6 +36,7 @@ class RecurringBooking extends Booking {
           studentName: other['studentName'],
           dateStart: DateTime.tryParse(other['dateStart']),
           dateEnd: DateTime.tryParse(other['dateEnd']),
+          isDisabled: other['isDisabled'],
         );
 
   Map<String, dynamic> toMap() => {
@@ -74,6 +77,7 @@ class RecurringBooking extends Booking {
         dateStart: dateStart,
         dateEnd: dateEnd,
         cabinId: cabinId,
+        isDisabled: isDisabled,
       );
 
   List<Booking> get bookings {

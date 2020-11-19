@@ -1,4 +1,5 @@
 import 'package:cabin_booking/constants.dart';
+import 'package:cabin_booking/l10n/app_localizations.dart';
 import 'package:cabin_booking/model/booking.dart';
 import 'package:cabin_booking/model/cabin.dart';
 import 'package:cabin_booking/model/recurring_booking.dart';
@@ -19,10 +20,10 @@ class BookingCard extends StatelessWidget {
     return TimerBuilder.periodic(
       Duration(minutes: 1),
       builder: (context) {
-        return Card(
+        final Widget _card = Card(
           margin: const EdgeInsets.all(8),
           shadowColor: _isBeforeNow ? Colors.black38 : Colors.black,
-          color: booking is RecurringBooking
+          color: booking is RecurringBooking && !booking.isDisabled
               ? Colors.yellow[100]
               : Colors.transparent,
           child: Container(
@@ -57,6 +58,13 @@ class BookingCard extends StatelessWidget {
             ),
           ),
         );
+
+        return booking.isDisabled
+            ? Tooltip(
+                message: AppLocalizations.of(context).disabled,
+                child: _card,
+              )
+            : _card;
       },
     );
   }
