@@ -24,14 +24,17 @@ class BookingCard extends StatelessWidget {
         final _height = booking.duration.inMinutes * bookingHeightRatio - 16;
 
         return booking.isDisabled
-            ? Tooltip(
-                message:
-                    '${booking.studentName} (${AppLocalizations.of(context).disabled.toLowerCase()})',
-                child: InkWell(
-                  onTap: () {},
-                  mouseCursor: MouseCursor.defer,
-                  borderRadius: BorderRadius.all(Radius.circular(4)),
-                  child: SizedBox(height: _height),
+            ? Container(
+                margin: const EdgeInsets.all(8),
+                child: Tooltip(
+                  message:
+                      '${booking.studentName} (${AppLocalizations.of(context).disabled.toLowerCase()})',
+                  child: InkWell(
+                    onTap: () {},
+                    mouseCursor: MouseCursor.defer,
+                    borderRadius: BorderRadius.all(Radius.circular(4)),
+                    child: SizedBox(height: _height),
+                  ),
                 ),
               )
             : Card(
