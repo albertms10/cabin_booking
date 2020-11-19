@@ -49,6 +49,8 @@ class RecurringBooking extends Booking {
   DateTime get until {
     if (_until != null) return _until;
 
+    assert(_times != null);
+
     DateTime recurringDateTime = dateStart;
 
     for (int i = 0; i < times; i++)
@@ -59,6 +61,8 @@ class RecurringBooking extends Booking {
 
   int get times {
     if (_times != null) return _times;
+
+    assert(_until != null);
 
     int count = 0;
     DateTime recurringDateTime = dateStart;
