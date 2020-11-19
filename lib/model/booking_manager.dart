@@ -38,9 +38,9 @@ class BookingManager with ChangeNotifier {
   void addBooking(Booking booking) {
     booking.id = Uuid().v4();
 
-    bookings.add(booking);
-
-    bookings.sort(_sortBookings);
+    bookings
+      ..add(booking)
+      ..sort(_sortBookings);
 
     notifyListeners();
   }
@@ -48,9 +48,9 @@ class BookingManager with ChangeNotifier {
   void addRecurringBooking(RecurringBooking recurringBooking) {
     recurringBooking.id = Uuid().v4();
 
-    recurringBookings.add(recurringBooking);
-
-    recurringBookings.sort(_sortBookings);
+    recurringBookings
+      ..add(recurringBooking)
+      ..sort(_sortBookings);
 
     notifyListeners();
   }
@@ -78,12 +78,14 @@ class BookingManager with ChangeNotifier {
 
   void removeBookingById(String id) {
     bookings.removeWhere((booking) => booking.id == id);
+
     notifyListeners();
   }
 
   void removeRecurringBookingById(String id) {
     recurringBookings
         .removeWhere((_recurringBooking) => _recurringBooking.id == id);
+
     notifyListeners();
   }
 }
