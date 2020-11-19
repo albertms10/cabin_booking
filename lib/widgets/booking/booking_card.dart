@@ -5,6 +5,7 @@ import 'package:cabin_booking/model/cabin.dart';
 import 'package:cabin_booking/model/recurring_booking.dart';
 import 'package:cabin_booking/widgets/booking/booking_popup_menu.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:timer_builder/timer_builder.dart';
 
 class BookingCard extends StatelessWidget {
@@ -20,51 +21,57 @@ class BookingCard extends StatelessWidget {
     return TimerBuilder.periodic(
       Duration(minutes: 1),
       builder: (context) {
-        final Widget _card = Card(
-          margin: const EdgeInsets.all(8),
-          shadowColor: _isBeforeNow ? Colors.black38 : Colors.black,
-          color: booking is RecurringBooking && !booking.isDisabled
-              ? Colors.yellow[100]
-              : Colors.transparent,
-          child: Container(
-            height: booking.duration.inMinutes * bookingHeightRatio - 16,
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: _isBeforeNow
-                  ? Color.fromARGB(150, 255, 255, 255)
-                  : Colors.white,
-              borderRadius: BorderRadius.all(Radius.circular(4)),
-            ),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: Column(
+        final _height = booking.duration.inMinutes * bookingHeightRatio - 16;
+
+        return booking.isDisabled
+            ? Tooltip(
+                message:
+                    '${booking.studentName} (${AppLocalizations.of(context).disabled.toLowerCase()})',
+                child: InkWell(
+                  onTap: () {},
+                  mouseCursor: MouseCursor.defer,
+                  borderRadius: BorderRadius.all(Radius.circular(4)),
+                  child: SizedBox(height: _height),
+                ),
+              )
+            : Card(
+                margin: const EdgeInsets.all(8),
+                shadowColor: _isBeforeNow ? Colors.black38 : Colors.black,
+                color: booking is RecurringBooking && !booking.isDisabled
+                    ? Colors.yellow[100]
+                    : Colors.transparent,
+                child: Container(
+                  height: _height,
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: _isBeforeNow
+                        ? Color.fromARGB(150, 255, 255, 255)
+                        : Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(4)),
+                  ),
+                  child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(booking.studentName),
-                      Text(
-                        booking.timeRange,
-                        style: TextStyle(color: Colors.black38),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(booking.studentName),
+                            Text(
+                              booking.timeRange,
+                              style: TextStyle(color: Colors.black38),
+                            ),
+                          ],
+                        ),
+                      ),
+                      BookingPopupMenu(
+                        cabin: cabin,
+                        booking: booking,
                       ),
                     ],
                   ),
                 ),
-                BookingPopupMenu(
-                  cabin: cabin,
-                  booking: booking,
-                ),
-              ],
-            ),
-          ),
-        );
-
-        return booking.isDisabled
-            ? Tooltip(
-                message: AppLocalizations.of(context).disabled,
-                child: _card,
-              )
-            : _card;
+              );
       },
     );
   }
