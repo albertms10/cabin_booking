@@ -15,6 +15,8 @@ class AppLocalizations {
       'title': 'Reserva de cabines',
       'cabin': 'Cabina',
       'booking': 'Reserva',
+      'recurringBooking': 'Reserva periòdica',
+      'lockedRange': 'Rang bloquejat',
       'book': 'Reserva',
       'student': 'Estudiant',
       'edit': 'Edita',
@@ -38,8 +40,11 @@ class AppLocalizations {
       'title': 'Cabin Booking',
       'cabin': 'Cabin',
       'booking': 'Booking',
+      'recurringBooking': 'Recurring booking',
+      'lockedRange': 'Locked range',
       'book': 'Book',
       'student': 'Student',
+      'add': 'Add',
       'edit': 'Edit',
       'previousDay': 'Previous day',
       'today': 'Today',
@@ -61,8 +66,11 @@ class AppLocalizations {
       'title': 'Reserva de cabinas',
       'cabin': 'Cabina',
       'booking': 'Reserva',
+      'recurringBooking': 'Reserva periódica',
+      'lockedRange': 'Rango bloqueado',
       'book': 'Reservar',
       'student': 'Estudiante',
+      'add': 'Añadir',
       'edit': 'Editar',
       'previousDay': 'Día anterior',
       'today': 'Hoy',
@@ -133,6 +141,12 @@ class AppLocalizations {
 
   String get description =>
       _localizedValues[locale.languageCode]['description'];
+
+  String get recurringBooking =>
+      _localizedValues[locale.languageCode]['recurringBooking'];
+
+  String get lockedRange =>
+      _localizedValues[locale.languageCode]['lockedRange'];
 }
 
 class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
