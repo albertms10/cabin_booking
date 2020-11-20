@@ -1,4 +1,5 @@
 import 'package:cabin_booking/l10n/app_localizations.dart';
+import 'package:cabin_booking/widgets/booking/booking_floating_action_button.dart';
 import 'package:cabin_booking/widgets/layout/day_navigation.dart';
 import 'package:cabin_booking/widgets/layout/time_table.dart';
 import 'package:flutter/foundation.dart';
@@ -63,6 +64,7 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text(AppLocalizations.of(context).title),
       ),
+      floatingActionButton: BookingFloatingActionButton(),
       body: SafeArea(
         child: Column(
           children: [
