@@ -15,7 +15,10 @@ class BookingFloatingActionButton extends StatelessWidget {
     return Consumer2<DayHandler, CabinManager>(
         builder: (context, dayHandler, cabinManager, child) {
       return FloatingActionButtonMenu(
+        marginBottom: 24,
+        marginRight: 24,
         animatedIcon: AnimatedIcons.add_event,
+        animatedIconTheme: IconThemeData(size: 28),
         label: AppLocalizations.of(context).booking,
         onPress: () async {
           final _booking = await showDialog<Booking>(
