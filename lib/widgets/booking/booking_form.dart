@@ -81,7 +81,9 @@ class _BookingFormState extends State<BookingForm> {
               _booking.studentName = value;
             },
             decoration: InputDecoration(
-              labelText: AppLocalizations.of(context).student,
+              labelText: _booking.isDisabled
+                  ? AppLocalizations.of(context).description
+                  : AppLocalizations.of(context).student,
               border: const OutlineInputBorder(),
             ),
           ),
@@ -187,6 +189,23 @@ class _BookingFormState extends State<BookingForm> {
                     border: const OutlineInputBorder(),
                   ),
                 ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 32),
+          ExpansionTile(
+            title: Text(MaterialLocalizations.of(context).moreButtonTooltip),
+            maintainState: true,
+            children: [
+              CheckboxListTile(
+                value: _booking.isDisabled,
+                onChanged: (value) {
+                  setState(() {
+                    _booking.isDisabled = value;
+                  });
+                },
+                title: Text(AppLocalizations.of(context).disabled),
+                controlAffinity: ListTileControlAffinity.leading,
               ),
             ],
           ),
