@@ -39,7 +39,7 @@ class FloatingActionButtonMenu extends StatefulWidget {
   /// The theme for the animated icon.
   final IconThemeData animatedIconTheme;
 
-  /// The child of the main button, ignored if [animatedIcon] is non [null].
+  /// The child of the main button, ignored if [animatedIcon] is non-[null].
   final Widget child;
 
   /// Executed when the dial is opened.
@@ -51,7 +51,7 @@ class FloatingActionButtonMenu extends StatefulWidget {
   /// Executed when the dial is pressed. If given, the dial only opens on long press!
   final VoidCallback onPress;
 
-  /// If true user is forced to close dial manually by tapping main button. WARNING: If true, overlay is not rendered.
+  /// If `true` [overlay] is not rendered and user is forced to close dial manually by tapping main button.
   final bool closeManually;
 
   /// The speed of the animation
@@ -63,7 +63,7 @@ class FloatingActionButtonMenu extends StatefulWidget {
     this.backgroundColor,
     this.foregroundColor,
     this.elevation = 6.0,
-    this.overlayOpacity = 0.8,
+    this.overlayOpacity = 0.9,
     this.overlayColor = Colors.white,
     this.tooltip,
     this.label,
@@ -133,17 +133,17 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
   }
 
   void _toggleChildren() {
-    bool newValue = !_open;
+    bool newOpenValue = !_open;
 
     setState(() {
-      _open = newValue;
+      _open = newOpenValue;
     });
 
-    if (newValue && widget.onOpen != null) widget.onOpen();
+    if (newOpenValue && widget.onOpen != null) widget.onOpen();
 
     _performAnimation();
 
-    if (!newValue && widget.onClose != null) widget.onClose();
+    if (!newOpenValue && widget.onClose != null) widget.onClose();
   }
 
   List<Widget> _getChildrenList() {
@@ -151,10 +151,12 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
         .map((FloatingActionButtonMenuChild child) {
           int index = widget.children.indexOf(child);
 
-          Animation<double> childAnimation =
-              Tween(begin: 0.0, end: 62.0).animate(
+          Animation<double> childAnimation = Tween(
+            begin: 0.0,
+            end: 62.0,
+          ).animate(
             CurvedAnimation(
-              parent: this._controller,
+              parent: _controller,
               curve: widget.curve,
             ),
           );
@@ -187,11 +189,19 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
   }
 
   Widget _renderOverlay() {
+    print(_controller.isCompleted);
+
     return Positioned(
       right: -16.0,
       bottom: -16.0,
-      top: _open ? 0.0 : null,
-      left: _open ? 0.0 : null,
+      top: _controller.status == AnimationStatus.forward ||
+              !_controller.isCompleted
+          ? 0.0
+          : null,
+      left: _controller.status == AnimationStatus.forward ||
+              !_controller.isCompleted
+          ? 0.0
+          : null,
       child: GestureDetector(
         onTap: _toggleChildren,
         child: BackgroundOverlay(
@@ -257,16 +267,14 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
 
   @override
   Widget build(BuildContext context) {
-    final children = [
-      if (!widget.closeManually) _renderOverlay(),
-      _renderButton(),
-    ];
-
     return Stack(
       alignment: Alignment.bottomRight,
       fit: StackFit.expand,
       clipBehavior: Clip.none,
-      children: children,
+      children: [
+        if (!widget.closeManually) _renderOverlay(),
+        _renderButton(),
+      ],
     );
   }
 }

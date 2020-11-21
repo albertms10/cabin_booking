@@ -8,7 +8,7 @@ class BackgroundOverlay extends AnimatedWidget {
     Key key,
     Animation<double> animation,
     this.color = Colors.white,
-    this.opacity = 0.8,
+    this.opacity = 0.9,
   }) : super(key: key, listenable: animation);
 
   Widget build(BuildContext context) {
