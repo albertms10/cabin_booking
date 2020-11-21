@@ -12,7 +12,7 @@ class RecurringBooking extends Booking {
     timeStart,
     timeEnd,
     cabinId,
-    isDisabled,
+    isDisabled = false,
     this.periodicity = const Duration(days: 7),
     until,
     times,
@@ -72,13 +72,14 @@ class RecurringBooking extends Booking {
   }
 
   Booking get booking => Booking(
-        id: id,
+        id: '$id-0',
         studentName: studentName,
         date: date,
         timeStart: timeStart,
         timeEnd: timeEnd,
-        cabinId: cabinId,
         isDisabled: isDisabled,
+        cabinId: cabinId,
+        recurringBookingId: id,
       );
 
   List<Booking> get bookings {
@@ -86,18 +87,40 @@ class RecurringBooking extends Booking {
 
     DateTime recurringDateTime = dateStart;
     Booking movedBooking = booking;
+    int count = 0;
 
     while (recurringDateTime.isBefore(until)) {
+      _bookings.add(
+        movedBooking
+          ..id = '$id-$count'
+          ..recurringBookingId = id,
+      );
+
       recurringDateTime = recurringDateTime.add(periodicity);
-      movedBooking = movedBooking.movedTo(recurringDateTime);
-      _bookings.add(movedBooking);
+
+      if (recurringDateTime.isBefore(until)) {
+        movedBooking = movedBooking.movedTo(recurringDateTime);
+        count++;
+      }
     }
 
     return _bookings;
   }
 
-  bool hasBookingOn(DateTime dateTime) =>
-      bookings.contains((booking) => booking.isOn(dateTime));
+  Booking bookingOn(DateTime dateTime) => bookings.firstWhere(
+        (booking) => booking.isOn(dateTime),
+        orElse: () => null,
+      );
+
+  bool hasBookingOn(DateTime dateTime) => bookingOn(dateTime) != null;
+
+  void replaceRecurringWith(RecurringBooking recurringBooking) {
+    periodicity = recurringBooking.periodicity;
+    _until = recurringBooking.until;
+    _times = recurringBooking.times;
+
+    super.replaceWith(recurringBooking);
+  }
 
   @override
   String toString() => '$times × ' + super.toString();
