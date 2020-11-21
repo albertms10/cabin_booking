@@ -189,8 +189,6 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
   }
 
   Widget _renderOverlay() {
-    print(_controller.isCompleted);
-
     return Positioned(
       right: -16.0,
       bottom: -16.0,
