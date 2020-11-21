@@ -67,7 +67,6 @@ class BookingsStack extends StatelessWidget {
               cabin: cabin,
               dateStart: currentBookingDate,
               dateEnd: nextBookingDate,
-              duration: duration,
             ),
           );
 
@@ -85,7 +84,6 @@ class BookingsStack extends StatelessWidget {
             cabin: cabin,
             dateStart: currentBookingDate,
             dateEnd: nextBookingDate,
-            duration: restDuration,
           ),
         );
 

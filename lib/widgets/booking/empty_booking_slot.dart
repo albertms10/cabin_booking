@@ -10,18 +10,18 @@ class EmptyBookingSlot extends StatelessWidget {
   final Cabin cabin;
   final DateTime dateStart;
   final DateTime dateEnd;
-  final Duration duration;
 
   EmptyBookingSlot({
     @required this.cabin,
     @required this.dateStart,
     @required this.dateEnd,
-    this.duration = maxSlotDuration,
   });
 
   @override
   Widget build(BuildContext context) {
     final cabinManager = Provider.of<CabinManager>(context);
+
+    final duration = dateEnd.difference(dateStart);
 
     return SizedBox(
       width: double.infinity,
