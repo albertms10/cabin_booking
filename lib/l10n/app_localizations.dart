@@ -19,6 +19,7 @@ class AppLocalizations {
       'lockedRange': 'Rang bloquejat',
       'book': 'Reserva',
       'student': 'Estudiant',
+      'add': 'Afegeix',
       'edit': 'Edita',
       'previousDay': 'Dia anterior',
       'today': 'Avui',
@@ -102,6 +103,8 @@ class AppLocalizations {
   String get book => _localizedValues[locale.languageCode]['book'];
 
   String get student => _localizedValues[locale.languageCode]['student'];
+
+  String get add => _localizedValues[locale.languageCode]['add'];
 
   String get edit => _localizedValues[locale.languageCode]['edit'];
 
