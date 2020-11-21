@@ -29,6 +29,7 @@ class AppLocalizations {
       'enterStartTime': 'Introdueix l’hora d’inici',
       'enterEndTime': 'Introdueix l’hora d’acabament',
       'enterValidRange': 'Introdueix un rang vàlid',
+      'occupied': 'Espai ocupat',
       'deleteBookingTitle': 'Confirmes que vols suprimir la reserva?',
       'actionUndone': 'Aquesta acció no es pot desfer.',
       'dataCouldNotBeLoaded': 'Les dades no s’han pogut carregar.',
@@ -55,6 +56,7 @@ class AppLocalizations {
       'enterStartTime': 'Enter start time',
       'enterEndTime': 'Enter end time',
       'enterValidRange': 'Enter a valid range',
+      'occupied': 'Occupied',
       'deleteBookingTitle': 'Are you sure you want to delete the booking?',
       'actionUndone': 'You can’t undo this action.',
       'dataCouldNotBeLoaded': 'Data could not be loaded.',
@@ -81,6 +83,7 @@ class AppLocalizations {
       'enterStartTime': 'Introduzca la hora de inicio',
       'enterEndTime': 'Introduzca la hora de finalización',
       'enterValidRange': 'Introduzca un rangp válido',
+      'occupied': 'Espacio ocupado',
       'deleteBookingTitle': '¿Seguro que desea suprimir la reserva?',
       'actionUndone': 'Esta acción no se puede deshacer.',
       'dataCouldNotBeLoaded': 'Los datos no se han podido cargar.',
@@ -124,6 +127,8 @@ class AppLocalizations {
 
   String get enterValidRange =>
       _localizedValues[locale.languageCode]['enterValidRange'];
+
+  String get occupied => _localizedValues[locale.languageCode]['occupied'];
 
   String get deleteBookingTitle =>
       _localizedValues[locale.languageCode]['deleteBookingTitle'];

@@ -94,102 +94,120 @@ class _BookingFormState extends State<BookingForm> {
             children: [
               Expanded(
                 flex: 10,
-                child: TextFormField(
-                  controller: _startTimeController,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  validator: (value) {
-                    final _parsedDateTime =
-                        tryParseDateTimeWithFormattedTimeOfDay(
-                      dateTime: widget.booking.dateStart,
-                      formattedTimeOfDay: value,
-                    );
+                child: Consumer<CabinManager>(
+                  builder: (context, cabinManager, child) {
+                    return TextFormField(
+                      controller: _startTimeController,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      validator: (value) {
+                        final _parsedDateTime =
+                            tryParseDateTimeWithFormattedTimeOfDay(
+                          dateTime: widget.booking.dateStart,
+                          formattedTimeOfDay: value,
+                        );
 
-                    if (value.isEmpty || _parsedDateTime == null)
-                      return AppLocalizations.of(context).enterStartTime;
+                        if (value.isEmpty || _parsedDateTime == null)
+                          return AppLocalizations.of(context).enterStartTime;
 
-                    if (_parsedDateTime.compareTo(
+                        if (_parsedDateTime.isAfter(
                           tryParseDateTimeWithFormattedTimeOfDay(
                             dateTime: widget.booking.dateStart,
                             formattedTimeOfDay: _endTime.format(context),
                           ),
-                        ) >
-                        0) return AppLocalizations.of(context).enterValidRange;
+                        )) return AppLocalizations.of(context).enterValidRange;
 
-                    return null;
-                  },
-                  onTap: () async {
-                    final _time = await showTimePicker(
-                      context: context,
-                      initialTime: _startTime,
-                    );
+                        if (cabinManager
+                            .getFromId(_booking.cabinId)
+                            .comprisesStart(_parsedDateTime))
+                          return AppLocalizations.of(context).occupied;
 
-                    if (_time != null)
-                      setState(() {
-                        _startTime = _time;
-                        _startTimeController.text = _time.format(context);
-                      });
-                  },
-                  onSaved: (value) {
-                    _booking.dateStart = tryParseDateTimeWithFormattedTimeOfDay(
-                      dateTime: widget.booking.dateStart,
-                      formattedTimeOfDay: value,
+                        return null;
+                      },
+                      onTap: () async {
+                        final _time = await showTimePicker(
+                          context: context,
+                          initialTime: _startTime,
+                        );
+
+                        if (_time != null)
+                          setState(() {
+                            _startTime = _time;
+                            _startTimeController.text = _time.format(context);
+                          });
+                      },
+                      onSaved: (value) {
+                        _booking.dateStart =
+                            tryParseDateTimeWithFormattedTimeOfDay(
+                          dateTime: widget.booking.dateStart,
+                          formattedTimeOfDay: value,
+                        );
+                      },
+                      decoration: InputDecoration(
+                        labelText: AppLocalizations.of(context).start,
+                        border: const OutlineInputBorder(),
+                        icon: const Icon(Icons.schedule),
+                      ),
                     );
                   },
-                  decoration: InputDecoration(
-                    labelText: AppLocalizations.of(context).start,
-                    border: const OutlineInputBorder(),
-                    icon: const Icon(Icons.schedule),
-                  ),
                 ),
               ),
               const SizedBox(width: 16),
               Expanded(
                 flex: 8,
-                child: TextFormField(
-                  controller: _endTimeController,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  validator: (value) {
-                    final _parsedDateTime =
-                        tryParseDateTimeWithFormattedTimeOfDay(
-                      dateTime: widget.booking.dateStart,
-                      formattedTimeOfDay: value,
-                    );
+                child: Consumer<CabinManager>(
+                  builder: (context, cabinManager, child) {
+                    return TextFormField(
+                      controller: _endTimeController,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      validator: (value) {
+                        final _parsedDateTime =
+                            tryParseDateTimeWithFormattedTimeOfDay(
+                          dateTime: widget.booking.dateEnd,
+                          formattedTimeOfDay: value,
+                        );
 
-                    if (value.isEmpty || _parsedDateTime == null)
-                      return AppLocalizations.of(context).enterEndTime;
+                        if (value.isEmpty || _parsedDateTime == null)
+                          return AppLocalizations.of(context).enterEndTime;
 
-                    if (_parsedDateTime.compareTo(
+                        if (_parsedDateTime.isBefore(
                           tryParseDateTimeWithFormattedTimeOfDay(
-                            dateTime: widget.booking.dateStart,
+                            dateTime: widget.booking.dateEnd,
                             formattedTimeOfDay: _startTime.format(context),
                           ),
-                        ) <
-                        0) return AppLocalizations.of(context).enterValidRange;
+                        )) return AppLocalizations.of(context).enterValidRange;
 
-                    return null;
-                  },
-                  onTap: () async {
-                    final _time = await showTimePicker(
-                      context: context,
-                      initialTime: _endTime,
-                    );
+                        if (cabinManager
+                            .getFromId(_booking.cabinId)
+                            .comprisesEnd(_parsedDateTime))
+                          return AppLocalizations.of(context).occupied;
 
-                    if (_time != null)
-                      setState(() {
-                        _endTime = _time;
-                        _endTimeController.text = _time.format(context);
-                      });
-                  },
-                  onSaved: (value) {
-                    _booking.dateEnd = tryParseDateTimeWithFormattedTimeOfDay(
-                      dateTime: widget.booking.dateEnd,
-                      formattedTimeOfDay: value,
+                        return null;
+                      },
+                      onTap: () async {
+                        final _time = await showTimePicker(
+                          context: context,
+                          initialTime: _endTime,
+                        );
+
+                        if (_time != null)
+                          setState(() {
+                            _endTime = _time;
+                            _endTimeController.text = _time.format(context);
+                          });
+                      },
+                      onSaved: (value) {
+                        _booking.dateEnd =
+                            tryParseDateTimeWithFormattedTimeOfDay(
+                          dateTime: widget.booking.dateEnd,
+                          formattedTimeOfDay: value,
+                        );
+                      },
+                      decoration: InputDecoration(
+                        labelText: AppLocalizations.of(context).end,
+                        border: const OutlineInputBorder(),
+                      ),
                     );
                   },
-                  decoration: InputDecoration(
-                    labelText: AppLocalizations.of(context).end,
-                    border: const OutlineInputBorder(),
-                  ),
                 ),
               ),
             ],
