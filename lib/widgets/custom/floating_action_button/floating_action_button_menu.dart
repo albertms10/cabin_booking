@@ -92,6 +92,7 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
   AnimationController _controller;
 
   bool _open = false;
+  bool _animationCompleted = true;
 
   @override
   void initState() {
@@ -158,7 +159,12 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
             CurvedAnimation(
               parent: _controller,
               curve: widget.curve,
-            ),
+            )..addStatusListener((AnimationStatus status) {
+                setState(() {
+                  _animationCompleted = status == AnimationStatus.completed ||
+                      status == AnimationStatus.dismissed;
+                });
+              }),
           );
 
           return AnimatedChild(
@@ -192,14 +198,8 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
     return Positioned(
       right: -16.0,
       bottom: -16.0,
-      top: _controller.status == AnimationStatus.forward ||
-              !_controller.isCompleted
-          ? 0.0
-          : null,
-      left: _controller.status == AnimationStatus.forward ||
-              !_controller.isCompleted
-          ? 0.0
-          : null,
+      top: _open || !_animationCompleted ? 0.0 : null,
+      left: _open || !_animationCompleted ? 0.0 : null,
       child: GestureDetector(
         onTap: _toggleChildren,
         child: BackgroundOverlay(
