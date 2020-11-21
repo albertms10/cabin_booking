@@ -57,6 +57,8 @@ class FloatingActionButtonMenu extends StatefulWidget {
   /// The speed of the animation
   final int animationSpeed;
 
+  final tween = Tween<double>(begin: 0.0, end: 62.0);
+
   FloatingActionButtonMenu({
     this.children = const [],
     this.visible = true,
@@ -105,7 +107,7 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
       vsync: this,
     );
 
-    _childAnimation = Tween(begin: 0.0, end: 62.0).animate(
+    _childAnimation = widget.tween.animate(
       CurvedAnimation(
         parent: _controller,
         curve: widget.curve,
@@ -167,6 +169,7 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
           int index = widget.children.indexOf(child);
 
           return AnimatedChild(
+            tween: widget.tween,
             animation: _childAnimation,
             index: index,
             visible: _open,
@@ -224,6 +227,7 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
 
     Widget animatedFloatingButton = AnimatedFloatingButton(
       visible: widget.visible,
+      tween: widget.tween,
       animation: _childAnimation,
       tooltip: widget.tooltip,
       label: widget.label,

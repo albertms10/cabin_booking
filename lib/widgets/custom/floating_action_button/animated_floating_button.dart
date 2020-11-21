@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 class AnimatedFloatingButton extends StatelessWidget {
   final bool visible;
+  final Tween<double> tween;
   final Animation<double> animation;
   final VoidCallback callback;
   final VoidCallback onLongPress;
@@ -19,6 +20,7 @@ class AnimatedFloatingButton extends StatelessWidget {
 
   AnimatedFloatingButton({
     this.visible = true,
+    this.tween,
     this.animation,
     this.callback,
     this.child,
@@ -47,6 +49,7 @@ class AnimatedFloatingButton extends StatelessWidget {
             children: [
               if (isOpen)
                 AnimatedFloatingButtonLabel(
+                  tween: tween,
                   label: label,
                   animation: animation,
                 ),

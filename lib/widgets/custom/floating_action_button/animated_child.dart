@@ -7,6 +7,7 @@ class AnimatedChild extends AnimatedWidget {
   final Color foregroundColor;
   final double elevation;
   final IconData icon;
+  final Tween<double> tween;
 
   final String label;
   final TextStyle labelStyle;
@@ -22,6 +23,7 @@ class AnimatedChild extends AnimatedWidget {
   AnimatedChild({
     Key key,
     Animation<double> animation,
+    this.tween,
     this.index,
     this.backgroundColor,
     this.foregroundColor,
@@ -60,17 +62,18 @@ class AnimatedChild extends AnimatedWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           AnimatedFloatingButtonLabel(
+            tween: tween,
             label: label,
             animation: animation,
           ),
           Container(
-            width: 62.0,
+            width: tween.end,
             height: animation.value,
-            padding: EdgeInsets.only(bottom: 62.0 - animation.value),
+            padding: EdgeInsets.only(bottom: tween.end - animation.value),
             child: Container(
-              height: 62.0,
+              height: tween.end,
               width: animation.value,
-              padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+              padding: const EdgeInsets.symmetric(vertical: 10.0),
               child: FloatingActionButton(
                 heroTag: heroTag,
                 onPressed: _performAction,
