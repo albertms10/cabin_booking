@@ -2,7 +2,6 @@ import 'package:cabin_booking/constants.dart';
 import 'package:cabin_booking/l10n/app_localizations.dart';
 import 'package:cabin_booking/model/booking.dart';
 import 'package:cabin_booking/model/cabin.dart';
-import 'package:cabin_booking/model/recurring_booking.dart';
 import 'package:cabin_booking/widgets/booking/booking_popup_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -29,8 +28,9 @@ class BookingCard extends StatelessWidget {
                 mouseCursor: MouseCursor.defer,
                 borderRadius:
                     const BorderRadius.all(const Radius.circular(4.0)),
-                child: SizedBox(
+                child: Container(
                   height: _height,
+                  padding: const EdgeInsets.all(8.0),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -53,16 +53,16 @@ class BookingCard extends StatelessWidget {
               return Card(
                 margin: const EdgeInsets.all(8.0),
                 shadowColor: _isBeforeNow ? Colors.black38 : Colors.black,
-                color: booking is RecurringBooking && !booking.isDisabled
-                    ? Colors.yellow[100]
-                    : Colors.transparent,
+                color: Colors.transparent,
                 child: Container(
                   height: _height,
                   padding: const EdgeInsets.all(8.0),
                   decoration: BoxDecoration(
-                    color: _isBeforeNow
-                        ? Color.fromARGB(150, 255, 255, 255)
-                        : Colors.white,
+                    color: booking.recurringBookingId != null
+                        ? Colors.blue[50]
+                        : _isBeforeNow
+                            ? Color.fromARGB(150, 255, 255, 255)
+                            : Colors.white,
                     borderRadius:
                         const BorderRadius.all(const Radius.circular(4.0)),
                   ),

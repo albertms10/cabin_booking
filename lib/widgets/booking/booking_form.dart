@@ -260,7 +260,7 @@ class _BookingFormState extends State<BookingForm> {
                 margin: const EdgeInsets.symmetric(vertical: 12),
                 child: Text(
                   widget.booking.studentName == null
-                      ? AppLocalizations.of(context).book.toUpperCase()
+                      ? AppLocalizations.of(context).add.toUpperCase()
                       : MaterialLocalizations.of(context)
                           .saveButtonLabel
                           .toUpperCase(),

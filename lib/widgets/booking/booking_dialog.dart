@@ -21,7 +21,13 @@ class BookingDialog extends StatelessWidget {
           splashRadius: 24.0,
         ),
         const SizedBox(width: 8.0),
-        Text(AppLocalizations.of(context).booking)
+        Text(
+          booking.isDisabled
+              ? AppLocalizations.of(context).lockedRange
+              : booking.recurringBookingId != null
+                  ? AppLocalizations.of(context).recurringBooking
+                  : AppLocalizations.of(context).booking,
+        )
       ]),
       contentPadding:
           const EdgeInsets.only(left: 24.0, right: 24.0, bottom: 24.0),
