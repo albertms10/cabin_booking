@@ -56,22 +56,27 @@ class BookingsStack extends StatelessWidget {
         int runningDurationMinutes = durationMinutes;
 
         while (runningDurationMinutes > maxSlotDuration.inMinutes) {
-          nextBookingDate = currentBookingDate.add(maxSlotDuration);
+          final timeOfDay = TimeOfDay.fromDateTime(currentBookingDate);
+
+          final duration = Duration(minutes: 60 - timeOfDay.minute);
+
+          nextBookingDate = currentBookingDate.add(duration);
 
           runningSlotList.add(
             EmptyBookingSlot(
               cabin: cabin,
               dateStart: currentBookingDate,
               dateEnd: nextBookingDate,
+              duration: duration,
             ),
           );
 
-          currentBookingDate = currentBookingDate.add(maxSlotDuration);
+          currentBookingDate = nextBookingDate;
 
-          runningDurationMinutes -= maxSlotDuration.inMinutes;
+          runningDurationMinutes -= duration.inMinutes;
         }
 
-        final Duration restDuration = Duration(minutes: runningDurationMinutes);
+        final restDuration = Duration(minutes: runningDurationMinutes);
 
         nextBookingDate = currentBookingDate.add(restDuration);
 
