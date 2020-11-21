@@ -45,6 +45,16 @@ class Booking {
       dateStart.month == dateTime.month &&
       dateStart.day == dateTime.day;
 
+  bool comprises(
+    DateTime dateTime, {
+    bool atSameMomentStart = false,
+    bool atSameMomentEnd = false,
+  }) =>
+      (dateStart.isBefore(dateTime) ||
+          (atSameMomentStart && dateStart.isAtSameMomentAs(dateTime))) &&
+      (dateEnd.isAfter(dateTime) ||
+          (atSameMomentEnd && dateEnd.isAtSameMomentAs(dateTime)));
+
   Booking movedTo(DateTime dateTime) => Booking(
         id: id,
         studentName: studentName,

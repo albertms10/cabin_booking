@@ -32,8 +32,32 @@ class BookingManager with ChangeNotifier {
   List<Booking> bookingsOn(DateTime dateTime) => [
         ...bookings.where((booking) => booking.isOn(dateTime)),
         ...recurringBookings.where(
-            (recurringBooking) => recurringBooking.hasBookingOn(dateTime))
+          (recurringBooking) => recurringBooking.hasBookingOn(dateTime),
+        )
       ]..sort(_sortBookings);
+
+  bool comprisesStart(DateTime startDate) =>
+      bookingsOn(startDate).firstWhere(
+        (_booking) => _booking.comprises(startDate, atSameMomentStart: true),
+        orElse: () => null,
+      ) !=
+      null;
+
+  bool comprisesEnd(DateTime endDate) =>
+      bookingsOn(endDate).firstWhere(
+        (_booking) => _booking.comprises(endDate, atSameMomentEnd: true),
+        orElse: () => null,
+      ) !=
+      null;
+
+  bool hasAvailableSpaceFor(Booking booking) =>
+      bookingsOn(booking.dateStart).firstWhere(
+        (_booking) =>
+            _booking.comprises(booking.dateStart, atSameMomentStart: true) ||
+            _booking.comprises(booking.dateEnd, atSameMomentEnd: true),
+        orElse: () => null,
+      ) ==
+      null;
 
   void addBooking(Booking booking) {
     booking.id = Uuid().v4();
@@ -68,7 +92,8 @@ class BookingManager with ChangeNotifier {
   void modifyRecurringBooking(RecurringBooking recurringBooking) {
     recurringBookings
         .firstWhere(
-            (_recurringBooking) => recurringBooking.id == _recurringBooking.id)
+          (_recurringBooking) => recurringBooking.id == _recurringBooking.id,
+        )
         .replaceWith(recurringBooking);
 
     recurringBookings.sort(_sortBookings);
