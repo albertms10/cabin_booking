@@ -43,14 +43,8 @@ class Cabin {
 
   List<Booking> get bookings => _bookingManager.bookings;
 
-  bool comprisesStart(DateTime dateTime) =>
-      _bookingManager.comprisesStart(dateTime);
-
-  bool comprisesEnd(DateTime dateTime) =>
-      _bookingManager.comprisesEnd(dateTime);
-
-  bool hasAvailableSpaceFor(Booking booking) =>
-      _bookingManager.hasAvailableSpaceFor(booking);
+  bool bookingsCollideWith(Booking booking) =>
+      _bookingManager.bookingsCollideWith(booking);
 
   void addBooking(Booking booking) => _bookingManager.addBooking(booking);
 

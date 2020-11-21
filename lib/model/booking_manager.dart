@@ -36,27 +36,13 @@ class BookingManager with ChangeNotifier {
         )
       ]..sort(_sortBookings);
 
-  bool comprisesStart(DateTime startDate) =>
-      bookingsOn(startDate).firstWhere(
-        (_booking) => _booking.comprises(startDate, atSameMomentStart: true),
-        orElse: () => null,
-      ) !=
-      null;
-
-  bool comprisesEnd(DateTime endDate) =>
-      bookingsOn(endDate).firstWhere(
-        (_booking) => _booking.comprises(endDate, atSameMomentEnd: true),
-        orElse: () => null,
-      ) !=
-      null;
-
-  bool hasAvailableSpaceFor(Booking booking) =>
-      bookingsOn(booking.dateStart).firstWhere(
-        (_booking) =>
-            _booking.comprises(booking.dateStart, atSameMomentStart: true) ||
-            _booking.comprises(booking.dateEnd, atSameMomentEnd: true),
-        orElse: () => null,
-      ) ==
+  bool bookingsCollideWith(Booking booking) =>
+      bookingsOn(booking.dateEnd)
+          .where((_booking) => _booking.id != booking.id)
+          .firstWhere(
+            (_booking) => _booking.collidesWith(booking),
+            orElse: () => null,
+          ) !=
       null;
 
   void addBooking(Booking booking) {
