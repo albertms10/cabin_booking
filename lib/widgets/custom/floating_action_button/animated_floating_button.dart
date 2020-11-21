@@ -1,7 +1,9 @@
+import 'package:cabin_booking/widgets/custom/floating_action_button/animated_floating_button_label.dart';
 import 'package:flutter/material.dart';
 
 class AnimatedFloatingButton extends StatelessWidget {
   final bool visible;
+  final Animation<double> animation;
   final VoidCallback callback;
   final VoidCallback onLongPress;
   final Widget child;
@@ -17,6 +19,7 @@ class AnimatedFloatingButton extends StatelessWidget {
 
   AnimatedFloatingButton({
     this.visible = true,
+    this.animation,
     this.callback,
     this.child,
     this.backgroundColor,
@@ -43,16 +46,9 @@ class AnimatedFloatingButton extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               if (isOpen)
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 5.0,
-                    horizontal: 8.0,
-                  ),
-                  margin: const EdgeInsets.only(right: 18.0),
-                  child: Text(
-                    label,
-                    style: Theme.of(context).textTheme.subtitle2,
-                  ),
+                AnimatedFloatingButtonLabel(
+                  label: label,
+                  animation: animation,
                 ),
               GestureDetector(
                 onLongPress: onLongPress,

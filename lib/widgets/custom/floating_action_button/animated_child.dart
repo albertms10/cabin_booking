@@ -1,3 +1,4 @@
+import 'package:cabin_booking/widgets/custom/floating_action_button/animated_floating_button_label.dart';
 import 'package:flutter/material.dart';
 
 class AnimatedChild extends AnimatedWidget {
@@ -37,28 +38,6 @@ class AnimatedChild extends AnimatedWidget {
     this.heroTag,
   }) : super(key: key, listenable: animation);
 
-  Widget _buildLabel(BuildContext context) {
-    final Animation<double> animation = listenable;
-
-    if (!((label != null || labelWidget != null) &&
-        visible &&
-        animation.value > 62.0 / 2)) return Container();
-
-    if (labelWidget != null) return labelWidget;
-
-    return GestureDetector(
-      onTap: _performAction,
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 8.0),
-        margin: const EdgeInsets.only(right: 18.0),
-        child: Text(
-          label,
-          style: labelStyle ?? Theme.of(context).textTheme.subtitle2,
-        ),
-      ),
-    );
-  }
-
   void _performAction() {
     if (onTap != null) onTap();
 
@@ -80,7 +59,10 @@ class AnimatedChild extends AnimatedWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          _buildLabel(context),
+          AnimatedFloatingButtonLabel(
+            label: label,
+            animation: animation,
+          ),
           Container(
             width: 62.0,
             height: animation.value,

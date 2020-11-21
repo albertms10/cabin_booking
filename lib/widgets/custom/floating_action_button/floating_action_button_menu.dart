@@ -167,7 +167,7 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
           int index = widget.children.indexOf(child);
 
           return AnimatedChild(
-            animation: childAnimation,
+            animation: _childAnimation,
             index: index,
             visible: _open,
             backgroundColor: child.backgroundColor ?? Colors.white,
@@ -224,6 +224,7 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
 
     Widget animatedFloatingButton = AnimatedFloatingButton(
       visible: widget.visible,
+      animation: _childAnimation,
       tooltip: widget.tooltip,
       label: widget.label,
       backgroundColor: widget.backgroundColor,
