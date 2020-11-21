@@ -44,8 +44,9 @@ class EmptyBookingSlot extends StatelessWidget {
                       context: context,
                       builder: (context) => BookingDialog(
                         Booking(
-                          dateStart: dateStart,
-                          dateEnd: dateEnd,
+                          date: dateStart,
+                          timeStart: TimeOfDay.fromDateTime(dateStart),
+                          timeEnd: TimeOfDay.fromDateTime(dateEnd),
                           cabinId: cabin.id,
                         ),
                       ),

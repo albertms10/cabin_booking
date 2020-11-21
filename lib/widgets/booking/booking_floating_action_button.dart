@@ -3,7 +3,6 @@ import 'package:cabin_booking/l10n/app_localizations.dart';
 import 'package:cabin_booking/model/booking.dart';
 import 'package:cabin_booking/model/cabin_manager.dart';
 import 'package:cabin_booking/model/day_handler.dart';
-import 'package:cabin_booking/utils/time_of_day.dart';
 import 'package:cabin_booking/widgets/booking/booking_dialog.dart';
 import 'package:cabin_booking/widgets/custom/floating_action_button/floating_action_button_menu.dart';
 import 'package:flutter/material.dart';
@@ -23,16 +22,11 @@ class BookingFloatingActionButton extends StatelessWidget {
               context: context,
               builder: (context) => BookingDialog(
                 Booking(
-                  dateStart: tryParseDateTimeWithFormattedTimeOfDay(
-                    dateTime: dayHandler.dateTime,
-                    formattedTimeOfDay: timeTableStartTime.format(context),
-                  ),
-                  dateEnd: tryParseDateTimeWithFormattedTimeOfDay(
-                    dateTime: dayHandler.dateTime,
-                    formattedTimeOfDay: TimeOfDay(
-                      hour: timeTableStartTime.hour + 1,
-                      minute: timeTableStartTime.minute,
-                    ).format(context),
+                  date: dayHandler.dateTime,
+                  timeStart: timeTableStartTime,
+                  timeEnd: TimeOfDay(
+                    hour: timeTableStartTime.hour + 1,
+                    minute: timeTableStartTime.minute,
                   ),
                   cabinId: cabinManager.cabins.first.id,
                 ),

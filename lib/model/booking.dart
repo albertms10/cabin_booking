@@ -1,19 +1,22 @@
 import 'package:cabin_booking/utils/time_of_day.dart';
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class Booking {
   String id;
   String studentName;
-  DateTime dateStart;
-  DateTime dateEnd;
+  DateTime date;
+  TimeOfDay timeStart;
+  TimeOfDay timeEnd;
   String cabinId;
   bool isDisabled;
 
   Booking({
     this.id,
     this.studentName,
-    this.dateStart,
-    this.dateEnd,
+    this.date,
+    this.timeStart,
+    this.timeEnd,
     this.cabinId,
     this.isDisabled = false,
   });
@@ -21,17 +24,29 @@ class Booking {
   Booking.from(Map<String, dynamic> other)
       : id = other['id'],
         studentName = other['studentName'],
-        dateStart = DateTime.tryParse(other['dateStart']),
-        dateEnd = DateTime.tryParse(other['dateEnd']),
+        date = DateTime.tryParse(other['date']),
+        timeStart = tryParseTimeOfDay(other['timeStart']),
+        timeEnd = tryParseTimeOfDay(other['timeEnd']),
         isDisabled = other['isDisabled'];
 
   Map<String, dynamic> toMap() => {
         'id': id,
         'studentName': studentName,
-        'dateStart': dateStart.toIso8601String(),
-        'dateEnd': dateEnd.toIso8601String(),
+        'date': date.toIso8601String().split('T')[0],
+        'timeStart': formatTimeOfDay(timeStart),
+        'timeEnd': formatTimeOfDay(timeEnd),
         'isDisabled': isDisabled,
       };
+
+  DateTime get dateStart => tryParseDateTimeWithFormattedTimeOfDay(
+        dateTime: date,
+        formattedTimeOfDay: formatTimeOfDay(timeStart),
+      );
+
+  DateTime get dateEnd => tryParseDateTimeWithFormattedTimeOfDay(
+        dateTime: date,
+        formattedTimeOfDay: formatTimeOfDay(timeEnd),
+      );
 
   Duration get duration => dateEnd.difference(dateStart);
 
@@ -51,22 +66,18 @@ class Booking {
   Booking movedTo(DateTime dateTime) => Booking(
         id: id,
         studentName: studentName,
-        dateStart: tryParseDateTimeWithFormattedTimeOfDay(
-          dateTime: dateTime,
-          formattedTimeOfDay: parsedTimeOfDayFromDateTime(dateStart),
-        ),
-        dateEnd: tryParseDateTimeWithFormattedTimeOfDay(
-          dateTime: dateTime,
-          formattedTimeOfDay: parsedTimeOfDayFromDateTime(dateStart),
-        ),
+        date: dateTime,
+        timeStart: TimeOfDay.fromDateTime(dateStart),
+        timeEnd: TimeOfDay.fromDateTime(dateEnd),
         cabinId: cabinId,
         isDisabled: isDisabled,
       );
 
   void replaceWith(Booking booking) {
     studentName = booking.studentName;
-    dateStart = booking.dateStart;
-    dateEnd = booking.dateEnd;
+    date = booking.date;
+    timeStart = booking.timeStart;
+    timeEnd = booking.timeEnd;
     isDisabled = booking.isDisabled;
   }
 

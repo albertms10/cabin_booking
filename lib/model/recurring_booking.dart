@@ -8,8 +8,9 @@ class RecurringBooking extends Booking {
   RecurringBooking({
     id,
     studentName,
-    dateStart,
-    dateEnd,
+    date,
+    timeStart,
+    timeEnd,
     cabinId,
     isDisabled,
     this.periodicity = const Duration(days: 7),
@@ -21,8 +22,9 @@ class RecurringBooking extends Booking {
         super(
           id: id,
           studentName: studentName,
-          dateStart: dateStart,
-          dateEnd: dateEnd,
+          date: date,
+          timeStart: timeStart,
+          timeEnd: timeEnd,
           cabinId: cabinId,
           isDisabled: isDisabled,
         );
@@ -31,13 +33,7 @@ class RecurringBooking extends Booking {
       : periodicity = Duration(days: other['periodicity']),
         _until = DateTime.tryParse(other['until']),
         _times = other['times'],
-        super(
-          id: other['id'],
-          studentName: other['studentName'],
-          dateStart: DateTime.tryParse(other['dateStart']),
-          dateEnd: DateTime.tryParse(other['dateEnd']),
-          isDisabled: other['isDisabled'],
-        );
+        super.from(other);
 
   Map<String, dynamic> toMap() => {
         ...super.toMap(),
@@ -78,8 +74,9 @@ class RecurringBooking extends Booking {
   Booking get booking => Booking(
         id: id,
         studentName: studentName,
-        dateStart: dateStart,
-        dateEnd: dateEnd,
+        date: date,
+        timeStart: timeStart,
+        timeEnd: timeEnd,
         cabinId: cabinId,
         isDisabled: isDisabled,
       );
