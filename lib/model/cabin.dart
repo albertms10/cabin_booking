@@ -43,6 +43,8 @@ class Cabin {
 
   List<Booking> get bookings => _bookingManager.bookings;
 
+  List<Booking> get recurringBookings => _bookingManager.recurringBookings;
+
   bool bookingsCollideWith(Booking booking) =>
       _bookingManager.bookingsCollideWith(booking);
 
@@ -60,6 +62,11 @@ class Cabin {
 
   void removeRecurringBookingById(String id) =>
       _bookingManager.removeRecurringBookingById(id);
+
+  Booking getBookingFromId(String id) => _bookingManager.getBookingFromId(id);
+
+  Booking getRecurringBookingFromId(String id) =>
+      _bookingManager.getRecurringBookingFromId(id);
 
   List<Booking> bookingsOn(DateTime dateTime) =>
       _bookingManager.bookingsOn(dateTime);

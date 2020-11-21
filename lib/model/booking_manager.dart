@@ -47,13 +47,23 @@ class BookingManager with ChangeNotifier {
       ]..sort(_sortBookings);
 
   bool bookingsCollideWith(Booking booking) =>
-      bookingsOn(booking.dateEnd)
-          .where((_booking) => _booking.id != booking.id)
+      bookingsOn(booking.date)
+          .where((_booking) =>
+              (_booking.recurringBookingId == null ||
+                  _booking.recurringBookingId != booking.recurringBookingId) &&
+              _booking.id != booking.id)
           .firstWhere(
             (_booking) => _booking.collidesWith(booking),
             orElse: () => null,
           ) !=
       null;
+
+  Booking getBookingFromId(String id) =>
+      bookings.firstWhere((booking) => booking.id == id);
+
+  Booking getRecurringBookingFromId(String id) => recurringBookings
+      .firstWhere((recurringBooking) => recurringBooking.id == id)
+        ..recurringBookingId = id;
 
   void addBooking(Booking booking) {
     booking.id = Uuid().v4();
