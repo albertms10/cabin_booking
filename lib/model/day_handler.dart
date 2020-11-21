@@ -10,9 +10,9 @@ class DayHandler with ChangeNotifier {
     notifyListeners();
   }
 
-  void now() => dateTime = DateTime.now();
+  void setNow() => dateTime = DateTime.now();
 
-  void nextDay() => dateTime = _dateTime.add(Duration(days: 1));
+  void setNextDay() => dateTime = _dateTime.add(Duration(days: 1));
 
-  void previousDay() => dateTime = _dateTime.subtract(Duration(days: 1));
+  void setPreviousDay() => dateTime = _dateTime.subtract(Duration(days: 1));
 }
