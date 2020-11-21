@@ -18,10 +18,10 @@ class BookingForm extends StatefulWidget {
 class _BookingFormState extends State<BookingForm> {
   final _formKey = GlobalKey<FormState>();
 
-  final Booking _booking = Booking();
-
   final _startTimeController = TextEditingController();
   final _endTimeController = TextEditingController();
+
+  Booking _booking;
 
   TimeOfDay _startTime;
   TimeOfDay _endTime;
@@ -33,7 +33,7 @@ class _BookingFormState extends State<BookingForm> {
     _startTime = TimeOfDay.fromDateTime(widget.booking.dateStart);
     _endTime = TimeOfDay.fromDateTime(widget.booking.dateEnd);
 
-    _booking.cabinId = widget.booking.cabinId;
+    _booking = widget.booking;
   }
 
   @override
@@ -91,6 +91,7 @@ class _BookingFormState extends State<BookingForm> {
           ),
           const SizedBox(height: 16),
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
                 flex: 10,
@@ -98,15 +99,18 @@ class _BookingFormState extends State<BookingForm> {
                   builder: (context, cabinManager, child) {
                     return TextFormField(
                       controller: _startTimeController,
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      autovalidateMode: AutovalidateMode.always,
                       validator: (value) {
+                        if (value.isEmpty)
+                          return AppLocalizations.of(context).enterStartTime;
+
                         final _parsedDateTime =
                             tryParseDateTimeWithFormattedTimeOfDay(
                           dateTime: widget.booking.dateStart,
                           formattedTimeOfDay: value,
                         );
 
-                        if (value.isEmpty || _parsedDateTime == null)
+                        if (_parsedDateTime == null)
                           return AppLocalizations.of(context).enterStartTime;
 
                         if (_parsedDateTime.isAfter(
@@ -116,9 +120,11 @@ class _BookingFormState extends State<BookingForm> {
                           ),
                         )) return AppLocalizations.of(context).enterValidRange;
 
+                        _booking.dateStart = _parsedDateTime;
+
                         if (cabinManager
                             .getFromId(_booking.cabinId)
-                            .comprisesStart(_parsedDateTime))
+                            .bookingsCollideWith(_booking))
                           return AppLocalizations.of(context).occupied;
 
                         return null;
@@ -158,15 +164,18 @@ class _BookingFormState extends State<BookingForm> {
                   builder: (context, cabinManager, child) {
                     return TextFormField(
                       controller: _endTimeController,
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      autovalidateMode: AutovalidateMode.always,
                       validator: (value) {
+                        if (value.isEmpty)
+                          return AppLocalizations.of(context).enterEndTime;
+
                         final _parsedDateTime =
                             tryParseDateTimeWithFormattedTimeOfDay(
                           dateTime: widget.booking.dateEnd,
                           formattedTimeOfDay: value,
                         );
 
-                        if (value.isEmpty || _parsedDateTime == null)
+                        if (_parsedDateTime == null)
                           return AppLocalizations.of(context).enterEndTime;
 
                         if (_parsedDateTime.isBefore(
@@ -176,10 +185,13 @@ class _BookingFormState extends State<BookingForm> {
                           ),
                         )) return AppLocalizations.of(context).enterValidRange;
 
+                        _booking.dateEnd = _parsedDateTime;
+
                         if (cabinManager
                             .getFromId(_booking.cabinId)
-                            .comprisesEnd(_parsedDateTime))
-                          return AppLocalizations.of(context).occupied;
+                            .bookingsCollideWith(
+                              _booking..dateEnd = _parsedDateTime,
+                            )) return AppLocalizations.of(context).occupied;
 
                         return null;
                       },
@@ -219,9 +231,6 @@ class _BookingFormState extends State<BookingForm> {
               onPressed: () {
                 if (_formKey.currentState.validate()) {
                   _formKey.currentState.save();
-
-                  if (widget.booking.id != null)
-                    _booking.id = widget.booking.id;
 
                   Navigator.of(context).pop<Booking>(_booking);
                 }
