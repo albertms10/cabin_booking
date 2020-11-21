@@ -14,8 +14,8 @@ class BookingsTable extends StatelessWidget {
     return Stack(
       children: [
         StrippedBackground(count: 8),
-        Consumer2<CabinManager, DayHandler>(
-          builder: (context, cabinManager, dayHandler, child) {
+        Consumer2<DayHandler, CabinManager>(
+          builder: (context, dayHandler, cabinManager, child) {
             return Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.start,

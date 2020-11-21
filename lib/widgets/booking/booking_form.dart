@@ -41,30 +41,32 @@ class _BookingFormState extends State<BookingForm> {
     _startTimeController.text = _startTime.format(context);
     _endTimeController.text = _endTime.format(context);
 
-    final cabinManager = Provider.of<CabinManager>(context);
-
     return Form(
       key: _formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          DropdownButton<String>(
-            value: _booking.cabinId,
-            onChanged: (value) {
-              setState(() {
-                _booking.cabinId = value;
-              });
+          Consumer<CabinManager>(
+            builder: (context, cabinManager, child) {
+              return DropdownButton<String>(
+                value: _booking.cabinId,
+                onChanged: (value) {
+                  setState(() {
+                    _booking.cabinId = value;
+                  });
+                },
+                items: [
+                  for (Cabin cabin in cabinManager.cabins)
+                    DropdownMenuItem(
+                      value: cabin.id,
+                      child: Text(
+                        '${AppLocalizations.of(context).cabin} ${cabin.number}',
+                      ),
+                    ),
+                ],
+                isExpanded: true,
+              );
             },
-            items: [
-              for (Cabin cabin in cabinManager.cabins)
-                DropdownMenuItem(
-                  value: cabin.id,
-                  child: Text(
-                    '${AppLocalizations.of(context).cabin} ${cabin.number}',
-                  ),
-                ),
-            ],
-            isExpanded: true,
           ),
           const SizedBox(height: 24),
           TextFormField(
@@ -142,7 +144,7 @@ class _BookingFormState extends State<BookingForm> {
               ),
               const SizedBox(width: 16),
               Expanded(
-                flex: 7,
+                flex: 8,
                 child: TextFormField(
                   controller: _endTimeController,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -189,23 +191,6 @@ class _BookingFormState extends State<BookingForm> {
                     border: const OutlineInputBorder(),
                   ),
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 32),
-          ExpansionTile(
-            title: Text(MaterialLocalizations.of(context).moreButtonTooltip),
-            maintainState: true,
-            children: [
-              CheckboxListTile(
-                value: _booking.isDisabled,
-                onChanged: (value) {
-                  setState(() {
-                    _booking.isDisabled = value;
-                  });
-                },
-                title: Text(AppLocalizations.of(context).disabled),
-                controlAffinity: ListTileControlAffinity.leading,
               ),
             ],
           ),

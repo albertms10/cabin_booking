@@ -19,7 +19,7 @@ class EmptyBookingSlot extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cabinManager = Provider.of<CabinManager>(context);
+    final cabinManager = Provider.of<CabinManager>(context, listen: false);
 
     final duration = dateEnd.difference(dateStart);
 

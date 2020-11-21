@@ -17,7 +17,7 @@ class BookingsStack extends StatelessWidget {
   List<Widget> _distributedBookings(BuildContext context) {
     final distributedBookings = <Widget>[];
 
-    DayHandler dayHandler = Provider.of<DayHandler>(context);
+    final dayHandler = Provider.of<DayHandler>(context);
 
     final dateStart = tryParseDateTimeWithFormattedTimeOfDay(
       dateTime: dayHandler.dateTime,
