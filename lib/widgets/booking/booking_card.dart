@@ -33,7 +33,19 @@ class BookingCard extends StatelessWidget {
                     onTap: () {},
                     mouseCursor: MouseCursor.defer,
                     borderRadius: BorderRadius.all(Radius.circular(4)),
-                    child: SizedBox(height: _height),
+                    child: SizedBox(
+                      height: _height,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(child: Container()),
+                          BookingPopupMenu(
+                            cabin: cabin,
+                            booking: booking,
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
               )
