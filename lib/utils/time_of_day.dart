@@ -20,8 +20,8 @@ TimeOfDay tryParseTimeOfDay(String formattedString) {
 
   if (particles.length < 2) return null;
 
-  int hour = int.tryParse(particles[0]);
-  int minute = int.tryParse(particles[1]);
+  final hour = int.tryParse(particles[0]);
+  final minute = int.tryParse(particles[1]);
 
   if (hour == null || minute == null) return null;
 
@@ -30,3 +30,8 @@ TimeOfDay tryParseTimeOfDay(String formattedString) {
 
 String parsedTimeOfDayFromDateTime(DateTime dateTime) =>
     dateTime.toString().split(RegExp('[ T]'))[1];
+
+String _pad2(num number) => number.toString().padLeft(2, '0');
+
+String formatTimeOfDay(TimeOfDay timeOfDay) =>
+    '${_pad2(timeOfDay.hour)}:${_pad2(timeOfDay.minute)}';
