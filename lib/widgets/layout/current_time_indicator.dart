@@ -11,13 +11,15 @@ class CurrentTimeIndicator extends StatelessWidget {
     return TimerBuilder.periodic(
       Duration(seconds: 5),
       builder: (context) {
+        final dayHandler = Provider.of<DayHandler>(context);
+
         final viewStartDateTime = tryParseDateTimeWithFormattedTimeOfDay(
-          dateTime: Provider.of<DayHandler>(context).dateTime,
+          dateTime: dayHandler.dateTime,
           formattedTimeOfDay: timeTableStartTime.format(context),
         );
 
         final viewEndDateTime = tryParseDateTimeWithFormattedTimeOfDay(
-          dateTime: Provider.of<DayHandler>(context).dateTime,
+          dateTime: dayHandler.dateTime,
           formattedTimeOfDay: timeTableEndTime.format(context),
         );
 

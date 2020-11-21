@@ -17,15 +17,15 @@ class BookingsStack extends StatelessWidget {
   List<Widget> _distributedBookings(BuildContext context) {
     final distributedBookings = <Widget>[];
 
-    DayHandler _dayHandler = Provider.of<DayHandler>(context);
+    DayHandler dayHandler = Provider.of<DayHandler>(context);
 
     final dateStart = tryParseDateTimeWithFormattedTimeOfDay(
-      dateTime: _dayHandler.dateTime,
+      dateTime: dayHandler.dateTime,
       formattedTimeOfDay: timeTableStartTime.format(context),
     );
 
     final dateEnd = tryParseDateTimeWithFormattedTimeOfDay(
-      dateTime: _dayHandler.dateTime,
+      dateTime: dayHandler.dateTime,
       formattedTimeOfDay: timeTableEndTime.format(context),
     );
 
