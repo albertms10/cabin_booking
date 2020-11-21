@@ -1,3 +1,4 @@
+import 'package:cabin_booking/constants.dart';
 import 'package:cabin_booking/l10n/app_localizations.dart';
 import 'package:cabin_booking/model/booking.dart';
 import 'package:cabin_booking/model/cabin.dart';
@@ -104,9 +105,16 @@ class _BookingFormState extends State<BookingForm> {
                         if (value.isEmpty)
                           return AppLocalizations.of(context).enterStartTime;
 
+                        final _parsedTimeOfDay = tryParseTimeOfDay(value);
+
+                        _booking.timeStart = _parsedTimeOfDay;
+
+                        if (_startTime != _parsedTimeOfDay)
+                          _startTime = _parsedTimeOfDay;
+
                         final _parsedDateTime =
                             tryParseDateTimeWithFormattedTimeOfDay(
-                          dateTime: widget.booking.dateStart,
+                          dateTime: widget.booking.date,
                           formattedTimeOfDay: value,
                         );
 
@@ -114,13 +122,19 @@ class _BookingFormState extends State<BookingForm> {
                           return AppLocalizations.of(context).enterStartTime;
 
                         if (_parsedDateTime.isAfter(
-                          tryParseDateTimeWithFormattedTimeOfDay(
-                            dateTime: widget.booking.dateStart,
-                            formattedTimeOfDay: _endTime.format(context),
-                          ),
-                        )) return AppLocalizations.of(context).enterValidRange;
-
-                        _booking.dateStart = _parsedDateTime;
+                              tryParseDateTimeWithFormattedTimeOfDay(
+                                dateTime: widget.booking.date,
+                                formattedTimeOfDay: _endTime.format(context),
+                              ),
+                            ) ||
+                            _parsedDateTime.isBefore(
+                              tryParseDateTimeWithFormattedTimeOfDay(
+                                dateTime: widget.booking.date,
+                                formattedTimeOfDay:
+                                    timeTableStartTime.format(context),
+                              ),
+                            ))
+                          return AppLocalizations.of(context).enterValidRange;
 
                         if (cabinManager
                             .getFromId(_booking.cabinId)
@@ -142,11 +156,7 @@ class _BookingFormState extends State<BookingForm> {
                           });
                       },
                       onSaved: (value) {
-                        _booking.dateStart =
-                            tryParseDateTimeWithFormattedTimeOfDay(
-                          dateTime: widget.booking.dateStart,
-                          formattedTimeOfDay: value,
-                        );
+                        _booking.timeStart = tryParseTimeOfDay(value);
                       },
                       decoration: InputDecoration(
                         labelText: AppLocalizations.of(context).start,
@@ -169,9 +179,16 @@ class _BookingFormState extends State<BookingForm> {
                         if (value.isEmpty)
                           return AppLocalizations.of(context).enterEndTime;
 
+                        final _parsedTimeOfDay = tryParseTimeOfDay(value);
+
+                        _booking.timeEnd = _parsedTimeOfDay;
+
+                        if (_endTime != _parsedTimeOfDay)
+                          _endTime = _parsedTimeOfDay;
+
                         final _parsedDateTime =
                             tryParseDateTimeWithFormattedTimeOfDay(
-                          dateTime: widget.booking.dateEnd,
+                          dateTime: widget.booking.date,
                           formattedTimeOfDay: value,
                         );
 
@@ -179,19 +196,24 @@ class _BookingFormState extends State<BookingForm> {
                           return AppLocalizations.of(context).enterEndTime;
 
                         if (_parsedDateTime.isBefore(
-                          tryParseDateTimeWithFormattedTimeOfDay(
-                            dateTime: widget.booking.dateEnd,
-                            formattedTimeOfDay: _startTime.format(context),
-                          ),
-                        )) return AppLocalizations.of(context).enterValidRange;
-
-                        _booking.dateEnd = _parsedDateTime;
+                              tryParseDateTimeWithFormattedTimeOfDay(
+                                dateTime: widget.booking.date,
+                                formattedTimeOfDay: _startTime.format(context),
+                              ),
+                            ) ||
+                            _parsedDateTime.isAfter(
+                              tryParseDateTimeWithFormattedTimeOfDay(
+                                dateTime: widget.booking.date,
+                                formattedTimeOfDay:
+                                    timeTableEndTime.format(context),
+                              ),
+                            ))
+                          return AppLocalizations.of(context).enterValidRange;
 
                         if (cabinManager
                             .getFromId(_booking.cabinId)
-                            .bookingsCollideWith(
-                              _booking..dateEnd = _parsedDateTime,
-                            )) return AppLocalizations.of(context).occupied;
+                            .bookingsCollideWith(_booking))
+                          return AppLocalizations.of(context).occupied;
 
                         return null;
                       },
@@ -208,11 +230,7 @@ class _BookingFormState extends State<BookingForm> {
                           });
                       },
                       onSaved: (value) {
-                        _booking.dateEnd =
-                            tryParseDateTimeWithFormattedTimeOfDay(
-                          dateTime: widget.booking.dateEnd,
-                          formattedTimeOfDay: value,
-                        );
+                        _booking.timeEnd = tryParseTimeOfDay(value);
                       },
                       decoration: InputDecoration(
                         labelText: AppLocalizations.of(context).end,
