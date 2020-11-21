@@ -91,6 +91,8 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
     with SingleTickerProviderStateMixin {
   AnimationController _controller;
 
+  Animation<double> _childAnimation;
+
   bool _open = false;
   bool _animationCompleted = true;
 
@@ -101,6 +103,18 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
     _controller = AnimationController(
       duration: _calculateMainControllerDuration(),
       vsync: this,
+    );
+
+    _childAnimation = Tween(begin: 0.0, end: 62.0).animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: widget.curve,
+      )..addStatusListener((AnimationStatus status) {
+          setState(() {
+            _animationCompleted = status == AnimationStatus.completed ||
+                status == AnimationStatus.dismissed;
+          });
+        }),
     );
   }
 
@@ -151,21 +165,6 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
     return widget.children
         .map((FloatingActionButtonMenuChild child) {
           int index = widget.children.indexOf(child);
-
-          Animation<double> childAnimation = Tween(
-            begin: 0.0,
-            end: 62.0,
-          ).animate(
-            CurvedAnimation(
-              parent: _controller,
-              curve: widget.curve,
-            )..addStatusListener((AnimationStatus status) {
-                setState(() {
-                  _animationCompleted = status == AnimationStatus.completed ||
-                      status == AnimationStatus.dismissed;
-                });
-              }),
-          );
 
           return AnimatedChild(
             animation: childAnimation,
