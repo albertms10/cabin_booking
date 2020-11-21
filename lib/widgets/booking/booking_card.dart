@@ -16,40 +16,40 @@ class BookingCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _isBeforeNow = booking.dateEnd.isBefore(DateTime.now());
+    final _height = booking.duration.inMinutes * bookingHeightRatio - 16;
 
-    return TimerBuilder.periodic(
-      Duration(minutes: 1),
-      builder: (context) {
-        final _height = booking.duration.inMinutes * bookingHeightRatio - 16;
-
-        return booking.isDisabled
-            ? Container(
-                margin: const EdgeInsets.all(8),
-                child: Tooltip(
-                  message:
-                      '${booking.studentName} (${AppLocalizations.of(context).disabled.toLowerCase()})',
-                  child: InkWell(
-                    onTap: () {},
-                    mouseCursor: MouseCursor.defer,
-                    borderRadius: BorderRadius.all(Radius.circular(4)),
-                    child: SizedBox(
-                      height: _height,
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Expanded(child: Container()),
-                          BookingPopupMenu(
-                            cabin: cabin,
-                            booking: booking,
-                          ),
-                        ],
+    return booking.isDisabled
+        ? Container(
+            margin: const EdgeInsets.all(8),
+            child: Tooltip(
+              message:
+                  '${booking.studentName} (${AppLocalizations.of(context).disabled.toLowerCase()})',
+              child: InkWell(
+                onTap: () {},
+                mouseCursor: MouseCursor.defer,
+                borderRadius: BorderRadius.all(Radius.circular(4)),
+                child: SizedBox(
+                  height: _height,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(child: Container()),
+                      BookingPopupMenu(
+                        cabin: cabin,
+                        booking: booking,
                       ),
-                    ),
+                    ],
                   ),
                 ),
-              )
-            : Card(
+              ),
+            ),
+          )
+        : TimerBuilder.periodic(
+            Duration(minutes: 1),
+            builder: (context) {
+              final _isBeforeNow = booking.dateEnd.isBefore(DateTime.now());
+
+              return Card(
                 margin: const EdgeInsets.all(8),
                 shadowColor: _isBeforeNow ? Colors.black38 : Colors.black,
                 color: booking is RecurringBooking && !booking.isDisabled
@@ -87,7 +87,7 @@ class BookingCard extends StatelessWidget {
                   ),
                 ),
               );
-      },
-    );
+            },
+          );
   }
 }
