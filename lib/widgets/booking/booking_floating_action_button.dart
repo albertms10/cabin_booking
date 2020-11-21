@@ -3,6 +3,7 @@ import 'package:cabin_booking/l10n/app_localizations.dart';
 import 'package:cabin_booking/model/booking.dart';
 import 'package:cabin_booking/model/cabin_manager.dart';
 import 'package:cabin_booking/model/day_handler.dart';
+import 'package:cabin_booking/model/recurring_booking.dart';
 import 'package:cabin_booking/widgets/booking/booking_dialog.dart';
 import 'package:cabin_booking/widgets/custom/floating_action_button/floating_action_button_menu.dart';
 import 'package:flutter/material.dart';
@@ -40,10 +41,50 @@ class BookingFloatingActionButton extends StatelessWidget {
             FloatingActionButtonMenuChild(
               icon: Icons.repeat,
               label: AppLocalizations.of(context).recurringBooking,
+              onTap: () async {
+                final _booking = await showDialog<RecurringBooking>(
+                  context: context,
+                  builder: (context) => BookingDialog(
+                    RecurringBooking(
+                      date: dayHandler.dateTime,
+                      timeStart: timeTableStartTime,
+                      timeEnd: TimeOfDay(
+                        hour: timeTableStartTime.hour + 1,
+                        minute: timeTableStartTime.minute,
+                      ),
+                      times: 1,
+                      cabinId: cabinManager.cabins.first.id,
+                    ),
+                  ),
+                );
+
+                if (_booking != null)
+                  cabinManager.addRecurringBooking(_booking.cabinId, _booking);
+              },
             ),
             FloatingActionButtonMenuChild(
               icon: Icons.lock,
               label: AppLocalizations.of(context).lockedRange,
+              onTap: () async {
+                final _booking = await showDialog<Booking>(
+                  context: context,
+                  builder: (context) => BookingDialog(
+                    Booking(
+                      date: dayHandler.dateTime,
+                      timeStart: timeTableStartTime,
+                      timeEnd: TimeOfDay(
+                        hour: timeTableStartTime.hour + 1,
+                        minute: timeTableStartTime.minute,
+                      ),
+                      isDisabled: true,
+                      cabinId: cabinManager.cabins.first.id,
+                    ),
+                  ),
+                );
+
+                if (_booking != null)
+                  cabinManager.addBooking(_booking.cabinId, _booking);
+              },
             ),
           ],
         );
