@@ -23,37 +23,36 @@ class TimeTable extends StatelessWidget {
     return FutureBuilder(
       future: cabinManager.loadCabinsFromFile(),
       builder: (context, snapshot) {
-        if (snapshot.hasError)
-          return Expanded(
-            child: Center(
-              child: Text(
-                AppLocalizations.of(context).dataCouldNotBeLoaded,
-                style: Theme.of(context).textTheme.headline4,
-              ),
-            ),
-          );
-        else if (snapshot.hasData)
-          return Expanded(
-            child: Column(
-              children: [
-                CabinsRow(),
-                Expanded(
-                  child: ListView(
-                    children: [
-                      Container(
-                        padding: const EdgeInsets.only(top: 16),
-                        child: BookingsTable(),
-                      ),
-                    ],
+        return snapshot.hasError
+            ? Expanded(
+                child: Center(
+                  child: Text(
+                    AppLocalizations.of(context).dataCouldNotBeLoaded,
+                    style: Theme.of(context).textTheme.headline4,
                   ),
                 ),
-              ],
-            ),
-          );
-        else
-          return Expanded(
-            child: Center(child: CircularProgressIndicator()),
-          );
+              )
+            : snapshot.hasData
+                ? Expanded(
+                    child: Column(
+                      children: [
+                        CabinsRow(),
+                        Expanded(
+                          child: ListView(
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.only(top: 16.0),
+                                child: BookingsTable(),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                : Expanded(
+                    child: Center(child: CircularProgressIndicator()),
+                  );
       },
     );
   }

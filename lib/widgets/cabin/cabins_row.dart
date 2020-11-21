@@ -8,10 +8,10 @@ class CabinsRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      elevation: 2,
+      elevation: 2.0,
       color: Colors.white,
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 24),
+        padding: const EdgeInsets.symmetric(vertical: 24.0),
         child: Consumer<CabinManager>(
           builder: (context, cabinManager, child) {
             return Row(
@@ -25,7 +25,7 @@ class CabinsRow extends StatelessWidget {
               ],
             );
           },
-          child: Container(width: 180),
+          child: Container(width: 180.0),
         ),
       ),
     );

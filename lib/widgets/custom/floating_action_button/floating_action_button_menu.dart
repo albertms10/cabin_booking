@@ -73,8 +73,8 @@ class FloatingActionButtonMenu extends StatefulWidget {
     this.animatedIcon,
     this.animatedIconTheme,
     this.child,
-    this.marginBottom = 16,
-    this.marginRight = 16,
+    this.marginBottom = 24.0,
+    this.marginRight = 24.0,
     this.onOpen,
     this.onClose,
     this.closeManually = false,
@@ -249,8 +249,8 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
     );
 
     return Positioned(
-      bottom: widget.marginBottom - 16,
-      right: widget.marginRight - 16,
+      bottom: widget.marginBottom - 16.0,
+      right: widget.marginRight - 16.0,
       child: Container(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,

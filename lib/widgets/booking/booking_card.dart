@@ -16,18 +16,19 @@ class BookingCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _height = booking.duration.inMinutes * bookingHeightRatio - 16;
+    final _height = booking.duration.inMinutes * bookingHeightRatio - 16.0;
 
     return booking.isDisabled
         ? Container(
-            margin: const EdgeInsets.all(8),
+            margin: const EdgeInsets.all(8.0),
             child: Tooltip(
               message:
                   '${booking.studentName} (${AppLocalizations.of(context).disabled.toLowerCase()})',
               child: InkWell(
                 onTap: () {},
                 mouseCursor: MouseCursor.defer,
-                borderRadius: BorderRadius.all(Radius.circular(4)),
+                borderRadius:
+                    const BorderRadius.all(const Radius.circular(4.0)),
                 child: SizedBox(
                   height: _height,
                   child: Row(
@@ -50,19 +51,20 @@ class BookingCard extends StatelessWidget {
               final _isBeforeNow = booking.dateEnd.isBefore(DateTime.now());
 
               return Card(
-                margin: const EdgeInsets.all(8),
+                margin: const EdgeInsets.all(8.0),
                 shadowColor: _isBeforeNow ? Colors.black38 : Colors.black,
                 color: booking is RecurringBooking && !booking.isDisabled
                     ? Colors.yellow[100]
                     : Colors.transparent,
                 child: Container(
                   height: _height,
-                  padding: const EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(8.0),
                   decoration: BoxDecoration(
                     color: _isBeforeNow
                         ? Color.fromARGB(150, 255, 255, 255)
                         : Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(4)),
+                    borderRadius:
+                        const BorderRadius.all(const Radius.circular(4.0)),
                   ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -74,7 +76,7 @@ class BookingCard extends StatelessWidget {
                             Text(booking.studentName),
                             Text(
                               booking.timeRange,
-                              style: TextStyle(color: Colors.black38),
+                              style: const TextStyle(color: Colors.black38),
                             ),
                           ],
                         ),

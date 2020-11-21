@@ -17,12 +17,12 @@ class TimeColumn extends StatelessWidget {
       children: [
         for (int hour = start.hour; hour <= end.hour; hour++)
           Container(
-            height: 60 * bookingHeightRatio,
-            width: 180,
-            padding: const EdgeInsets.all(16),
+            height: 60.0 * bookingHeightRatio,
+            width: 180.0,
+            padding: const EdgeInsets.all(16.0),
             alignment: Alignment.topCenter,
             child: Text(
-              TimeOfDay(hour: hour, minute: 00).format(context),
+              TimeOfDay(hour: hour, minute: 0).format(context),
               style: Theme.of(context)
                   .textTheme
                   .headline5

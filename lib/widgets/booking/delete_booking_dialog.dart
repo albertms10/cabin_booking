@@ -7,13 +7,13 @@ class DeleteBookingDialog extends StatelessWidget {
     return AlertDialog(
       title: Text(AppLocalizations.of(context).deleteBookingTitle),
       content: Text(AppLocalizations.of(context).actionUndone),
-      actionsPadding: const EdgeInsets.all(8),
+      actionsPadding: const EdgeInsets.all(8.0),
       actions: [
         FlatButton(
           onPressed: () {
             Navigator.of(context).pop(false);
           },
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
           child: Text(
             MaterialLocalizations.of(context).cancelButtonLabel.toUpperCase(),
           ),
@@ -22,10 +22,10 @@ class DeleteBookingDialog extends StatelessWidget {
           onPressed: () {
             Navigator.of(context).pop(true);
           },
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
           child: Text(
             MaterialLocalizations.of(context).deleteButtonTooltip.toUpperCase(),
-            style: TextStyle(color: Colors.red),
+            style: const TextStyle(color: Colors.red),
           ),
           hoverColor: Colors.red[50],
           splashColor: Colors.red[100],

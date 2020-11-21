@@ -68,7 +68,7 @@ class _BookingFormState extends State<BookingForm> {
               );
             },
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: 24.0),
           TextFormField(
             initialValue: widget.booking.studentName,
             autofocus: true,
@@ -89,7 +89,7 @@ class _BookingFormState extends State<BookingForm> {
               border: const OutlineInputBorder(),
             ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 16.0),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -157,7 +157,7 @@ class _BookingFormState extends State<BookingForm> {
                   },
                 ),
               ),
-              const SizedBox(width: 16),
+              const SizedBox(width: 16.0),
               Expanded(
                 flex: 8,
                 child: Consumer<CabinManager>(
@@ -224,7 +224,7 @@ class _BookingFormState extends State<BookingForm> {
               ),
             ],
           ),
-          const SizedBox(height: 32),
+          const SizedBox(height: 32.0),
           SizedBox(
             width: double.infinity,
             child: ElevatedButton.icon(

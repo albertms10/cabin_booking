@@ -18,16 +18,18 @@ class BookingDialog extends StatelessWidget {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          splashRadius: 24,
+          splashRadius: 24.0,
         ),
-        const SizedBox(width: 8),
+        const SizedBox(width: 8.0),
         Text(AppLocalizations.of(context).booking)
       ]),
-      contentPadding: const EdgeInsets.only(left: 24, right: 24, bottom: 24),
-      titlePadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 18),
+      contentPadding:
+          const EdgeInsets.only(left: 24.0, right: 24.0, bottom: 24.0),
+      titlePadding:
+          const EdgeInsets.symmetric(horizontal: 12.0, vertical: 18.0),
       children: [
         Container(
-          width: 250,
+          width: 250.0,
           child: BookingForm(booking),
         ),
       ],

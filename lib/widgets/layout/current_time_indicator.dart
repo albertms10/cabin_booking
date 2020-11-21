@@ -36,7 +36,7 @@ class CurrentTimeIndicator extends StatelessWidget {
                     height: differenceFromViewStartTime * bookingHeightRatio,
                     child: Container(
                       alignment: Alignment.bottomLeft,
-                      padding: const EdgeInsets.all(8),
+                      padding: const EdgeInsets.all(8.0),
                       child: Text(
                         TimeOfDay.fromDateTime(DateTime.now()).format(context),
                         style: TextStyle(
@@ -47,15 +47,15 @@ class CurrentTimeIndicator extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    height: 2,
+                    height: 2.0,
                     width: double.infinity,
                     decoration: BoxDecoration(
                       color: Colors.red[400],
                       boxShadow: [
                         const BoxShadow(
                           color: Colors.black12,
-                          blurRadius: 3,
-                          offset: Offset(3, 4),
+                          blurRadius: 3.0,
+                          offset: const Offset(3.0, 4.0),
                         ),
                       ],
                     ),

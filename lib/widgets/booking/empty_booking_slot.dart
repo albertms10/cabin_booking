@@ -29,14 +29,16 @@ class EmptyBookingSlot extends StatelessWidget {
       child: duration.compareTo(minSlotDuration) < 0
           ? null
           : Container(
-              margin: const EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(4)),
+              margin: const EdgeInsets.all(8.0),
+              decoration: const BoxDecoration(
+                borderRadius:
+                    const BorderRadius.all(const Radius.circular(4.0)),
               ),
               child: Tooltip(
                 message: '${duration.inMinutes} min',
                 child: InkWell(
-                  borderRadius: BorderRadius.all(Radius.circular(4)),
+                  borderRadius:
+                      const BorderRadius.all(const Radius.circular(4.0)),
                   onTap: () async {
                     final _booking = await showDialog<Booking>(
                       context: context,
@@ -54,7 +56,7 @@ class EmptyBookingSlot extends StatelessWidget {
                   },
                   child: const Icon(
                     Icons.add,
-                    size: 18,
+                    size: 18.0,
                     color: Colors.black38,
                   ),
                 ),

@@ -8,13 +8,14 @@ class DayNavigation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dayHandler = Provider.of<DayHandler>(context, listen: false);
+    final splashRadius = 22.0;
 
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16.0),
       child: Row(
         children: [
           FlatButton(
-            padding: const EdgeInsets.symmetric(vertical: 16),
+            padding: const EdgeInsets.symmetric(vertical: 16.0),
             onPressed: () => dayHandler.setNow(),
             child: Text(AppLocalizations.of(context).today),
           ),
@@ -22,15 +23,15 @@ class DayNavigation extends StatelessWidget {
             onPressed: () => dayHandler.setPreviousDay(),
             icon: const Icon(Icons.chevron_left),
             tooltip: AppLocalizations.of(context).previousDay,
-            splashRadius: 22,
+            splashRadius: splashRadius,
           ),
           IconButton(
             onPressed: () => dayHandler.setNextDay(),
             icon: const Icon(Icons.chevron_right),
             tooltip: AppLocalizations.of(context).nextDay,
-            splashRadius: 22,
+            splashRadius: splashRadius,
           ),
-          const SizedBox(width: 24),
+          const SizedBox(width: 24.0),
           Consumer<DayHandler>(
             builder: (context, dayHandler, child) {
               return Text(

@@ -7,7 +7,7 @@ class StrippedBackground extends StatelessWidget {
 
   StrippedBackground({
     this.count = 0,
-    this.height = 60 * bookingHeightRatio,
+    this.height = 60.0 * bookingHeightRatio,
   });
 
   @override
@@ -18,7 +18,7 @@ class StrippedBackground extends StatelessWidget {
         for (int i = 0; i < count; i++)
           Container(
             height: height,
-            color: i % 2 == 0 ? null : Color.fromARGB(8, 0, 0, 0),
+            color: i % 2 == 0 ? null : const Color.fromARGB(8, 0, 0, 0),
           ),
       ],
     );

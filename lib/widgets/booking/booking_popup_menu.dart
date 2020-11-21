@@ -20,15 +20,15 @@ class BookingPopupMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(24),
+      borderRadius: const BorderRadius.all(const Radius.circular(24.0)),
       child: Material(
         color: Colors.transparent,
         child: PopupMenuButton<String>(
           child: Container(
-            padding: const EdgeInsets.all(6),
+            padding: const EdgeInsets.all(6.0),
             child: const Icon(
               Icons.more_vert,
-              size: 18,
+              size: 18.0,
               color: Colors.black54,
             ),
           ),
@@ -62,6 +62,8 @@ class BookingPopupMenu extends StatelessWidget {
             }
           },
           itemBuilder: (BuildContext context) {
+            final height = 41.0;
+
             return [
               PopupMenuItem(
                 value: 'edit',
@@ -69,7 +71,7 @@ class BookingPopupMenu extends StatelessWidget {
                   text: AppLocalizations.of(context).edit,
                   icon: Icons.edit,
                 ),
-                height: 41,
+                height: height,
               ),
               PopupMenuItem(
                 value: 'delete',
@@ -77,7 +79,7 @@ class BookingPopupMenu extends StatelessWidget {
                   text: MaterialLocalizations.of(context).deleteButtonTooltip,
                   icon: Icons.delete,
                 ),
-                height: 41,
+                height: height,
               )
             ];
           },

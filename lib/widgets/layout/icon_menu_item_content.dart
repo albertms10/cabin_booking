@@ -12,13 +12,13 @@ class IconMenuItemContent extends StatelessWidget {
       children: [
         Icon(
           icon,
-          size: 20,
+          size: 20.0,
           color: Colors.black54,
         ),
-        const SizedBox(width: 14),
+        const SizedBox(width: 14.0),
         Text(
           text,
-          style: const TextStyle(fontSize: 14),
+          style: const TextStyle(fontSize: 14.0),
         ),
       ],
     );
