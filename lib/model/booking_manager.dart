@@ -29,11 +29,21 @@ class BookingManager with ChangeNotifier {
       .map((recurringBooking) => recurringBooking.toMap())
       .toList();
 
+  List<Booking> recurringBookingsOn(DateTime dateTime) {
+    final filteredBookings = <Booking>[];
+
+    recurringBookings.forEach((recurringBooking) {
+      final _booking = recurringBooking.bookingOn(dateTime);
+
+      if (_booking != null) filteredBookings.add(_booking);
+    });
+
+    return filteredBookings;
+  }
+
   List<Booking> bookingsOn(DateTime dateTime) => [
         ...bookings.where((booking) => booking.isOn(dateTime)),
-        ...recurringBookings.where(
-          (recurringBooking) => recurringBooking.hasBookingOn(dateTime),
-        )
+        ...recurringBookingsOn(dateTime),
       ]..sort(_sortBookings);
 
   bool bookingsCollideWith(Booking booking) =>
@@ -78,9 +88,10 @@ class BookingManager with ChangeNotifier {
   void modifyRecurringBooking(RecurringBooking recurringBooking) {
     recurringBookings
         .firstWhere(
-          (_recurringBooking) => recurringBooking.id == _recurringBooking.id,
+          (_recurringBooking) =>
+              recurringBooking.recurringBookingId == _recurringBooking.id,
         )
-        .replaceWith(recurringBooking);
+        .replaceRecurringWith(recurringBooking);
 
     recurringBookings.sort(_sortBookings);
 
