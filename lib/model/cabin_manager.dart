@@ -3,6 +3,7 @@ import 'dart:convert' show json;
 import 'package:cabin_booking/model/booking.dart';
 import 'package:cabin_booking/model/cabin.dart';
 import 'package:cabin_booking/model/file_manager.dart';
+import 'package:cabin_booking/model/recurring_booking.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
@@ -48,6 +49,14 @@ class CabinManager with ChangeNotifier, FileManager {
     notifyListeners();
   }
 
+  void addRecurringBooking(String cabinId, RecurringBooking recurringBooking) {
+    getFromId(recurringBooking.cabinId ?? cabinId)
+        .addRecurringBooking(recurringBooking);
+
+    // TODO: Improve notifier
+    notifyListeners();
+  }
+
   void modifyBooking(String cabinId, Booking booking) {
     if (booking.cabinId == null || booking.cabinId == cabinId) {
       getFromId(cabinId).modifyBooking(booking);
@@ -60,8 +69,31 @@ class CabinManager with ChangeNotifier, FileManager {
     notifyListeners();
   }
 
+  void modifyRecurringBooking(
+    String cabinId,
+    RecurringBooking recurringBooking,
+  ) {
+    if (recurringBooking.cabinId == null ||
+        recurringBooking.cabinId == cabinId) {
+      getFromId(cabinId).modifyRecurringBooking(recurringBooking);
+    } else {
+      getFromId(cabinId).removeRecurringBookingById(recurringBooking.id);
+      getFromId(recurringBooking.cabinId).addRecurringBooking(recurringBooking);
+    }
+
+    // TODO: Improve notifier
+    notifyListeners();
+  }
+
   void removeBookingById(String cabinId, String bookingId) {
     getFromId(cabinId).removeBookingById(bookingId);
+
+    // TODO: Improve notifier
+    notifyListeners();
+  }
+
+  void removeRecurringBookingById(String cabinId, String bookingId) {
+    getFromId(cabinId).removeRecurringBookingById(bookingId);
 
     // TODO: Improve notifier
     notifyListeners();
