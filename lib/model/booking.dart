@@ -8,8 +8,9 @@ class Booking {
   DateTime date;
   TimeOfDay timeStart;
   TimeOfDay timeEnd;
-  String cabinId;
   bool isDisabled;
+  String cabinId;
+  String recurringBookingId;
 
   Booking({
     this.id,
@@ -17,8 +18,9 @@ class Booking {
     this.date,
     this.timeStart,
     this.timeEnd,
-    this.cabinId,
     this.isDisabled = false,
+    this.cabinId,
+    this.recurringBookingId,
   });
 
   Booking.from(Map<String, dynamic> other)
@@ -51,14 +53,14 @@ class Booking {
   Duration get duration => dateEnd.difference(dateStart);
 
   String get timeRange =>
-      '${DateFormat('HH:mm').format(dateStart)}–${DateFormat('HH:mm').format(dateEnd)}';
+      '${formatTimeOfDay(timeStart)}–${formatTimeOfDay(timeEnd)}';
 
-  String get dateRange => '${DateFormat.yMd().format(dateStart)} $timeRange';
+  String get dateRange => '${DateFormat.yMd().format(date)} $timeRange';
 
   bool isOn(DateTime dateTime) =>
-      dateStart.year == dateTime.year &&
-      dateStart.month == dateTime.month &&
-      dateStart.day == dateTime.day;
+      date.year == dateTime.year &&
+      date.month == dateTime.month &&
+      date.day == dateTime.day;
 
   bool collidesWith(Booking booking) =>
       dateStart.isBefore(booking.dateEnd) && dateEnd.isAfter(booking.dateStart);
@@ -69,8 +71,8 @@ class Booking {
         date: dateTime,
         timeStart: TimeOfDay.fromDateTime(dateStart),
         timeEnd: TimeOfDay.fromDateTime(dateEnd),
-        cabinId: cabinId,
         isDisabled: isDisabled,
+        cabinId: cabinId,
       );
 
   void replaceWith(Booking booking) {
