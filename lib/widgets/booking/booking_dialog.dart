@@ -1,5 +1,6 @@
 import 'package:cabin_booking/l10n/app_localizations.dart';
 import 'package:cabin_booking/model/booking.dart';
+import 'package:cabin_booking/model/recurring_booking.dart';
 import 'package:cabin_booking/widgets/booking/booking_form.dart';
 import 'package:flutter/material.dart';
 
@@ -24,7 +25,8 @@ class BookingDialog extends StatelessWidget {
         Text(
           booking.isDisabled
               ? AppLocalizations.of(context).lockedRange
-              : booking.recurringBookingId != null
+              : booking is RecurringBooking ||
+                      booking.recurringBookingId != null
                   ? AppLocalizations.of(context).recurringBooking
                   : AppLocalizations.of(context).booking,
         )

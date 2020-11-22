@@ -2,6 +2,7 @@ import 'package:cabin_booking/l10n/app_localizations.dart';
 import 'package:cabin_booking/model/booking.dart';
 import 'package:cabin_booking/model/cabin.dart';
 import 'package:cabin_booking/model/cabin_manager.dart';
+import 'package:cabin_booking/model/recurring_booking.dart';
 import 'package:cabin_booking/widgets/booking/booking_dialog.dart';
 import 'package:cabin_booking/widgets/booking/delete_booking_dialog.dart';
 import 'package:cabin_booking/widgets/layout/icon_menu_item_content.dart';
@@ -53,7 +54,8 @@ class BookingPopupMenu extends StatelessWidget {
                 );
 
                 if (_booking != null) {
-                  if (booking.recurringBookingId != null)
+                  if (booking is RecurringBooking ||
+                      booking.recurringBookingId != null)
                     cabinManager.modifyRecurringBooking(cabin.id, _booking);
                   else
                     cabinManager.modifyBooking(cabin.id, _booking);
@@ -68,7 +70,8 @@ class BookingPopupMenu extends StatelessWidget {
                 );
 
                 if (_shallDelete != null && _shallDelete) {
-                  if (booking.recurringBookingId != null)
+                  if (booking is RecurringBooking ||
+                      booking.recurringBookingId != null)
                     cabinManager.removeRecurringBookingById(
                       cabin.id,
                       booking.recurringBookingId,

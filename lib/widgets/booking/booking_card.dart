@@ -2,6 +2,7 @@ import 'package:cabin_booking/constants.dart';
 import 'package:cabin_booking/l10n/app_localizations.dart';
 import 'package:cabin_booking/model/booking.dart';
 import 'package:cabin_booking/model/cabin.dart';
+import 'package:cabin_booking/model/recurring_booking.dart';
 import 'package:cabin_booking/widgets/booking/booking_popup_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -57,7 +58,8 @@ class BookingCard extends StatelessWidget {
                   height: _height,
                   padding: const EdgeInsets.all(8.0),
                   decoration: BoxDecoration(
-                    color: booking.recurringBookingId != null
+                    color: booking is RecurringBooking ||
+                            booking.recurringBookingId != null
                         ? Colors.blue[50]
                         : _isBeforeNow
                             ? const Color.fromARGB(150, 255, 255, 255)
