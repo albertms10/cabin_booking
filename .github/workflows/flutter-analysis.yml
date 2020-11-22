@@ -1,4 +1,4 @@
-name: Dart
+name: Flutter analysis
 
 on:
   push:
@@ -16,9 +16,7 @@ jobs:
         with:
           channel: dev
       
-      - run: flutter pub get
-      
       - name: Analyze project source
-        run: dart analyze --fatal-infos
+        run: flutter analyze --fatal-infos
       
       # - run: flutter test
