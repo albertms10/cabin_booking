@@ -21,9 +21,12 @@ TimeOfDay tryParseTimeOfDay(String formattedString) {
   if (particles.length < 2) return null;
 
   final hour = int.tryParse(particles[0]);
+
+  if (hour == null) return null;
+
   final minute = int.tryParse(particles[1]);
 
-  if (hour == null || minute == null) return null;
+  if (minute == null) return null;
 
   return TimeOfDay(hour: hour, minute: minute);
 }
