@@ -123,5 +123,5 @@ class RecurringBooking extends Booking {
   }
 
   @override
-  String toString() => '$times × ' + super.toString();
+  String toString() => '$times × ${super.toString()}';
 }

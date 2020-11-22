@@ -22,8 +22,8 @@ class BookingCard extends StatelessWidget {
         ? Container(
             margin: const EdgeInsets.all(8.0),
             child: Tooltip(
-              message:
-                  '${booking.studentName} (${AppLocalizations.of(context).disabled.toLowerCase()})',
+              message: '${booking.studentName} '
+                  '(${AppLocalizations.of(context).disabled.toLowerCase()})',
               child: InkWell(
                 onTap: () {},
                 mouseCursor: MouseCursor.defer,
