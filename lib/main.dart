@@ -51,6 +51,7 @@ class CabinBookingApp extends StatelessWidget {
       ],
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: HomePage(),
     );
