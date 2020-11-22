@@ -33,7 +33,7 @@ class BookingCard extends StatelessWidget {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Expanded(child: Container()),
+                      const Expanded(child: SizedBox()),
                       BookingPopupMenu(
                         cabin: cabin,
                         booking: booking,

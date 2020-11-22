@@ -18,7 +18,7 @@ class AnimatedFloatingButtonLabel extends AnimatedWidget {
     final Animation<double> animation = listenable;
 
     return animation.value <= tween.end / 2
-        ? Container()
+        ? const SizedBox()
         : Container(
             padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 8.0),
             margin: const EdgeInsets.only(right: 18.0),

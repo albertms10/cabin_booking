@@ -246,23 +246,22 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
       heroTag: widget.heroTag,
       shape: widget.shape,
       curve: widget.curve,
+      animationSpeed: widget.animationSpeed,
     );
 
     return Positioned(
       bottom: widget.marginBottom - 16.0,
       right: widget.marginRight - 16.0,
-      child: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: List.from(fabChildren)
-            ..add(
-              Container(
-                margin: EdgeInsets.only(top: 8.0, right: 2.0),
-                child: animatedFloatingButton,
-              ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: List.from(fabChildren)
+          ..add(
+            Container(
+              margin: EdgeInsets.only(top: 8.0, right: 2.0),
+              child: animatedFloatingButton,
             ),
-        ),
+          ),
       ),
     );
   }

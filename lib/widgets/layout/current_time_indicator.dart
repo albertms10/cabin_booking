@@ -51,8 +51,8 @@ class CurrentTimeIndicator extends StatelessWidget {
                     width: double.infinity,
                     decoration: BoxDecoration(
                       color: Colors.red[400],
-                      boxShadow: [
-                        const BoxShadow(
+                      boxShadow: const [
+                        BoxShadow(
                           color: Colors.black12,
                           blurRadius: 3.0,
                           offset: Offset(3.0, 4.0),
@@ -62,7 +62,7 @@ class CurrentTimeIndicator extends StatelessWidget {
                   ),
                 ],
               )
-            : Container();
+            : const SizedBox();
       },
     );
   }

@@ -17,6 +17,7 @@ class AnimatedFloatingButton extends StatelessWidget {
   final bool isOpen;
   final ShapeBorder shape;
   final Curve curve;
+  final int animationSpeed;
 
   AnimatedFloatingButton({
     this.visible = true,
@@ -34,42 +35,39 @@ class AnimatedFloatingButton extends StatelessWidget {
     this.shape = const CircleBorder(),
     this.curve = Curves.easeOutCubic,
     this.onLongPress,
+    this.animationSpeed = 150,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: AnimatedContainer(
-        curve: curve,
-        margin: EdgeInsets.all(visible ? 0.0 : 28.0),
-        duration: Duration(milliseconds: 150),
-        child: Container(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              if (isOpen)
-                AnimatedFloatingButtonLabel(
-                  tween: tween,
-                  label: label,
-                  animation: animation,
-                ),
-              GestureDetector(
-                onLongPress: onLongPress,
-                child: FloatingActionButton(
-                  child: visible ? child : null,
-                  backgroundColor: backgroundColor,
-                  foregroundColor: foregroundColor,
-                  onPressed: callback,
-                  tooltip: tooltip,
-                  heroTag: heroTag,
-                  elevation: elevation,
-                  highlightElevation: elevation,
-                  shape: shape,
-                ),
-              ),
-            ],
+    return AnimatedContainer(
+      curve: curve,
+      margin: EdgeInsets.all(visible ? 0.0 : 28.0),
+      duration: Duration(milliseconds: animationSpeed),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          if (isOpen)
+            AnimatedFloatingButtonLabel(
+              tween: tween,
+              label: label,
+              animation: animation,
+            ),
+          GestureDetector(
+            onLongPress: onLongPress,
+            child: FloatingActionButton(
+              child: visible ? child : null,
+              backgroundColor: backgroundColor,
+              foregroundColor: foregroundColor,
+              onPressed: callback,
+              tooltip: tooltip,
+              heroTag: heroTag,
+              elevation: elevation,
+              highlightElevation: elevation,
+              shape: shape,
+            ),
           ),
-        ),
+        ],
       ),
     );
   }

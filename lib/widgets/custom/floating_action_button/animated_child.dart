@@ -50,12 +50,15 @@ class AnimatedChild extends AnimatedWidget {
     final Animation<double> animation = listenable;
 
     final Widget buttonChild = animation.value > 50.0
-        ? Container(
+        ? SizedBox(
             width: animation.value,
             height: animation.value,
-            child: Icon(icon) ?? Container(),
+            child: Icon(
+              icon,
+              size: animation.value / 3,
+            ),
           )
-        : Container();
+        : const SizedBox();
 
     return Container(
       child: Row(

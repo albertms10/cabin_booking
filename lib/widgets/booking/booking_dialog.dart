@@ -34,7 +34,7 @@ class BookingDialog extends StatelessWidget {
       titlePadding:
           const EdgeInsets.symmetric(horizontal: 12.0, vertical: 18.0),
       children: [
-        Container(
+        SizedBox(
           width: 250.0,
           child: BookingForm(booking),
         ),
