@@ -13,7 +13,7 @@ class TimeTable extends StatelessWidget {
           Expanded(
             child: ListView(
               children: [
-                Container(
+                Padding(
                   padding: const EdgeInsets.only(top: 16.0),
                   child: BookingsTable(),
                 ),

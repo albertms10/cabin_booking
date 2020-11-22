@@ -8,8 +8,8 @@ class CabinIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 52.0,
       width: 52.0,
+      height: 52.0,
       padding: const EdgeInsets.all(12.0),
       decoration: BoxDecoration(
         color: Colors.blue[400],

@@ -47,8 +47,8 @@ class CurrentTimeIndicator extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    height: 2.0,
                     width: double.infinity,
+                    height: 2.0,
                     decoration: BoxDecoration(
                       color: Colors.red[400],
                       boxShadow: const [

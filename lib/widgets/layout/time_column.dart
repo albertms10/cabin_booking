@@ -17,8 +17,8 @@ class TimeColumn extends StatelessWidget {
       children: [
         for (int hour = start.hour; hour <= end.hour; hour++)
           Container(
-            height: 60.0 * bookingHeightRatio,
             width: 180.0,
+            height: 60.0 * bookingHeightRatio,
             padding: const EdgeInsets.all(16.0),
             alignment: Alignment.topCenter,
             child: Text(
