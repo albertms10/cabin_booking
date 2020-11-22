@@ -26,8 +26,7 @@ class BookingCard extends StatelessWidget {
               child: InkWell(
                 onTap: () {},
                 mouseCursor: MouseCursor.defer,
-                borderRadius:
-                    const BorderRadius.all(const Radius.circular(4.0)),
+                borderRadius: const BorderRadius.all(Radius.circular(4.0)),
                 child: Container(
                   height: _height,
                   padding: const EdgeInsets.all(8.0),
@@ -61,10 +60,9 @@ class BookingCard extends StatelessWidget {
                     color: booking.recurringBookingId != null
                         ? Colors.blue[50]
                         : _isBeforeNow
-                            ? Color.fromARGB(150, 255, 255, 255)
+                            ? const Color.fromARGB(150, 255, 255, 255)
                             : Colors.white,
-                    borderRadius:
-                        const BorderRadius.all(const Radius.circular(4.0)),
+                    borderRadius: const BorderRadius.all(Radius.circular(4.0)),
                   ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,

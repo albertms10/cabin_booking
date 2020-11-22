@@ -44,10 +44,10 @@ class CabinBookingApp extends StatelessWidget {
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],
-      supportedLocales: [
-        const Locale('ca'),
-        const Locale('en'),
-        const Locale('es'),
+      supportedLocales: const [
+        Locale('ca'),
+        Locale('en'),
+        Locale('es'),
       ],
       theme: ThemeData(
         primarySwatch: Colors.blue,

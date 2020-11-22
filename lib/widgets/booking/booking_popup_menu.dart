@@ -20,7 +20,7 @@ class BookingPopupMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: const BorderRadius.all(const Radius.circular(24.0)),
+      borderRadius: const BorderRadius.all(Radius.circular(24.0)),
       child: Material(
         color: Colors.transparent,
         child: PopupMenuButton<String>(

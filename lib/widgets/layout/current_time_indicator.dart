@@ -55,7 +55,7 @@ class CurrentTimeIndicator extends StatelessWidget {
                         const BoxShadow(
                           color: Colors.black12,
                           blurRadius: 3.0,
-                          offset: const Offset(3.0, 4.0),
+                          offset: Offset(3.0, 4.0),
                         ),
                       ],
                     ),

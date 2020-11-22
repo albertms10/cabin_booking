@@ -50,7 +50,7 @@ class TimeTable extends StatelessWidget {
                       ],
                     ),
                   )
-                : Expanded(
+                : const Expanded(
                     child: Center(child: CircularProgressIndicator()),
                   );
       },

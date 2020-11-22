@@ -31,14 +31,12 @@ class EmptyBookingSlot extends StatelessWidget {
           : Container(
               margin: const EdgeInsets.all(8.0),
               decoration: const BoxDecoration(
-                borderRadius:
-                    const BorderRadius.all(const Radius.circular(4.0)),
+                borderRadius: BorderRadius.all(Radius.circular(4.0)),
               ),
               child: Tooltip(
                 message: '${duration.inMinutes} min',
                 child: InkWell(
-                  borderRadius:
-                      const BorderRadius.all(const Radius.circular(4.0)),
+                  borderRadius: const BorderRadius.all(Radius.circular(4.0)),
                   onTap: () async {
                     final _booking = await showDialog<Booking>(
                       context: context,
