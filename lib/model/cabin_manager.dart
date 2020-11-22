@@ -118,7 +118,7 @@ class CabinManager with ChangeNotifier, FileManager {
 
       final cabins = await compute(_parseCabins, await file.readAsString());
 
-      return cabins.length > 0 ? cabins : _generateCabins(_defaultCabinNumber);
+      return cabins.isNotEmpty ? cabins : _generateCabins(_defaultCabinNumber);
     } catch (e) {
       return _generateCabins(_defaultCabinNumber);
     }
