@@ -61,9 +61,7 @@ class _CabinsTableState extends State<CabinsTable> {
               return DataRow(
                 selected: _selected[index],
                 onSelectChanged: (selected) {
-                  setState(() {
-                    _selected[index] = selected;
-                  });
+                  setState(() => _selected[index] = selected);
                 },
                 cells: [
                   DataCell(

@@ -52,9 +52,7 @@ class _BookingFormState extends State<BookingForm> {
               return DropdownButton<String>(
                 value: _booking.cabinId,
                 onChanged: (value) {
-                  setState(() {
-                    _booking.cabinId = value;
-                  });
+                  setState(() => _booking.cabinId = value);
                 },
                 items: [
                   for (Cabin cabin in cabinManager.cabins)

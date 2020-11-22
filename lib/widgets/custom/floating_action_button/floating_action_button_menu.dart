@@ -152,9 +152,7 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
   void _toggleChildren() {
     bool newOpenValue = !_open;
 
-    setState(() {
-      _open = newOpenValue;
-    });
+    setState(() => _open = newOpenValue);
 
     if (newOpenValue && widget.onOpen != null) widget.onOpen();
 

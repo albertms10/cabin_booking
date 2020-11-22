@@ -26,9 +26,7 @@ class _HomePageState extends State<HomePage> {
             NavigationRail(
               selectedIndex: _selectedIndex,
               onDestinationSelected: (index) {
-                setState(() {
-                  _selectedIndex = index;
-                });
+                setState(() => _selectedIndex = index);
               },
               labelType: NavigationRailLabelType.selected,
               destinations: [
