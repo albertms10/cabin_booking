@@ -29,6 +29,16 @@ class BookingManager with ChangeNotifier {
       .map((recurringBooking) => recurringBooking.toMap())
       .toList();
 
+  List<Booking> get generatedRecurringBookings {
+    final generatedBookings = <Booking>[];
+
+    recurringBookings.forEach((recurringBooking) {
+      generatedBookings.addAll(recurringBooking.bookings);
+    });
+
+    return generatedBookings;
+  }
+
   List<Booking> recurringBookingsOn(DateTime dateTime) {
     final filteredBookings = <Booking>[];
 

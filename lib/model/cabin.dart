@@ -43,7 +43,11 @@ class Cabin {
 
   List<Booking> get bookings => _bookingManager.bookings;
 
-  List<Booking> get recurringBookings => _bookingManager.recurringBookings;
+  List<RecurringBooking> get recurringBookings =>
+      _bookingManager.recurringBookings;
+
+  List<Booking> get generatedRecurringBookings =>
+      _bookingManager.generatedRecurringBookings;
 
   bool bookingsCollideWith(Booking booking) =>
       _bookingManager.bookingsCollideWith(booking);
