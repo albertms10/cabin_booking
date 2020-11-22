@@ -1,16 +1,13 @@
 import 'package:cabin_booking/l10n/app_localizations.dart';
-import 'package:cabin_booking/widgets/booking/booking_floating_action_button.dart';
-import 'package:cabin_booking/widgets/layout/day_navigation.dart';
-import 'package:cabin_booking/widgets/layout/time_table.dart';
+import 'package:cabin_booking/model/cabin_manager.dart';
+import 'package:cabin_booking/model/day_handler.dart';
+import 'package:cabin_booking/widgets/pages/home_page.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/intl_standalone.dart';
 import 'package:provider/provider.dart';
-
-import 'model/cabin_manager.dart';
-import 'model/day_handler.dart';
 
 void main() async {
   if (kIsWeb)
@@ -54,26 +51,6 @@ class CabinBookingApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: HomePage(),
-    );
-  }
-}
-
-class HomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context).title),
-      ),
-      floatingActionButton: BookingFloatingActionButton(),
-      body: SafeArea(
-        child: Column(
-          children: [
-            DayNavigation(),
-            TimeTable(),
-          ],
-        ),
-      ),
     );
   }
 }
