@@ -8,8 +8,9 @@ class CabinIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      alignment: Alignment.center,
-      padding: const EdgeInsets.all(16.0),
+      height: 52.0,
+      width: 52.0,
+      padding: const EdgeInsets.all(12.0),
       decoration: BoxDecoration(
         color: Colors.blue[400],
         shape: BoxShape.circle,
@@ -17,6 +18,7 @@ class CabinIcon extends StatelessWidget {
       child: Text(
         '$number',
         style: Theme.of(context).accentTextTheme.headline5,
+        textAlign: TextAlign.center,
       ),
     );
   }
