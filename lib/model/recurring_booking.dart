@@ -11,8 +11,8 @@ class RecurringBooking extends Booking {
     date,
     timeStart,
     timeEnd,
-    cabinId,
     isDisabled = false,
+    cabinId,
     this.periodicity = const Duration(days: 7),
     until,
     times,
@@ -25,8 +25,8 @@ class RecurringBooking extends Booking {
           date: date,
           timeStart: timeStart,
           timeEnd: timeEnd,
-          cabinId: cabinId,
           isDisabled: isDisabled,
+          cabinId: cabinId,
         );
 
   RecurringBooking.from(Map<String, dynamic> other)
