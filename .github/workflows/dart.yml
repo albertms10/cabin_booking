@@ -10,20 +10,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    container:
-      image:  google/dart:latest
-
     steps:
       - uses: actions/checkout@v2
-
-      - name: Print Dart SDK version
-        run: dart --version
-
-      - name: Install dependencies
-        run: dart pub get
-
+      - uses: subosito/flutter-action@v1
+        with:
+          channel: dev
+      
+      - run: flutter pub get
+      
       - name: Analyze project source
         run: dart analyze --fatal-infos
-
-      # - name: Run tests
-      #   run: dart test
+      
+      # - run: flutter test
