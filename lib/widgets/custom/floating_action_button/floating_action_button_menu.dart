@@ -122,7 +122,7 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
 
   Duration _calculateMainControllerDuration() => Duration(
         milliseconds: widget.animationSpeed +
-            widget.children.length * (widget.animationSpeed / 5).round(),
+            widget.children.length * widget.animationSpeed ~/ 5,
       );
 
   @override
