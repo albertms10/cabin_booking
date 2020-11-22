@@ -14,7 +14,9 @@ class AppLocalizations {
     'ca': {
       'title': 'Reserva de cabines',
       'cabin': 'Cabina',
+      'cabins': 'Cabines',
       'booking': 'Reserva',
+      'bookings': 'Reserves',
       'recurringBooking': 'Reserva periòdica',
       'lockedRange': 'Rang bloquejat',
       'book': 'Reserva',
@@ -41,7 +43,9 @@ class AppLocalizations {
     'en': {
       'title': 'Cabin Booking',
       'cabin': 'Cabin',
+      'cabins': 'Cabins',
       'booking': 'Booking',
+      'bookings': 'Bookings',
       'recurringBooking': 'Recurring booking',
       'lockedRange': 'Locked range',
       'book': 'Book',
@@ -68,7 +72,9 @@ class AppLocalizations {
     'es': {
       'title': 'Reserva de cabinas',
       'cabin': 'Cabina',
+      'cabins': 'Cabinas',
       'booking': 'Reserva',
+      'bookings': 'Reservas',
       'recurringBooking': 'Reserva periódica',
       'lockedRange': 'Rango bloqueado',
       'book': 'Reservar',
@@ -98,7 +104,11 @@ class AppLocalizations {
 
   String get cabin => _localizedValues[locale.languageCode]['cabin'];
 
+  String get cabins => _localizedValues[locale.languageCode]['cabins'];
+
   String get booking => _localizedValues[locale.languageCode]['booking'];
+
+  String get bookings => _localizedValues[locale.languageCode]['bookings'];
 
   String get book => _localizedValues[locale.languageCode]['book'];
 
