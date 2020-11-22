@@ -18,6 +18,7 @@ class AppLocalizations {
       'booking': 'Reserva',
       'bookings': 'Reserves',
       'recurringBooking': 'Reserva periòdica',
+      'recurringBookings': 'Reserves periòdiques',
       'lockedRange': 'Rang bloquejat',
       'book': 'Reserva',
       'student': 'Estudiant',
@@ -47,6 +48,7 @@ class AppLocalizations {
       'booking': 'Booking',
       'bookings': 'Bookings',
       'recurringBooking': 'Recurring booking',
+      'recurringBookings': 'Recurring bookings',
       'lockedRange': 'Locked range',
       'book': 'Book',
       'student': 'Student',
@@ -76,6 +78,7 @@ class AppLocalizations {
       'booking': 'Reserva',
       'bookings': 'Reservas',
       'recurringBooking': 'Reserva periódica',
+      'recurringBookings': 'Reservas periódicas',
       'lockedRange': 'Rango bloqueado',
       'book': 'Reservar',
       'student': 'Estudiante',
@@ -109,6 +112,12 @@ class AppLocalizations {
   String get booking => _localizedValues[locale.languageCode]['booking'];
 
   String get bookings => _localizedValues[locale.languageCode]['bookings'];
+
+  String get recurringBooking =>
+      _localizedValues[locale.languageCode]['recurringBooking'];
+
+  String get recurringBookings =>
+      _localizedValues[locale.languageCode]['recurringBookings'];
 
   String get book => _localizedValues[locale.languageCode]['book'];
 
@@ -159,9 +168,6 @@ class AppLocalizations {
 
   String get description =>
       _localizedValues[locale.languageCode]['description'];
-
-  String get recurringBooking =>
-      _localizedValues[locale.languageCode]['recurringBooking'];
 
   String get lockedRange =>
       _localizedValues[locale.languageCode]['lockedRange'];
