@@ -34,6 +34,9 @@ TimeOfDay tryParseTimeOfDay(String formattedString) {
 String parsedTimeOfDayFromDateTime(DateTime dateTime) =>
     dateTime.toString().split(RegExp('[ T]'))[1];
 
+bool isSameDay(DateTime a, DateTime b) =>
+    a.year == b.year && a.month == b.month && a.day == b.day;
+
 String _pad2(num number) => number.toString().padLeft(2, '0');
 
 String formatTimeOfDay(TimeOfDay timeOfDay) =>

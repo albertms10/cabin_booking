@@ -106,10 +106,7 @@ class BookingManager with ChangeNotifier {
 
     for (Booking booking in allBookings) {
       final hasDate = dates.firstWhere(
-            (date) =>
-                date.year == booking.date.year &&
-                date.month == booking.date.month &&
-                date.day == booking.date.day,
+            (date) => isSameDay(date, booking.date),
             orElse: () => null,
           ) !=
           null;

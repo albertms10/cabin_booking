@@ -57,10 +57,7 @@ class Booking {
 
   String get dateRange => '${DateFormat.yMd().format(date)} $timeRange';
 
-  bool isOn(DateTime dateTime) =>
-      date.year == dateTime.year &&
-      date.month == dateTime.month &&
-      date.day == dateTime.day;
+  bool isOn(DateTime dateTime) => isSameDay(date, dateTime);
 
   bool collidesWith(Booking booking) =>
       dateStart.isBefore(booking.dateEnd) && dateEnd.isAfter(booking.dateStart);
