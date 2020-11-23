@@ -1,3 +1,4 @@
+import 'package:cabin_booking/constants.dart';
 import 'package:cabin_booking/l10n/app_localizations.dart';
 import 'package:cabin_booking/model/cabin_manager.dart';
 import 'package:cabin_booking/widgets/cabin/cabin_icon.dart';
@@ -54,6 +55,13 @@ class _CabinsTableState extends State<CabinsTable> {
                 textAlign: TextAlign.center,
               ),
             ),
+            DataColumn(
+              numeric: true,
+              label: Text(
+                AppLocalizations.of(context).occupancyRate,
+                textAlign: TextAlign.center,
+              ),
+            ),
           ],
           rows: List<DataRow>.generate(
             _cabinManager.cabins.length,
@@ -77,6 +85,32 @@ class _CabinsTableState extends State<CabinsTable> {
                     Text(
                       '${_cabinManager.cabins[index].generatedRecurringBookings.length}',
                       style: Theme.of(context).textTheme.headline5,
+                    ),
+                  ),
+                  DataCell(
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          '${(_cabinManager.cabins[index].evertimeOccupiedRatio(
+                                startTime: timeTableStartTime,
+                                endTime: timeTableEndTime,
+                              ) * 100).round()}',
+                          style: Theme.of(context).textTheme.headline5,
+                        ),
+                        const SizedBox(width: 2),
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const SizedBox(height: 2),
+                            Text(
+                              '%',
+                              style: Theme.of(context).textTheme.subtitle2,
+                            )
+                          ],
+                        ),
+                      ],
                     ),
                   ),
                 ],
