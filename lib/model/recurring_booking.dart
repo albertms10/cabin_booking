@@ -37,6 +37,7 @@ class RecurringBooking extends Booking {
         _times = other.containsKey('times') ? other['times'] : null,
         super.from(other);
 
+  @override
   Map<String, dynamic> toMap() => {
         ...super.toMap(),
         'periodicity': periodicity.inDays,
@@ -49,10 +50,11 @@ class RecurringBooking extends Booking {
 
     assert(_times != null);
 
-    DateTime recurringDateTime = dateStart;
+    var recurringDateTime = dateStart;
 
-    for (int i = 0; i < times; i++)
+    for (var i = 0; i < times; i++) {
       recurringDateTime = recurringDateTime.add(periodicity);
+    }
 
     return recurringDateTime;
   }
@@ -62,8 +64,8 @@ class RecurringBooking extends Booking {
 
     assert(_until != null);
 
-    int count = 0;
-    DateTime recurringDateTime = dateStart;
+    var count = 0;
+    var recurringDateTime = dateStart;
 
     while (recurringDateTime.isBefore(until)) {
       recurringDateTime = recurringDateTime.add(periodicity);
@@ -85,28 +87,28 @@ class RecurringBooking extends Booking {
       );
 
   List<Booking> get bookings {
-    List<Booking> _bookings = [];
+    var runningBookings = <Booking>[];
+    var runningDateTime = dateStart;
+    var movedBooking = booking;
 
-    DateTime recurringDateTime = dateStart;
-    Booking movedBooking = booking;
-    int count = 0;
+    var count = 0;
 
-    while (recurringDateTime.isBefore(until)) {
-      _bookings.add(
+    while (runningDateTime.isBefore(until)) {
+      runningBookings.add(
         movedBooking
           ..id = '$id-$count'
           ..recurringBookingId = id,
       );
 
-      recurringDateTime = recurringDateTime.add(periodicity);
+      runningDateTime = runningDateTime.add(periodicity);
 
-      if (recurringDateTime.isBefore(until)) {
-        movedBooking = movedBooking.movedTo(recurringDateTime);
+      if (runningDateTime.isBefore(until)) {
+        movedBooking = movedBooking.movedTo(runningDateTime);
         count++;
       }
     }
 
-    return _bookings;
+    return runningBookings;
   }
 
   Booking bookingOn(DateTime dateTime) => bookings.firstWhere(

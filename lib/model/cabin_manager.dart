@@ -16,7 +16,7 @@ class CabinManager with ChangeNotifier, FileManager {
   List<Cabin> cabins;
 
   CabinManager({this.cabins}) {
-    if (cabins == null) cabins = <Cabin>[];
+    cabins ??= <Cabin>[];
   }
 
   List<Cabin> _generateCabins(int number) => [
@@ -34,8 +34,8 @@ class CabinManager with ChangeNotifier, FileManager {
   List<DateTime> allCabinsDatesWithBookings() {
     final dates = <DateTime>[];
 
-    for (Cabin cabin in cabins) {
-      for (DateTime dateTime in cabin.datesWithBookings()) {
+    for (final cabin in cabins) {
+      for (final dateTime in cabin.datesWithBookings()) {
         final hasDate = dates.firstWhere(
               (date) => isSameDay(date, dateTime),
               orElse: () => null,
@@ -124,7 +124,7 @@ class CabinManager with ChangeNotifier, FileManager {
   Future<bool> writeCabinsToFile() async {
     final file = await localFile(_fileName);
 
-    file.writeAsString(
+    await file.writeAsString(
       json.encode(cabinsToMapList()),
     );
 

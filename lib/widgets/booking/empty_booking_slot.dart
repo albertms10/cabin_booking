@@ -50,8 +50,9 @@ class EmptyBookingSlot extends StatelessWidget {
                       ),
                     );
 
-                    if (_booking != null)
+                    if (_booking != null) {
                       cabinManager.addBooking(cabin.id, _booking);
+                    }
                   },
                   child: const Icon(
                     Icons.add,

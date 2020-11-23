@@ -46,6 +46,7 @@ class AnimatedChild extends AnimatedWidget {
     toggleChildren();
   }
 
+  @override
   Widget build(BuildContext context) {
     final Animation<double> animation = listenable;
 

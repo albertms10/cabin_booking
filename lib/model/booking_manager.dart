@@ -11,8 +11,8 @@ class BookingManager with ChangeNotifier {
   List<RecurringBooking> recurringBookings;
 
   BookingManager({this.bookings, this.recurringBookings}) {
-    if (bookings == null) bookings = <Booking>[];
-    if (recurringBookings == null) recurringBookings = <RecurringBooking>[];
+    bookings ??= <Booking>[];
+    recurringBookings ??= <RecurringBooking>[];
   }
 
   BookingManager.from({
@@ -33,8 +33,9 @@ class BookingManager with ChangeNotifier {
   List<Booking> get generatedRecurringBookings {
     final generatedBookings = <Booking>[];
 
-    for (RecurringBooking recurringBooking in recurringBookings)
+    for (final recurringBooking in recurringBookings) {
       generatedBookings.addAll(recurringBooking.bookings);
+    }
 
     return generatedBookings;
   }
@@ -45,7 +46,7 @@ class BookingManager with ChangeNotifier {
   List<Booking> _recurringBookingsOn(DateTime dateTime) {
     final filteredBookings = <Booking>[];
 
-    for (RecurringBooking recurringBooking in recurringBookings) {
+    for (final recurringBooking in recurringBookings) {
       final _booking = recurringBooking.bookingOn(dateTime);
 
       if (_booking != null) filteredBookings.add(_booking);
@@ -72,9 +73,9 @@ class BookingManager with ChangeNotifier {
       null;
 
   int occupiedMinutesDurationOn(DateTime dateTime) {
-    int runningDuration = 0;
+    var runningDuration = 0;
 
-    for (Booking booking in bookingsOn(dateTime)) {
+    for (final booking in bookingsOn(dateTime)) {
       runningDuration += booking.duration.inMinutes;
     }
 
@@ -104,7 +105,7 @@ class BookingManager with ChangeNotifier {
   List<DateTime> datesWithBookings() {
     final dates = <DateTime>[];
 
-    for (Booking booking in allBookings) {
+    for (final booking in allBookings) {
       final hasDate = dates.firstWhere(
             (date) => isSameDay(date, booking.date),
             orElse: () => null,
@@ -122,10 +123,10 @@ class BookingManager with ChangeNotifier {
     @required TimeOfDay endTime,
     List<DateTime> dates,
   }) {
-    double runningRatio = 0.0;
-    int count = 0;
+    var runningRatio = 0.0;
+    var count = 0;
 
-    for (DateTime dateTime in dates ?? datesWithBookings()) {
+    for (final dateTime in dates ?? datesWithBookings()) {
       count++;
 
       final currentRatio =

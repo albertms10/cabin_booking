@@ -10,10 +10,11 @@ import 'package:intl/intl_standalone.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
-  if (kIsWeb)
+  if (kIsWeb) {
     await findSystemLocale();
-  else
+  } else {
     Intl.defaultLocale = 'ca';
+  }
 
   runApp(
     MultiProvider(

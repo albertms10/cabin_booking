@@ -23,17 +23,18 @@ class CurrentTimeIndicator extends StatelessWidget {
           formattedTimeOfDay: timeTableEndTime.format(context),
         );
 
-        final int differenceFromViewStartTime =
+        final differenceInMinutesFromStart =
             DateTime.now().difference(viewStartDateTime).inMinutes;
 
-        final int differenceFromViewEndTime =
+        final differenceInMinutesFromEnd =
             DateTime.now().difference(viewEndDateTime).inMinutes;
 
-        return differenceFromViewStartTime > 0 && differenceFromViewEndTime < 15
+        return differenceInMinutesFromStart > 0 &&
+                differenceInMinutesFromEnd < 15
             ? Column(
                 children: [
                   SizedBox(
-                    height: differenceFromViewStartTime * bookingHeightRatio,
+                    height: differenceInMinutesFromStart * bookingHeightRatio,
                     child: Container(
                       alignment: Alignment.bottomLeft,
                       padding: const EdgeInsets.all(8.0),

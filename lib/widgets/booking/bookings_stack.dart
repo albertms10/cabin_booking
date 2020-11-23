@@ -29,17 +29,17 @@ class BookingsStack extends StatelessWidget {
       formattedTimeOfDay: timeTableEndTime.format(context),
     );
 
-    for (int i = -1; i < bookings.length; i++) {
+    for (var i = -1; i < bookings.length; i++) {
       final isFirst = i == -1;
       final isLast = i == bookings.length - 1;
 
-      DateTime currentBookingDate = isFirst ? dateStart : bookings[i].dateEnd;
-      DateTime nextBookingDate = isLast ? dateEnd : bookings[i + 1].dateStart;
+      var currentBookingDate = isFirst ? dateStart : bookings[i].dateEnd;
+      var nextBookingDate = isLast ? dateEnd : bookings[i + 1].dateStart;
 
-      final Duration duration = nextBookingDate.difference(currentBookingDate);
-      final int durationMinutes = duration.inMinutes;
+      final duration = nextBookingDate.difference(currentBookingDate);
+      final durationMinutes = duration.inMinutes;
 
-      if (!isFirst)
+      if (!isFirst) {
         distributedBookings.add(
           SizedBox(
             width: double.infinity,
@@ -49,11 +49,12 @@ class BookingsStack extends StatelessWidget {
             ),
           ),
         );
+      }
 
       final runningSlotList = <EmptyBookingSlot>[];
 
       if (durationMinutes > 0) {
-        int runningDurationMinutes = durationMinutes;
+        var runningDurationMinutes = durationMinutes;
 
         while (runningDurationMinutes > maxSlotDuration.inMinutes) {
           final timeOfDay = TimeOfDay.fromDateTime(currentBookingDate);

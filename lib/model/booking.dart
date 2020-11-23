@@ -85,7 +85,7 @@ class Booking {
       '$studentName $dateRange ${isDisabled ? ' (disabled)' : ''}';
 
   @override
-  bool operator ==(other) => other is Booking && this.id == other.id;
+  bool operator ==(other) => other is Booking && id == other.id;
 
   @override
   int get hashCode => id.hashCode;

@@ -47,17 +47,18 @@ class _MainContentState extends State<MainContent> {
     return FutureBuilder(
       future: _future,
       builder: (context, snapshot) {
-        if (snapshot.hasError)
+        if (snapshot.hasError) {
           return Center(
             child: Text(
               AppLocalizations.of(context).dataCouldNotBeLoaded,
               style: Theme.of(context).textTheme.headline4,
             ),
           );
-        else if (snapshot.hasData)
+        } else if (snapshot.hasData) {
           return widget.pages[widget.railIndex];
-        else
+        } else {
           return const Center(child: CircularProgressIndicator());
+        }
       },
     );
   }

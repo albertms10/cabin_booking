@@ -60,6 +60,7 @@ class FloatingActionButtonMenu extends StatefulWidget {
   final tween = Tween<double>(begin: 0.0, end: 62.0);
 
   FloatingActionButtonMenu({
+    Key key,
     this.children = const [],
     this.visible = true,
     this.backgroundColor,
@@ -82,7 +83,7 @@ class FloatingActionButtonMenu extends StatefulWidget {
     this.curve = Curves.easeInOutCubic,
     this.onPress,
     this.animationSpeed = 150,
-  });
+  }) : super(key: key);
 
   @override
   _FloatingActionButtonMenuState createState() =>
@@ -135,22 +136,24 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
   void _performAnimation() {
     if (!mounted) return;
 
-    if (_open)
+    if (_open) {
       _controller.forward();
-    else
+    } else {
       _controller.reverse();
+    }
   }
 
   @override
   void didUpdateWidget(FloatingActionButtonMenu oldWidget) {
-    if (oldWidget.children.length != widget.children.length)
+    if (oldWidget.children.length != widget.children.length) {
       _controller.duration = _calculateMainControllerDuration();
+    }
 
     super.didUpdateWidget(oldWidget);
   }
 
   void _toggleChildren() {
-    bool newOpenValue = !_open;
+    var newOpenValue = !_open;
 
     setState(() => _open = newOpenValue);
 
@@ -164,7 +167,7 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
   List<Widget> _getChildrenList() {
     return widget.children
         .map((FloatingActionButtonMenuChild child) {
-          int index = widget.children.indexOf(child);
+          var index = widget.children.indexOf(child);
 
           return AnimatedChild(
             tween: widget.tween,
@@ -212,7 +215,7 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
   }
 
   Widget _renderButton() {
-    Widget child = widget.animatedIcon != null
+    var child = widget.animatedIcon != null
         ? AnimatedIcon(
             icon: widget.animatedIcon,
             progress: _controller,
@@ -221,7 +224,7 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
           )
         : widget.child;
 
-    List<Widget> fabChildren = _getChildrenList();
+    var fabChildren = _getChildrenList();
 
     Widget animatedFloatingButton = AnimatedFloatingButton(
       visible: widget.visible,

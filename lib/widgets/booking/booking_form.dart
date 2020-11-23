@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 class BookingForm extends StatefulWidget {
   final Booking booking;
 
-  BookingForm(this.booking);
+  BookingForm(this.booking, {Key key}) : super(key: key);
 
   @override
   _BookingFormState createState() => _BookingFormState();
@@ -73,8 +73,9 @@ class _BookingFormState extends State<BookingForm> {
             autofocus: true,
             autovalidateMode: AutovalidateMode.onUserInteraction,
             validator: (String value) {
-              if (value.isEmpty)
+              if (value.isEmpty) {
                 return AppLocalizations.of(context).enterStudentName;
+              }
 
               return null;
             },
@@ -100,15 +101,17 @@ class _BookingFormState extends State<BookingForm> {
                       controller: _startTimeController,
                       autovalidateMode: AutovalidateMode.always,
                       validator: (value) {
-                        if (value.isEmpty)
+                        if (value.isEmpty) {
                           return AppLocalizations.of(context).enterStartTime;
+                        }
 
                         final _parsedTimeOfDay = tryParseTimeOfDay(value);
 
                         _booking.timeStart = _parsedTimeOfDay;
 
-                        if (_startTime != _parsedTimeOfDay)
+                        if (_startTime != _parsedTimeOfDay) {
                           _startTime = _parsedTimeOfDay;
+                        }
 
                         final _parsedDateTime =
                             tryParseDateTimeWithFormattedTimeOfDay(
@@ -116,8 +119,9 @@ class _BookingFormState extends State<BookingForm> {
                           formattedTimeOfDay: value,
                         );
 
-                        if (_parsedDateTime == null)
+                        if (_parsedDateTime == null) {
                           return AppLocalizations.of(context).enterStartTime;
+                        }
 
                         if (_parsedDateTime.isAfter(
                               tryParseDateTimeWithFormattedTimeOfDay(
@@ -131,13 +135,15 @@ class _BookingFormState extends State<BookingForm> {
                                 formattedTimeOfDay:
                                     timeTableStartTime.format(context),
                               ),
-                            ))
+                            )) {
                           return AppLocalizations.of(context).enterValidRange;
+                        }
 
                         if (cabinManager
                             .getFromId(_booking.cabinId)
-                            .bookingsCollideWith(_booking))
+                            .bookingsCollideWith(_booking)) {
                           return AppLocalizations.of(context).occupied;
+                        }
 
                         return null;
                       },
@@ -147,11 +153,12 @@ class _BookingFormState extends State<BookingForm> {
                           initialTime: _startTime,
                         );
 
-                        if (_time != null)
+                        if (_time != null) {
                           setState(() {
                             _startTime = _time;
                             _startTimeController.text = _time.format(context);
                           });
+                        }
                       },
                       onSaved: (value) {
                         _booking.timeStart = tryParseTimeOfDay(value);
@@ -174,15 +181,17 @@ class _BookingFormState extends State<BookingForm> {
                       controller: _endTimeController,
                       autovalidateMode: AutovalidateMode.always,
                       validator: (value) {
-                        if (value.isEmpty)
+                        if (value.isEmpty) {
                           return AppLocalizations.of(context).enterEndTime;
+                        }
 
                         final _parsedTimeOfDay = tryParseTimeOfDay(value);
 
                         _booking.timeEnd = _parsedTimeOfDay;
 
-                        if (_endTime != _parsedTimeOfDay)
+                        if (_endTime != _parsedTimeOfDay) {
                           _endTime = _parsedTimeOfDay;
+                        }
 
                         final _parsedDateTime =
                             tryParseDateTimeWithFormattedTimeOfDay(
@@ -190,8 +199,9 @@ class _BookingFormState extends State<BookingForm> {
                           formattedTimeOfDay: value,
                         );
 
-                        if (_parsedDateTime == null)
+                        if (_parsedDateTime == null) {
                           return AppLocalizations.of(context).enterEndTime;
+                        }
 
                         if (_parsedDateTime.isBefore(
                               tryParseDateTimeWithFormattedTimeOfDay(
@@ -205,13 +215,15 @@ class _BookingFormState extends State<BookingForm> {
                                 formattedTimeOfDay:
                                     timeTableEndTime.format(context),
                               ),
-                            ))
+                            )) {
                           return AppLocalizations.of(context).enterValidRange;
+                        }
 
                         if (cabinManager
                             .getFromId(_booking.cabinId)
-                            .bookingsCollideWith(_booking))
+                            .bookingsCollideWith(_booking)) {
                           return AppLocalizations.of(context).occupied;
+                        }
 
                         return null;
                       },
@@ -221,11 +233,12 @@ class _BookingFormState extends State<BookingForm> {
                           initialTime: _endTime,
                         );
 
-                        if (_time != null)
+                        if (_time != null) {
                           setState(() {
                             _endTime = _time;
                             _endTimeController.text = _time.format(context);
                           });
+                        }
                       },
                       onSaved: (value) {
                         _booking.timeEnd = tryParseTimeOfDay(value);

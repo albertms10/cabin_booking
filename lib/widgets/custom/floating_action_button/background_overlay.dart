@@ -11,6 +11,7 @@ class BackgroundOverlay extends AnimatedWidget {
     this.opacity = 0.9,
   }) : super(key: key, listenable: animation);
 
+  @override
   Widget build(BuildContext context) {
     final Animation<double> animation = listenable;
 

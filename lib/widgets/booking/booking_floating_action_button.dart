@@ -34,8 +34,9 @@ class BookingFloatingActionButton extends StatelessWidget {
               ),
             );
 
-            if (_booking != null)
+            if (_booking != null) {
               cabinManager.addBooking(_booking.cabinId, _booking);
+            }
           },
           children: [
             FloatingActionButtonMenuChild(
@@ -58,8 +59,9 @@ class BookingFloatingActionButton extends StatelessWidget {
                   ),
                 );
 
-                if (_booking != null)
+                if (_booking != null) {
                   cabinManager.addRecurringBooking(_booking.cabinId, _booking);
+                }
               },
             ),
             FloatingActionButtonMenuChild(
@@ -82,8 +84,9 @@ class BookingFloatingActionButton extends StatelessWidget {
                   ),
                 );
 
-                if (_booking != null)
+                if (_booking != null) {
                   cabinManager.addBooking(_booking.cabinId, _booking);
+                }
               },
             ),
           ],

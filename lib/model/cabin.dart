@@ -7,7 +7,7 @@ class Cabin {
   String id;
   int number;
   Map<String, int> components;
-  BookingManager _bookingManager;
+  final BookingManager _bookingManager;
 
   Cabin({
     this.id,
@@ -19,7 +19,7 @@ class Cabin {
           bookings: bookings,
           recurringBookings: recurringBookings,
         ) {
-    if (components == null) components = <String, int>{};
+    components ??= <String, int>{};
   }
 
   Cabin.from(Map<String, dynamic> other)
@@ -107,7 +107,7 @@ class Cabin {
   String toString() => 'Cabin $number (${bookings.length} bookings)';
 
   @override
-  bool operator ==(other) => other is Cabin && this.id == other.id;
+  bool operator ==(other) => other is Cabin && id == other.id;
 
   @override
   int get hashCode => id.hashCode;

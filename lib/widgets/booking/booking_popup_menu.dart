@@ -55,10 +55,11 @@ class BookingPopupMenu extends StatelessWidget {
 
                 if (_booking != null) {
                   if (booking is RecurringBooking ||
-                      booking.recurringBookingId != null)
+                      booking.recurringBookingId != null) {
                     cabinManager.modifyRecurringBooking(cabin.id, _booking);
-                  else
+                  } else {
                     cabinManager.modifyBooking(cabin.id, _booking);
+                  }
                 }
 
                 break;
@@ -71,13 +72,14 @@ class BookingPopupMenu extends StatelessWidget {
 
                 if (_shallDelete != null && _shallDelete) {
                   if (booking is RecurringBooking ||
-                      booking.recurringBookingId != null)
+                      booking.recurringBookingId != null) {
                     cabinManager.removeRecurringBookingById(
                       cabin.id,
                       booking.recurringBookingId,
                     );
-                  else
+                  } else {
                     cabinManager.removeBookingById(cabin.id, booking.id);
+                  }
                 }
 
                 break;
