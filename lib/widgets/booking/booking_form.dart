@@ -3,7 +3,7 @@ import 'package:cabin_booking/l10n/app_localizations.dart';
 import 'package:cabin_booking/model/booking.dart';
 import 'package:cabin_booking/model/cabin.dart';
 import 'package:cabin_booking/model/cabin_manager.dart';
-import 'package:cabin_booking/utils/time_of_day.dart';
+import 'package:cabin_booking/utils/date.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

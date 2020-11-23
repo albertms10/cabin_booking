@@ -4,7 +4,7 @@ import 'package:cabin_booking/model/booking.dart';
 import 'package:cabin_booking/model/cabin.dart';
 import 'package:cabin_booking/model/file_manager.dart';
 import 'package:cabin_booking/model/recurring_booking.dart';
-import 'package:cabin_booking/utils/time_of_day.dart';
+import 'package:cabin_booking/utils/date.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
