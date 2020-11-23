@@ -1,5 +1,6 @@
 import 'package:cabin_booking/model/booking.dart';
 import 'package:cabin_booking/model/recurring_booking.dart';
+import 'package:cabin_booking/utils/time_of_day.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
@@ -32,28 +33,30 @@ class BookingManager with ChangeNotifier {
   List<Booking> get generatedRecurringBookings {
     final generatedBookings = <Booking>[];
 
-    recurringBookings.forEach((recurringBooking) {
+    for (RecurringBooking recurringBooking in recurringBookings)
       generatedBookings.addAll(recurringBooking.bookings);
-    });
 
     return generatedBookings;
   }
 
-  List<Booking> recurringBookingsOn(DateTime dateTime) {
+  List<Booking> get allBookings =>
+      [...bookings, ...generatedRecurringBookings]..sort(_sortBookings);
+
+  List<Booking> _recurringBookingsOn(DateTime dateTime) {
     final filteredBookings = <Booking>[];
 
-    recurringBookings.forEach((recurringBooking) {
+    for (RecurringBooking recurringBooking in recurringBookings) {
       final _booking = recurringBooking.bookingOn(dateTime);
 
       if (_booking != null) filteredBookings.add(_booking);
-    });
+    }
 
     return filteredBookings;
   }
 
   List<Booking> bookingsOn(DateTime dateTime) => [
         ...bookings.where((booking) => booking.isOn(dateTime)),
-        ...recurringBookingsOn(dateTime),
+        ..._recurringBookingsOn(dateTime),
       ]..sort(_sortBookings);
 
   bool bookingsCollideWith(Booking booking) =>
@@ -67,6 +70,74 @@ class BookingManager with ChangeNotifier {
             orElse: () => null,
           ) !=
       null;
+
+  int occupiedMinutesDurationOn(DateTime dateTime) {
+    int runningDuration = 0;
+
+    for (Booking booking in bookingsOn(dateTime)) {
+      runningDuration += booking.duration.inMinutes;
+    }
+
+    return runningDuration;
+  }
+
+  double occupiedRatioOn(
+    DateTime dateTime, {
+    @required TimeOfDay startTime,
+    @required TimeOfDay endTime,
+  }) {
+    final startDate = tryParseDateTimeWithFormattedTimeOfDay(
+      dateTime: dateTime,
+      formattedTimeOfDay: formatTimeOfDay(startTime),
+    );
+
+    final endDate = tryParseDateTimeWithFormattedTimeOfDay(
+      dateTime: dateTime,
+      formattedTimeOfDay: formatTimeOfDay(endTime),
+    );
+
+    final maxViewMinutesDuration = endDate.difference(startDate).inMinutes;
+
+    return occupiedMinutesDurationOn(dateTime) / maxViewMinutesDuration;
+  }
+
+  List<DateTime> datesWithBookings() {
+    final dates = <DateTime>[];
+
+    for (Booking booking in allBookings) {
+      final hasDate = dates.firstWhere(
+            (date) =>
+                date.year == booking.date.year &&
+                date.month == booking.date.month &&
+                date.day == booking.date.day,
+            orElse: () => null,
+          ) !=
+          null;
+
+      if (!hasDate) dates.add(booking.date);
+    }
+
+    return dates;
+  }
+
+  double evertimeOccupiedRatio({
+    @required TimeOfDay startTime,
+    @required TimeOfDay endTime,
+  }) {
+    double runningRatio = 0.0;
+    int count = 0;
+
+    for (DateTime dateTime in datesWithBookings()) {
+      count++;
+
+      final currentRatio =
+          occupiedRatioOn(dateTime, startTime: startTime, endTime: endTime);
+
+      runningRatio += (currentRatio - runningRatio) / count;
+    }
+
+    return runningRatio;
+  }
 
   Booking getBookingFromId(String id) =>
       bookings.firstWhere((booking) => booking.id == id);

@@ -1,6 +1,7 @@
 import 'package:cabin_booking/model/booking.dart';
 import 'package:cabin_booking/model/booking_manager.dart';
 import 'package:cabin_booking/model/recurring_booking.dart';
+import 'package:flutter/material.dart';
 
 class Cabin {
   String id;
@@ -51,6 +52,31 @@ class Cabin {
 
   bool bookingsCollideWith(Booking booking) =>
       _bookingManager.bookingsCollideWith(booking);
+
+  int occupiedMinutesDurationOn(DateTime dateTime) =>
+      _bookingManager.occupiedMinutesDurationOn(dateTime);
+
+  double occupiedRatioOn(
+    DateTime dateTime, {
+    @required TimeOfDay startTime,
+    @required TimeOfDay endTime,
+  }) =>
+      _bookingManager.occupiedRatioOn(
+        dateTime,
+        startTime: startTime,
+        endTime: endTime,
+      );
+
+  List<DateTime> datesWithBookings() => _bookingManager.datesWithBookings();
+
+  double evertimeOccupiedRatio({
+    @required TimeOfDay startTime,
+    @required TimeOfDay endTime,
+  }) =>
+      _bookingManager.evertimeOccupiedRatio(
+        startTime: startTime,
+        endTime: endTime,
+      );
 
   void addBooking(Booking booking) => _bookingManager.addBooking(booking);
 
