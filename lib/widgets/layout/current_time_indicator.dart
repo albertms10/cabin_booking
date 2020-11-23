@@ -29,7 +29,7 @@ class CurrentTimeIndicator extends StatelessWidget {
         final int differenceFromViewEndTime =
             DateTime.now().difference(viewEndDateTime).inMinutes;
 
-        return differenceFromViewStartTime > 0 && differenceFromViewEndTime < 0
+        return differenceFromViewStartTime > 0 && differenceFromViewEndTime < 15
             ? Column(
                 children: [
                   SizedBox(
