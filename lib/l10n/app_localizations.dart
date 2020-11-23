@@ -40,6 +40,7 @@ class AppLocalizations {
       'changesSaved': 'S’han desat els canvis',
       'disabled': 'Desactivada',
       'description': 'Descripció',
+      'occupancyRate': 'Ocupació',
     },
     'en': {
       'title': 'Cabin Booking',
@@ -70,6 +71,7 @@ class AppLocalizations {
       'changesSaved': 'Changes saved',
       'disabled': 'disabled',
       'description': 'Description',
+      'occupancyRate': 'Occupancy rate',
     },
     'es': {
       'title': 'Reserva de cabinas',
@@ -100,6 +102,7 @@ class AppLocalizations {
       'changesSaved': 'Se han guardado los cambios',
       'disabled': 'Desactivada',
       'description': 'Descripción',
+      'occupancyRate': 'Ocupación',
     },
   };
 
@@ -171,6 +174,9 @@ class AppLocalizations {
 
   String get lockedRange =>
       _localizedValues[locale.languageCode]['lockedRange'];
+
+  String get occupancyRate =>
+      _localizedValues[locale.languageCode]['occupancyRate'];
 }
 
 class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
