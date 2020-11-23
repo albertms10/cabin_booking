@@ -120,11 +120,12 @@ class BookingManager with ChangeNotifier {
   double evertimeOccupiedRatio({
     @required TimeOfDay startTime,
     @required TimeOfDay endTime,
+    List<DateTime> dates,
   }) {
     double runningRatio = 0.0;
     int count = 0;
 
-    for (DateTime dateTime in datesWithBookings()) {
+    for (DateTime dateTime in dates ?? datesWithBookings()) {
       count++;
 
       final currentRatio =

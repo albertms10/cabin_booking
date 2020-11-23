@@ -31,6 +31,8 @@ class _CabinsTableState extends State<CabinsTable> {
   Widget build(BuildContext context) {
     return Consumer<CabinManager>(
       builder: (context, cabinManager, child) {
+        final activeDates = _cabinManager.allCabinsDatesWithBookings();
+
         return DataTable(
           dataRowHeight: 82.0,
           showCheckboxColumn: true,
@@ -93,10 +95,14 @@ class _CabinsTableState extends State<CabinsTable> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
-                          '${(_cabinManager.cabins[index].evertimeOccupiedRatio(
-                                startTime: timeTableStartTime,
-                                endTime: timeTableEndTime,
-                              ) * 100).round()}',
+                          (_cabinManager.cabins[index].evertimeOccupiedRatio(
+                                    startTime: timeTableStartTime,
+                                    endTime: timeTableEndTime,
+                                    dates: activeDates,
+                                  ) *
+                                  100)
+                              .round()
+                              .toString(),
                           style: Theme.of(context).textTheme.headline5,
                         ),
                         const SizedBox(width: 2),

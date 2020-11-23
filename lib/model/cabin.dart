@@ -72,10 +72,12 @@ class Cabin {
   double evertimeOccupiedRatio({
     @required TimeOfDay startTime,
     @required TimeOfDay endTime,
+    List<DateTime> dates,
   }) =>
       _bookingManager.evertimeOccupiedRatio(
         startTime: startTime,
         endTime: endTime,
+        dates: dates,
       );
 
   void addBooking(Booking booking) => _bookingManager.addBooking(booking);

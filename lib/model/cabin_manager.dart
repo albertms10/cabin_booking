@@ -4,6 +4,7 @@ import 'package:cabin_booking/model/booking.dart';
 import 'package:cabin_booking/model/cabin.dart';
 import 'package:cabin_booking/model/file_manager.dart';
 import 'package:cabin_booking/model/recurring_booking.dart';
+import 'package:cabin_booking/utils/time_of_day.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
@@ -29,6 +30,24 @@ class CabinManager with ChangeNotifier, FileManager {
 
   Cabin getFromNumber(int number) =>
       cabins.firstWhere((cabin) => cabin.number == number);
+
+  List<DateTime> allCabinsDatesWithBookings() {
+    final dates = <DateTime>[];
+
+    for (Cabin cabin in cabins) {
+      for (DateTime dateTime in cabin.datesWithBookings()) {
+        final hasDate = dates.firstWhere(
+              (date) => isSameDay(date, dateTime),
+              orElse: () => null,
+            ) !=
+            null;
+
+        if (!hasDate) dates.add(dateTime);
+      }
+    }
+
+    return dates;
+  }
 
   void addCabin(Cabin cabin) {
     cabins.add(cabin);
