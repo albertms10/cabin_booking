@@ -5,8 +5,10 @@ class CabinsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 128, vertical: 16),
-      child: CabinsTable(),
+      padding: const EdgeInsets.symmetric(horizontal: 182),
+      child: SingleChildScrollView(
+        child: CabinsTable(),
+      ),
     );
   }
 }
