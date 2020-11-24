@@ -38,7 +38,7 @@ class EmptyBookingSlot extends StatelessWidget {
                 child: InkWell(
                   borderRadius: const BorderRadius.all(Radius.circular(4.0)),
                   onTap: () async {
-                    final _booking = await showDialog<Booking>(
+                    final newBooking = await showDialog<Booking>(
                       context: context,
                       builder: (context) => BookingDialog(
                         Booking(
@@ -50,8 +50,8 @@ class EmptyBookingSlot extends StatelessWidget {
                       ),
                     );
 
-                    if (_booking != null) {
-                      cabinManager.addBooking(cabin.id, _booking);
+                    if (newBooking != null) {
+                      cabinManager.addBooking(cabin.id, newBooking);
                     }
                   },
                   child: const Icon(

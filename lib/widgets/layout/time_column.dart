@@ -15,7 +15,7 @@ class TimeColumn extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        for (int hour = start.hour; hour <= end.hour; hour++)
+        for (var hour = start.hour; hour <= end.hour; hour++)
           Container(
             width: 180.0,
             height: 60.0 * bookingHeightRatio,

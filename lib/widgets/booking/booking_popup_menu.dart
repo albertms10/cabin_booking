@@ -39,7 +39,7 @@ class BookingPopupMenu extends StatelessWidget {
 
             switch (choice) {
               case 'edit':
-                final _booking = await showDialog<Booking>(
+                final editedBooking = await showDialog<Booking>(
                   context: context,
                   builder: (context) => BookingDialog(
                     (booking.recurringBookingId == null
@@ -53,24 +53,25 @@ class BookingPopupMenu extends StatelessWidget {
                   ),
                 );
 
-                if (_booking != null) {
+                if (editedBooking != null) {
                   if (booking is RecurringBooking ||
                       booking.recurringBookingId != null) {
-                    cabinManager.modifyRecurringBooking(cabin.id, _booking);
+                    cabinManager.modifyRecurringBooking(
+                        cabin.id, editedBooking);
                   } else {
-                    cabinManager.modifyBooking(cabin.id, _booking);
+                    cabinManager.modifyBooking(cabin.id, editedBooking);
                   }
                 }
 
                 break;
 
               case 'delete':
-                final _shallDelete = await showDialog<bool>(
+                final shallDelete = await showDialog<bool>(
                   context: context,
                   builder: (context) => DeleteBookingDialog(),
                 );
 
-                if (_shallDelete != null && _shallDelete) {
+                if (shallDelete != null && shallDelete) {
                   if (booking is RecurringBooking ||
                       booking.recurringBookingId != null) {
                     cabinManager.removeRecurringBookingById(

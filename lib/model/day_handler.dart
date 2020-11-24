@@ -12,7 +12,8 @@ class DayHandler with ChangeNotifier {
 
   void setNow() => dateTime = DateTime.now();
 
-  void setNextDay() => dateTime = _dateTime.add(Duration(days: 1));
+  void setNextDay() => dateTime = _dateTime.add(const Duration(days: 1));
 
-  void setPreviousDay() => dateTime = _dateTime.subtract(Duration(days: 1));
+  void setPreviousDay() =>
+      dateTime = _dateTime.subtract(const Duration(days: 1));
 }

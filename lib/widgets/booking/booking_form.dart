@@ -113,31 +113,31 @@ class _BookingFormState extends State<BookingForm> {
                           return AppLocalizations.of(context).enterStartTime;
                         }
 
-                        final _parsedTimeOfDay = tryParseTimeOfDay(value);
+                        final parsedTimeOfDay = tryParseTimeOfDay(value);
 
-                        _booking.timeStart = _parsedTimeOfDay;
+                        _booking.timeStart = parsedTimeOfDay;
 
-                        if (_startTime != _parsedTimeOfDay) {
-                          _startTime = _parsedTimeOfDay;
+                        if (_startTime != parsedTimeOfDay) {
+                          _startTime = parsedTimeOfDay;
                         }
 
-                        final _parsedDateTime =
+                        final parsedDateTime =
                             tryParseDateTimeWithFormattedTimeOfDay(
                           dateTime: widget.booking.date,
                           formattedTimeOfDay: value,
                         );
 
-                        if (_parsedDateTime == null) {
+                        if (parsedDateTime == null) {
                           return AppLocalizations.of(context).enterStartTime;
                         }
 
-                        if (_parsedDateTime.isAfter(
+                        if (parsedDateTime.isAfter(
                               tryParseDateTimeWithFormattedTimeOfDay(
                                 dateTime: widget.booking.date,
                                 formattedTimeOfDay: _endTime.format(context),
                               ),
                             ) ||
-                            _parsedDateTime.isBefore(
+                            parsedDateTime.isBefore(
                               tryParseDateTimeWithFormattedTimeOfDay(
                                 dateTime: widget.booking.date,
                                 formattedTimeOfDay:
@@ -156,15 +156,15 @@ class _BookingFormState extends State<BookingForm> {
                         return null;
                       },
                       onTap: () async {
-                        final _time = await showTimePicker(
+                        final time = await showTimePicker(
                           context: context,
                           initialTime: _startTime,
                         );
 
-                        if (_time != null) {
+                        if (time != null) {
                           setState(() {
-                            _startTime = _time;
-                            _startTimeController.text = _time.format(context);
+                            _startTime = time;
+                            _startTimeController.text = time.format(context);
                           });
                         }
                       },
@@ -193,31 +193,31 @@ class _BookingFormState extends State<BookingForm> {
                           return AppLocalizations.of(context).enterEndTime;
                         }
 
-                        final _parsedTimeOfDay = tryParseTimeOfDay(value);
+                        final parsedTimeOfDay = tryParseTimeOfDay(value);
 
-                        _booking.timeEnd = _parsedTimeOfDay;
+                        _booking.timeEnd = parsedTimeOfDay;
 
-                        if (_endTime != _parsedTimeOfDay) {
-                          _endTime = _parsedTimeOfDay;
+                        if (_endTime != parsedTimeOfDay) {
+                          _endTime = parsedTimeOfDay;
                         }
 
-                        final _parsedDateTime =
+                        final parsedDateTime =
                             tryParseDateTimeWithFormattedTimeOfDay(
                           dateTime: widget.booking.date,
                           formattedTimeOfDay: value,
                         );
 
-                        if (_parsedDateTime == null) {
+                        if (parsedDateTime == null) {
                           return AppLocalizations.of(context).enterEndTime;
                         }
 
-                        if (_parsedDateTime.isBefore(
+                        if (parsedDateTime.isBefore(
                               tryParseDateTimeWithFormattedTimeOfDay(
                                 dateTime: widget.booking.date,
                                 formattedTimeOfDay: _startTime.format(context),
                               ),
                             ) ||
-                            _parsedDateTime.isAfter(
+                            parsedDateTime.isAfter(
                               tryParseDateTimeWithFormattedTimeOfDay(
                                 dateTime: widget.booking.date,
                                 formattedTimeOfDay:
@@ -236,15 +236,15 @@ class _BookingFormState extends State<BookingForm> {
                         return null;
                       },
                       onTap: () async {
-                        final _time = await showTimePicker(
+                        final time = await showTimePicker(
                           context: context,
                           initialTime: _endTime,
                         );
 
-                        if (_time != null) {
+                        if (time != null) {
                           setState(() {
-                            _endTime = _time;
-                            _endTimeController.text = _time.format(context);
+                            _endTime = time;
+                            _endTimeController.text = time.format(context);
                           });
                         }
                       },

@@ -112,7 +112,7 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
       CurvedAnimation(
         parent: _controller,
         curve: widget.curve,
-      )..addStatusListener((AnimationStatus status) {
+      )..addStatusListener((status) {
           setState(() {
             _animationCompleted = status == AnimationStatus.completed ||
                 status == AnimationStatus.dismissed;
@@ -121,17 +121,17 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
     );
   }
 
-  Duration _calculateMainControllerDuration() => Duration(
-        milliseconds: widget.animationSpeed +
-            widget.children.length * widget.animationSpeed ~/ 5,
-      );
-
   @override
   void dispose() {
     _controller.dispose();
 
     super.dispose();
   }
+
+  Duration _calculateMainControllerDuration() => Duration(
+        milliseconds: widget.animationSpeed +
+            widget.children.length * widget.animationSpeed ~/ 5,
+      );
 
   void _performAnimation() {
     if (!mounted) return;

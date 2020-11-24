@@ -15,7 +15,7 @@ class StrippedBackground extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.max,
       children: [
-        for (int i = 0; i < count; i++)
+        for (var i = 0; i < count; i++)
           Container(
             height: height,
             color: i % 2 == 0 ? null : const Color.fromARGB(8, 0, 0, 0),

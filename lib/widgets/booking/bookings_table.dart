@@ -1,4 +1,3 @@
-import 'package:cabin_booking/model/cabin.dart';
 import 'package:cabin_booking/model/cabin_manager.dart';
 import 'package:cabin_booking/model/day_handler.dart';
 import 'package:cabin_booking/widgets/booking/bookings_stack.dart';
@@ -22,7 +21,7 @@ class BookingsTable extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 child,
-                for (Cabin cabin in cabinManager.cabins)
+                for (final cabin in cabinManager.cabins)
                   Expanded(
                     child: BookingsStack(
                       cabin: cabin.simple,

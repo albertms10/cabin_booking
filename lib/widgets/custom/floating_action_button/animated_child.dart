@@ -40,12 +40,6 @@ class AnimatedChild extends AnimatedWidget {
     this.heroTag,
   }) : super(key: key, listenable: animation);
 
-  void _performAction() {
-    if (onTap != null) onTap();
-
-    toggleChildren();
-  }
-
   @override
   Widget build(BuildContext context) {
     final Animation<double> animation = listenable;
@@ -80,7 +74,11 @@ class AnimatedChild extends AnimatedWidget {
               padding: const EdgeInsets.symmetric(vertical: 10.0),
               child: FloatingActionButton(
                 heroTag: heroTag,
-                onPressed: _performAction,
+                onPressed: () {
+                  if (onTap != null) onTap();
+
+                  toggleChildren();
+                },
                 backgroundColor: backgroundColor,
                 foregroundColor: foregroundColor,
                 elevation: elevation,

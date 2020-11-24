@@ -20,7 +20,7 @@ class CabinManager with ChangeNotifier, FileManager {
   }
 
   List<Cabin> _generateCabins(int number) => [
-        for (int i = 1; i <= number; i++) Cabin(id: Uuid().v4(), number: i),
+        for (var i = 1; i <= number; i++) Cabin(id: Uuid().v4(), number: i),
       ];
 
   List<Map<String, dynamic>> cabinsToMapList() =>

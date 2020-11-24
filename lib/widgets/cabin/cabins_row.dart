@@ -17,7 +17,7 @@ class CabinsRow extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               child,
-              for (Cabin cabin in cabinManager.cabins)
+              for (final cabin in cabinManager.cabins)
                 Expanded(
                   child: CabinIcon(
                     number: cabin.number,

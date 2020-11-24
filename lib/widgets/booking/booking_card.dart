@@ -16,7 +16,7 @@ class BookingCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _height = booking.duration.inMinutes * bookingHeightRatio - 16.0;
+    final height = booking.duration.inMinutes * bookingHeightRatio - 16.0;
 
     return booking.isDisabled
         ? Container(
@@ -29,7 +29,7 @@ class BookingCard extends StatelessWidget {
                 mouseCursor: MouseCursor.defer,
                 borderRadius: const BorderRadius.all(Radius.circular(4.0)),
                 child: Container(
-                  height: _height,
+                  height: height,
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -48,20 +48,20 @@ class BookingCard extends StatelessWidget {
         : TimerBuilder.periodic(
             Duration(minutes: 1),
             builder: (context) {
-              final _isBeforeNow = booking.dateEnd.isBefore(DateTime.now());
+              final isBeforeNow = booking.dateEnd.isBefore(DateTime.now());
 
               return Card(
                 margin: const EdgeInsets.all(8.0),
-                shadowColor: _isBeforeNow ? Colors.black38 : Colors.black,
+                shadowColor: isBeforeNow ? Colors.black38 : Colors.black,
                 color: Colors.transparent,
                 child: Container(
-                  height: _height,
+                  height: height,
                   padding: const EdgeInsets.all(8.0),
                   decoration: BoxDecoration(
                     color: booking is RecurringBooking ||
                             booking.recurringBookingId != null
                         ? Colors.blue[50]
-                        : _isBeforeNow
+                        : isBeforeNow
                             ? const Color.fromARGB(150, 255, 255, 255)
                             : Colors.white,
                     borderRadius: const BorderRadius.all(Radius.circular(4.0)),

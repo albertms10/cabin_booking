@@ -47,9 +47,9 @@ class BookingManager with ChangeNotifier {
     final filteredBookings = <Booking>[];
 
     for (final recurringBooking in recurringBookings) {
-      final _booking = recurringBooking.bookingOn(dateTime);
+      final booking = recurringBooking.bookingOn(dateTime);
 
-      if (_booking != null) filteredBookings.add(_booking);
+      if (booking != null) filteredBookings.add(booking);
     }
 
     return filteredBookings;

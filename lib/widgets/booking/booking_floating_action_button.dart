@@ -19,7 +19,7 @@ class BookingFloatingActionButton extends StatelessWidget {
           animatedIconTheme: IconThemeData(size: 28.0),
           label: AppLocalizations.of(context).booking,
           onPress: () async {
-            final _booking = await showDialog<Booking>(
+            final newBooking = await showDialog<Booking>(
               context: context,
               builder: (context) => BookingDialog(
                 Booking(
@@ -34,8 +34,8 @@ class BookingFloatingActionButton extends StatelessWidget {
               ),
             );
 
-            if (_booking != null) {
-              cabinManager.addBooking(_booking.cabinId, _booking);
+            if (newBooking != null) {
+              cabinManager.addBooking(newBooking.cabinId, newBooking);
             }
           },
           children: [
@@ -43,7 +43,7 @@ class BookingFloatingActionButton extends StatelessWidget {
               icon: Icons.repeat,
               label: AppLocalizations.of(context).recurringBooking,
               onTap: () async {
-                final _booking = await showDialog<RecurringBooking>(
+                final newRecurringBooking = await showDialog<RecurringBooking>(
                   context: context,
                   builder: (context) => BookingDialog(
                     RecurringBooking(
@@ -59,8 +59,9 @@ class BookingFloatingActionButton extends StatelessWidget {
                   ),
                 );
 
-                if (_booking != null) {
-                  cabinManager.addRecurringBooking(_booking.cabinId, _booking);
+                if (newRecurringBooking != null) {
+                  cabinManager.addRecurringBooking(
+                      newRecurringBooking.cabinId, newRecurringBooking);
                 }
               },
             ),
@@ -68,7 +69,7 @@ class BookingFloatingActionButton extends StatelessWidget {
               icon: Icons.lock,
               label: AppLocalizations.of(context).lockedRange,
               onTap: () async {
-                final _booking = await showDialog<Booking>(
+                final newBooking = await showDialog<Booking>(
                   context: context,
                   builder: (context) => BookingDialog(
                     Booking(
@@ -84,8 +85,8 @@ class BookingFloatingActionButton extends StatelessWidget {
                   ),
                 );
 
-                if (_booking != null) {
-                  cabinManager.addBooking(_booking.cabinId, _booking);
+                if (newBooking != null) {
+                  cabinManager.addBooking(newBooking.cabinId, newBooking);
                 }
               },
             ),
