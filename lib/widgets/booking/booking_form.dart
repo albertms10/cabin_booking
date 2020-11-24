@@ -38,6 +38,14 @@ class _BookingFormState extends State<BookingForm> {
   }
 
   @override
+  void dispose() {
+    _startTimeController.dispose();
+    _endTimeController.dispose();
+
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     _startTimeController.text = _startTime.format(context);
     _endTimeController.text = _endTime.format(context);
