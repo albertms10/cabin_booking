@@ -9,7 +9,7 @@ class CurrentTimeIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TimerBuilder.periodic(
-      Duration(seconds: 5),
+      const Duration(seconds: 5),
       builder: (context) {
         final dayHandler = Provider.of<DayHandler>(context);
 

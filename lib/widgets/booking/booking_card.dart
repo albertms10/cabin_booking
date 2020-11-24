@@ -46,7 +46,7 @@ class BookingCard extends StatelessWidget {
             ),
           )
         : TimerBuilder.periodic(
-            Duration(minutes: 1),
+            const Duration(minutes: 1),
             builder: (context) {
               final isBeforeNow = booking.dateEnd.isBefore(DateTime.now());
 
