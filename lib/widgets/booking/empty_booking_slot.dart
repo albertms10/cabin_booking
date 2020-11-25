@@ -22,52 +22,74 @@ class EmptyBookingSlot extends StatelessWidget {
   Widget build(BuildContext context) {
     final cabinManager = Provider.of<CabinManager>(context, listen: false);
 
-    final duration = dateEnd.difference(dateStart);
-
     return TimerBuilder.periodic(
       const Duration(minutes: 1),
       builder: (context) {
-        return SizedBox(
-          width: double.infinity,
-          height: duration.inMinutes * bookingHeightRatio,
-          child: duration.compareTo(minSlotDuration) < 0 ||
-                  dateEnd.compareTo(DateTime.now()) < 0
-              ? null
-              : Container(
-                  margin: const EdgeInsets.all(8.0),
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(4.0)),
-                  ),
-                  child: Tooltip(
-                    message: '${duration.inMinutes} min',
-                    child: InkWell(
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(4.0)),
-                      onTap: () async {
-                        final newBooking = await showDialog<Booking>(
-                          context: context,
-                          builder: (context) => BookingDialog(
-                            Booking(
-                              date: dateStart,
-                              timeStart: TimeOfDay.fromDateTime(dateStart),
-                              timeEnd: TimeOfDay.fromDateTime(dateEnd),
-                              cabinId: cabin.id,
-                            ),
-                          ),
-                        );
+        final now = DateTime.now();
 
-                        if (newBooking != null) {
-                          cabinManager.addBooking(cabin.id, newBooking);
-                        }
-                      },
-                      child: const Icon(
-                        Icons.add,
-                        size: 18.0,
-                        color: Colors.black38,
+        final fullDuration = dateEnd.difference(dateStart);
+
+        final startToNowDuration = now.difference(dateStart);
+        final startsBeforeNow = now.compareTo(dateStart) > 0;
+
+        final endToNowDuration = dateEnd.difference(now);
+        final endsAfterNow = dateEnd.compareTo(now) > 0;
+
+        final duration =
+            startsBeforeNow && endsAfterNow ? endToNowDuration : fullDuration;
+
+        final start = startsBeforeNow ? now : dateStart;
+
+        return Column(
+          children: [
+            if (startsBeforeNow && endsAfterNow)
+              SizedBox(
+                height: startToNowDuration.inMinutes.toDouble() *
+                    bookingHeightRatio,
+              ),
+            SizedBox(
+              width: double.infinity,
+              height: duration.inMinutes * bookingHeightRatio,
+              child: duration.compareTo(minSlotDuration) < 0 ||
+                      dateEnd.compareTo(now) < 0
+                  ? null
+                  : Container(
+                      margin: const EdgeInsets.all(8.0),
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                      ),
+                      child: Tooltip(
+                        message: '${duration.inMinutes} min',
+                        child: InkWell(
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(4.0)),
+                          onTap: () async {
+                            final newBooking = await showDialog<Booking>(
+                              context: context,
+                              builder: (context) => BookingDialog(
+                                Booking(
+                                  date: start,
+                                  timeStart: TimeOfDay.fromDateTime(start),
+                                  timeEnd: TimeOfDay.fromDateTime(dateEnd),
+                                  cabinId: cabin.id,
+                                ),
+                              ),
+                            );
+
+                            if (newBooking != null) {
+                              cabinManager.addBooking(cabin.id, newBooking);
+                            }
+                          },
+                          child: const Icon(
+                            Icons.add,
+                            size: 18.0,
+                            color: Colors.black38,
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ),
+            ),
+          ],
         );
       },
     );
