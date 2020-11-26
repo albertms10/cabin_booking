@@ -60,6 +60,12 @@ class CabinManager with ChangeNotifier, FileManager {
     notifyListeners();
   }
 
+  void removeCabinsByIds(List<String> ids) {
+    cabins.removeWhere((cabin) => ids.contains(cabin.id));
+
+    notifyListeners();
+  }
+
   void addBooking(String cabinId, Booking booking) {
     getFromId(booking.cabinId ?? cabinId).addBooking(booking);
 
