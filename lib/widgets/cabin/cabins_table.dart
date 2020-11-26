@@ -1,6 +1,7 @@
 import 'package:cabin_booking/l10n/app_localizations.dart';
 import 'package:cabin_booking/model/cabin_manager.dart';
 import 'package:cabin_booking/widgets/cabin/cabin_icon.dart';
+import 'package:cabin_booking/widgets/layout/data_table_toolbar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -230,30 +231,22 @@ class _CabinsTableState extends State<CabinsTable> {
             ),
           ],
         ),
-        SizedBox(
-          height: 54.0,
-          child: widget.selectedItems > 0
-              ? AppBar(
-                  title: Text('${widget.selectedItems} selected'),
-                  centerTitle: false,
-                  leading: IconButton(
-                    onPressed: () {
-                      setState(() {
-                        widget.unselect();
-                      });
-                    },
-                    icon: const Icon(Icons.close),
-                  ),
-                  actions: [
-                    IconButton(
-                      onPressed: () {
-                        widget.removeSelected(context);
-                      },
-                      icon: const Icon(Icons.delete),
-                    ),
-                  ],
-                )
-              : null,
+        DataTableToolbar(
+          shown: widget.selectedItems > 0,
+          selectedItems: widget.selectedItems,
+          onPressedLeading: () {
+            setState(() {
+              widget.unselect();
+            });
+          },
+          actions: [
+            IconButton(
+              onPressed: () {
+                widget.removeSelected(context);
+              },
+              icon: const Icon(Icons.delete),
+            ),
+          ],
         ),
       ],
     );
