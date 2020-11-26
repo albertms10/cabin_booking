@@ -49,7 +49,7 @@ class FloatingActionButtonMenu extends StatefulWidget {
   final VoidCallback onClose;
 
   /// Executed when the dial is pressed. If given, the dial only opens on long press!
-  final VoidCallback onPress;
+  final VoidCallback onPressed;
 
   /// If `true` [overlay] is not rendered and user is forced to close dial manually by tapping main button.
   final bool closeManually;
@@ -81,7 +81,7 @@ class FloatingActionButtonMenu extends StatefulWidget {
     this.closeManually = false,
     this.shape = const CircleBorder(),
     this.curve = Curves.easeInOutCubic,
-    this.onPress,
+    this.onPressed,
     this.animationSpeed = 150,
   }) : super(key: key);
 
@@ -237,9 +237,9 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
       elevation: widget.elevation,
       isOpen: _open,
       onLongPress: _toggleChildren,
-      callback: _open && widget.onPress != null
+      callback: _open && widget.onPressed != null
           ? () {
-              widget.onPress();
+              widget.onPressed();
               _toggleChildren();
             }
           : _toggleChildren,

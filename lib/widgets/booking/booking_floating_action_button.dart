@@ -18,7 +18,7 @@ class BookingFloatingActionButton extends StatelessWidget {
           animatedIcon: AnimatedIcons.add_event,
           animatedIconTheme: IconThemeData(size: 25.0),
           label: AppLocalizations.of(context).booking,
-          onPress: () async {
+          onPressed: () async {
             final newBooking = await showDialog<Booking>(
               context: context,
               builder: (context) => BookingDialog(
