@@ -7,7 +7,6 @@ import 'package:cabin_booking/model/recurring_booking.dart';
 import 'package:cabin_booking/utils/date.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:uuid/uuid.dart';
 
 List<Cabin> _parseCabins(String jsonString) =>
     json.decode(jsonString).map<Cabin>((json) => Cabin.from(json)).toList();
@@ -20,7 +19,7 @@ class CabinManager with ChangeNotifier, FileManager {
   }
 
   List<Cabin> _generateCabins(int number) => [
-        for (var i = 1; i <= number; i++) Cabin(id: Uuid().v4(), number: i),
+        for (var i = 1; i <= number; i++) Cabin(number: i),
       ];
 
   List<Map<String, dynamic>> cabinsToMapList() =>

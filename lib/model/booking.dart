@@ -1,6 +1,7 @@
 import 'package:cabin_booking/utils/date.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:uuid/uuid.dart';
 
 class Booking {
   String id;
@@ -21,7 +22,9 @@ class Booking {
     this.isDisabled = false,
     this.cabinId,
     this.recurringBookingId,
-  });
+  }) {
+    id ??= Uuid().v4();
+  }
 
   Booking.from(Map<String, dynamic> other)
       : id = other['id'],

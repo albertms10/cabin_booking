@@ -2,7 +2,6 @@ import 'package:cabin_booking/model/booking.dart';
 import 'package:cabin_booking/model/recurring_booking.dart';
 import 'package:cabin_booking/utils/date.dart';
 import 'package:flutter/material.dart';
-import 'package:uuid/uuid.dart';
 
 int _sortBookings(Booking a, Booking b) => a.dateStart.compareTo(b.dateStart);
 
@@ -146,8 +145,6 @@ class BookingManager with ChangeNotifier {
         ..recurringBookingId = id;
 
   void addBooking(Booking booking) {
-    booking.id = Uuid().v4();
-
     bookings
       ..add(booking)
       ..sort(_sortBookings);
@@ -156,8 +153,6 @@ class BookingManager with ChangeNotifier {
   }
 
   void addRecurringBooking(RecurringBooking recurringBooking) {
-    recurringBooking.id = Uuid().v4();
-
     recurringBookings
       ..add(recurringBooking)
       ..sort(_sortBookings);

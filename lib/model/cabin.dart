@@ -2,6 +2,7 @@ import 'package:cabin_booking/model/booking.dart';
 import 'package:cabin_booking/model/booking_manager.dart';
 import 'package:cabin_booking/model/recurring_booking.dart';
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
 
 class Cabin {
   String id;
@@ -19,6 +20,7 @@ class Cabin {
           bookings: bookings,
           recurringBookings: recurringBookings,
         ) {
+    id ??= Uuid().v4();
     components ??= <String, int>{};
   }
 
