@@ -23,7 +23,7 @@ class EmptyBookingSlot extends StatelessWidget {
     final cabinManager = Provider.of<CabinManager>(context, listen: false);
 
     return TimerBuilder.periodic(
-      const Duration(minutes: 1),
+      const Duration(seconds: 30),
       builder: (context) {
         final now = DateTime.now();
 
@@ -38,18 +38,19 @@ class EmptyBookingSlot extends StatelessWidget {
         final duration =
             startsBeforeNow && endsAfterNow ? endToNowDuration : fullDuration;
 
+        final preciseDuration = (duration.inSeconds / 60).ceil();
+
         final start = startsBeforeNow ? now : dateStart;
 
         return Column(
           children: [
             if (startsBeforeNow && endsAfterNow)
               SizedBox(
-                height: startToNowDuration.inMinutes.toDouble() *
-                    bookingHeightRatio,
+                height: startToNowDuration.inMinutes * bookingHeightRatio,
               ),
             SizedBox(
               width: double.infinity,
-              height: duration.inMinutes * bookingHeightRatio,
+              height: preciseDuration * bookingHeightRatio,
               child: duration.compareTo(minSlotDuration) < 0 ||
                       dateEnd.compareTo(now) < 0
                   ? null
@@ -59,7 +60,7 @@ class EmptyBookingSlot extends StatelessWidget {
                         borderRadius: BorderRadius.all(Radius.circular(4.0)),
                       ),
                       child: Tooltip(
-                        message: '${duration.inMinutes} min',
+                        message: '${preciseDuration} min',
                         child: InkWell(
                           borderRadius:
                               const BorderRadius.all(Radius.circular(4.0)),
