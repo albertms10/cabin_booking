@@ -4,6 +4,7 @@ import 'package:cabin_booking/model/booking.dart';
 import 'package:cabin_booking/model/cabin.dart';
 import 'package:cabin_booking/model/cabin_manager.dart';
 import 'package:cabin_booking/utils/date.dart';
+import 'package:cabin_booking/widgets/layout/submit_button.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -262,31 +263,16 @@ class _BookingFormState extends State<BookingForm> {
             ],
           ),
           const SizedBox(height: 32.0),
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton.icon(
-              onPressed: () {
-                if (_formKey.currentState.validate()) {
-                  _formKey.currentState.save();
+          SubmitButton(
+            shouldAdd: widget.booking.studentName == null,
+            onPressed: () {
+              if (_formKey.currentState.validate()) {
+                _formKey.currentState.save();
 
-                  Navigator.of(context).pop<Booking>(_booking);
-                }
-              },
-              icon: widget.booking.studentName == null
-                  ? const Icon(Icons.add)
-                  : const Icon(Icons.check),
-              label: Container(
-                margin: const EdgeInsets.symmetric(vertical: 12),
-                child: Text(
-                  widget.booking.studentName == null
-                      ? AppLocalizations.of(context).add.toUpperCase()
-                      : MaterialLocalizations.of(context)
-                          .saveButtonLabel
-                          .toUpperCase(),
-                ),
-              ),
-            ),
-          )
+                Navigator.of(context).pop<Booking>(_booking);
+              }
+            },
+          ),
         ],
       ),
     );
