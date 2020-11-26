@@ -1,5 +1,6 @@
 import 'package:cabin_booking/l10n/app_localizations.dart';
 import 'package:cabin_booking/widgets/booking/booking_floating_action_button.dart';
+import 'package:cabin_booking/widgets/cabin/cabin_floating_action_button.dart';
 import 'package:cabin_booking/widgets/pages/main_content.dart';
 import 'package:flutter/material.dart';
 
@@ -13,13 +14,18 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 1;
 
+  final _floatingActionButtons = [
+    CabinFloatingActionButton(),
+    BookingFloatingActionButton(),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.of(context).title),
       ),
-      floatingActionButton: BookingFloatingActionButton(),
+      floatingActionButton: _floatingActionButtons[_selectedIndex],
       body: SafeArea(
         child: Row(
           children: [
