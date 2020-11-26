@@ -7,12 +7,14 @@ class CabinTableRow {
   final int bookingsCount;
   final int recurringBookingsCount;
   final double occupancyRate;
+  bool selected;
 
   CabinTableRow({
     this.number,
     this.bookingsCount,
     this.recurringBookingsCount,
     this.occupancyRate,
+    this.selected = false,
   });
 }
 
@@ -31,19 +33,8 @@ class CabinsTable extends StatefulWidget {
 typedef _OnSortFunction = Function(bool ascending);
 
 class _CabinsTableState extends State<CabinsTable> {
-  List<bool> _selected;
   bool _sortAscending = true;
   int _sortColumnIndex = 0;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _selected = List<bool>.generate(
-      widget.cabinRows.length,
-      (index) => false,
-    );
-  }
 
   void _onSortNumber(bool ascending) {
     if (ascending) {
@@ -105,14 +96,6 @@ class _CabinsTableState extends State<CabinsTable> {
 
   @override
   Widget build(BuildContext context) {
-    if (_selected.length < widget.cabinRows.length) {
-      setState(() {
-        while (_selected.length < widget.cabinRows.length) {
-          _selected.add(false);
-        }
-      });
-    }
-
     return DataTable(
       dataRowHeight: 82.0,
       showCheckboxColumn: true,
@@ -157,9 +140,9 @@ class _CabinsTableState extends State<CabinsTable> {
           final cabinRow = widget.cabinRows[index];
 
           return DataRow(
-            selected: _selected[index],
+            selected: widget.cabinRows[index].selected,
             onSelectChanged: (selected) {
-              setState(() => _selected[index] = selected);
+              setState(() => widget.cabinRows[index].selected = selected);
             },
             cells: [
               DataCell(
