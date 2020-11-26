@@ -18,10 +18,6 @@ class CabinManager with ChangeNotifier, FileManager {
     cabins ??= <Cabin>[];
   }
 
-  List<Cabin> _generateCabins(int number) => [
-        for (var i = 1; i <= number; i++) Cabin(number: i),
-      ];
-
   List<Map<String, dynamic>> cabinsToMapList() =>
       cabins.map((cabin) => cabin.toMap()).toList();
 
@@ -29,6 +25,8 @@ class CabinManager with ChangeNotifier, FileManager {
 
   Cabin getFromNumber(int number) =>
       cabins.firstWhere((cabin) => cabin.number == number);
+
+  int get lastCabinNumber => cabins.isNotEmpty ? cabins.last.number : 0;
 
   List<DateTime> allCabinsDatesWithBookings() {
     final dates = <DateTime>[];
@@ -142,9 +140,9 @@ class CabinManager with ChangeNotifier, FileManager {
 
       final cabins = await compute(_parseCabins, await file.readAsString());
 
-      return cabins.isNotEmpty ? cabins : _generateCabins(_defaultCabinNumber);
+      return cabins;
     } catch (e) {
-      return _generateCabins(_defaultCabinNumber);
+      return [];
     }
   }
 
