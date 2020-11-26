@@ -122,7 +122,6 @@ class CabinManager with ChangeNotifier, FileManager {
   }
 
   static final _fileName = 'cabin_manager';
-  static final _defaultCabinNumber = 6;
 
   Future<bool> writeCabinsToFile() async {
     final file = await localFile(_fileName);
