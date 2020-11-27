@@ -181,7 +181,8 @@ class _CabinsTableState extends State<CabinsTable> {
                       selected: widget.cabinRows[index].selected,
                       onSelectChanged: (selected) {
                         setState(
-                            () => widget.cabinRows[index].selected = selected);
+                          () => widget.cabinRows[index].selected = selected,
+                        );
                       },
                       cells: [
                         DataCell(
