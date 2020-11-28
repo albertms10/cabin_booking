@@ -1,5 +1,6 @@
 import 'package:cabin_booking/model/booking.dart';
 import 'package:cabin_booking/model/booking_manager.dart';
+import 'package:cabin_booking/model/cabin_components.dart';
 import 'package:cabin_booking/model/recurring_booking.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
@@ -7,7 +8,7 @@ import 'package:uuid/uuid.dart';
 class Cabin {
   String id;
   int number;
-  Map<String, int> components;
+  CabinComponents components;
   final BookingManager _bookingManager;
 
   Cabin({
@@ -21,23 +22,22 @@ class Cabin {
           recurringBookings: recurringBookings,
         ) {
     id ??= Uuid().v4();
-    components ??= <String, int>{};
+    components ??= CabinComponents();
   }
 
   Cabin.from(Map<String, dynamic> other)
       : id = other['id'],
         number = other['number'],
-        components =
-            Map<String, int>.from(other['components'] ?? <String, int>{}),
+        components = CabinComponents.from(other['components']),
         _bookingManager = BookingManager.from(
-          bookings: other['bookings'] ?? <Booking>[],
-          recurringBookings: other['recurringBookings'] ?? <Booking>[],
+          bookings: other['bookings'],
+          recurringBookings: other['recurringBookings'],
         );
 
   Map<String, dynamic> toMap() => {
         'id': id,
         'number': number,
-        'components': components,
+        'components': components.toMap(),
         'bookings': _bookingManager.bookingsToMapList(),
         'recurringBookings': _bookingManager.recurringBookingsToMapList(),
       };
