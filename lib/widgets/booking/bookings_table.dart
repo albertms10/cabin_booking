@@ -1,3 +1,4 @@
+import 'package:cabin_booking/constants.dart';
 import 'package:cabin_booking/model/cabin_manager.dart';
 import 'package:cabin_booking/model/day_handler.dart';
 import 'package:cabin_booking/widgets/booking/bookings_stack.dart';
@@ -12,26 +13,33 @@ class BookingsTable extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        StrippedBackground(count: 8),
-        Consumer2<DayHandler, CabinManager>(
-          builder: (context, dayHandler, cabinManager, child) {
-            return Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                child,
-                for (final cabin in cabinManager.cabins)
-                  Expanded(
-                    child: BookingsStack(
-                      cabin: cabin.simple,
-                      bookings: cabin.bookingsOn(dayHandler.dateTime),
+        StrippedBackground(
+          startTime: timeTableStartTime,
+          endTime: timeTableEndTime,
+        ),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Consumer2<DayHandler, CabinManager>(
+            builder: (context, dayHandler, cabinManager, child) {
+              return Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  child,
+                  for (final cabin in cabinManager.cabins)
+                    SizedBox(
+                      width: columnWidth,
+                      child: BookingsStack(
+                        cabin: cabin.simple,
+                        bookings: cabin.bookingsOn(dayHandler.dateTime),
+                      ),
                     ),
-                  ),
-              ],
-            );
-          },
-          child: TimeColumn(),
+                ],
+              );
+            },
+            child: TimeColumn(),
+          ),
         ),
         CurrentTimeIndicator(),
       ],

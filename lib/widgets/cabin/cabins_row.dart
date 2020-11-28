@@ -14,11 +14,11 @@ class CabinsRow extends StatelessWidget {
       child: Consumer2<DayHandler, CabinManager>(
         builder: (context, dayHandler, cabinManager, child) {
           return Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               child,
               for (final cabin in cabinManager.cabins)
-                Expanded(
+                SizedBox(
+                  width: columnWidth,
                   child: CabinIcon(
                     number: cabin.number,
                     progress: cabin.occupiedRatioOn(
@@ -31,7 +31,7 @@ class CabinsRow extends StatelessWidget {
             ],
           );
         },
-        child: const SizedBox(width: 180.0),
+        child: const SizedBox(width: columnWidth),
       ),
     );
   }
