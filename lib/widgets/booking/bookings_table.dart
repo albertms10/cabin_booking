@@ -17,29 +17,26 @@ class BookingsTable extends StatelessWidget {
           startTime: timeTableStartTime,
           endTime: timeTableEndTime,
         ),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Consumer2<DayHandler, CabinManager>(
-            builder: (context, dayHandler, cabinManager, child) {
-              return Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  child,
-                  for (final cabin in cabinManager.cabins)
-                    SizedBox(
-                      width: columnWidth,
-                      child: BookingsStack(
-                        cabin: cabin.simple,
-                        bookings: cabin.bookingsOn(dayHandler.dateTime),
-                      ),
+        Consumer2<DayHandler, CabinManager>(
+          builder: (context, dayHandler, cabinManager, child) {
+            return Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                child,
+                for (final cabin in cabinManager.cabins)
+                  SizedBox(
+                    width: columnWidth,
+                    child: BookingsStack(
+                      cabin: cabin.simple,
+                      bookings: cabin.bookingsOn(dayHandler.dateTime),
                     ),
-                ],
-              );
-            },
-            child: TimeColumn(),
-          ),
+                  ),
+              ],
+            );
+          },
+          child: TimeColumn(),
         ),
         CurrentTimeIndicator(),
       ],
