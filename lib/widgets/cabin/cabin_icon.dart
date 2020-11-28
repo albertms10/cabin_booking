@@ -29,13 +29,13 @@ class CabinIcon extends StatelessWidget {
                 child: TweenAnimationBuilder<double>(
                   tween: Tween<double>(begin: 0.0, end: progress),
                   duration: const Duration(milliseconds: 700),
+                  curve: Curves.easeOutCubic,
                   builder: (context, value, child) {
                     return CircularProgressIndicator(
                       value: value,
                       backgroundColor: Colors.blue[50],
                     );
                   },
-                  curve: Curves.easeOutCubic,
                 ),
               ),
               text,
