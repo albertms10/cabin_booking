@@ -45,6 +45,10 @@ class RecurringBooking extends Booking {
         if (_times != null) 'times': times,
       };
 
+  RecurringBookingMethod get method => _until != null
+      ? RecurringBookingMethod.until
+      : RecurringBookingMethod.times;
+
   DateTime get until {
     if (_until != null) return _until;
 
@@ -57,6 +61,11 @@ class RecurringBooking extends Booking {
     }
 
     return recurringDateTime;
+  }
+
+  set until(DateTime until) {
+    _times = null;
+    _until = until;
   }
 
   int get times {
@@ -73,6 +82,11 @@ class RecurringBooking extends Booking {
     }
 
     return count;
+  }
+
+  set times(int times) {
+    _until = null;
+    _times = times;
   }
 
   Booking get booking => Booking(
@@ -128,4 +142,9 @@ class RecurringBooking extends Booking {
 
   @override
   String toString() => '$times × ${super.toString()}';
+}
+
+enum RecurringBookingMethod {
+  until,
+  times,
 }
