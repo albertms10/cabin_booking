@@ -2,7 +2,7 @@ import 'package:cabin_booking/constants.dart';
 import 'package:cabin_booking/model/booking.dart';
 import 'package:cabin_booking/model/cabin.dart';
 import 'package:cabin_booking/model/cabin_manager.dart';
-import 'package:cabin_booking/widgets/booking/booking_dialog.dart';
+import 'package:cabin_booking/utils/show_booking_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:timer_builder/timer_builder.dart';
@@ -64,22 +64,17 @@ class EmptyBookingSlot extends StatelessWidget {
                         child: InkWell(
                           borderRadius:
                               const BorderRadius.all(Radius.circular(4.0)),
-                          onTap: () async {
-                            final newBooking = await showDialog<Booking>(
-                              context: context,
-                              builder: (context) => BookingDialog(
-                                Booking(
-                                  date: start,
-                                  timeStart: TimeOfDay.fromDateTime(start),
-                                  timeEnd: TimeOfDay.fromDateTime(dateEnd),
-                                  cabinId: cabin.id,
-                                ),
+                          onTap: () {
+                            showNewBookingDialog(
+                              context,
+                              Booking(
+                                date: start,
+                                timeStart: TimeOfDay.fromDateTime(start),
+                                timeEnd: TimeOfDay.fromDateTime(dateEnd),
+                                cabinId: cabin.id,
                               ),
+                              cabinManager,
                             );
-
-                            if (newBooking != null) {
-                              cabinManager.addBooking(cabin.id, newBooking);
-                            }
                           },
                           child: const Icon(
                             Icons.add,
