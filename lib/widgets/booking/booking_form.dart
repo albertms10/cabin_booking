@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cabin_booking/constants.dart';
+import 'package:cabin_booking/widgets/booking/periodicity_dropdown.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:cabin_booking/model/booking.dart';
 import 'package:cabin_booking/model/cabin_manager.dart';
@@ -39,6 +40,8 @@ class _BookingFormState extends State<BookingForm> {
 
   Booking _booking;
   RecurringBookingMethod _recurringBookingMethod = RecurringBookingMethod.until;
+
+  Periodicity _periodicityValue = Periodicity.weekly;
 
   TimeOfDay _startTime;
   TimeOfDay _endTime;
@@ -306,6 +309,12 @@ class _BookingFormState extends State<BookingForm> {
                   padding: const EdgeInsets.only(top: 4.0, bottom: 8.0),
                   child: Column(
                     children: [
+                      PeriodicityDropdown(
+                        value: _periodicityValue,
+                        onChanged: (value) {
+                          setState(() => _periodicityValue = value);
+                        },
+                      ),
                       ListTile(
                         title: Text(AppLocalizations.of(context).until),
                         selected: _recurringBookingMethod ==
