@@ -1,4 +1,4 @@
-import 'package:cabin_booking/l10n/app_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:cabin_booking/model/cabin.dart';
 import 'package:cabin_booking/widgets/cabin/cabin_form.dart';
 import 'package:cabin_booking/widgets/layout/data_dialog.dart';
