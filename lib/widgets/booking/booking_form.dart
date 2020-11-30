@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cabin_booking/constants.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:cabin_booking/model/booking.dart';
@@ -166,6 +168,10 @@ class _BookingFormState extends State<BookingForm> {
                         return null;
                       },
                       onTap: () async {
+                        if (Platform.isMacOS ||
+                            Platform.isWindows ||
+                            Platform.isLinux) return;
+
                         final time = await showTimePicker(
                           context: context,
                           initialTime: _startTime,
@@ -246,6 +252,10 @@ class _BookingFormState extends State<BookingForm> {
                         return null;
                       },
                       onTap: () async {
+                        if (Platform.isMacOS ||
+                            Platform.isWindows ||
+                            Platform.isLinux) return;
+
                         final time = await showTimePicker(
                           context: context,
                           initialTime: _endTime,
