@@ -140,7 +140,7 @@ class BookingManager with ChangeNotifier {
   Booking getBookingFromId(String id) =>
       bookings.firstWhere((booking) => booking.id == id);
 
-  Booking getRecurringBookingFromId(String id) => recurringBookings
+  RecurringBooking getRecurringBookingFromId(String id) => recurringBookings
       .firstWhere((recurringBooking) => recurringBooking.id == id)
         ..recurringBookingId = id;
 

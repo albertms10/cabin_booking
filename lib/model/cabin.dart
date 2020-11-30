@@ -99,7 +99,7 @@ class Cabin {
 
   Booking getBookingFromId(String id) => _bookingManager.getBookingFromId(id);
 
-  Booking getRecurringBookingFromId(String id) =>
+  RecurringBooking getRecurringBookingFromId(String id) =>
       _bookingManager.getRecurringBookingFromId(id);
 
   List<Booking> bookingsOn(DateTime dateTime) =>
