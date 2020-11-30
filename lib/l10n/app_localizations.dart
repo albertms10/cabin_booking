@@ -41,6 +41,15 @@ class AppLocalizations {
       'disabled': 'Desactivada',
       'description': 'Descripció',
       'occupancyRate': 'Ocupació',
+      'until': 'Fins',
+      'repeat': 'Repeteix',
+      'times': 'vegades',
+      'recurrence': 'Repetició',
+      'doesNotRepeat': 'No es repeteix',
+      'daily': 'Cada dia',
+      'weekly': 'Cada setmana',
+      'monthly': 'Cada mes',
+      'annually': 'Anualment',
     },
     'en': {
       'title': 'Cabin Booking',
@@ -72,6 +81,15 @@ class AppLocalizations {
       'disabled': 'disabled',
       'description': 'Description',
       'occupancyRate': 'Occupancy rate',
+      'until': 'Until',
+      'repeat': 'Repeat',
+      'times': 'times',
+      'recurrence': 'Recurrence',
+      'doesNotRepeat': 'Does not repeat',
+      'daily': 'Daily',
+      'weekly': 'Weekly',
+      'monthly': 'Monthly',
+      'annually': 'Annually',
     },
     'es': {
       'title': 'Reserva de cabinas',
@@ -103,8 +121,20 @@ class AppLocalizations {
       'disabled': 'Desactivada',
       'description': 'Descripción',
       'occupancyRate': 'Ocupación',
+      'until': 'Hasta',
+      'repeat': 'Repetir',
+      'times': 'veces',
+      'recurrence': 'Repetición',
+      'doesNotRepeat': 'No se repite',
+      'daily': 'Cada día',
+      'weekly': 'Cada semana',
+      'monthly': 'Cada mes',
+      'annually': 'Anualmente',
     },
   };
+
+  String fromValue(String value) =>
+      _localizedValues[locale.languageCode][value];
 
   String get title => _localizedValues[locale.languageCode]['title'];
 
@@ -177,6 +207,25 @@ class AppLocalizations {
 
   String get occupancyRate =>
       _localizedValues[locale.languageCode]['occupancyRate'];
+
+  String get until => _localizedValues[locale.languageCode]['until'];
+
+  String get repeat => _localizedValues[locale.languageCode]['repeat'];
+
+  String get times => _localizedValues[locale.languageCode]['times'];
+
+  String get recurrence => _localizedValues[locale.languageCode]['recurrence'];
+
+  String get doesNotRepeat =>
+      _localizedValues[locale.languageCode]['doesNotRepeat'];
+
+  String get daily => _localizedValues[locale.languageCode]['daily'];
+
+  String get weekly => _localizedValues[locale.languageCode]['weekly'];
+
+  String get monthly => _localizedValues[locale.languageCode]['monthly'];
+
+  String get annually => _localizedValues[locale.languageCode]['annually'];
 }
 
 class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
