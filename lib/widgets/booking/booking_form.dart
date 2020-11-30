@@ -329,8 +329,9 @@ class _BookingFormState extends State<BookingForm> {
                               border: const OutlineInputBorder(),
                             ),
                             validator: (value) {
-                              if (_recurringBookingMethod !=
-                                  RecurringBookingMethod.until) {
+                              if (!widget.isRecurring ||
+                                  _recurringBookingMethod !=
+                                      RecurringBookingMethod.until) {
                                 return null;
                               }
 
@@ -374,8 +375,9 @@ class _BookingFormState extends State<BookingForm> {
                                     border: const OutlineInputBorder(),
                                   ),
                                   validator: (value) {
-                                    if (_recurringBookingMethod !=
-                                        RecurringBookingMethod.times) {
+                                    if (!widget.isRecurring ||
+                                        _recurringBookingMethod !=
+                                            RecurringBookingMethod.times) {
                                       return null;
                                     }
 
