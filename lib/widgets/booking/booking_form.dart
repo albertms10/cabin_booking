@@ -1,10 +1,10 @@
 import 'package:cabin_booking/constants.dart';
 import 'package:cabin_booking/l10n/app_localizations.dart';
 import 'package:cabin_booking/model/booking.dart';
-import 'package:cabin_booking/model/cabin.dart';
 import 'package:cabin_booking/model/cabin_manager.dart';
 import 'package:cabin_booking/model/recurring_booking.dart';
 import 'package:cabin_booking/utils/date.dart';
+import 'package:cabin_booking/widgets/cabin/cabin_dropdown.dart';
 import 'package:cabin_booking/widgets/layout/submit_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -79,24 +79,10 @@ class _BookingFormState extends State<BookingForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Consumer<CabinManager>(
-            builder: (context, cabinManager, child) {
-              return DropdownButton<String>(
-                value: _booking.cabinId,
-                onChanged: (value) {
-                  setState(() => _booking.cabinId = value);
-                },
-                items: [
-                  for (Cabin cabin in cabinManager.cabins)
-                    DropdownMenuItem(
-                      value: cabin.id,
-                      child: Text(
-                        '${AppLocalizations.of(context).cabin} ${cabin.number}',
-                      ),
-                    ),
-                ],
-                isExpanded: true,
-              );
+          CabinDropdown(
+            value: _booking.cabinId,
+            onChanged: (value) {
+              setState(() => _booking.cabinId = value);
             },
           ),
           const SizedBox(height: 24.0),
