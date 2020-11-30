@@ -174,7 +174,8 @@ class BookingManager with ChangeNotifier {
     recurringBookings
         .firstWhere(
           (_recurringBooking) =>
-              recurringBooking.recurringBookingId == _recurringBooking.id,
+              recurringBooking.recurringBookingId == _recurringBooking.id ||
+              recurringBooking.id == _recurringBooking.id,
         )
         .replaceRecurringWith(recurringBooking);
 
