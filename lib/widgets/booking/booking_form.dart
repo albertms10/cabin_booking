@@ -293,7 +293,9 @@ class _BookingFormState extends State<BookingForm> {
                   return Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Text(
-                      'Recurring',
+                      widget.isRecurring
+                          ? AppLocalizations.of(context).recurrence
+                          : AppLocalizations.of(context).doesNotRepeat,
                       style: Theme.of(context).textTheme.subtitle1,
                     ),
                   );
@@ -305,7 +307,7 @@ class _BookingFormState extends State<BookingForm> {
                   child: Column(
                     children: [
                       ListTile(
-                        title: const Text('Until'),
+                        title: Text(AppLocalizations.of(context).until),
                         selected: _recurringBookingMethod ==
                             RecurringBookingMethod.until,
                         leading: Radio(
@@ -343,7 +345,7 @@ class _BookingFormState extends State<BookingForm> {
                       ),
                       const SizedBox(height: 8.0),
                       ListTile(
-                        title: const Text('Repeat'),
+                        title: Text(AppLocalizations.of(context).repeat),
                         selected: _recurringBookingMethod ==
                             RecurringBookingMethod.times,
                         leading: Radio(
@@ -387,7 +389,7 @@ class _BookingFormState extends State<BookingForm> {
                                 ),
                               ),
                               const SizedBox(width: 8.0),
-                              Text('times'),
+                              Text(AppLocalizations.of(context).times),
                             ],
                           ),
                         ),
