@@ -17,6 +17,8 @@ class BookingCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final height = booking.duration.inMinutes * bookingHeightRatio - 16.0;
+    final isRecurring =
+        booking is RecurringBooking || booking.recurringBookingId != null;
 
     return booking.isDisabled
         ? Container(
@@ -58,8 +60,7 @@ class BookingCard extends StatelessWidget {
                   height: height,
                   padding: const EdgeInsets.all(8.0),
                   decoration: BoxDecoration(
-                    color: booking is RecurringBooking ||
-                            booking.recurringBookingId != null
+                    color: isRecurring
                         ? Colors.blue[50]
                         : isBeforeNow
                             ? const Color.fromARGB(150, 255, 255, 255)
@@ -78,6 +79,14 @@ class BookingCard extends StatelessWidget {
                               booking.timeRange,
                               style: const TextStyle(color: Colors.black38),
                             ),
+                            if (isRecurring)
+                              Padding(
+                                padding: const EdgeInsets.only(top: 4.0),
+                                child: Text(
+                                  '${booking.recurringNumber}/${booking.recurringTotalTimes}',
+                                  style: Theme.of(context).textTheme.caption,
+                                ),
+                              ),
                           ],
                         ),
                       ),
