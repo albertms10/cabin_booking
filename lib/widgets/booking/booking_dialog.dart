@@ -5,24 +5,47 @@ import 'package:cabin_booking/widgets/booking/booking_form.dart';
 import 'package:cabin_booking/widgets/layout/data_dialog.dart';
 import 'package:flutter/material.dart';
 
-class BookingDialog extends StatelessWidget {
+class BookingDialog extends StatefulWidget {
   final Booking booking;
 
   BookingDialog(this.booking);
 
   @override
+  _BookingDialogState createState() => _BookingDialogState();
+}
+
+class _BookingDialogState extends State<BookingDialog> {
+  bool _isRecurring = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _isRecurring = widget.booking is RecurringBooking ||
+        widget.booking.recurringBookingId != null;
+  }
+
+  void setIsRecurring(bool isRecurring) {
+    setState(() => _isRecurring = isRecurring);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return DataDialog(
       title: Text(
-        booking.isDisabled
+        widget.booking.isDisabled
             ? AppLocalizations.of(context).lockedRange
-            : booking is RecurringBooking || booking.recurringBookingId != null
+            : _isRecurring
                 ? AppLocalizations.of(context).recurringBooking
                 : AppLocalizations.of(context).booking,
       ),
       content: SizedBox(
         width: 250.0,
-        child: BookingForm(booking),
+        child: BookingForm(
+          widget.booking,
+          isRecurring: _isRecurring,
+          setIsRecurring: setIsRecurring,
+        ),
       ),
     );
   }
