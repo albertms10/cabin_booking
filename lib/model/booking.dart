@@ -11,7 +11,10 @@ class Booking {
   TimeOfDay timeEnd;
   bool isDisabled;
   String cabinId;
+
   String recurringBookingId;
+  int recurringNumber;
+  int recurringTotalTimes;
 
   Booking({
     this.id,
@@ -22,6 +25,8 @@ class Booking {
     this.isDisabled = false,
     this.cabinId,
     this.recurringBookingId,
+    this.recurringNumber,
+    this.recurringTotalTimes,
   }) {
     id ??= Uuid().v4();
   }

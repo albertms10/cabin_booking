@@ -105,13 +105,15 @@ class RecurringBooking extends Booking {
     var runningDateTime = dateStart;
     var movedBooking = booking;
 
-    var count = 0;
+    var count = 1;
 
     while (runningDateTime.isBefore(until)) {
       runningBookings.add(
         movedBooking
           ..id = '$id-$count'
-          ..recurringBookingId = id,
+          ..recurringBookingId = id
+          ..recurringNumber = count
+          ..recurringTotalTimes = times,
       );
 
       runningDateTime = runningDateTime.add(periodicity);
