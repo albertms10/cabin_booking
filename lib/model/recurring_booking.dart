@@ -37,6 +37,18 @@ class RecurringBooking extends Booking {
         _times = other.containsKey('times') ? other['times'] : null,
         super.from(other);
 
+  RecurringBooking.fromBooking(Booking booking)
+      : periodicity = const Duration(days: 7),
+        super(
+          id: booking.id,
+          studentName: booking.studentName,
+          date: booking.date,
+          timeStart: booking.timeStart,
+          timeEnd: booking.timeEnd,
+          isDisabled: booking.isDisabled,
+          cabinId: booking.cabinId,
+        );
+
   @override
   Map<String, dynamic> toMap() => {
         ...super.toMap(),
@@ -56,7 +68,7 @@ class RecurringBooking extends Booking {
 
     var recurringDateTime = dateStart;
 
-    for (var i = 0; i < times; i++) {
+    for (var i = 0; i < _times; i++) {
       recurringDateTime = recurringDateTime.add(periodicity);
     }
 
@@ -64,8 +76,8 @@ class RecurringBooking extends Booking {
   }
 
   set until(DateTime until) {
-    _times = null;
     _until = until;
+    _times = null;
   }
 
   int get times {
@@ -76,7 +88,7 @@ class RecurringBooking extends Booking {
     var count = 0;
     var recurringDateTime = dateStart;
 
-    while (recurringDateTime.isBefore(until)) {
+    while (recurringDateTime.isBefore(_until)) {
       recurringDateTime = recurringDateTime.add(periodicity);
       count++;
     }
@@ -85,8 +97,8 @@ class RecurringBooking extends Booking {
   }
 
   set times(int times) {
-    _until = null;
     _times = times;
+    _until = null;
   }
 
   Booking get booking => Booking(
