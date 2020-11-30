@@ -53,8 +53,9 @@ class RecurringBooking extends Booking {
   Map<String, dynamic> toMap() => {
         ...super.toMap(),
         'periodicity': periodicity.inDays,
-        if (_until != null) 'until': until.toIso8601String(),
-        if (_times != null) 'times': times,
+        if (method == RecurringBookingMethod.until)
+          'until': _until.toIso8601String(),
+        if (method == RecurringBookingMethod.times) 'times': _times,
       };
 
   RecurringBookingMethod get method => _until != null
@@ -148,8 +149,8 @@ class RecurringBooking extends Booking {
 
   void replaceRecurringWith(RecurringBooking recurringBooking) {
     periodicity = recurringBooking.periodicity;
-    _until = recurringBooking.until;
-    _times = recurringBooking.times;
+    _until = recurringBooking._until;
+    _times = recurringBooking._times;
 
     super.replaceWith(recurringBooking);
   }
