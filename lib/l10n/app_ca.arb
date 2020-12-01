@@ -28,9 +28,14 @@
   "disabled": "Desactivada",
   "description": "Descripció",
   "occupancyRate": "Ocupació",
-  "until": "Fins",
-  "repeat": "Repeteix",
-  "times": "vegades",
+  "on": "El dia",
+  "after": "Després de",
+  "occurrences": "{n, plural, =1 {ocurrència} other {ocurrències}}",
+  "@occurrences": {
+    "placeholders": {
+      "n": {}
+    }
+  },
   "recurrence": "Repetició",
   "doesNotRepeat": "No es repeteix",
   "daily": "Cada dia",

@@ -28,9 +28,14 @@
   "disabled": "disabled",
   "description": "Description",
   "occupancyRate": "Occupancy rate",
-  "until": "Until",
-  "repeat": "Repeat",
-  "times": "times",
+  "on": "On",
+  "after": "After",
+  "occurrences": "{n, plural, =1 {occurrence} other {occurrences}}",
+  "@occurrences": {
+    "placeholders": {
+      "n": {}
+    }
+  },
   "recurrence": "Recurrence",
   "doesNotRepeat": "Does not repeat",
   "daily": "Daily",
