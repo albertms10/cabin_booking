@@ -22,7 +22,7 @@ class StrippedBackground extends StatelessWidget {
         for (var i = 0; i < rowCount; i++)
           Container(
             height: height,
-            color: i % 2 == 0 ? null : const Color.fromARGB(8, 0, 0, 0),
+            color: i.isEven ? null : const Color.fromARGB(8, 0, 0, 0),
           ),
       ],
     );
