@@ -1,16 +1,16 @@
 import 'dart:io';
 
 import 'package:cabin_booking/constants.dart';
-import 'package:cabin_booking/widgets/booking/periodicity_dropdown.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:cabin_booking/model/booking.dart';
 import 'package:cabin_booking/model/cabin_manager.dart';
 import 'package:cabin_booking/model/recurring_booking.dart';
 import 'package:cabin_booking/utils/date.dart';
+import 'package:cabin_booking/widgets/booking/periodicity_dropdown.dart';
 import 'package:cabin_booking/widgets/cabin/cabin_dropdown.dart';
 import 'package:cabin_booking/widgets/layout/submit_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 

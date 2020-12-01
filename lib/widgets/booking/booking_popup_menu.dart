@@ -1,4 +1,3 @@
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:cabin_booking/model/booking.dart';
 import 'package:cabin_booking/model/cabin.dart';
 import 'package:cabin_booking/model/cabin_manager.dart';
@@ -7,6 +6,7 @@ import 'package:cabin_booking/widgets/booking/booking_dialog.dart';
 import 'package:cabin_booking/widgets/booking/delete_booking_dialog.dart';
 import 'package:cabin_booking/widgets/layout/icon_menu_item_content.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 class BookingPopupMenu extends StatelessWidget {
