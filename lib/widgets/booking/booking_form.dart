@@ -35,11 +35,12 @@ class _BookingFormState extends State<BookingForm> {
 
   final _startTimeController = TextEditingController();
   final _endTimeController = TextEditingController();
-  final _untilController = TextEditingController();
-  final _timesController = TextEditingController();
+  final _endDateController = TextEditingController();
+  final _occurrencesController = TextEditingController();
 
   Booking _booking;
-  RecurringBookingMethod _recurringBookingMethod = RecurringBookingMethod.until;
+  RecurringBookingMethod _recurringBookingMethod =
+      RecurringBookingMethod.endDate;
 
   Periodicity _periodicityValue = Periodicity.weekly;
 
@@ -74,9 +75,10 @@ class _BookingFormState extends State<BookingForm> {
     _endTimeController.text = _endTime.format(context);
 
     if (_booking is RecurringBooking) {
-      _untilController.text =
-          DateFormat.yMd().format((_booking as RecurringBooking).until);
-      _timesController.text = (_booking as RecurringBooking).times.toString();
+      _endDateController.text =
+          DateFormat.yMd().format((_booking as RecurringBooking).endDate);
+      _occurrencesController.text =
+          (_booking as RecurringBooking).occurrences.toString();
     }
 
     return Form(
@@ -316,11 +318,11 @@ class _BookingFormState extends State<BookingForm> {
                         },
                       ),
                       ListTile(
-                        title: Text(AppLocalizations.of(context).until),
+                        title: Text(AppLocalizations.of(context).on),
                         selected: _recurringBookingMethod ==
-                            RecurringBookingMethod.until,
+                            RecurringBookingMethod.endDate,
                         leading: Radio(
-                          value: RecurringBookingMethod.until,
+                          value: RecurringBookingMethod.endDate,
                           groupValue: _recurringBookingMethod,
                           onChanged: (value) {
                             setState(() => _recurringBookingMethod = value);
@@ -329,16 +331,16 @@ class _BookingFormState extends State<BookingForm> {
                         trailing: SizedBox(
                           width: 100.0,
                           child: TextFormField(
-                            controller: _untilController,
+                            controller: _endDateController,
                             enabled: _recurringBookingMethod ==
-                                RecurringBookingMethod.until,
+                                RecurringBookingMethod.endDate,
                             decoration: InputDecoration(
                               border: const OutlineInputBorder(),
                             ),
                             validator: (value) {
                               if (!widget.isRecurring ||
                                   _recurringBookingMethod !=
-                                      RecurringBookingMethod.until) {
+                                      RecurringBookingMethod.endDate) {
                                 return null;
                               }
 
@@ -354,11 +356,11 @@ class _BookingFormState extends State<BookingForm> {
                       ),
                       const SizedBox(height: 8.0),
                       ListTile(
-                        title: Text(AppLocalizations.of(context).repeat),
+                        title: Text(AppLocalizations.of(context).after),
                         selected: _recurringBookingMethod ==
-                            RecurringBookingMethod.times,
+                            RecurringBookingMethod.occurrences,
                         leading: Radio(
-                          value: RecurringBookingMethod.times,
+                          value: RecurringBookingMethod.occurrences,
                           groupValue: _recurringBookingMethod,
                           onChanged: (value) {
                             setState(() => _recurringBookingMethod = value);
@@ -371,9 +373,9 @@ class _BookingFormState extends State<BookingForm> {
                               SizedBox(
                                 width: 54.0,
                                 child: TextFormField(
-                                  controller: _timesController,
+                                  controller: _occurrencesController,
                                   enabled: _recurringBookingMethod ==
-                                      RecurringBookingMethod.times,
+                                      RecurringBookingMethod.occurrences,
                                   keyboardType: TextInputType.number,
                                   inputFormatters: [
                                     FilteringTextInputFormatter.digitsOnly,
@@ -384,7 +386,8 @@ class _BookingFormState extends State<BookingForm> {
                                   validator: (value) {
                                     if (!widget.isRecurring ||
                                         _recurringBookingMethod !=
-                                            RecurringBookingMethod.times) {
+                                            RecurringBookingMethod
+                                                .occurrences) {
                                       return null;
                                     }
 
@@ -398,7 +401,12 @@ class _BookingFormState extends State<BookingForm> {
                                 ),
                               ),
                               const SizedBox(width: 8.0),
-                              Text(AppLocalizations.of(context).times),
+                              Text(
+                                AppLocalizations.of(context).occurrences(
+                                  int.tryParse(_occurrencesController.text) ??
+                                      0,
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -420,12 +428,13 @@ class _BookingFormState extends State<BookingForm> {
                   final recurringBooking =
                       RecurringBooking.fromBooking(_booking);
 
-                  if (_recurringBookingMethod == RecurringBookingMethod.until) {
-                    recurringBooking.until =
-                        DateFormat('d/M/y').parse(_untilController.text);
+                  if (_recurringBookingMethod ==
+                      RecurringBookingMethod.endDate) {
+                    recurringBooking.endDate =
+                        DateFormat('d/M/y').parse(_endDateController.text);
                   } else {
-                    recurringBooking.times =
-                        int.tryParse(_timesController.text);
+                    recurringBooking.occurrences =
+                        int.tryParse(_occurrencesController.text);
                   }
 
                   Navigator.of(context).pop<RecurringBooking>(recurringBooking);

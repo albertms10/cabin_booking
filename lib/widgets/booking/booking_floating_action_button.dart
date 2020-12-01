@@ -47,7 +47,7 @@ class BookingFloatingActionButton extends StatelessWidget {
                       hour: timeTableStartTime.hour + 1,
                       minute: timeTableStartTime.minute,
                     ),
-                    times: 1,
+                    occurrences: 1,
                     cabinId: cabinManager.cabins.first.id,
                   ),
                   cabinManager,

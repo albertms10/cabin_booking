@@ -2,8 +2,8 @@ import 'package:cabin_booking/model/booking.dart';
 
 class RecurringBooking extends Booking {
   Duration periodicity;
-  DateTime _until;
-  int _times;
+  DateTime _endDate;
+  int _occurrences;
 
   RecurringBooking({
     id,
@@ -14,11 +14,11 @@ class RecurringBooking extends Booking {
     isDisabled = false,
     cabinId,
     this.periodicity = const Duration(days: 7),
-    until,
-    times,
-  })  : assert((until == null) != (times == null)),
-        _until = until,
-        _times = times,
+    endDate,
+    occurrences,
+  })  : assert((endDate == null) != (occurrences == null)),
+        _endDate = endDate,
+        _occurrences = occurrences,
         super(
           id: id,
           studentName: studentName,
@@ -31,10 +31,11 @@ class RecurringBooking extends Booking {
 
   RecurringBooking.from(Map<String, dynamic> other)
       : periodicity = Duration(days: other['periodicity']),
-        _until = other.containsKey('until')
-            ? DateTime.tryParse(other['until'])
+        _endDate = other.containsKey('endDate')
+            ? DateTime.tryParse(other['endDate'])
             : null,
-        _times = other.containsKey('times') ? other['times'] : null,
+        _occurrences =
+            other.containsKey('occurrences') ? other['occurrences'] : null,
         super.from(other);
 
   RecurringBooking.fromBooking(Booking booking)
@@ -53,43 +54,44 @@ class RecurringBooking extends Booking {
   Map<String, dynamic> toMap() => {
         ...super.toMap(),
         'periodicity': periodicity.inDays,
-        if (method == RecurringBookingMethod.until)
-          'until': _until.toIso8601String(),
-        if (method == RecurringBookingMethod.times) 'times': _times,
+        if (method == RecurringBookingMethod.endDate)
+          'endDate': _endDate.toIso8601String(),
+        if (method == RecurringBookingMethod.occurrences)
+          'occurrences': _occurrences,
       };
 
-  RecurringBookingMethod get method => _until != null
-      ? RecurringBookingMethod.until
-      : RecurringBookingMethod.times;
+  RecurringBookingMethod get method => _endDate != null
+      ? RecurringBookingMethod.endDate
+      : RecurringBookingMethod.occurrences;
 
-  DateTime get until {
-    if (_until != null) return _until;
+  DateTime get endDate {
+    if (_endDate != null) return _endDate;
 
-    assert(_times != null);
+    assert(_occurrences != null);
 
     var recurringDateTime = dateStart;
 
-    for (var i = 0; i < _times; i++) {
+    for (var i = 0; i < _occurrences; i++) {
       recurringDateTime = recurringDateTime.add(periodicity);
     }
 
     return recurringDateTime;
   }
 
-  set until(DateTime until) {
-    _until = until;
-    _times = null;
+  set endDate(DateTime endDate) {
+    _endDate = endDate;
+    _occurrences = null;
   }
 
-  int get times {
-    if (_times != null) return _times;
+  int get occurrences {
+    if (_occurrences != null) return _occurrences;
 
-    assert(_until != null);
+    assert(_endDate != null);
 
     var count = 0;
     var recurringDateTime = dateStart;
 
-    while (recurringDateTime.isBefore(_until)) {
+    while (recurringDateTime.isBefore(_endDate)) {
       recurringDateTime = recurringDateTime.add(periodicity);
       count++;
     }
@@ -97,9 +99,9 @@ class RecurringBooking extends Booking {
     return count;
   }
 
-  set times(int times) {
-    _times = times;
-    _until = null;
+  set occurrences(int occurrences) {
+    _occurrences = occurrences;
+    _endDate = null;
   }
 
   Booking get booking => Booking(
@@ -118,20 +120,20 @@ class RecurringBooking extends Booking {
     var runningDateTime = dateStart;
     var movedBooking = booking;
 
-    var count = 1;
+    var count = 0;
 
-    while (runningDateTime.isBefore(until)) {
+    while (runningDateTime.isBefore(endDate)) {
       runningBookings.add(
         movedBooking
           ..id = '$id-$count'
           ..recurringBookingId = id
           ..recurringNumber = count
-          ..recurringTotalTimes = times,
+          ..recurringTotalTimes = occurrences,
       );
 
       runningDateTime = runningDateTime.add(periodicity);
 
-      if (runningDateTime.isBefore(until)) {
+      if (runningDateTime.isBefore(endDate)) {
         movedBooking = movedBooking.movedTo(runningDateTime);
         count++;
       }
@@ -149,17 +151,17 @@ class RecurringBooking extends Booking {
 
   void replaceRecurringWith(RecurringBooking recurringBooking) {
     periodicity = recurringBooking.periodicity;
-    _until = recurringBooking._until;
-    _times = recurringBooking._times;
+    _endDate = recurringBooking._endDate;
+    _occurrences = recurringBooking._occurrences;
 
     super.replaceWith(recurringBooking);
   }
 
   @override
-  String toString() => '$times × ${super.toString()}';
+  String toString() => '$occurrences × ${super.toString()}';
 }
 
 enum RecurringBookingMethod {
-  until,
-  times,
+  endDate,
+  occurrences,
 }
