@@ -71,7 +71,7 @@ class RecurringBooking extends Booking {
 
     var recurringDateTime = dateStart;
 
-    for (var i = 0; i < _occurrences; i++) {
+    for (var i = 0; i <= _occurrences; i++) {
       recurringDateTime = recurringDateTime.add(periodicity);
     }
 
