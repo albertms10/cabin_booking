@@ -44,20 +44,34 @@ class CabinsTable extends StatefulWidget {
     return count;
   }
 
+  List<CabinTableRow> get _selectedRows =>
+      cabinRows.where((cabin) => cabin.selected).toList();
+
+  List<String> get _selectedIds =>
+      _selectedRows.map((cabin) => cabin.id).toList();
+
+  bool get selectedAreBooked {
+    for (final row in _selectedRows) {
+      if (row.bookingsCount > 0 || row.recurringBookingsCount > 0) return true;
+    }
+
+    return false;
+  }
+
   void unselect() {
     for (final cabin in cabinRows) {
       if (cabin.selected) cabin.selected = false;
     }
   }
 
-  void removeSelected(BuildContext context) {
-    final removableIds = cabinRows
-        .where((cabin) => cabin.selected)
-        .map((cabin) => cabin.id)
-        .toList();
-
+  void emptySelected(BuildContext context) {
     Provider.of<CabinManager>(context, listen: false)
-        .removeCabinsByIds(removableIds);
+        .emptyCabinsByIds(_selectedIds);
+  }
+
+  void removeSelected(BuildContext context) {
+    Provider.of<CabinManager>(context, listen: false)
+        .removeCabinsByIds(_selectedIds);
   }
 }
 
@@ -241,6 +255,14 @@ class _CabinsTableState extends State<CabinsTable> {
             });
           },
           actions: [
+            IconButton(
+              onPressed: widget.selectedAreBooked
+                  ? () {
+                      widget.emptySelected(context);
+                    }
+                  : null,
+              icon: const Icon(Icons.delete_outline),
+            ),
             IconButton(
               onPressed: () {
                 widget.removeSelected(context);

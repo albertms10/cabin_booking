@@ -58,6 +58,14 @@ class CabinManager with ChangeNotifier, FileManager {
     notifyListeners();
   }
 
+  void emptyCabinsByIds(List<String> ids) {
+    cabins
+        .where((cabin) => ids.contains(cabin.id))
+        .forEach((cabin) => cabin.emptyAll());
+
+    notifyListeners();
+  }
+
   void removeCabinsByIds(List<String> ids) {
     cabins.removeWhere((cabin) => ids.contains(cabin.id));
 

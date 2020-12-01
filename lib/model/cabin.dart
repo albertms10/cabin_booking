@@ -97,6 +97,8 @@ class Cabin {
   void removeRecurringBookingById(String id) =>
       _bookingManager.removeRecurringBookingById(id);
 
+  void emptyAll() => _bookingManager.emptyAll();
+
   Booking getBookingFromId(String id) => _bookingManager.getBookingFromId(id);
 
   RecurringBooking getRecurringBookingFromId(String id) =>
