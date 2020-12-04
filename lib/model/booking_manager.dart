@@ -86,14 +86,14 @@ class BookingManager with ChangeNotifier {
     @required TimeOfDay startTime,
     @required TimeOfDay endTime,
   }) {
-    final startDate = tryParseDateTimeWithFormattedTimeOfDay(
+    final startDate = tryParseDateTimeWithTimeOfDay(
       dateTime: dateTime,
-      formattedTimeOfDay: formatTimeOfDay(startTime),
+      timeOfDay: startTime,
     );
 
-    final endDate = tryParseDateTimeWithFormattedTimeOfDay(
+    final endDate = tryParseDateTimeWithTimeOfDay(
       dateTime: dateTime,
-      formattedTimeOfDay: formatTimeOfDay(endTime),
+      timeOfDay: endTime,
     );
 
     final maxViewMinutesDuration = endDate.difference(startDate).inMinutes;

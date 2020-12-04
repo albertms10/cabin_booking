@@ -48,14 +48,14 @@ class Booking {
         'isDisabled': isDisabled,
       };
 
-  DateTime get dateStart => tryParseDateTimeWithFormattedTimeOfDay(
+  DateTime get dateStart => tryParseDateTimeWithTimeOfDay(
         dateTime: date,
-        formattedTimeOfDay: formatTimeOfDay(timeStart),
+        timeOfDay: timeStart,
       );
 
-  DateTime get dateEnd => tryParseDateTimeWithFormattedTimeOfDay(
+  DateTime get dateEnd => tryParseDateTimeWithTimeOfDay(
         dateTime: date,
-        formattedTimeOfDay: formatTimeOfDay(timeEnd),
+        timeOfDay: timeEnd,
       );
 
   Duration get duration => dateEnd.difference(dateStart);

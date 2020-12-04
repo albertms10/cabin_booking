@@ -13,14 +13,14 @@ class CurrentTimeIndicator extends StatelessWidget {
       builder: (context) {
         final dayHandler = Provider.of<DayHandler>(context);
 
-        final viewStartDateTime = tryParseDateTimeWithFormattedTimeOfDay(
+        final viewStartDateTime = tryParseDateTimeWithTimeOfDay(
           dateTime: dayHandler.dateTime,
-          formattedTimeOfDay: timeTableStartTime.format(context),
+          timeOfDay: timeTableStartTime,
         );
 
-        final viewEndDateTime = tryParseDateTimeWithFormattedTimeOfDay(
+        final viewEndDateTime = tryParseDateTimeWithTimeOfDay(
           dateTime: dayHandler.dateTime,
-          formattedTimeOfDay: timeTableEndTime.format(context),
+          timeOfDay: timeTableEndTime,
         );
 
         final differenceInSecondsFromStart =

@@ -19,14 +19,14 @@ class BookingsStack extends StatelessWidget {
 
     final dayHandler = Provider.of<DayHandler>(context);
 
-    final dateStart = tryParseDateTimeWithFormattedTimeOfDay(
+    final dateStart = tryParseDateTimeWithTimeOfDay(
       dateTime: dayHandler.dateTime,
-      formattedTimeOfDay: timeTableStartTime.format(context),
+      timeOfDay: timeTableStartTime,
     );
 
-    final dateEnd = tryParseDateTimeWithFormattedTimeOfDay(
+    final dateEnd = tryParseDateTimeWithTimeOfDay(
       dateTime: dayHandler.dateTime,
-      formattedTimeOfDay: timeTableEndTime.format(context),
+      timeOfDay: timeTableEndTime,
     );
 
     for (var i = -1; i < bookings.length; i++) {

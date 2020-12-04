@@ -149,16 +149,15 @@ class _BookingFormState extends State<BookingForm> {
                         }
 
                         if (parsedDateTime.isAfter(
-                              tryParseDateTimeWithFormattedTimeOfDay(
+                              tryParseDateTimeWithTimeOfDay(
                                 dateTime: widget.booking.date,
-                                formattedTimeOfDay: _endTime.format(context),
+                                timeOfDay: _endTime,
                               ),
                             ) ||
                             parsedDateTime.isBefore(
-                              tryParseDateTimeWithFormattedTimeOfDay(
+                              tryParseDateTimeWithTimeOfDay(
                                 dateTime: widget.booking.date,
-                                formattedTimeOfDay:
-                                    timeTableStartTime.format(context),
+                                timeOfDay: timeTableStartTime,
                               ),
                             )) {
                           return AppLocalizations.of(context).enterValidRange;
@@ -233,16 +232,15 @@ class _BookingFormState extends State<BookingForm> {
                         }
 
                         if (parsedDateTime.isBefore(
-                              tryParseDateTimeWithFormattedTimeOfDay(
+                              tryParseDateTimeWithTimeOfDay(
                                 dateTime: widget.booking.date,
-                                formattedTimeOfDay: _startTime.format(context),
+                                timeOfDay: _startTime,
                               ),
                             ) ||
                             parsedDateTime.isAfter(
-                              tryParseDateTimeWithFormattedTimeOfDay(
+                              tryParseDateTimeWithTimeOfDay(
                                 dateTime: widget.booking.date,
-                                formattedTimeOfDay:
-                                    timeTableEndTime.format(context),
+                                timeOfDay: timeTableEndTime,
                               ),
                             )) {
                           return AppLocalizations.of(context).enterValidRange;

@@ -10,6 +10,15 @@ DateTime tryParseDateTimeWithFormattedTimeOfDay({
           ' $formattedTimeOfDay',
     );
 
+DateTime tryParseDateTimeWithTimeOfDay({
+  DateTime dateTime,
+  @required TimeOfDay timeOfDay,
+}) =>
+    tryParseDateTimeWithFormattedTimeOfDay(
+      dateTime: dateTime,
+      formattedTimeOfDay: formatTimeOfDay(timeOfDay),
+    );
+
 /// Constructs a new [TimeOfDay] instance based on [formattedString].
 ///
 /// Returns null when a [FormatException] would be thrown.
@@ -30,6 +39,14 @@ TimeOfDay tryParseTimeOfDay(String formattedString) {
 
   return TimeOfDay(hour: hour, minute: minute);
 }
+
+Duration durationBetweenTimesOfDay(TimeOfDay start, TimeOfDay end) => Duration(
+      hours: end.hour - start.hour,
+      minutes: end.minute - start.minute,
+    );
+
+Duration addDurations(Duration a, Duration b) =>
+    Duration(microseconds: (a?.inMicroseconds ?? 0) + (b?.inMicroseconds ?? 0));
 
 String parsedTimeOfDayFromDateTime(DateTime dateTime) =>
     dateTime.toString().split(RegExp('[ T]'))[1];
