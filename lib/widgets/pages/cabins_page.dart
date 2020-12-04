@@ -18,7 +18,7 @@ class CabinsPage extends StatelessWidget {
                 bookingsCount: cabin.bookings.length,
                 recurringBookingsCount:
                     cabin.generatedBookingsFromRecurring.length,
-                occupancyRate: cabin.evertimeOccupiedRatio(
+                occupancyRate: cabin.occupiedRatio(
                   startTime: timeTableStartTime,
                   endTime: timeTableEndTime,
                   dates: cabinManager.allCabinsDatesWithBookings,

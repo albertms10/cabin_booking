@@ -71,12 +71,12 @@ class Cabin {
 
   List<DateTime> get datesWithBookings => _bookingManager.datesWithBookings;
 
-  double evertimeOccupiedRatio({
+  double occupiedRatio({
     @required TimeOfDay startTime,
     @required TimeOfDay endTime,
     List<DateTime> dates,
   }) =>
-      _bookingManager.evertimeOccupiedRatio(
+      _bookingManager.occupiedRatio(
         startTime: startTime,
         endTime: endTime,
         dates: dates,

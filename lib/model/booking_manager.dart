@@ -117,7 +117,7 @@ class BookingManager with ChangeNotifier {
     return dates;
   }
 
-  double evertimeOccupiedRatio({
+  double occupiedRatio({
     @required TimeOfDay startTime,
     @required TimeOfDay endTime,
     List<DateTime> dates,
