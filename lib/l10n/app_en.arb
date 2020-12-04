@@ -28,6 +28,7 @@
   "disabled": "disabled",
   "description": "Description",
   "occupancyRate": "Occupancy rate",
+  "mostOccupiedTimeRange": "Most occupied time range",
   "on": "On",
   "after": "After",
   "occurrences": "{n, plural, =1 {occurrence} other {occurrences}}",

@@ -28,6 +28,7 @@
   "disabled": "Desactivada",
   "description": "Descripción",
   "occupancyRate": "Ocupación",
+  "mostOccupiedTimeRange": "Horario más ocupado",
   "on": "El día",
   "after": "Después de",
   "occurrences": "{n, plural, =1 {ocurrencia} other {ocurrencias}}",
