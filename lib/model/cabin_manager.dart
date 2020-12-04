@@ -21,7 +21,7 @@ class CabinManager with ChangeNotifier, FileManager {
   List<Map<String, dynamic>> cabinsToMapList() =>
       cabins.map((cabin) => cabin.toMap()).toList();
 
-  Cabin getFromId(String id) => cabins.firstWhere((cabin) => cabin.id == id);
+  Cabin fromId(String id) => cabins.firstWhere((cabin) => cabin.id == id);
 
   int get lastCabinNumber => cabins.isNotEmpty ? cabins.last.number : 0;
 
@@ -70,14 +70,14 @@ class CabinManager with ChangeNotifier, FileManager {
   }
 
   void addBooking(String cabinId, Booking booking) {
-    getFromId(booking.cabinId ?? cabinId).addBooking(booking);
+    fromId(booking.cabinId ?? cabinId).addBooking(booking);
 
     // TODO: Improve notifier
     notifyListeners();
   }
 
   void addRecurringBooking(String cabinId, RecurringBooking recurringBooking) {
-    getFromId(recurringBooking.cabinId ?? cabinId)
+    fromId(recurringBooking.cabinId ?? cabinId)
         .addRecurringBooking(recurringBooking);
 
     // TODO: Improve notifier
@@ -86,10 +86,10 @@ class CabinManager with ChangeNotifier, FileManager {
 
   void modifyBooking(String cabinId, Booking booking) {
     if (booking.cabinId == null || booking.cabinId == cabinId) {
-      getFromId(cabinId).modifyBooking(booking);
+      fromId(cabinId).modifyBooking(booking);
     } else {
-      getFromId(cabinId).removeBookingById(booking.id);
-      getFromId(booking.cabinId).addBooking(booking);
+      fromId(cabinId).removeBookingById(booking.id);
+      fromId(booking.cabinId).addBooking(booking);
     }
 
     // TODO: Improve notifier
@@ -102,10 +102,10 @@ class CabinManager with ChangeNotifier, FileManager {
   ) {
     if (recurringBooking.cabinId == null ||
         recurringBooking.cabinId == cabinId) {
-      getFromId(cabinId).modifyRecurringBooking(recurringBooking);
+      fromId(cabinId).modifyRecurringBooking(recurringBooking);
     } else {
-      getFromId(cabinId).removeRecurringBookingById(recurringBooking.id);
-      getFromId(recurringBooking.cabinId).addRecurringBooking(recurringBooking);
+      fromId(cabinId).removeRecurringBookingById(recurringBooking.id);
+      fromId(recurringBooking.cabinId).addRecurringBooking(recurringBooking);
     }
 
     // TODO: Improve notifier
@@ -113,14 +113,14 @@ class CabinManager with ChangeNotifier, FileManager {
   }
 
   void removeBookingById(String cabinId, String bookingId) {
-    getFromId(cabinId).removeBookingById(bookingId);
+    fromId(cabinId).removeBookingById(bookingId);
 
     // TODO: Improve notifier
     notifyListeners();
   }
 
   void removeRecurringBookingById(String cabinId, String bookingId) {
-    getFromId(cabinId).removeRecurringBookingById(bookingId);
+    fromId(cabinId).removeRecurringBookingById(bookingId);
 
     // TODO: Improve notifier
     notifyListeners();

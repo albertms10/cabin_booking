@@ -45,8 +45,8 @@ class BookingPopupMenu extends StatelessWidget {
                     (booking.recurringBookingId == null
                         ? booking
                         : cabinManager
-                            .getFromId(cabin.id)
-                            .getRecurringBookingFromId(
+                            .fromId(cabin.id)
+                            .recurringBookingFromId(
                               booking.recurringBookingId,
                             ))
                       ..cabinId = cabin.id,

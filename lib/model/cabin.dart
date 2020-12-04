@@ -99,10 +99,10 @@ class Cabin {
 
   void emptyAll() => _bookingManager.emptyAll();
 
-  Booking getBookingFromId(String id) => _bookingManager.getBookingFromId(id);
+  Booking bookingFromId(String id) => _bookingManager.bookingFromId(id);
 
-  RecurringBooking getRecurringBookingFromId(String id) =>
-      _bookingManager.getRecurringBookingFromId(id);
+  RecurringBooking recurringBookingFromId(String id) =>
+      _bookingManager.recurringBookingFromId(id);
 
   List<Booking> bookingsOn(DateTime dateTime) =>
       _bookingManager.bookingsOn(dateTime);

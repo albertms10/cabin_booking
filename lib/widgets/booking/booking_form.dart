@@ -165,7 +165,7 @@ class _BookingFormState extends State<BookingForm> {
                         }
 
                         if (cabinManager
-                            .getFromId(_booking.cabinId)
+                            .fromId(_booking.cabinId)
                             .bookingsCollideWith(_booking)) {
                           return AppLocalizations.of(context).occupied;
                         }
@@ -249,7 +249,7 @@ class _BookingFormState extends State<BookingForm> {
                         }
 
                         if (cabinManager
-                            .getFromId(_booking.cabinId)
+                            .fromId(_booking.cabinId)
                             .bookingsCollideWith(_booking)) {
                           return AppLocalizations.of(context).occupied;
                         }
