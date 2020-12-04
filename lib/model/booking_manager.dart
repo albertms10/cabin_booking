@@ -156,6 +156,8 @@ class BookingManager with ChangeNotifier {
     final sortedTimeRanges = accumulatedTimeRangesOccupancy.entries.toList()
       ..sort((a, b) => b.value.inMinutes - a.value.inMinutes);
 
+    if (sortedTimeRanges.isEmpty) return [];
+
     final highestOccupancyDuration = sortedTimeRanges.first.value;
 
     return sortedTimeRanges
