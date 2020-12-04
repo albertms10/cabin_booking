@@ -37,6 +37,13 @@
       "n": {}
     }
   },
+  "nSelected": "{n, plural, other {{n} selected}}",
+  "@nSelected": {
+    "placeholders": {
+      "n": {}
+    }
+  },
+  "empty": "Empty",
   "recurrence": "Recurrence",
   "doesNotRepeat": "Does not repeat",
   "daily": "Daily",

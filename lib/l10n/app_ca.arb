@@ -37,6 +37,13 @@
       "n": {}
     }
   },
+  "nSelected": "{n, plural, =1 {{n} seleccionada} other {{n} seleccionades}}",
+  "@nSelected": {
+    "placeholders": {
+      "n": {}
+    }
+  },
+  "empty": "Buida",
   "recurrence": "Repetició",
   "doesNotRepeat": "No es repeteix",
   "daily": "Cada dia",
