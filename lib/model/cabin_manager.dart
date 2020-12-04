@@ -23,9 +23,6 @@ class CabinManager with ChangeNotifier, FileManager {
 
   Cabin getFromId(String id) => cabins.firstWhere((cabin) => cabin.id == id);
 
-  Cabin getFromNumber(int number) =>
-      cabins.firstWhere((cabin) => cabin.number == number);
-
   int get lastCabinNumber => cabins.isNotEmpty ? cabins.last.number : 0;
 
   List<DateTime> allCabinsDatesWithBookings() {
