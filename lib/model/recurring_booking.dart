@@ -104,7 +104,7 @@ class RecurringBooking extends Booking {
     _endDate = null;
   }
 
-  Booking get booking => Booking(
+  Booking asBooking() => Booking(
         id: '$id-0',
         studentName: studentName,
         date: date,
@@ -118,7 +118,7 @@ class RecurringBooking extends Booking {
   List<Booking> get bookings {
     var runningBookings = <Booking>[];
     var runningDateTime = dateStart;
-    var movedBooking = booking;
+    var movedBooking = asBooking();
 
     var count = 0;
 

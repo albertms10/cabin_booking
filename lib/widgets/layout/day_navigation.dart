@@ -16,17 +16,17 @@ class DayNavigation extends StatelessWidget {
         children: [
           FlatButton(
             padding: const EdgeInsets.symmetric(vertical: 16.0),
-            onPressed: () => dayHandler.setNow(),
+            onPressed: () => dayHandler.changeToNow(),
             child: Text(AppLocalizations.of(context).today),
           ),
           IconButton(
-            onPressed: () => dayHandler.setPreviousDay(),
+            onPressed: () => dayHandler.changeToPreviousDay(),
             icon: const Icon(Icons.chevron_left),
             tooltip: AppLocalizations.of(context).previousDay,
             splashRadius: splashRadius,
           ),
           IconButton(
-            onPressed: () => dayHandler.setNextDay(),
+            onPressed: () => dayHandler.changeToNextDay(),
             icon: const Icon(Icons.chevron_right),
             tooltip: AppLocalizations.of(context).nextDay,
             splashRadius: splashRadius,

@@ -42,7 +42,7 @@ class Cabin {
         'recurringBookings': _bookingManager.recurringBookingsToMapList(),
       };
 
-  Cabin get simple => Cabin(id: id, number: number);
+  Cabin simplified() => Cabin(id: id, number: number);
 
   List<Booking> get bookings => _bookingManager.bookings;
 
@@ -50,7 +50,7 @@ class Cabin {
       _bookingManager.recurringBookings;
 
   List<Booking> get generatedRecurringBookings =>
-      _bookingManager.generatedRecurringBookings;
+      _bookingManager.generatedBookingsFromRecurring;
 
   bool bookingsCollideWith(Booking booking) =>
       _bookingManager.bookingsCollideWith(booking);
@@ -69,7 +69,7 @@ class Cabin {
         endTime: endTime,
       );
 
-  List<DateTime> datesWithBookings() => _bookingManager.datesWithBookings();
+  List<DateTime> get datesWithBookings => _bookingManager.datesWithBookings;
 
   double evertimeOccupiedRatio({
     @required TimeOfDay startTime,

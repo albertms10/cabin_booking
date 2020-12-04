@@ -25,11 +25,11 @@ class CabinManager with ChangeNotifier, FileManager {
 
   int get lastCabinNumber => cabins.isNotEmpty ? cabins.last.number : 0;
 
-  List<DateTime> allCabinsDatesWithBookings() {
+  List<DateTime> get allCabinsDatesWithBookings {
     final dates = <DateTime>[];
 
     for (final cabin in cabins) {
-      for (final dateTime in cabin.datesWithBookings()) {
+      for (final dateTime in cabin.datesWithBookings) {
         final hasDate = dates.firstWhere(
               (date) => isSameDay(date, dateTime),
               orElse: () => null,

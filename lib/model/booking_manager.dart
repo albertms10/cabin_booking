@@ -29,7 +29,7 @@ class BookingManager with ChangeNotifier {
       .map((recurringBooking) => recurringBooking.toMap())
       .toList();
 
-  List<Booking> get generatedRecurringBookings {
+  List<Booking> get generatedBookingsFromRecurring {
     final generatedBookings = <Booking>[];
 
     for (final recurringBooking in recurringBookings) {
@@ -40,7 +40,7 @@ class BookingManager with ChangeNotifier {
   }
 
   List<Booking> get allBookings =>
-      [...bookings, ...generatedRecurringBookings]..sort(_sortBookings);
+      [...bookings, ...generatedBookingsFromRecurring]..sort(_sortBookings);
 
   List<Booking> _recurringBookingsOn(DateTime dateTime) {
     final filteredBookings = <Booking>[];
@@ -101,7 +101,7 @@ class BookingManager with ChangeNotifier {
     return occupiedMinutesDurationOn(dateTime) / maxViewMinutesDuration;
   }
 
-  List<DateTime> datesWithBookings() {
+  List<DateTime> get datesWithBookings {
     final dates = <DateTime>[];
 
     for (final booking in allBookings) {
@@ -125,7 +125,7 @@ class BookingManager with ChangeNotifier {
     var runningRatio = 0.0;
     var count = 0;
 
-    for (final dateTime in dates ?? datesWithBookings()) {
+    for (final dateTime in dates ?? datesWithBookings) {
       count++;
 
       final currentRatio =

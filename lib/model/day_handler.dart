@@ -10,10 +10,10 @@ class DayHandler with ChangeNotifier {
     notifyListeners();
   }
 
-  void setNow() => dateTime = DateTime.now();
+  void changeToNow() => dateTime = DateTime.now();
 
-  void setNextDay() => dateTime = _dateTime.add(const Duration(days: 1));
+  void changeToNextDay() => dateTime = _dateTime.add(const Duration(days: 1));
 
-  void setPreviousDay() =>
+  void changeToPreviousDay() =>
       dateTime = _dateTime.subtract(const Duration(days: 1));
 }
