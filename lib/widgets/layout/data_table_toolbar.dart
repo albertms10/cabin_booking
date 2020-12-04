@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DataTableToolbar extends StatelessWidget {
   final bool shown;
@@ -19,7 +20,9 @@ class DataTableToolbar extends StatelessWidget {
       height: 54.0,
       child: shown
           ? AppBar(
-              title: Text('${selectedItems} selected'),
+              title: Text(
+                AppLocalizations.of(context).nSelected(selectedItems),
+              ),
               centerTitle: false,
               backgroundColor: Colors.blue[700],
               leading: IconButton(

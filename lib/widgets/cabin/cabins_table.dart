@@ -282,12 +282,14 @@ class _CabinsTableState extends State<CabinsTable> {
                     }
                   : null,
               icon: const Icon(Icons.delete_outline),
+              tooltip: AppLocalizations.of(context).empty,
             ),
             IconButton(
               onPressed: () {
                 widget.removeSelected(context);
               },
               icon: const Icon(Icons.delete),
+              tooltip: MaterialLocalizations.of(context).deleteButtonTooltip,
             ),
           ],
         ),
