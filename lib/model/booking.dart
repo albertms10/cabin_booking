@@ -80,6 +80,34 @@ class Booking {
         cabinId: cabinId,
       );
 
+  Map<TimeOfDay, Duration> get hoursSpan {
+    final timeRanges = <TimeOfDay, Duration>{};
+
+    var runningTime = timeStart;
+    var runningDurationInMinutes = 0;
+
+    while (runningDurationInMinutes < duration.inMinutes) {
+      final nextHour = TimeOfDay(hour: runningTime.hour + 1, minute: 0);
+
+      final nextTime =
+          durationBetweenTimesOfDay(nextHour, timeEnd).inMinutes <= 0
+              ? timeEnd
+              : nextHour;
+
+      final currentDuration = durationBetweenTimesOfDay(runningTime, nextTime);
+
+      runningDurationInMinutes += currentDuration.inMinutes;
+
+      timeRanges.addAll({
+        TimeOfDay(hour: runningTime.hour, minute: 0): currentDuration,
+      });
+
+      runningTime = nextTime;
+    }
+
+    return timeRanges;
+  }
+
   void replaceWith(Booking booking) {
     studentName = booking.studentName;
     date = booking.date;

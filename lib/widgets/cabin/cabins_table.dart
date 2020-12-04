@@ -11,6 +11,7 @@ class CabinTableRow {
   final int bookingsCount;
   final int recurringBookingsCount;
   final double occupancyRate;
+  final List<TimeOfDay> mostOccupiedTimeRange;
   bool selected;
 
   CabinTableRow({
@@ -19,6 +20,7 @@ class CabinTableRow {
     this.bookingsCount,
     this.recurringBookingsCount,
     this.occupancyRate,
+    this.mostOccupiedTimeRange,
     this.selected = false,
   });
 }
@@ -185,6 +187,14 @@ class _CabinsTableState extends State<CabinsTable> {
                     numeric: true,
                     onSort: onSortColumn,
                   ),
+                  DataColumn(
+                    label: Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: Text(
+                        AppLocalizations.of(context).mostOccupiedTimeRange,
+                      ),
+                    ),
+                  ),
                 ],
                 rows: List<DataRow>.generate(
                   widget.cabinRows.length,
@@ -236,6 +246,16 @@ class _CabinsTableState extends State<CabinsTable> {
                                 ],
                               ),
                             ],
+                          ),
+                        ),
+                        DataCell(
+                          Padding(
+                            padding: const EdgeInsets.only(left: 8.0),
+                            child: Text(
+                              cabinRow.mostOccupiedTimeRange
+                                  .map((time) => time.format(context))
+                                  .join('–'),
+                            ),
                           ),
                         ),
                       ],

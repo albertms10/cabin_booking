@@ -137,6 +137,34 @@ class BookingManager with ChangeNotifier {
     return runningRatio;
   }
 
+  Map<TimeOfDay, Duration> get accumulatedTimeRangesOccupancy {
+    final timeRanges = <TimeOfDay, Duration>{};
+
+    for (final booking in allBookings) {
+      for (final bookingTimeRange in booking.hoursSpan.entries) {
+        timeRanges[bookingTimeRange.key] = addDurations(
+          timeRanges[bookingTimeRange.key],
+          bookingTimeRange.value,
+        );
+      }
+    }
+
+    return timeRanges;
+  }
+
+  List<TimeOfDay> get mostOccupiedTimeRange {
+    final sortedTimeRanges = accumulatedTimeRangesOccupancy.entries.toList()
+      ..sort((a, b) => b.value.inMinutes - a.value.inMinutes);
+
+    final highestOccupancyDuration = sortedTimeRanges.first.value;
+
+    return sortedTimeRanges
+        .where((timeRange) => timeRange.value == highestOccupancyDuration)
+        .map((timeRange) => timeRange.key)
+        .toList()
+          ..sort((a, b) => (a.hour - b.hour) * 100 + a.minute - b.minute);
+  }
+
   Booking bookingFromId(String id) =>
       bookings.firstWhere((booking) => booking.id == id);
 

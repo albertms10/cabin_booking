@@ -82,6 +82,12 @@ class Cabin {
         dates: dates,
       );
 
+  Map<TimeOfDay, Duration> get accumulatedTimeRangesOccupancy =>
+      _bookingManager.accumulatedTimeRangesOccupancy;
+
+  List<TimeOfDay> get mostOccupiedTimeRanges =>
+      _bookingManager.mostOccupiedTimeRange;
+
   void addBooking(Booking booking) => _bookingManager.addBooking(booking);
 
   void addRecurringBooking(RecurringBooking recurringBooking) =>

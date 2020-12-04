@@ -22,6 +22,7 @@ class CabinsPage extends StatelessWidget {
                   endTime: timeTableEndTime,
                   dates: cabinManager.allCabinsDatesWithBookings,
                 ),
+                mostOccupiedTimeRange: cabin.mostOccupiedTimeRanges,
               ),
           ],
         );
