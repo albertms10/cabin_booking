@@ -22,7 +22,7 @@ class CabinDropdown extends StatelessWidget {
           value: value,
           onChanged: onChanged,
           items: [
-            for (Cabin cabin in cabinManager.cabins)
+            for (final cabin in cabinManager.cabins)
               DropdownMenuItem(
                 value: cabin.id,
                 child: Text(

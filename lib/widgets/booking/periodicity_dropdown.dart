@@ -31,7 +31,7 @@ class PeriodicityDropdown extends StatelessWidget {
       value: value,
       onChanged: onChanged,
       items: [
-        for (Periodicity value in Periodicity.values)
+        for (final value in Periodicity.values)
           DropdownMenuItem(
             value: value,
             child: Text(
