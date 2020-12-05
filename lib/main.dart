@@ -47,6 +47,7 @@ class CabinBookingApp extends StatelessWidget {
         Locale('en'),
         Locale('es'),
       ],
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
