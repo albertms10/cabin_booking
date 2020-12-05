@@ -95,7 +95,7 @@ BEGIN
             VALUE "InternalName", "cabin_booking" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2020 com.example. All rights reserved." "\0"
             VALUE "OriginalFilename", "cabin_booking.exe" "\0"
-            VALUE "ProductName", "cabin_booking" "\0"
+            VALUE "ProductName", "Cabin Booking" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

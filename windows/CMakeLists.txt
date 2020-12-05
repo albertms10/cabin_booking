@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.15)
 project(cabin_booking LANGUAGES CXX)
 
-set(BINARY_NAME "cabin_booking")
+set(BINARY_NAME "Cabin Booking")
 
 cmake_policy(SET CMP0063 NEW)
 
