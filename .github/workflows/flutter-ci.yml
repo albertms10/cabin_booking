@@ -18,7 +18,7 @@ jobs:
           channel: dev
 
       - run: flutter analyze --fatal-infos
-      # - run: flutter test
+    # - run: flutter test
 
   ios-build:
     name: iOS build
@@ -79,7 +79,7 @@ jobs:
       - uses: actions/upload-artifact@v1
         with:
           name: Cabin Booking.app
-          path: build/macos/Build/Products/Release/Cabin\ Booking.app
+          path: build/macos/Build/Products/Release/Cabin Booking.app
 
   windows-build:
     name: Windows build
