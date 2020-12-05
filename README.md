@@ -2,4 +2,4 @@
 
 An app for cabin booking
 
-![Main app page](docs/screenshots/1.jpg)
+![Bookings page](docs/screenshots/bookings_v0.3.jpg)
