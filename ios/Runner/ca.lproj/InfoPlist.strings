@@ -1,0 +1,9 @@
+/* 
+  InfoPlist.strings
+  Runner
+
+  Created by Albert Mañosa on 05/12/2020.
+
+*/
+
+CFBundleDisplayName = "Reserva de cabines";
