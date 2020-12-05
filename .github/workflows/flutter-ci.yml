@@ -8,7 +8,7 @@ on:
 
 jobs:
   analyze:
-    name: Analyze Flutter code
+    name: Analyze
     runs-on: ubuntu-latest
 
     steps:
@@ -21,7 +21,7 @@ jobs:
       # - run: flutter test
 
   ios-build:
-    name: Build iOS
+    name: iOS build
     runs-on: macos-latest
     needs: [analyze]
 
@@ -34,8 +34,13 @@ jobs:
     - run: flutter pub get
     - run: flutter build ios --release --no-codesign
 
+  # - uses: actions/upload-artifact@v1
+  #   with:
+  #     name: Runner
+  #     path: build/ios/iphoneos/Runner.app
+
   android-build:
-    name: Build Android
+    name: Android build
     runs-on: ubuntu-latest
     needs: [analyze]
 
@@ -51,8 +56,13 @@ jobs:
       - run: flutter pub get
       - run: flutter build apk
 
+    # - uses: actions/upload-artifact@v1
+    #   with:
+    #     name: release-apk
+    #     path: build/app/outputs/flutter-apk/app-release.apk
+
   macos-build:
-    name: Build macOS
+    name: macOS build
     runs-on: macos-latest
     needs: [analyze]
 
@@ -66,8 +76,13 @@ jobs:
       - run: flutter pub get
       - run: flutter build macos
 
+      - uses: actions/upload-artifact@v1
+        with:
+          name: Cabin Booking.app
+          path: build/macos/Build/Products/Release/Cabin\ Booking.app
+
   windows-build:
-    name: Build Windows
+    name: Windows build
     runs-on: windows-latest
     needs: [analyze]
 
@@ -82,7 +97,7 @@ jobs:
       - run: flutter build windows
   
   web-build:
-    name: Build Web
+    name: Web build
     runs-on: ubuntu-latest
     needs: [analyze]
 
