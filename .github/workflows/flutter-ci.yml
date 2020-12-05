@@ -81,7 +81,7 @@ jobs:
       - uses: actions/upload-artifact@v1
         with:
           name: macos_release
-          path: build/macos/Build/Products/Release/Cabin Booking.app
+          path: build/macos/Build/Products/Release/
 
   windows-build:
     name: Windows build
@@ -101,7 +101,7 @@ jobs:
       - uses: actions/upload-artifact@v1
         with:
           name: windows_release
-          path: build/windows/runner/Release
+          path: build/windows/runner/Release/
 
   web-build:
     name: Web build
@@ -117,3 +117,8 @@ jobs:
       - run: flutter config --enable-web
       - run: flutter pub get
       - run: flutter build web
+
+      - uses: actions/upload-artifact@v1
+        with:
+          name: web_release
+          path: build/web/
