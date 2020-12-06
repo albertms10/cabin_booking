@@ -33,7 +33,7 @@ class CurrentTimeIndicator extends StatelessWidget {
                 children: [
                   SizedBox(
                     height: durationFromStart.inMicroseconds /
-                        Duration.microsecondsPerHour *
+                        Duration.microsecondsPerMinute *
                         bookingHeightRatio,
                     child: Container(
                       alignment: Alignment.bottomLeft,
