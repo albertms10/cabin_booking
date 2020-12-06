@@ -82,12 +82,12 @@ jobs:
       - run: flutter build macos
 
       - name: 'Tar app'
-        run: cd build/macos/Build/Products/Release/ && tar -cvf macos_release.tar "Cabin Booking.app"
+        run: cd build/macos/Build/Products/Release/ && tar -cvjf macos_release.tar.bz2 "Cabin Booking.app"
 
       - uses: actions/upload-artifact@v1
         with:
           name: macos_release
-          path: build/macos/Build/Products/Release/macos_release.tar
+          path: build/macos/Build/Products/Release/macos_release.tar.bz2
 
 
   windows-build:
@@ -105,10 +105,13 @@ jobs:
       - run: flutter pub get
       - run: flutter build windows
 
+      - name: 'Tar app'
+        run: cd build/windows/runner/ && tar -cvjf windows_release.tar.bz2 Release
+
       - uses: actions/upload-artifact@v1
         with:
           name: windows_release
-          path: build/windows/runner/Release/
+          path: build/windows/runner/windows_release.tar.bz2
 
 
   web-build:
@@ -126,7 +129,10 @@ jobs:
       - run: flutter pub get
       - run: flutter build web
 
+      - name: 'Tar app'
+        run: cd build/ && tar -cvjf web_release.tar.bz2 web/
+
       - uses: actions/upload-artifact@v1
         with:
           name: web_release
-          path: build/web/
+          path: build/web_release.tar.bz2
