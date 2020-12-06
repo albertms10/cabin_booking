@@ -3,6 +3,8 @@ List<List<T>> compactizeRange<T>(
   T Function(T a) nextValue,
   inclusive = false,
 }) {
+  if (rangeSet.isEmpty) return [];
+
   if (T == int) {
     nextValue ??= (a) => ((a as int) + 1) as T;
   } else {
