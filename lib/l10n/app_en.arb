@@ -30,6 +30,7 @@
   "changesSaved": "Changes saved",
   "disabled": "disabled",
   "description": "Description",
+  "noCabinsMessage": "Add a cabin to start",
   "hours": "Hours",
   "occupancyRate": "Occupancy rate",
   "mostOccupiedTimeRange": "Most occupied time range",
