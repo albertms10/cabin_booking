@@ -25,7 +25,7 @@ class _BookingDialogState extends State<BookingDialog> {
         widget.booking.recurringBookingId != null;
   }
 
-  void setIsRecurring(bool isRecurring) {
+  void _setIsRecurring(bool isRecurring) {
     setState(() => _isRecurring = isRecurring);
   }
 
@@ -46,7 +46,7 @@ class _BookingDialogState extends State<BookingDialog> {
         child: BookingForm(
           booking: widget.booking,
           isRecurring: _isRecurring,
-          setIsRecurring: setIsRecurring,
+          setIsRecurring: _setIsRecurring,
         ),
       ),
     );
