@@ -106,12 +106,12 @@ jobs:
       - run: flutter build windows
 
       - name: 'Tar app'
-        run: cd build/windows/runner/ && tar -cvjf windows_release.tar.bz2 Release
+        run: cd build/windows/runner/ && tar -cvzf windows_release.tar.gz Release
 
       - uses: actions/upload-artifact@v1
         with:
           name: windows_release
-          path: build/windows/runner/windows_release.tar.bz2
+          path: build/windows/runner/windows_release.tar.gz
 
 
   web-build:
