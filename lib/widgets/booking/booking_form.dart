@@ -113,7 +113,6 @@ class _BookingFormState extends State<BookingForm> {
               labelText: _booking.isDisabled
                   ? appLocalizations.description
                   : appLocalizations.student,
-              border: const OutlineInputBorder(),
             ),
           ),
           const SizedBox(height: 16.0),
@@ -199,7 +198,6 @@ class _BookingFormState extends State<BookingForm> {
                       },
                       decoration: InputDecoration(
                         labelText: appLocalizations.start,
-                        border: const OutlineInputBorder(),
                         icon: const Icon(Icons.schedule),
                       ),
                     );
@@ -286,7 +284,6 @@ class _BookingFormState extends State<BookingForm> {
                       },
                       decoration: InputDecoration(
                         labelText: appLocalizations.end,
-                        border: const OutlineInputBorder(),
                       ),
                     );
                   },
@@ -342,9 +339,6 @@ class _BookingFormState extends State<BookingForm> {
                             controller: _endDateController,
                             enabled: _recurringBookingMethod ==
                                 RecurringBookingMethod.endDate,
-                            decoration: InputDecoration(
-                              border: const OutlineInputBorder(),
-                            ),
                             validator: (value) {
                               if (!widget.isRecurring ||
                                   _recurringBookingMethod !=
@@ -387,9 +381,6 @@ class _BookingFormState extends State<BookingForm> {
                                   inputFormatters: [
                                     FilteringTextInputFormatter.digitsOnly,
                                   ],
-                                  decoration: InputDecoration(
-                                    border: const OutlineInputBorder(),
-                                  ),
                                   validator: (value) {
                                     if (!widget.isRecurring ||
                                         _recurringBookingMethod !=

@@ -17,7 +17,7 @@ class CabinDropdown extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<CabinManager>(
       builder: (context, cabinManager, child) {
-        return DropdownButton<String>(
+        return DropdownButtonFormField<String>(
           value: value,
           onChanged: onChanged,
           items: [

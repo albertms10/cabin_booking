@@ -29,7 +29,7 @@ class PeriodicityDropdown extends StatelessWidget {
       appLocalizations.annually,
     ];
 
-    return DropdownButton(
+    return DropdownButtonFormField(
       value: value,
       onChanged: onChanged,
       items: [
