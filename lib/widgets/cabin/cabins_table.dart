@@ -2,6 +2,7 @@ import 'package:cabin_booking/model/cabin_manager.dart';
 import 'package:cabin_booking/widgets/cabin/cabin_icon.dart';
 import 'package:cabin_booking/widgets/layout/centered_icon_message.dart';
 import 'package:cabin_booking/widgets/layout/data_table_toolbar.dart';
+import 'package:cabin_booking/widgets/layout/figure_unit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
@@ -264,26 +265,9 @@ class _CabinsTableState extends State<CabinsTable> {
                           ),
                         ),
                         DataCell(
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                '${(cabinRow.occupancyRate * 100).round()}',
-                                style: theme.textTheme.headline5,
-                              ),
-                              const SizedBox(width: 2),
-                              Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  const SizedBox(height: 2),
-                                  Text(
-                                    '%',
-                                    style: theme.textTheme.subtitle2,
-                                  )
-                                ],
-                              ),
-                            ],
+                          FigureUnit(
+                            value: (cabinRow.occupancyRate * 100).round(),
+                            unit: '%',
                           ),
                         ),
                         DataCell(
