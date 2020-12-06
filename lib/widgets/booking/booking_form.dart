@@ -316,14 +316,15 @@ class _BookingFormState extends State<BookingForm> {
                   padding: const EdgeInsets.only(top: 4.0, bottom: 8.0),
                   child: Column(
                     children: [
-                      PeriodicityDropdown(
+                      PeriodicityListTile(
                         value: _periodicityValue,
                         onChanged: (value) {
                           setState(() => _periodicityValue = value);
                         },
                       ),
                       ListTile(
-                        title: Text(appLocalizations.on),
+                        minVerticalPadding: 24.0,
+                        title: Text(appLocalizations.onDate),
                         selected: _recurringBookingMethod ==
                             RecurringBookingMethod.endDate,
                         leading: Radio(
@@ -334,7 +335,7 @@ class _BookingFormState extends State<BookingForm> {
                           },
                         ),
                         trailing: SizedBox(
-                          width: 100.0,
+                          width: 154.0,
                           child: TextFormField(
                             controller: _endDateController,
                             enabled: _recurringBookingMethod ==
@@ -355,11 +356,11 @@ class _BookingFormState extends State<BookingForm> {
                           ),
                         ),
                       ),
-                      const SizedBox(height: 8.0),
                       ListTile(
                         title: Text(appLocalizations.after),
                         selected: _recurringBookingMethod ==
                             RecurringBookingMethod.occurrences,
+                        minVerticalPadding: 24.0,
                         leading: Radio(
                           value: RecurringBookingMethod.occurrences,
                           groupValue: _recurringBookingMethod,
@@ -368,7 +369,7 @@ class _BookingFormState extends State<BookingForm> {
                           },
                         ),
                         trailing: SizedBox(
-                          width: 100.0,
+                          width: 154.0,
                           child: Row(
                             children: [
                               SizedBox(
@@ -411,7 +412,7 @@ class _BookingFormState extends State<BookingForm> {
                     ],
                   ),
                 ),
-              )
+              ),
             ],
           ),
           const SizedBox(height: 32.0),
@@ -428,7 +429,7 @@ class _BookingFormState extends State<BookingForm> {
                   if (_recurringBookingMethod ==
                       RecurringBookingMethod.endDate) {
                     recurringBooking.endDate =
-                        DateFormat('d/M/y').parse(_endDateController.text);
+                        DateFormat.yMd().parse(_endDateController.text);
                   } else {
                     recurringBooking.occurrences =
                         int.tryParse(_occurrencesController.text);

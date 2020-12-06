@@ -52,6 +52,8 @@ class CabinBookingApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
         inputDecorationTheme: const InputDecorationTheme(
+          filled: true,
+          errorMaxLines: 2,
           border: OutlineInputBorder(),
         ),
       ),

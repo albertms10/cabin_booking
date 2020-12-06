@@ -8,11 +8,11 @@ enum Periodicity {
   annually,
 }
 
-class PeriodicityDropdown extends StatelessWidget {
+class PeriodicityListTile extends StatelessWidget {
   final Periodicity value;
   final Function(Periodicity) onChanged;
 
-  const PeriodicityDropdown({
+  const PeriodicityListTile({
     Key key,
     this.value,
     this.onChanged,
@@ -29,18 +29,25 @@ class PeriodicityDropdown extends StatelessWidget {
       appLocalizations.annually,
     ];
 
-    return DropdownButtonFormField(
-      value: value,
-      onChanged: onChanged,
-      items: [
-        for (final value in Periodicity.values)
-          DropdownMenuItem(
-            value: value,
-            child: Text(
-              periodicityLabels[value.index],
-            ),
-          ),
-      ],
+    return ListTile(
+      title: Text(appLocalizations.repeats),
+      minVerticalPadding: 24.0,
+      trailing: SizedBox(
+        width: 182.0,
+        child: DropdownButtonFormField(
+          value: value,
+          onChanged: onChanged,
+          items: [
+            for (final value in Periodicity.values)
+              DropdownMenuItem(
+                value: value,
+                child: Text(
+                  periodicityLabels[value.index],
+                ),
+              ),
+          ],
+        ),
+      ),
     );
   }
 }
