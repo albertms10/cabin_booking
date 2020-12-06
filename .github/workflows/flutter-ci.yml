@@ -105,10 +105,13 @@ jobs:
       - run: flutter pub get
       - run: flutter build windows
 
+      - name: 'Tar app'
+        run: cd build/windows/runner/ && tar -cvf windows_release.tar Release/
+
       - uses: actions/upload-artifact@v1
         with:
           name: windows_release
-          path: build/windows/runner/Release/
+          path: build/windows/runner/windows_release.tar
 
 
   web-build:
@@ -126,7 +129,10 @@ jobs:
       - run: flutter pub get
       - run: flutter build web
 
+      - name: 'Tar app'
+        run: cd build/ && tar -cvf web_release.tar web/
+
       - uses: actions/upload-artifact@v1
         with:
           name: web_release
-          path: build/web/
+          path: build/web_release.tar
