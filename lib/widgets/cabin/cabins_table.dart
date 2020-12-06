@@ -253,6 +253,7 @@ class _CabinsTableState extends State<CabinsTable> {
                             padding: const EdgeInsets.only(left: 8.0),
                             child: Wrap(
                               spacing: 8.0,
+                              runSpacing: 6.0,
                               children: [
                                 for (final timeRange
                                     in cabinRow.mostOccupiedTimeRanges)
