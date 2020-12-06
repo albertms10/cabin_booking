@@ -2,7 +2,9 @@ import 'package:cabin_booking/model/cabin_manager.dart';
 import 'package:cabin_booking/widgets/cabin/cabin_icon.dart';
 import 'package:cabin_booking/widgets/layout/centered_icon_message.dart';
 import 'package:cabin_booking/widgets/layout/data_table_toolbar.dart';
+import 'package:cabin_booking/widgets/layout/duration_figure_unit.dart';
 import 'package:cabin_booking/widgets/layout/figure_unit.dart';
+import 'package:cabin_booking/widgets/layout/wrapped_chip_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
@@ -175,7 +177,7 @@ class _CabinsTableState extends State<CabinsTable> {
         ListView(
           children: [
             Padding(
-              padding: const EdgeInsets.all(54.0),
+              padding: const EdgeInsets.only(top: 54.0),
               child: DataTable(
                 dataRowHeight: 82.0,
                 showCheckboxColumn: true,
@@ -208,7 +210,7 @@ class _CabinsTableState extends State<CabinsTable> {
                   DataColumn(
                     label: Padding(
                       padding: const EdgeInsets.only(left: 8.0),
-                      child: Text(appLocalizations.hours),
+                      child: Text(appLocalizations.accumulatedTime),
                     ),
                     numeric: true,
                     onSort: onSortColumn,
@@ -259,9 +261,8 @@ class _CabinsTableState extends State<CabinsTable> {
                           ),
                         ),
                         DataCell(
-                          Text(
-                            '${cabinRow.accumulatedDuration.inHours}',
-                            style: theme.textTheme.headline5,
+                          DurationFigureUnit(
+                            duration: cabinRow.accumulatedDuration,
                           ),
                         ),
                         DataCell(
@@ -273,18 +274,13 @@ class _CabinsTableState extends State<CabinsTable> {
                         DataCell(
                           Padding(
                             padding: const EdgeInsets.only(left: 8.0),
-                            child: Wrap(
-                              spacing: 8.0,
-                              runSpacing: 6.0,
-                              children: [
-                                for (final timeRange
-                                    in cabinRow.mostOccupiedTimeRanges)
-                                  Chip(
-                                    label: Text(
-                                      '${timeRange.first.format(context)}–${timeRange.last.format(context)}',
-                                    ),
-                                  )
-                              ],
+                            child: WrappedChipList(
+                              items: cabinRow.mostOccupiedTimeRanges,
+                              labelBuilder: (context, timeRange) {
+                                return Text(
+                                  '${timeRange.first.format(context)}–${timeRange.last.format(context)}',
+                                );
+                              },
                             ),
                           ),
                         ),
