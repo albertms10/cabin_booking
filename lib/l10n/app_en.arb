@@ -31,7 +31,7 @@
   "disabled": "disabled",
   "description": "Description",
   "noCabinsMessage": "Add a cabin to start",
-  "hours": "Hours",
+  "accumulatedTime": "Accumulated time",
   "occupancyRate": "Occupancy rate",
   "mostOccupiedTimeRange": "Most occupied time range",
   "onDate": "On",

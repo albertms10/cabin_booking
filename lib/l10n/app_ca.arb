@@ -31,7 +31,7 @@
   "disabled": "Desactivada",
   "description": "Descripció",
   "noCabinsMessage": "Afegeix una cabina per començar",
-  "hours": "Hores",
+  "accumulatedTime": "Temps acumulat",
   "occupancyRate": "Ocupació",
   "mostOccupiedTimeRange": "Horari més ocupat",
   "onDate": "El dia",
