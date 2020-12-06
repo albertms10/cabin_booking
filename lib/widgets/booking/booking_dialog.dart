@@ -44,7 +44,7 @@ class _BookingDialogState extends State<BookingDialog> {
       content: SizedBox(
         width: 250.0,
         child: BookingForm(
-          widget.booking,
+          booking: widget.booking,
           isRecurring: _isRecurring,
           setIsRecurring: setIsRecurring,
         ),

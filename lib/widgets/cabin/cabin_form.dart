@@ -7,9 +7,9 @@ class CabinForm extends StatefulWidget {
   final Cabin cabin;
   final int newCabinNumber;
 
-  CabinForm(
-    this.cabin, {
+  CabinForm({
     Key key,
+    this.cabin,
     this.newCabinNumber,
   }) : super(key: key);
 

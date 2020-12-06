@@ -19,7 +19,7 @@ class CabinDialog extends StatelessWidget {
       content: SizedBox(
         width: 500.0,
         child: CabinForm(
-          cabin,
+          cabin: cabin,
           newCabinNumber: newCabinNumber,
         ),
       ),
