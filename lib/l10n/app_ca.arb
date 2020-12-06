@@ -29,7 +29,7 @@
   "description": "Descripció",
   "occupancyRate": "Ocupació",
   "mostOccupiedTimeRange": "Horari més ocupat",
-  "on": "El dia",
+  "onDate": "El dia",
   "after": "Després de",
   "occurrences": "{n, plural, =1 {ocurrència} other {ocurrències}}",
   "@occurrences": {
@@ -46,6 +46,7 @@
   "empty": "Buida",
   "recurrence": "Repetició",
   "doesNotRepeat": "No es repeteix",
+  "repeats": "Es repeteix",
   "daily": "Cada dia",
   "weekly": "Cada setmana",
   "monthly": "Cada mes",

@@ -29,7 +29,7 @@
   "description": "Descripción",
   "occupancyRate": "Ocupación",
   "mostOccupiedTimeRange": "Horario más ocupado",
-  "on": "El día",
+  "onDate": "El día",
   "after": "Después de",
   "occurrences": "{n, plural, =1 {ocurrencia} other {ocurrencias}}",
   "@occurrences": {
@@ -46,6 +46,7 @@
   "empty": "Vaciar",
   "recurrence": "Repetición",
   "doesNotRepeat": "No se repite",
+  "repeats": "Se repite",
   "daily": "Cada día",
   "weekly": "Cada semana",
   "monthly": "Cada mes",

@@ -29,7 +29,7 @@
   "description": "Description",
   "occupancyRate": "Occupancy rate",
   "mostOccupiedTimeRange": "Most occupied time range",
-  "on": "On",
+  "onDate": "On",
   "after": "After",
   "occurrences": "{n, plural, =1 {occurrence} other {occurrences}}",
   "@occurrences": {
@@ -46,6 +46,7 @@
   "empty": "Empty",
   "recurrence": "Recurrence",
   "doesNotRepeat": "Does not repeat",
+  "repeats": "Repeats",
   "daily": "Daily",
   "weekly": "Weekly",
   "monthly": "Monthly",
