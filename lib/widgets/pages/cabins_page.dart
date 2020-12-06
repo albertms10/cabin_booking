@@ -1,5 +1,6 @@
 import 'package:cabin_booking/constants.dart';
 import 'package:cabin_booking/model/cabin_manager.dart';
+import 'package:cabin_booking/utils/compactize_range.dart';
 import 'package:cabin_booking/widgets/cabin/cabins_table.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -23,7 +24,14 @@ class CabinsPage extends StatelessWidget {
                   endTime: timeTableEndTime,
                   dates: cabinManager.allCabinsDatesWithBookings,
                 ),
-                mostOccupiedTimeRange: cabin.mostOccupiedTimeRanges,
+                mostOccupiedTimeRanges: compactizeRange<TimeOfDay>(
+                  cabin.mostOccupiedTimeRanges.toSet(),
+                  nextValue: (value) => TimeOfDay(
+                    hour: (value.hour + 1) % 24,
+                    minute: value.minute,
+                  ),
+                  inclusive: true,
+                ),
               ),
           ],
         );
