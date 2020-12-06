@@ -143,10 +143,9 @@ class _BookingFormState extends State<BookingForm> {
                           _startTime = parsedTimeOfDay;
                         }
 
-                        final parsedDateTime =
-                            tryParseDateTimeWithFormattedTimeOfDay(
+                        final parsedDateTime = tryParseDateTimeWithTimeOfDay(
                           dateTime: widget.booking.date,
-                          formattedTimeOfDay: value,
+                          timeOfDay: parsedTimeOfDay,
                         );
 
                         if (parsedDateTime == null) {
@@ -229,10 +228,9 @@ class _BookingFormState extends State<BookingForm> {
                           _endTime = parsedTimeOfDay;
                         }
 
-                        final parsedDateTime =
-                            tryParseDateTimeWithFormattedTimeOfDay(
+                        final parsedDateTime = tryParseDateTimeWithTimeOfDay(
                           dateTime: widget.booking.date,
-                          formattedTimeOfDay: value,
+                          timeOfDay: parsedTimeOfDay,
                         );
 
                         if (parsedDateTime == null) {
