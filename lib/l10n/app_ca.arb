@@ -22,6 +22,7 @@
   "enterEndTime": "Introdueix l’hora d’acabament",
   "enterValidRange": "Introdueix un rang vàlid",
   "enterDate": "Introdueix la data",
+  "enterOccurrences": "Introdueix les ocourrències",
   "occupied": "Espai ocupat",
   "deleteBookingTitle": "Confirmes que vols suprimir la reserva?",
   "actionUndone": "Aquesta acció no es pot desfer.",

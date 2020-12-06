@@ -22,6 +22,7 @@
   "enterEndTime": "Enter the end time",
   "enterValidRange": "Enter a valid range",
   "enterDate": "Enter the date",
+  "enterOccurrences": "Enter the occurrences",
   "occupied": "Occupied",
   "deleteBookingTitle": "Are you sure you want to delete the booking?",
   "actionUndone": "You can’t undo this action.",

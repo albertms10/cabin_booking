@@ -22,6 +22,7 @@
   "enterEndTime": "Introduzca la hora de finalización",
   "enterValidRange": "Introduzca un rango válido",
   "enterDate": "Introduzca la fecha",
+  "enterOccurrences": "Introduzca las ocurrencias",
   "occupied": "Espacio ocupado",
   "deleteBookingTitle": "¿Seguro que desea suprimir la reserva?",
   "actionUndone": "Esta acción no se puede deshacer.",

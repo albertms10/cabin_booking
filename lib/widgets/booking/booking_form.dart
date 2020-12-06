@@ -348,7 +348,7 @@ class _BookingFormState extends State<BookingForm> {
                               }
 
                               if (value.isEmpty) {
-                                return appLocalizations.enterEndTime;
+                                return appLocalizations.enterDate;
                               }
 
                               return null;
@@ -393,7 +393,7 @@ class _BookingFormState extends State<BookingForm> {
                                     }
 
                                     if (value.isEmpty) {
-                                      return appLocalizations.enterDate;
+                                      return appLocalizations.enterOccurrences;
                                     }
 
                                     return null;
