@@ -20,6 +20,7 @@ jobs:
       - run: flutter analyze --fatal-infos
     # - run: flutter test
 
+
   ios-build:
     name: iOS build
     runs-on: macos-latest
@@ -39,6 +40,7 @@ jobs:
       with:
         name: ios_release
         path: build/ios/iphoneos/Runner.app
+
 
   android-build:
     name: Android build
@@ -63,6 +65,7 @@ jobs:
           name: android_release
           path: build/app/outputs/flutter-apk/app-release.apk
 
+
   macos-build:
     name: macOS build
     runs-on: macos-latest
@@ -78,10 +81,14 @@ jobs:
       - run: flutter pub get
       - run: flutter build macos
 
+      - name: 'Tar app'
+        run: tar -cvf macos_release.tar build/macos/Build/Products/Release/
+
       - uses: actions/upload-artifact@v1
         with:
           name: macos_release
-          path: build/macos/Build/Products/Release/
+          path: macos_release.tar
+
 
   windows-build:
     name: Windows build
@@ -102,6 +109,7 @@ jobs:
         with:
           name: windows_release
           path: build/windows/runner/Release/
+
 
   web-build:
     name: Web build
