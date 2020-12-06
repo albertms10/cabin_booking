@@ -87,7 +87,7 @@ jobs:
       - uses: actions/upload-artifact@v1
         with:
           name: macos_release
-          path: macos_release.tar
+          path: build/macos/Build/Products/Release/macos_release.tar
 
 
   windows-build:
