@@ -1,11 +1,12 @@
 List<List<T>> compactizeRange<T>(
   Set<T> rangeSet, {
-  bool Function(T a, T b) areConsecutive,
+  T Function(T a) nextValue,
+  inclusive = false,
 }) {
   if (T == int) {
-    areConsecutive ??= (a, b) => b == (a as int) + 1;
+    nextValue ??= (a) => ((a as int) + 1) as T;
   } else {
-    assert(areConsecutive != null);
+    assert(nextValue != null);
   }
 
   final ranges = <List<T>>[];
@@ -18,8 +19,8 @@ List<List<T>> compactizeRange<T>(
       final a = rangeSet.elementAt(i);
       b = rangeSet.elementAt(i + 1);
 
-      if (!areConsecutive(a, b)) {
-        ranges.add([start, a]);
+      if (b != nextValue(a)) {
+        ranges.add([start, inclusive ? nextValue(a) : a]);
         start = b;
       }
     }
@@ -27,7 +28,7 @@ List<List<T>> compactizeRange<T>(
     b = rangeSet.first;
   }
 
-  ranges.add([start, b]);
+  ranges.add([start, inclusive ? nextValue(b) : b]);
 
   return ranges;
 }
