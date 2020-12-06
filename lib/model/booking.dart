@@ -99,7 +99,7 @@ class Booking {
       runningDurationInMinutes += currentDuration.inMinutes;
 
       timeRanges.addAll({
-        TimeOfDay(hour: runningTime.hour, minute: 0): currentDuration,
+        runningTime.replacing(minute: 0): currentDuration,
       });
 
       runningTime = nextTime;

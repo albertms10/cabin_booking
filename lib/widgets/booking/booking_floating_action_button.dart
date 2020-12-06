@@ -24,9 +24,8 @@ class BookingFloatingActionButton extends StatelessWidget {
               Booking(
                 date: dayHandler.dateTime,
                 timeStart: timeTableStartTime,
-                timeEnd: TimeOfDay(
+                timeEnd: timeTableStartTime.replacing(
                   hour: timeTableStartTime.hour + 1,
-                  minute: timeTableStartTime.minute,
                 ),
                 cabinId: cabinManager.cabins.first.id,
               ),
@@ -43,9 +42,8 @@ class BookingFloatingActionButton extends StatelessWidget {
                   RecurringBooking(
                     date: dayHandler.dateTime,
                     timeStart: timeTableStartTime,
-                    timeEnd: TimeOfDay(
+                    timeEnd: timeTableStartTime.replacing(
                       hour: timeTableStartTime.hour + 1,
-                      minute: timeTableStartTime.minute,
                     ),
                     occurrences: 1,
                     cabinId: cabinManager.cabins.first.id,
@@ -63,9 +61,8 @@ class BookingFloatingActionButton extends StatelessWidget {
                   Booking(
                     date: dayHandler.dateTime,
                     timeStart: timeTableStartTime,
-                    timeEnd: TimeOfDay(
+                    timeEnd: timeTableStartTime.replacing(
                       hour: timeTableStartTime.hour + 1,
-                      minute: timeTableStartTime.minute,
                     ),
                     isDisabled: true,
                     cabinId: cabinManager.cabins.first.id,

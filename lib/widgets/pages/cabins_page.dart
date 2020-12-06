@@ -26,9 +26,8 @@ class CabinsPage extends StatelessWidget {
                 ),
                 mostOccupiedTimeRanges: compactizeRange<TimeOfDay>(
                   cabin.mostOccupiedTimeRanges.toSet(),
-                  nextValue: (value) => TimeOfDay(
-                    hour: (value.hour + 1) % 24,
-                    minute: value.minute,
+                  nextValue: (timeOfDay) => timeOfDay.replacing(
+                    hour: (timeOfDay.hour + 1) % 24,
                   ),
                   inclusive: true,
                 ),

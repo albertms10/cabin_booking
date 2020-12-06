@@ -142,10 +142,11 @@ class BookingManager with ChangeNotifier {
 
     for (final booking in allBookings) {
       for (final bookingTimeRange in booking.hoursSpan.entries) {
-        timeRanges[bookingTimeRange.key] = addDurations(
-          timeRanges[bookingTimeRange.key],
-          bookingTimeRange.value,
-        );
+        if (timeRanges[bookingTimeRange.key] != null) {
+          timeRanges[bookingTimeRange.key] += bookingTimeRange.value;
+        } else {
+          timeRanges[bookingTimeRange.key] = bookingTimeRange.value;
+        }
       }
     }
 

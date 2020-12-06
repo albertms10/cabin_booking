@@ -45,9 +45,6 @@ Duration durationBetweenTimesOfDay(TimeOfDay start, TimeOfDay end) => Duration(
       minutes: end.minute - start.minute,
     );
 
-Duration addDurations(Duration a, Duration b) =>
-    Duration(microseconds: (a?.inMicroseconds ?? 0) + (b?.inMicroseconds ?? 0));
-
 String parsedTimeOfDayFromDateTime(DateTime dateTime) =>
     dateTime.toString().split(RegExp('[ T]'))[1];
 
