@@ -71,6 +71,8 @@ class _BookingFormState extends State<BookingForm> {
 
   @override
   Widget build(BuildContext context) {
+    final appLocalizations = AppLocalizations.of(context);
+
     _startTimeController.text = _startTime.format(context);
     _endTimeController.text = _endTime.format(context);
 
@@ -99,7 +101,7 @@ class _BookingFormState extends State<BookingForm> {
             autovalidateMode: AutovalidateMode.onUserInteraction,
             validator: (String value) {
               if (value.isEmpty) {
-                return AppLocalizations.of(context).enterStudentName;
+                return appLocalizations.enterStudentName;
               }
 
               return null;
@@ -109,8 +111,8 @@ class _BookingFormState extends State<BookingForm> {
             },
             decoration: InputDecoration(
               labelText: _booking.isDisabled
-                  ? AppLocalizations.of(context).description
-                  : AppLocalizations.of(context).student,
+                  ? appLocalizations.description
+                  : appLocalizations.student,
               border: const OutlineInputBorder(),
             ),
           ),
@@ -127,7 +129,7 @@ class _BookingFormState extends State<BookingForm> {
                       autovalidateMode: AutovalidateMode.always,
                       validator: (value) {
                         if (value.isEmpty) {
-                          return AppLocalizations.of(context).enterStartTime;
+                          return appLocalizations.enterStartTime;
                         }
 
                         final parsedTimeOfDay = tryParseTimeOfDay(value);
@@ -145,7 +147,7 @@ class _BookingFormState extends State<BookingForm> {
                         );
 
                         if (parsedDateTime == null) {
-                          return AppLocalizations.of(context).enterStartTime;
+                          return appLocalizations.enterStartTime;
                         }
 
                         if (parsedDateTime.isAfter(
@@ -160,13 +162,13 @@ class _BookingFormState extends State<BookingForm> {
                                 timeOfDay: timeTableStartTime,
                               ),
                             )) {
-                          return AppLocalizations.of(context).enterValidRange;
+                          return appLocalizations.enterValidRange;
                         }
 
                         if (cabinManager
                             .fromId(_booking.cabinId)
                             .bookingsCollideWith(_booking)) {
-                          return AppLocalizations.of(context).occupied;
+                          return appLocalizations.occupied;
                         }
 
                         return null;
@@ -192,7 +194,7 @@ class _BookingFormState extends State<BookingForm> {
                         _booking.timeStart = tryParseTimeOfDay(value);
                       },
                       decoration: InputDecoration(
-                        labelText: AppLocalizations.of(context).start,
+                        labelText: appLocalizations.start,
                         border: const OutlineInputBorder(),
                         icon: const Icon(Icons.schedule),
                       ),
@@ -210,7 +212,7 @@ class _BookingFormState extends State<BookingForm> {
                       autovalidateMode: AutovalidateMode.always,
                       validator: (value) {
                         if (value.isEmpty) {
-                          return AppLocalizations.of(context).enterEndTime;
+                          return appLocalizations.enterEndTime;
                         }
 
                         final parsedTimeOfDay = tryParseTimeOfDay(value);
@@ -228,7 +230,7 @@ class _BookingFormState extends State<BookingForm> {
                         );
 
                         if (parsedDateTime == null) {
-                          return AppLocalizations.of(context).enterEndTime;
+                          return appLocalizations.enterEndTime;
                         }
 
                         if (parsedDateTime.isBefore(
@@ -243,13 +245,13 @@ class _BookingFormState extends State<BookingForm> {
                                 timeOfDay: timeTableEndTime,
                               ),
                             )) {
-                          return AppLocalizations.of(context).enterValidRange;
+                          return appLocalizations.enterValidRange;
                         }
 
                         if (cabinManager
                             .fromId(_booking.cabinId)
                             .bookingsCollideWith(_booking)) {
-                          return AppLocalizations.of(context).occupied;
+                          return appLocalizations.occupied;
                         }
 
                         return null;
@@ -275,7 +277,7 @@ class _BookingFormState extends State<BookingForm> {
                         _booking.timeEnd = tryParseTimeOfDay(value);
                       },
                       decoration: InputDecoration(
-                        labelText: AppLocalizations.of(context).end,
+                        labelText: appLocalizations.end,
                         border: const OutlineInputBorder(),
                       ),
                     );
@@ -297,8 +299,8 @@ class _BookingFormState extends State<BookingForm> {
                     padding: const EdgeInsets.all(16.0),
                     child: Text(
                       widget.isRecurring
-                          ? AppLocalizations.of(context).recurrence
-                          : AppLocalizations.of(context).doesNotRepeat,
+                          ? appLocalizations.recurrence
+                          : appLocalizations.doesNotRepeat,
                       style: Theme.of(context).textTheme.subtitle1,
                     ),
                   );
@@ -316,7 +318,7 @@ class _BookingFormState extends State<BookingForm> {
                         },
                       ),
                       ListTile(
-                        title: Text(AppLocalizations.of(context).on),
+                        title: Text(appLocalizations.on),
                         selected: _recurringBookingMethod ==
                             RecurringBookingMethod.endDate,
                         leading: Radio(
@@ -343,8 +345,7 @@ class _BookingFormState extends State<BookingForm> {
                               }
 
                               if (value.isEmpty) {
-                                return AppLocalizations.of(context)
-                                    .enterEndTime;
+                                return appLocalizations.enterEndTime;
                               }
 
                               return null;
@@ -354,7 +355,7 @@ class _BookingFormState extends State<BookingForm> {
                       ),
                       const SizedBox(height: 8.0),
                       ListTile(
-                        title: Text(AppLocalizations.of(context).after),
+                        title: Text(appLocalizations.after),
                         selected: _recurringBookingMethod ==
                             RecurringBookingMethod.occurrences,
                         leading: Radio(
@@ -390,8 +391,7 @@ class _BookingFormState extends State<BookingForm> {
                                     }
 
                                     if (value.isEmpty) {
-                                      return AppLocalizations.of(context)
-                                          .enterEndTime;
+                                      return appLocalizations.enterEndTime;
                                     }
 
                                     return null;
@@ -400,7 +400,7 @@ class _BookingFormState extends State<BookingForm> {
                               ),
                               const SizedBox(width: 8.0),
                               Text(
-                                AppLocalizations.of(context).occurrences(
+                                appLocalizations.occurrences(
                                   int.tryParse(_occurrencesController.text) ??
                                       0,
                                 ),

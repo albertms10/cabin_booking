@@ -7,6 +7,8 @@ import 'package:provider/provider.dart';
 class DayNavigation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final appLocalizations = AppLocalizations.of(context);
+
     final dayHandler = Provider.of<DayHandler>(context, listen: false);
     final splashRadius = 22.0;
 
@@ -17,18 +19,18 @@ class DayNavigation extends StatelessWidget {
           FlatButton(
             padding: const EdgeInsets.symmetric(vertical: 16.0),
             onPressed: () => dayHandler.changeToNow(),
-            child: Text(AppLocalizations.of(context).today),
+            child: Text(appLocalizations.today),
           ),
           IconButton(
             onPressed: () => dayHandler.changeToPreviousDay(),
             icon: const Icon(Icons.chevron_left),
-            tooltip: AppLocalizations.of(context).previousDay,
+            tooltip: appLocalizations.previousDay,
             splashRadius: splashRadius,
           ),
           IconButton(
             onPressed: () => dayHandler.changeToNextDay(),
             icon: const Icon(Icons.chevron_right),
-            tooltip: AppLocalizations.of(context).nextDay,
+            tooltip: appLocalizations.nextDay,
             splashRadius: splashRadius,
           ),
           const SizedBox(width: 24.0),

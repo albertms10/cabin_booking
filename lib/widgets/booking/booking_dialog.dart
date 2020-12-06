@@ -31,13 +31,15 @@ class _BookingDialogState extends State<BookingDialog> {
 
   @override
   Widget build(BuildContext context) {
+    final appLocalizations = AppLocalizations.of(context);
+
     return DataDialog(
       title: Text(
         widget.booking.isDisabled
-            ? AppLocalizations.of(context).lockedRange
+            ? appLocalizations.lockedRange
             : _isRecurring
-                ? AppLocalizations.of(context).recurringBooking
-                : AppLocalizations.of(context).booking,
+                ? appLocalizations.recurringBooking
+                : appLocalizations.booking,
       ),
       content: SizedBox(
         width: 250.0,

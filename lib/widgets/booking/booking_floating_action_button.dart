@@ -14,10 +14,12 @@ class BookingFloatingActionButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer2<DayHandler, CabinManager>(
       builder: (context, dayHandler, cabinManager, child) {
+        final appLocalizations = AppLocalizations.of(context);
+
         return FloatingActionButtonMenu(
           animatedIcon: AnimatedIcons.add_event,
           animatedIconTheme: IconThemeData(size: 25.0),
-          label: AppLocalizations.of(context).booking,
+          label: appLocalizations.booking,
           onPressed: () {
             showNewBookingDialog(
               context,
@@ -35,7 +37,7 @@ class BookingFloatingActionButton extends StatelessWidget {
           children: [
             FloatingActionButtonMenuChild(
               icon: Icons.repeat,
-              label: AppLocalizations.of(context).recurringBooking,
+              label: appLocalizations.recurringBooking,
               onTap: () {
                 showNewBookingDialog(
                   context,
@@ -54,7 +56,7 @@ class BookingFloatingActionButton extends StatelessWidget {
             ),
             FloatingActionButtonMenuChild(
               icon: Icons.lock,
-              label: AppLocalizations.of(context).lockedRange,
+              label: appLocalizations.lockedRange,
               onTap: () {
                 showNewBookingDialog(
                   context,

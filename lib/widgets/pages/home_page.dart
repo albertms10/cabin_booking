@@ -21,9 +21,11 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final appLocalizations = AppLocalizations.of(context);
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context).title),
+        title: Text(appLocalizations.title),
       ),
       floatingActionButton: _floatingActionButtons[_selectedIndex],
       body: SafeArea(
@@ -39,12 +41,12 @@ class _HomePageState extends State<HomePage> {
                 NavigationRailDestination(
                   icon: const Icon(Icons.sensor_door_outlined),
                   selectedIcon: const Icon(Icons.sensor_door),
-                  label: Text(AppLocalizations.of(context).cabins),
+                  label: Text(appLocalizations.cabins),
                 ),
                 NavigationRailDestination(
                   icon: const Icon(Icons.event_outlined),
                   selectedIcon: const Icon(Icons.event),
-                  label: Text(AppLocalizations.of(context).bookings),
+                  label: Text(appLocalizations.bookings),
                 ),
               ],
             ),

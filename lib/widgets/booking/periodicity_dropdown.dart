@@ -20,11 +20,13 @@ class PeriodicityDropdown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final periodicityTranslations = [
-      AppLocalizations.of(context).daily,
-      AppLocalizations.of(context).weekly,
-      AppLocalizations.of(context).monthly,
-      AppLocalizations.of(context).annually,
+    final appLocalizations = AppLocalizations.of(context);
+
+    final periodicityLabels = [
+      appLocalizations.daily,
+      appLocalizations.weekly,
+      appLocalizations.monthly,
+      appLocalizations.annually,
     ];
 
     return DropdownButton(
@@ -35,7 +37,7 @@ class PeriodicityDropdown extends StatelessWidget {
           DropdownMenuItem(
             value: value,
             child: Text(
-              periodicityTranslations[value.index],
+              periodicityLabels[value.index],
             ),
           ),
       ],

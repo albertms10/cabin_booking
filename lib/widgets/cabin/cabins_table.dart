@@ -143,6 +143,8 @@ class _CabinsTableState extends State<CabinsTable> {
 
   @override
   Widget build(BuildContext context) {
+    final appLocalizations = AppLocalizations.of(context);
+
     return Stack(
       children: [
         ListView(
@@ -158,23 +160,14 @@ class _CabinsTableState extends State<CabinsTable> {
                   DataColumn(
                     label: Padding(
                       padding: const EdgeInsets.only(right: 8.0),
-                      child: Text(AppLocalizations.of(context).cabin),
+                      child: Text(appLocalizations.cabin),
                     ),
                     onSort: onSortColumn,
                   ),
                   DataColumn(
                     label: Padding(
                       padding: const EdgeInsets.only(left: 8.0),
-                      child: Text(AppLocalizations.of(context).bookings),
-                    ),
-                    numeric: true,
-                    onSort: onSortColumn,
-                  ),
-                  DataColumn(
-                    label: Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
-                      child:
-                          Text(AppLocalizations.of(context).recurringBookings),
+                      child: Text(appLocalizations.bookings),
                     ),
                     numeric: true,
                     onSort: onSortColumn,
@@ -182,7 +175,15 @@ class _CabinsTableState extends State<CabinsTable> {
                   DataColumn(
                     label: Padding(
                       padding: const EdgeInsets.only(left: 8.0),
-                      child: Text(AppLocalizations.of(context).occupancyRate),
+                      child: Text(appLocalizations.recurringBookings),
+                    ),
+                    numeric: true,
+                    onSort: onSortColumn,
+                  ),
+                  DataColumn(
+                    label: Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: Text(appLocalizations.occupancyRate),
                     ),
                     numeric: true,
                     onSort: onSortColumn,
@@ -191,7 +192,7 @@ class _CabinsTableState extends State<CabinsTable> {
                     label: Padding(
                       padding: const EdgeInsets.only(left: 8.0),
                       child: Text(
-                        AppLocalizations.of(context).mostOccupiedTimeRange,
+                        appLocalizations.mostOccupiedTimeRange,
                       ),
                     ),
                   ),
@@ -290,7 +291,7 @@ class _CabinsTableState extends State<CabinsTable> {
                     }
                   : null,
               icon: const Icon(Icons.delete_outline),
-              tooltip: AppLocalizations.of(context).empty,
+              tooltip: appLocalizations.empty,
             ),
             IconButton(
               onPressed: () {
