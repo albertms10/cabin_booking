@@ -1,22 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-DateTime tryParseDateTimeWithFormattedTimeOfDay({
-  DateTime dateTime,
-  @required String formattedTimeOfDay,
-}) =>
-    DateTime.tryParse(
-      DateFormat('yyyy-MM-dd').format(dateTime ?? DateTime.now()) +
-          ' $formattedTimeOfDay',
-    );
-
 DateTime tryParseDateTimeWithTimeOfDay({
   DateTime dateTime,
   @required TimeOfDay timeOfDay,
 }) =>
-    tryParseDateTimeWithFormattedTimeOfDay(
-      dateTime: dateTime,
-      formattedTimeOfDay: formatTimeOfDay(timeOfDay),
+    DateTime.tryParse(
+      DateFormat('yyyy-MM-dd').format(dateTime ?? DateTime.now()) +
+          ' ${formatTimeOfDay(timeOfDay)}',
     );
 
 /// Constructs a new [TimeOfDay] instance based on [formattedString].
