@@ -12,6 +12,8 @@ import 'package:provider/provider.dart';
 class BookingFloatingActionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Consumer2<DayHandler, CabinManager>(
       builder: (context, dayHandler, cabinManager, child) {
         final appLocalizations = AppLocalizations.of(context);
@@ -21,7 +23,10 @@ class BookingFloatingActionButton extends StatelessWidget {
         return FloatingActionButtonMenu(
           animatedIcon: AnimatedIcons.add_event,
           animatedIconTheme: const IconThemeData(size: 25.0),
-          label: appLocalizations.booking,
+          label: Text(
+            appLocalizations.booking,
+            style: theme.textTheme.subtitle2,
+          ),
           onPressed: () {
             showNewBookingDialog(
               context,
@@ -39,7 +44,10 @@ class BookingFloatingActionButton extends StatelessWidget {
           children: [
             FloatingActionButtonMenuChild(
               icon: Icons.repeat,
-              label: appLocalizations.recurringBooking,
+              label: Text(
+                appLocalizations.recurringBooking,
+                style: theme.textTheme.subtitle2,
+              ),
               onTap: () {
                 showNewBookingDialog(
                   context,
@@ -58,7 +66,10 @@ class BookingFloatingActionButton extends StatelessWidget {
             ),
             FloatingActionButtonMenuChild(
               icon: Icons.lock,
-              label: appLocalizations.lockedRange,
+              label: Text(
+                appLocalizations.lockedRange,
+                style: theme.textTheme.subtitle2,
+              ),
               onTap: () {
                 showNewBookingDialog(
                   context,

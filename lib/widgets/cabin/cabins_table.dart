@@ -160,6 +160,7 @@ class _CabinsTableState extends State<CabinsTable> {
   @override
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context);
+    final theme = Theme.of(context);
 
     if (widget.cabinRows.isEmpty) {
       return CenteredIconMessage(
@@ -247,19 +248,19 @@ class _CabinsTableState extends State<CabinsTable> {
                         DataCell(
                           Text(
                             '${cabinRow.bookingsCount}',
-                            style: Theme.of(context).textTheme.headline5,
+                            style: theme.textTheme.headline5,
                           ),
                         ),
                         DataCell(
                           Text(
                             '${cabinRow.recurringBookingsCount}',
-                            style: Theme.of(context).textTheme.headline5,
+                            style: theme.textTheme.headline5,
                           ),
                         ),
                         DataCell(
                           Text(
                             '${cabinRow.accumulatedDuration.inHours}',
-                            style: Theme.of(context).textTheme.headline5,
+                            style: theme.textTheme.headline5,
                           ),
                         ),
                         DataCell(
@@ -269,7 +270,7 @@ class _CabinsTableState extends State<CabinsTable> {
                             children: [
                               Text(
                                 '${(cabinRow.occupancyRate * 100).round()}',
-                                style: Theme.of(context).textTheme.headline5,
+                                style: theme.textTheme.headline5,
                               ),
                               const SizedBox(width: 2),
                               Column(
@@ -278,8 +279,7 @@ class _CabinsTableState extends State<CabinsTable> {
                                   const SizedBox(height: 2),
                                   Text(
                                     '%',
-                                    style:
-                                        Theme.of(context).textTheme.subtitle2,
+                                    style: theme.textTheme.subtitle2,
                                   )
                                 ],
                               ),
