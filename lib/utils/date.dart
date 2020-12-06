@@ -51,7 +51,11 @@ String parsedTimeOfDayFromDateTime(DateTime dateTime) =>
 bool isSameDay(DateTime a, DateTime b) =>
     a.year == b.year && a.month == b.month && a.day == b.day;
 
-String _pad2(num number) => number.toString().padLeft(2, '0');
+String formatTimeOfDay(TimeOfDay timeOfDay) {
+  String _pad2(num number) => number.toString().padLeft(2, '0');
 
-String formatTimeOfDay(TimeOfDay timeOfDay) =>
-    '${_pad2(timeOfDay.hour)}:${_pad2(timeOfDay.minute)}';
+  final hourLabel = _pad2(timeOfDay.hour);
+  final minuteLabel = _pad2(timeOfDay.minute);
+
+  return '$hourLabel:$minuteLabel';
+}
