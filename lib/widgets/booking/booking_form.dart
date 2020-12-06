@@ -134,6 +134,10 @@ class _BookingFormState extends State<BookingForm> {
 
                         final parsedTimeOfDay = tryParseTimeOfDay(value);
 
+                        if (parsedTimeOfDay == null) {
+                          return appLocalizations.enterStartTime;
+                        }
+
                         _booking.timeStart = parsedTimeOfDay;
 
                         if (_startTime != parsedTimeOfDay) {
@@ -216,6 +220,10 @@ class _BookingFormState extends State<BookingForm> {
                         }
 
                         final parsedTimeOfDay = tryParseTimeOfDay(value);
+
+                        if (parsedTimeOfDay == null) {
+                          return appLocalizations.enterEndTime;
+                        }
 
                         _booking.timeEnd = parsedTimeOfDay;
 
