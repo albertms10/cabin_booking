@@ -21,7 +21,7 @@ class MainContent extends StatefulWidget {
 
 class _MainContentState extends State<MainContent> {
   CabinManager _cabinManager;
-  Future _future;
+  Future<int> _cabinsFuture;
 
   @override
   void initState() {
@@ -39,13 +39,13 @@ class _MainContentState extends State<MainContent> {
       );
     });
 
-    _future = _cabinManager.loadCabinsFromFile();
+    _cabinsFuture = _cabinManager.loadCabinsFromFile();
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: _future,
+    return FutureBuilder<int>(
+      future: _cabinsFuture,
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return Center(

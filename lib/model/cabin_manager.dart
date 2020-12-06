@@ -150,11 +150,11 @@ class CabinManager with ChangeNotifier, FileManager {
     }
   }
 
-  Future<bool> loadCabinsFromFile() async {
+  Future<int> loadCabinsFromFile() async {
     cabins = await readCabinsFromFile();
 
     notifyListeners();
 
-    return true;
+    return cabins.length;
   }
 }
