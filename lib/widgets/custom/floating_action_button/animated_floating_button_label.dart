@@ -2,7 +2,7 @@ import 'package:cabin_booking/utils/map_number.dart';
 import 'package:flutter/material.dart';
 
 class AnimatedFloatingButtonLabel extends AnimatedWidget {
-  final String label;
+  final Widget label;
   final Tween<double> tween;
   final Animation<double> animation;
 
@@ -17,22 +17,21 @@ class AnimatedFloatingButtonLabel extends AnimatedWidget {
   Widget build(BuildContext context) {
     final Animation<double> animation = listenable;
 
-    return animation.value <= tween.end / 2
-        ? const SizedBox()
-        : Container(
-            margin: const EdgeInsets.only(right: 18.0),
-            padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 8.0),
-            child: Opacity(
-              opacity: mapNumber(
-                animation.value,
-                inMin: tween.end / 2,
-                inMax: tween.end,
-              ),
-              child: Text(
-                label,
-                style: Theme.of(context).textTheme.subtitle2,
-              ),
-            ),
-          );
+    if (animation.value <= tween.end / 2) {
+      return const SizedBox();
+    }
+
+    return Container(
+      margin: const EdgeInsets.only(right: 18.0),
+      padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 8.0),
+      child: Opacity(
+        opacity: mapNumber(
+          animation.value,
+          inMin: tween.end / 2,
+          inMax: tween.end,
+        ),
+        child: label,
+      ),
+    );
   }
 }

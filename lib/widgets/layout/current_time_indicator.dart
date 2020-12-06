@@ -27,43 +27,45 @@ class CurrentTimeIndicator extends StatelessWidget {
 
         final durationFromEnd = DateTime.now().difference(viewEndDateTime);
 
-        return durationFromStart > const Duration() &&
-                durationFromEnd < const Duration(minutes: 15)
-            ? Column(
-                children: [
-                  SizedBox(
-                    height: durationFromStart.inMicroseconds /
-                        Duration.microsecondsPerMinute *
-                        bookingHeightRatio,
-                    child: Container(
-                      alignment: Alignment.bottomLeft,
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        TimeOfDay.fromDateTime(DateTime.now()).format(context),
-                        style: TextStyle(
-                          color: Colors.red[400],
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
+        if (durationFromStart <= const Duration() ||
+            durationFromEnd >= const Duration(minutes: 15)) {
+          return const SizedBox();
+        }
+
+        return Column(
+          children: [
+            SizedBox(
+              height: durationFromStart.inMicroseconds /
+                  Duration.microsecondsPerMinute *
+                  bookingHeightRatio,
+              child: Container(
+                alignment: Alignment.bottomLeft,
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  TimeOfDay.fromDateTime(DateTime.now()).format(context),
+                  style: TextStyle(
+                    color: Colors.red[400],
+                    fontWeight: FontWeight.bold,
                   ),
-                  Container(
-                    width: double.infinity,
-                    height: 2.0,
-                    decoration: BoxDecoration(
-                      color: Colors.red[400],
-                      boxShadow: const [
-                        BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 3.0,
-                          offset: Offset(3.0, 4.0),
-                        ),
-                      ],
-                    ),
+                ),
+              ),
+            ),
+            Container(
+              width: double.infinity,
+              height: 2.0,
+              decoration: BoxDecoration(
+                color: Colors.red[400],
+                boxShadow: const [
+                  BoxShadow(
+                    color: Colors.black12,
+                    blurRadius: 3.0,
+                    offset: Offset(3.0, 4.0),
                   ),
                 ],
-              )
-            : const SizedBox();
+              ),
+            ),
+          ],
+        );
       },
     );
   }

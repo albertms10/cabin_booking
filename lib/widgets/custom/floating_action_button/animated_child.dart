@@ -9,10 +9,9 @@ class AnimatedChild extends AnimatedWidget {
   final IconData icon;
   final Tween<double> tween;
 
-  final String label;
+  final Widget label;
   final TextStyle labelStyle;
   final Color labelBackgroundColor;
-  final Widget labelWidget;
 
   final bool visible;
   final VoidCallback onTap;
@@ -32,7 +31,6 @@ class AnimatedChild extends AnimatedWidget {
     this.label,
     this.labelStyle,
     this.labelBackgroundColor,
-    this.labelWidget,
     this.visible = false,
     this.onTap,
     this.toggleChildren,
@@ -43,17 +41,6 @@ class AnimatedChild extends AnimatedWidget {
   @override
   Widget build(BuildContext context) {
     final Animation<double> animation = listenable;
-
-    final Widget buttonChild = animation.value > 50.0
-        ? SizedBox(
-            width: animation.value,
-            height: animation.value,
-            child: Icon(
-              icon,
-              size: animation.value / 3,
-            ),
-          )
-        : const SizedBox();
 
     return Container(
       child: Row(
@@ -82,7 +69,16 @@ class AnimatedChild extends AnimatedWidget {
                 backgroundColor: backgroundColor,
                 foregroundColor: foregroundColor,
                 elevation: elevation,
-                child: buttonChild,
+                child: animation.value > 50.0
+                    ? SizedBox(
+                        width: animation.value,
+                        height: animation.value,
+                        child: Icon(
+                          icon,
+                          size: animation.value / 3,
+                        ),
+                      )
+                    : const SizedBox(),
               ),
             ),
           )

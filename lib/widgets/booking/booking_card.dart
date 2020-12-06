@@ -20,85 +20,87 @@ class BookingCard extends StatelessWidget {
     final isRecurring =
         booking is RecurringBooking || booking.recurringBookingId != null;
 
-    return booking.isDisabled
-        ? Container(
-            margin: const EdgeInsets.all(8.0),
-            child: Tooltip(
-              message: '${booking.studentName} '
-                  '(${AppLocalizations.of(context).disabled.toLowerCase()})',
-              child: InkWell(
-                onTap: () {},
-                mouseCursor: MouseCursor.defer,
-                borderRadius: const BorderRadius.all(Radius.circular(4.0)),
-                child: Container(
-                  height: height,
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Expanded(child: SizedBox()),
-                      BookingPopupMenu(
-                        cabin: cabin,
-                        booking: booking,
-                      ),
-                    ],
+    if (booking.isDisabled) {
+      return Container(
+        margin: const EdgeInsets.all(8.0),
+        child: Tooltip(
+          message: '${booking.studentName} '
+              '(${AppLocalizations.of(context).disabled.toLowerCase()})',
+          child: InkWell(
+            onTap: () {},
+            mouseCursor: MouseCursor.defer,
+            borderRadius: const BorderRadius.all(Radius.circular(4.0)),
+            child: Container(
+              height: height,
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Expanded(child: SizedBox()),
+                  BookingPopupMenu(
+                    cabin: cabin,
+                    booking: booking,
                   ),
-                ),
+                ],
               ),
             ),
-          )
-        : TimerBuilder.periodic(
-            const Duration(minutes: 1),
-            builder: (context) {
-              final isBeforeNow = booking.dateEnd.isBefore(DateTime.now());
+          ),
+        ),
+      );
+    }
 
-              return Card(
-                margin: const EdgeInsets.all(8.0),
-                shadowColor: isBeforeNow ? Colors.black38 : Colors.black,
-                color: Colors.transparent,
-                child: Container(
-                  height: height,
-                  padding: const EdgeInsets.all(8.0),
-                  decoration: BoxDecoration(
-                    color: isRecurring
-                        ? Colors.blue[50]
-                        : isBeforeNow
-                            ? const Color.fromARGB(150, 255, 255, 255)
-                            : Colors.white,
-                    borderRadius: const BorderRadius.all(Radius.circular(4.0)),
-                  ),
-                  child: Row(
+    return TimerBuilder.periodic(
+      const Duration(minutes: 1),
+      builder: (context) {
+        final isBeforeNow = booking.dateEnd.isBefore(DateTime.now());
+
+        return Card(
+          margin: const EdgeInsets.all(8.0),
+          shadowColor: isBeforeNow ? Colors.black38 : Colors.black,
+          color: Colors.transparent,
+          child: Container(
+            height: height,
+            padding: const EdgeInsets.all(8.0),
+            decoration: BoxDecoration(
+              color: isRecurring
+                  ? Colors.blue[50]
+                  : isBeforeNow
+                      ? const Color.fromARGB(150, 255, 255, 255)
+                      : Colors.white,
+              borderRadius: const BorderRadius.all(Radius.circular(4.0)),
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(booking.studentName),
-                            Text(
-                              booking.timeRange,
-                              style: const TextStyle(color: Colors.black38),
-                            ),
-                            if (isRecurring)
-                              Padding(
-                                padding: const EdgeInsets.only(top: 4.0),
-                                child: Text(
-                                  '${booking.recurringNumber}/${booking.recurringTotalTimes}',
-                                  style: Theme.of(context).textTheme.caption,
-                                ),
-                              ),
-                          ],
+                      Text(booking.studentName),
+                      Text(
+                        booking.timeRange,
+                        style: const TextStyle(color: Colors.black38),
+                      ),
+                      if (isRecurring)
+                        Padding(
+                          padding: const EdgeInsets.only(top: 4.0),
+                          child: Text(
+                            '${booking.recurringNumber}/${booking.recurringTotalTimes}',
+                            style: Theme.of(context).textTheme.caption,
+                          ),
                         ),
-                      ),
-                      BookingPopupMenu(
-                        cabin: cabin,
-                        booking: booking,
-                      ),
                     ],
                   ),
                 ),
-              );
-            },
-          );
+                BookingPopupMenu(
+                  cabin: cabin,
+                  booking: booking,
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 }

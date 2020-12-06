@@ -19,37 +19,39 @@ class CabinIcon extends StatelessWidget {
       textAlign: TextAlign.center,
     );
 
-    return showProgress
-        ? Stack(
-            alignment: Alignment.center,
-            children: [
-              SizedBox(
-                width: size,
-                height: size,
-                child: TweenAnimationBuilder<double>(
-                  tween: Tween<double>(begin: 0.0, end: progress),
-                  duration: const Duration(milliseconds: 700),
-                  curve: Curves.easeOutCubic,
-                  builder: (context, value, child) {
-                    return CircularProgressIndicator(
-                      value: value,
-                      backgroundColor: Colors.blue[50],
-                    );
-                  },
-                ),
-              ),
-              text,
-            ],
-          )
-        : Container(
+    if (showProgress) {
+      return Stack(
+        alignment: Alignment.center,
+        children: [
+          SizedBox(
             width: size,
             height: size,
-            padding: const EdgeInsets.all(12.0),
-            decoration: BoxDecoration(
-              color: Colors.blue[400],
-              shape: BoxShape.circle,
+            child: TweenAnimationBuilder<double>(
+              tween: Tween<double>(begin: 0.0, end: progress),
+              duration: const Duration(milliseconds: 700),
+              curve: Curves.easeOutCubic,
+              builder: (context, value, child) {
+                return CircularProgressIndicator(
+                  value: value,
+                  backgroundColor: Colors.blue[50],
+                );
+              },
             ),
-            child: text,
-          );
+          ),
+          text,
+        ],
+      );
+    }
+
+    return Container(
+      width: size,
+      height: size,
+      padding: const EdgeInsets.all(12.0),
+      decoration: BoxDecoration(
+        color: Colors.blue[400],
+        shape: BoxShape.circle,
+      ),
+      child: text,
+    );
   }
 }

@@ -17,7 +17,7 @@ class FloatingActionButtonMenu extends StatefulWidget {
   final Curve curve;
 
   final String tooltip;
-  final String label;
+  final Widget label;
   final String heroTag;
   final Color backgroundColor;
   final Color foregroundColor;
@@ -181,7 +181,6 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
             label: child.label,
             labelStyle: child.labelStyle,
             labelBackgroundColor: child.labelBackgroundColor,
-            labelWidget: child.labelWidget,
             onTap: child.onTap,
             toggleChildren: () {
               if (!widget.closeManually) _toggleChildren();
@@ -215,52 +214,46 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
   }
 
   Widget _renderButton() {
-    var child = widget.animatedIcon != null
-        ? AnimatedIcon(
-            icon: widget.animatedIcon,
-            progress: _controller,
-            color: widget.animatedIconTheme?.color,
-            size: widget.animatedIconTheme?.size,
-          )
-        : widget.child;
-
-    var fabChildren = _getChildrenList();
-
-    Widget animatedFloatingButton = AnimatedFloatingButton(
-      visible: widget.visible,
-      tween: widget.tween,
-      animation: _childAnimation,
-      tooltip: widget.tooltip,
-      label: widget.label,
-      backgroundColor: widget.backgroundColor,
-      foregroundColor: widget.foregroundColor,
-      elevation: widget.elevation,
-      isOpen: _open,
-      onLongPress: _toggleChildren,
-      callback: _open && widget.onPressed != null
-          ? () {
-              widget.onPressed();
-              _toggleChildren();
-            }
-          : _toggleChildren,
-      child: child,
-      heroTag: widget.heroTag,
-      shape: widget.shape,
-      curve: widget.curve,
-      animationSpeed: widget.animationSpeed,
-    );
-
     return Positioned(
       bottom: widget.marginBottom - 16.0,
       right: widget.marginRight - 16.0,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.end,
-        children: List.from(fabChildren)
+        children: List.from(_getChildrenList())
           ..add(
             Container(
               margin: EdgeInsets.only(top: 8.0, right: 2.0),
-              child: animatedFloatingButton,
+              child: AnimatedFloatingButton(
+                visible: widget.visible,
+                tween: widget.tween,
+                animation: _childAnimation,
+                tooltip: widget.tooltip,
+                label: widget.label,
+                backgroundColor: widget.backgroundColor,
+                foregroundColor: widget.foregroundColor,
+                elevation: widget.elevation,
+                isOpen: _open,
+                onLongPress: _toggleChildren,
+                callback: _open && widget.onPressed != null
+                    ? () {
+                        widget.onPressed();
+                        _toggleChildren();
+                      }
+                    : _toggleChildren,
+                child: widget.animatedIcon != null
+                    ? AnimatedIcon(
+                        icon: widget.animatedIcon,
+                        progress: _controller,
+                        color: widget.animatedIconTheme?.color,
+                        size: widget.animatedIconTheme?.size,
+                      )
+                    : widget.child,
+                heroTag: widget.heroTag,
+                shape: widget.shape,
+                curve: widget.curve,
+                animationSpeed: widget.animationSpeed,
+              ),
             ),
           ),
       ),
@@ -281,20 +274,11 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
   }
 }
 
-/// Provides data for a speed dial child
+/// Provides data for Floating Action Button Menu child
 class FloatingActionButtonMenuChild {
-  /// The label to render to the left of the button
-  final String label;
-
-  /// The style of the label
+  final Widget label;
   final TextStyle labelStyle;
-
-  /// The background color of the label
   final Color labelBackgroundColor;
-
-  /// If this is provided it will replace the default widget, therefore [label],
-  /// [labelStyle] and [labelBackgroundColor] should be null
-  final Widget labelWidget;
 
   final IconData icon;
   final Color backgroundColor;
@@ -307,7 +291,6 @@ class FloatingActionButtonMenuChild {
     this.label,
     this.labelStyle,
     this.labelBackgroundColor,
-    this.labelWidget,
     this.icon,
     this.backgroundColor,
     this.foregroundColor,

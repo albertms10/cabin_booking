@@ -11,7 +11,7 @@ class AnimatedFloatingButton extends StatelessWidget {
   final Color backgroundColor;
   final Color foregroundColor;
   final String tooltip;
-  final String label;
+  final Widget label;
   final String heroTag;
   final double elevation;
   final bool isOpen;
