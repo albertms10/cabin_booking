@@ -29,6 +29,7 @@
   "changesSaved": "Changes saved",
   "disabled": "disabled",
   "description": "Description",
+  "hours": "Hours",
   "occupancyRate": "Occupancy rate",
   "mostOccupiedTimeRange": "Most occupied time range",
   "onDate": "On",

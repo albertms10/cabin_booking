@@ -29,6 +29,7 @@
   "changesSaved": "Se han guardado los cambios",
   "disabled": "Desactivada",
   "description": "Descripción",
+  "hours": "Horas",
   "occupancyRate": "Ocupación",
   "mostOccupiedTimeRange": "Horario más ocupado",
   "onDate": "El día",
