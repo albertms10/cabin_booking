@@ -23,19 +23,18 @@ class CurrentTimeIndicator extends StatelessWidget {
           timeOfDay: timeTableEndTime,
         );
 
-        final differenceInSecondsFromStart =
-            DateTime.now().difference(viewStartDateTime).inSeconds;
+        final durationFromStart = DateTime.now().difference(viewStartDateTime);
 
-        final differenceInSecondsFromEnd =
-            DateTime.now().difference(viewEndDateTime).inSeconds;
+        final durationFromEnd = DateTime.now().difference(viewEndDateTime);
 
-        return differenceInSecondsFromStart > 0 &&
-                differenceInSecondsFromEnd < 15 * 60
+        return durationFromStart > const Duration() &&
+                durationFromEnd < const Duration(minutes: 15)
             ? Column(
                 children: [
                   SizedBox(
-                    height:
-                        differenceInSecondsFromStart / 60 * bookingHeightRatio,
+                    height: durationFromStart.inMicroseconds /
+                        Duration.microsecondsPerHour *
+                        bookingHeightRatio,
                     child: Container(
                       alignment: Alignment.bottomLeft,
                       padding: const EdgeInsets.all(8.0),

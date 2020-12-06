@@ -84,19 +84,19 @@ class Booking {
     final timeRanges = <TimeOfDay, Duration>{};
 
     var runningTime = timeStart;
-    var runningDurationInMinutes = 0;
+    var runningDuration = const Duration();
 
-    while (runningDurationInMinutes < duration.inMinutes) {
+    while (runningDuration < duration) {
       final nextHour = TimeOfDay(hour: runningTime.hour + 1, minute: 0);
 
       final nextTime =
-          durationBetweenTimesOfDay(nextHour, timeEnd).inMinutes <= 0
+          durationBetweenTimesOfDay(nextHour, timeEnd) <= const Duration()
               ? timeEnd
               : nextHour;
 
       final currentDuration = durationBetweenTimesOfDay(runningTime, nextTime);
 
-      runningDurationInMinutes += currentDuration.inMinutes;
+      runningDuration += currentDuration;
 
       timeRanges.addAll({
         runningTime.replacing(minute: 0): currentDuration,

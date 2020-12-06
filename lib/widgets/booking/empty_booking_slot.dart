@@ -38,7 +38,8 @@ class EmptyBookingSlot extends StatelessWidget {
         final duration =
             startsBeforeNow && endsAfterNow ? endToNowDuration : fullDuration;
 
-        final preciseDuration = (duration.inSeconds / 60).ceil();
+        final preciseDuration =
+            (duration.inMicroseconds / Duration.microsecondsPerMinute).ceil();
 
         final start = startsBeforeNow ? now : dateStart;
 

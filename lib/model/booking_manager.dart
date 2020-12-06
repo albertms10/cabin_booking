@@ -71,11 +71,11 @@ class BookingManager with ChangeNotifier {
           ) !=
       null;
 
-  int occupiedMinutesDurationOn(DateTime dateTime) {
-    var runningDuration = 0;
+  Duration _occupiedDurationOn(DateTime dateTime) {
+    var runningDuration = const Duration();
 
     for (final booking in bookingsOn(dateTime)) {
-      runningDuration += booking.duration.inMinutes;
+      runningDuration += booking.duration;
     }
 
     return runningDuration;
@@ -96,9 +96,10 @@ class BookingManager with ChangeNotifier {
       timeOfDay: endTime,
     );
 
-    final maxViewMinutesDuration = endDate.difference(startDate).inMinutes;
+    final maxViewDuration = endDate.difference(startDate);
 
-    return occupiedMinutesDurationOn(dateTime) / maxViewMinutesDuration;
+    return _occupiedDurationOn(dateTime).inMicroseconds /
+        maxViewDuration.inMicroseconds;
   }
 
   List<DateTime> get datesWithBookings {
@@ -155,7 +156,7 @@ class BookingManager with ChangeNotifier {
 
   List<TimeOfDay> get mostOccupiedTimeRange {
     final sortedTimeRanges = accumulatedTimeRangesOccupancy.entries.toList()
-      ..sort((a, b) => b.value.inMinutes - a.value.inMinutes);
+      ..sort((a, b) => (b.value - a.value).inMicroseconds);
 
     if (sortedTimeRanges.isEmpty) return [];
 
