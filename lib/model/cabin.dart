@@ -55,6 +55,8 @@ class Cabin {
   bool bookingsCollideWith(Booking booking) =>
       _bookingManager.bookingsCollideWith(booking);
 
+  Duration get accumulatedDuration => _bookingManager.accumulatedDuration;
+
   double occupiedRatioOn(
     DateTime dateTime, {
     @required TimeOfDay startTime,
