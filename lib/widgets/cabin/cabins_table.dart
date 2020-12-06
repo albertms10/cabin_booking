@@ -10,17 +10,19 @@ class CabinTableRow {
   final int number;
   final int bookingsCount;
   final int recurringBookingsCount;
+  final Duration accumulatedDuration;
   final double occupancyRate;
   final List<List<TimeOfDay>> mostOccupiedTimeRanges;
   bool selected;
 
   CabinTableRow({
-    this.id,
-    this.number,
-    this.bookingsCount,
-    this.recurringBookingsCount,
-    this.occupancyRate,
-    this.mostOccupiedTimeRanges,
+    @required this.id,
+    @required this.number,
+    this.bookingsCount = 0,
+    this.recurringBookingsCount = 0,
+    this.accumulatedDuration = const Duration(),
+    this.occupancyRate = 0.0,
+    this.mostOccupiedTimeRanges = const [],
     this.selected = false,
   });
 }
@@ -115,6 +117,18 @@ class _CabinsTableState extends State<CabinsTable> {
     }
   }
 
+  void _onSortAccumulatedDuration(bool ascending) {
+    if (ascending) {
+      widget.cabinRows.sort(
+        (a, b) => a.accumulatedDuration.compareTo(b.accumulatedDuration),
+      );
+    } else {
+      widget.cabinRows.sort(
+        (a, b) => b.accumulatedDuration.compareTo(a.accumulatedDuration),
+      );
+    }
+  }
+
   void _onSortOccupancyRate(bool ascending) {
     if (ascending) {
       widget.cabinRows.sort(
@@ -132,6 +146,7 @@ class _CabinsTableState extends State<CabinsTable> {
       _onSortNumber,
       _onSortBookingsCount,
       _onSortRecurringBookingsCount,
+      _onSortAccumulatedDuration,
       _onSortOccupancyRate,
     ][columnIndex](ascending);
 
@@ -183,6 +198,14 @@ class _CabinsTableState extends State<CabinsTable> {
                   DataColumn(
                     label: Padding(
                       padding: const EdgeInsets.only(left: 8.0),
+                      child: Text(appLocalizations.hours),
+                    ),
+                    numeric: true,
+                    onSort: onSortColumn,
+                  ),
+                  DataColumn(
+                    label: Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
                       child: Text(appLocalizations.occupancyRate),
                     ),
                     numeric: true,
@@ -222,6 +245,12 @@ class _CabinsTableState extends State<CabinsTable> {
                         DataCell(
                           Text(
                             '${cabinRow.recurringBookingsCount}',
+                            style: Theme.of(context).textTheme.headline5,
+                          ),
+                        ),
+                        DataCell(
+                          Text(
+                            '${cabinRow.accumulatedDuration.inHours}',
                             style: Theme.of(context).textTheme.headline5,
                           ),
                         ),
