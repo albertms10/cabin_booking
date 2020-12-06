@@ -338,6 +338,8 @@ class _BookingFormState extends State<BookingForm> {
                             controller: _endDateController,
                             enabled: _recurringBookingMethod ==
                                 RecurringBookingMethod.endDate,
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
                             validator: (value) {
                               if (!widget.isRecurring ||
                                   _recurringBookingMethod !=
@@ -376,6 +378,8 @@ class _BookingFormState extends State<BookingForm> {
                                   controller: _occurrencesController,
                                   enabled: _recurringBookingMethod ==
                                       RecurringBookingMethod.occurrences,
+                                  autovalidateMode:
+                                      AutovalidateMode.onUserInteraction,
                                   keyboardType: TextInputType.number,
                                   inputFormatters: [
                                     FilteringTextInputFormatter.digitsOnly,
@@ -389,7 +393,7 @@ class _BookingFormState extends State<BookingForm> {
                                     }
 
                                     if (value.isEmpty) {
-                                      return appLocalizations.enterEndTime;
+                                      return appLocalizations.enterDate;
                                     }
 
                                     return null;
