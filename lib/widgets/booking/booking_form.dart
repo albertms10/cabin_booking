@@ -40,9 +40,9 @@ class _BookingFormState extends State<BookingForm> {
 
   Booking _booking;
   RecurringBookingMethod _recurringBookingMethod =
-      RecurringBookingMethod.endDate;
+      RecurringBookingMethod.EndDate;
 
-  Periodicity _periodicityValue = Periodicity.weekly;
+  Periodicity _periodicityValue = Periodicity.Weekly;
 
   TimeOfDay _startTime;
   TimeOfDay _endTime;
@@ -58,6 +58,7 @@ class _BookingFormState extends State<BookingForm> {
 
     if (_booking is RecurringBooking) {
       _recurringBookingMethod = (_booking as RecurringBooking).method;
+      _periodicityValue = (_booking as RecurringBooking).periodicity;
     }
   }
 
@@ -324,9 +325,9 @@ class _BookingFormState extends State<BookingForm> {
                         minVerticalPadding: 24.0,
                         title: Text(appLocalizations.onDate),
                         selected: _recurringBookingMethod ==
-                            RecurringBookingMethod.endDate,
+                            RecurringBookingMethod.EndDate,
                         leading: Radio(
-                          value: RecurringBookingMethod.endDate,
+                          value: RecurringBookingMethod.EndDate,
                           groupValue: _recurringBookingMethod,
                           onChanged: (value) {
                             setState(() => _recurringBookingMethod = value);
@@ -337,13 +338,13 @@ class _BookingFormState extends State<BookingForm> {
                           child: TextFormField(
                             controller: _endDateController,
                             enabled: _recurringBookingMethod ==
-                                RecurringBookingMethod.endDate,
+                                RecurringBookingMethod.EndDate,
                             autovalidateMode:
                                 AutovalidateMode.onUserInteraction,
                             validator: (value) {
                               if (!widget.isRecurring ||
                                   _recurringBookingMethod !=
-                                      RecurringBookingMethod.endDate) {
+                                      RecurringBookingMethod.EndDate) {
                                 return null;
                               }
 
@@ -359,10 +360,10 @@ class _BookingFormState extends State<BookingForm> {
                       ListTile(
                         title: Text(appLocalizations.after),
                         selected: _recurringBookingMethod ==
-                            RecurringBookingMethod.occurrences,
+                            RecurringBookingMethod.Occurrences,
                         minVerticalPadding: 24.0,
                         leading: Radio(
-                          value: RecurringBookingMethod.occurrences,
+                          value: RecurringBookingMethod.Occurrences,
                           groupValue: _recurringBookingMethod,
                           onChanged: (value) {
                             setState(() => _recurringBookingMethod = value);
@@ -377,7 +378,7 @@ class _BookingFormState extends State<BookingForm> {
                                 child: TextFormField(
                                   controller: _occurrencesController,
                                   enabled: _recurringBookingMethod ==
-                                      RecurringBookingMethod.occurrences,
+                                      RecurringBookingMethod.Occurrences,
                                   autovalidateMode:
                                       AutovalidateMode.onUserInteraction,
                                   keyboardType: TextInputType.number,
@@ -388,7 +389,7 @@ class _BookingFormState extends State<BookingForm> {
                                     if (!widget.isRecurring ||
                                         _recurringBookingMethod !=
                                             RecurringBookingMethod
-                                                .occurrences) {
+                                                .Occurrences) {
                                       return null;
                                     }
 
@@ -428,8 +429,11 @@ class _BookingFormState extends State<BookingForm> {
                   final recurringBooking =
                       RecurringBooking.fromBooking(_booking);
 
+                  recurringBooking.periodicity = _periodicityValue;
+                  recurringBooking.repeatEvery = 1;
+
                   if (_recurringBookingMethod ==
-                      RecurringBookingMethod.endDate) {
+                      RecurringBookingMethod.EndDate) {
                     recurringBooking.endDate =
                         DateFormat.yMd().parse(_endDateController.text);
                   } else {

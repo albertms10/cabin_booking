@@ -1,12 +1,6 @@
+import 'package:cabin_booking/model/recurring_booking.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-enum Periodicity {
-  daily,
-  weekly,
-  monthly,
-  annually,
-}
 
 class PeriodicityListTile extends StatelessWidget {
   final Periodicity value;
