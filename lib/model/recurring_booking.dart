@@ -55,8 +55,8 @@ class RecurringBooking extends Booking {
         ...super.toMap(),
         'periodicity': periodicity.inDays,
         if (method == RecurringBookingMethod.endDate)
-          'endDate': _endDate.toIso8601String(),
-        if (method == RecurringBookingMethod.occurrences)
+          'endDate': _endDate.toIso8601String()
+        else if (method == RecurringBookingMethod.occurrences)
           'occurrences': _occurrences,
       };
 
