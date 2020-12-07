@@ -26,18 +26,20 @@ void main() async {
           create: (context) => DayHandler(),
         ),
       ],
-      child: CabinBookingApp(),
+      child: const CabinBookingApp(),
     ),
   );
 }
 
 class CabinBookingApp extends StatelessWidget {
+  const CabinBookingApp();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       onGenerateTitle: (BuildContext context) =>
           AppLocalizations.of(context).title,
-      localizationsDelegates: [
+      localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
@@ -57,7 +59,7 @@ class CabinBookingApp extends StatelessWidget {
           border: OutlineInputBorder(),
         ),
       ),
-      home: HomePage(),
+      home: const HomePage(),
     );
   }
 }

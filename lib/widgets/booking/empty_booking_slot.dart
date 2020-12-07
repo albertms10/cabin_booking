@@ -12,7 +12,7 @@ class EmptyBookingSlot extends StatelessWidget {
   final DateTime dateStart;
   final DateTime dateEnd;
 
-  EmptyBookingSlot({
+  const EmptyBookingSlot({
     @required this.cabin,
     @required this.dateStart,
     @required this.dateEnd,

@@ -4,7 +4,7 @@ class FigureUnit extends StatelessWidget {
   final int value;
   final String unit;
 
-  const FigureUnit({Key key, this.value, this.unit}) : super(key: key);
+  const FigureUnit({this.value, this.unit});
 
   @override
   Widget build(BuildContext context) {

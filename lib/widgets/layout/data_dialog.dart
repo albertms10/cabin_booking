@@ -4,7 +4,7 @@ class DataDialog extends StatelessWidget {
   final Widget title;
   final Widget content;
 
-  DataDialog({this.title, this.content});
+  const DataDialog({this.title, this.content});
 
   @override
   Widget build(BuildContext context) {

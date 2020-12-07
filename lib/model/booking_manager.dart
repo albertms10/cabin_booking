@@ -72,7 +72,7 @@ class BookingManager with ChangeNotifier {
       null;
 
   Duration get accumulatedDuration {
-    var runningDuration = Duration();
+    var runningDuration = const Duration();
 
     for (final booking in allBookings) {
       runningDuration += booking.duration;

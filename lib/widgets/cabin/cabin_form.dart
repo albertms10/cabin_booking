@@ -7,11 +7,10 @@ class CabinForm extends StatefulWidget {
   final Cabin cabin;
   final int newCabinNumber;
 
-  CabinForm({
-    Key key,
+  const CabinForm({
     this.cabin,
     this.newCabinNumber,
-  }) : super(key: key);
+  });
 
   @override
   _CabinFormState createState() => _CabinFormState();
@@ -37,7 +36,7 @@ class _CabinFormState extends State<CabinForm> {
         children: [
           CabinIcon(number: _cabin.number),
           DataTable(
-            columns: [
+            columns: const [
               DataColumn(
                 label: Text('Element'),
               ),
@@ -50,12 +49,12 @@ class _CabinFormState extends State<CabinForm> {
               DataRow(
                 cells: [
                   DataCell(
-                    Text('Pianos'),
+                    const Text('Pianos'),
                     onTap: () {},
                     showEditIcon: true,
                   ),
                   DataCell(
-                    Text('1'),
+                    const Text('1'),
                     onTap: () {},
                     showEditIcon: true,
                   ),

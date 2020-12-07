@@ -6,6 +6,8 @@ import 'package:provider/provider.dart';
 import 'package:timer_builder/timer_builder.dart';
 
 class CurrentTimeIndicator extends StatelessWidget {
+  const CurrentTimeIndicator();
+
   @override
   Widget build(BuildContext context) {
     return TimerBuilder.periodic(

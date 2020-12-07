@@ -6,7 +6,7 @@ class StrippedBackground extends StatelessWidget {
   final TimeOfDay endTime;
   final double height;
 
-  StrippedBackground({
+  const StrippedBackground({
     @required this.startTime,
     @required this.endTime,
     this.height = 60.0 * bookingHeightRatio,

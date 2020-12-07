@@ -4,7 +4,7 @@ class IconMenuItemContent extends StatelessWidget {
   final String text;
   final IconData icon;
 
-  IconMenuItemContent({@required this.text, this.icon});
+  const IconMenuItemContent({@required this.text, this.icon});
 
   @override
   Widget build(BuildContext context) {

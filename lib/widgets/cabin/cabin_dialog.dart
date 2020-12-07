@@ -8,7 +8,7 @@ class CabinDialog extends StatelessWidget {
   final Cabin cabin;
   final int newCabinNumber;
 
-  CabinDialog(this.cabin, {this.newCabinNumber});
+  const CabinDialog({this.cabin, this.newCabinNumber});
 
   @override
   Widget build(BuildContext context) {

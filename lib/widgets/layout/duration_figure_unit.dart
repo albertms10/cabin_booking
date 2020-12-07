@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class DurationFigureUnit extends StatelessWidget {
   final Duration duration;
 
-  const DurationFigureUnit({Key key, this.duration}) : super(key: key);
+  const DurationFigureUnit(this.duration);
 
   @override
   Widget build(BuildContext context) {

@@ -1,11 +1,13 @@
 import 'package:cabin_booking/widgets/booking/booking_floating_action_button.dart';
 import 'package:cabin_booking/widgets/cabin/cabin_floating_action_button.dart';
+import 'package:cabin_booking/widgets/pages/bookings_page.dart';
+import 'package:cabin_booking/widgets/pages/cabins_page.dart';
 import 'package:cabin_booking/widgets/pages/main_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key key}) : super(key: key);
+  const HomePage();
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -14,7 +16,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 1;
 
-  final _floatingActionButtons = [
+  final _floatingActionButtons = const [
     CabinFloatingActionButton(),
     BookingFloatingActionButton(),
   ];
@@ -50,9 +52,15 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             ),
-            VerticalDivider(thickness: 1, width: 1),
+           const VerticalDivider(thickness: 1, width: 1),
             Expanded(
-              child: MainContent(railIndex: _selectedIndex),
+              child: MainContent(
+                railIndex: _selectedIndex,
+                pages: const [
+                  CabinsPage(),
+                  BookingsPage(),
+                ],
+              ),
             ),
           ],
         ),

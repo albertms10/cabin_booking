@@ -8,11 +8,10 @@ class WrappedChipList<T> extends StatelessWidget {
   final int maxChips;
 
   const WrappedChipList({
-    Key key,
     @required this.items,
     @required this.labelBuilder,
     this.maxChips,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

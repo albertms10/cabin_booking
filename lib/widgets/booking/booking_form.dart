@@ -19,12 +19,11 @@ class BookingForm extends StatefulWidget {
   final bool isRecurring;
   final Function(bool) setIsRecurring;
 
-  BookingForm({
-    Key key,
+  const BookingForm({
     this.booking,
     this.isRecurring,
     this.setIsRecurring,
-  }) : super(key: key);
+  });
 
   @override
   _BookingFormState createState() => _BookingFormState();

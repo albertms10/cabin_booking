@@ -19,7 +19,7 @@ class AnimatedChild extends AnimatedWidget {
   final ShapeBorder shape;
   final String heroTag;
 
-  AnimatedChild({
+  const AnimatedChild({
     Key key,
     Animation<double> animation,
     this.tween,

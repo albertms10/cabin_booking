@@ -9,11 +9,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class BookingsTable extends StatelessWidget {
+  const BookingsTable();
+
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        StrippedBackground(
+        const StrippedBackground(
           startTime: timeTableStartTime,
           endTime: timeTableEndTime,
         ),
@@ -36,9 +38,9 @@ class BookingsTable extends StatelessWidget {
               ],
             );
           },
-          child: TimeColumn(),
+          child: const TimeColumn(),
         ),
-        CurrentTimeIndicator(),
+        const CurrentTimeIndicator(),
       ],
     );
   }

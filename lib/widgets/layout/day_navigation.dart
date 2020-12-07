@@ -5,6 +5,8 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class DayNavigation extends StatelessWidget {
+  const DayNavigation();
+
   @override
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context);

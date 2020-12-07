@@ -6,6 +6,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 class CabinFloatingActionButton extends StatelessWidget {
+  const CabinFloatingActionButton();
+
   @override
   Widget build(BuildContext context) {
     final cabinManager = Provider.of<CabinManager>(context, listen: false);
@@ -15,7 +17,7 @@ class CabinFloatingActionButton extends StatelessWidget {
         final newCabin = await showDialog<Cabin>(
           context: context,
           builder: (context) => CabinDialog(
-            Cabin(),
+            cabin: Cabin(),
             newCabinNumber: cabinManager.lastCabinNumber + 1,
           ),
         );

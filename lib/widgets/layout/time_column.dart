@@ -5,7 +5,7 @@ class TimeColumn extends StatelessWidget {
   final TimeOfDay start;
   final TimeOfDay end;
 
-  TimeColumn({
+  const TimeColumn({
     this.start = timeTableStartTime,
     this.end = timeTableEndTime,
   });

@@ -12,7 +12,7 @@ class BookingsStack extends StatelessWidget {
   final Cabin cabin;
   final List<Booking> bookings;
 
-  BookingsStack({this.cabin, this.bookings = const <Booking>[]});
+  const BookingsStack({this.cabin, this.bookings = const <Booking>[]});
 
   List<Widget> _distributedBookings(BuildContext context) {
     final distributedBookings = <Widget>[];

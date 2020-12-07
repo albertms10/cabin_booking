@@ -4,7 +4,7 @@ class CabinIcon extends StatelessWidget {
   final int number;
   final double progress;
 
-  CabinIcon({@required this.number, this.progress});
+  const CabinIcon({@required this.number, this.progress});
 
   @override
   Widget build(BuildContext context) {

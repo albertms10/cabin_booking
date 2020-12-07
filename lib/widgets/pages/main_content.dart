@@ -1,19 +1,13 @@
 import 'package:cabin_booking/model/cabin_manager.dart';
-import 'package:cabin_booking/widgets/pages/bookings_page.dart';
-import 'package:cabin_booking/widgets/pages/cabins_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 class MainContent extends StatefulWidget {
   final int railIndex;
+  final List<Widget> pages;
 
-  MainContent({Key key, this.railIndex}) : super(key: key);
-
-  final pages = [
-    CabinsPage(),
-    BookingsPage(),
-  ];
+  const MainContent({this.railIndex, this.pages});
 
   @override
   _MainContentState createState() => _MainContentState();

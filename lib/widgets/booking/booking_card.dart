@@ -12,7 +12,11 @@ class BookingCard extends StatelessWidget {
   final Cabin cabin;
   final Booking booking;
 
-  BookingCard({@required this.cabin, @required this.booking});
+  const BookingCard({
+    Key key,
+    @required this.cabin,
+    @required this.booking,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

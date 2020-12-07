@@ -13,7 +13,7 @@ class BookingPopupMenu extends StatelessWidget {
   final Cabin cabin;
   final Booking booking;
 
-  BookingPopupMenu({
+  const BookingPopupMenu({
     @required this.cabin,
     @required this.booking,
   });
@@ -25,9 +25,9 @@ class BookingPopupMenu extends StatelessWidget {
       child: Material(
         color: Colors.transparent,
         child: PopupMenuButton<String>(
-          child: Padding(
-            padding: const EdgeInsets.all(6.0),
-            child: const Icon(
+          child: const Padding(
+            padding: EdgeInsets.all(6.0),
+            child: Icon(
               Icons.more_vert,
               size: 18.0,
               color: Colors.black54,
@@ -44,9 +44,7 @@ class BookingPopupMenu extends StatelessWidget {
                   builder: (context) => BookingDialog(
                     (booking.recurringBookingId == null
                         ? booking
-                        : cabinManager
-                            .fromId(cabin.id)
-                            .recurringBookingFromId(
+                        : cabinManager.fromId(cabin.id).recurringBookingFromId(
                               booking.recurringBookingId,
                             ))
                       ..cabinId = cabin.id,
@@ -68,7 +66,7 @@ class BookingPopupMenu extends StatelessWidget {
               case 'delete':
                 final shallDelete = await showDialog<bool>(
                   context: context,
-                  builder: (context) => DeleteBookingDialog(),
+                  builder: (context) => const DeleteBookingDialog(),
                 );
 
                 if (shallDelete != null && shallDelete) {

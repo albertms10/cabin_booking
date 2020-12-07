@@ -8,7 +8,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class BookingDialog extends StatefulWidget {
   final Booking booking;
 
-  BookingDialog(this.booking, {Key key}) : super(key: key);
+  const BookingDialog(this.booking);
 
   @override
   _BookingDialogState createState() => _BookingDialogState();

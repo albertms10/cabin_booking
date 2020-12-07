@@ -7,7 +7,7 @@ class DataTableToolbar extends StatelessWidget {
   final Function onPressedLeading;
   final List<Widget> actions;
 
-  DataTableToolbar({
+  const DataTableToolbar({
     this.shown = false,
     this.selectedItems = 0,
     this.onPressedLeading,

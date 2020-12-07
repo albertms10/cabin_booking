@@ -34,10 +34,7 @@ class CabinTableRow {
 class CabinsTable extends StatefulWidget {
   final List<CabinTableRow> cabinRows;
 
-  CabinsTable({
-    Key key,
-    @required this.cabinRows,
-  }) : super(key: key);
+  const CabinsTable({@required this.cabinRows});
 
   @override
   _CabinsTableState createState() => _CabinsTableState();
@@ -261,9 +258,7 @@ class _CabinsTableState extends State<CabinsTable> {
                           ),
                         ),
                         DataCell(
-                          DurationFigureUnit(
-                            duration: cabinRow.accumulatedDuration,
-                          ),
+                          DurationFigureUnit(cabinRow.accumulatedDuration),
                         ),
                         DataCell(
                           FigureUnit(

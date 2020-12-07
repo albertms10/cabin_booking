@@ -19,7 +19,7 @@ class AnimatedFloatingButton extends StatelessWidget {
   final Curve curve;
   final int animationSpeed;
 
-  AnimatedFloatingButton({
+  const AnimatedFloatingButton({
     this.visible = true,
     this.tween,
     this.animation,

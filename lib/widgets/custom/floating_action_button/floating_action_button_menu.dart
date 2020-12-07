@@ -166,7 +166,7 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
 
   List<Widget> _getChildrenList() {
     return widget.children
-        .map((FloatingActionButtonMenuChild child) {
+        .map((child) {
           var index = widget.children.indexOf(child);
 
           return AnimatedChild(
@@ -223,7 +223,7 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
         children: List.from(_getChildrenList())
           ..add(
             Container(
-              margin: EdgeInsets.only(top: 8.0, right: 2.0),
+              margin: const EdgeInsets.only(top: 8.0, right: 2.0),
               child: AnimatedFloatingButton(
                 visible: widget.visible,
                 tween: widget.tween,
@@ -287,7 +287,7 @@ class FloatingActionButtonMenuChild {
   final VoidCallback onTap;
   final ShapeBorder shape;
 
-  FloatingActionButtonMenuChild({
+  const FloatingActionButtonMenuChild({
     this.label,
     this.labelStyle,
     this.labelBackgroundColor,

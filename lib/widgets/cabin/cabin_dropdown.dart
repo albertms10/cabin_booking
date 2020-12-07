@@ -8,10 +8,9 @@ class CabinDropdown extends StatelessWidget {
   final Function(String) onChanged;
 
   const CabinDropdown({
-    Key key,
     this.value,
     this.onChanged,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

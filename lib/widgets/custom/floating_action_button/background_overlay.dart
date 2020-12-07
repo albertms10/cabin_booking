@@ -4,7 +4,7 @@ class BackgroundOverlay extends AnimatedWidget {
   final Color color;
   final double opacity;
 
-  BackgroundOverlay({
+  const BackgroundOverlay({
     Key key,
     Animation<double> animation,
     this.color = Colors.white,

@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class CabinsPage extends StatelessWidget {
+  const CabinsPage();
+
   @override
   Widget build(BuildContext context) {
     return Consumer<CabinManager>(

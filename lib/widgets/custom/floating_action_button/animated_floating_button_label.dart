@@ -6,7 +6,7 @@ class AnimatedFloatingButtonLabel extends AnimatedWidget {
   final Tween<double> tween;
   final Animation<double> animation;
 
-  AnimatedFloatingButtonLabel({
+  const AnimatedFloatingButtonLabel({
     Key key,
     this.label,
     this.tween,
