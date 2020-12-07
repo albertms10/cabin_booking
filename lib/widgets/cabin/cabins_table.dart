@@ -276,6 +276,7 @@ class _CabinsTableState extends State<CabinsTable> {
                             padding: const EdgeInsets.only(left: 8.0),
                             child: WrappedChipList(
                               items: cabinRow.mostOccupiedTimeRanges,
+                              maxChips: 1,
                               labelBuilder: (context, timeRange) {
                                 return Text(
                                   '${timeRange.first.format(context)}–${timeRange.last.format(context)}',

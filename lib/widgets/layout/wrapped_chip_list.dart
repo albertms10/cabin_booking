@@ -1,3 +1,5 @@
+import 'dart:math' show min;
+
 import 'package:flutter/material.dart';
 
 class WrappedChipList<T> extends StatelessWidget {
@@ -14,13 +16,23 @@ class WrappedChipList<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final maxShown =
+        maxChips == null ? items.length : min(maxChips, items.length);
+
     return Wrap(
       spacing: 8.0,
       runSpacing: 6.0,
       children: [
-        for (final item in items)
+        for (var i = 0; i < maxShown; i++)
           Chip(
-            label: labelBuilder(context, item),
+            label: labelBuilder(context, items[i]),
+          ),
+        if (maxChips != null && items.length > maxChips)
+          Chip(
+            label: Text(
+              '+${items.length - 1}',
+              style: Theme.of(context).textTheme.overline,
+            ),
           )
       ],
     );
