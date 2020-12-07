@@ -27,10 +27,10 @@ class WrappedChipList<T> extends StatelessWidget {
           Chip(
             label: labelBuilder(context, items[i]),
           ),
-        if (maxChips != null && items.length > maxChips)
+        if (maxShown < items.length)
           Chip(
             label: Text(
-              '+${items.length - 1}',
+              '+${items.length - maxShown}',
               style: Theme.of(context).textTheme.overline,
             ),
           )
