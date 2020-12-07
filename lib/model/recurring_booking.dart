@@ -3,6 +3,7 @@ import 'package:cabin_booking/model/booking.dart';
 class RecurringBooking extends Booking {
   Periodicity periodicity;
   int repeatEvery;
+
   DateTime _endDate;
   int _occurrences;
 

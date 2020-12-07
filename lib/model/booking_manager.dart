@@ -239,16 +239,8 @@ class BookingManager with ChangeNotifier {
     notifyListeners();
   }
 
-  void emptyBookings() {
-    bookings = [];
-  }
-
-  void emptyRecurringBookings() {
-    recurringBookings = [];
-  }
-
-  void emptyAll() {
-    emptyBookings();
-    emptyRecurringBookings();
+  void emptyAllBookings() {
+    bookings.clear();
+    recurringBookings.clear();
   }
 }

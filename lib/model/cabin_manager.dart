@@ -58,7 +58,7 @@ class CabinManager with ChangeNotifier, FileManager {
   void emptyCabinsByIds(List<String> ids) {
     cabins
         .where((cabin) => ids.contains(cabin.id))
-        .forEach((cabin) => cabin.emptyAll());
+        .forEach((cabin) => cabin.emptyAllBookings());
 
     notifyListeners();
   }
