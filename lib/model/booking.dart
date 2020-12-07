@@ -87,7 +87,10 @@ class Booking {
     var runningDuration = const Duration();
 
     while (runningDuration < duration) {
-      final nextHour = TimeOfDay(hour: runningTime.hour + 1, minute: 0);
+      final nextHour = TimeOfDay(
+        hour: (runningTime.hour + 1) % TimeOfDay.hoursPerDay,
+        minute: 0,
+      );
 
       final nextTime =
           durationBetweenTimesOfDay(nextHour, timeEnd) <= const Duration()
