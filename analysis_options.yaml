@@ -4,3 +4,5 @@ linter:
   rules:
     - prefer_const_constructors
     - prefer_const_literals_to_create_immutables
+    - prefer_final_in_for_each
+    - prefer_final_locals

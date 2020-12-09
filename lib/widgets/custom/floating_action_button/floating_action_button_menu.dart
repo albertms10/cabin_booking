@@ -153,7 +153,7 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
   }
 
   void _toggleChildren() {
-    var newOpenValue = !_open;
+    final newOpenValue = !_open;
 
     setState(() => _open = newOpenValue);
 
@@ -167,7 +167,7 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
   List<Widget> _getChildrenList() {
     return widget.children
         .map((child) {
-          var index = widget.children.indexOf(child);
+          final index = widget.children.indexOf(child);
 
           return AnimatedChild(
             tween: widget.tween,
