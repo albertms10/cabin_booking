@@ -1,4 +1,7 @@
+import 'package:cabin_booking/model/cabin.dart';
+import 'package:cabin_booking/model/cabin_components.dart';
 import 'package:cabin_booking/model/cabin_manager.dart';
+import 'package:cabin_booking/widgets/cabin/cabin_dialog.dart';
 import 'package:cabin_booking/widgets/cabin/cabin_icon.dart';
 import 'package:cabin_booking/widgets/layout/centered_icon_message.dart';
 import 'package:cabin_booking/widgets/layout/data_table_toolbar.dart';
@@ -12,6 +15,7 @@ import 'package:provider/provider.dart';
 class CabinTableRow {
   final String id;
   final int number;
+  final CabinComponents components;
   final int bookingsCount;
   final int recurringBookingsCount;
   final Duration accumulatedDuration;
@@ -22,6 +26,7 @@ class CabinTableRow {
   CabinTableRow({
     @required this.id,
     @required this.number,
+    @required this.components,
     this.bookingsCount = 0,
     this.recurringBookingsCount = 0,
     this.accumulatedDuration = const Duration(),
@@ -39,7 +44,7 @@ class CabinsTable extends StatefulWidget {
   @override
   _CabinsTableState createState() => _CabinsTableState();
 
-  int get selectedItems {
+  int get selectedItemsCount {
     var count = 0;
 
     for (final cabin in cabinRows) {
@@ -289,27 +294,46 @@ class _CabinsTableState extends State<CabinsTable> {
           ],
         ),
         DataTableToolbar(
-          shown: widget.selectedItems > 0,
-          selectedItems: widget.selectedItems,
+          shown: widget.selectedItemsCount > 0,
+          selectedItems: widget.selectedItemsCount,
           onPressedLeading: () {
-            setState(() {
-              widget.unselect();
-            });
+            setState(() => widget.unselect());
           },
           actions: [
             IconButton(
+              onPressed: () async {
+                final cabinManager =
+                    Provider.of<CabinManager>(context, listen: false);
+
+                final selectedCabin = widget._selectedRows.first;
+
+                final editedCabin = await showDialog<Cabin>(
+                  context: context,
+                  builder: (context) => CabinDialog(
+                    cabin: Cabin(
+                      id: selectedCabin.id,
+                      number: selectedCabin.number,
+                      components: selectedCabin.components,
+                    ),
+                  ),
+                );
+
+                if (editedCabin != null) {
+                  cabinManager.modifyCabin(editedCabin);
+                }
+              },
+              icon: const Icon(Icons.edit),
+              tooltip: appLocalizations.edit,
+            ),
+            IconButton(
               onPressed: widget.selectedAreBooked
-                  ? () {
-                      widget.emptySelected(context);
-                    }
+                  ? () => widget.emptySelected(context)
                   : null,
               icon: const Icon(Icons.delete_outline),
               tooltip: appLocalizations.empty,
             ),
             IconButton(
-              onPressed: () {
-                widget.removeSelected(context);
-              },
+              onPressed: () => widget.removeSelected(context),
               icon: const Icon(Icons.delete),
               tooltip: MaterialLocalizations.of(context).deleteButtonTooltip,
             ),
