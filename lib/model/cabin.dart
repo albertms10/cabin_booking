@@ -1,38 +1,37 @@
 import 'package:cabin_booking/model/booking.dart';
 import 'package:cabin_booking/model/booking_manager.dart';
 import 'package:cabin_booking/model/cabin_components.dart';
+import 'package:cabin_booking/model/item.dart';
 import 'package:cabin_booking/model/recurring_booking.dart';
 import 'package:flutter/material.dart';
-import 'package:uuid/uuid.dart';
 
-class Cabin {
-  String id;
+class Cabin extends Item {
   int number;
   CabinComponents components;
   final BookingManager _bookingManager;
 
   Cabin({
-    this.id,
+    id,
     this.number,
     this.components,
     List<Booking> bookings,
     List<RecurringBooking> recurringBookings,
-  }) : _bookingManager = BookingManager(
+  })  : _bookingManager = BookingManager(
           bookings: bookings,
           recurringBookings: recurringBookings,
-        ) {
-    id ??= Uuid().v4();
+        ),
+        super(id: id) {
     components ??= CabinComponents();
   }
 
   Cabin.from(Map<String, dynamic> other)
-      : id = other['id'],
-        number = other['number'],
+      : number = other['number'],
         components = CabinComponents.from(other['components']),
         _bookingManager = BookingManager.from(
           bookings: other['bookings'],
           recurringBookings: other['recurringBookings'],
-        );
+        ),
+        super(id: other['id']);
 
   Map<String, dynamic> toMap() => {
         'id': id,
@@ -86,6 +85,11 @@ class Cabin {
 
   List<TimeOfDay> get mostOccupiedTimeRanges =>
       _bookingManager.mostOccupiedTimeRange;
+
+  void replaceWith(Cabin cabin) {
+    number = cabin.number;
+    components = cabin.components;
+  }
 
   void addBooking(Booking booking) => _bookingManager.addBooking(booking);
 

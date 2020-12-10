@@ -1,10 +1,9 @@
+import 'package:cabin_booking/model/item.dart';
 import 'package:cabin_booking/utils/date.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:uuid/uuid.dart';
 
-class Booking {
-  String id;
+class Booking extends Item {
   String studentName;
   DateTime date;
   TimeOfDay timeStart;
@@ -17,7 +16,7 @@ class Booking {
   int recurringTotalTimes;
 
   Booking({
-    this.id,
+    id,
     this.studentName,
     this.date,
     this.timeStart,
@@ -27,17 +26,15 @@ class Booking {
     this.recurringBookingId,
     this.recurringNumber,
     this.recurringTotalTimes,
-  }) {
-    id ??= Uuid().v4();
-  }
+  }) : super(id: id);
 
   Booking.from(Map<String, dynamic> other)
-      : id = other['id'],
-        studentName = other['studentName'],
+      : studentName = other['studentName'],
         date = DateTime.tryParse(other['date']),
         timeStart = tryParseTimeOfDay(other['timeStart']),
         timeEnd = tryParseTimeOfDay(other['timeEnd']),
-        isDisabled = other['isDisabled'];
+        isDisabled = other['isDisabled'],
+        super(id: other['id']);
 
   Map<String, dynamic> toMap() => {
         'id': id,
