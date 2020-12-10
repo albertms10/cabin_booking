@@ -25,7 +25,11 @@ class _CabinFormState extends State<CabinForm> {
   void initState() {
     super.initState();
 
-    _cabin = widget.cabin..number = widget.newCabinNumber;
+    _cabin = widget.cabin;
+
+    if (widget.newCabinNumber != null) {
+      _cabin = widget.cabin..number = widget.newCabinNumber;
+    }
   }
 
   @override
