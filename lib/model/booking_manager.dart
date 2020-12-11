@@ -3,8 +3,6 @@ import 'package:cabin_booking/model/recurring_booking.dart';
 import 'package:cabin_booking/utils/date.dart';
 import 'package:flutter/material.dart';
 
-int _sortBookings(Booking a, Booking b) => a.dateStart.compareTo(b.dateStart);
-
 class BookingManager with ChangeNotifier {
   List<Booking> bookings;
   List<RecurringBooking> recurringBookings;
@@ -28,6 +26,9 @@ class BookingManager with ChangeNotifier {
   List<Map<String, dynamic>> recurringBookingsToMapList() => recurringBookings
       .map((recurringBooking) => recurringBooking.toMap())
       .toList();
+
+  static int _sortBookings(Booking a, Booking b) =>
+      a.dateStart.compareTo(b.dateStart);
 
   List<Booking> get generatedBookingsFromRecurring {
     final generatedBookings = <Booking>[];

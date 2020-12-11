@@ -11,8 +11,6 @@ import 'package:flutter/material.dart';
 List<Cabin> _parseCabins(String jsonString) =>
     json.decode(jsonString).map<Cabin>((json) => Cabin.from(json)).toList();
 
-int _sortCabins(Cabin a, Cabin b) => a.number.compareTo(b.number);
-
 class CabinManager with ChangeNotifier, FileManager {
   List<Cabin> cabins;
 
@@ -24,6 +22,8 @@ class CabinManager with ChangeNotifier, FileManager {
       cabins.map((cabin) => cabin.toMap()).toList();
 
   Cabin fromId(String id) => cabins.firstWhere((cabin) => cabin.id == id);
+
+  static int _sortCabins(Cabin a, Cabin b) => a.number.compareTo(b.number);
 
   int get lastCabinNumber => cabins.isNotEmpty ? cabins.last.number : 0;
 
