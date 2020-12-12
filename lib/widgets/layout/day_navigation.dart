@@ -14,42 +14,38 @@ class DayNavigation extends StatelessWidget {
     final dayHandler = Provider.of<DayHandler>(context, listen: false);
     final splashRadius = 22.0;
 
-    return Container(
-      padding: const EdgeInsets.all(16.0),
-      color: Colors.grey[50],
-      child: Row(
-        children: [
-          FlatButton(
-            padding: const EdgeInsets.symmetric(vertical: 16.0),
-            onPressed: () => dayHandler.changeToNow(),
-            child: Text(appLocalizations.today),
-          ),
-          IconButton(
-            onPressed: () => dayHandler.changeToPreviousDay(),
-            icon: const Icon(Icons.chevron_left),
-            tooltip: appLocalizations.previousDay,
-            splashRadius: splashRadius,
-          ),
-          IconButton(
-            onPressed: () => dayHandler.changeToNextDay(),
-            icon: const Icon(Icons.chevron_right),
-            tooltip: appLocalizations.nextDay,
-            splashRadius: splashRadius,
-          ),
-          const SizedBox(width: 24.0),
-          Consumer<DayHandler>(
-            builder: (context, dayHandler, child) {
-              return Text(
-                DateFormat.MMMMEEEEd().format(dayHandler.dateTime),
-                style: Theme.of(context)
-                    .textTheme
-                    .headline5
-                    .copyWith(color: Colors.black87),
-              );
-            },
-          ),
-        ],
-      ),
+    return Row(
+      children: [
+        FlatButton(
+          padding: const EdgeInsets.symmetric(vertical: 16.0),
+          onPressed: () => dayHandler.changeToNow(),
+          child: Text(appLocalizations.today),
+        ),
+        IconButton(
+          onPressed: () => dayHandler.changeToPreviousDay(),
+          icon: const Icon(Icons.chevron_left),
+          tooltip: appLocalizations.previousDay,
+          splashRadius: splashRadius,
+        ),
+        IconButton(
+          onPressed: () => dayHandler.changeToNextDay(),
+          icon: const Icon(Icons.chevron_right),
+          tooltip: appLocalizations.nextDay,
+          splashRadius: splashRadius,
+        ),
+        const SizedBox(width: 24.0),
+        Consumer<DayHandler>(
+          builder: (context, dayHandler, child) {
+            return Text(
+              DateFormat.MMMMEEEEd().format(dayHandler.dateTime),
+              style: Theme.of(context)
+                  .textTheme
+                  .headline5
+                  .copyWith(color: Colors.black87),
+            );
+          },
+        ),
+      ],
     );
   }
 }
