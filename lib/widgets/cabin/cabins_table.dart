@@ -38,10 +38,12 @@ class CabinTableRow {
 class CabinTableColumn {
   final String title;
   final bool numeric;
+  final bool sortable;
 
   const CabinTableColumn({
     @required this.title,
-    @required this.numeric,
+    this.numeric = false,
+    this.sortable = true,
   });
 }
 
@@ -134,25 +136,12 @@ class _CabinsTableState extends State<CabinsTable> {
     }
   }
 
-  void _onSortOccupancyRate(bool ascending) {
-    if (ascending) {
-      widget.cabinRows.sort(
-        (a, b) => a.occupancyRate.compareTo(b.occupancyRate),
-      );
-    } else {
-      widget.cabinRows.sort(
-        (a, b) => b.occupancyRate.compareTo(a.occupancyRate),
-      );
-    }
-  }
-
   void onSortColumn(int columnIndex, bool ascending) {
     <_OnSortFunction>[
       _onSortNumber,
       _onSortBookingsCount,
       _onSortRecurringBookingsCount,
       _onSortAccumulatedDuration,
-      _onSortOccupancyRate,
     ][columnIndex](ascending);
 
     setState(() {
@@ -176,7 +165,6 @@ class _CabinsTableState extends State<CabinsTable> {
     final columns = [
       CabinTableColumn(
         title: appLocalizations.cabin,
-        numeric: false,
       ),
       CabinTableColumn(
         title: appLocalizations.bookings,
@@ -193,6 +181,7 @@ class _CabinsTableState extends State<CabinsTable> {
       CabinTableColumn(
         title: appLocalizations.mostOccupiedTimeRange,
         numeric: true,
+        sortable: false,
       ),
     ];
 
@@ -217,9 +206,11 @@ class _CabinsTableState extends State<CabinsTable> {
                         ),
                         child: Text(column.title),
                       ),
-                      onSort: onSortColumn,
+                      onSort: column.sortable ? onSortColumn : null,
+                      tooltip: column.sortable
+                          ? '${appLocalizations.sortBy} ${column.title}'
+                          : null,
                       numeric: column.numeric,
-                      tooltip: '${appLocalizations.sortBy} ${column.title}',
                     ),
                 ],
                 rows: List<DataRow>.generate(
