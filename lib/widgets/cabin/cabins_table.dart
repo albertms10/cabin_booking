@@ -35,6 +35,16 @@ class CabinTableRow {
   });
 }
 
+class CabinTableColumn {
+  final String title;
+  final bool numeric;
+
+  const CabinTableColumn({
+    @required this.title,
+    @required this.numeric,
+  });
+}
+
 class CabinsTable extends StatefulWidget {
   final List<CabinTableRow> cabinRows;
 
@@ -163,6 +173,29 @@ class _CabinsTableState extends State<CabinsTable> {
       );
     }
 
+    final columns = [
+      CabinTableColumn(
+        title: appLocalizations.cabin,
+        numeric: false,
+      ),
+      CabinTableColumn(
+        title: appLocalizations.bookings,
+        numeric: true,
+      ),
+      CabinTableColumn(
+        title: appLocalizations.recurringBookings,
+        numeric: true,
+      ),
+      CabinTableColumn(
+        title: appLocalizations.accumulatedTime,
+        numeric: true,
+      ),
+      CabinTableColumn(
+        title: appLocalizations.mostOccupiedTimeRange,
+        numeric: true,
+      ),
+    ];
+
     return Stack(
       children: [
         ListView(
@@ -175,45 +208,19 @@ class _CabinsTableState extends State<CabinsTable> {
                 sortAscending: _sortAscending,
                 sortColumnIndex: _sortColumnIndex,
                 columns: [
-                  DataColumn(
-                    label: Padding(
-                      padding: const EdgeInsets.only(right: 8.0),
-                      child: Text(appLocalizations.cabin),
-                    ),
-                    onSort: onSortColumn,
-                  ),
-                  DataColumn(
-                    label: Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
-                      child: Text(appLocalizations.bookings),
-                    ),
-                    numeric: true,
-                    onSort: onSortColumn,
-                  ),
-                  DataColumn(
-                    label: Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
-                      child: Text(appLocalizations.recurringBookings),
-                    ),
-                    numeric: true,
-                    onSort: onSortColumn,
-                  ),
-                  DataColumn(
-                    label: Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
-                      child: Text(appLocalizations.accumulatedTime),
-                    ),
-                    numeric: true,
-                    onSort: onSortColumn,
-                  ),
-                  DataColumn(
-                    label: Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
-                      child: Text(
-                        appLocalizations.mostOccupiedTimeRange,
+                  for (final column in columns)
+                    DataColumn(
+                      label: Padding(
+                        padding: EdgeInsets.only(
+                          right: column.numeric ? 0.0 : 8.0,
+                          left: column.numeric ? 8.0 : 0.0,
+                        ),
+                        child: Text(column.title),
                       ),
+                      onSort: onSortColumn,
+                      numeric: column.numeric,
+                      tooltip: '${appLocalizations.sortBy} ${column.title}',
                     ),
-                  ),
                 ],
                 rows: List<DataRow>.generate(
                   widget.cabinRows.length,
