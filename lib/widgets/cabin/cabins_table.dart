@@ -40,9 +40,9 @@ class CabinTableColumn {
   final bool numeric;
   final bool sortable;
 
-  const CabinTableColumn({
-    @required this.title,
-    this.numeric = false,
+  const CabinTableColumn(
+    this.title, {
+    this.numeric = true,
     this.sortable = true,
   });
 }
@@ -163,26 +163,11 @@ class _CabinsTableState extends State<CabinsTable> {
     }
 
     final columns = [
-      CabinTableColumn(
-        title: appLocalizations.cabin,
-      ),
-      CabinTableColumn(
-        title: appLocalizations.bookings,
-        numeric: true,
-      ),
-      CabinTableColumn(
-        title: appLocalizations.recurringBookings,
-        numeric: true,
-      ),
-      CabinTableColumn(
-        title: appLocalizations.accumulatedTime,
-        numeric: true,
-      ),
-      CabinTableColumn(
-        title: appLocalizations.mostOccupiedTimeRange,
-        numeric: true,
-        sortable: false,
-      ),
+      CabinTableColumn(appLocalizations.cabin, numeric: false),
+      CabinTableColumn(appLocalizations.bookings),
+      CabinTableColumn(appLocalizations.recurringBookings),
+      CabinTableColumn(appLocalizations.accumulatedTime),
+      CabinTableColumn(appLocalizations.mostOccupiedTimeRange, sortable: false),
     ];
 
     return Stack(
