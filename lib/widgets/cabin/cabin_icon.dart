@@ -33,7 +33,7 @@ class CabinIcon extends StatelessWidget {
               builder: (context, value, child) {
                 return CircularProgressIndicator(
                   value: value,
-                  backgroundColor: Colors.blue[50],
+                  backgroundColor: Colors.blue[100],
                 );
               },
             ),
