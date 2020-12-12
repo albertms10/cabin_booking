@@ -14,8 +14,9 @@ class DayNavigation extends StatelessWidget {
     final dayHandler = Provider.of<DayHandler>(context, listen: false);
     final splashRadius = 22.0;
 
-    return Padding(
+    return Container(
       padding: const EdgeInsets.all(16.0),
+      color: Colors.grey[50],
       child: Row(
         children: [
           FlatButton(
