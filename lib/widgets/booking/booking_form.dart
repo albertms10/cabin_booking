@@ -7,6 +7,7 @@ import 'package:cabin_booking/model/recurring_booking.dart';
 import 'package:cabin_booking/utils/date.dart';
 import 'package:cabin_booking/widgets/booking/periodicity_dropdown.dart';
 import 'package:cabin_booking/widgets/cabin/cabin_dropdown.dart';
+import 'package:cabin_booking/widgets/layout/item_info.dart';
 import 'package:cabin_booking/widgets/layout/submit_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -88,7 +89,6 @@ class _BookingFormState extends State<BookingForm> {
     return Form(
       key: _formKey,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           CabinDropdown(
             value: _booking.cabinId,
@@ -468,6 +468,12 @@ class _BookingFormState extends State<BookingForm> {
               }
             },
           ),
+          if (widget.booking.studentName != null)
+            ItemInfo(
+              creationDate: widget.booking.creationDate,
+              modificationDate: widget.booking.modificationDate,
+              modificationCount: widget.booking.modificationCount,
+            ),
         ],
       ),
     );

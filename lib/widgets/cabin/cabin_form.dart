@@ -1,9 +1,11 @@
 import 'package:cabin_booking/model/cabin.dart';
 import 'package:cabin_booking/widgets/cabin/cabin_icon.dart';
+import 'package:cabin_booking/widgets/layout/item_info.dart';
 import 'package:cabin_booking/widgets/layout/submit_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:intl/intl.dart';
 
 class CabinForm extends StatefulWidget {
   final Cabin cabin;
@@ -116,6 +118,12 @@ class _CabinFormState extends State<CabinForm> {
               }
             },
           ),
+          if (widget.newCabinNumber == null)
+            ItemInfo(
+              creationDate: widget.cabin.creationDate,
+              modificationDate: widget.cabin.modificationDate,
+              modificationCount: widget.cabin.modificationCount,
+            ),
         ],
       ),
     );
