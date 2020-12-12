@@ -45,6 +45,7 @@ class _BookingFormState extends State<BookingForm> {
 
   TimeOfDay _startTime;
   TimeOfDay _endTime;
+  DateTime _endDate;
 
   @override
   void initState() {
@@ -58,6 +59,7 @@ class _BookingFormState extends State<BookingForm> {
     if (_booking is RecurringBooking) {
       _recurringBookingMethod = (_booking as RecurringBooking).method;
       _periodicityValue = (_booking as RecurringBooking).periodicity;
+      _endDate = (_booking as RecurringBooking).endDate;
     }
   }
 
@@ -342,6 +344,23 @@ class _BookingFormState extends State<BookingForm> {
                                 RecurringBookingMethod.EndDate,
                             autovalidateMode:
                                 AutovalidateMode.onUserInteraction,
+                            onTap: () async {
+                              final date = await showDatePicker(
+                                context: context,
+                                initialDate: _endDate ?? DateTime.now(),
+                                firstDate: DateTime.now(),
+                                lastDate: DateTime.now()
+                                    .add(const Duration(days: 365)),
+                              );
+
+                              if (date != null) {
+                                setState(() {
+                                  _endDate = date;
+                                  _endDateController.text =
+                                      DateFormat.yMd().format(date);
+                                });
+                              }
+                            },
                             validator: (value) {
                               if (!widget.isRecurring ||
                                   _recurringBookingMethod !=
