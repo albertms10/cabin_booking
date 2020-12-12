@@ -6,7 +6,6 @@ import 'package:cabin_booking/widgets/cabin/cabin_icon.dart';
 import 'package:cabin_booking/widgets/layout/centered_icon_message.dart';
 import 'package:cabin_booking/widgets/layout/data_table_toolbar.dart';
 import 'package:cabin_booking/widgets/layout/duration_figure_unit.dart';
-import 'package:cabin_booking/widgets/layout/figure_unit.dart';
 import 'package:cabin_booking/widgets/layout/wrapped_chip_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -85,7 +84,7 @@ class CabinsTable extends StatefulWidget {
   }
 }
 
-typedef _OnSortFunction = Function(bool ascending);
+typedef _OnSortFunction = void Function(bool ascending);
 
 class _CabinsTableState extends State<CabinsTable> {
   bool _sortAscending = true;
@@ -220,14 +219,6 @@ class _CabinsTableState extends State<CabinsTable> {
                   DataColumn(
                     label: Padding(
                       padding: const EdgeInsets.only(left: 8.0),
-                      child: Text(appLocalizations.occupancyRate),
-                    ),
-                    numeric: true,
-                    onSort: onSortColumn,
-                  ),
-                  DataColumn(
-                    label: Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
                       child: Text(
                         appLocalizations.mostOccupiedTimeRange,
                       ),
@@ -263,12 +254,22 @@ class _CabinsTableState extends State<CabinsTable> {
                           ),
                         ),
                         DataCell(
-                          DurationFigureUnit(cabinRow.accumulatedDuration),
-                        ),
-                        DataCell(
-                          FigureUnit(
-                            value: (cabinRow.occupancyRate * 100).round(),
-                            unit: '%',
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              DurationFigureUnit(cabinRow.accumulatedDuration),
+                              const SizedBox(height: 8.0),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 24.0),
+                                child: LinearProgressIndicator(
+                                  value: cabinRow.occupancyRate,
+                                  backgroundColor: Colors.blue[100],
+                                  semanticsLabel: 'Occupancy rate',
+                                  semanticsValue:
+                                      '${(cabinRow.occupancyRate * 100).round()} %',
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                         DataCell(
