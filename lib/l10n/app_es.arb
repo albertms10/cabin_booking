@@ -30,6 +30,7 @@
   "changesSaved": "Se han guardado los cambios",
   "disabled": "Desactivada",
   "description": "Descripción",
+  "noCabins": "Sin cabinas",
   "noCabinsMessage": "Añada una cabina para empezar",
   "accumulatedTime": "Tiempo acumulado",
   "occupancyRate": "Ocupación",

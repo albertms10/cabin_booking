@@ -30,6 +30,7 @@
   "changesSaved": "S’han desat els canvis",
   "disabled": "Desactivada",
   "description": "Descripció",
+  "noCabins": "Sense cabines",
   "noCabinsMessage": "Afegeix una cabina per començar",
   "accumulatedTime": "Temps acumulat",
   "occupancyRate": "Ocupació",
