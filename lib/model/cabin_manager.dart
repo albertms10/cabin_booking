@@ -145,8 +145,9 @@ class CabinManager with ChangeNotifier, FileManager {
   Future<List<Cabin>> readCabinsFromFile() async {
     try {
       final file = await localFile(_fileName);
+      final content = await file.readAsString();
 
-      final cabins = await compute(_parseCabins, await file.readAsString());
+      final cabins = await compute(_parseCabins, content);
 
       return cabins;
     } catch (e) {
