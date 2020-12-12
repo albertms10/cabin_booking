@@ -176,13 +176,14 @@ class _BookingFormState extends State<BookingForm> {
                         return null;
                       },
                       onTap: () async {
-                        if (Platform.isMacOS ||
-                            Platform.isWindows ||
-                            Platform.isLinux) return;
-
                         final time = await showTimePicker(
                           context: context,
                           initialTime: _startTime,
+                          initialEntryMode: Platform.isMacOS ||
+                                  Platform.isWindows ||
+                                  Platform.isLinux
+                              ? TimePickerEntryMode.input
+                              : TimePickerEntryMode.dial,
                         );
 
                         if (time != null) {
@@ -261,13 +262,14 @@ class _BookingFormState extends State<BookingForm> {
                         return null;
                       },
                       onTap: () async {
-                        if (Platform.isMacOS ||
-                            Platform.isWindows ||
-                            Platform.isLinux) return;
-
                         final time = await showTimePicker(
                           context: context,
                           initialTime: _endTime,
+                          initialEntryMode: Platform.isMacOS ||
+                                  Platform.isWindows ||
+                                  Platform.isLinux
+                              ? TimePickerEntryMode.input
+                              : TimePickerEntryMode.dial,
                         );
 
                         if (time != null) {
