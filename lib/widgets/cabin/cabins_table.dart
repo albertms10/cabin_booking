@@ -275,33 +275,32 @@ class _CabinsTableState extends State<CabinsTable> {
             setState(() => widget.unselect());
           },
           actions: [
-            IconButton(
-              onPressed: widget._selectedRows.length > 1
-                  ? null
-                  : () async {
-                      final cabinManager =
-                          Provider.of<CabinManager>(context, listen: false);
+            if (widget._selectedRows.length == 1)
+              IconButton(
+                onPressed: () async {
+                  final cabinManager =
+                      Provider.of<CabinManager>(context, listen: false);
 
-                      final selectedCabin = widget._selectedRows.first;
+                  final selectedCabin = widget._selectedRows.first;
 
-                      final editedCabin = await showDialog<Cabin>(
-                        context: context,
-                        builder: (context) => CabinDialog(
-                          cabin: Cabin(
-                            id: selectedCabin.id,
-                            number: selectedCabin.number,
-                            components: selectedCabin.components,
-                          ),
-                        ),
-                      );
+                  final editedCabin = await showDialog<Cabin>(
+                    context: context,
+                    builder: (context) => CabinDialog(
+                      cabin: Cabin(
+                        id: selectedCabin.id,
+                        number: selectedCabin.number,
+                        components: selectedCabin.components,
+                      ),
+                    ),
+                  );
 
-                      if (editedCabin != null) {
-                        cabinManager.modifyCabin(editedCabin);
-                      }
-                    },
-              icon: const Icon(Icons.edit),
-              tooltip: appLocalizations.edit,
-            ),
+                  if (editedCabin != null) {
+                    cabinManager.modifyCabin(editedCabin);
+                  }
+                },
+                icon: const Icon(Icons.edit),
+                tooltip: appLocalizations.edit,
+              ),
             IconButton(
               onPressed: widget.selectedAreBooked
                   ? () => widget.emptySelected(context)
