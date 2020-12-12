@@ -234,12 +234,22 @@ class _CabinsTableState extends State<CabinsTable> {
                               const SizedBox(height: 8.0),
                               Padding(
                                 padding: const EdgeInsets.only(left: 24.0),
-                                child: LinearProgressIndicator(
-                                  value: cabinRow.occupancyRate,
-                                  backgroundColor: Colors.blue[100],
-                                  semanticsLabel: 'Occupancy rate',
-                                  semanticsValue:
-                                      '${(cabinRow.occupancyRate * 100).round()} %',
+                                child: TweenAnimationBuilder<double>(
+                                  tween: Tween<double>(
+                                    begin: 0.0,
+                                    end: cabinRow.occupancyRate,
+                                  ),
+                                  duration: const Duration(milliseconds: 700),
+                                  curve: Curves.easeOutCubic,
+                                  builder: (context, value, child) {
+                                    return LinearProgressIndicator(
+                                      value: value,
+                                      backgroundColor: Colors.blue[100],
+                                      semanticsLabel: 'Occupancy rate',
+                                      semanticsValue:
+                                          '${(value * 100).round()} %',
+                                    );
+                                  },
                                 ),
                               ),
                             ],
