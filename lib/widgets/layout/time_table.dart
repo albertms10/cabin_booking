@@ -1,5 +1,5 @@
 import 'package:cabin_booking/widgets/booking/bookings_table.dart';
-import 'package:cabin_booking/widgets/cabin/cabins_row.dart';
+import 'package:cabin_booking/widgets/cabin/cabins_icons_row.dart';
 import 'package:flutter/material.dart';
 
 class TimeTable extends StatelessWidget {
@@ -10,7 +10,7 @@ class TimeTable extends StatelessWidget {
     return Expanded(
       child: Column(
         children: [
-          const CabinsRow(),
+          const CabinsIconsRow(),
           const Divider(height: 1),
           Expanded(
             child: ListView(

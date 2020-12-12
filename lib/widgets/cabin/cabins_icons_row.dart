@@ -5,8 +5,8 @@ import 'package:cabin_booking/widgets/cabin/cabin_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class CabinsRow extends StatelessWidget {
-  const CabinsRow();
+class CabinsIconsRow extends StatelessWidget {
+  const CabinsIconsRow();
 
   @override
   Widget build(BuildContext context) {
