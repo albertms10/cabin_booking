@@ -25,7 +25,7 @@ class CabinManager with ChangeNotifier, FileManager {
 
   static int _sortCabins(Cabin a, Cabin b) => a.number.compareTo(b.number);
 
-  int get lastCabinNumber => cabins.isNotEmpty ? cabins.last.number : 0;
+  int get lastCabinNumber => cabins.isEmpty ? 0 : cabins.last.number;
 
   List<DateTime> get allCabinsDatesWithBookings {
     final dates = <DateTime>[];
