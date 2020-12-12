@@ -82,7 +82,6 @@ class CabinManager with ChangeNotifier, FileManager {
   void addBooking(String cabinId, Booking booking) {
     fromId(booking.cabinId ?? cabinId).addBooking(booking);
 
-    // TODO: Improve notifier
     notifyListeners();
   }
 
@@ -90,7 +89,6 @@ class CabinManager with ChangeNotifier, FileManager {
     fromId(recurringBooking.cabinId ?? cabinId)
         .addRecurringBooking(recurringBooking);
 
-    // TODO: Improve notifier
     notifyListeners();
   }
 
@@ -102,7 +100,6 @@ class CabinManager with ChangeNotifier, FileManager {
       fromId(booking.cabinId).addBooking(booking);
     }
 
-    // TODO: Improve notifier
     notifyListeners();
   }
 
@@ -118,21 +115,18 @@ class CabinManager with ChangeNotifier, FileManager {
       fromId(recurringBooking.cabinId).addRecurringBooking(recurringBooking);
     }
 
-    // TODO: Improve notifier
     notifyListeners();
   }
 
   void removeBookingById(String cabinId, String bookingId) {
     fromId(cabinId).removeBookingById(bookingId);
 
-    // TODO: Improve notifier
     notifyListeners();
   }
 
   void removeRecurringBookingById(String cabinId, String bookingId) {
     fromId(cabinId).removeRecurringBookingById(bookingId);
 
-    // TODO: Improve notifier
     notifyListeners();
   }
 
