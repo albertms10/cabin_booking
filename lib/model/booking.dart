@@ -34,10 +34,11 @@ class Booking extends Item {
         timeStart = tryParseTimeOfDay(other['timeStart']),
         timeEnd = tryParseTimeOfDay(other['timeEnd']),
         isDisabled = other['isDisabled'],
-        super(id: other['id']);
+        super.from(other);
 
+  @override
   Map<String, dynamic> toMap() => {
-        'id': id,
+        ...super.toMap(),
         'studentName': studentName,
         'date': date.toIso8601String().split('T')[0],
         'timeStart': formatTimeOfDay(timeStart),

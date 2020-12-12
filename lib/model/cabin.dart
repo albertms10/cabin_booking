@@ -31,10 +31,11 @@ class Cabin extends Item {
           bookings: other['bookings'],
           recurringBookings: other['recurringBookings'],
         ),
-        super(id: other['id']);
+        super.from(other);
 
+  @override
   Map<String, dynamic> toMap() => {
-        'id': id,
+        ...super.toMap(),
         'number': number,
         'components': components.toMap(),
         'bookings': _bookingManager.bookingsToMapList(),
