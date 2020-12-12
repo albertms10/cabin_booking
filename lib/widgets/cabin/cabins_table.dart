@@ -43,16 +43,6 @@ class CabinsTable extends StatefulWidget {
   @override
   _CabinsTableState createState() => _CabinsTableState();
 
-  int get selectedItemsCount {
-    var count = 0;
-
-    for (final cabin in cabinRows) {
-      if (cabin.selected) count++;
-    }
-
-    return count;
-  }
-
   List<CabinTableRow> get _selectedRows =>
       cabinRows.where((cabin) => cabin.selected).toList();
 
@@ -296,8 +286,8 @@ class _CabinsTableState extends State<CabinsTable> {
           ],
         ),
         DataTableToolbar(
-          shown: widget.selectedItemsCount > 0,
-          selectedItems: widget.selectedItemsCount,
+          shown: widget._selectedRows.isNotEmpty,
+          selectedItems: widget._selectedRows.length,
           onPressedLeading: () {
             setState(() => widget.unselect());
           },
