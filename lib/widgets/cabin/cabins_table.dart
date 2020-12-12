@@ -277,7 +277,8 @@ class _CabinsTableState extends State<CabinsTable> {
                             child: WrappedChipList(
                               items: cabinRow.mostOccupiedTimeRanges,
                               maxChips: 1,
-                              labelBuilder: (context, timeRange) {
+                              labelBuilder:
+                                  (context, List<TimeOfDay> timeRange) {
                                 return Text(
                                   '${timeRange.first.format(context)}–${timeRange.last.format(context)}',
                                 );

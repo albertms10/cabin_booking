@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class WrappedChipList<T> extends StatelessWidget {
   final List<T> items;
-  final Function(BuildContext, T) labelBuilder;
+  final Widget Function(BuildContext, T) labelBuilder;
   final int maxChips;
 
   const WrappedChipList({
