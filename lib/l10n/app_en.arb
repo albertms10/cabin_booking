@@ -50,7 +50,9 @@
       "n": {}
     }
   },
+  "cancelSelection": "Cancel selection",
   "empty": "Empty",
+  "sortBy": "Sort by",
   "recurrence": "Recurrence",
   "doesNotRepeat": "Does not repeat",
   "repeats": "Repeats",

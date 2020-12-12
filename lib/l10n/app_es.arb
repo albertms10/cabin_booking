@@ -50,7 +50,9 @@
       "n": {}
     }
   },
+  "cancelSelection": "Cancelar la selección",
   "empty": "Vaciar",
+  "sortBy": "Ordenar por",
   "recurrence": "Repetición",
   "doesNotRepeat": "No se repite",
   "repeats": "Se repite",

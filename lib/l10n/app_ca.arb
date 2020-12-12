@@ -50,7 +50,9 @@
       "n": {}
     }
   },
+  "cancelSelection": "Cancel·la la selecció",
   "empty": "Buida",
+  "sortBy": "Ordena per",
   "recurrence": "Repetició",
   "doesNotRepeat": "No es repeteix",
   "repeats": "Es repeteix",

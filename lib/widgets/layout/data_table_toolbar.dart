@@ -28,6 +28,7 @@ class DataTableToolbar extends StatelessWidget {
               leading: IconButton(
                 onPressed: onPressedLeading,
                 icon: const Icon(Icons.close),
+                tooltip: AppLocalizations.of(context).cancelSelection,
               ),
               actions: actions,
             )
