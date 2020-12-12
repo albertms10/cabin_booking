@@ -115,6 +115,8 @@ class Booking extends Item {
     timeStart = booking.timeStart;
     timeEnd = booking.timeEnd;
     isDisabled = booking.isDisabled;
+
+    modify();
   }
 
   @override

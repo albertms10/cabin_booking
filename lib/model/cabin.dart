@@ -90,6 +90,8 @@ class Cabin extends Item {
   void replaceWith(Cabin cabin) {
     number = cabin.number;
     components = cabin.components;
+
+    modify();
   }
 
   void addBooking(Booking booking) => _bookingManager.addBooking(booking);
