@@ -1,4 +1,4 @@
-import 'package:cabin_booking/widgets/custom/floating_action_button/animated_floating_button_label.dart';
+import 'package:cabin_booking/widgets/standalone/floating_action_button/animated_floating_button_label.dart';
 import 'package:flutter/material.dart';
 
 class AnimatedChild extends AnimatedWidget {
