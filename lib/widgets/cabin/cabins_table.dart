@@ -1,5 +1,4 @@
 import 'package:cabin_booking/model/cabin.dart';
-import 'package:cabin_booking/model/cabin_components.dart';
 import 'package:cabin_booking/model/cabin_manager.dart';
 import 'package:cabin_booking/widgets/cabin/cabin_dialog.dart';
 import 'package:cabin_booking/widgets/cabin/cabin_icon.dart';
@@ -12,9 +11,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 class CabinTableRow {
-  final String id;
-  final int number;
-  final CabinComponents components;
+  final Cabin cabin;
   final int bookingsCount;
   final int recurringBookingsCount;
   final Duration accumulatedDuration;
@@ -23,9 +20,7 @@ class CabinTableRow {
   bool selected;
 
   CabinTableRow({
-    @required this.id,
-    @required this.number,
-    @required this.components,
+    @required this.cabin,
     this.bookingsCount = 0,
     this.recurringBookingsCount = 0,
     this.accumulatedDuration = const Duration(),
@@ -56,10 +51,10 @@ class CabinsTable extends StatefulWidget {
   _CabinsTableState createState() => _CabinsTableState();
 
   List<CabinTableRow> get _selectedRows =>
-      cabinRows.where((cabin) => cabin.selected).toList();
+      cabinRows.where((cabinRow) => cabinRow.selected).toList();
 
   List<String> get _selectedIds =>
-      _selectedRows.map((cabin) => cabin.id).toList();
+      _selectedRows.map((cabinRow) => cabinRow.cabin.id).toList();
 
   bool get selectedAreBooked {
     for (final row in _selectedRows) {
@@ -94,9 +89,9 @@ class _CabinsTableState extends State<CabinsTable> {
 
   void _onSortNumber(bool ascending) {
     if (ascending) {
-      widget.cabinRows.sort((a, b) => a.number.compareTo(b.number));
+      widget.cabinRows.sort((a, b) => a.cabin.number.compareTo(b.cabin.number));
     } else {
-      widget.cabinRows.sort((a, b) => b.number.compareTo(a.number));
+      widget.cabinRows.sort((a, b) => b.cabin.number.compareTo(a.cabin.number));
     }
   }
 
@@ -212,7 +207,7 @@ class _CabinsTableState extends State<CabinsTable> {
                       },
                       cells: [
                         DataCell(
-                          CabinIcon(number: cabinRow.number),
+                          CabinIcon(number: cabinRow.cabin.number),
                         ),
                         DataCell(
                           Text(
@@ -296,11 +291,7 @@ class _CabinsTableState extends State<CabinsTable> {
                   final editedCabin = await showDialog<Cabin>(
                     context: context,
                     builder: (context) => CabinDialog(
-                      cabin: Cabin(
-                        id: selectedCabin.id,
-                        number: selectedCabin.number,
-                        components: selectedCabin.components,
-                      ),
+                      cabin: selectedCabin.cabin,
                     ),
                   );
 

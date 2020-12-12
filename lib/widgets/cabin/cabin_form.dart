@@ -5,7 +5,6 @@ import 'package:cabin_booking/widgets/layout/submit_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:intl/intl.dart';
 
 class CabinForm extends StatefulWidget {
   final Cabin cabin;

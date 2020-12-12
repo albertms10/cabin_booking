@@ -16,9 +16,7 @@ class CabinsPage extends StatelessWidget {
           cabinRows: [
             for (final cabin in cabinManager.cabins)
               CabinTableRow(
-                id: cabin.id,
-                number: cabin.number,
-                components: cabin.components,
+                cabin: cabin,
                 bookingsCount: cabin.bookings.length,
                 recurringBookingsCount:
                     cabin.generatedBookingsFromRecurring.length,
