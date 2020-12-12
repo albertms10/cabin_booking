@@ -16,6 +16,7 @@
   "nextDay": "Día siguiente",
   "start": "Inicio",
   "end": "Final",
+  "enterValue": "Introduzca un valor",
   "enterStudentName": "Introduzca el nombre del / de la estudiante",
   "enterDescription": "Introduzca la descripción",
   "enterStartTime": "Introduzca la hora de inicio",
@@ -56,5 +57,9 @@
   "daily": "Cada día",
   "weekly": "Cada semana",
   "monthly": "Cada mes",
-  "annually": "Anualmente"
+  "annually": "Anualmente",
+  "pianos": "Pianos",
+  "lecterns": "Atriles",
+  "chairs": "Sillas",
+  "tables": "Mesas"
 }
