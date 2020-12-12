@@ -1,5 +1,6 @@
 import 'package:cabin_booking/model/cabin_manager.dart';
 import 'package:cabin_booking/model/day_handler.dart';
+import 'package:cabin_booking/model/school_year_manager.dart';
 import 'package:cabin_booking/widgets/pages/home_page.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -19,12 +20,9 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider<CabinManager>(
-          create: (context) => CabinManager(),
-        ),
-        ChangeNotifierProvider<DayHandler>(
-          create: (context) => DayHandler(),
-        ),
+        ChangeNotifierProvider(create: (context) => SchoolYearManager()),
+        ChangeNotifierProvider(create: (context) => CabinManager()),
+        ChangeNotifierProvider(create: (context) => DayHandler()),
       ],
       child: const CabinBookingApp(),
     ),
