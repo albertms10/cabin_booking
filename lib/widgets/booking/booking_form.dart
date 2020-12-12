@@ -17,7 +17,7 @@ import 'package:provider/provider.dart';
 class BookingForm extends StatefulWidget {
   final Booking booking;
   final bool isRecurring;
-  final Function(bool) setIsRecurring;
+  final void Function(bool) setIsRecurring;
 
   const BookingForm({
     this.booking,

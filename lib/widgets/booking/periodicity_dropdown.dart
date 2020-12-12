@@ -4,7 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PeriodicityListTile extends StatelessWidget {
   final Periodicity value;
-  final Function(Periodicity) onChanged;
+  final void Function(Periodicity) onChanged;
 
   const PeriodicityListTile({
     Key key,

@@ -3,7 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SubmitButton extends StatelessWidget {
   final bool shouldAdd;
-  final Function onPressed;
+  final void Function() onPressed;
 
   const SubmitButton({this.shouldAdd = false, this.onPressed});
 

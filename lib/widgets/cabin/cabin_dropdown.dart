@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 
 class CabinDropdown extends StatelessWidget {
   final String value;
-  final Function(String) onChanged;
+  final void Function(String) onChanged;
 
   const CabinDropdown({
     this.value,
