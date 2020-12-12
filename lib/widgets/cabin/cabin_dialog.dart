@@ -17,7 +17,7 @@ class CabinDialog extends StatelessWidget {
         AppLocalizations.of(context).cabin,
       ),
       content: SizedBox(
-        width: 500.0,
+        width: 250.0,
         child: CabinForm(
           cabin: cabin,
           newCabinNumber: newCabinNumber,
