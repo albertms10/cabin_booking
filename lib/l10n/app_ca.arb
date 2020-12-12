@@ -63,5 +63,25 @@
   "pianos": "Pianos",
   "lecterns": "Faristols",
   "chairs": "Cadires",
-  "tables": "Taules"
+  "tables": "Taules",
+  "createdOn": "{day, plural, =1 {Creat l’{date}} =11 {Creat l’{date}} other {Creat el {date}}}",
+  "@createdOn": {
+    "placeholders": {
+      "day": {},
+      "date": {}
+    }
+  },
+  "modifiedOn": "{day, plural, =1 {Modificat l’{date}} =11 {Modificat l’{date}} other {Modificat el {date}}}",
+  "@modifiedOn": {
+    "placeholders": {
+      "day": {},
+      "date": {}
+    }
+  },
+  "nModifications": "{n, plural, =1 {{n} modificació} other {{n} modificacions}}",
+  "@nModifications": {
+    "placeholders": {
+      "n": {}
+    }
+  }
 }

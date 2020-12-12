@@ -63,5 +63,25 @@
   "pianos": "Pianos",
   "lecterns": "Lecterns",
   "chairs": "Chairs",
-  "tables": "Tables"
+  "tables": "Tables",
+  "createdOn": "{day, plural, other {Created on {date}}}",
+  "@createdOn": {
+    "placeholders": {
+      "day": {},
+      "date": {}
+    }
+  },
+  "modifiedOn": "{day, plural, other {Modified on {date}}}",
+  "@modifiedOn": {
+    "placeholders": {
+      "day": {},
+      "date": {}
+    }
+  },
+  "nModifications": "{n, plural, =1 {{n} modification} other {{n} modifications}}",
+  "@nModifications": {
+    "placeholders": {
+      "n": {}
+    }
+  }
 }
