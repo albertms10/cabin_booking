@@ -11,7 +11,7 @@ class Cabin extends Item {
   final BookingManager _bookingManager;
 
   Cabin({
-    id,
+    String id,
     this.number,
     this.components,
     List<Booking> bookings,

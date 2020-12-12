@@ -1,4 +1,5 @@
 import 'package:cabin_booking/model/booking.dart';
+import 'package:flutter/material.dart';
 
 class RecurringBooking extends Booking {
   Periodicity periodicity;
@@ -8,17 +9,17 @@ class RecurringBooking extends Booking {
   int _occurrences;
 
   RecurringBooking({
-    id,
-    studentName,
-    date,
-    timeStart,
-    timeEnd,
-    isDisabled = false,
-    cabinId,
+    String id,
+    String studentName,
+    DateTime date,
+    TimeOfDay timeStart,
+    TimeOfDay timeEnd,
+    bool isDisabled = false,
+    String cabinId,
     this.periodicity = Periodicity.Weekly,
     this.repeatEvery = 1,
-    endDate,
-    occurrences,
+    DateTime endDate,
+    int occurrences,
   })  : assert((endDate == null) != (occurrences == null)),
         _endDate = endDate,
         _occurrences = occurrences,

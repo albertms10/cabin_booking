@@ -16,7 +16,7 @@ class Booking extends Item {
   int recurringTotalTimes;
 
   Booking({
-    id,
+    String id,
     this.studentName,
     this.date,
     this.timeStart,
