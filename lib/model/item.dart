@@ -15,7 +15,9 @@ abstract class Item {
   Item.from(Map<String, dynamic> other)
       : id = other['id'],
         creationDate = DateTime.tryParse(other['creationDate']),
-        modificationDate = DateTime.tryParse(other['modificationDate']),
+        modificationDate = other.containsKey('modificationDate')
+            ? DateTime.tryParse(other['modificationDate'])
+            : null,
         modificationCount = other['modificationCount'];
 
   Map<String, dynamic> toMap() => {
