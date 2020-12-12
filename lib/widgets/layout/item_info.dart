@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 
 class ItemInfo extends StatelessWidget {
@@ -14,16 +15,29 @@ class ItemInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appLocalizations = AppLocalizations.of(context);
+
     return Column(
       children: [
         const SizedBox(height: 16.0),
         Text(
-          'Created on ${DateFormat.yMMMd().format(creationDate)}',
+          appLocalizations.createdOn(
+            creationDate.day,
+            DateFormat.yMMMd().format(creationDate),
+          ),
           style: Theme.of(context).textTheme.caption,
         ),
         if (modificationDate != null)
           Text(
-            'Modified on ${DateFormat.yMMMd().format(modificationDate)} (${modificationCount})',
+            appLocalizations.modifiedOn(
+              modificationDate.day,
+              DateFormat.yMMMd().format(modificationDate),
+            ),
+            style: Theme.of(context).textTheme.caption,
+          ),
+        if (modificationCount > 1)
+          Text(
+            appLocalizations.nModifications(modificationCount),
             style: Theme.of(context).textTheme.caption,
           ),
       ],
