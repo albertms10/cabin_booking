@@ -10,7 +10,7 @@ class RecurringBooking extends Booking {
 
   RecurringBooking({
     String id,
-    String studentName,
+    String description,
     DateTime date,
     TimeOfDay timeStart,
     TimeOfDay timeEnd,
@@ -25,7 +25,7 @@ class RecurringBooking extends Booking {
         _occurrences = occurrences,
         super(
           id: id,
-          studentName: studentName,
+          description: description,
           date: date,
           timeStart: timeStart,
           timeEnd: timeEnd,
@@ -48,7 +48,7 @@ class RecurringBooking extends Booking {
         repeatEvery = 1,
         super(
           id: booking.id,
-          studentName: booking.studentName,
+          description: booking.description,
           date: booking.date,
           timeStart: booking.timeStart,
           timeEnd: booking.timeEnd,
@@ -117,7 +117,7 @@ class RecurringBooking extends Booking {
 
   Booking asBooking() => Booking(
         id: '$id-0',
-        studentName: studentName,
+        description: description,
         date: date,
         timeStart: timeStart,
         timeEnd: timeEnd,

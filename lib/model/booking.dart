@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class Booking extends Item {
-  String studentName;
+  String description;
   DateTime date;
   TimeOfDay timeStart;
   TimeOfDay timeEnd;
@@ -17,7 +17,7 @@ class Booking extends Item {
 
   Booking({
     String id,
-    this.studentName,
+    this.description,
     this.date,
     this.timeStart,
     this.timeEnd,
@@ -29,7 +29,7 @@ class Booking extends Item {
   }) : super(id: id);
 
   Booking.from(Map<String, dynamic> other)
-      : studentName = other['studentName'],
+      : description = other['description'],
         date = DateTime.tryParse(other['date']),
         timeStart = tryParseTimeOfDay(other['timeStart']),
         timeEnd = tryParseTimeOfDay(other['timeEnd']),
@@ -39,7 +39,7 @@ class Booking extends Item {
   @override
   Map<String, dynamic> toMap() => {
         ...super.toMap(),
-        'studentName': studentName,
+        'description': description,
         'date': date.toIso8601String().split('T')[0],
         'timeStart': formatTimeOfDay(timeStart),
         'timeEnd': formatTimeOfDay(timeEnd),
@@ -70,7 +70,7 @@ class Booking extends Item {
 
   Booking movedTo(DateTime dateTime) => Booking(
         id: id,
-        studentName: studentName,
+        description: description,
         date: dateTime,
         timeStart: TimeOfDay.fromDateTime(dateStart),
         timeEnd: TimeOfDay.fromDateTime(dateEnd),
@@ -110,7 +110,7 @@ class Booking extends Item {
   }
 
   void replaceWith(Booking booking) {
-    studentName = booking.studentName;
+    description = booking.description;
     date = booking.date;
     timeStart = booking.timeStart;
     timeEnd = booking.timeEnd;
@@ -121,7 +121,7 @@ class Booking extends Item {
 
   @override
   String toString() =>
-      '$studentName $dateRange ${isDisabled ? ' (disabled)' : ''}';
+      '$description $dateRange ${isDisabled ? ' (disabled)' : ''}';
 
   @override
   bool operator ==(other) => other is Booking && id == other.id;

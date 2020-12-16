@@ -28,7 +28,7 @@ class BookingCard extends StatelessWidget {
       return Container(
         margin: const EdgeInsets.all(8.0),
         child: Tooltip(
-          message: '${booking.studentName} '
+          message: '${booking.description} '
               '(${AppLocalizations.of(context).disabled.toLowerCase()})',
           child: InkWell(
             onTap: () {},
@@ -80,7 +80,7 @@ class BookingCard extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(booking.studentName),
+                      Text(booking.description),
                       Text(
                         booking.timeRange,
                         style: const TextStyle(color: Colors.black38),

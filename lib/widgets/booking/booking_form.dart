@@ -98,18 +98,20 @@ class _BookingFormState extends State<BookingForm> {
           ),
           const SizedBox(height: 24.0),
           TextFormField(
-            initialValue: widget.booking.studentName,
+            initialValue: widget.booking.description,
             autofocus: true,
             autovalidateMode: AutovalidateMode.onUserInteraction,
-            validator: (String value) {
+            validator: (value) {
               if (value.isEmpty) {
-                return appLocalizations.enterStudentName;
+                return _booking.isDisabled
+                    ? appLocalizations.enterDescription
+                    : appLocalizations.enterStudentName;
               }
 
               return null;
             },
             onSaved: (value) {
-              _booking.studentName = value;
+              _booking.description = value;
             },
             decoration: InputDecoration(
               labelText: _booking.isDisabled
@@ -440,7 +442,7 @@ class _BookingFormState extends State<BookingForm> {
           ),
           const SizedBox(height: 32.0),
           SubmitButton(
-            shouldAdd: widget.booking.studentName == null,
+            shouldAdd: widget.booking.description == null,
             onPressed: () {
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();
@@ -468,7 +470,7 @@ class _BookingFormState extends State<BookingForm> {
               }
             },
           ),
-          if (widget.booking.studentName != null)
+          if (widget.booking.description != null)
             ItemInfo(
               creationDate: widget.booking.creationDate,
               modificationDate: widget.booking.modificationDate,
