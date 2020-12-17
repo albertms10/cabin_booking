@@ -4,7 +4,6 @@ import 'animated_child.dart';
 import 'animated_floating_button.dart';
 import 'background_overlay.dart';
 
-/// Builds the Speed Dial
 /// Source: https://pub.dev/packages/flutter_speed_dial
 class FloatingActionButtonMenu extends StatefulWidget {
   /// Children buttons, from the lowest to the highest.
@@ -30,7 +29,7 @@ class FloatingActionButtonMenu extends StatefulWidget {
   /// The color of the background overlay.
   final Color overlayColor;
 
-  /// The opacity of the background overlay when the dial is open.
+  /// The opacity of the background overlay when the menu is open.
   final double overlayOpacity;
 
   /// The animated icon to show as the main button child. If this is provided the [child] is ignored.
@@ -42,16 +41,16 @@ class FloatingActionButtonMenu extends StatefulWidget {
   /// The child of the main button, ignored if [animatedIcon] is non-[null].
   final Widget child;
 
-  /// Executed when the dial is opened.
+  /// Executed when the menu is opened.
   final VoidCallback onOpen;
 
-  /// Executed when the dial is closed.
+  /// Executed when the menu is closed.
   final VoidCallback onClose;
 
-  /// Executed when the dial is pressed. If given, the dial only opens on long press!
+  /// Executed when the menu is pressed. If given, the menu only opens on long press!
   final VoidCallback onPressed;
 
-  /// If `true` [overlay] is not rendered and user is forced to close dial manually by tapping main button.
+  /// If `true` [overlay] is not rendered and user is forced to close the menu manually by tapping main button.
   final bool closeManually;
 
   /// The speed of the animation
