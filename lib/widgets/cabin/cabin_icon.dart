@@ -8,7 +8,7 @@ class CabinIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = 52.0;
+    final radius = 28.0;
     final showProgress = progress != null;
 
     final text = Text(
@@ -24,8 +24,8 @@ class CabinIcon extends StatelessWidget {
         alignment: Alignment.center,
         children: [
           SizedBox(
-            width: size,
-            height: size,
+            width: radius * 2,
+            height: radius * 2,
             child: TweenAnimationBuilder<double>(
               tween: Tween<double>(begin: 0.0, end: progress),
               duration: const Duration(milliseconds: 700),
@@ -43,14 +43,9 @@ class CabinIcon extends StatelessWidget {
       );
     }
 
-    return Container(
-      width: size,
-      height: size,
-      padding: const EdgeInsets.all(12.0),
-      decoration: BoxDecoration(
-        color: Colors.blue[400],
-        shape: BoxShape.circle,
-      ),
+    return CircleAvatar(
+      radius: radius,
+      backgroundColor: Colors.blue[400],
       child: text,
     );
   }
