@@ -168,6 +168,7 @@ class _CabinsTableState extends State<CabinsTable> {
     return Stack(
       children: [
         ListView(
+          key: const PageStorageKey('CabinsListView'),
           children: [
             Padding(
               padding: const EdgeInsets.only(top: 54.0),

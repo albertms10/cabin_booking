@@ -14,6 +14,7 @@ class TimeTable extends StatelessWidget {
           const Divider(height: 1),
           Expanded(
             child: ListView(
+              key: const PageStorageKey('BookingsListView'),
               children: const [
                 Padding(
                   padding: EdgeInsets.only(top: 16.0),
