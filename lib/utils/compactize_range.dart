@@ -1,9 +1,9 @@
-List<List<T>> compactizeRange<T>(
+Set<List<T>> compactizeRange<T>(
   Set<T> rangeSet, {
   T Function(T a) nextValue,
   inclusive = false,
 }) {
-  if (rangeSet.isEmpty) return [];
+  if (rangeSet.isEmpty) return {};
 
   if (T == int) {
     nextValue ??= (a) => ((a as int) + 1) as T;
@@ -11,7 +11,7 @@ List<List<T>> compactizeRange<T>(
     assert(nextValue != null);
   }
 
-  final ranges = <List<T>>[];
+  final ranges = <List<T>>{};
 
   var start = rangeSet.first;
   T b;

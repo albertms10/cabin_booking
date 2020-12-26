@@ -27,8 +27,8 @@ class CabinManager with ChangeNotifier, FileManager {
 
   int get lastCabinNumber => cabins.isEmpty ? 0 : cabins.last.number;
 
-  List<DateTime> get allCabinsDatesWithBookings {
-    final dates = <DateTime>[];
+  Set<DateTime> get allCabinsDatesWithBookings {
+    final dates = <DateTime>{};
 
     for (final cabin in cabins) {
       for (final dateTime in cabin.datesWithBookings) {

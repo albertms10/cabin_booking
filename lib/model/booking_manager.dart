@@ -113,17 +113,17 @@ class BookingManager with ChangeNotifier {
         maxViewDuration.inMicroseconds;
   }
 
-  List<DateTime> get datesWithBookings {
-    final dates = <DateTime>[];
+  Set<DateTime> get datesWithBookings {
+    final dates = <DateTime>{};
 
     for (final booking in allBookings) {
-      final hasDate = dates.firstWhere(
+      final shouldAddDate = dates.firstWhere(
             (date) => isSameDay(date, booking.date),
             orElse: () => null,
           ) !=
           null;
 
-      if (!hasDate) dates.add(booking.date);
+      if (!shouldAddDate) dates.add(booking.date);
     }
 
     return dates;
@@ -132,7 +132,7 @@ class BookingManager with ChangeNotifier {
   double occupiedRatio({
     @required TimeOfDay startTime,
     @required TimeOfDay endTime,
-    List<DateTime> dates,
+    Set<DateTime> dates,
   }) {
     var runningRatio = 0.0;
     var count = 0;

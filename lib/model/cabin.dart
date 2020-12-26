@@ -70,12 +70,12 @@ class Cabin extends Item {
         endTime: endTime,
       );
 
-  List<DateTime> get datesWithBookings => _bookingManager.datesWithBookings;
+  Set<DateTime> get datesWithBookings => _bookingManager.datesWithBookings;
 
   double occupiedRatio({
     @required TimeOfDay startTime,
     @required TimeOfDay endTime,
-    List<DateTime> dates,
+    Set<DateTime> dates,
   }) =>
       _bookingManager.occupiedRatio(
         startTime: startTime,

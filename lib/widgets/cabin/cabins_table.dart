@@ -16,7 +16,7 @@ class CabinTableRow {
   final int recurringBookingsCount;
   final Duration accumulatedDuration;
   final double occupancyRate;
-  final List<List<TimeOfDay>> mostOccupiedTimeRanges;
+  final Set<List<TimeOfDay>> mostOccupiedTimeRanges;
   bool selected;
 
   CabinTableRow({
@@ -25,7 +25,7 @@ class CabinTableRow {
     this.recurringBookingsCount = 0,
     this.accumulatedDuration = const Duration(),
     this.occupancyRate = 0.0,
-    this.mostOccupiedTimeRanges = const [],
+    this.mostOccupiedTimeRanges = const {},
     this.selected = false,
   });
 }
@@ -256,7 +256,7 @@ class _CabinsTableState extends State<CabinsTable> {
                           Padding(
                             padding: const EdgeInsets.only(left: 8.0),
                             child: WrappedChipList(
-                              items: cabinRow.mostOccupiedTimeRanges,
+                              items: cabinRow.mostOccupiedTimeRanges.toList(),
                               maxChips: 1,
                               labelBuilder:
                                   (context, List<TimeOfDay> timeRange) {
