@@ -121,7 +121,7 @@ class Booking extends Item {
 
   @override
   String toString() =>
-      '$description $dateRange ${isDisabled ? ' (disabled)' : ''}';
+      '$description $dateRange${isDisabled ? ' (disabled)' : ''}';
 
   @override
   bool operator ==(other) => other is Booking && id == other.id;
