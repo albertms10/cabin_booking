@@ -72,6 +72,9 @@ class Cabin extends Item {
 
   Set<DateTime> get datesWithBookings => _bookingManager.datesWithBookings;
 
+  Map<DateTime, int> get allBookingsCountPerDay =>
+      _bookingManager.allBookingsCountPerDay;
+
   double occupiedRatio({
     @required TimeOfDay startTime,
     @required TimeOfDay endTime,

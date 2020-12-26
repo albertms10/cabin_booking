@@ -129,6 +129,20 @@ class BookingManager with ChangeNotifier {
     return dates;
   }
 
+  Map<DateTime, int> get allBookingsCountPerDay {
+    final bookingsPerDay = <DateTime, int>{};
+
+    for (final booking in allBookings) {
+      if (bookingsPerDay[booking.date] != null) {
+        bookingsPerDay[booking.date] += 1;
+      } else {
+        bookingsPerDay[booking.date] = 1;
+      }
+    }
+
+    return bookingsPerDay;
+  }
+
   double occupiedRatio({
     @required TimeOfDay startTime,
     @required TimeOfDay endTime,

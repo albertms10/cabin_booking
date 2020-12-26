@@ -36,6 +36,22 @@ class CabinManager with ChangeNotifier, FileManager {
     return dates;
   }
 
+  Map<DateTime, int> get allCabinsBookingsCountPerDay {
+    final bookingsPerDay = <DateTime, int>{};
+
+    for (final cabin in cabins) {
+      for (final bookingsCount in cabin.allBookingsCountPerDay.entries) {
+        if (bookingsPerDay.containsKey(bookingsCount.key)) {
+          bookingsPerDay[bookingsCount.key] += bookingsCount.value;
+        } else {
+          bookingsPerDay[bookingsCount.key] = bookingsCount.value;
+        }
+      }
+    }
+
+    return bookingsPerDay;
+  }
+
   int get allBookingsCount {
     var count = 0;
 
