@@ -13,11 +13,11 @@ class WrappedChipList<T> extends StatelessWidget {
     this.maxChips,
   });
 
+  int get maxShown =>
+      maxChips == null ? items.length : min(maxChips, items.length);
+
   @override
   Widget build(BuildContext context) {
-    final maxShown =
-        maxChips == null ? items.length : min(maxChips, items.length);
-
     return Wrap(
       spacing: 8.0,
       runSpacing: 6.0,

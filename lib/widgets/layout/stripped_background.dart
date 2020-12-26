@@ -12,10 +12,10 @@ class StrippedBackground extends StatelessWidget {
     this.height = 60.0 * bookingHeightRatio,
   });
 
+  int get rowCount => endTime.hour - startTime.hour + 1;
+
   @override
   Widget build(BuildContext context) {
-    final rowCount = endTime.hour - startTime.hour + 1;
-
     return Column(
       mainAxisSize: MainAxisSize.max,
       children: [

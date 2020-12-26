@@ -6,11 +6,12 @@ class DurationFigureUnit extends StatelessWidget {
 
   const DurationFigureUnit(this.duration, {Key key}) : super(key: key);
 
+  int get hours => duration.inHours;
+
+  int get minutes => duration.inMinutes % Duration.minutesPerHour;
+
   @override
   Widget build(BuildContext context) {
-    final hours = duration.inHours;
-    final minutes = duration.inMinutes % Duration.minutesPerHour;
-
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [

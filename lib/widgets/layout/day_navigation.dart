@@ -7,12 +7,13 @@ import 'package:provider/provider.dart';
 class DayNavigation extends StatelessWidget {
   const DayNavigation();
 
+  double get splashRadius => 22.0;
+
   @override
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context);
 
     final dayHandler = Provider.of<DayHandler>(context, listen: false);
-    final splashRadius = 22.0;
 
     return Row(
       children: [
