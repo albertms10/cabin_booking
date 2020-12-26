@@ -5,7 +5,6 @@ import 'package:cabin_booking/model/recurring_booking.dart';
 import 'package:cabin_booking/widgets/booking/booking_popup_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:timer_builder/timer_builder.dart';
 
 class BookingCard extends StatelessWidget {
@@ -18,41 +17,13 @@ class BookingCard extends StatelessWidget {
     @required this.booking,
   }) : super(key: key);
 
+  double get height => booking.duration.inMinutes * bookingHeightRatio - 16.0;
+
+  bool get isRecurring =>
+      booking is RecurringBooking || booking.recurringBookingId != null;
+
   @override
   Widget build(BuildContext context) {
-    final height = booking.duration.inMinutes * bookingHeightRatio - 16.0;
-    final isRecurring =
-        booking is RecurringBooking || booking.recurringBookingId != null;
-
-    if (booking.isDisabled) {
-      return Container(
-        margin: const EdgeInsets.all(8.0),
-        child: Tooltip(
-          message: '${booking.description} '
-              '(${AppLocalizations.of(context).disabled.toLowerCase()})',
-          child: InkWell(
-            onTap: () {},
-            mouseCursor: MouseCursor.defer,
-            borderRadius: const BorderRadius.all(Radius.circular(4.0)),
-            child: Container(
-              height: height,
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Expanded(child: SizedBox()),
-                  BookingPopupMenu(
-                    cabin: cabin,
-                    booking: booking,
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      );
-    }
-
     return TimerBuilder.periodic(
       const Duration(minutes: 1),
       builder: (context) {
