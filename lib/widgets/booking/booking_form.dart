@@ -68,6 +68,8 @@ class _BookingFormState extends State<BookingForm> {
   void dispose() {
     _startTimeController.dispose();
     _endTimeController.dispose();
+    _endDateController.dispose();
+    _occurrencesController.dispose();
 
     super.dispose();
   }
