@@ -3,6 +3,7 @@ import 'package:cabin_booking/widgets/cabin/cabin_floating_action_button.dart';
 import 'package:cabin_booking/widgets/pages/bookings_page.dart';
 import 'package:cabin_booking/widgets/pages/cabins_page.dart';
 import 'package:cabin_booking/widgets/pages/main_content.dart';
+import 'package:cabin_booking/widgets/pages/summary_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -14,9 +15,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _selectedIndex = 1;
+  int _selectedIndex = 0;
 
   final _floatingActionButtons = const [
+    SizedBox(),
     CabinFloatingActionButton(),
     BookingFloatingActionButton(),
   ];
@@ -41,6 +43,11 @@ class _HomePageState extends State<HomePage> {
               labelType: NavigationRailLabelType.selected,
               destinations: [
                 NavigationRailDestination(
+                  icon: const Icon(Icons.home_outlined),
+                  selectedIcon: const Icon(Icons.home),
+                  label: Text(appLocalizations.summary),
+                ),
+                NavigationRailDestination(
                   icon: const Icon(Icons.sensor_door_outlined),
                   selectedIcon: const Icon(Icons.sensor_door),
                   label: Text(appLocalizations.cabins),
@@ -52,11 +59,12 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             ),
-           const VerticalDivider(thickness: 1, width: 1),
+            const VerticalDivider(thickness: 1, width: 1),
             Expanded(
               child: MainContent(
                 railIndex: _selectedIndex,
                 pages: const [
+                  SummaryPage(),
                   CabinsPage(),
                   BookingsPage(),
                 ],
