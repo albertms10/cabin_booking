@@ -10,10 +10,10 @@ class CabinFloatingActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cabinManager = Provider.of<CabinManager>(context, listen: false);
-
     return FloatingActionButton(
       onPressed: () async {
+        final cabinManager = Provider.of<CabinManager>(context, listen: false);
+
         final newCabin = await showDialog<Cabin>(
           context: context,
           builder: (context) => CabinDialog(

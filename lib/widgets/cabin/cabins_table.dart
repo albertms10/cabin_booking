@@ -148,7 +148,6 @@ class _CabinsTableState extends State<CabinsTable> {
   @override
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context);
-    final theme = Theme.of(context);
 
     if (widget.cabinRows.isEmpty) {
       return CenteredIconMessage(
@@ -156,6 +155,8 @@ class _CabinsTableState extends State<CabinsTable> {
         message: appLocalizations.noCabinsMessage,
       );
     }
+
+    final theme = Theme.of(context);
 
     final columns = [
       CabinTableColumn(appLocalizations.cabin, numeric: false),

@@ -14,13 +14,12 @@ class BookingFloatingActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return Consumer2<DayHandler, CabinManager>(
       builder: (context, dayHandler, cabinManager, child) {
-        final appLocalizations = AppLocalizations.of(context);
-
         if (cabinManager.cabins.isEmpty) return const SizedBox();
+
+        final theme = Theme.of(context);
+        final appLocalizations = AppLocalizations.of(context);
 
         return FloatingActionButtonMenu(
           animatedIcon: AnimatedIcons.add_event,
