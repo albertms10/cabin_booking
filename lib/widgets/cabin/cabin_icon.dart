@@ -10,47 +10,48 @@ class CabinIcon extends StatelessWidget {
     this.progress,
   }) : super(key: key);
 
+  double get radius => 28.0;
+
+  bool get shouldShowProgress => progress != null;
+
   @override
   Widget build(BuildContext context) {
-    final radius = 28.0;
-    final showProgress = progress != null;
-
     final text = Text(
       '$number',
       style: Theme.of(context).accentTextTheme.headline5.copyWith(
-            color: showProgress ? Colors.blue : null,
+            color: shouldShowProgress ? Colors.blue : null,
           ),
       textAlign: TextAlign.center,
     );
 
-    if (showProgress) {
-      return Stack(
-        alignment: Alignment.center,
-        children: [
-          SizedBox(
-            width: radius * 2,
-            height: radius * 2,
-            child: TweenAnimationBuilder<double>(
-              tween: Tween<double>(begin: 0.0, end: progress),
-              duration: const Duration(milliseconds: 700),
-              curve: Curves.easeOutCubic,
-              builder: (context, value, child) {
-                return CircularProgressIndicator(
-                  value: value,
-                  backgroundColor: Colors.blue[100],
-                );
-              },
-            ),
-          ),
-          text,
-        ],
+    if (!shouldShowProgress) {
+      return CircleAvatar(
+        radius: radius,
+        backgroundColor: Colors.blue[400],
+        child: text,
       );
     }
 
-    return CircleAvatar(
-      radius: radius,
-      backgroundColor: Colors.blue[400],
-      child: text,
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        SizedBox(
+          width: radius * 2,
+          height: radius * 2,
+          child: TweenAnimationBuilder<double>(
+            tween: Tween<double>(begin: 0.0, end: progress),
+            duration: const Duration(milliseconds: 700),
+            curve: Curves.easeOutCubic,
+            builder: (context, value, child) {
+              return CircularProgressIndicator(
+                value: value,
+                backgroundColor: Colors.blue[100],
+              );
+            },
+          ),
+        ),
+        text,
+      ],
     );
   }
 }
