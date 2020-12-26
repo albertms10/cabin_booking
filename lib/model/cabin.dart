@@ -49,6 +49,8 @@ class Cabin extends Item {
   List<RecurringBooking> get recurringBookings =>
       _bookingManager.recurringBookings;
 
+  List<Booking> get allBookings => _bookingManager.allBookings;
+
   List<Booking> get generatedBookingsFromRecurring =>
       _bookingManager.generatedBookingsFromRecurring;
 

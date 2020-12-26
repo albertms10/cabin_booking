@@ -45,6 +45,36 @@ class CabinManager with ChangeNotifier, FileManager {
     return dates;
   }
 
+  int get allBookingsCount {
+    var count = 0;
+
+    for (final cabin in cabins) {
+      count += cabin.allBookings.length;
+    }
+
+    return count;
+  }
+
+  int get bookingsCount {
+    var count = 0;
+
+    for (final cabin in cabins) {
+      count += cabin.bookings.length;
+    }
+
+    return count;
+  }
+
+  int get recurringBookingsCount {
+    var count = 0;
+
+    for (final cabin in cabins) {
+      count += cabin.generatedBookingsFromRecurring.length;
+    }
+
+    return count;
+  }
+
   void addCabin(Cabin cabin) {
     cabins.add(cabin);
 
