@@ -97,11 +97,10 @@ class BookingCardInfo extends StatelessWidget {
   final bool isRecurring;
 
   const BookingCardInfo({
-    Key key,
     @required this.cabin,
     @required this.booking,
     this.isRecurring = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
