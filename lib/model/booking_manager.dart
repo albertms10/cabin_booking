@@ -154,8 +154,11 @@ class BookingManager with ChangeNotifier {
     for (final dateTime in dates ?? datesWithBookings) {
       count++;
 
-      final currentRatio =
-          occupiedRatioOn(dateTime, startTime: startTime, endTime: endTime);
+      final currentRatio = occupiedRatioOn(
+        dateTime,
+        startTime: startTime,
+        endTime: endTime,
+      );
 
       runningRatio += (currentRatio - runningRatio) / count;
     }
