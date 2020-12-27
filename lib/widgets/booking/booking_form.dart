@@ -427,7 +427,7 @@ class _BookingFormState extends State<BookingForm> {
                               ),
                               const SizedBox(width: 8.0),
                               Text(
-                                appLocalizations.occurrences(
+                                appLocalizations.nOccurrences(
                                   int.tryParse(_occurrencesController.text) ??
                                       0,
                                 ),
