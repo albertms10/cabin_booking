@@ -2,7 +2,6 @@ class TimeUtils {
   /// The first element is an empty string,
   /// once Dart's DateTime counts months from 1 to 12
   static const List<String> defaultMonthsLabels = [
-    '',
     'Jan',
     'Feb',
     'Mar',
@@ -18,13 +17,13 @@ class TimeUtils {
   ];
 
   static const List<String> defaultWeekLabels = [
-    'S',
-    'M',
-    'T',
-    'W',
-    'T',
-    'F',
-    'S',
+    'Sun',
+    'Mon',
+    'Tue',
+    'Wed',
+    'Thu',
+    'Fri',
+    'Sat',
   ];
 
   /// Obtains the first day of the current week,

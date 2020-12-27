@@ -58,7 +58,7 @@ class WeekColumns extends StatelessWidget {
 
         if ((months.isEmpty || months.last != firstMonth) &&
             currentDate.day <= 14) {
-          currentMonth = monthLabels[firstMonth];
+          currentMonth = monthLabels[firstMonth - 1];
           months.add(firstMonth);
         }
 
