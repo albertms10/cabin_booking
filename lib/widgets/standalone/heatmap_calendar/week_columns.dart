@@ -1,17 +1,17 @@
-import 'package:cabin_booking/widgets/standalone/heatmap_calendar/heatmap_calendar.dart';
 import 'package:flutter/material.dart';
 
+import 'heatmap_calendar.dart';
 import 'heatmap_day.dart';
 import 'month_label.dart';
 import 'time_utils.dart';
 
 class WeekColumns extends StatelessWidget {
-  final double squareSize;
   final Map<DateTime, int> input;
   final Map<int, Color> colorThresholds;
-  final double currentOpacity;
   final List<String> monthLabels;
   final int columnsToCreate;
+  final double squareSize;
+  final double space;
   final DateTime date;
 
   const WeekColumns({
@@ -19,10 +19,10 @@ class WeekColumns extends StatelessWidget {
     @required this.squareSize,
     @required this.input,
     @required this.colorThresholds,
-    @required this.currentOpacity,
     @required this.monthLabels,
     @required this.columnsToCreate,
     @required this.date,
+    this.space = 4.0,
   }) : super(key: key);
 
   /// The main logic for generating a list of columns representing a week
@@ -76,8 +76,8 @@ class WeekColumns extends StatelessWidget {
             value: input[currentDate] ?? 0,
             thresholds: colorThresholds,
             size: squareSize,
+            space: space,
             date: currentDate,
-            opacity: currentOpacity,
           ),
         );
 

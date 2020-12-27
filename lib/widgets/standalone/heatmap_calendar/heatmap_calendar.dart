@@ -5,7 +5,7 @@ import 'week_columns.dart';
 import 'week_labels.dart';
 
 /// Source: https://pub.dev/packages/heatmap_calendar
-class HeatMapCalendar extends StatefulWidget {
+class HeatMapCalendar extends StatelessWidget {
   static const int COLUMN_COUNT = DateTime.daysPerWeek + 1;
   static const int EDGE_SIZE = 4;
 
@@ -36,6 +36,9 @@ class HeatMapCalendar extends StatefulWidget {
   /// Helps avoiding overspacing issues
   final double safetyMargin;
 
+  /// Space between elements
+  final double space;
+
   const HeatMapCalendar({
     Key key,
     @required this.input,
@@ -45,59 +48,45 @@ class HeatMapCalendar extends StatefulWidget {
     this.squareSize = 16.0,
     this.textOpacity = 0.2,
     this.safetyMargin = 0.0,
+    this.space = 4.0,
   }) : super(key: key);
-
-  @override
-  HeatMapCalendarState createState() => HeatMapCalendarState();
-}
-
-class HeatMapCalendarState extends State<HeatMapCalendar> {
-  double currentOpacity = 0.0;
-  bool displayDates = false;
 
   /// Calculates the right amount of columns to create based on [maxWidth]
   ///
   /// returns the number of columns that the widget should have
   int getColumnsToCreate(double maxWidth) {
-    assert(maxWidth > (2 * (HeatMapCalendar.EDGE_SIZE + widget.squareSize)));
+    assert(maxWidth > (2 * (HeatMapCalendar.EDGE_SIZE + squareSize)));
 
     // The given size of a square + the size of the margin
-    final widgetWidth = widget.squareSize + HeatMapCalendar.EDGE_SIZE;
-    return (maxWidth - widget.safetyMargin) ~/ widgetWidth;
+    final widgetWidth = squareSize + HeatMapCalendar.EDGE_SIZE;
+    return (maxWidth - safetyMargin) ~/ widgetWidth;
   }
 
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        return InkWell(
-          onHover: (value) {
-            setState(() {
-              displayDates = !displayDates;
-              currentOpacity = displayDates ? widget.textOpacity : 0;
-            });
-          },
-          child: Container(
-            height: (widget.squareSize + HeatMapCalendar.EDGE_SIZE) *
-                (HeatMapCalendar.COLUMN_COUNT + 1),
-            width: constraints.maxWidth,
-            child: Row(
-              children: [
-                WeekLabels(
-                  weekDaysLabels: widget.weekDaysLabels,
-                  squareSize: widget.squareSize,
-                ),
-                WeekColumns(
-                  squareSize: widget.squareSize,
-                  input: widget.input,
-                  colorThresholds: widget.colorThresholds,
-                  currentOpacity: currentOpacity,
-                  monthLabels: widget.monthsLabels,
-                  columnsToCreate: getColumnsToCreate(constraints.maxWidth) - 1,
-                  date: DateTime.now(),
-                )
-              ],
-            ),
+        return Container(
+          height: (squareSize + HeatMapCalendar.EDGE_SIZE) *
+              (HeatMapCalendar.COLUMN_COUNT + 1),
+          width: constraints.maxWidth,
+          child: Row(
+            children: [
+              WeekLabels(
+                weekDaysLabels: weekDaysLabels,
+                squareSize: squareSize,
+                space: space,
+              ),
+              WeekColumns(
+                squareSize: squareSize,
+                space: space,
+                input: input,
+                colorThresholds: colorThresholds,
+                monthLabels: monthsLabels,
+                columnsToCreate: getColumnsToCreate(constraints.maxWidth) - 1,
+                date: DateTime.now(),
+              )
+            ],
           ),
         );
       },

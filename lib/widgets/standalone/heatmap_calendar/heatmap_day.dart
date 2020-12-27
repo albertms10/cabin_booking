@@ -5,19 +5,19 @@ import 'package:intl/intl.dart';
 class HeatMapDay extends StatelessWidget {
   final int value;
   final double size;
+  final double space;
   final Map<int, Color> thresholds;
   final Color defaultColor;
   final DateTime date;
-  final double opacity;
 
   const HeatMapDay({
     Key key,
     this.value = 0,
     this.size,
+    this.space,
     this.thresholds,
     this.defaultColor = Colors.black12,
     this.date,
-    this.opacity = 0.3,
   })  : assert(value != null),
         super(key: key);
 
@@ -42,11 +42,10 @@ class HeatMapDay extends StatelessWidget {
       message: '${AppLocalizations.of(context).nBookings(value)}'
           ' · ${DateFormat.yMMMd().format(date)}',
       child: Container(
-        alignment: Alignment.center,
         height: size,
         width: size,
+        margin: EdgeInsets.all(space / 2),
         color: getColorFromThreshold(),
-        margin: const EdgeInsets.all(2.0),
       ),
     );
   }
