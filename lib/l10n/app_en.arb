@@ -92,5 +92,7 @@
       "n": {}
     }
   },
-  "total": "Total"
+  "total": "Total",
+  "less": "Less",
+  "more": "More"
 }
