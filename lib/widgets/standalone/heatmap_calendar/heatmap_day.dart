@@ -9,15 +9,17 @@ class HeatMapDay extends StatelessWidget {
   final Map<int, Color> thresholds;
   final Color defaultColor;
   final DateTime date;
+  final bool messageHidden;
 
   const HeatMapDay({
     Key key,
     this.value = 0,
     this.size,
-    this.space,
-    this.thresholds,
+    this.space = 4.0,
+    this.thresholds = const {},
     this.defaultColor = Colors.black12,
     this.date,
+    this.messageHidden = false,
   })  : assert(value != null),
         super(key: key);
 
@@ -37,19 +39,23 @@ class HeatMapDay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Tooltip(
-      verticalOffset: 14.0,
-      message: '${AppLocalizations.of(context).nBookings(value)}'
-          ' · ${DateFormat.yMMMd().format(date)}',
-      child: Container(
-        height: size,
-        width: size,
-        margin: EdgeInsets.all(space / 2),
-        decoration: BoxDecoration(
-          borderRadius: const BorderRadius.all(Radius.circular(2.0)),
-          color: getColorFromThreshold(),
-        ),
+    final container = Container(
+      height: size,
+      width: size,
+      margin: EdgeInsets.all(space / 2),
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.all(Radius.circular(2.0)),
+        color: getColorFromThreshold(),
       ),
     );
+
+    return messageHidden
+        ? container
+        : Tooltip(
+            verticalOffset: 14.0,
+            message: '${AppLocalizations.of(context).nBookings(value)}'
+                ' · ${DateFormat.yMMMd().format(date)}',
+            child: container,
+          );
   }
 }
