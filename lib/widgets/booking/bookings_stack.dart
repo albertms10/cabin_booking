@@ -51,10 +51,12 @@ class BookingsStack extends StatelessWidget {
             width: double.infinity,
             child: booking.isDisabled
                 ? DisabledBookingCard(
+                    key: Key(booking.id),
                     cabin: cabin,
                     booking: booking,
                   )
                 : BookingCard(
+                    key: Key(booking.id),
                     cabin: cabin,
                     booking: booking,
                   ),

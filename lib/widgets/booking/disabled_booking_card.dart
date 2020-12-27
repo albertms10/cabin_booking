@@ -10,7 +10,11 @@ class DisabledBookingCard extends StatelessWidget {
   final Cabin cabin;
   final Booking booking;
 
-  const DisabledBookingCard({this.cabin, this.booking});
+  const DisabledBookingCard({
+    Key key,
+    @required this.cabin,
+    @required this.booking,
+  }) : super(key: key);
 
   double get height => booking.duration.inMinutes * bookingHeightRatio - 16.0;
 
