@@ -5,6 +5,12 @@
   "cabins": "Cabins",
   "booking": "Booking",
   "bookings": "Bookings",
+  "nBookings": "{n, plural, =1 {{n} booking} other {{n} bookings}}",
+  "@nBookings": {
+    "placeholders": {
+      "n": {}
+    }
+  },
   "recurringBooking": "Recurring booking",
   "recurringBookings": "Recurring bookings",
   "lockedRange": "Locked range",
@@ -39,8 +45,8 @@
   "mostOccupiedTimeRange": "Most occupied time range",
   "onDate": "On",
   "after": "After",
-  "occurrences": "{n, plural, =1 {occurrence} other {occurrences}}",
-  "@occurrences": {
+  "nOccurrences": "{n, plural, =1 {occurrence} other {occurrences}}",
+  "@nOccurrences": {
     "placeholders": {
       "n": {}
     }

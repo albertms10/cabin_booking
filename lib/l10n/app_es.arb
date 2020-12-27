@@ -5,6 +5,12 @@
   "cabins": "Cabinas",
   "booking": "Reserva",
   "bookings": "Reservas",
+  "nBookings": "{n, plural, =1 {{n} reserva} other {{n} reservas}}",
+  "@nBookings": {
+    "placeholders": {
+      "n": {}
+    }
+  },
   "recurringBooking": "Reserva periódica",
   "recurringBookings": "Reservas periódicas",
   "lockedRange": "Rango bloqueado",
@@ -39,8 +45,8 @@
   "mostOccupiedTimeRange": "Horario más ocupado",
   "onDate": "El día",
   "after": "Después de",
-  "occurrences": "{n, plural, =1 {ocurrencia} other {ocurrencias}}",
-  "@occurrences": {
+  "nOccurrences": "{n, plural, =1 {ocurrencia} other {ocurrencias}}",
+  "@nOccurrences": {
     "placeholders": {
       "n": {}
     }
