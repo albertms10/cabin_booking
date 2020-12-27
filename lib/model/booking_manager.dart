@@ -133,7 +133,7 @@ class BookingManager with ChangeNotifier {
     final bookingsPerDay = <DateTime, int>{};
 
     for (final booking in allBookings) {
-      if (bookingsPerDay[booking.date] != null) {
+      if (bookingsPerDay.containsKey(booking.date)) {
         bookingsPerDay[booking.date] += 1;
       } else {
         bookingsPerDay[booking.date] = 1;
