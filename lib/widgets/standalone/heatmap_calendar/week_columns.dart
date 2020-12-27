@@ -48,13 +48,16 @@ class WeekColumns extends StatelessWidget {
     for (var i = 0; i < amount; i++) {
       if (dateList.isEmpty) break;
 
+      final currentDate = dateList.first;
+
       // If true, it means that it should be a label,
       // if false, it should be a HeatMapDay
       if (i % HeatMapCalendar.COLUMN_COUNT == 0) {
         final firstMonth = dateList.first.month;
         var currentMonth;
 
-        if (months.isEmpty || months.last != firstMonth) {
+        if ((months.isEmpty || months.last != firstMonth) &&
+            currentDate.day <= 14) {
           currentMonth = monthLabels[firstMonth];
           months.add(firstMonth);
         }
@@ -67,8 +70,6 @@ class WeekColumns extends StatelessWidget {
           ),
         );
       } else {
-        final currentDate = dateList.first;
-
         dateList.removeAt(0);
 
         columnItems.add(
