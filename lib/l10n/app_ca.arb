@@ -5,7 +5,7 @@
   "cabins": "Cabines",
   "booking": "Reserva",
   "bookings": "Reserves",
-  "nBookings": "{n, plural, =1 {{n} reserva} other {{n} reserves}}",
+  "nBookings": "{n, plural, =0 {Sense reserves} =1 {{n} reserva} other {{n} reserves}}",
   "@nBookings": {
     "placeholders": {
       "n": {}
