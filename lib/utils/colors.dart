@@ -5,20 +5,21 @@ Map<int, Color> mapColorsToHighestValue({
   @required int highestValue,
   MaterialColor color = Colors.blue,
 }) {
-  final colorValues = [for (var i = 1; i <= 9; i++) i * 100];
+  final colorValues = [for (var i = 2; i <= 9; i++) i * 100];
 
   final colorMap = <int, Color>{};
 
-  if (highestValue ~/ colorValues.length > 1) {
-    colorMap.addAll({1: color[50]});
-  }
+  colorMap.addAll({1: color[100]});
 
   for (var i = 1; i <= colorValues.length; i++) {
     final currentValue = highestValue * i ~/ colorValues.length;
 
+    if (currentValue <= 1) continue;
+
     final colorValue = mapNumber(
       currentValue,
       inMax: highestValue,
+      outMin: 1.0,
       outMax: colorValues.length,
     ).toInt();
 
