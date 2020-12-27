@@ -43,6 +43,7 @@
   "accumulatedTime": "Temps acumulat",
   "occupancyRate": "Ocupació",
   "mostOccupiedTimeRange": "Horari més ocupat",
+  "mostBookedDay": "Dia amb més reserves",
   "onDate": "El dia",
   "after": "Després de",
   "nOccurrences": "{n, plural, =1 {ocurrència} other {ocurrències}}",

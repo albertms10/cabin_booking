@@ -43,6 +43,7 @@
   "accumulatedTime": "Tiempo acumulado",
   "occupancyRate": "Ocupación",
   "mostOccupiedTimeRange": "Horario más ocupado",
+  "mostBookedDay": "Día con más reservas",
   "onDate": "El día",
   "after": "Después de",
   "nOccurrences": "{n, plural, =1 {ocurrencia} other {ocurrencias}}",

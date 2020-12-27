@@ -43,6 +43,7 @@
   "accumulatedTime": "Accumulated time",
   "occupancyRate": "Occupancy rate",
   "mostOccupiedTimeRange": "Most occupied time range",
+  "mostBookedDay": "Most booked day",
   "onDate": "On",
   "after": "After",
   "nOccurrences": "{n, plural, =1 {occurrence} other {occurrences}}",
