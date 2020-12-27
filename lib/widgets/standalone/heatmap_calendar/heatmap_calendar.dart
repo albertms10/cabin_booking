@@ -33,12 +33,6 @@ class HeatMapCalendar extends StatefulWidget {
   /// The opacity of the text when the user double taps the widget
   final double textOpacity;
 
-  /// The color of the texts in the weeks/months labels
-  final Color labelTextColor;
-
-  /// The color of the text that identifies the days
-  final Color dayTextColor;
-
   /// Helps avoiding overspacing issues
   final double safetyMargin;
 
@@ -50,8 +44,6 @@ class HeatMapCalendar extends StatefulWidget {
     this.monthsLabels = TimeUtils.defaultMonthsLabels,
     this.squareSize = 16.0,
     this.textOpacity = 0.2,
-    this.labelTextColor = Colors.black,
-    this.dayTextColor = Colors.black,
     this.safetyMargin = 0.0,
   }) : super(key: key);
 
@@ -94,16 +86,13 @@ class HeatMapCalendarState extends State<HeatMapCalendar> {
                 WeekLabels(
                   weekDaysLabels: widget.weekDaysLabels,
                   squareSize: widget.squareSize,
-                  labelTextColor: widget.labelTextColor,
                 ),
                 WeekColumns(
                   squareSize: widget.squareSize,
-                  labelTextColor: widget.labelTextColor,
                   input: widget.input,
                   colorThresholds: widget.colorThresholds,
                   currentOpacity: currentOpacity,
                   monthLabels: widget.monthsLabels,
-                  dayTextColor: widget.dayTextColor,
                   columnsToCreate: getColumnsToCreate(constraints.maxWidth) - 1,
                   date: DateTime.now(),
                 )

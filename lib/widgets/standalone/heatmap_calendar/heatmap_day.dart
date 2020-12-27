@@ -9,9 +9,6 @@ class HeatMapDay extends StatelessWidget {
   final Color defaultColor;
   final DateTime date;
   final double opacity;
-  final Duration animationDuration;
-  final Color textColor;
-  final FontWeight fontWeight;
 
   const HeatMapDay({
     Key key,
@@ -21,9 +18,6 @@ class HeatMapDay extends StatelessWidget {
     this.defaultColor = Colors.black12,
     this.date,
     this.opacity = 0.3,
-    this.animationDuration = const Duration(milliseconds: 300),
-    this.textColor = Colors.black,
-    this.fontWeight,
   })  : assert(value != null),
         super(key: key);
 

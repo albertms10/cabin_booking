@@ -7,24 +7,20 @@ import 'time_utils.dart';
 
 class WeekColumns extends StatelessWidget {
   final double squareSize;
-  final Color labelTextColor;
   final Map<DateTime, int> input;
   final Map<int, Color> colorThresholds;
   final double currentOpacity;
   final List<String> monthLabels;
-  final Color dayTextColor;
   final int columnsToCreate;
   final DateTime date;
 
   const WeekColumns({
     Key key,
     @required this.squareSize,
-    @required this.labelTextColor,
     @required this.input,
     @required this.colorThresholds,
     @required this.currentOpacity,
     @required this.monthLabels,
-    @required this.dayTextColor,
     @required this.columnsToCreate,
     @required this.date,
   }) : super(key: key);
@@ -54,21 +50,24 @@ class WeekColumns extends StatelessWidget {
       // if false, it should be a HeatMapDay
       if (i % HeatMapCalendar.COLUMN_COUNT == 0) {
         final firstMonth = dateList.first.month;
-        var currentMonth;
+        String monthLabel;
 
         if ((months.isEmpty || months.last != firstMonth) &&
             currentDate.day <= 14) {
-          currentMonth = monthLabels[firstMonth - 1];
+          monthLabel = monthLabels[firstMonth - 1];
           months.add(firstMonth);
-        }
 
-        columnItems.add(
-          MonthLabel(
-            size: squareSize,
-            textColor: labelTextColor,
-            text: currentMonth,
-          ),
-        );
+          columnItems.add(
+            MonthLabel(
+              size: squareSize,
+              text: monthLabel,
+            ),
+          );
+        } else {
+          columnItems.add(
+            SizedBox(height: squareSize),
+          );
+        }
       } else {
         dateList.removeAt(0);
 
@@ -79,7 +78,6 @@ class WeekColumns extends StatelessWidget {
             size: squareSize,
             date: currentDate,
             opacity: currentOpacity,
-            textColor: dayTextColor,
           ),
         );
 

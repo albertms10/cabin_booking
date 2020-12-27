@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 
 class MonthLabel extends StatelessWidget {
+  final String text;
+  final double size;
+
   const MonthLabel({
     Key key,
+    @required this.text,
     @required this.size,
-    this.text = '',
-    @required this.textColor,
   }) : super(key: key);
-
-  final double size;
-  final String text;
-  final Color textColor;
 
   @override
   Widget build(BuildContext context) {
@@ -23,13 +21,12 @@ class MonthLabel extends StatelessWidget {
         clipBehavior: Clip.none,
         children: <Widget>[
           Positioned(
-            width: 60.0,
             bottom: 0.0,
             child: Text(
-              text ?? '',
-              style: TextStyle(fontSize: 16.0, color: textColor),
+              text,
+              style: Theme.of(context).textTheme.caption,
             ),
-          )
+          ),
         ],
       ),
     );
