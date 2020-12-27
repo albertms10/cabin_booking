@@ -4,4 +4,10 @@
 
 An app for cabin booking
 
-![Bookings page](docs/screenshots/bookings_v0.3.jpg)
+### Bookings timetable
+
+![Bookings page](docs/screenshots/bookings_v0.4.jpg)
+
+### Cabins list
+
+![Cabins page](docs/screenshots/cabins_v0.4.jpg)
