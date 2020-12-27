@@ -112,6 +112,7 @@ class WeekColumns extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: buildWeekItems(),
       ),
