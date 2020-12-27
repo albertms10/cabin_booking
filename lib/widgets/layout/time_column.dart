@@ -12,6 +12,8 @@ class TimeColumn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -23,10 +25,7 @@ class TimeColumn extends StatelessWidget {
             alignment: Alignment.topCenter,
             child: Text(
               TimeOfDay(hour: hour, minute: 0).format(context),
-              style: Theme.of(context)
-                  .textTheme
-                  .headline5
-                  .copyWith(color: Colors.black45),
+              style: theme.textTheme.headline5.copyWith(color: theme.hintColor),
             ),
           ),
       ],

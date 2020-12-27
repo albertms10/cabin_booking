@@ -241,7 +241,8 @@ class _CabinsTableState extends State<CabinsTable> {
                                   builder: (context, value, child) {
                                     return LinearProgressIndicator(
                                       value: value,
-                                      backgroundColor: Colors.blue[100],
+                                      backgroundColor:
+                                          theme.accentColor.withOpacity(0.25),
                                       semanticsLabel: 'Occupancy rate',
                                       semanticsValue:
                                           '${(value * 100).round()} %',

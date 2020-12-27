@@ -67,6 +67,7 @@ class SummaryPage extends StatelessWidget {
                       input: cabinManager.allCabinsBookingsCountPerDay,
                       colorThresholds: mapColorsToHighestValue(
                         highestValue: cabinManager.mostBookedDayEntry.value,
+                        color: Theme.of(context).accentColor,
                       ),
                     ),
                   ),

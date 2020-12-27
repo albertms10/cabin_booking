@@ -6,22 +6,22 @@ import 'heatmap_day.dart';
 class HeatMapLegend extends StatelessWidget {
   final double squareSize;
   final double space;
-  final MaterialColor color;
+  final Color color;
   final Color defaultColor;
 
   const HeatMapLegend({
     @required this.squareSize,
     @required this.space,
-    this.color = Colors.blue,
+    @required this.color,
     this.defaultColor = Colors.black12,
   });
 
   Map<int, Color> get colorThresholds => {
         1: defaultColor,
-        2: color[100],
-        3: color[400],
-        4: color[600],
-        5: color[900],
+        2: color.withOpacity(0.25),
+        3: color.withOpacity(0.5),
+        4: color.withOpacity(0.75),
+        5: color,
       };
 
   @override

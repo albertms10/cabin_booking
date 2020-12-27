@@ -9,7 +9,7 @@ class BookingDateNavigation extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16.0),
-      color: Colors.grey[50],
+      color: Theme.of(context).dialogBackgroundColor,
       child: Row(
         children: const [
           Expanded(child: DayNavigation()),

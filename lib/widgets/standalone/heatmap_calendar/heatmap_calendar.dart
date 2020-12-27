@@ -94,6 +94,7 @@ class HeatMapCalendar extends StatelessWidget {
               child: HeatMapLegend(
                 squareSize: squareSize,
                 space: space,
+                color: Theme.of(context).accentColor,
               ),
             ),
           ],

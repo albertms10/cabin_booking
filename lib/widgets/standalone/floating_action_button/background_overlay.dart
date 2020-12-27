@@ -7,7 +7,7 @@ class BackgroundOverlay extends AnimatedWidget {
   const BackgroundOverlay({
     Key key,
     Animation<double> animation,
-    this.color = Colors.white,
+    this.color,
     this.opacity = 0.9,
   }) : super(key: key, listenable: animation);
 
@@ -16,7 +16,8 @@ class BackgroundOverlay extends AnimatedWidget {
     final Animation<double> animation = listenable;
 
     return Container(
-      color: color.withOpacity(animation.value * opacity),
+      color: (color ?? Theme.of(context).scaffoldBackgroundColor)
+          .withOpacity(animation.value * opacity),
     );
   }
 }

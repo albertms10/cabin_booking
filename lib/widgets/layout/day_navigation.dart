@@ -45,10 +45,7 @@ class DayNavigation extends StatelessWidget {
           builder: (context, dayHandler, child) {
             return Text(
               DateFormat.MMMMEEEEd().format(dayHandler.dateTime),
-              style: Theme.of(context)
-                  .textTheme
-                  .headline5
-                  .copyWith(color: Colors.black87),
+              style: Theme.of(context).textTheme.headline5,
             );
           },
         ),

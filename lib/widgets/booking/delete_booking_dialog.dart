@@ -29,10 +29,10 @@ class DeleteBookingDialog extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
           child: Text(
             MaterialLocalizations.of(context).deleteButtonTooltip.toUpperCase(),
-            style: const TextStyle(color: Colors.red),
+            style: TextStyle(color: Theme.of(context).errorColor),
           ),
-          hoverColor: Colors.red[50],
-          splashColor: Colors.red[100],
+          hoverColor: Colors.red.withOpacity(0.1),
+          splashColor: Colors.red.withOpacity(0.15),
         ),
       ],
     );

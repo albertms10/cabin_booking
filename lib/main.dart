@@ -47,15 +47,8 @@ class CabinBookingApp extends StatelessWidget {
         Locale('es'),
       ],
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-        inputDecorationTheme: const InputDecorationTheme(
-          filled: true,
-          errorMaxLines: 2,
-          border: OutlineInputBorder(),
-        ),
-      ),
+      theme: AppStyles.lightTheme(),
+      darkTheme: AppStyles.darkTheme(),
       builder: (context, child) {
         return MediaQuery(
           data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
@@ -63,6 +56,59 @@ class CabinBookingApp extends StatelessWidget {
         );
       },
       home: const HomePage(),
+    );
+  }
+}
+
+class AppStyles {
+  static ThemeData themeData() {
+    return ThemeData(
+      inputDecorationTheme: const InputDecorationTheme(
+        filled: true,
+        errorMaxLines: 2,
+        border: OutlineInputBorder(),
+      ),
+    );
+  }
+
+  static ThemeData lightTheme() {
+    final primaryColor = themeData().primaryColor;
+
+    return ThemeData.light().copyWith(
+      primaryColor: primaryColor,
+      accentColor: primaryColor,
+    );
+  }
+
+  static ThemeData darkTheme() {
+    final primaryColor = Colors.teal;
+    final primaryColorLight = Colors.teal[300];
+    final primaryColorDark = Colors.teal[700];
+
+    return ThemeData.dark().copyWith(
+      primaryColor: primaryColor,
+      primaryColorLight: primaryColorLight,
+      primaryColorDark: primaryColorDark,
+      accentColor: primaryColor,
+      colorScheme: ColorScheme.dark(
+        primary: primaryColor,
+        primaryVariant: primaryColorLight,
+        secondary: primaryColor,
+        secondaryVariant: primaryColorDark,
+      ),
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: primaryColor,
+      ),
+      toggleableActiveColor: primaryColor,
+      navigationRailTheme: NavigationRailThemeData(
+        selectedIconTheme: IconThemeData(color: primaryColor),
+        selectedLabelTextStyle: TextStyle(color: primaryColor),
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all<Color>(primaryColor),
+        ),
+      ),
     );
   }
 }

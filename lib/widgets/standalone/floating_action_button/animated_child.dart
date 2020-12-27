@@ -41,6 +41,7 @@ class AnimatedChild extends AnimatedWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     final Animation<double> animation = listenable;
 
     return Container(
@@ -67,8 +68,8 @@ class AnimatedChild extends AnimatedWidget {
 
                   toggleChildren();
                 },
-                backgroundColor: backgroundColor,
-                foregroundColor: foregroundColor,
+                backgroundColor: backgroundColor ?? theme.dialogBackgroundColor,
+                foregroundColor: foregroundColor ?? theme.accentColor,
                 elevation: elevation,
                 child: animation.value > 50.0
                     ? SizedBox(

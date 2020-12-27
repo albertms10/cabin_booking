@@ -12,7 +12,7 @@ class CabinsIconsRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.grey[50],
+      color: Theme.of(context).dialogBackgroundColor,
       padding: const EdgeInsets.symmetric(vertical: 24.0),
       child: Consumer2<DayHandler, CabinManager>(
         builder: (context, dayHandler, cabinManager, child) {

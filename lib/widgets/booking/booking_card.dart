@@ -37,7 +37,7 @@ class BookingCard extends StatelessWidget {
             borderRadius: const BorderRadius.all(Radius.circular(10.0)),
             side: BorderSide(
               color: (isRecurring ? Colors.blue[200] : Colors.grey[300])
-                  .withAlpha(isBeforeNow ? 100 : 255),
+                  .withOpacity(isBeforeNow ? 0.41 : 1.0),
               width: 1.5,
             ),
           ),
@@ -46,8 +46,10 @@ class BookingCard extends StatelessWidget {
             height: height,
             padding: const EdgeInsets.all(8.0),
             decoration: BoxDecoration(
-              color: (isRecurring ? Colors.blue[50] : Colors.white)
-                  .withAlpha(isBeforeNow ? 100 : 255),
+              color: (isRecurring
+                      ? Colors.blue.withOpacity(0.41)
+                      : Theme.of(context).cardColor)
+                  .withOpacity(isBeforeNow ? 0.41 : 1.0),
               borderRadius: const BorderRadius.all(Radius.circular(10.0)),
             ),
             child: BookingCardInfo(
@@ -75,13 +77,15 @@ class BookingCardInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return LayoutBuilder(
       builder: (context, constraints) {
         return Stack(
           alignment: Alignment.topRight,
           children: [
             Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Text(
                   booking.description,
@@ -90,30 +94,18 @@ class BookingCardInfo extends StatelessWidget {
                           ? 14.0
                           : constraints.maxHeight * 0.5),
                 ),
-                Row(
-                  children: [
-                    if (constraints.maxHeight > 30)
-                      Text(
-                        booking.timeRange,
-                        style: TextStyle(
-                          color: Colors.black38,
-                          fontSize: constraints.maxHeight > 40
-                              ? 14.0
-                              : constraints.maxHeight * 0.4,
-                        ),
-                      ),
-                    if (isRecurring && constraints.maxHeight > 30)
-                      Text(
-                        ' · ${booking.recurringNumber}/${booking.recurringTotalTimes}',
-                        style: Theme.of(context).textTheme.caption.copyWith(
-                              color: Colors.black38,
-                              fontSize: constraints.maxHeight > 40
-                                  ? 14.0
-                                  : constraints.maxHeight * 0.4,
-                            ),
-                      ),
-                  ],
-                ),
+                if (constraints.maxHeight > 30)
+                  Text(
+                    booking.timeRange +
+                        (isRecurring && constraints.maxHeight > 30
+                            ? ' · ${booking.recurringNumber}/${booking.recurringTotalTimes}'
+                            : ''),
+                    style: theme.textTheme.caption.copyWith(
+                      fontSize: constraints.maxHeight > 40
+                          ? 14.0
+                          : constraints.maxHeight * 0.4,
+                    ),
+                  ),
               ],
             ),
             BookingPopupMenu(

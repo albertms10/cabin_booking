@@ -78,10 +78,10 @@ class EmptyBookingSlot extends StatelessWidget {
                               cabinManager,
                             );
                           },
-                          child: const Icon(
+                          child: Icon(
                             Icons.add,
                             size: 18.0,
-                            color: Colors.black38,
+                            color: Theme.of(context).hintColor,
                           ),
                         ),
                       ),

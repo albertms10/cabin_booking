@@ -3,28 +3,23 @@ import 'package:flutter/material.dart';
 
 Map<int, Color> mapColorsToHighestValue({
   @required int highestValue,
-  MaterialColor color = Colors.blue,
+  @required Color color,
 }) {
-  final colorValues = [for (var i = 2; i <= 9; i++) i * 100];
+  final colorSamples = 8;
 
   final colorMap = <int, Color>{};
 
-  colorMap.addAll({1: color[100]});
+  colorMap.addAll({1: color.withOpacity(0.2)});
 
-  for (var i = 1; i <= colorValues.length; i++) {
-    final currentValue = highestValue * i ~/ colorValues.length;
+  for (var i = 1; i <= colorSamples; i++) {
+    final currentValue = highestValue * i ~/ colorSamples;
 
     if (currentValue <= 1) continue;
 
-    final colorValue = mapNumber(
-      currentValue,
-      inMax: highestValue,
-      outMin: 1.0,
-      outMax: colorValues.length,
-    ).toInt();
+    final colorValue = mapNumber(currentValue, inMax: highestValue);
 
     if (!colorMap.containsKey(currentValue)) {
-      colorMap.addAll({currentValue: color[colorValue * 100]});
+      colorMap.addAll({currentValue: color.withOpacity(colorValue)});
     }
   }
 
