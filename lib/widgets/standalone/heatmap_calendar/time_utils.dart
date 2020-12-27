@@ -17,13 +17,13 @@ class TimeUtils {
   ];
 
   static const List<String> defaultWeekLabels = [
-    'Sun',
     'Mon',
     'Tue',
     'Wed',
     'Thu',
     'Fri',
     'Sat',
+    'Sun',
   ];
 
   /// Obtains the first day of the current week,
@@ -32,7 +32,7 @@ class TimeUtils {
     return safeSubtract(
       today,
       Duration(
-        days: (today.weekday % DateTime.daysPerWeek),
+        days: today.weekday % DateTime.daysPerWeek - 1,
         hours: today.hour,
         minutes: today.minute,
         seconds: today.second,
@@ -46,7 +46,7 @@ class TimeUtils {
     return safeSubtract(
       day,
       Duration(
-        days: (DateTime.daysPerWeek * (columnsAmount - 1)),
+        days: DateTime.daysPerWeek * (columnsAmount - 1),
       ),
     );
   }

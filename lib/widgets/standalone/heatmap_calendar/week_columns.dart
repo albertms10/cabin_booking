@@ -29,10 +29,9 @@ class WeekColumns extends StatelessWidget {
   /// Each column is a week having a [MonthLabel] and 7 [HeatMapDay] widgets
   List<Widget> buildWeekItems() {
     final dateList = getCalendarDates(columnsToCreate);
-    final totalDays = dateList.length;
-    final daysPerWeek = DateTime.daysPerWeek;
-    final totalWeeks = (totalDays / daysPerWeek).ceil();
-    final amount = totalDays + totalWeeks;
+
+    final totalWeeks = (dateList.length / DateTime.daysPerWeek).ceil();
+    final amount = dateList.length + totalWeeks;
 
     // The list of columns that will be returned
     final columns = <Widget>[];

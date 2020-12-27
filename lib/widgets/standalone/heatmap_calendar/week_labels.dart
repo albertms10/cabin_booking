@@ -22,13 +22,20 @@ class WeekLabels extends StatelessWidget {
       children: <Widget>[
         SizedBox(height: squareSize),
         for (var i = 0; i < 7; i++)
-          Container(
-            height: squareSize + space,
-            child: Text(
-              weekDaysLabels[i],
-              style: Theme.of(context).textTheme.caption,
-            ),
-          ),
+          if (i.isOdd)
+            Container(
+              height: squareSize + space,
+              padding: EdgeInsets.only(right: space),
+              alignment: Alignment.centerLeft,
+              child: Text(
+                weekDaysLabels[i],
+                style: Theme.of(context).textTheme.caption,
+              ),
+            )
+          else
+            SizedBox(
+              height: squareSize + space,
+            )
       ],
     );
   }
