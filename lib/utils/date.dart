@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+DateTime dateOnly(DateTime dateTime) => DateTime(
+      dateTime.year,
+      dateTime.month,
+      dateTime.day,
+    );
+
 DateTime tryParseDateTimeWithTimeOfDay({
   DateTime dateTime,
   @required TimeOfDay timeOfDay,

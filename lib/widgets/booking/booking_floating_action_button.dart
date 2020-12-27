@@ -3,6 +3,7 @@ import 'package:cabin_booking/model/booking.dart';
 import 'package:cabin_booking/model/cabin_manager.dart';
 import 'package:cabin_booking/model/day_handler.dart';
 import 'package:cabin_booking/model/recurring_booking.dart';
+import 'package:cabin_booking/utils/date.dart';
 import 'package:cabin_booking/utils/show_booking_dialog.dart';
 import 'package:cabin_booking/widgets/standalone/floating_action_button/floating_action_button_menu.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +33,7 @@ class BookingFloatingActionButton extends StatelessWidget {
             showNewBookingDialog(
               context,
               Booking(
-                date: dayHandler.dateTime,
+                date: dateOnly(dayHandler.dateTime),
                 timeStart: timeTableStartTime,
                 timeEnd: timeTableStartTime.replacing(
                   hour: (timeTableStartTime.hour + 1) % TimeOfDay.hoursPerDay,
@@ -53,7 +54,7 @@ class BookingFloatingActionButton extends StatelessWidget {
                 showNewBookingDialog(
                   context,
                   RecurringBooking(
-                    date: dayHandler.dateTime,
+                    date: dateOnly(dayHandler.dateTime),
                     timeStart: timeTableStartTime,
                     timeEnd: timeTableStartTime.replacing(
                       hour:
@@ -76,7 +77,7 @@ class BookingFloatingActionButton extends StatelessWidget {
                 showNewBookingDialog(
                   context,
                   Booking(
-                    date: dayHandler.dateTime,
+                    date: dateOnly(dayHandler.dateTime),
                     timeStart: timeTableStartTime,
                     timeEnd: timeTableStartTime.replacing(
                       hour:

@@ -80,7 +80,7 @@ class RecurringBooking extends Booking {
 
     assert(_occurrences != null);
 
-    var recurringDateTime = dateStart;
+    var recurringDateTime = date;
 
     for (var i = 0; i <= _occurrences; i++) {
       recurringDateTime = recurringDateTime.add(periodicityDuration);
@@ -100,7 +100,7 @@ class RecurringBooking extends Booking {
     assert(_endDate != null);
 
     var count = 0;
-    var recurringDateTime = dateStart;
+    var recurringDateTime = date;
 
     while (recurringDateTime.isBefore(_endDate)) {
       recurringDateTime = recurringDateTime.add(periodicityDuration);
@@ -128,7 +128,7 @@ class RecurringBooking extends Booking {
 
   List<Booking> get bookings {
     final runningBookings = <Booking>[];
-    var runningDateTime = dateStart;
+    var runningDateTime = date;
     var movedBooking = asBooking();
 
     var count = 0;

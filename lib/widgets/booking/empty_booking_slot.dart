@@ -2,6 +2,7 @@ import 'package:cabin_booking/constants.dart';
 import 'package:cabin_booking/model/booking.dart';
 import 'package:cabin_booking/model/cabin.dart';
 import 'package:cabin_booking/model/cabin_manager.dart';
+import 'package:cabin_booking/utils/date.dart';
 import 'package:cabin_booking/utils/show_booking_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -69,7 +70,7 @@ class EmptyBookingSlot extends StatelessWidget {
                             showNewBookingDialog(
                               context,
                               Booking(
-                                date: start,
+                                date: dateOnly(start),
                                 timeStart: TimeOfDay.fromDateTime(start),
                                 timeEnd: TimeOfDay.fromDateTime(dateEnd),
                                 cabinId: cabin.id,
