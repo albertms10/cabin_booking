@@ -1,7 +1,10 @@
 import 'package:cabin_booking/model/cabin_manager.dart';
+import 'package:cabin_booking/utils/colors.dart';
 import 'package:cabin_booking/widgets/layout/statistics.dart';
+import 'package:cabin_booking/widgets/standalone/heatmap_calendar/heatmap_calendar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class SummaryPage extends StatelessWidget {
@@ -15,6 +18,10 @@ class SummaryPage extends StatelessWidget {
       padding: const EdgeInsets.all(32.0),
       child: Consumer<CabinManager>(
         builder: (builder, cabinManager, child) {
+          final m = mapColorsToHighestValue(
+            highestValue: 3,
+          );
+
           return Column(
             children: [
               Row(
@@ -24,15 +31,40 @@ class SummaryPage extends StatelessWidget {
                     items: [
                       StatisticItem(
                         label: appLocalizations.total,
-                        value: cabinManager.allBookingsCount,
+                        value: '${cabinManager.allBookingsCount}',
                       ),
                       StatisticItem(
                         label: appLocalizations.bookings,
-                        value: cabinManager.bookingsCount,
+                        value: '${cabinManager.bookingsCount}',
                       ),
                       StatisticItem(
                         label: appLocalizations.recurringBookings,
-                        value: cabinManager.recurringBookingsCount,
+                        value: '${cabinManager.recurringBookingsCount}',
+                      ),
+                    ],
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: HeatMapCalendar(
+                        input: cabinManager.allCabinsBookingsCountPerDay,
+                        colorThresholds: mapColorsToHighestValue(
+                          highestValue: cabinManager.mostBookedDayEntry.value,
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+              Row(
+                children: [
+                  Statistics(
+                    title: appLocalizations.mostBookedDay,
+                    items: [
+                      StatisticItem(
+                        value: DateFormat.yMMMd().format(
+                          cabinManager.mostBookedDayEntry.key,
+                        ),
                       ),
                     ],
                   ),
