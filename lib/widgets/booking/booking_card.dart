@@ -29,35 +29,42 @@ class BookingCard extends StatelessWidget {
       builder: (context) {
         final isBeforeNow = booking.dateEnd.isBefore(DateTime.now());
 
-        return Card(
-          margin: const EdgeInsets.all(8.0),
-          shadowColor: isBeforeNow ? Colors.black38 : Colors.black87,
-          elevation: 0.0,
-          shape: RoundedRectangleBorder(
-            borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-            side: BorderSide(
-              color: (isRecurring ? Colors.blue[200] : Colors.grey[300])
-                  .withOpacity(isBeforeNow ? 0.41 : 1.0),
-              width: 1.5,
-            ),
-          ),
-          color: Colors.transparent,
-          child: Container(
-            height: height,
-            padding: const EdgeInsets.all(8.0),
-            decoration: BoxDecoration(
-              color: (isRecurring
-                      ? Colors.blue.withOpacity(0.41)
-                      : Theme.of(context).cardColor)
-                  .withOpacity(isBeforeNow ? 0.41 : 1.0),
-              borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-            ),
-            child: BookingCardInfo(
-              cabin: cabin,
-              booking: booking,
-              isRecurring: isRecurring,
-            ),
-          ),
+        return TweenAnimationBuilder<double>(
+          tween: Tween<double>(begin: height, end: height),
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeInOutCubic,
+          builder: (builder, value, child) {
+            return Card(
+              margin: const EdgeInsets.all(8.0),
+              shadowColor: isBeforeNow ? Colors.black38 : Colors.black87,
+              elevation: 0.0,
+              shape: RoundedRectangleBorder(
+                borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                side: BorderSide(
+                  color: (isRecurring ? Colors.blue[200] : Colors.grey[300])
+                      .withOpacity(isBeforeNow ? 0.41 : 1.0),
+                  width: 1.5,
+                ),
+              ),
+              color: Colors.transparent,
+              child: Container(
+                height: value,
+                padding: const EdgeInsets.all(8.0),
+                decoration: BoxDecoration(
+                  color: (isRecurring
+                          ? Colors.blue.withOpacity(0.41)
+                          : Theme.of(context).cardColor)
+                      .withOpacity(isBeforeNow ? 0.41 : 1.0),
+                  borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                ),
+                child: BookingCardInfo(
+                  cabin: cabin,
+                  booking: booking,
+                  isRecurring: isRecurring,
+                ),
+              ),
+            );
+          },
         );
       },
     );
