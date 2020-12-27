@@ -42,9 +42,13 @@ class Statistics extends StatelessWidget {
 
 class StatisticItem extends StatelessWidget {
   final String label;
-  final num value;
+  final String value;
 
-  const StatisticItem({Key key, this.label, this.value}) : super(key: key);
+  const StatisticItem({
+    Key key,
+    this.label,
+    @required this.value,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -53,13 +57,16 @@ class StatisticItem extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        if (label != null)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 8.0),
+            child: Text(
+              label,
+              style: theme.textTheme.subtitle2,
+            ),
+          ),
         Text(
-          label,
-          style: theme.textTheme.subtitle2,
-        ),
-        const SizedBox(height: 8.0),
-        Text(
-          '${value}',
+          value,
           style: theme.textTheme.headline5,
         ),
       ],
