@@ -18,10 +18,6 @@ class SummaryPage extends StatelessWidget {
       padding: const EdgeInsets.all(32.0),
       child: Consumer<CabinManager>(
         builder: (builder, cabinManager, child) {
-          final m = mapColorsToHighestValue(
-            highestValue: 3,
-          );
-
           return Column(
             children: [
               Row(
