@@ -23,6 +23,13 @@ class SummaryPage extends StatelessWidget {
               Row(
                 children: [
                   Statistics(
+                    title: appLocalizations.cabins,
+                    items: [
+                      StatisticItem(value: '${cabinManager.cabins.length}'),
+                    ],
+                  ),
+                  const SizedBox(width: 32.0),
+                  Statistics(
                     title: appLocalizations.bookings,
                     items: [
                       StatisticItem(
@@ -39,21 +46,7 @@ class SummaryPage extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: HeatMapCalendar(
-                        input: cabinManager.allCabinsBookingsCountPerDay,
-                        colorThresholds: mapColorsToHighestValue(
-                          highestValue: cabinManager.mostBookedDayEntry.value,
-                        ),
-                      ),
-                    ),
-                  )
-                ],
-              ),
-              Row(
-                children: [
+                  const SizedBox(width: 32.0),
                   Statistics(
                     title: appLocalizations.mostBookedDay,
                     items: [
@@ -63,6 +56,19 @@ class SummaryPage extends StatelessWidget {
                         ),
                       ),
                     ],
+                  ),
+                ],
+              ),
+              const SizedBox(height: 32.0),
+              Row(
+                children: [
+                  Expanded(
+                    child: HeatMapCalendar(
+                      input: cabinManager.allCabinsBookingsCountPerDay,
+                      colorThresholds: mapColorsToHighestValue(
+                        highestValue: cabinManager.mostBookedDayEntry.value,
+                      ),
+                    ),
                   ),
                 ],
               )
