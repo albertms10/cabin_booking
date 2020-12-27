@@ -52,6 +52,13 @@ class CabinManager with ChangeNotifier, FileManager {
     return bookingsPerDay;
   }
 
+  MapEntry<DateTime, int> get mostBookedDayEntry {
+    final sortedCountList = allCabinsBookingsCountPerDay.entries.toList()
+      ..sort((a, b) => b.value - a.value);
+
+    return sortedCountList.isEmpty ? null : sortedCountList.first;
+  }
+
   int get allBookingsCount {
     var count = 0;
 
