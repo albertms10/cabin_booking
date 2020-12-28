@@ -32,4 +32,10 @@ abstract class Item {
     modificationDateTime = DateTime.now();
     modificationCount++;
   }
+
+  @override
+  bool operator ==(other) => other is Item && id == other.id;
+
+  @override
+  int get hashCode => id.hashCode;
 }

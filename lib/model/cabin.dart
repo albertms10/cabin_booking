@@ -126,10 +126,4 @@ class Cabin extends Item {
 
   @override
   String toString() => 'Cabin $number (${bookings.length} bookings)';
-
-  @override
-  bool operator ==(other) => other is Cabin && id == other.id;
-
-  @override
-  int get hashCode => id.hashCode;
 }
