@@ -1,4 +1,4 @@
-import 'package:cabin_booking/model/school_year_manager.dart';
+import 'package:cabin_booking/model/day_handler.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -16,13 +16,15 @@ class _SchoolYearDropdownState extends State<SchoolYearDropdown> {
   void initState() {
     super.initState();
 
-    _currentIndex =
-        Provider.of<SchoolYearManager>(context, listen: false).schoolYearIndex;
+    _currentIndex = Provider.of<DayHandler>(context, listen: false)
+        .schoolYearManager
+        .schoolYearIndex;
   }
 
   @override
   Widget build(BuildContext context) {
-    final schoolYearManager = Provider.of<SchoolYearManager>(context);
+    final schoolYearManager =
+        Provider.of<DayHandler>(context).schoolYearManager;
 
     return DropdownButton<int>(
       value: _currentIndex,
