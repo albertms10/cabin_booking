@@ -56,7 +56,7 @@ class SummaryPage extends StatelessWidget {
                       title: appLocalizations.mostBookedDay,
                       items: [
                         StatisticItem(
-                          value: DateFormat.yMMMd().format(
+                          value: DateFormat.d().add_MMM().add_y().format(
                             cabinManager.mostBookedDayEntry.key,
                           ),
                         ),
