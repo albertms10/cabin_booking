@@ -51,16 +51,17 @@ class SummaryPage extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(width: 32.0),
-                  Statistics(
-                    title: appLocalizations.mostBookedDay,
-                    items: [
-                      StatisticItem(
-                        value: DateFormat.yMMMd().format(
-                          cabinManager.mostBookedDayEntry.key,
+                  if (cabinManager.mostBookedDayEntry != null)
+                    Statistics(
+                      title: appLocalizations.mostBookedDay,
+                      items: [
+                        StatisticItem(
+                          value: DateFormat.yMMMd().format(
+                            cabinManager.mostBookedDayEntry.key,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
+                      ],
+                    ),
                 ],
               ),
               const SizedBox(height: 32.0),
@@ -73,7 +74,8 @@ class SummaryPage extends StatelessWidget {
                           '${AppLocalizations.of(context).nBookings(value)}',
                       showLegend: true,
                       colorThresholds: mapColorsToHighestValue(
-                        highestValue: cabinManager.mostBookedDayEntry.value,
+                        highestValue:
+                            cabinManager.mostBookedDayEntry?.value ?? 1,
                         color: Theme.of(context).accentColor,
                       ),
                       onDayTap: (dateTime, value) {
