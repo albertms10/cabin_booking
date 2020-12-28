@@ -15,7 +15,7 @@ void main() async {
   if (kIsWeb) {
     await findSystemLocale();
   } else {
-    Intl.defaultLocale = 'ca';
+    Intl.defaultLocale = 'en';
   }
 
   runApp(
