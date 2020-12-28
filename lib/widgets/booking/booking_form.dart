@@ -474,8 +474,8 @@ class _BookingFormState extends State<BookingForm> {
           ),
           if (widget.booking.description != null)
             ItemInfo(
-              creationDate: widget.booking.creationDate,
-              modificationDate: widget.booking.modificationDate,
+              creationDate: widget.booking.creationDateTime,
+              modificationDate: widget.booking.modificationDateTime,
               modificationCount: widget.booking.modificationCount,
             ),
         ],

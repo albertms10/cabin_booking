@@ -119,8 +119,8 @@ class _CabinFormState extends State<CabinForm> {
           ),
           if (widget.newCabinNumber == null)
             ItemInfo(
-              creationDate: widget.cabin.creationDate,
-              modificationDate: widget.cabin.modificationDate,
+              creationDate: widget.cabin.creationDateTime,
+              modificationDate: widget.cabin.modificationDateTime,
               modificationCount: widget.cabin.modificationCount,
             ),
         ],
