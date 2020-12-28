@@ -19,6 +19,12 @@ class BookingsStack extends StatelessWidget {
     this.bookings = const <Booking>[],
   }) : super(key: key);
 
+  Key _emptyBookingSlotKey(DateTime dateTime, int index) => Key(
+        '${dateTime.toIso8601String().split('T')[0]}-'
+        '${cabin.number}-'
+        '${index}',
+      );
+
   List<Widget> _distributedBookings(BuildContext context) {
     final distributedBookings = <Widget>[];
 
@@ -80,6 +86,10 @@ class BookingsStack extends StatelessWidget {
 
           runningSlotList.add(
             EmptyBookingSlot(
+              key: _emptyBookingSlotKey(
+                currentBookingDate,
+                runningSlotList.length,
+              ),
               cabin: cabin,
               dateStart: currentBookingDate,
               dateEnd: nextBookingDate,
@@ -95,6 +105,10 @@ class BookingsStack extends StatelessWidget {
 
         runningSlotList.add(
           EmptyBookingSlot(
+            key: _emptyBookingSlotKey(
+              currentBookingDate,
+              runningSlotList.length,
+            ),
             cabin: cabin,
             dateStart: currentBookingDate,
             dateEnd: nextBookingDate,

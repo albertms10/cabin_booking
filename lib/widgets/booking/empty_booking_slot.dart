@@ -14,10 +14,11 @@ class EmptyBookingSlot extends StatelessWidget {
   final DateTime dateEnd;
 
   const EmptyBookingSlot({
+    Key key,
     @required this.cabin,
     @required this.dateStart,
     @required this.dateEnd,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -50,42 +51,53 @@ class EmptyBookingSlot extends StatelessWidget {
               SizedBox(
                 height: startToNowDuration.inMinutes * bookingHeightRatio,
               ),
-            SizedBox(
-              width: double.infinity,
-              height: preciseDuration * bookingHeightRatio,
-              child: duration.compareTo(minSlotDuration) < 0 ||
-                      dateEnd.compareTo(now) < 0
-                  ? null
-                  : Container(
-                      margin: const EdgeInsets.all(8.0),
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(4.0)),
-                      ),
-                      child: Tooltip(
-                        message: '${preciseDuration} min',
-                        child: InkWell(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(4.0)),
-                          onTap: () {
-                            showNewBookingDialog(
-                              context,
-                              Booking(
-                                date: dateOnly(start),
-                                timeStart: TimeOfDay.fromDateTime(start),
-                                timeEnd: TimeOfDay.fromDateTime(dateEnd),
-                                cabinId: cabin.id,
+            TweenAnimationBuilder<double>(
+              tween: Tween<double>(
+                begin: preciseDuration * bookingHeightRatio,
+                end: preciseDuration * bookingHeightRatio,
+              ),
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeInOutCubic,
+              builder: (builder, value, child) {
+                return SizedBox(
+                  width: double.infinity,
+                  height: value,
+                  child: duration.compareTo(minSlotDuration) < 0 ||
+                          dateEnd.compareTo(now) < 0
+                      ? null
+                      : Container(
+                          margin: const EdgeInsets.all(8.0),
+                          decoration: const BoxDecoration(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(4.0)),
+                          ),
+                          child: Tooltip(
+                            message: '${preciseDuration} min',
+                            child: InkWell(
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(4.0)),
+                              onTap: () {
+                                showNewBookingDialog(
+                                  context,
+                                  Booking(
+                                    date: dateOnly(start),
+                                    timeStart: TimeOfDay.fromDateTime(start),
+                                    timeEnd: TimeOfDay.fromDateTime(dateEnd),
+                                    cabinId: cabin.id,
+                                  ),
+                                  cabinManager,
+                                );
+                              },
+                              child: Icon(
+                                Icons.add,
+                                size: 18.0,
+                                color: Theme.of(context).hintColor,
                               ),
-                              cabinManager,
-                            );
-                          },
-                          child: Icon(
-                            Icons.add,
-                            size: 18.0,
-                            color: Theme.of(context).hintColor,
+                            ),
                           ),
                         ),
-                      ),
-                    ),
+                );
+              },
             ),
           ],
         );
