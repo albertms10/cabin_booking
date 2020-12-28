@@ -23,7 +23,7 @@ class CabinIcon extends StatelessWidget {
       style: Theme.of(context).accentTextTheme.headline5.copyWith(
             color: shouldShowProgress
                 ? theme.accentColor
-                : theme.primaryTextTheme.bodyText1.color,
+                : theme.colorScheme.onPrimary,
           ),
       textAlign: TextAlign.center,
     );

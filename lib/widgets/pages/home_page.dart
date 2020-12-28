@@ -29,7 +29,12 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(appLocalizations.title),
+        title: Text(
+          appLocalizations.title,
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.onPrimary,
+          ),
+        ),
       ),
       floatingActionButton: _floatingActionButtons[_selectedIndex],
       body: SafeArea(
