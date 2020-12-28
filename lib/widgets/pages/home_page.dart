@@ -7,6 +7,8 @@ import 'package:cabin_booking/widgets/pages/summary_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+enum AppPages { Summary, Cabins, Bookings }
+
 class HomePage extends StatefulWidget {
   const HomePage();
 
@@ -22,6 +24,12 @@ class _HomePageState extends State<HomePage> {
     CabinFloatingActionButton(),
     BookingFloatingActionButton(),
   ];
+
+  void _setRailIndex(int index) {
+    setState(() => _selectedIndex = index);
+  }
+
+  void _setRailPage(AppPages page) => _setRailIndex(page.index);
 
   @override
   Widget build(BuildContext context) {
@@ -42,9 +50,7 @@ class _HomePageState extends State<HomePage> {
           children: [
             NavigationRail(
               selectedIndex: _selectedIndex,
-              onDestinationSelected: (index) {
-                setState(() => _selectedIndex = index);
-              },
+              onDestinationSelected: _setRailIndex,
               labelType: NavigationRailLabelType.selected,
               destinations: [
                 NavigationRailDestination(
@@ -68,10 +74,10 @@ class _HomePageState extends State<HomePage> {
             Expanded(
               child: MainContent(
                 railIndex: _selectedIndex,
-                pages: const [
-                  SummaryPage(),
-                  CabinsPage(),
-                  BookingsPage(),
+                pages: [
+                  SummaryPage(setRailPage: _setRailPage),
+                  const CabinsPage(),
+                  const BookingsPage(),
                 ],
               ),
             ),

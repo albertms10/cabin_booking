@@ -1,6 +1,8 @@
 import 'package:cabin_booking/model/cabin_manager.dart';
+import 'package:cabin_booking/model/day_handler.dart';
 import 'package:cabin_booking/utils/colors.dart';
 import 'package:cabin_booking/widgets/layout/statistics.dart';
+import 'package:cabin_booking/widgets/pages/home_page.dart';
 import 'package:cabin_booking/widgets/standalone/heatmap_calendar/heatmap_calendar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -8,7 +10,9 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class SummaryPage extends StatelessWidget {
-  const SummaryPage();
+  final void Function(AppPages) setRailPage;
+
+  const SummaryPage({this.setRailPage});
 
   @override
   Widget build(BuildContext context) {
@@ -16,8 +20,8 @@ class SummaryPage extends StatelessWidget {
 
     return Padding(
       padding: const EdgeInsets.all(32.0),
-      child: Consumer<CabinManager>(
-        builder: (builder, cabinManager, child) {
+      child: Consumer2<DayHandler, CabinManager>(
+        builder: (builder, dayHandler, cabinManager, child) {
           return Column(
             children: [
               Row(
@@ -69,6 +73,10 @@ class SummaryPage extends StatelessWidget {
                         highestValue: cabinManager.mostBookedDayEntry.value,
                         color: Theme.of(context).accentColor,
                       ),
+                      onDayTap: (dateTime, value) {
+                        dayHandler.dateTime = dateTime;
+                        setRailPage(AppPages.Bookings);
+                      },
                     ),
                   ),
                 ],
