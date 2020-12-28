@@ -43,8 +43,8 @@ class BookingsStack extends StatelessWidget {
     var slotCount = 0;
 
     for (var i = -1; i < bookings.length; i++) {
-      final isFirst = i == -1;
-      final isLast = i == bookings.length - 1;
+      final isFirst = (i == -1);
+      final isLast = (i == bookings.length - 1);
 
       var currentBookingDate = isFirst ? dateStart : bookings[i].dateEnd;
       var nextBookingDate = isLast ? dateEnd : bookings[i + 1].dateStart;

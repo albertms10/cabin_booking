@@ -26,7 +26,7 @@ class Statistics extends StatelessWidget {
               children: [
                 for (var i = 0; i < items.length; i++)
                   Container(
-                    padding: i == items.length - 1
+                    padding: (i == items.length - 1)
                         ? null
                         : const EdgeInsets.only(right: 32.0),
                     child: items[i],
