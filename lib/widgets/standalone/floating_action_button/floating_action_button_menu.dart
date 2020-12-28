@@ -143,7 +143,7 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
   }
 
   @override
-  void didUpdateWidget(FloatingActionButtonMenu oldWidget) {
+  void didUpdateWidget(oldWidget) {
     if (oldWidget.children.length != widget.children.length) {
       _controller.duration = _calculateMainControllerDuration();
     }
