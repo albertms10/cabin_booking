@@ -14,6 +14,7 @@ class WeekColumns extends StatelessWidget {
   final double space;
   final DateTime date;
   final void Function(DateTime, int) onDayTap;
+  final String Function(int) dayValueWrapper;
 
   const WeekColumns({
     Key key,
@@ -25,6 +26,7 @@ class WeekColumns extends StatelessWidget {
     @required this.date,
     this.onDayTap,
     this.space = 4.0,
+    this.dayValueWrapper,
   }) : super(key: key);
 
   /// The main logic for generating a list of columns representing a week
@@ -80,6 +82,7 @@ class WeekColumns extends StatelessWidget {
             space: space,
             date: currentDate,
             onTap: onDayTap,
+            valueWrapper: dayValueWrapper,
           ),
         );
 

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 
 class HeatMapDay extends StatelessWidget {
@@ -11,6 +10,7 @@ class HeatMapDay extends StatelessWidget {
   final DateTime date;
   final bool messageHidden;
   final void Function(DateTime, int) onTap;
+  final String Function(int) valueWrapper;
 
   const HeatMapDay({
     Key key,
@@ -22,6 +22,7 @@ class HeatMapDay extends StatelessWidget {
     this.date,
     this.messageHidden = false,
     this.onTap,
+    this.valueWrapper,
   })  : assert(value != null),
         super(key: key);
 
@@ -61,8 +62,8 @@ class HeatMapDay extends StatelessWidget {
         ? container
         : Tooltip(
             verticalOffset: 14.0,
-            message: '${AppLocalizations.of(context).nBookings(value)}'
-                ' · ${DateFormat.yMMMd().format(date)}',
+            message: '${(valueWrapper?.call(value) ?? value)}'
+                ' · ${DateFormat.d().add_MMM().add_y().format(date)}',
             child: container,
           );
   }

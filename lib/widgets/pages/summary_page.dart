@@ -69,6 +69,8 @@ class SummaryPage extends StatelessWidget {
                   Expanded(
                     child: HeatMapCalendar(
                       input: cabinManager.allCabinsBookingsCountPerDay,
+                      dayValueWrapper: (value) =>
+                          '${AppLocalizations.of(context).nBookings(value)}',
                       colorThresholds: mapColorsToHighestValue(
                         highestValue: cabinManager.mostBookedDayEntry.value,
                         color: Theme.of(context).accentColor,
