@@ -12,11 +12,7 @@ import 'package:intl/intl_standalone.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
-  if (kIsWeb) {
-    await findSystemLocale();
-  } else {
-    Intl.defaultLocale = 'en';
-  }
+  if (kIsWeb) await findSystemLocale();
 
   runApp(
     MultiProvider(
@@ -51,6 +47,8 @@ class CabinBookingApp extends StatelessWidget {
       theme: AppStyles.lightTheme(),
       darkTheme: AppStyles.darkTheme(),
       builder: (context, child) {
+        Intl.defaultLocale = Localizations.localeOf(context).toLanguageTag();
+
         return MediaQuery(
           data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
           child: child,
