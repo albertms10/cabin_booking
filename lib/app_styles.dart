@@ -29,13 +29,7 @@ class AppStyles {
       ),
       inputDecorationTheme: _baseThemeData().inputDecorationTheme,
       radioTheme: RadioThemeData(
-        fillColor: MaterialStateProperty.resolveWith((states) {
-          if (states.contains(MaterialState.selected)) {
-            return primaryColor;
-          }
-
-          return null;
-        }),
+        fillColor: _resolveSelectedMaterialState(primaryColor),
       ),
     );
   }
@@ -58,14 +52,20 @@ class AppStyles {
       ),
       inputDecorationTheme: _baseThemeData().inputDecorationTheme,
       radioTheme: RadioThemeData(
-        fillColor: MaterialStateProperty.resolveWith((states) {
-          if (states.contains(MaterialState.selected)) {
-            return primaryColor;
-          }
-
-          return null;
-        }),
+        fillColor: _resolveSelectedMaterialState(primaryColor),
       ),
     );
+  }
+
+  static MaterialStateProperty<Color> _resolveSelectedMaterialState(
+    Color color,
+  ) {
+    return MaterialStateProperty.resolveWith((states) {
+      if (states.contains(MaterialState.selected)) {
+        return color;
+      }
+
+      return null;
+    });
   }
 }
