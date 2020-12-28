@@ -16,10 +16,11 @@ class DayNavigation extends StatelessWidget {
     return Row(
       children: [
         FlatButton(
-          padding: const EdgeInsets.symmetric(vertical: 16.0),
+          padding: const EdgeInsets.symmetric(vertical: 18.0),
           onPressed: () => dayHandler.changeToNow(),
           child: Text(appLocalizations.today),
         ),
+        const SizedBox(width: 8.0),
         ClipRRect(
           borderRadius: const BorderRadius.all(Radius.circular(24.0)),
           child: Material(
@@ -30,6 +31,7 @@ class DayNavigation extends StatelessWidget {
             ),
           ),
         ),
+        const SizedBox(width: 8.0),
         ClipRRect(
           borderRadius: const BorderRadius.all(Radius.circular(24.0)),
           child: Material(
