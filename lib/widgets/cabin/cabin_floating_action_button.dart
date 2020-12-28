@@ -27,7 +27,10 @@ class CabinFloatingActionButton extends StatelessWidget {
         }
       },
       tooltip: AppLocalizations.of(context).cabin,
-      child: const Icon(Icons.sensor_door_outlined),
+      child: Icon(
+        Icons.sensor_door_outlined,
+        color: Theme.of(context).colorScheme.onPrimary,
+      ),
     );
   }
 }
