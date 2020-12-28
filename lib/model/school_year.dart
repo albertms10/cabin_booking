@@ -27,4 +27,13 @@ class SchoolYear extends Item {
   @override
   String toString() =>
       '${DateFormat.y().format(startDate)}–${DateFormat.y().format(endDate)}';
+
+  @override
+  bool operator ==(other) =>
+      other is SchoolYear &&
+      startDate == other.startDate &&
+      endDate == other.endDate;
+
+  @override
+  int get hashCode => hashValues(startDate, endDate);
 }
