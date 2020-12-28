@@ -40,7 +40,7 @@ class Booking extends Item {
   Map<String, dynamic> toMap() => {
         ...super.toMap(),
         'description': description,
-        'date': date.toIso8601String().split('T')[0],
+        'date': date.toIso8601String().split('T').first,
         'timeStart': formatTimeOfDay(timeStart),
         'timeEnd': formatTimeOfDay(timeEnd),
         'isDisabled': isDisabled,
