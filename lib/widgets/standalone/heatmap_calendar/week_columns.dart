@@ -13,6 +13,7 @@ class WeekColumns extends StatelessWidget {
   final double squareSize;
   final double space;
   final DateTime date;
+  final void Function(DateTime, int) onDayTap;
 
   const WeekColumns({
     Key key,
@@ -22,6 +23,7 @@ class WeekColumns extends StatelessWidget {
     @required this.monthLabels,
     @required this.columnsToCreate,
     @required this.date,
+    this.onDayTap,
     this.space = 4.0,
   }) : super(key: key);
 
@@ -77,6 +79,7 @@ class WeekColumns extends StatelessWidget {
             size: squareSize,
             space: space,
             date: currentDate,
+            onTap: onDayTap,
           ),
         );
 

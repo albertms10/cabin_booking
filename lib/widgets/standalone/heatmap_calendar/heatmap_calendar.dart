@@ -40,6 +40,8 @@ class HeatMapCalendar extends StatelessWidget {
   /// Space between elements
   final double space;
 
+  final void Function(DateTime, int) onDayTap;
+
   const HeatMapCalendar({
     Key key,
     @required this.input,
@@ -50,6 +52,7 @@ class HeatMapCalendar extends StatelessWidget {
     this.textOpacity = 0.2,
     this.safetyMargin = 0.0,
     this.space = 4.0,
+    this.onDayTap,
   }) : super(key: key);
 
   /// Calculates the right amount of columns to create based on [maxWidth]
@@ -85,6 +88,7 @@ class HeatMapCalendar extends StatelessWidget {
                   monthLabels: monthsLabels,
                   columnsToCreate: getColumnsToCreate(constraints.maxWidth) - 1,
                   date: DateTime.now(),
+                  onDayTap: onDayTap,
                 ),
               ],
             ),

@@ -10,6 +10,7 @@ class HeatMapDay extends StatelessWidget {
   final Color defaultColor;
   final DateTime date;
   final bool messageHidden;
+  final void Function(DateTime, int) onTap;
 
   const HeatMapDay({
     Key key,
@@ -20,6 +21,7 @@ class HeatMapDay extends StatelessWidget {
     this.defaultColor = Colors.black12,
     this.date,
     this.messageHidden = false,
+    this.onTap,
   })  : assert(value != null),
         super(key: key);
 
@@ -39,13 +41,19 @@ class HeatMapDay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final container = Container(
-      height: size,
-      width: size,
-      margin: EdgeInsets.all(space / 2),
-      decoration: BoxDecoration(
+    final container = Padding(
+      padding: EdgeInsets.all(space / 2),
+      child: InkWell(
         borderRadius: const BorderRadius.all(Radius.circular(2.0)),
-        color: getColorFromThreshold(),
+        onTap: onTap == null ? null : () => onTap(date, value),
+        child: Container(
+          height: size,
+          width: size,
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.all(Radius.circular(2.0)),
+            color: getColorFromThreshold(),
+          ),
+        ),
       ),
     );
 
