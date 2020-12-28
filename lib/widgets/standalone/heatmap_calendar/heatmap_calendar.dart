@@ -38,6 +38,8 @@ class HeatMapCalendar extends StatelessWidget {
 
   final String Function(int) dayValueWrapper;
 
+  final bool showLegend;
+
   const HeatMapCalendar({
     Key key,
     @required this.input,
@@ -48,6 +50,7 @@ class HeatMapCalendar extends StatelessWidget {
     this.space = 4.0,
     this.onDayTap,
     this.dayValueWrapper,
+    this.showLegend = false,
   }) : super(key: key);
 
   /// Calculates the right amount of columns to create based on [maxWidth]
@@ -86,15 +89,15 @@ class HeatMapCalendar extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 16.0),
-            Padding(
-              padding: const EdgeInsets.only(right: 24.0),
-              child: HeatMapLegend(
-                squareSize: squareSize,
-                space: space,
-                color: Theme.of(context).accentColor,
+            if (showLegend)
+              Padding(
+                padding: const EdgeInsets.only(top: 16.0, right: 24.0),
+                child: HeatMapLegend(
+                  squareSize: squareSize,
+                  space: space,
+                  color: Theme.of(context).accentColor,
+                ),
               ),
-            ),
           ],
         );
       },

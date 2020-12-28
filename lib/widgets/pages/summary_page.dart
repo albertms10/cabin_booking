@@ -71,6 +71,7 @@ class SummaryPage extends StatelessWidget {
                       input: cabinManager.allCabinsBookingsCountPerDay,
                       dayValueWrapper: (value) =>
                           '${AppLocalizations.of(context).nBookings(value)}',
+                      showLegend: true,
                       colorThresholds: mapColorsToHighestValue(
                         highestValue: cabinManager.mostBookedDayEntry.value,
                         color: Theme.of(context).accentColor,
