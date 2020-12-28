@@ -62,7 +62,7 @@ class RecurringBooking extends Booking {
         'periodicityIndex': periodicity.index,
         'repeatEvery': repeatEvery,
         if (method == RecurringBookingMethod.EndDate)
-          'endDate': _endDate.toIso8601String()
+          'endDate': _endDate.toIso8601String().split('T').first
         else if (method == RecurringBookingMethod.Occurrences)
           'occurrences': _occurrences,
       };

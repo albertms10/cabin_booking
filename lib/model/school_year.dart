@@ -20,8 +20,8 @@ class SchoolYear extends Item {
   @override
   Map<String, dynamic> toMap() => {
         ...super.toMap(),
-        'startDate': startDate.toIso8601String(),
-        'endDate': endDate.toIso8601String(),
+        'startDate': startDate.toIso8601String().split('T').first,
+        'endDate': endDate.toIso8601String().split('T').first,
       };
 
   @override
