@@ -31,6 +31,7 @@ class BookingsTable extends StatelessWidget {
                   SizedBox(
                     width: columnWidth,
                     child: BookingsStack(
+                      key: Key('${cabin.number}'),
                       cabin: cabin.simplified(),
                       bookings: cabin.bookingsOn(dayHandler.dateTime),
                     ),

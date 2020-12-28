@@ -21,7 +21,7 @@ class BookingsStack extends StatelessWidget {
 
   Key _emptyBookingSlotKey(DateTime dateTime, int index) => Key(
         '${dateTime.toIso8601String().split('T')[0]}-'
-        '${cabin.number}-'
+        '$key-'
         '${index}',
       );
 
@@ -39,6 +39,8 @@ class BookingsStack extends StatelessWidget {
       dateTime: dayHandler.dateTime,
       timeOfDay: timeTableEndTime,
     );
+
+    var slotCount = 0;
 
     for (var i = -1; i < bookings.length; i++) {
       final isFirst = i == -1;
@@ -88,7 +90,7 @@ class BookingsStack extends StatelessWidget {
             EmptyBookingSlot(
               key: _emptyBookingSlotKey(
                 currentBookingDate,
-                runningSlotList.length,
+                slotCount++,
               ),
               cabin: cabin,
               dateStart: currentBookingDate,
@@ -107,7 +109,7 @@ class BookingsStack extends StatelessWidget {
           EmptyBookingSlot(
             key: _emptyBookingSlotKey(
               currentBookingDate,
-              runningSlotList.length,
+              slotCount++,
             ),
             cabin: cabin,
             dateStart: currentBookingDate,
