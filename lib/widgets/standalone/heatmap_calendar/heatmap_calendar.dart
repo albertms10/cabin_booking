@@ -31,12 +31,6 @@ class HeatMapCalendar extends StatelessWidget {
   /// The size of each item of the calendar
   final double squareSize;
 
-  /// The opacity of the text when the user double taps the widget
-  final double textOpacity;
-
-  /// Helps avoiding overspacing issues
-  final double safetyMargin;
-
   /// Space between elements
   final double space;
 
@@ -49,8 +43,6 @@ class HeatMapCalendar extends StatelessWidget {
     this.weekDaysLabels = TimeUtils.defaultWeekLabels,
     this.monthsLabels = TimeUtils.defaultMonthsLabels,
     this.squareSize = 16.0,
-    this.textOpacity = 0.2,
-    this.safetyMargin = 0.0,
     this.space = 4.0,
     this.onDayTap,
   }) : super(key: key);
@@ -61,9 +53,7 @@ class HeatMapCalendar extends StatelessWidget {
   int getColumnsToCreate(double maxWidth) {
     assert(maxWidth > (2 * (HeatMapCalendar.EDGE_SIZE + squareSize)));
 
-    // The given size of a square + the size of the margin
-    final widgetWidth = squareSize + HeatMapCalendar.EDGE_SIZE;
-    return (maxWidth - safetyMargin) ~/ widgetWidth;
+    return maxWidth ~/ (squareSize + HeatMapCalendar.EDGE_SIZE);
   }
 
   @override
