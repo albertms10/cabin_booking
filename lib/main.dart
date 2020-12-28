@@ -16,8 +16,8 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => CabinManager()),
         ChangeNotifierProvider(create: (context) => DayHandler()),
+        ChangeNotifierProvider(create: (context) => CabinManager()),
       ],
       child: const CabinBookingApp(),
     ),
