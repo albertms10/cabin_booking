@@ -10,15 +10,22 @@ class SchoolYearDropdown extends StatefulWidget {
 }
 
 class _SchoolYearDropdownState extends State<SchoolYearDropdown> {
+  DayHandler _dayHandler;
   int _currentIndex;
 
   @override
   void initState() {
     super.initState();
 
-    _currentIndex = Provider.of<DayHandler>(context, listen: false)
-        .schoolYearManager
-        .schoolYearIndex;
+    _dayHandler = Provider.of<DayHandler>(context, listen: false);
+
+    _currentIndex = _dayHandler.schoolYearManager.schoolYearIndex;
+
+    _dayHandler.addListener(() {
+      setState(() {
+        _currentIndex = _dayHandler.schoolYearManager.schoolYearIndex;
+      });
+    });
   }
 
   @override
