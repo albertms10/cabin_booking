@@ -32,8 +32,11 @@ class DayHandler with ChangeNotifier {
 
   DateTime get dateTime => _dateTime;
 
-  set dateTime(DateTime value) {
-    _dateTime = value;
+  set dateTime(DateTime dateTime) {
+    _dateTime = dateTime;
+
+    schoolYearManager.changeToSchoolYearFrom(dateTime);
+
     notifyListeners();
   }
 
