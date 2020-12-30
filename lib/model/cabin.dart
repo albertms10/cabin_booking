@@ -92,6 +92,16 @@ class Cabin extends Item {
   List<TimeOfDay> get mostOccupiedTimeRanges =>
       _bookingManager.mostOccupiedTimeRange;
 
+  @override
+  Cabin copyWith({
+    int number,
+    CabinComponents components,
+  }) =>
+      Cabin(
+        number: number ?? this.number,
+        components: components ?? this.components,
+      );
+
   void replaceWith(Cabin cabin) {
     number = cabin.number;
     components = cabin.components;

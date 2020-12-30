@@ -67,6 +67,34 @@ class RecurringBooking extends Booking {
           'occurrences': _occurrences,
       };
 
+  @override
+  RecurringBooking copyWith({
+    String description,
+    DateTime date,
+    TimeOfDay timeStart,
+    TimeOfDay timeEnd,
+    bool isDisabled,
+    String cabinId,
+    Periodicity periodicity,
+    int repeatEvery,
+    DateTime endDate,
+    int occurrences,
+  }) =>
+      RecurringBooking(
+        description: description ?? this.description,
+        date: date ?? this.date,
+        timeStart: timeStart ?? this.timeStart,
+        timeEnd: timeEnd ?? this.timeEnd,
+        isDisabled: isDisabled ?? this.isDisabled,
+        cabinId: cabinId ?? this.cabinId,
+        periodicity: periodicity ?? this.periodicity,
+        repeatEvery: repeatEvery ?? this.repeatEvery,
+        endDate: endDate != null && occurrences == null ? endDate : null,
+        occurrences: occurrences != null && endDate == null
+            ? occurrences
+            : this.occurrences,
+      );
+
   RecurringBookingMethod get method => _endDate != null
       ? RecurringBookingMethod.EndDate
       : RecurringBookingMethod.Occurrences;
@@ -145,7 +173,7 @@ class RecurringBooking extends Booking {
       runningDateTime = runningDateTime.add(periodicityDuration);
 
       if (runningDateTime.isBefore(endDate)) {
-        movedBooking = movedBooking.movedTo(runningDateTime);
+        movedBooking = movedBooking.copyWith(date: runningDateTime);
         count++;
       }
     }

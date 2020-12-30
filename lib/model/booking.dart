@@ -68,14 +68,22 @@ class Booking extends Item {
   bool collidesWith(Booking booking) =>
       dateStart.isBefore(booking.dateEnd) && dateEnd.isAfter(booking.dateStart);
 
-  Booking movedTo(DateTime dateTime) => Booking(
-        id: id,
-        description: description,
-        date: dateTime,
-        timeStart: TimeOfDay.fromDateTime(dateStart),
-        timeEnd: TimeOfDay.fromDateTime(dateEnd),
-        isDisabled: isDisabled,
-        cabinId: cabinId,
+  @override
+  Booking copyWith({
+    String description,
+    DateTime date,
+    TimeOfDay timeStart,
+    TimeOfDay timeEnd,
+    bool isDisabled,
+    String cabinId,
+  }) =>
+      Booking(
+        description: description ?? this.description,
+        date: date ?? this.date,
+        timeStart: timeStart ?? this.timeStart,
+        timeEnd: timeEnd ?? this.timeEnd,
+        isDisabled: isDisabled ?? this.isDisabled,
+        cabinId: cabinId ?? this.cabinId,
       );
 
   Map<TimeOfDay, Duration> get hoursSpan {

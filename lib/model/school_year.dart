@@ -25,6 +25,16 @@ class SchoolYear extends Item {
       };
 
   @override
+  SchoolYear copyWith({
+    DateTime startDate,
+    DateTime endDate,
+  }) =>
+      SchoolYear(
+        startDate: startDate ?? this.startDate,
+        endDate: endDate ?? this.endDate,
+      );
+
+  @override
   String toString() =>
       '${DateFormat.y().format(startDate)}–${DateFormat.y().format(endDate)}';
 

@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
 abstract class Item {
@@ -20,6 +21,7 @@ abstract class Item {
             : null,
         modificationCount = other['modificationCount'];
 
+  @mustCallSuper
   Map<String, dynamic> toMap() => {
         'id': id,
         'creationDate': creationDateTime.toIso8601String(),
@@ -27,6 +29,8 @@ abstract class Item {
           'modificationDate': modificationDateTime.toIso8601String(),
         'modificationCount': modificationCount,
       };
+
+  Item copyWith();
 
   void modify() {
     modificationDateTime = DateTime.now();
