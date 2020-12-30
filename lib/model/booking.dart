@@ -8,6 +8,7 @@ class Booking extends Item {
   DateTime date;
   TimeOfDay timeStart;
   TimeOfDay timeEnd;
+  BookingStatus status;
   bool isDisabled;
   String cabinId;
 
@@ -21,6 +22,7 @@ class Booking extends Item {
     this.date,
     this.timeStart,
     this.timeEnd,
+    this.status = BookingStatus.Pending,
     this.isDisabled = false,
     this.cabinId,
     this.recurringBookingId,
@@ -33,6 +35,7 @@ class Booking extends Item {
         date = DateTime.tryParse(other['date']),
         timeStart = tryParseTimeOfDay(other['timeStart']),
         timeEnd = tryParseTimeOfDay(other['timeEnd']),
+        status = BookingStatus.values[other['status']],
         isDisabled = other['isDisabled'],
         super.from(other);
 
@@ -43,6 +46,7 @@ class Booking extends Item {
         'date': date.toIso8601String().split('T').first,
         'timeStart': formatTimeOfDay(timeStart),
         'timeEnd': formatTimeOfDay(timeEnd),
+        'status': status.index,
         'isDisabled': isDisabled,
       };
 
@@ -74,6 +78,7 @@ class Booking extends Item {
     DateTime date,
     TimeOfDay timeStart,
     TimeOfDay timeEnd,
+    BookingStatus status,
     bool isDisabled,
     String cabinId,
   }) =>
@@ -83,6 +88,7 @@ class Booking extends Item {
         date: date ?? this.date,
         timeStart: timeStart ?? this.timeStart,
         timeEnd: timeEnd ?? this.timeEnd,
+        status: status ?? this.status,
         isDisabled: isDisabled ?? this.isDisabled,
         cabinId: cabinId ?? this.cabinId,
       );
@@ -124,6 +130,7 @@ class Booking extends Item {
     date = booking.date;
     timeStart = booking.timeStart;
     timeEnd = booking.timeEnd;
+    status = booking.status;
     isDisabled = booking.isDisabled;
 
     super.replaceWith(booking);
@@ -133,3 +140,5 @@ class Booking extends Item {
   String toString() =>
       '$description $dateRange${isDisabled ? ' (disabled)' : ''}';
 }
+
+enum BookingStatus { Pending, Confirmed, Cancelled }
