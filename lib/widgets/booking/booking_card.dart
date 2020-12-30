@@ -33,7 +33,7 @@ class BookingCard extends StatelessWidget {
           tween: Tween<double>(begin: height, end: height),
           duration: const Duration(milliseconds: 300),
           curve: Curves.easeInOutCubic,
-          builder: (builder, value, child) {
+          builder: (context, value, child) {
             return Card(
               margin: const EdgeInsets.all(8.0),
               shadowColor: isBeforeNow ? Colors.black38 : Colors.black87,

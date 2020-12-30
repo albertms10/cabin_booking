@@ -58,7 +58,7 @@ class EmptyBookingSlot extends StatelessWidget {
               ),
               duration: const Duration(milliseconds: 300),
               curve: Curves.easeInOutCubic,
-              builder: (builder, value, child) {
+              builder: (context, value, child) {
                 return SizedBox(
                   width: double.infinity,
                   height: value,

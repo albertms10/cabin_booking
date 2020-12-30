@@ -21,7 +21,7 @@ class SummaryPage extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(32.0),
       child: Consumer2<DayHandler, CabinManager>(
-        builder: (builder, dayHandler, cabinManager, child) {
+        builder: (context, dayHandler, cabinManager, child) {
           return Column(
             children: [
               Row(
@@ -57,8 +57,8 @@ class SummaryPage extends StatelessWidget {
                       items: [
                         StatisticItem(
                           value: DateFormat.d().add_MMM().add_y().format(
-                            cabinManager.mostBookedDayEntry.key,
-                          ),
+                                cabinManager.mostBookedDayEntry.key,
+                              ),
                         ),
                       ],
                     ),
