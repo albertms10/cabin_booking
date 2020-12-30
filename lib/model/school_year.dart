@@ -30,6 +30,7 @@ class SchoolYear extends Item {
     DateTime endDate,
   }) =>
       SchoolYear(
+        id: id,
         startDate: startDate ?? this.startDate,
         endDate: endDate ?? this.endDate,
       );

@@ -98,6 +98,7 @@ class Cabin extends Item {
     CabinComponents components,
   }) =>
       Cabin(
+        id: id,
         number: number ?? this.number,
         components: components ?? this.components,
       );

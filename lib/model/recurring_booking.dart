@@ -87,6 +87,7 @@ class RecurringBooking extends Booking {
     int occurrences,
   }) =>
       RecurringBooking(
+        id: id,
         description: description ?? this.description,
         date: date ?? this.date,
         timeStart: timeStart ?? this.timeStart,

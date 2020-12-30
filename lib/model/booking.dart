@@ -78,6 +78,7 @@ class Booking extends Item {
     String cabinId,
   }) =>
       Booking(
+        id: id,
         description: description ?? this.description,
         date: date ?? this.date,
         timeStart: timeStart ?? this.timeStart,
