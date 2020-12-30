@@ -25,12 +25,12 @@ class BookingPopupMenu extends StatelessWidget {
       child: Material(
         color: Colors.transparent,
         child: PopupMenuButton<String>(
-          child: const Padding(
-            padding: EdgeInsets.all(6.0),
+          child: Padding(
+            padding: const EdgeInsets.all(6.0),
             child: Icon(
               Icons.more_vert,
               size: 18.0,
-              color: Colors.black54,
+              color: Theme.of(context).hintColor,
             ),
           ),
           onSelected: (choice) async {

@@ -13,7 +13,7 @@ class IconMenuItemContent extends StatelessWidget {
         Icon(
           icon,
           size: 20.0,
-          color: Colors.black54,
+          color: Theme.of(context).hintColor,
         ),
         const SizedBox(width: 14.0),
         Text(
