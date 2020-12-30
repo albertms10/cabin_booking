@@ -43,9 +43,12 @@ class RecurringBooking extends Booking {
             other.containsKey('occurrences') ? other['occurrences'] : null,
         super.from(other);
 
-  RecurringBooking.fromBooking(Booking booking)
-      : periodicity = Periodicity.Weekly,
-        repeatEvery = 1,
+  RecurringBooking.fromBooking(
+    Booking booking, {
+    Periodicity periodicity = Periodicity.Weekly,
+    int repeatEvery = 1,
+  })  : periodicity = periodicity,
+        repeatEvery = repeatEvery,
         super(
           id: booking.id,
           description: booking.description,

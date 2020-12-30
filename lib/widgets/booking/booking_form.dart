@@ -450,11 +450,10 @@ class _BookingFormState extends State<BookingForm> {
                 _formKey.currentState.save();
 
                 if (widget.isRecurring) {
-                  final recurringBooking =
-                      RecurringBooking.fromBooking(_booking);
-
-                  recurringBooking.periodicity = _periodicityValue;
-                  recurringBooking.repeatEvery = 1;
+                  final recurringBooking = RecurringBooking.fromBooking(
+                    _booking,
+                    periodicity: _periodicityValue,
+                  );
 
                   if (_recurringBookingMethod ==
                       RecurringBookingMethod.EndDate) {
