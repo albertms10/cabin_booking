@@ -13,6 +13,12 @@ class _SchoolYearDropdownState extends State<SchoolYearDropdown> {
   DayHandler _dayHandler;
   int _currentIndex;
 
+  void _setSchoolYearState() {
+    setState(() {
+      _currentIndex = _dayHandler.schoolYearManager.schoolYearIndex;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -21,16 +27,12 @@ class _SchoolYearDropdownState extends State<SchoolYearDropdown> {
 
     _currentIndex = _dayHandler.schoolYearManager.schoolYearIndex;
 
-    _dayHandler.addListener(() {
-      setState(() {
-        _currentIndex = _dayHandler.schoolYearManager.schoolYearIndex;
-      });
-    });
+    _dayHandler.addListener(_setSchoolYearState);
   }
 
   @override
   void dispose() {
-    _dayHandler.dispose();
+    _dayHandler.removeListener(_setSchoolYearState);
 
     super.dispose();
   }

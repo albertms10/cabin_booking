@@ -17,28 +17,30 @@ class _MainContentState extends State<MainContent> {
   CabinManager _cabinManager;
   Future<int> _cabinsFuture;
 
+  void _writeAndShowSnackBar() async {
+    await _cabinManager.writeCabinsToFile();
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(AppLocalizations.of(context).changesSaved),
+      ),
+    );
+  }
+
   @override
   void initState() {
     super.initState();
 
     _cabinManager = Provider.of<CabinManager>(context, listen: false);
 
-    _cabinManager.addListener(() async {
-      await _cabinManager.writeCabinsToFile();
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(AppLocalizations.of(context).changesSaved),
-        ),
-      );
-    });
+    _cabinManager.addListener(_writeAndShowSnackBar);
 
     _cabinsFuture = _cabinManager.loadCabinsFromFile();
   }
 
   @override
   void dispose() {
-    _cabinManager.dispose();
+    _cabinManager.removeListener(_writeAndShowSnackBar);
 
     super.dispose();
   }
