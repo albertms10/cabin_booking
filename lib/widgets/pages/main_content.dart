@@ -23,6 +23,7 @@ class _MainContentState extends State<MainContent> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(AppLocalizations.of(context).changesSaved),
+        duration: const Duration(seconds: 1),
       ),
     );
   }
