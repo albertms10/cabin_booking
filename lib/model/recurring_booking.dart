@@ -151,7 +151,7 @@ class RecurringBooking extends Booking {
   }
 
   Booking asBooking({bool linked = true}) => Booking(
-        id: linked ? '$id-0' : recurringBookingId,
+        id: linked ? '$id-0' : (recurringBookingId ?? id),
         description: description,
         date: date,
         timeStart: timeStart,
