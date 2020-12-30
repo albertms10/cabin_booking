@@ -32,14 +32,14 @@ abstract class Item {
 
   Item copyWith();
 
-  @mustCallSuper
-  void replaceWith(covariant Item item) {
-    modify();
-  }
-
-  void modify() {
+  void _modify() {
     modificationDateTime = DateTime.now();
     modificationCount++;
+  }
+
+  @mustCallSuper
+  void replaceWith(covariant Item item) {
+    _modify();
   }
 
   @override
