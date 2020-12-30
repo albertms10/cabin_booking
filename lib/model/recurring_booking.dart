@@ -208,12 +208,7 @@ class RecurringBooking extends Booking {
   String toString() => '$occurrences × ${super.toString()}';
 }
 
-enum Periodicity {
-  Daily,
-  Weekly,
-  Monthly,
-  Annually,
-}
+enum Periodicity { Daily, Weekly, Monthly, Annually }
 
 extension PeriodicityValues on Periodicity {
   static const periodicityInDays = {
@@ -224,7 +219,4 @@ extension PeriodicityValues on Periodicity {
   };
 }
 
-enum RecurringBookingMethod {
-  EndDate,
-  Occurrences,
-}
+enum RecurringBookingMethod { EndDate, Occurrences }
