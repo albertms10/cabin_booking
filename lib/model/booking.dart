@@ -62,37 +62,6 @@ class Booking extends Item {
 
   Duration get duration => dateEnd.difference(dateStart);
 
-  String get timeRange =>
-      '${formatTimeOfDay(timeStart)}–${formatTimeOfDay(timeEnd)}';
-
-  String get dateRange => '${DateFormat.yMd().format(date)} $timeRange';
-
-  bool isOn(DateTime dateTime) => isSameDay(date, dateTime);
-
-  bool collidesWith(Booking booking) =>
-      dateStart.isBefore(booking.dateEnd) && dateEnd.isAfter(booking.dateStart);
-
-  @override
-  Booking copyWith({
-    String description,
-    DateTime date,
-    TimeOfDay timeStart,
-    TimeOfDay timeEnd,
-    BookingStatus status,
-    bool isDisabled,
-    String cabinId,
-  }) =>
-      Booking(
-        id: id,
-        description: description ?? this.description,
-        date: date ?? this.date,
-        timeStart: timeStart ?? this.timeStart,
-        timeEnd: timeEnd ?? this.timeEnd,
-        status: status ?? this.status,
-        isDisabled: isDisabled ?? this.isDisabled,
-        cabinId: cabinId ?? this.cabinId,
-      );
-
   Map<TimeOfDay, Duration> get hoursSpan {
     final timeRanges = <TimeOfDay, Duration>{};
 
@@ -123,6 +92,37 @@ class Booking extends Item {
 
     return timeRanges;
   }
+
+  String get timeRange =>
+      '${formatTimeOfDay(timeStart)}–${formatTimeOfDay(timeEnd)}';
+
+  String get dateRange => '${DateFormat.yMd().format(date)} $timeRange';
+
+  bool isOn(DateTime dateTime) => isSameDay(date, dateTime);
+
+  bool collidesWith(Booking booking) =>
+      dateStart.isBefore(booking.dateEnd) && dateEnd.isAfter(booking.dateStart);
+
+  @override
+  Booking copyWith({
+    String description,
+    DateTime date,
+    TimeOfDay timeStart,
+    TimeOfDay timeEnd,
+    BookingStatus status,
+    bool isDisabled,
+    String cabinId,
+  }) =>
+      Booking(
+        id: id,
+        description: description ?? this.description,
+        date: date ?? this.date,
+        timeStart: timeStart ?? this.timeStart,
+        timeEnd: timeEnd ?? this.timeEnd,
+        status: status ?? this.status,
+        isDisabled: isDisabled ?? this.isDisabled,
+        cabinId: cabinId ?? this.cabinId,
+      );
 
   @override
   void replaceWith(covariant Booking booking) {

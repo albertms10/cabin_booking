@@ -76,37 +76,6 @@ class RecurringBooking extends Booking {
           'occurrences': _occurrences,
       };
 
-  @override
-  RecurringBooking copyWith({
-    String description,
-    DateTime date,
-    TimeOfDay timeStart,
-    TimeOfDay timeEnd,
-    BookingStatus status,
-    bool isDisabled,
-    String cabinId,
-    Periodicity periodicity,
-    int repeatEvery,
-    DateTime endDate,
-    int occurrences,
-  }) =>
-      RecurringBooking(
-        id: id,
-        description: description ?? this.description,
-        date: date ?? this.date,
-        timeStart: timeStart ?? this.timeStart,
-        timeEnd: timeEnd ?? this.timeEnd,
-        status: status ?? this.status,
-        isDisabled: isDisabled ?? this.isDisabled,
-        cabinId: cabinId ?? this.cabinId,
-        periodicity: periodicity ?? this.periodicity,
-        repeatEvery: repeatEvery ?? this.repeatEvery,
-        endDate: endDate != null && occurrences == null ? endDate : null,
-        occurrences: occurrences != null && endDate == null
-            ? occurrences
-            : this.occurrences,
-      );
-
   RecurringBookingMethod get method => _endDate != null
       ? RecurringBookingMethod.EndDate
       : RecurringBookingMethod.Occurrences;
@@ -200,6 +169,37 @@ class RecurringBooking extends Booking {
       );
 
   bool hasBookingOn(DateTime dateTime) => bookingOn(dateTime) != null;
+
+  @override
+  RecurringBooking copyWith({
+    String description,
+    DateTime date,
+    TimeOfDay timeStart,
+    TimeOfDay timeEnd,
+    BookingStatus status,
+    bool isDisabled,
+    String cabinId,
+    Periodicity periodicity,
+    int repeatEvery,
+    DateTime endDate,
+    int occurrences,
+  }) =>
+      RecurringBooking(
+        id: id,
+        description: description ?? this.description,
+        date: date ?? this.date,
+        timeStart: timeStart ?? this.timeStart,
+        timeEnd: timeEnd ?? this.timeEnd,
+        status: status ?? this.status,
+        isDisabled: isDisabled ?? this.isDisabled,
+        cabinId: cabinId ?? this.cabinId,
+        periodicity: periodicity ?? this.periodicity,
+        repeatEvery: repeatEvery ?? this.repeatEvery,
+        endDate: endDate != null && occurrences == null ? endDate : null,
+        occurrences: occurrences != null && endDate == null
+            ? occurrences
+            : this.occurrences,
+      );
 
   @override
   void replaceWith(covariant RecurringBooking recurringBooking) {
