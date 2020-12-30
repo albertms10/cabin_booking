@@ -32,6 +32,11 @@ abstract class Item {
 
   Item copyWith();
 
+  @mustCallSuper
+  void replaceWith(covariant Item item) {
+    modify();
+  }
+
   void modify() {
     modificationDateTime = DateTime.now();
     modificationCount++;

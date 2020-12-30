@@ -102,11 +102,12 @@ class Cabin extends Item {
         components: components ?? this.components,
       );
 
-  void replaceWith(Cabin cabin) {
+  @override
+  void replaceWith(covariant Cabin cabin) {
     number = cabin.number;
     components = cabin.components;
 
-    modify();
+    super.replaceWith(cabin);
   }
 
   void addBooking(Booking booking) => _bookingManager.addBooking(booking);

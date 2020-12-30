@@ -188,7 +188,8 @@ class RecurringBooking extends Booking {
 
   bool hasBookingOn(DateTime dateTime) => bookingOn(dateTime) != null;
 
-  void replaceRecurringWith(RecurringBooking recurringBooking) {
+  @override
+  void replaceWith(covariant RecurringBooking recurringBooking) {
     periodicity = recurringBooking.periodicity;
     _endDate = recurringBooking._endDate;
     _occurrences = recurringBooking._occurrences;

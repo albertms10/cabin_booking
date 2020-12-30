@@ -117,14 +117,15 @@ class Booking extends Item {
     return timeRanges;
   }
 
-  void replaceWith(Booking booking) {
+  @override
+  void replaceWith(covariant Booking booking) {
     description = booking.description;
     date = booking.date;
     timeStart = booking.timeStart;
     timeEnd = booking.timeEnd;
     isDisabled = booking.isDisabled;
 
-    modify();
+    super.replaceWith(booking);
   }
 
   @override

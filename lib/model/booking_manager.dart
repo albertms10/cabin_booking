@@ -230,7 +230,7 @@ class BookingManager with ChangeNotifier {
               recurringBooking.recurringBookingId == _recurringBooking.id ||
               recurringBooking.id == _recurringBooking.id,
         )
-        .replaceRecurringWith(recurringBooking);
+        .replaceWith(recurringBooking);
 
     recurringBookings.sort(_sortBookings);
 
