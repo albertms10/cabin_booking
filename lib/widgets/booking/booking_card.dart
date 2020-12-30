@@ -19,8 +19,7 @@ class BookingCard extends StatelessWidget {
 
   double get height => booking.duration.inMinutes * bookingHeightRatio - 16.0;
 
-  bool get isRecurring =>
-      booking is RecurringBooking || booking.recurringBookingId != null;
+  bool get isRecurring => RecurringBooking.isRecurringBooking(booking);
 
   @override
   Widget build(BuildContext context) {

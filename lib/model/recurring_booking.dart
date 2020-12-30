@@ -56,6 +56,9 @@ class RecurringBooking extends Booking {
           cabinId: booking.cabinId,
         );
 
+  static bool isRecurringBooking(Booking booking) =>
+      booking is RecurringBooking || booking.recurringBookingId != null;
+
   @override
   Map<String, dynamic> toMap() => {
         ...super.toMap(),
