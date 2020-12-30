@@ -8,20 +8,22 @@ class HeatMapLegend extends StatelessWidget {
   final double space;
   final Color color;
   final Color defaultColor;
+  final int samples;
 
   const HeatMapLegend({
     @required this.squareSize,
     @required this.space,
     @required this.color,
     this.defaultColor = Colors.black12,
-  });
+    this.samples = 5,
+  })  : assert(samples != null),
+        assert(samples > 2);
 
   Map<int, Color> get colorThresholds => {
         1: defaultColor,
-        2: color.withOpacity(0.25),
-        3: color.withOpacity(0.5),
-        4: color.withOpacity(0.75),
-        5: color,
+        for (var i = 1; i < samples - 1; i++)
+          i + 1: color.withOpacity(i / samples),
+        samples + 1: color,
       };
 
   @override

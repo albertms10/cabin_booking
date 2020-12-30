@@ -31,6 +31,8 @@ class HeatMapCalendar extends StatelessWidget {
 
   final bool showLegend;
 
+  final int legendSamples;
+
   const HeatMapCalendar({
     Key key,
     @required this.input,
@@ -40,6 +42,7 @@ class HeatMapCalendar extends StatelessWidget {
     this.onDayTap,
     this.dayValueWrapper,
     this.showLegend = false,
+    this.legendSamples = 5,
   }) : super(key: key);
 
   /// Calculates the right amount of columns to create based on [maxWidth]
@@ -83,6 +86,7 @@ class HeatMapCalendar extends StatelessWidget {
                   squareSize: squareSize,
                   space: space,
                   color: Theme.of(context).accentColor,
+                  samples: legendSamples,
                 ),
               ),
           ],
