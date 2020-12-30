@@ -29,6 +29,13 @@ class _SchoolYearDropdownState extends State<SchoolYearDropdown> {
   }
 
   @override
+  void dispose() {
+    _dayHandler.dispose();
+
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final schoolYearManager =
         Provider.of<DayHandler>(context).schoolYearManager;

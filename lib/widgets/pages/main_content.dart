@@ -37,6 +37,13 @@ class _MainContentState extends State<MainContent> {
   }
 
   @override
+  void dispose() {
+    _cabinManager.dispose();
+
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return FutureBuilder<int>(
       future: _cabinsFuture,
