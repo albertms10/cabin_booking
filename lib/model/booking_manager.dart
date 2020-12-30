@@ -72,25 +72,18 @@ class BookingManager with ChangeNotifier {
           ) !=
       null;
 
-  Duration get accumulatedDuration {
+  Duration _occupiedDuration([DateTime dateTime]) {
     var runningDuration = const Duration();
 
-    for (final booking in allBookings) {
+    for (final booking
+        in dateTime != null ? bookingsOn(dateTime) : allBookings) {
       runningDuration += booking.duration;
     }
 
     return runningDuration;
   }
 
-  Duration _occupiedDurationOn(DateTime dateTime) {
-    var runningDuration = const Duration();
-
-    for (final booking in bookingsOn(dateTime)) {
-      runningDuration += booking.duration;
-    }
-
-    return runningDuration;
-  }
+  Duration get accumulatedDuration => _occupiedDuration();
 
   double occupiedRatioOn(
     DateTime dateTime, {
@@ -109,8 +102,31 @@ class BookingManager with ChangeNotifier {
 
     final maxViewDuration = endDate.difference(startDate);
 
-    return _occupiedDurationOn(dateTime).inMicroseconds /
+    return _occupiedDuration(dateTime).inMicroseconds /
         maxViewDuration.inMicroseconds;
+  }
+
+  double occupiedRatio({
+    @required TimeOfDay startTime,
+    @required TimeOfDay endTime,
+    Set<DateTime> dates,
+  }) {
+    var runningRatio = 0.0;
+    var count = 0;
+
+    for (final dateTime in dates ?? datesWithBookings) {
+      count++;
+
+      final currentRatio = occupiedRatioOn(
+        dateTime,
+        startTime: startTime,
+        endTime: endTime,
+      );
+
+      runningRatio += (currentRatio - runningRatio) / count;
+    }
+
+    return runningRatio;
   }
 
   Set<DateTime> get datesWithBookings {
@@ -141,29 +157,6 @@ class BookingManager with ChangeNotifier {
     }
 
     return bookingsPerDay;
-  }
-
-  double occupiedRatio({
-    @required TimeOfDay startTime,
-    @required TimeOfDay endTime,
-    Set<DateTime> dates,
-  }) {
-    var runningRatio = 0.0;
-    var count = 0;
-
-    for (final dateTime in dates ?? datesWithBookings) {
-      count++;
-
-      final currentRatio = occupiedRatioOn(
-        dateTime,
-        startTime: startTime,
-        endTime: endTime,
-      );
-
-      runningRatio += (currentRatio - runningRatio) / count;
-    }
-
-    return runningRatio;
   }
 
   Map<TimeOfDay, Duration> get accumulatedTimeRangesOccupancy {
