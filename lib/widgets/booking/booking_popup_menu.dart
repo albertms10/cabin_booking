@@ -44,18 +44,32 @@ class BookingPopupMenu extends StatelessWidget {
                   builder: (context) => BookingDialog(
                     (booking.recurringBookingId == null
                         ? booking
-                        : cabinManager.fromId(cabin.id).recurringBookingFromId(
-                              booking.recurringBookingId,
-                            ))
+                        : cabinManager
+                            .fromId(cabin.id)
+                            .recurringBookingFromId(booking.recurringBookingId))
                       ..cabinId = cabin.id,
                   ),
                 );
 
-                if (editedBooking != null) {
-                  if (booking is RecurringBooking ||
-                      booking.recurringBookingId != null) {
+                if (editedBooking == null) break;
+
+                if (RecurringBooking.isRecurringBooking(editedBooking)) {
+                  if (RecurringBooking.isRecurringBooking(booking)) {
                     cabinManager.modifyRecurringBooking(
-                        cabin.id, editedBooking);
+                      cabin.id,
+                      editedBooking,
+                    );
+                  } else {
+                    cabinManager.removeBookingById(cabin.id, booking.id);
+                    cabinManager.addRecurringBooking(cabin.id, editedBooking);
+                  }
+                } else {
+                  if (RecurringBooking.isRecurringBooking(booking)) {
+                    cabinManager.removeRecurringBookingById(
+                      cabin.id,
+                      editedBooking.id,
+                    );
+                    cabinManager.addBooking(cabin.id, editedBooking);
                   } else {
                     cabinManager.modifyBooking(cabin.id, editedBooking);
                   }
@@ -69,16 +83,15 @@ class BookingPopupMenu extends StatelessWidget {
                   builder: (context) => const DeleteBookingDialog(),
                 );
 
-                if (shallDelete != null && shallDelete) {
-                  if (booking is RecurringBooking ||
-                      booking.recurringBookingId != null) {
-                    cabinManager.removeRecurringBookingById(
-                      cabin.id,
-                      booking.recurringBookingId,
-                    );
-                  } else {
-                    cabinManager.removeBookingById(cabin.id, booking.id);
-                  }
+                if (shallDelete == null || !shallDelete) break;
+
+                if (RecurringBooking.isRecurringBooking(booking)) {
+                  cabinManager.removeRecurringBookingById(
+                    cabin.id,
+                    booking.recurringBookingId,
+                  );
+                } else {
+                  cabinManager.removeBookingById(cabin.id, booking.id);
                 }
 
                 break;

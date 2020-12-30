@@ -466,6 +466,11 @@ class _BookingFormState extends State<BookingForm> {
 
                   Navigator.of(context).pop<RecurringBooking>(recurringBooking);
                 } else {
+                  if (_booking is RecurringBooking) {
+                    _booking =
+                        (_booking as RecurringBooking).asBooking(linked: false);
+                  }
+
                   Navigator.of(context).pop<Booking>(_booking);
                 }
               }
