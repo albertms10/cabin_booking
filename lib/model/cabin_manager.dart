@@ -20,7 +20,7 @@ class CabinManager with ChangeNotifier, FileManager {
   List<Map<String, dynamic>> cabinsToMapList() =>
       cabins.map((cabin) => cabin.toMap()).toList();
 
-  Cabin fromId(String id) => cabins.firstWhere((cabin) => cabin.id == id);
+  Cabin cabinFromId(String id) => cabins.firstWhere((cabin) => cabin.id == id);
 
   static int _sortCabins(Cabin a, Cabin b) => a.number.compareTo(b.number);
 
@@ -124,13 +124,13 @@ class CabinManager with ChangeNotifier, FileManager {
   }
 
   void addBooking(String cabinId, Booking booking) {
-    fromId(booking.cabinId ?? cabinId).addBooking(booking);
+    cabinFromId(booking.cabinId ?? cabinId).addBooking(booking);
 
     notifyListeners();
   }
 
   void addRecurringBooking(String cabinId, RecurringBooking recurringBooking) {
-    fromId(recurringBooking.cabinId ?? cabinId)
+    cabinFromId(recurringBooking.cabinId ?? cabinId)
         .addRecurringBooking(recurringBooking);
 
     notifyListeners();
@@ -138,10 +138,10 @@ class CabinManager with ChangeNotifier, FileManager {
 
   void modifyBooking(String cabinId, Booking booking) {
     if (booking.cabinId == null || booking.cabinId == cabinId) {
-      fromId(cabinId).modifyBooking(booking);
+      cabinFromId(cabinId).modifyBooking(booking);
     } else {
-      fromId(cabinId).removeBookingById(booking.id);
-      fromId(booking.cabinId).addBooking(booking);
+      cabinFromId(cabinId).removeBookingById(booking.id);
+      cabinFromId(booking.cabinId).addBooking(booking);
     }
 
     notifyListeners();
@@ -153,23 +153,24 @@ class CabinManager with ChangeNotifier, FileManager {
   ) {
     if (recurringBooking.cabinId == null ||
         recurringBooking.cabinId == cabinId) {
-      fromId(cabinId).modifyRecurringBooking(recurringBooking);
+      cabinFromId(cabinId).modifyRecurringBooking(recurringBooking);
     } else {
-      fromId(cabinId).removeRecurringBookingById(recurringBooking.id);
-      fromId(recurringBooking.cabinId).addRecurringBooking(recurringBooking);
+      cabinFromId(cabinId).removeRecurringBookingById(recurringBooking.id);
+      cabinFromId(recurringBooking.cabinId)
+          .addRecurringBooking(recurringBooking);
     }
 
     notifyListeners();
   }
 
   void removeBookingById(String cabinId, String bookingId) {
-    fromId(cabinId).removeBookingById(bookingId);
+    cabinFromId(cabinId).removeBookingById(bookingId);
 
     notifyListeners();
   }
 
   void removeRecurringBookingById(String cabinId, String bookingId) {
-    fromId(cabinId).removeRecurringBookingById(bookingId);
+    cabinFromId(cabinId).removeRecurringBookingById(bookingId);
 
     notifyListeners();
   }
