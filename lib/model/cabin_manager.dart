@@ -89,54 +89,81 @@ class CabinManager with ChangeNotifier, FileManager {
     return count;
   }
 
-  void addCabin(Cabin cabin) {
+  void addCabin(
+    Cabin cabin, {
+    bool notify = true,
+  }) {
     cabins.add(cabin);
 
-    notifyListeners();
+    if (notify) notifyListeners();
   }
 
-  void modifyCabin(Cabin cabin) {
+  void modifyCabin(
+    Cabin cabin, {
+    bool notify = true,
+  }) {
     cabins.firstWhere((_cabin) => cabin.id == _cabin.id).replaceWith(cabin);
 
     cabins.sort(_sortCabins);
 
-    notifyListeners();
+    if (notify) notifyListeners();
   }
 
-  void removeCabinById(String id) {
+  void removeCabinById(
+    String id, {
+    bool notify = true,
+  }) {
     cabins.removeWhere((cabin) => cabin.id == id);
 
-    notifyListeners();
+    if (notify) notifyListeners();
   }
 
-  void emptyCabinsByIds(List<String> ids) {
+  void emptyCabinsByIds(
+    List<String> ids, {
+    bool notify = true,
+  }) {
     cabins
         .where((cabin) => ids.contains(cabin.id))
         .forEach((cabin) => cabin.emptyAllBookings());
 
-    notifyListeners();
+    if (notify) notifyListeners();
   }
 
-  void removeCabinsByIds(List<String> ids) {
+  void removeCabinsByIds(
+    List<String> ids, {
+    bool notify = true,
+  }) {
     cabins.removeWhere((cabin) => ids.contains(cabin.id));
 
-    notifyListeners();
+    if (notify) notifyListeners();
   }
 
-  void addBooking(String cabinId, Booking booking) {
+  void addBooking(
+    String cabinId,
+    Booking booking, {
+    bool notify = true,
+  }) {
     cabinFromId(booking.cabinId ?? cabinId).addBooking(booking);
 
-    notifyListeners();
+    if (notify) notifyListeners();
   }
 
-  void addRecurringBooking(String cabinId, RecurringBooking recurringBooking) {
+  void addRecurringBooking(
+    String cabinId,
+    RecurringBooking recurringBooking, {
+    bool notify = true,
+  }) {
     cabinFromId(recurringBooking.cabinId ?? cabinId)
         .addRecurringBooking(recurringBooking);
 
-    notifyListeners();
+    if (notify) notifyListeners();
   }
 
-  void modifyBooking(String cabinId, Booking booking) {
+  void modifyBooking(
+    String cabinId,
+    Booking booking, {
+    bool notify = true,
+  }) {
     if (booking.cabinId == null || booking.cabinId == cabinId) {
       cabinFromId(cabinId).modifyBooking(booking);
     } else {
@@ -144,13 +171,14 @@ class CabinManager with ChangeNotifier, FileManager {
       cabinFromId(booking.cabinId).addBooking(booking);
     }
 
-    notifyListeners();
+    if (notify) notifyListeners();
   }
 
   void modifyRecurringBooking(
     String cabinId,
-    RecurringBooking recurringBooking,
-  ) {
+    RecurringBooking recurringBooking, {
+    bool notify = true,
+  }) {
     if (recurringBooking.cabinId == null ||
         recurringBooking.cabinId == cabinId) {
       cabinFromId(cabinId).modifyRecurringBooking(recurringBooking);
@@ -160,19 +188,49 @@ class CabinManager with ChangeNotifier, FileManager {
           .addRecurringBooking(recurringBooking);
     }
 
-    notifyListeners();
+    if (notify) notifyListeners();
   }
 
-  void removeBookingById(String cabinId, String bookingId) {
+  void removeBookingById(
+    String cabinId,
+    String bookingId, {
+    bool notify = true,
+  }) {
     cabinFromId(cabinId).removeBookingById(bookingId);
 
-    notifyListeners();
+    if (notify) notifyListeners();
   }
 
-  void removeRecurringBookingById(String cabinId, String bookingId) {
+  void removeRecurringBookingById(
+    String cabinId,
+    String bookingId, {
+    bool notify = true,
+  }) {
     cabinFromId(cabinId).removeRecurringBookingById(bookingId);
 
-    notifyListeners();
+    if (notify) notifyListeners();
+  }
+
+  void changeRecurringToBooking(
+    String cabinId,
+    Booking booking, {
+    bool notify = true,
+  }) {
+    removeRecurringBookingById(cabinId, booking.id, notify: false);
+    addBooking(cabinId, booking, notify: false);
+
+    if (notify) notifyListeners();
+  }
+
+  void changeBookingToRecurring(
+    String cabinId,
+    RecurringBooking recurringBooking, {
+    bool notify = true,
+  }) {
+    removeBookingById(cabinId, recurringBooking.id, notify: false);
+    addRecurringBooking(cabinId, recurringBooking, notify: false);
+
+    if (notify) notifyListeners();
   }
 
   static final _fileName = 'cabin_manager';

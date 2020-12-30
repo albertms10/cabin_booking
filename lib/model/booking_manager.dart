@@ -197,33 +197,45 @@ class BookingManager with ChangeNotifier {
       .firstWhere((recurringBooking) => recurringBooking.id == id)
         ..recurringBookingId = id;
 
-  void addBooking(Booking booking) {
+  void addBooking(
+    Booking booking, {
+    bool notify = true,
+  }) {
     bookings
       ..add(booking)
       ..sort(_sortBookings);
 
-    notifyListeners();
+    if (notify) notifyListeners();
   }
 
-  void addRecurringBooking(RecurringBooking recurringBooking) {
+  void addRecurringBooking(
+    RecurringBooking recurringBooking, {
+    bool notify = true,
+  }) {
     recurringBookings
       ..add(recurringBooking)
       ..sort(_sortBookings);
 
-    notifyListeners();
+    if (notify) notifyListeners();
   }
 
-  void modifyBooking(Booking booking) {
+  void modifyBooking(
+    Booking booking, {
+    bool notify = true,
+  }) {
     bookings
         .firstWhere((_booking) => booking.id == _booking.id)
         .replaceWith(booking);
 
     bookings.sort(_sortBookings);
 
-    notifyListeners();
+    if (notify) notifyListeners();
   }
 
-  void modifyRecurringBooking(RecurringBooking recurringBooking) {
+  void modifyRecurringBooking(
+    RecurringBooking recurringBooking, {
+    bool notify = true,
+  }) {
     recurringBookings
         .firstWhere(
           (_recurringBooking) =>
@@ -234,24 +246,32 @@ class BookingManager with ChangeNotifier {
 
     recurringBookings.sort(_sortBookings);
 
-    notifyListeners();
+    if (notify) notifyListeners();
   }
 
-  void removeBookingById(String id) {
+  void removeBookingById(
+    String id, {
+    bool notify = true,
+  }) {
     bookings.removeWhere((booking) => booking.id == id);
 
-    notifyListeners();
+    if (notify) notifyListeners();
   }
 
-  void removeRecurringBookingById(String id) {
+  void removeRecurringBookingById(
+    String id, {
+    bool notify = true,
+  }) {
     recurringBookings
         .removeWhere((_recurringBooking) => _recurringBooking.id == id);
 
-    notifyListeners();
+    if (notify) notifyListeners();
   }
 
-  void emptyAllBookings() {
+  void emptyAllBookings({bool notify = true}) {
     bookings.clear();
     recurringBookings.clear();
+
+    if (notify) notifyListeners();
   }
 }

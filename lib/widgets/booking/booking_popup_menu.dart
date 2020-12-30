@@ -60,16 +60,17 @@ class BookingPopupMenu extends StatelessWidget {
                       editedBooking,
                     );
                   } else {
-                    cabinManager.removeBookingById(cabin.id, booking.id);
-                    cabinManager.addRecurringBooking(cabin.id, editedBooking);
+                    cabinManager.changeBookingToRecurring(
+                      cabin.id,
+                      editedBooking,
+                    );
                   }
                 } else {
                   if (RecurringBooking.isRecurringBooking(booking)) {
-                    cabinManager.removeRecurringBookingById(
+                    cabinManager.changeRecurringToBooking(
                       cabin.id,
-                      editedBooking.id,
+                      editedBooking,
                     );
-                    cabinManager.addBooking(cabin.id, editedBooking);
                   } else {
                     cabinManager.modifyBooking(cabin.id, editedBooking);
                   }
