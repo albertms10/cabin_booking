@@ -1,18 +1,15 @@
+import 'package:cabin_booking/widgets/standalone/heatmap_calendar/time_utils.dart';
 import 'package:flutter/material.dart';
 
 class WeekLabels extends StatelessWidget {
-  final List<String> weekDaysLabels;
   final double squareSize;
   final double space;
 
   const WeekLabels({
     Key key,
-    @required this.weekDaysLabels,
     @required this.squareSize,
     this.space = 4.0,
-  })  : assert(weekDaysLabels != null),
-        assert(weekDaysLabels.length == 7),
-        assert(squareSize != null),
+  })  : assert(squareSize != null),
         assert(squareSize > 0.0),
         super(key: key);
 
@@ -28,7 +25,7 @@ class WeekLabels extends StatelessWidget {
               padding: EdgeInsets.only(right: space),
               alignment: Alignment.centerLeft,
               child: Text(
-                weekDaysLabels[i],
+                TimeUtils.weekLabels[i],
                 style: Theme.of(context).textTheme.caption,
               ),
             )

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'heatmap_legend.dart';
-import 'time_utils.dart';
 import 'week_columns.dart';
 import 'week_labels.dart';
 
@@ -9,14 +8,6 @@ import 'week_labels.dart';
 class HeatMapCalendar extends StatelessWidget {
   static const int COLUMN_COUNT = DateTime.daysPerWeek + 1;
   static const int EDGE_SIZE = 4;
-
-  /// The labels identifying the initials of the days of the week
-  /// Defaults to [TimeUtils.defaultWeekLabels]
-  final List<String> weekDaysLabels;
-
-  /// The labels identifying the months of a year
-  /// Defaults to [TimeUtils.defaultMonthsLabels]
-  final List<String> monthsLabels;
 
   /// The inputs that will fill the calendar with data
   final Map<DateTime, int> input;
@@ -44,8 +35,6 @@ class HeatMapCalendar extends StatelessWidget {
     Key key,
     @required this.input,
     @required this.colorThresholds,
-    this.weekDaysLabels = TimeUtils.defaultWeekLabels,
-    this.monthsLabels = TimeUtils.defaultMonthsLabels,
     this.squareSize = 16.0,
     this.space = 4.0,
     this.onDayTap,
@@ -72,7 +61,6 @@ class HeatMapCalendar extends StatelessWidget {
             Row(
               children: [
                 WeekLabels(
-                  weekDaysLabels: weekDaysLabels,
                   squareSize: squareSize,
                   space: space,
                 ),
@@ -81,7 +69,6 @@ class HeatMapCalendar extends StatelessWidget {
                   space: space,
                   input: input,
                   colorThresholds: colorThresholds,
-                  monthLabels: monthsLabels,
                   columnsToCreate: getColumnsToCreate(constraints.maxWidth) - 1,
                   date: DateTime.now(),
                   onDayTap: onDayTap,

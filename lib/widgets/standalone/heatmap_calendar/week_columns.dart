@@ -8,7 +8,6 @@ import 'time_utils.dart';
 class WeekColumns extends StatelessWidget {
   final Map<DateTime, int> input;
   final Map<int, Color> colorThresholds;
-  final List<String> monthLabels;
   final int columnsToCreate;
   final double squareSize;
   final double space;
@@ -21,7 +20,6 @@ class WeekColumns extends StatelessWidget {
     @required this.squareSize,
     @required this.input,
     @required this.colorThresholds,
-    @required this.monthLabels,
     @required this.columnsToCreate,
     @required this.date,
     this.onDayTap,
@@ -57,7 +55,7 @@ class WeekColumns extends StatelessWidget {
 
         if ((months.isEmpty || months.last != firstMonth) &&
             currentDate.day <= 14) {
-          monthLabel = monthLabels[firstMonth - 1];
+          monthLabel = TimeUtils.monthsLabels[firstMonth - 1];
           months.add(firstMonth);
 
           columnItems.add(
