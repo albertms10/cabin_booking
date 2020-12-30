@@ -7,7 +7,7 @@ class TimeUtils {
     for (var i = 1; i <= 12; i++) DateFormat.MMM().format(DateTime(2020, i)),
   ];
 
-  static List<String> weekLabels = [
+  static List<String> weekDaysLabels = [
     for (var i = 1; i <= 7; i++) DateFormat.E().format(DateTime(2020, 6, i)),
   ];
 

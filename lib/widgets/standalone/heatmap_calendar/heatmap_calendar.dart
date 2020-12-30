@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'heatmap_legend.dart';
 import 'week_columns.dart';
-import 'week_labels.dart';
+import 'week_days_labels.dart';
 
 /// Source: https://pub.dev/packages/heatmap_calendar
 class HeatMapCalendar extends StatelessWidget {
@@ -63,7 +63,7 @@ class HeatMapCalendar extends StatelessWidget {
           children: [
             Row(
               children: [
-                WeekLabels(
+                WeekDaysLabels(
                   squareSize: squareSize,
                   space: space,
                 ),
