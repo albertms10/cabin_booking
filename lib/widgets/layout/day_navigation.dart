@@ -11,47 +11,49 @@ class DayNavigation extends StatelessWidget {
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context);
 
-    final dayHandler = Provider.of<DayHandler>(context, listen: false);
-
-    return Row(
-      children: [
-        FlatButton(
-          padding: const EdgeInsets.symmetric(vertical: 18.0),
-          onPressed: () => dayHandler.changeToNow(),
-          child: Text(appLocalizations.today),
-        ),
-        const SizedBox(width: 8.0),
-        ClipRRect(
-          borderRadius: const BorderRadius.all(Radius.circular(24.0)),
-          child: Material(
-            child: IconButton(
-              onPressed: () => dayHandler.changeToPreviousDay(),
-              icon: const Icon(Icons.chevron_left),
-              tooltip: appLocalizations.previousDay,
+    return Consumer<DayHandler>(
+      builder: (context, dayHandler, child) {
+        return Row(
+          children: [
+            FlatButton(
+              padding: const EdgeInsets.symmetric(vertical: 18.0),
+              onPressed: () => dayHandler.changeToNow(),
+              child: Text(appLocalizations.today),
             ),
-          ),
-        ),
-        const SizedBox(width: 8.0),
-        ClipRRect(
-          borderRadius: const BorderRadius.all(Radius.circular(24.0)),
-          child: Material(
-            child: IconButton(
-              onPressed: () => dayHandler.changeToNextDay(),
-              icon: const Icon(Icons.chevron_right),
-              tooltip: appLocalizations.nextDay,
+            const SizedBox(width: 8.0),
+            ClipRRect(
+              borderRadius: const BorderRadius.all(Radius.circular(24.0)),
+              child: Material(
+                child: IconButton(
+                  onPressed: dayHandler.hasPreviousDay
+                      ? () => dayHandler.changeToPreviousDay()
+                      : null,
+                  icon: const Icon(Icons.chevron_left),
+                  tooltip: appLocalizations.previousDay,
+                ),
+              ),
             ),
-          ),
-        ),
-        const SizedBox(width: 24.0),
-        Consumer<DayHandler>(
-          builder: (context, dayHandler, child) {
-            return Text(
+            const SizedBox(width: 8.0),
+            ClipRRect(
+              borderRadius: const BorderRadius.all(Radius.circular(24.0)),
+              child: Material(
+                child: IconButton(
+                  onPressed: dayHandler.hasNextDay
+                      ? () => dayHandler.changeToNextDay()
+                      : null,
+                  icon: const Icon(Icons.chevron_right),
+                  tooltip: appLocalizations.nextDay,
+                ),
+              ),
+            ),
+            const SizedBox(width: 24.0),
+            Text(
               DateFormat.yMMMMEEEEd().format(dayHandler.dateTime),
               style: Theme.of(context).textTheme.headline5,
-            );
-          },
-        ),
-      ],
+            ),
+          ],
+        );
+      },
     );
   }
 }
