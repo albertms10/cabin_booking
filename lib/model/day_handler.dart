@@ -40,6 +40,10 @@ class DayHandler with ChangeNotifier {
     notifyListeners();
   }
 
+  bool get hasPreviousDay => _dateTime.isAfter(schoolYears.first.startDate);
+
+  bool get hasNextDay => _dateTime.isBefore(schoolYears.last.endDate);
+
   void changeToNow() => dateTime = DateTime.now();
 
   void changeToNextDay() => dateTime = _dateTime.add(const Duration(days: 1));
