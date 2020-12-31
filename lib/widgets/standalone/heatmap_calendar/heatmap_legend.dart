@@ -22,8 +22,8 @@ class HeatMapLegend extends StatelessWidget {
   Map<int, Color> get colorThresholds => {
         1: defaultColor,
         for (var i = 1; i < samples - 1; i++)
-          i + 1: color.withOpacity(i / samples),
-        samples + 1: color,
+          i + 1: color.withOpacity(i / (samples - 1)),
+        samples: color,
       };
 
   @override
