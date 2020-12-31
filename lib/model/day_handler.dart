@@ -2,7 +2,7 @@ import 'package:cabin_booking/model/school_year.dart';
 import 'package:cabin_booking/model/school_year_manager.dart';
 import 'package:flutter/material.dart';
 
-final _defaultSchoolYears = [
+final _defaultSchoolYears = {
   SchoolYear(
     startDate: DateTime(2018, DateTime.september, 3),
     endDate: DateTime(2019, DateTime.july, 26),
@@ -19,7 +19,7 @@ final _defaultSchoolYears = [
     startDate: DateTime(2021, DateTime.august, 31),
     endDate: DateTime(2022, DateTime.july, 23),
   ),
-];
+};
 
 class DayHandler with ChangeNotifier {
   DateTime _dateTime;
@@ -63,5 +63,5 @@ class DayHandler with ChangeNotifier {
     }
   }
 
-  List<SchoolYear> get schoolYears => _schoolYearManager.schoolYears;
+  Set<SchoolYear> get schoolYears => _schoolYearManager.schoolYears;
 }

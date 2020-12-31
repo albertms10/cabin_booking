@@ -1,7 +1,7 @@
 import 'package:cabin_booking/model/school_year.dart';
 
 class SchoolYearManager {
-  List<SchoolYear> schoolYears;
+  Set<SchoolYear> schoolYears;
   int schoolYearIndex;
 
   SchoolYearManager(this.schoolYears) {
@@ -14,8 +14,8 @@ class SchoolYearManager {
     if (schoolYears.isEmpty) return null;
 
     for (var i = 0; i < schoolYears.length - 1; i++) {
-      if (dateTime.isAfter(schoolYears[i].startDate) &&
-          dateTime.isBefore(schoolYears[i + 1].startDate)) {
+      if (dateTime.isAfter(schoolYears.elementAt(i).startDate) &&
+          dateTime.isBefore(schoolYears.elementAt(i + 1).startDate)) {
         return i;
       }
     }
@@ -23,7 +23,7 @@ class SchoolYearManager {
     return schoolYears.length - 1;
   }
 
-  SchoolYear get schoolYear => schoolYears[schoolYearIndex];
+  SchoolYear get schoolYear => schoolYears.elementAt(schoolYearIndex);
 
   void changeToPreviousSchoolYear() =>
       schoolYearIndex = schoolYearIndex > 0 ? schoolYearIndex - 1 : 0;

@@ -53,7 +53,7 @@ class _SchoolYearDropdownState extends State<SchoolYearDropdown> {
       items: [
         for (var i = 0; i < dayHandler.schoolYears.length; i++)
           DropdownMenuItem<int>(
-            child: Text('${dayHandler.schoolYears[i]}'),
+            child: Text('${dayHandler.schoolYears.elementAt(i)}'),
             value: i,
           )
       ],
