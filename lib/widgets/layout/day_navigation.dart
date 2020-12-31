@@ -46,7 +46,7 @@ class DayNavigation extends StatelessWidget {
         Consumer<DayHandler>(
           builder: (context, dayHandler, child) {
             return Text(
-              DateFormat.MMMMEEEEd().format(dayHandler.dateTime),
+              DateFormat.yMMMMEEEEd().format(dayHandler.dateTime),
               style: Theme.of(context).textTheme.headline5,
             );
           },
