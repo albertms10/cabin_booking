@@ -22,13 +22,13 @@ final _defaultSchoolYears = [
 ];
 
 class DayHandler with ChangeNotifier {
+  DateTime _dateTime;
   SchoolYearManager _schoolYearManager;
 
   DayHandler([this._schoolYearManager]) {
+    _dateTime = DateTime.now();
     _schoolYearManager ??= SchoolYearManager(_defaultSchoolYears);
   }
-
-  DateTime _dateTime = DateTime.now();
 
   DateTime get dateTime => _dateTime;
 
