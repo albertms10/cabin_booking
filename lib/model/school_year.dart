@@ -35,6 +35,9 @@ class SchoolYear extends Item {
         endDate: endDate ?? this.endDate,
       );
 
+  bool includes(DateTime dateTime) =>
+      startDate.isBefore(dateTime) && endDate.isAfter(dateTime);
+
   @override
   String toString() =>
       '${DateFormat.y().format(startDate)}–${DateFormat.y().format(endDate)}';
