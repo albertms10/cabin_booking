@@ -15,7 +15,7 @@ class _SchoolYearDropdownState extends State<SchoolYearDropdown> {
 
   void _setSchoolYearState() {
     setState(() {
-      _currentIndex = _dayHandler.schoolYearManager.schoolYearIndex;
+      _currentIndex = _dayHandler.schoolYearIndex;
     });
   }
 
@@ -25,7 +25,7 @@ class _SchoolYearDropdownState extends State<SchoolYearDropdown> {
 
     _dayHandler = Provider.of<DayHandler>(context, listen: false);
 
-    _currentIndex = _dayHandler.schoolYearManager.schoolYearIndex;
+    _currentIndex = _dayHandler.schoolYearIndex;
 
     _dayHandler.addListener(_setSchoolYearState);
   }
