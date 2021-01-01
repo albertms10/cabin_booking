@@ -40,8 +40,7 @@ class BookingCard extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: const BorderRadius.all(Radius.circular(10.0)),
                 side: BorderSide(
-                  color: (isRecurring ? Colors.blue[200] : Colors.grey[300])
-                      .withOpacity(isBeforeNow ? 0.41 : 1.0),
+                  color: Colors.grey[300].withOpacity(isBeforeNow ? 0.41 : 1.0),
                   width: 1.5,
                 ),
               ),
@@ -50,9 +49,8 @@ class BookingCard extends StatelessWidget {
                 height: value,
                 padding: const EdgeInsets.all(8.0),
                 decoration: BoxDecoration(
-                  color: (isRecurring
-                          ? Colors.blue.withOpacity(0.41)
-                          : Theme.of(context).cardColor)
+                  color: Theme.of(context)
+                      .cardColor
                       .withOpacity(isBeforeNow ? 0.41 : 1.0),
                   borderRadius: const BorderRadius.all(Radius.circular(10.0)),
                 ),
@@ -90,28 +88,45 @@ class BookingCardInfo extends StatelessWidget {
         return Stack(
           alignment: Alignment.topRight,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+            Row(
               children: [
-                Text(
-                  booking.description,
-                  style: TextStyle(
-                      fontSize: constraints.maxHeight > 20
-                          ? 14.0
-                          : constraints.maxHeight * 0.5),
-                ),
-                if (constraints.maxHeight > 30)
-                  Text(
-                    booking.timeRange +
-                        (isRecurring && constraints.maxHeight > 30
-                            ? ' · ${booking.recurringNumber}/${booking.recurringTotalTimes}'
-                            : ''),
-                    style: theme.textTheme.caption.copyWith(
-                      fontSize: constraints.maxHeight > 40
-                          ? 14.0
-                          : constraints.maxHeight * 0.4,
+                if (isRecurring)
+                  Tooltip(
+                    message:
+                        '${booking.recurringNumber}/${booking.recurringTotalTimes}',
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 4.0),
+                      child: Icon(
+                        Icons.repeat,
+                        color: Theme.of(context).hintColor,
+                        size: 16.0,
+                      ),
                     ),
                   ),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        booking.description,
+                        style: TextStyle(
+                            fontSize: constraints.maxHeight > 20
+                                ? 14.0
+                                : constraints.maxHeight * 0.5),
+                      ),
+                      if (constraints.maxHeight > 30)
+                        Text(
+                          booking.timeRange,
+                          style: theme.textTheme.caption.copyWith(
+                            fontSize: constraints.maxHeight > 40
+                                ? 14.0
+                                : constraints.maxHeight * 0.4,
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
               ],
             ),
             BookingPopupMenu(
