@@ -11,12 +11,12 @@ import 'package:provider/provider.dart';
 
 class BookingsStack extends StatelessWidget {
   final Cabin cabin;
-  final List<Booking> bookings;
+  final Set<Booking> bookings;
 
   const BookingsStack({
     Key key,
     this.cabin,
-    this.bookings = const <Booking>[],
+    this.bookings = const <Booking>{},
   }) : super(key: key);
 
   Key _emptyBookingSlotKey(DateTime dateTime, int index) => Key(
@@ -46,13 +46,15 @@ class BookingsStack extends StatelessWidget {
       final isFirst = (i == -1);
       final isLast = (i == bookings.length - 1);
 
-      var currentBookingDate = isFirst ? dateStart : bookings[i].dateEnd;
-      var nextBookingDate = isLast ? dateEnd : bookings[i + 1].dateStart;
+      var currentBookingDate =
+          isFirst ? dateStart : bookings.elementAt(i).dateEnd;
+      var nextBookingDate =
+          isLast ? dateEnd : bookings.elementAt(i + 1).dateStart;
 
       final duration = nextBookingDate.difference(currentBookingDate);
 
       if (!isFirst) {
-        final booking = bookings[i];
+        final booking = bookings.elementAt(i);
 
         distributedBookings.add(
           SizedBox(

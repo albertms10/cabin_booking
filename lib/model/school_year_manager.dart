@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:convert' show json;
 
 import 'package:cabin_booking/model/file_manager.dart';
@@ -5,10 +6,8 @@ import 'package:cabin_booking/model/school_year.dart';
 import 'package:cabin_booking/model/writable_manager.dart';
 import 'package:flutter/foundation.dart';
 
-Set<SchoolYear> _parseSchoolYears(String jsonString) => json
-    .decode(jsonString)
-    .map<SchoolYear>((json) => SchoolYear.from(json))
-    .toSet();
+Iterable<SchoolYear> _parseSchoolYears(String jsonString) =>
+    json.decode(jsonString).map<SchoolYear>((json) => SchoolYear.from(json));
 
 class SchoolYearManager extends WritableManager<Set<SchoolYear>>
     with ChangeNotifier, FileManager {
@@ -19,7 +18,7 @@ class SchoolYearManager extends WritableManager<Set<SchoolYear>>
     this.schoolYears,
     String fileName = 'school_year_manager',
   }) : super(fileName) {
-    schoolYears ??= <SchoolYear>{};
+    schoolYears ??= SplayTreeSet();
     schoolYearIndex = _currentSchoolYearIndex;
   }
 
@@ -62,11 +61,11 @@ class SchoolYearManager extends WritableManager<Set<SchoolYear>>
       final file = await localFile(fileName);
       final content = await file.readAsString();
 
-      final schoolYears = await compute(_parseSchoolYears, content);
+      final schoolYears = await _parseSchoolYears(content);
 
-      return schoolYears;
+      return SplayTreeSet.from(schoolYears);
     } catch (e) {
-      return <SchoolYear>{};
+      return SplayTreeSet();
     }
   }
 

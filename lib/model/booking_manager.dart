@@ -1,24 +1,30 @@
+import 'dart:collection';
+
 import 'package:cabin_booking/model/booking.dart';
 import 'package:cabin_booking/model/recurring_booking.dart';
 import 'package:cabin_booking/utils/date.dart';
 import 'package:flutter/material.dart';
 
 class BookingManager with ChangeNotifier {
-  List<Booking> bookings;
-  List<RecurringBooking> recurringBookings;
+  Set<Booking> bookings;
+  Set<RecurringBooking> recurringBookings;
 
   BookingManager({this.bookings, this.recurringBookings}) {
-    bookings ??= <Booking>[];
-    recurringBookings ??= <RecurringBooking>[];
+    bookings ??= SplayTreeSet();
+    recurringBookings ??= SplayTreeSet();
   }
 
   BookingManager.from({
     List<dynamic> bookings,
     List<dynamic> recurringBookings,
-  })  : bookings = bookings.map((booking) => Booking.from(booking)).toList(),
-        recurringBookings = recurringBookings
-            .map((recurringBooking) => RecurringBooking.from(recurringBooking))
-            .toList();
+  })  : bookings = SplayTreeSet.from(
+          bookings.map((booking) => Booking.from(booking)),
+        ),
+        recurringBookings = SplayTreeSet.from(
+          recurringBookings.map(
+            (recurringBooking) => RecurringBooking.from(recurringBooking),
+          ),
+        );
 
   List<Map<String, dynamic>> bookingsToMapList() =>
       bookings.map((booking) => booking.toMap()).toList();
@@ -26,9 +32,6 @@ class BookingManager with ChangeNotifier {
   List<Map<String, dynamic>> recurringBookingsToMapList() => recurringBookings
       .map((recurringBooking) => recurringBooking.toMap())
       .toList();
-
-  static int _sortBookings(Booking a, Booking b) =>
-      a.dateStart.compareTo(b.dateStart);
 
   List<Booking> get generatedBookingsFromRecurring {
     final generatedBookings = <Booking>[];
@@ -40,11 +43,13 @@ class BookingManager with ChangeNotifier {
     return generatedBookings;
   }
 
-  List<Booking> get allBookings =>
-      [...bookings, ...generatedBookingsFromRecurring]..sort(_sortBookings);
+  Set<Booking> get allBookings => SplayTreeSet.from({
+        ...bookings,
+        ...generatedBookingsFromRecurring,
+      });
 
-  List<Booking> _recurringBookingsOn(DateTime dateTime) {
-    final filteredBookings = <Booking>[];
+  Set<Booking> _recurringBookingsOn(DateTime dateTime) {
+    final filteredBookings = SplayTreeSet<Booking>();
 
     for (final recurringBooking in recurringBookings) {
       final booking = recurringBooking.bookingOn(dateTime);
@@ -55,10 +60,10 @@ class BookingManager with ChangeNotifier {
     return filteredBookings;
   }
 
-  List<Booking> bookingsOn(DateTime dateTime) => [
+  Set<Booking> bookingsOn(DateTime dateTime) => SplayTreeSet.from({
         ...bookings.where((booking) => booking.isOn(dateTime)),
         ..._recurringBookingsOn(dateTime),
-      ]..sort(_sortBookings);
+      });
 
   bool bookingsCollideWith(Booking booking) =>
       bookingsOn(booking.date)
@@ -130,7 +135,7 @@ class BookingManager with ChangeNotifier {
   }
 
   Set<DateTime> get datesWithBookings {
-    final dates = <DateTime>{};
+    final dates = SplayTreeSet<DateTime>();
 
     for (final booking in allBookings) {
       final shouldAddDate = dates.firstWhere(
@@ -175,19 +180,22 @@ class BookingManager with ChangeNotifier {
     return timeRanges;
   }
 
-  List<TimeOfDay> get mostOccupiedTimeRange {
-    final sortedTimeRanges = accumulatedTimeRangesOccupancy.entries.toList()
-      ..sort((a, b) => (b.value - a.value).inMicroseconds);
+  Set<TimeOfDay> get mostOccupiedTimeRange {
+    final sortedTimeRanges = SplayTreeSet<MapEntry<TimeOfDay, Duration>>.from(
+      accumulatedTimeRangesOccupancy.entries,
+      (a, b) => (b.value - a.value).inMicroseconds,
+    );
 
-    if (sortedTimeRanges.isEmpty) return [];
+    if (sortedTimeRanges.isEmpty) return {};
 
     final highestOccupancyDuration = sortedTimeRanges.first.value;
 
-    return sortedTimeRanges
-        .where((timeRange) => timeRange.value == highestOccupancyDuration)
-        .map((timeRange) => timeRange.key)
-        .toList()
-          ..sort((a, b) => (a.hour - b.hour) * 100 + a.minute - b.minute);
+    return SplayTreeSet.from(
+      sortedTimeRanges
+          .where((timeRange) => timeRange.value == highestOccupancyDuration)
+          .map((timeRange) => timeRange.key),
+      (a, b) => (a.hour - b.hour) * 100 + a.minute - b.minute,
+    );
   }
 
   Booking bookingFromId(String id) =>
@@ -201,9 +209,7 @@ class BookingManager with ChangeNotifier {
     Booking booking, {
     bool notify = true,
   }) {
-    bookings
-      ..add(booking)
-      ..sort(_sortBookings);
+    bookings.add(booking);
 
     if (notify) notifyListeners();
   }
@@ -212,9 +218,7 @@ class BookingManager with ChangeNotifier {
     RecurringBooking recurringBooking, {
     bool notify = true,
   }) {
-    recurringBookings
-      ..add(recurringBooking)
-      ..sort(_sortBookings);
+    recurringBookings.add(recurringBooking);
 
     if (notify) notifyListeners();
   }
@@ -226,8 +230,6 @@ class BookingManager with ChangeNotifier {
     bookings
         .firstWhere((_booking) => booking.id == _booking.id)
         .replaceWith(booking);
-
-    bookings.sort(_sortBookings);
 
     if (notify) notifyListeners();
   }
@@ -243,8 +245,6 @@ class BookingManager with ChangeNotifier {
               recurringBooking.id == _recurringBooking.id,
         )
         .replaceWith(recurringBooking);
-
-    recurringBookings.sort(_sortBookings);
 
     if (notify) notifyListeners();
   }

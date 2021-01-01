@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:convert' show json;
 
 import 'package:cabin_booking/model/booking.dart';
@@ -8,18 +9,18 @@ import 'package:cabin_booking/model/writable_manager.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-List<Cabin> _parseCabins(String jsonString) =>
-    json.decode(jsonString).map<Cabin>((json) => Cabin.from(json)).toList();
+Iterable<Cabin> _parseCabins(String jsonString) =>
+    json.decode(jsonString).map<Cabin>((json) => Cabin.from(json));
 
-class CabinManager extends WritableManager<List<Cabin>>
+class CabinManager extends WritableManager<Set<Cabin>>
     with ChangeNotifier, FileManager {
-  List<Cabin> cabins;
+  Set<Cabin> cabins;
 
   CabinManager({
     this.cabins,
     String fileName = 'cabin_manager',
   }) : super(fileName) {
-    cabins ??= <Cabin>[];
+    cabins ??= SplayTreeSet();
   }
 
   List<Map<String, dynamic>> cabinsToMapList() =>
@@ -27,12 +28,10 @@ class CabinManager extends WritableManager<List<Cabin>>
 
   Cabin cabinFromId(String id) => cabins.firstWhere((cabin) => cabin.id == id);
 
-  static int _sortCabins(Cabin a, Cabin b) => a.number.compareTo(b.number);
-
   int get lastCabinNumber => cabins.isEmpty ? 0 : cabins.last.number;
 
   Set<DateTime> get allCabinsDatesWithBookings {
-    final dates = <DateTime>{};
+    final dates = SplayTreeSet<DateTime>();
 
     for (final cabin in cabins) {
       dates.addAll(cabin.datesWithBookings);
@@ -108,8 +107,6 @@ class CabinManager extends WritableManager<List<Cabin>>
     bool notify = true,
   }) {
     cabins.firstWhere((_cabin) => cabin.id == _cabin.id).replaceWith(cabin);
-
-    cabins.sort(_sortCabins);
 
     if (notify) notifyListeners();
   }
@@ -239,16 +236,16 @@ class CabinManager extends WritableManager<List<Cabin>>
   }
 
   @override
-  Future<List<Cabin>> readFromFile() async {
+  Future<Set<Cabin>> readFromFile() async {
     try {
       final file = await localFile(fileName);
       final content = await file.readAsString();
 
-      final cabins = await compute(_parseCabins, content);
+      final cabins = await _parseCabins(content);
 
-      return cabins;
+      return SplayTreeSet.from(cabins);
     } catch (e) {
-      return <Cabin>[];
+      return SplayTreeSet();
     }
   }
 

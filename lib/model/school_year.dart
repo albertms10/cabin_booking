@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:cabin_booking/model/date_range.dart';
 import 'package:cabin_booking/model/holiday.dart';
 import 'package:flutter/material.dart';
@@ -16,13 +18,14 @@ class SchoolYear extends DateRange {
           startDate: startDate,
           endDate: endDate,
         ) {
-    holidays ??= <Holiday>{};
+    holidays ??= SplayTreeSet();
   }
 
   SchoolYear.from(Map<String, dynamic> other)
-      : holidays = (other['holidays'] as List<dynamic>)
-            .map((holiday) => Holiday.from(holiday))
-            .toSet(),
+      : holidays = SplayTreeSet.from(
+          (other['holidays'] as List<dynamic>)
+              .map((holiday) => Holiday.from(holiday)),
+        ),
         super.from(other);
 
   @override

@@ -14,8 +14,8 @@ class Cabin extends Item {
     String id,
     this.number,
     this.components,
-    List<Booking> bookings,
-    List<RecurringBooking> recurringBookings,
+    Set<Booking> bookings,
+    Set<RecurringBooking> recurringBookings,
   })  : _bookingManager = BookingManager(
           bookings: bookings,
           recurringBookings: recurringBookings,
@@ -44,12 +44,12 @@ class Cabin extends Item {
 
   Cabin simplified() => Cabin(id: id, number: number);
 
-  List<Booking> get bookings => _bookingManager.bookings;
+  Set<Booking> get bookings => _bookingManager.bookings;
 
-  List<RecurringBooking> get recurringBookings =>
+  Set<RecurringBooking> get recurringBookings =>
       _bookingManager.recurringBookings;
 
-  List<Booking> get allBookings => _bookingManager.allBookings;
+  Set<Booking> get allBookings => _bookingManager.allBookings;
 
   List<Booking> get generatedBookingsFromRecurring =>
       _bookingManager.generatedBookingsFromRecurring;
@@ -89,7 +89,7 @@ class Cabin extends Item {
   Map<TimeOfDay, Duration> get accumulatedTimeRangesOccupancy =>
       _bookingManager.accumulatedTimeRangesOccupancy;
 
-  List<TimeOfDay> get mostOccupiedTimeRanges =>
+  Set<TimeOfDay> get mostOccupiedTimeRange =>
       _bookingManager.mostOccupiedTimeRange;
 
   @override
@@ -133,9 +133,12 @@ class Cabin extends Item {
   RecurringBooking recurringBookingFromId(String id) =>
       _bookingManager.recurringBookingFromId(id);
 
-  List<Booking> bookingsOn(DateTime dateTime) =>
+  Set<Booking> bookingsOn(DateTime dateTime) =>
       _bookingManager.bookingsOn(dateTime);
 
   @override
   String toString() => 'Cabin $number (${bookings.length} bookings)';
+
+  @override
+  int compareTo(covariant Cabin other) => number.compareTo(other.number);
 }
