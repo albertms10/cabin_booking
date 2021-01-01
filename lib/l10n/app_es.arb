@@ -45,7 +45,12 @@
   "mostOccupiedTimeRange": "Horario más ocupado",
   "mostBookedDay": "Día con más reservas",
   "onDate": "El día",
-  "after": "Después de",
+  "after": "{n, plural, other {Después de }}",
+  "@after": {
+    "placeholders": {
+      "n": {}
+    }
+  },
   "nOccurrences": "{n, plural, =1 {ocurrencia} other {ocurrencias}}",
   "@nOccurrences": {
     "placeholders": {

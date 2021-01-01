@@ -382,7 +382,10 @@ class _BookingFormState extends State<BookingForm> {
                         ),
                       ),
                       ListTile(
-                        title: Text(appLocalizations.after),
+                        title: Text(
+                          appLocalizations.after(
+                              int.tryParse(_occurrencesController.text) ?? 0),
+                        ),
                         selected: _recurringBookingMethod ==
                             RecurringBookingMethod.Occurrences,
                         minVerticalPadding: 24.0,

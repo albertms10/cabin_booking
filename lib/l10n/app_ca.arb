@@ -45,7 +45,12 @@
   "mostOccupiedTimeRange": "Horari més ocupat",
   "mostBookedDay": "Dia amb més reserves",
   "onDate": "El dia",
-  "after": "Després de",
+  "after": "{n, plural, =1 {Després d’} =11 {Després d’} other {Després de }}",
+  "@after": {
+    "placeholders": {
+      "n": {}
+    }
+  },
   "nOccurrences": "{n, plural, =1 {ocurrència} other {ocurrències}}",
   "@nOccurrences": {
     "placeholders": {
