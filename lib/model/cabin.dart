@@ -25,11 +25,12 @@ class Cabin extends Item {
   }
 
   Cabin.from(Map<String, dynamic> other)
-      : number = other['number'],
-        components = CabinComponents.from(other['components']),
+      : number = other['number'] as int,
+        components =
+            CabinComponents.from(other['components'] as Map<String, dynamic>),
         _bookingManager = BookingManager.from(
-          bookings: other['bookings'],
-          recurringBookings: other['recurringBookings'],
+          bookings: other['bookings'] as List<dynamic>,
+          recurringBookings: other['recurringBookings'] as List<dynamic>,
         ),
         super.from(other);
 

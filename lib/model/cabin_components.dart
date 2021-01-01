@@ -17,9 +17,9 @@ class CabinComponents {
       : pianos = (other['pianos'] as List<dynamic>)
             .map((piano) => Piano.from(piano))
             .toList(),
-        lecterns = other['lecterns'],
-        chairs = other['chairs'],
-        tables = other['tables'];
+        lecterns = other['lecterns'] as int,
+        chairs = other['chairs'] as int,
+        tables = other['tables'] as int;
 
   Map<String, dynamic> toMap() => {
         'pianos': pianos.map((piano) => piano.toMap()).toList(),
@@ -41,9 +41,9 @@ class Piano {
   });
 
   Piano.from(Map<String, dynamic> other)
-      : brand = other['brand'],
-        model = other['model'],
-        isElectronic = other['isElectronic'];
+      : brand = other['brand'] as String,
+        model = other['model'] as String,
+        isElectronic = other['isElectronic'] as bool;
 
   Map<String, dynamic> toMap() => {
         'brand': brand,

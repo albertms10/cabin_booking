@@ -15,7 +15,7 @@ class Holiday extends DateRange {
         );
 
   Holiday.from(Map<String, dynamic> other)
-      : kind = HolidayKind.values[other['kind']],
+      : kind = HolidayKind.values[other['kind'] as int],
         super.from(other);
 
   @override

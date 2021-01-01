@@ -31,12 +31,12 @@ class Booking extends Item {
   }) : super(id: id);
 
   Booking.from(Map<String, dynamic> other)
-      : description = other['description'],
-        date = DateTime.tryParse(other['date']),
-        timeStart = tryParseTimeOfDay(other['timeStart']),
-        timeEnd = tryParseTimeOfDay(other['timeEnd']),
-        status = BookingStatus.values[other['status']],
-        isDisabled = other['isDisabled'],
+      : description = other['description'] as String,
+        date = DateTime.tryParse(other['date'] as String),
+        timeStart = tryParseTimeOfDay(other['timeStart'] as String),
+        timeEnd = tryParseTimeOfDay(other['timeEnd'] as String),
+        status = BookingStatus.values[other['status'] as int],
+        isDisabled = other['isDisabled'] as bool,
         super.from(other);
 
   @override

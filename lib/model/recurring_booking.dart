@@ -36,13 +36,14 @@ class RecurringBooking extends Booking {
         );
 
   RecurringBooking.from(Map<String, dynamic> other)
-      : periodicity = Periodicity.values[other['periodicityIndex']],
-        repeatEvery = other['repeatEvery'],
+      : periodicity = Periodicity.values[other['periodicityIndex'] as int],
+        repeatEvery = other['repeatEvery'] as int,
         _endDate = other.containsKey('endDate')
-            ? DateTime.tryParse(other['endDate'])
+            ? DateTime.tryParse(other['endDate'] as String)
             : null,
-        _occurrences =
-            other.containsKey('occurrences') ? other['occurrences'] : null,
+        _occurrences = other.containsKey('occurrences')
+            ? other['occurrences'] as int
+            : null,
         super.from(other);
 
   RecurringBooking.fromBooking(

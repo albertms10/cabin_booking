@@ -14,12 +14,12 @@ abstract class Item implements Comparable<Item> {
   }
 
   Item.from(Map<String, dynamic> other)
-      : id = other['id'],
-        creationDateTime = DateTime.tryParse(other['creationDate']),
+      : id = other['id'] as String,
+        creationDateTime = DateTime.tryParse(other['creationDate'] as String),
         modificationDateTime = other.containsKey('modificationDate')
-            ? DateTime.tryParse(other['modificationDate'])
+            ? DateTime.tryParse(other['modificationDate'] as String)
             : null,
-        modificationCount = other['modificationCount'];
+        modificationCount = other['modificationCount'] as int;
 
   @mustCallSuper
   Map<String, dynamic> toMap() => {

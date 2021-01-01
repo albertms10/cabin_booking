@@ -16,8 +16,8 @@ class DateRange extends Item {
   }
 
   DateRange.from(Map<String, dynamic> other)
-      : startDate = DateTime.tryParse(other['startDate']),
-        endDate = DateTime.tryParse(other['endDate']),
+      : startDate = DateTime.tryParse(other['startDate'] as String),
+        endDate = DateTime.tryParse(other['endDate'] as String),
         super.from(other);
 
   @override
