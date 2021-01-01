@@ -19,7 +19,17 @@ class SchoolYear extends DateRange {
     holidays ??= <Holiday>{};
   }
 
-  SchoolYear.from(Map<String, dynamic> other) : super.from(other);
+  SchoolYear.from(Map<String, dynamic> other)
+      : holidays = (other['holidays'] as List<dynamic>)
+            .map((holiday) => Holiday.from(holiday))
+            .toSet(),
+        super.from(other);
+
+  @override
+  Map<String, dynamic> toMap() => {
+        ...super.toMap(),
+        'holidays': holidays.map((holiday) => holiday.toMap()).toList(),
+      };
 
   @override
   String toString() =>
