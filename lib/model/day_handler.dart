@@ -59,7 +59,11 @@ class DayHandler with ChangeNotifier {
     schoolYearManager.schoolYearIndex = index;
 
     if (!schoolYearManager.schoolYear.includes(_dateTime)) {
-      _dateTime = schoolYearManager.schoolYear.startDate;
+      if (schoolYearManager.schoolYear.includes(DateTime.now())) {
+        changeToNow();
+      } else {
+        _dateTime = schoolYearManager.schoolYear.startDate;
+      }
 
       notifyListeners();
     }
