@@ -4,16 +4,21 @@ import 'package:cabin_booking/model/booking.dart';
 import 'package:cabin_booking/model/cabin.dart';
 import 'package:cabin_booking/model/file_manager.dart';
 import 'package:cabin_booking/model/recurring_booking.dart';
+import 'package:cabin_booking/model/writable_manager.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 List<Cabin> _parseCabins(String jsonString) =>
     json.decode(jsonString).map<Cabin>((json) => Cabin.from(json)).toList();
 
-class CabinManager with ChangeNotifier, FileManager {
+class CabinManager extends WritableManager<List<Cabin>>
+    with ChangeNotifier, FileManager {
   List<Cabin> cabins;
 
-  CabinManager({this.cabins}) {
+  CabinManager({
+    this.cabins,
+    String fileName = 'cabin_manager',
+  }) : super(fileName) {
     cabins ??= <Cabin>[];
   }
 
@@ -233,36 +238,37 @@ class CabinManager with ChangeNotifier, FileManager {
     if (notify) notifyListeners();
   }
 
-  static final _fileName = 'cabin_manager';
-
-  Future<bool> writeCabinsToFile() async {
-    final file = await localFile(_fileName);
-
-    await file.writeAsString(
-      json.encode(cabinsToMapList()),
-    );
-
-    return true;
-  }
-
-  Future<List<Cabin>> readCabinsFromFile() async {
+  @override
+  Future<List<Cabin>> readFromFile() async {
     try {
-      final file = await localFile(_fileName);
+      final file = await localFile(fileName);
       final content = await file.readAsString();
 
       final cabins = await compute(_parseCabins, content);
 
       return cabins;
     } catch (e) {
-      return [];
+      return <Cabin>[];
     }
   }
 
-  Future<int> loadCabinsFromFile() async {
-    cabins = await readCabinsFromFile();
+  @override
+  Future<int> loadFromFile() async {
+    cabins = await readFromFile();
 
     notifyListeners();
 
     return cabins.length;
+  }
+
+  @override
+  Future<bool> writeToFile() async {
+    final file = await localFile(fileName);
+
+    await file.writeAsString(
+      json.encode(cabinsToMapList()),
+    );
+
+    return true;
   }
 }
