@@ -31,6 +31,18 @@ class SchoolYear extends DateRange {
         'holidays': holidays.map((holiday) => holiday.toMap()).toList(),
       };
 
+  Duration get holidaysDuration {
+    var duration = const Duration();
+
+    for (final holiday in holidays) {
+      duration += holiday.duration;
+    }
+
+    return duration;
+  }
+
+  Duration get workDuration => duration - holidaysDuration;
+
   @override
   String toString() =>
       '${DateFormat.y().format(startDate)}–${DateFormat.y().format(endDate)}';

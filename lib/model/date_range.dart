@@ -40,6 +40,8 @@ class DateRange extends Item {
   bool includes(DateTime dateTime) =>
       startDate.isBefore(dateTime) && endDate.isAfter(dateTime);
 
+  Duration get duration => endDate.difference(startDate);
+
   @override
   String toString() =>
       '${DateFormat.yMd().format(startDate)} – ${DateFormat.yMd().format(endDate)}';
