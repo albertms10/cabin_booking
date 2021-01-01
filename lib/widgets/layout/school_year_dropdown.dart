@@ -15,7 +15,7 @@ class _SchoolYearDropdownState extends State<SchoolYearDropdown> {
 
   void _setSchoolYearState() {
     setState(() {
-      _currentIndex = _dayHandler.schoolYearIndex;
+      _currentIndex = _dayHandler.schoolYearManager.schoolYearIndex;
     });
   }
 
@@ -25,7 +25,7 @@ class _SchoolYearDropdownState extends State<SchoolYearDropdown> {
 
     _dayHandler = Provider.of<DayHandler>(context, listen: false);
 
-    _currentIndex = _dayHandler.schoolYearIndex;
+    _currentIndex = _dayHandler.schoolYearManager.schoolYearIndex;
 
     _dayHandler.addListener(_setSchoolYearState);
   }
@@ -51,9 +51,13 @@ class _SchoolYearDropdownState extends State<SchoolYearDropdown> {
       },
       underline: const SizedBox(),
       items: [
-        for (var i = 0; i < dayHandler.schoolYears.length; i++)
+        for (var i = 0;
+            i < dayHandler.schoolYearManager.schoolYears.length;
+            i++)
           DropdownMenuItem<int>(
-            child: Text('${dayHandler.schoolYears.elementAt(i)}'),
+            child: Text(
+              '${dayHandler.schoolYearManager.schoolYears.elementAt(i)}',
+            ),
             value: i,
           )
       ],

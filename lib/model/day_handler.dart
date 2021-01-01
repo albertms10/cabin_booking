@@ -23,11 +23,11 @@ final _defaultSchoolYears = {
 
 class DayHandler with ChangeNotifier {
   DateTime _dateTime;
-  SchoolYearManager _schoolYearManager;
+  SchoolYearManager schoolYearManager;
 
-  DayHandler([this._schoolYearManager]) {
+  DayHandler([this.schoolYearManager]) {
     _dateTime = DateTime.now();
-    _schoolYearManager ??= SchoolYearManager(_defaultSchoolYears);
+    schoolYearManager ??= SchoolYearManager(schoolYears: _defaultSchoolYears);
   }
 
   DateTime get dateTime => _dateTime;
@@ -35,14 +35,18 @@ class DayHandler with ChangeNotifier {
   set dateTime(DateTime dateTime) {
     _dateTime = dateTime;
 
-    _schoolYearManager.changeToSchoolYearFrom(dateTime);
+    schoolYearManager.changeToSchoolYearFrom(dateTime);
 
     notifyListeners();
   }
 
-  bool get hasPreviousDay => _dateTime.isAfter(schoolYears.first.startDate);
+  bool get hasPreviousDay =>
+      schoolYearManager.schoolYears.isNotEmpty &&
+      _dateTime.isAfter(schoolYearManager.schoolYears.first.startDate);
 
-  bool get hasNextDay => _dateTime.isBefore(schoolYears.last.endDate);
+  bool get hasNextDay =>
+      schoolYearManager.schoolYears.isNotEmpty &&
+      _dateTime.isBefore(schoolYearManager.schoolYears.last.endDate);
 
   void changeToNow() => dateTime = DateTime.now();
 
@@ -51,17 +55,13 @@ class DayHandler with ChangeNotifier {
   void changeToPreviousDay() =>
       dateTime = _dateTime.subtract(const Duration(days: 1));
 
-  int get schoolYearIndex => _schoolYearManager.schoolYearIndex;
-
   set schoolYearIndex(int index) {
-    _schoolYearManager.schoolYearIndex = index;
+    schoolYearManager.schoolYearIndex = index;
 
-    if (!_schoolYearManager.schoolYear.includes(_dateTime)) {
-      _dateTime = _schoolYearManager.schoolYear.startDate;
+    if (!schoolYearManager.schoolYear.includes(_dateTime)) {
+      _dateTime = schoolYearManager.schoolYear.startDate;
 
       notifyListeners();
     }
   }
-
-  Set<SchoolYear> get schoolYears => _schoolYearManager.schoolYears;
 }
