@@ -46,21 +46,21 @@ class _BookingFormState extends State<BookingForm> {
 
   TimeOfDay _startTime;
   TimeOfDay _endTime;
-  DateTime _endDate;
+  DateTime _recurringEndDate;
 
   @override
   void initState() {
     super.initState();
 
-    _startTime = TimeOfDay.fromDateTime(widget.booking.dateStart);
-    _endTime = TimeOfDay.fromDateTime(widget.booking.dateEnd);
+    _startTime = TimeOfDay.fromDateTime(widget.booking.startDateTime);
+    _endTime = TimeOfDay.fromDateTime(widget.booking.endDateTime);
 
     _booking = widget.booking;
 
     if (_booking is RecurringBooking) {
       _recurringBookingMethod = (_booking as RecurringBooking).method;
       _periodicityValue = (_booking as RecurringBooking).periodicity;
-      _endDate = (_booking as RecurringBooking).endDate;
+      _recurringEndDate = (_booking as RecurringBooking).recurringEndDate;
     }
   }
 
@@ -82,8 +82,8 @@ class _BookingFormState extends State<BookingForm> {
     _endTimeController.text = _endTime.format(context);
 
     if (_booking is RecurringBooking) {
-      _endDateController.text =
-          DateFormat.yMd().format((_booking as RecurringBooking).endDate);
+      _endDateController.text = DateFormat.yMd()
+          .format((_booking as RecurringBooking).recurringEndDate);
       _occurrencesController.text =
           (_booking as RecurringBooking).occurrences.toString();
     }
@@ -143,7 +143,7 @@ class _BookingFormState extends State<BookingForm> {
                           return appLocalizations.enterStartTime;
                         }
 
-                        _booking.timeStart = parsedTimeOfDay;
+                        _booking.startTime = parsedTimeOfDay;
 
                         if (_startTime != parsedTimeOfDay) {
                           _startTime = parsedTimeOfDay;
@@ -200,7 +200,7 @@ class _BookingFormState extends State<BookingForm> {
                         }
                       },
                       onSaved: (value) {
-                        _booking.timeStart = tryParseTimeOfDay(value);
+                        _booking.startTime = tryParseTimeOfDay(value);
                       },
                       decoration: InputDecoration(
                         labelText: appLocalizations.start,
@@ -229,7 +229,7 @@ class _BookingFormState extends State<BookingForm> {
                           return appLocalizations.enterEndTime;
                         }
 
-                        _booking.timeEnd = parsedTimeOfDay;
+                        _booking.endTime = parsedTimeOfDay;
 
                         if (_endTime != parsedTimeOfDay) {
                           _endTime = parsedTimeOfDay;
@@ -286,7 +286,7 @@ class _BookingFormState extends State<BookingForm> {
                         }
                       },
                       onSaved: (value) {
-                        _booking.timeEnd = tryParseTimeOfDay(value);
+                        _booking.endTime = tryParseTimeOfDay(value);
                       },
                       decoration: InputDecoration(
                         labelText: appLocalizations.end,
@@ -351,7 +351,8 @@ class _BookingFormState extends State<BookingForm> {
                             onTap: () async {
                               final date = await showDatePicker(
                                 context: context,
-                                initialDate: _endDate ?? DateTime.now(),
+                                initialDate:
+                                    _recurringEndDate ?? DateTime.now(),
                                 firstDate: DateTime.now(),
                                 lastDate: DateTime.now()
                                     .add(const Duration(days: 365)),
@@ -359,7 +360,7 @@ class _BookingFormState extends State<BookingForm> {
 
                               if (date != null) {
                                 setState(() {
-                                  _endDate = date;
+                                  _recurringEndDate = date;
                                   _endDateController.text =
                                       DateFormat.yMd().format(date);
                                 });
@@ -460,7 +461,7 @@ class _BookingFormState extends State<BookingForm> {
 
                   if (_recurringBookingMethod ==
                       RecurringBookingMethod.EndDate) {
-                    recurringBooking.endDate =
+                    recurringBooking.recurringEndDate =
                         DateFormat.yMd().parse(_endDateController.text);
                   } else {
                     recurringBooking.occurrences =

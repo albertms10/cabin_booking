@@ -10,14 +10,14 @@ import 'package:timer_builder/timer_builder.dart';
 
 class EmptyBookingSlot extends StatelessWidget {
   final Cabin cabin;
-  final DateTime dateStart;
-  final DateTime dateEnd;
+  final DateTime startDateTime;
+  final DateTime endDateTime;
 
   const EmptyBookingSlot({
     Key key,
     @required this.cabin,
-    @required this.dateStart,
-    @required this.dateEnd,
+    @required this.startDateTime,
+    @required this.endDateTime,
   }) : super(key: key);
 
   @override
@@ -29,13 +29,13 @@ class EmptyBookingSlot extends StatelessWidget {
       builder: (context) {
         final now = DateTime.now();
 
-        final fullDuration = dateEnd.difference(dateStart);
+        final fullDuration = endDateTime.difference(startDateTime);
 
-        final startToNowDuration = now.difference(dateStart);
-        final startsBeforeNow = now.compareTo(dateStart) > 0;
+        final startToNowDuration = now.difference(startDateTime);
+        final startsBeforeNow = now.compareTo(startDateTime) > 0;
 
-        final endToNowDuration = dateEnd.difference(now);
-        final endsAfterNow = dateEnd.compareTo(now) > 0;
+        final endToNowDuration = endDateTime.difference(now);
+        final endsAfterNow = endDateTime.compareTo(now) > 0;
 
         final duration =
             startsBeforeNow && endsAfterNow ? endToNowDuration : fullDuration;
@@ -43,7 +43,7 @@ class EmptyBookingSlot extends StatelessWidget {
         final preciseDuration =
             (duration.inMicroseconds / Duration.microsecondsPerMinute).ceil();
 
-        final start = startsBeforeNow ? now : dateStart;
+        final start = startsBeforeNow ? now : startDateTime;
 
         return Column(
           children: [
@@ -63,7 +63,7 @@ class EmptyBookingSlot extends StatelessWidget {
                   width: double.infinity,
                   height: value,
                   child: duration.compareTo(minSlotDuration) < 0 ||
-                          dateEnd.compareTo(now) < 0
+                          endDateTime.compareTo(now) < 0
                       ? null
                       : Container(
                           margin: const EdgeInsets.all(8.0),
@@ -81,8 +81,9 @@ class EmptyBookingSlot extends StatelessWidget {
                                   context,
                                   Booking(
                                     date: dateOnly(start),
-                                    timeStart: TimeOfDay.fromDateTime(start),
-                                    timeEnd: TimeOfDay.fromDateTime(dateEnd),
+                                    startTime: TimeOfDay.fromDateTime(start),
+                                    endTime:
+                                        TimeOfDay.fromDateTime(endDateTime),
                                     cabinId: cabin.id,
                                   ),
                                   cabinManager,

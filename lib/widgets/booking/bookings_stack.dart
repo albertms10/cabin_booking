@@ -30,12 +30,12 @@ class BookingsStack extends StatelessWidget {
 
     final dayHandler = Provider.of<DayHandler>(context);
 
-    final dateStart = tryParseDateTimeWithTimeOfDay(
+    final startDateTime = tryParseDateTimeWithTimeOfDay(
       dateTime: dayHandler.dateTime,
       timeOfDay: timeTableStartTime,
     );
 
-    final dateEnd = tryParseDateTimeWithTimeOfDay(
+    final endDateTime = tryParseDateTimeWithTimeOfDay(
       dateTime: dayHandler.dateTime,
       timeOfDay: timeTableEndTime,
     );
@@ -47,11 +47,11 @@ class BookingsStack extends StatelessWidget {
       final isLast = (i == bookings.length - 1);
 
       var currentBookingDate =
-          isFirst ? dateStart : bookings.elementAt(i).dateEnd;
-      var nextBookingDate =
-          isLast ? dateEnd : bookings.elementAt(i + 1).dateStart;
+          isFirst ? startDateTime : bookings.elementAt(i).endDateTime;
+      var nextBookingDateTime =
+          isLast ? endDateTime : bookings.elementAt(i + 1).startDateTime;
 
-      final duration = nextBookingDate.difference(currentBookingDate);
+      final duration = nextBookingDateTime.difference(currentBookingDate);
 
       if (!isFirst) {
         final booking = bookings.elementAt(i);
@@ -86,7 +86,7 @@ class BookingsStack extends StatelessWidget {
             minutes: Duration.minutesPerHour - timeOfDay.minute,
           );
 
-          nextBookingDate = currentBookingDate.add(duration);
+          nextBookingDateTime = currentBookingDate.add(duration);
 
           runningSlotList.add(
             EmptyBookingSlot(
@@ -95,17 +95,17 @@ class BookingsStack extends StatelessWidget {
                 slotCount++,
               ),
               cabin: cabin,
-              dateStart: currentBookingDate,
-              dateEnd: nextBookingDate,
+              startDateTime: currentBookingDate,
+              endDateTime: nextBookingDateTime,
             ),
           );
 
-          currentBookingDate = nextBookingDate;
+          currentBookingDate = nextBookingDateTime;
 
           runningDuration -= duration;
         }
 
-        nextBookingDate = currentBookingDate.add(runningDuration);
+        nextBookingDateTime = currentBookingDate.add(runningDuration);
 
         runningSlotList.add(
           EmptyBookingSlot(
@@ -114,8 +114,8 @@ class BookingsStack extends StatelessWidget {
               slotCount++,
             ),
             cabin: cabin,
-            dateStart: currentBookingDate,
-            dateEnd: nextBookingDate,
+            startDateTime: currentBookingDate,
+            endDateTime: nextBookingDateTime,
           ),
         );
 

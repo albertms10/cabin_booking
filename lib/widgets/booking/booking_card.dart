@@ -26,7 +26,7 @@ class BookingCard extends StatelessWidget {
     return TimerBuilder.periodic(
       const Duration(minutes: 1),
       builder: (context) {
-        final isBeforeNow = booking.dateEnd.isBefore(DateTime.now());
+        final isBeforeNow = booking.endDateTime.isBefore(DateTime.now());
 
         return TweenAnimationBuilder<double>(
           tween: Tween<double>(begin: height, end: height),

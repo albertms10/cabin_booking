@@ -6,8 +6,8 @@ import 'package:intl/intl.dart';
 class Booking extends Item {
   String description;
   DateTime date;
-  TimeOfDay timeStart;
-  TimeOfDay timeEnd;
+  TimeOfDay startTime;
+  TimeOfDay endTime;
   BookingStatus status;
   bool isDisabled;
   String cabinId;
@@ -20,8 +20,8 @@ class Booking extends Item {
     String id,
     this.description,
     this.date,
-    this.timeStart,
-    this.timeEnd,
+    this.startTime,
+    this.endTime,
     this.status = BookingStatus.Pending,
     this.isDisabled = false,
     this.cabinId,
@@ -33,8 +33,8 @@ class Booking extends Item {
   Booking.from(Map<String, dynamic> other)
       : description = other['description'] as String,
         date = DateTime.tryParse(other['date'] as String),
-        timeStart = tryParseTimeOfDay(other['timeStart'] as String),
-        timeEnd = tryParseTimeOfDay(other['timeEnd'] as String),
+        startTime = tryParseTimeOfDay(other['startTime'] as String),
+        endTime = tryParseTimeOfDay(other['endTime'] as String),
         status = BookingStatus.values[other['status'] as int],
         isDisabled = other['isDisabled'] as bool,
         super.from(other);
@@ -44,28 +44,28 @@ class Booking extends Item {
         ...super.toMap(),
         'description': description,
         'date': date.toIso8601String().split('T').first,
-        'timeStart': formatTimeOfDay(timeStart),
-        'timeEnd': formatTimeOfDay(timeEnd),
+        'startTime': formatTimeOfDay(startTime),
+        'endTime': formatTimeOfDay(endTime),
         'status': status.index,
         'isDisabled': isDisabled,
       };
 
-  DateTime get dateStart => tryParseDateTimeWithTimeOfDay(
+  DateTime get startDateTime => tryParseDateTimeWithTimeOfDay(
         dateTime: date,
-        timeOfDay: timeStart,
+        timeOfDay: startTime,
       );
 
-  DateTime get dateEnd => tryParseDateTimeWithTimeOfDay(
+  DateTime get endDateTime => tryParseDateTimeWithTimeOfDay(
         dateTime: date,
-        timeOfDay: timeEnd,
+        timeOfDay: endTime,
       );
 
-  Duration get duration => dateEnd.difference(dateStart);
+  Duration get duration => endDateTime.difference(startDateTime);
 
   Map<TimeOfDay, Duration> get hoursSpan {
     final timeRanges = <TimeOfDay, Duration>{};
 
-    var runningTime = timeStart;
+    var runningTime = startTime;
     var runningDuration = const Duration();
 
     while (runningDuration < duration) {
@@ -75,8 +75,8 @@ class Booking extends Item {
       );
 
       final nextTime =
-          durationBetweenTimesOfDay(nextHour, timeEnd) <= const Duration()
-              ? timeEnd
+          durationBetweenTimesOfDay(nextHour, endTime) <= const Duration()
+              ? endTime
               : nextHour;
 
       final currentDuration = durationBetweenTimesOfDay(runningTime, nextTime);
@@ -94,21 +94,22 @@ class Booking extends Item {
   }
 
   String get timeRange =>
-      '${formatTimeOfDay(timeStart)}–${formatTimeOfDay(timeEnd)}';
+      '${formatTimeOfDay(startTime)}–${formatTimeOfDay(endTime)}';
 
-  String get dateRange => '${DateFormat.yMd().format(date)} $timeRange';
+  String get dateTimeRange => '${DateFormat.yMd().format(date)} $timeRange';
 
   bool isOn(DateTime dateTime) => isSameDay(date, dateTime);
 
   bool collidesWith(Booking booking) =>
-      dateStart.isBefore(booking.dateEnd) && dateEnd.isAfter(booking.dateStart);
+      startDateTime.isBefore(booking.endDateTime) &&
+      endDateTime.isAfter(booking.startDateTime);
 
   @override
   Booking copyWith({
     String description,
     DateTime date,
-    TimeOfDay timeStart,
-    TimeOfDay timeEnd,
+    TimeOfDay startTime,
+    TimeOfDay endTime,
     BookingStatus status,
     bool isDisabled,
     String cabinId,
@@ -117,8 +118,8 @@ class Booking extends Item {
         id: id,
         description: description ?? this.description,
         date: date ?? this.date,
-        timeStart: timeStart ?? this.timeStart,
-        timeEnd: timeEnd ?? this.timeEnd,
+        startTime: startTime ?? this.startTime,
+        endTime: endTime ?? this.endTime,
         status: status ?? this.status,
         isDisabled: isDisabled ?? this.isDisabled,
         cabinId: cabinId ?? this.cabinId,
@@ -128,8 +129,8 @@ class Booking extends Item {
   void replaceWith(covariant Booking booking) {
     description = booking.description;
     date = booking.date;
-    timeStart = booking.timeStart;
-    timeEnd = booking.timeEnd;
+    startTime = booking.startTime;
+    endTime = booking.endTime;
     status = booking.status;
     isDisabled = booking.isDisabled;
 
@@ -138,11 +139,11 @@ class Booking extends Item {
 
   @override
   String toString() =>
-      '$description $dateRange${isDisabled ? ' (disabled)' : ''}';
+      '$description $dateTimeRange${isDisabled ? ' (disabled)' : ''}';
 
   @override
   int compareTo(covariant Booking other) =>
-      dateStart.compareTo(other.dateStart);
+      startDateTime.compareTo(other.startDateTime);
 }
 
 enum BookingStatus { Pending, Confirmed, Cancelled }
