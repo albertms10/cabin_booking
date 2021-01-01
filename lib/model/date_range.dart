@@ -3,16 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class DateRange extends Item {
-  final DateTime startDate;
-  final DateTime endDate;
+  DateTime startDate;
+  DateTime endDate;
 
   DateRange({
     String id,
     @required this.startDate,
-    @required this.endDate,
+    this.endDate,
   })  : assert(startDate != null),
-        assert(endDate != null),
-        super(id: id);
+        super(id: id) {
+    endDate ??= startDate;
+  }
 
   DateRange.from(Map<String, dynamic> other)
       : startDate = DateTime.tryParse(other['startDate']),
