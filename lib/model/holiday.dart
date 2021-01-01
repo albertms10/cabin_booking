@@ -1,5 +1,28 @@
 import 'package:cabin_booking/model/date_range.dart';
 
 class Holiday extends DateRange {
-  Holiday.from(Map<String, dynamic> other) : super.from(other);
+  final HolidayKind kind;
+
+  Holiday({
+    String id,
+    DateTime startDate,
+    DateTime endDate,
+    this.kind = HolidayKind.Festivity,
+  }) : super(
+          id: id,
+          startDate: startDate,
+          endDate: endDate,
+        );
+
+  Holiday.from(Map<String, dynamic> other)
+      : kind = HolidayKind.values[other['kind']],
+        super.from(other);
+
+  @override
+  Map<String, dynamic> toMap() => {
+        ...super.toMap(),
+        'kind': kind.index,
+      };
 }
+
+enum HolidayKind { Festivity, FreeDisposal }
