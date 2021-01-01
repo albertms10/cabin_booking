@@ -139,6 +139,10 @@ class Booking extends Item {
   @override
   String toString() =>
       '$description $dateRange${isDisabled ? ' (disabled)' : ''}';
+
+  @override
+  int compareTo(covariant Booking other) =>
+      dateStart.compareTo(other.dateStart);
 }
 
 enum BookingStatus { Pending, Confirmed, Cancelled }

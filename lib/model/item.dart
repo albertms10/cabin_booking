@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
-abstract class Item {
+abstract class Item implements Comparable<Item> {
   String id;
   final DateTime creationDateTime;
   DateTime modificationDateTime;
@@ -47,4 +47,7 @@ abstract class Item {
 
   @override
   int get hashCode => id.hashCode;
+
+  @override
+  int compareTo(covariant Item other) => id.compareTo(other.id);
 }

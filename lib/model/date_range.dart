@@ -55,4 +55,8 @@ class DateRange extends Item {
 
   @override
   int get hashCode => hashValues(startDate, endDate);
+
+  @override
+  int compareTo(covariant DateRange other) =>
+      startDate.compareTo(other.startDate);
 }
