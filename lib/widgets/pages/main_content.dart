@@ -33,7 +33,7 @@ class _MainContentState extends State<MainContent> {
             Chip(label: Text('${manager.runtimeType}')),
           ],
         ),
-        duration: const Duration(seconds: 1),
+        duration: const Duration(milliseconds: 1200),
       ),
     );
   }
@@ -90,22 +90,3 @@ class _MainContentState extends State<MainContent> {
     );
   }
 }
-
-/*
-return FutureProvider<List<int>>(
-      create: (context) => Future.wait([
-        _cabinManager.loadFromFile(),
-        _schoolYearManager.loadFromFile(),
-      ]),
-      initialData: const Center(child: CircularProgressIndicator()),
-      child: widget.pages[widget.railIndex],
-      catchError: (context, error) {
-        return Center(
-          child: Text(
-            AppLocalizations.of(context).dataCouldNotBeLoaded,
-            style: Theme.of(context).textTheme.headline4,
-          ),
-        );
-      },
-    );
-*/
