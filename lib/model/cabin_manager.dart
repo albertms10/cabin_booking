@@ -3,7 +3,6 @@ import 'dart:convert' show json;
 
 import 'package:cabin_booking/model/booking.dart';
 import 'package:cabin_booking/model/cabin.dart';
-import 'package:cabin_booking/model/file_manager.dart';
 import 'package:cabin_booking/model/recurring_booking.dart';
 import 'package:cabin_booking/model/writable_manager.dart';
 import 'package:flutter/foundation.dart';
@@ -12,8 +11,7 @@ import 'package:flutter/material.dart';
 Iterable<Cabin> _parseCabins(String jsonString) =>
     json.decode(jsonString).map<Cabin>((json) => Cabin.from(json));
 
-class CabinManager extends WritableManager<Set<Cabin>>
-    with ChangeNotifier, FileManager {
+class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
   Set<Cabin> cabins;
 
   CabinManager({
@@ -240,7 +238,7 @@ class CabinManager extends WritableManager<Set<Cabin>>
   @override
   Future<Set<Cabin>> readFromFile() async {
     try {
-      final file = await localFile(fileName);
+      final file = await fileManager.localFile(fileName);
       final content = await file.readAsString();
 
       final cabins = await _parseCabins(content);
@@ -262,7 +260,7 @@ class CabinManager extends WritableManager<Set<Cabin>>
 
   @override
   Future<bool> writeToFile() async {
-    final file = await localFile(fileName);
+    final file = await fileManager.localFile(fileName);
 
     await file.writeAsString(
       json.encode(cabinsToMapList()),

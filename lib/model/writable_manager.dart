@@ -1,9 +1,12 @@
 import 'package:cabin_booking/model/file_manager.dart';
 
-abstract class WritableManager<T> with FileManager {
+abstract class WritableManager<T> {
   final String fileName;
+  FileManager fileManager;
 
-  const WritableManager(this.fileName);
+  WritableManager(this.fileName) {
+    fileManager = FileManager();
+  }
 
   Future<T> readFromFile();
 

@@ -2,8 +2,14 @@ import 'dart:io';
 
 import 'package:path_provider/path_provider.dart';
 
-abstract class FileManager {
-  static Future<String> get _localPath async {
+class FileManager {
+  static final FileManager _fileManager = FileManager._internal();
+
+  factory FileManager() => _fileManager;
+
+  FileManager._internal();
+
+  Future<String> get _localPath async {
     final directory = await getApplicationDocumentsDirectory();
 
     return directory.path;

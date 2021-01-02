@@ -1,7 +1,6 @@
 import 'dart:collection';
 import 'dart:convert' show json;
 
-import 'package:cabin_booking/model/file_manager.dart';
 import 'package:cabin_booking/model/school_year.dart';
 import 'package:cabin_booking/model/writable_manager.dart';
 import 'package:flutter/foundation.dart';
@@ -10,7 +9,7 @@ Iterable<SchoolYear> _parseSchoolYears(String jsonString) =>
     json.decode(jsonString).map<SchoolYear>((json) => SchoolYear.from(json));
 
 class SchoolYearManager extends WritableManager<Set<SchoolYear>>
-    with ChangeNotifier, FileManager {
+    with ChangeNotifier {
   Set<SchoolYear> schoolYears;
   int schoolYearIndex;
 
@@ -58,7 +57,7 @@ class SchoolYearManager extends WritableManager<Set<SchoolYear>>
   @override
   Future<Set<SchoolYear>> readFromFile() async {
     try {
-      final file = await localFile(fileName);
+      final file = await fileManager.localFile(fileName);
       final content = await file.readAsString();
 
       final schoolYears = await _parseSchoolYears(content);
@@ -80,7 +79,7 @@ class SchoolYearManager extends WritableManager<Set<SchoolYear>>
 
   @override
   Future<bool> writeToFile() async {
-    final file = await localFile(fileName);
+    final file = await fileManager.localFile(fileName);
 
     await file.writeAsString(
       json.encode(schoolYearsToMapList()),
