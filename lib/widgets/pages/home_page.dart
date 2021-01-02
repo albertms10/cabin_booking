@@ -3,11 +3,13 @@ import 'package:cabin_booking/widgets/cabin/cabin_floating_action_button.dart';
 import 'package:cabin_booking/widgets/pages/bookings_page.dart';
 import 'package:cabin_booking/widgets/pages/cabins_page.dart';
 import 'package:cabin_booking/widgets/pages/main_content.dart';
+import 'package:cabin_booking/widgets/pages/school_years_page.dart';
 import 'package:cabin_booking/widgets/pages/summary_page.dart';
+import 'package:cabin_booking/widgets/school_year/school_year_floating_action_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-enum AppPages { Summary, Cabins, Bookings }
+enum AppPages { Summary, Bookings, Cabins, SchoolYears }
 
 class HomePage extends StatefulWidget {
   const HomePage();
@@ -21,8 +23,9 @@ class _HomePageState extends State<HomePage> {
 
   final _floatingActionButtons = const [
     SizedBox(),
-    CabinFloatingActionButton(),
     BookingFloatingActionButton(),
+    CabinFloatingActionButton(),
+    SchoolYearFloatingActionButton(),
   ];
 
   void _setRailIndex(int index) {
@@ -59,14 +62,19 @@ class _HomePageState extends State<HomePage> {
                   label: Text(appLocalizations.summary),
                 ),
                 NavigationRailDestination(
+                  icon: const Icon(Icons.event_outlined),
+                  selectedIcon: const Icon(Icons.event),
+                  label: Text(appLocalizations.bookings),
+                ),
+                NavigationRailDestination(
                   icon: const Icon(Icons.sensor_door_outlined),
                   selectedIcon: const Icon(Icons.sensor_door),
                   label: Text(appLocalizations.cabins),
                 ),
                 NavigationRailDestination(
-                  icon: const Icon(Icons.event_outlined),
-                  selectedIcon: const Icon(Icons.event),
-                  label: Text(appLocalizations.bookings),
+                  icon: const Icon(Icons.school_outlined),
+                  selectedIcon: const Icon(Icons.school),
+                  label: Text(appLocalizations.schoolYears),
                 ),
               ],
             ),
@@ -76,8 +84,9 @@ class _HomePageState extends State<HomePage> {
                 railIndex: _selectedIndex,
                 pages: [
                   SummaryPage(setRailPage: _setRailPage),
-                  const CabinsPage(),
                   const BookingsPage(),
+                  const CabinsPage(),
+                  const SchoolYearsPage(),
                 ],
               ),
             ),
