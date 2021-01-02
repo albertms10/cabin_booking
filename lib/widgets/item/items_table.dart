@@ -301,14 +301,17 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
                 tooltip: appLocalizations.edit,
               ),
             IconButton(
-              onPressed: widget.selectedAreBooked
-                  ? () => widget.onEmptyPressed(widget._selectedIds)
-                  : null,
+              onPressed:
+                  widget.onEmptyPressed != null && widget.selectedAreBooked
+                      ? () => widget.onEmptyPressed(widget._selectedIds)
+                      : null,
               icon: const Icon(Icons.delete_outline),
               tooltip: appLocalizations.empty,
             ),
             IconButton(
-              onPressed: () => widget.onRemovePressed(widget._selectedIds),
+              onPressed: widget.onRemovePressed != null
+                  ? () => widget.onRemovePressed(widget._selectedIds)
+                  : null,
               icon: const Icon(Icons.delete),
               tooltip: MaterialLocalizations.of(context).deleteButtonTooltip,
             ),
