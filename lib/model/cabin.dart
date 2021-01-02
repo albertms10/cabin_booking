@@ -134,8 +134,8 @@ class Cabin extends Item {
   RecurringBooking recurringBookingFromId(String id) =>
       _bookingManager.recurringBookingFromId(id);
 
-  Set<Booking> bookingsOn(DateTime dateTime) =>
-      _bookingManager.bookingsOn(dateTime);
+  Set<Booking> allBookingsOn(DateTime dateTime) =>
+      _bookingManager.allBookingsOn(dateTime);
 
   @override
   String toString() => 'Cabin $number (${bookings.length} bookings)';

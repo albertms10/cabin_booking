@@ -33,7 +33,7 @@ class BookingsTable extends StatelessWidget {
                     child: BookingsStack(
                       key: Key('${cabin.number}'),
                       cabin: cabin.simplified(),
-                      bookings: cabin.bookingsOn(dayHandler.dateTime),
+                      bookings: cabin.allBookingsOn(dayHandler.dateTime),
                     ),
                   ),
               ],

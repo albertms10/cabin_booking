@@ -48,6 +48,10 @@ class BookingManager with ChangeNotifier {
         ...generatedBookingsFromRecurring,
       });
 
+  Set<Booking> _bookingsOn(DateTime dateTime) => SplayTreeSet.from(
+        bookings.where((booking) => booking.isOn(dateTime)),
+      );
+
   Set<Booking> _recurringBookingsOn(DateTime dateTime) {
     final filteredBookings = SplayTreeSet<Booking>();
 
@@ -60,13 +64,13 @@ class BookingManager with ChangeNotifier {
     return filteredBookings;
   }
 
-  Set<Booking> bookingsOn(DateTime dateTime) => SplayTreeSet.from({
-        ...bookings.where((booking) => booking.isOn(dateTime)),
+  Set<Booking> allBookingsOn(DateTime dateTime) => SplayTreeSet.from({
+        ..._bookingsOn(dateTime),
         ..._recurringBookingsOn(dateTime),
       });
 
   bool bookingsCollideWith(Booking booking) =>
-      bookingsOn(booking.date)
+      allBookingsOn(booking.date)
           .where((_booking) =>
               (_booking.recurringBookingId == null ||
                   _booking.recurringBookingId != booking.recurringBookingId) &&
@@ -81,7 +85,7 @@ class BookingManager with ChangeNotifier {
     var runningDuration = const Duration();
 
     for (final booking
-        in dateTime != null ? bookingsOn(dateTime) : allBookings) {
+        in dateTime != null ? allBookingsOn(dateTime) : allBookings) {
       runningDuration += booking.duration;
     }
 
