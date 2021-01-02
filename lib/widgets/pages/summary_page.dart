@@ -28,6 +28,7 @@ class SummaryPage extends StatelessWidget {
                 children: [
                   Statistics(
                     title: appLocalizations.cabins,
+                    icon: Icons.sensor_door,
                     items: [
                       StatisticItem(value: '${cabinManager.cabins.length}'),
                     ],
@@ -35,6 +36,7 @@ class SummaryPage extends StatelessWidget {
                   const SizedBox(width: 32.0),
                   Statistics(
                     title: appLocalizations.bookings,
+                    icon: Icons.event_outlined,
                     items: [
                       StatisticItem(
                         label: appLocalizations.total,
@@ -54,6 +56,7 @@ class SummaryPage extends StatelessWidget {
                   if (cabinManager.mostBookedDayEntry != null)
                     Statistics(
                       title: appLocalizations.mostBookedDay,
+                      icon: Icons.calendar_today,
                       items: [
                         StatisticItem(
                           value: DateFormat.d().add_MMM().add_y().format(
