@@ -42,7 +42,7 @@ class _BookingFormState extends State<BookingForm> {
   RecurringBookingMethod _recurringBookingMethod =
       RecurringBookingMethod.EndDate;
 
-  Periodicity _periodicityValue = Periodicity.Weekly;
+  Periodicity _periodicity = Periodicity.Weekly;
 
   TimeOfDay _startTime;
   TimeOfDay _endTime;
@@ -59,7 +59,7 @@ class _BookingFormState extends State<BookingForm> {
 
     if (_booking is RecurringBooking) {
       _recurringBookingMethod = (_booking as RecurringBooking).method;
-      _periodicityValue = (_booking as RecurringBooking).periodicity;
+      _periodicity = (_booking as RecurringBooking).periodicity;
       _recurringEndDate = (_booking as RecurringBooking).recurringEndDate;
     }
   }
@@ -323,9 +323,9 @@ class _BookingFormState extends State<BookingForm> {
                   child: Column(
                     children: [
                       PeriodicityListTile(
-                        value: _periodicityValue,
+                        value: _periodicity,
                         onChanged: (value) {
-                          setState(() => _periodicityValue = value);
+                          setState(() => _periodicity = value);
                         },
                       ),
                       ListTile(
@@ -456,7 +456,7 @@ class _BookingFormState extends State<BookingForm> {
                 if (widget.isRecurring) {
                   final recurringBooking = RecurringBooking.fromBooking(
                     _booking,
-                    periodicity: _periodicityValue,
+                    periodicity: _periodicity,
                   );
 
                   if (_recurringBookingMethod ==
