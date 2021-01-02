@@ -1,7 +1,7 @@
 Set<List<T>> compactizeRange<T>(
   Set<T> rangeSet, {
   T Function(T a) nextValue,
-  inclusive = false,
+  bool inclusive = false,
 }) {
   if (rangeSet.isEmpty) return {};
 
