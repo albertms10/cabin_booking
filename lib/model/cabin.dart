@@ -138,7 +138,8 @@ class Cabin extends Item {
       _bookingManager.allBookingsOn(dateTime);
 
   @override
-  String toString() => 'Cabin $number (${bookings.length} bookings)';
+  String toString() => 'Cabin $number '
+      '(${allBookings.length} booking${allBookings.length != 1 ? 's' : ''})';
 
   @override
   int compareTo(covariant Cabin other) => number.compareTo(other.number);
