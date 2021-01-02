@@ -54,6 +54,17 @@ class SchoolYear extends DateRange {
   }
 
   @override
-  String toString() =>
-      '${DateFormat.y().format(startDate)}–${DateFormat.y().format(endDate)}';
+  String toString() {
+    final bothExist = startDate != null && endDate != null;
+    final isSameYear = bothExist && startDate.year == endDate.year;
+
+    final startYear = startDate != null ? DateFormat.y().format(startDate) : '';
+
+    final endYear =
+        endDate != null && !isSameYear ? DateFormat.y().format(endDate) : '';
+
+    return '$startYear'
+        '${bothExist && !isSameYear ? '–' : ''}'
+        '$endYear';
+  }
 }
