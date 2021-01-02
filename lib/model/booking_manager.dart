@@ -71,10 +71,13 @@ class BookingManager with ChangeNotifier {
 
   bool bookingsCollideWith(Booking booking) =>
       allBookingsOn(booking.date)
-          .where((_booking) =>
-              (_booking.recurringBookingId == null ||
-                  _booking.recurringBookingId != booking.recurringBookingId) &&
-              _booking.id != booking.id)
+          .where(
+            (_booking) =>
+                (_booking.recurringBookingId == null ||
+                    _booking.recurringBookingId !=
+                        booking.recurringBookingId) &&
+                _booking.id != booking.id,
+          )
           .firstWhere(
             (_booking) => _booking.collidesWith(booking),
             orElse: () => null,
