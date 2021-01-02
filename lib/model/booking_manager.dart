@@ -151,7 +151,7 @@ class BookingManager with ChangeNotifier {
   }
 
   Map<DateTime, int> get allBookingsCountPerDay {
-    final bookingsPerDay = <DateTime, int>{};
+    final bookingsPerDay = SplayTreeMap<DateTime, int>();
 
     for (final booking in allBookings) {
       if (bookingsPerDay.containsKey(booking.date)) {

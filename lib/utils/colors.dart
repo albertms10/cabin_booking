@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:cabin_booking/utils/map_number.dart';
 import 'package:flutter/material.dart';
 
@@ -7,7 +9,7 @@ Map<int, Color> mapColorsToHighestValue({
 }) {
   final colorSamples = 8;
 
-  final colorMap = <int, Color>{};
+  final colorMap = SplayTreeMap<int, Color>();
 
   colorMap.addAll({1: color.withOpacity(0.2)});
 

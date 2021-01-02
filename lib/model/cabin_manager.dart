@@ -53,14 +53,16 @@ class CabinManager extends WritableManager<Set<Cabin>>
       }
     }
 
-    return bookingsPerDay;
+    return SplayTreeMap<DateTime, int>.from(
+      bookingsPerDay,
+      (a, b) => (bookingsPerDay[b] ?? 0) - (bookingsPerDay[a] ?? 0),
+    );
   }
 
   MapEntry<DateTime, int> get mostBookedDayEntry {
-    final sortedCountList = allCabinsBookingsCountPerDay.entries.toList()
-      ..sort((a, b) => b.value - a.value);
+    final countEntries = allCabinsBookingsCountPerDay.entries;
 
-    return sortedCountList.isEmpty ? null : sortedCountList.first;
+    return countEntries.isEmpty ? null : countEntries.first;
   }
 
   int get allBookingsCount {
