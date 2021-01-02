@@ -54,6 +54,26 @@ class SchoolYearManager extends WritableManager<Set<SchoolYear>>
           ? schoolYearIndex + 1
           : schoolYears.length - 1;
 
+  void addSchoolYear(
+    SchoolYear schoolYear, {
+    bool notify = true,
+  }) {
+    schoolYears.add(schoolYear);
+
+    if (notify) notifyListeners();
+  }
+
+  void modifySchoolYear(
+    SchoolYear schoolYear, {
+    bool notify = true,
+  }) {
+    schoolYears
+        .firstWhere((_schoolYear) => schoolYear.id == _schoolYear.id)
+        .replaceWith(schoolYear);
+
+    if (notify) notifyListeners();
+  }
+
   @override
   Future<Set<SchoolYear>> readFromFile() async {
     try {
