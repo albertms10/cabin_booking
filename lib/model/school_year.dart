@@ -2,7 +2,6 @@ import 'dart:collection';
 
 import 'package:cabin_booking/model/date_range.dart';
 import 'package:cabin_booking/model/holiday.dart';
-import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class SchoolYear extends DateRange {
@@ -10,8 +9,8 @@ class SchoolYear extends DateRange {
 
   SchoolYear({
     String id,
-    @required DateTime startDate,
-    @required DateTime endDate,
+    DateTime startDate,
+    DateTime endDate,
     this.holidays,
   }) : super(
           id: id,

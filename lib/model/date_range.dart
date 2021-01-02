@@ -8,10 +8,9 @@ class DateRange extends Item {
 
   DateRange({
     String id,
-    @required this.startDate,
+    this.startDate,
     this.endDate,
-  })  : assert(startDate != null),
-        super(id: id) {
+  }) : super(id: id) {
     endDate ??= startDate;
   }
 
