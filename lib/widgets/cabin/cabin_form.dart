@@ -118,10 +118,13 @@ class _CabinFormState extends State<CabinForm> {
             },
           ),
           if (widget.newCabinNumber == null)
-            ItemInfo(
-              creationDate: widget.cabin.creationDateTime,
-              modificationDate: widget.cabin.modificationDateTime,
-              modificationCount: widget.cabin.modificationCount,
+            Padding(
+              padding: const EdgeInsets.only(top: 16.0),
+              child: ItemInfo(
+                creationDateTime: widget.cabin.creationDateTime,
+                modificationDateTime: widget.cabin.modificationDateTime,
+                modificationCount: widget.cabin.modificationCount,
+              ),
             ),
         ],
       ),

@@ -481,10 +481,13 @@ class _BookingFormState extends State<BookingForm> {
             },
           ),
           if (widget.booking.description != null)
-            ItemInfo(
-              creationDate: widget.booking.creationDateTime,
-              modificationDate: widget.booking.modificationDateTime,
-              modificationCount: widget.booking.modificationCount,
+            Padding(
+              padding: const EdgeInsets.only(top: 16.0),
+              child: ItemInfo(
+                creationDateTime: widget.booking.creationDateTime,
+                modificationDateTime: widget.booking.modificationDateTime,
+                modificationCount: widget.booking.modificationCount,
+              ),
             ),
         ],
       ),
