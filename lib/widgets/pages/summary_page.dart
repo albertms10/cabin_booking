@@ -18,81 +18,111 @@ class SummaryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context);
 
-    return Padding(
-      padding: const EdgeInsets.all(32.0),
-      child: Consumer2<DayHandler, CabinManager>(
-        builder: (context, dayHandler, cabinManager, child) {
-          return Column(
-            children: [
-              Row(
-                children: [
+    return Consumer2<DayHandler, CabinManager>(
+      builder: (context, dayHandler, cabinManager, child) {
+        return ListView(
+          padding: const EdgeInsets.all(32.0),
+          children: [
+            Wrap(
+              spacing: 16.0,
+              runSpacing: 16.0,
+              alignment: WrapAlignment.spaceBetween,
+              children: [
+                Statistics(
+                  title: appLocalizations.schoolYears,
+                  icon: Icons.school,
+                  onTap: () {
+                    setRailPage(AppPages.SchoolYears);
+                  },
+                  items: [
+                    StatisticItem(
+                      label: appLocalizations.total,
+                      value:
+                          '${dayHandler.schoolYearManager.schoolYears.length}',
+                    ),
+                    StatisticItem(
+                      label: appLocalizations.workingDays,
+                      value:
+                          '${dayHandler.schoolYearManager.totalWorkingDuration.inDays}',
+                    ),
+                  ],
+                ),
+                Statistics(
+                  title: appLocalizations.cabins,
+                  icon: Icons.sensor_door,
+                  onTap: () {
+                    setRailPage(AppPages.Cabins);
+                  },
+                  items: [
+                    StatisticItem(
+                      label: appLocalizations.total,
+                      value: '${cabinManager.cabins.length}',
+                    ),
+                  ],
+                ),
+                Statistics(
+                  title: appLocalizations.bookings,
+                  icon: Icons.event,
+                  onTap: () {
+                    setRailPage(AppPages.Bookings);
+                  },
+                  items: [
+                    StatisticItem(
+                      label: appLocalizations.total,
+                      value: '${cabinManager.allBookingsCount}',
+                    ),
+                    StatisticItem(
+                      label: appLocalizations.bookings,
+                      value: '${cabinManager.bookingsCount}',
+                    ),
+                    StatisticItem(
+                      label: appLocalizations.recurringBookings,
+                      value: '${cabinManager.recurringBookingsCount}',
+                    ),
+                  ],
+                ),
+                if (cabinManager.mostBookedDayEntry != null)
                   Statistics(
-                    title: appLocalizations.cabins,
-                    icon: Icons.sensor_door,
+                    title: appLocalizations.mostBookedDay,
+                    icon: Icons.calendar_today,
+                    onTap: () {
+                      dayHandler.dateTime = cabinManager.mostBookedDayEntry.key;
+                      setRailPage(AppPages.Bookings);
+                    },
                     items: [
-                      StatisticItem(value: '${cabinManager.cabins.length}'),
+                      StatisticItem(
+                        value: DateFormat.d().add_MMM().add_y().format(
+                              cabinManager.mostBookedDayEntry.key,
+                            ),
+                      ),
                     ],
                   ),
-                  const SizedBox(width: 32.0),
-                  Statistics(
-                    title: appLocalizations.bookings,
-                    icon: Icons.event_outlined,
-                    items: [
-                      StatisticItem(
-                        label: appLocalizations.total,
-                        value: '${cabinManager.allBookingsCount}',
-                      ),
-                      StatisticItem(
-                        label: appLocalizations.bookings,
-                        value: '${cabinManager.bookingsCount}',
-                      ),
-                      StatisticItem(
-                        label: appLocalizations.recurringBookings,
-                        value: '${cabinManager.recurringBookingsCount}',
-                      ),
-                    ],
-                  ),
-                  const SizedBox(width: 32.0),
-                  if (cabinManager.mostBookedDayEntry != null)
-                    Statistics(
-                      title: appLocalizations.mostBookedDay,
-                      icon: Icons.calendar_today,
-                      items: [
-                        StatisticItem(
-                          value: DateFormat.d().add_MMM().add_y().format(
-                                cabinManager.mostBookedDayEntry.key,
-                              ),
-                        ),
-                      ],
+              ],
+            ),
+            const SizedBox(height: 32.0),
+            Row(
+              children: [
+                Expanded(
+                  child: HeatMapCalendar(
+                    input: cabinManager.allCabinsBookingsCountPerDay,
+                    dayValueWrapper: (value) =>
+                        '${AppLocalizations.of(context).nBookings(value)}',
+                    showLegend: true,
+                    colorThresholds: mapColorsToHighestValue(
+                      highestValue: cabinManager.mostBookedDayEntry?.value ?? 1,
+                      color: Theme.of(context).accentColor,
                     ),
-                ],
-              ),
-              const SizedBox(height: 32.0),
-              Row(
-                children: [
-                  Expanded(
-                    child: HeatMapCalendar(
-                      input: cabinManager.allCabinsBookingsCountPerDay,
-                      dayValueWrapper: (value) =>
-                          '${AppLocalizations.of(context).nBookings(value)}',
-                      showLegend: true,
-                      colorThresholds: mapColorsToHighestValue(
-                        highestValue:
-                            cabinManager.mostBookedDayEntry?.value ?? 1,
-                        color: Theme.of(context).accentColor,
-                      ),
-                      onDayTap: (dateTime, value) {
-                        dayHandler.dateTime = dateTime;
-                        setRailPage(AppPages.Bookings);
-                      },
-                    ),
+                    onDayTap: (dateTime, value) {
+                      dayHandler.dateTime = dateTime;
+                      setRailPage(AppPages.Bookings);
+                    },
                   ),
-                ],
-              )
-            ],
-          );
-        },
-      ),
+                ),
+              ],
+            )
+          ],
+        );
+      },
     );
   }
 }
