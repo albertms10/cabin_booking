@@ -43,7 +43,7 @@ class SchoolYear extends DateRange {
     return duration;
   }
 
-  Duration get workDuration => duration - holidaysDuration;
+  Duration get workingDuration => duration - holidaysDuration;
 
   @override
   void replaceWith(covariant SchoolYear schoolYear) {

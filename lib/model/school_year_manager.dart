@@ -42,6 +42,16 @@ class SchoolYearManager extends WritableManager<Set<SchoolYear>>
 
   SchoolYear get schoolYear => schoolYears.elementAt(schoolYearIndex);
 
+  Duration get totalWorkingDuration {
+    var duration = const Duration();
+
+    for (final schoolYear in schoolYears) {
+      duration += schoolYear.workingDuration;
+    }
+
+    return duration;
+  }
+
   void changeToPreviousSchoolYear() =>
       schoolYearIndex = schoolYearIndex > 0 ? schoolYearIndex - 1 : 0;
 
