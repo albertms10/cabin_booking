@@ -11,9 +11,12 @@ class WeekColumns extends StatelessWidget {
   final int columnsToCreate;
   final double squareSize;
   final double space;
-  final DateTime date;
+  final DateTime firstDate;
+  final DateTime lastDate;
   final void Function(DateTime, int) onDayTap;
   final String Function(int) dayValueWrapper;
+  final bool highlightToday;
+  final bool Function(DateTime) highlightOn;
 
   const WeekColumns({
     Key key,
@@ -21,14 +24,18 @@ class WeekColumns extends StatelessWidget {
     @required this.input,
     @required this.colorThresholds,
     @required this.columnsToCreate,
-    @required this.date,
+    this.firstDate,
+    @required this.lastDate,
     this.onDayTap,
     this.space = 4.0,
     this.dayValueWrapper,
+    this.highlightToday = false,
+    this.highlightOn,
   }) : super(key: key);
 
-  /// The main logic for generating a list of columns representing a week
-  /// Each column is a week having a [MonthLabel] and 7 [HeatMapDay] widgets
+  /// The main logic for generating a list of columns representing a week.
+  ///
+  /// Each column is a week with a [MonthLabel] and 7 [HeatMapDay] widgets
   List<Widget> buildWeekItems() {
     final dateList = getCalendarDates(columnsToCreate);
 
@@ -81,6 +88,8 @@ class WeekColumns extends StatelessWidget {
             date: currentDate,
             onTap: onDayTap,
             valueWrapper: dayValueWrapper,
+            highlightToday: highlightToday,
+            highlightOn: highlightOn,
           ),
         );
 
@@ -105,11 +114,15 @@ class WeekColumns extends StatelessWidget {
 
   /// Creates a list of all weeks based on given [columnsAmount]
   List<DateTime> getCalendarDates(int columnsAmount) {
-    final firstDayOfTheWeek = TimeUtils.firstDayOfTheWeek(date);
+    final firstDayOfTheWeek = TimeUtils.firstDayOfTheWeek(lastDate);
     final firstDayOfCalendar =
         TimeUtils.firstDayOfCalendar(firstDayOfTheWeek, columnsAmount);
 
-    return TimeUtils.datesBetween(firstDayOfCalendar, date);
+    return TimeUtils.datesBetween(
+        firstDate != null && firstDate.isAfter(firstDayOfCalendar)
+            ? firstDate
+            : firstDayOfCalendar,
+        lastDate);
   }
 
   @override

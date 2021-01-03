@@ -26,12 +26,14 @@ class HeatMapCalendar extends StatelessWidget {
   final double space;
 
   final void Function(DateTime, int) onDayTap;
-
   final String Function(int) dayValueWrapper;
-
   final bool showLegend;
-
   final int legendSamples;
+
+  final DateTime firstDate;
+  final DateTime lastDate;
+  final bool highlightToday;
+  final bool Function(DateTime) highlightOn;
 
   const HeatMapCalendar({
     Key key,
@@ -43,6 +45,10 @@ class HeatMapCalendar extends StatelessWidget {
     this.dayValueWrapper,
     this.showLegend = false,
     this.legendSamples = 5,
+    this.firstDate,
+    this.lastDate,
+    this.highlightToday = false,
+    this.highlightOn,
   }) : super(key: key);
 
   /// Calculates the right amount of columns to create based on [maxWidth]
@@ -62,6 +68,7 @@ class HeatMapCalendar extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Row(
+              mainAxisSize: MainAxisSize.min,
               children: [
                 WeekDaysLabels(
                   squareSize: squareSize,
@@ -73,9 +80,12 @@ class HeatMapCalendar extends StatelessWidget {
                   input: input,
                   colorThresholds: colorThresholds,
                   columnsToCreate: getColumnsToCreate(constraints.maxWidth) - 1,
-                  date: DateTime.now(),
+                  firstDate: firstDate,
+                  lastDate: lastDate ?? DateTime.now(),
                   onDayTap: onDayTap,
                   dayValueWrapper: dayValueWrapper,
+                  highlightToday: highlightToday,
+                  highlightOn: highlightOn,
                 ),
               ],
             ),

@@ -1,3 +1,4 @@
+import 'package:cabin_booking/widgets/standalone/heatmap_calendar/time_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -11,6 +12,8 @@ class HeatMapDay extends StatelessWidget {
   final bool messageHidden;
   final void Function(DateTime, int) onTap;
   final String Function(int) valueWrapper;
+  final bool highlightToday;
+  final bool Function(DateTime) highlightOn;
 
   const HeatMapDay({
     Key key,
@@ -23,6 +26,8 @@ class HeatMapDay extends StatelessWidget {
     this.messageHidden = false,
     this.onTap,
     this.valueWrapper,
+    this.highlightToday = false,
+    this.highlightOn,
   })  : assert(value != null),
         super(key: key);
 
@@ -53,6 +58,12 @@ class HeatMapDay extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: const BorderRadius.all(Radius.circular(2.0)),
             color: getColorFromThreshold(),
+            border:
+                highlightToday && TimeUtils.isOnSameDay(date, DateTime.now())
+                    ? Border.all(color: Colors.orange, width: 2)
+                    : highlightOn != null && highlightOn(date)
+                        ? Border.all(color: Colors.orange[200], width: 2)
+                        : null,
           ),
         ),
       ),
