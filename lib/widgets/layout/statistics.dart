@@ -1,9 +1,10 @@
+import 'package:cabin_booking/widgets/layout/duration_figure_unit.dart';
 import 'package:flutter/material.dart';
 
 class Statistics extends StatelessWidget {
   final String title;
   final IconData icon;
-  final List<StatisticItem> items;
+  final List<Widget> items;
   final void Function() onTap;
 
   const Statistics({
@@ -65,18 +66,16 @@ class Statistics extends StatelessWidget {
 
 class StatisticItem extends StatelessWidget {
   final String label;
-  final String value;
+  final Widget item;
 
   const StatisticItem({
     Key key,
     this.label,
-    @required this.value,
+    @required this.item,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -85,14 +84,52 @@ class StatisticItem extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 8.0),
             child: Text(
               label,
-              style: theme.textTheme.subtitle2,
+              style: Theme.of(context).textTheme.subtitle2,
             ),
           ),
-        Text(
-          value,
-          style: theme.textTheme.headline5,
-        ),
+        item
       ],
+    );
+  }
+}
+
+class StatisticSimpleItem<T> extends StatelessWidget {
+  final String label;
+  final T value;
+
+  const StatisticSimpleItem({
+    Key key,
+    this.label,
+    @required this.value,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return StatisticItem(
+      label: label,
+      item: Text(
+        '$value',
+        style: Theme.of(context).textTheme.headline5,
+      ),
+    );
+  }
+}
+
+class StatisticDurationItem extends StatelessWidget {
+  final String label;
+  final Duration value;
+
+  const StatisticDurationItem({
+    Key key,
+    this.label,
+    @required this.value,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return StatisticItem(
+      label: label,
+      item: DurationFigureUnit(value),
     );
   }
 }
