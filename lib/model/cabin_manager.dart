@@ -94,6 +94,16 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
     return count;
   }
 
+  Duration get totalAccumulatedDuration {
+    var duration = const Duration();
+
+    for (final cabin in cabins) {
+      duration += cabin.accumulatedDuration;
+    }
+
+    return duration;
+  }
+
   void addCabin(
     Cabin cabin, {
     bool notify = true,
