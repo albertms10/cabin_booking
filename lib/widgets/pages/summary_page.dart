@@ -40,13 +40,12 @@ class SummaryPage extends StatelessWidget {
                   items: [
                     StatisticSimpleItem(
                       label: appLocalizations.total,
-                      value:
-                          '${dayHandler.schoolYearManager.schoolYears.length}',
+                      value: dayHandler.schoolYearManager.schoolYears.length,
                     ),
                     StatisticSimpleItem(
                       label: appLocalizations.workingDays,
-                      value:
-                          '${dayHandler.schoolYearManager.totalWorkingDuration.inDays}',
+                      value: dayHandler
+                          .schoolYearManager.totalWorkingDuration.inDays,
                     ),
                   ],
                 ),
@@ -59,7 +58,7 @@ class SummaryPage extends StatelessWidget {
                   items: [
                     StatisticSimpleItem(
                       label: appLocalizations.total,
-                      value: '${cabinManager.cabins.length}',
+                      value: cabinManager.cabins.length,
                     ),
                   ],
                 ),
