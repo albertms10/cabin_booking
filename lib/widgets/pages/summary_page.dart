@@ -72,14 +72,12 @@ class SummaryPage extends StatelessWidget {
                     StatisticSimpleItem(
                       label: appLocalizations.total,
                       value: cabinManager.allBookingsCount,
-                    ),
-                    StatisticSimpleItem(
-                      label: appLocalizations.bookings,
-                      value: cabinManager.bookingsCount,
-                    ),
-                    StatisticSimpleItem(
-                      label: appLocalizations.recurringBookings,
-                      value: cabinManager.recurringBookingsCount,
+                      details: [
+                        cabinManager.bookingsCount,
+                        cabinManager.recurringBookingsCount,
+                      ],
+                      tooltipMessage:
+                          '${appLocalizations.bookings} + ${appLocalizations.recurringBookings}',
                     ),
                     StatisticItem(
                       label: appLocalizations.accumulatedTime,
