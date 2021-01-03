@@ -102,6 +102,7 @@ class SchoolYearManager extends WritableManager<Set<SchoolYear>>
   @override
   Future<int> loadFromFile() async {
     schoolYears = await readFromFile();
+    schoolYearIndex = _currentSchoolYearIndex;
 
     notifyListeners();
 
