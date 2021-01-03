@@ -28,9 +28,8 @@ class SummaryPage extends StatelessWidget {
           children: [
             Heading(AppLocalizations.of(context).summary),
             Wrap(
-              spacing: 16.0,
-              runSpacing: 16.0,
-              alignment: WrapAlignment.spaceBetween,
+              spacing: 24.0,
+              runSpacing: 24.0,
               children: [
                 Statistics(
                   title: appLocalizations.schoolYears,
