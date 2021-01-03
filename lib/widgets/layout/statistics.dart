@@ -66,12 +66,20 @@ class Statistics extends StatelessWidget {
 class StatisticItem extends StatelessWidget {
   final String label;
   final Widget item;
+  final List<Widget> details;
+  final String tooltipMessage;
 
   const StatisticItem({
     Key key,
     this.label,
     @required this.item,
+    this.details = const [],
+    this.tooltipMessage,
   }) : super(key: key);
+
+  Widget _tooltipWrap({Widget child}) => tooltipMessage != null
+      ? Tooltip(message: tooltipMessage, child: child)
+      : child;
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +94,36 @@ class StatisticItem extends StatelessWidget {
               style: Theme.of(context).textTheme.subtitle2,
             ),
           ),
-        item,
+        _tooltipWrap(
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              item,
+              if (details.isNotEmpty)
+                Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: Row(
+                    children: [
+                      for (var i = 0; i < details.length; i++) ...[
+                        details[i],
+                        if (i < details.length - 1)
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 2.0),
+                            child: Text(
+                              '+',
+                              style: TextStyle(
+                                color: Theme.of(context).hintColor,
+                              ),
+                            ),
+                          ),
+                      ],
+                    ],
+                  ),
+                ),
+            ],
+          ),
+        ),
       ],
     );
   }
@@ -95,11 +132,15 @@ class StatisticItem extends StatelessWidget {
 class StatisticSimpleItem<T> extends StatelessWidget {
   final String label;
   final T value;
+  final List<T> details;
+  final String tooltipMessage;
 
   const StatisticSimpleItem({
     Key key,
     this.label,
     @required this.value,
+    this.details = const [],
+    this.tooltipMessage,
   }) : super(key: key);
 
   @override
@@ -110,6 +151,10 @@ class StatisticSimpleItem<T> extends StatelessWidget {
         '$value',
         style: Theme.of(context).textTheme.headline5,
       ),
+      details: [
+        for (final detail in details) Text('$detail'),
+      ],
+      tooltipMessage: tooltipMessage,
     );
   }
 }
