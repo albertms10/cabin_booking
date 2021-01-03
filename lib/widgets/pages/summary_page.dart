@@ -112,8 +112,14 @@ class SummaryPage extends StatelessWidget {
                       highestValue: cabinManager.mostBookedDayEntry?.value ?? 1,
                       color: Theme.of(context).accentColor,
                     ),
+                    firstDate:
+                        dayHandler.schoolYearManager.schoolYear.startDate,
+                    lastDate: dayHandler.schoolYearManager.schoolYear.endDate,
+                    highlightToday: true,
+                    highlightOn: (date) => isSameDay(date, dayHandler.dateTime),
                     onDayTap: (dateTime, value) {
                       dayHandler.dateTime = dateTime;
+
                       setRailPage(AppPages.Bookings);
                     },
                   ),
