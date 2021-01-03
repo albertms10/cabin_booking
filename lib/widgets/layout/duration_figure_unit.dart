@@ -14,6 +14,7 @@ class DurationFigureUnit extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
+      mainAxisSize: MainAxisSize.min,
       children: [
         FigureUnit(
           value: hours,
