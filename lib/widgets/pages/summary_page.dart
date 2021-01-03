@@ -1,6 +1,8 @@
 import 'package:cabin_booking/model/cabin_manager.dart';
 import 'package:cabin_booking/model/day_handler.dart';
 import 'package:cabin_booking/utils/colors.dart';
+import 'package:cabin_booking/utils/date.dart';
+import 'package:cabin_booking/widgets/layout/heading.dart';
 import 'package:cabin_booking/widgets/layout/statistics.dart';
 import 'package:cabin_booking/widgets/pages/home_page.dart';
 import 'package:cabin_booking/widgets/standalone/heatmap_calendar/heatmap_calendar.dart';
@@ -23,6 +25,7 @@ class SummaryPage extends StatelessWidget {
         return ListView(
           padding: const EdgeInsets.all(32.0),
           children: [
+            Heading(AppLocalizations.of(context).summary),
             Wrap(
               spacing: 16.0,
               runSpacing: 16.0,
@@ -35,12 +38,12 @@ class SummaryPage extends StatelessWidget {
                     setRailPage(AppPages.SchoolYears);
                   },
                   items: [
-                    StatisticItem(
+                    StatisticSimpleItem(
                       label: appLocalizations.total,
                       value:
                           '${dayHandler.schoolYearManager.schoolYears.length}',
                     ),
-                    StatisticItem(
+                    StatisticSimpleItem(
                       label: appLocalizations.workingDays,
                       value:
                           '${dayHandler.schoolYearManager.totalWorkingDuration.inDays}',
@@ -54,7 +57,7 @@ class SummaryPage extends StatelessWidget {
                     setRailPage(AppPages.Cabins);
                   },
                   items: [
-                    StatisticItem(
+                    StatisticSimpleItem(
                       label: appLocalizations.total,
                       value: '${cabinManager.cabins.length}',
                     ),
@@ -67,18 +70,22 @@ class SummaryPage extends StatelessWidget {
                     setRailPage(AppPages.Bookings);
                   },
                   items: [
-                    StatisticItem(
+                    StatisticSimpleItem(
                       label: appLocalizations.total,
-                      value: '${cabinManager.allBookingsCount}',
+                      value: cabinManager.allBookingsCount,
                     ),
-                    StatisticItem(
+                    StatisticSimpleItem(
                       label: appLocalizations.bookings,
-                      value: '${cabinManager.bookingsCount}',
+                      value: cabinManager.bookingsCount,
                     ),
-                    StatisticItem(
+                    StatisticSimpleItem(
                       label: appLocalizations.recurringBookings,
-                      value: '${cabinManager.recurringBookingsCount}',
+                      value: cabinManager.recurringBookingsCount,
                     ),
+                    StatisticDurationItem(
+                      label: appLocalizations.accumulatedTime,
+                      value: cabinManager.totalAccumulatedDuration,
+                    )
                   ],
                 ),
                 if (cabinManager.mostBookedDayEntry != null)
@@ -90,7 +97,7 @@ class SummaryPage extends StatelessWidget {
                       setRailPage(AppPages.Bookings);
                     },
                     items: [
-                      StatisticItem(
+                      StatisticSimpleItem(
                         value: DateFormat.d().add_MMM().add_y().format(
                               cabinManager.mostBookedDayEntry.key,
                             ),
@@ -100,6 +107,8 @@ class SummaryPage extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 32.0),
+            Heading(AppLocalizations.of(context).bookings),
+            const SizedBox(height: 16.0),
             Row(
               children: [
                 Expanded(
@@ -125,7 +134,7 @@ class SummaryPage extends StatelessWidget {
                   ),
                 ),
               ],
-            )
+            ),
           ],
         );
       },
