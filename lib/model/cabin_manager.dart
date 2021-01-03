@@ -9,7 +9,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 Iterable<Cabin> _parseCabins(String jsonString) =>
-    json.decode(jsonString).map<Cabin>((json) => Cabin.from(json));
+    (json.decode(jsonString) as List<dynamic>)
+        .map<Cabin>((json) => Cabin.from(json));
 
 class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
   Set<Cabin> cabins;

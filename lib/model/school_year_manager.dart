@@ -6,7 +6,8 @@ import 'package:cabin_booking/model/writable_manager.dart';
 import 'package:flutter/foundation.dart';
 
 Iterable<SchoolYear> _parseSchoolYears(String jsonString) =>
-    json.decode(jsonString).map<SchoolYear>((json) => SchoolYear.from(json));
+    (json.decode(jsonString) as List<dynamic>)
+        .map<SchoolYear>((json) => SchoolYear.from(json));
 
 class SchoolYearManager extends WritableManager<Set<SchoolYear>>
     with ChangeNotifier {
