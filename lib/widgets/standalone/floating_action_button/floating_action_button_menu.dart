@@ -7,7 +7,7 @@ import 'background_overlay.dart';
 /// Source: https://pub.dev/packages/flutter_speed_dial
 class FloatingActionButtonMenu extends StatefulWidget {
   /// Children buttons, from the lowest to the highest.
-  final List<FloatingActionButtonMenuChild> children;
+  final List<FloatingActionButtonMenuChild> buttons;
 
   /// Used to get the button hidden on scroll. See examples for more info.
   final bool visible;
@@ -38,9 +38,6 @@ class FloatingActionButtonMenu extends StatefulWidget {
   /// The theme for the animated icon.
   final IconThemeData animatedIconTheme;
 
-  /// The child of the main button, ignored if [animatedIcon] is non-[null].
-  final Widget child;
-
   /// Executed when the menu is opened.
   final VoidCallback onOpen;
 
@@ -58,9 +55,12 @@ class FloatingActionButtonMenu extends StatefulWidget {
 
   final tween = Tween<double>(begin: 0.0, end: 62.0);
 
+  /// The child of the main button, ignored if [animatedIcon] is non-[null].
+  final Widget child;
+
   FloatingActionButtonMenu({
     Key key,
-    this.children = const [],
+    this.buttons = const [],
     this.visible = true,
     this.backgroundColor,
     this.foregroundColor,
@@ -72,7 +72,6 @@ class FloatingActionButtonMenu extends StatefulWidget {
     this.heroTag,
     this.animatedIcon,
     this.animatedIconTheme,
-    this.child,
     this.marginBottom = 16.0,
     this.marginRight = 14.0,
     this.onOpen,
@@ -82,6 +81,7 @@ class FloatingActionButtonMenu extends StatefulWidget {
     this.curve = Curves.easeInOutCubic,
     this.onPressed,
     this.animationSpeed = 150,
+    this.child,
   }) : super(key: key);
 
   @override
@@ -129,7 +129,7 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
 
   Duration _calculateMainControllerDuration() => Duration(
         milliseconds: widget.animationSpeed +
-            widget.children.length * widget.animationSpeed ~/ 5,
+            widget.buttons.length * widget.animationSpeed ~/ 5,
       );
 
   void _performAnimation() {
@@ -144,7 +144,7 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
 
   @override
   void didUpdateWidget(covariant FloatingActionButtonMenu oldWidget) {
-    if (oldWidget.children.length != widget.children.length) {
+    if (oldWidget.buttons.length != widget.buttons.length) {
       _controller.duration = _calculateMainControllerDuration();
     }
 
@@ -164,9 +164,9 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
   }
 
   List<Widget> _getChildrenList() {
-    return widget.children
+    return widget.buttons
         .map((child) {
-          final index = widget.children.indexOf(child);
+          final index = widget.buttons.indexOf(child);
 
           return AnimatedChild(
             tween: widget.tween,

@@ -46,7 +46,7 @@ class BookingFloatingActionButton extends StatelessWidget {
               cabinManager,
             );
           },
-          children: [
+          buttons: [
             FloatingActionButtonMenuChild(
               icon: Icons.repeat,
               label: Text(

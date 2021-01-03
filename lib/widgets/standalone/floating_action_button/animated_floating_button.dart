@@ -8,7 +8,6 @@ class AnimatedFloatingButton extends StatelessWidget {
   final Animation<double> animation;
   final VoidCallback callback;
   final VoidCallback onLongPress;
-  final Widget child;
   final Color backgroundColor;
   final Color foregroundColor;
   final String tooltip;
@@ -19,13 +18,13 @@ class AnimatedFloatingButton extends StatelessWidget {
   final ShapeBorder shape;
   final Curve curve;
   final int animationSpeed;
+  final Widget child;
 
   const AnimatedFloatingButton({
     this.visible = true,
     this.tween,
     this.animation,
     this.callback,
-    this.child,
     this.backgroundColor,
     this.foregroundColor,
     this.tooltip,
@@ -37,6 +36,7 @@ class AnimatedFloatingButton extends StatelessWidget {
     this.curve = Curves.easeOutCubic,
     this.onLongPress,
     this.animationSpeed = 150,
+    this.child,
   });
 
   @override
