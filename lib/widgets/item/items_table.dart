@@ -237,9 +237,10 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
                         DataCell(
                           Column(
                             mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               DurationFigureUnit(row.accumulatedDuration),
-                              const SizedBox(height: 8.0),
+                              const SizedBox(height: 12.0),
                               Padding(
                                 padding: const EdgeInsets.only(left: 24.0),
                                 child: TweenAnimationBuilder<double>(
