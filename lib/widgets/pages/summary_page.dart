@@ -2,6 +2,7 @@ import 'package:cabin_booking/model/cabin_manager.dart';
 import 'package:cabin_booking/model/day_handler.dart';
 import 'package:cabin_booking/utils/colors.dart';
 import 'package:cabin_booking/utils/date.dart';
+import 'package:cabin_booking/widgets/layout/duration_figure_unit.dart';
 import 'package:cabin_booking/widgets/layout/heading.dart';
 import 'package:cabin_booking/widgets/layout/statistics.dart';
 import 'package:cabin_booking/widgets/pages/home_page.dart';
@@ -82,10 +83,12 @@ class SummaryPage extends StatelessWidget {
                       label: appLocalizations.recurringBookings,
                       value: cabinManager.recurringBookingsCount,
                     ),
-                    StatisticDurationItem(
+                    StatisticItem(
                       label: appLocalizations.accumulatedTime,
-                      value: cabinManager.totalAccumulatedDuration,
-                    )
+                      item: DurationFigureUnit(
+                        cabinManager.totalAccumulatedDuration,
+                      ),
+                    ),
                   ],
                 ),
                 if (cabinManager.mostBookedDayEntry != null)

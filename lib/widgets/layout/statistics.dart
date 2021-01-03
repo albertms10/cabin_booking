@@ -1,4 +1,3 @@
-import 'package:cabin_booking/widgets/layout/duration_figure_unit.dart';
 import 'package:flutter/material.dart';
 
 class Statistics extends StatelessWidget {
@@ -87,7 +86,7 @@ class StatisticItem extends StatelessWidget {
               style: Theme.of(context).textTheme.subtitle2,
             ),
           ),
-        item
+        item,
       ],
     );
   }
@@ -111,25 +110,6 @@ class StatisticSimpleItem<T> extends StatelessWidget {
         '$value',
         style: Theme.of(context).textTheme.headline5,
       ),
-    );
-  }
-}
-
-class StatisticDurationItem extends StatelessWidget {
-  final String label;
-  final Duration value;
-
-  const StatisticDurationItem({
-    Key key,
-    this.label,
-    @required this.value,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return StatisticItem(
-      label: label,
-      item: DurationFigureUnit(value),
     );
   }
 }
