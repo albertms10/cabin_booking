@@ -62,6 +62,9 @@ class _BookingFormState extends State<BookingForm> {
       _recurringBookingMethod = (_booking as RecurringBooking).method;
       _periodicity = (_booking as RecurringBooking).periodicity;
       _recurringEndDate = (_booking as RecurringBooking).recurringEndDate;
+
+      _endDateController.text = DateFormat.yMd()
+          .format((_booking as RecurringBooking).recurringEndDate);
     }
   }
 
@@ -83,8 +86,6 @@ class _BookingFormState extends State<BookingForm> {
     _endTimeController.text = _endTime.format(context);
 
     if (_booking is RecurringBooking) {
-      _endDateController.text = DateFormat.yMd()
-          .format((_booking as RecurringBooking).recurringEndDate);
       _occurrencesController.text =
           (_booking as RecurringBooking).occurrences.toString();
     }
