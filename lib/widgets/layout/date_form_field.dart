@@ -12,6 +12,8 @@ class DateFormField extends StatefulWidget {
   final DateTime lastDate;
 
   final void Function(DateTime) onChange;
+  final String Function(String) additionalValidator;
+  final bool skipValidation;
 
   DateFormField({
     Key key,
@@ -22,6 +24,8 @@ class DateFormField extends StatefulWidget {
     this.firstDate,
     this.lastDate,
     this.onChange,
+    this.additionalValidator,
+    this.skipValidation = false,
   }) : super(key: key);
 
   @override
@@ -91,6 +95,8 @@ class _DateFormFieldState extends State<DateFormField> {
         }
       },
       validator: (value) {
+        if (widget.skipValidation) return null;
+
         if (value.isEmpty) {
           return AppLocalizations.of(context).enterDate;
         }
@@ -105,7 +111,7 @@ class _DateFormFieldState extends State<DateFormField> {
           return AppLocalizations.of(context).enterDate;
         }
 
-        return null;
+        return widget.additionalValidator?.call(value);
       },
     );
   }
