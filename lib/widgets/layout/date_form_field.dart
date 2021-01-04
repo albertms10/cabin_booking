@@ -6,6 +6,7 @@ class DateFormField extends StatefulWidget {
   final TextEditingController controller;
   final String labelText;
   final bool autofocus;
+  final bool enabled;
 
   final DateTime initialDate;
   final DateTime firstDate;
@@ -20,6 +21,7 @@ class DateFormField extends StatefulWidget {
     this.controller,
     this.labelText,
     this.autofocus = false,
+    this.enabled = true,
     this.initialDate,
     this.firstDate,
     this.lastDate,
@@ -63,6 +65,7 @@ class _DateFormFieldState extends State<DateFormField> {
       autovalidateMode: AutovalidateMode.onUserInteraction,
       autofocus: widget.autofocus,
       decoration: InputDecoration(labelText: widget.labelText),
+      enabled: widget.enabled,
       onChanged: (value) {
         final date = _tryParseDate(value);
 
