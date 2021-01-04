@@ -49,12 +49,12 @@ class EmptyBookingSlot extends StatelessWidget {
           children: [
             if (startsBeforeNow && endsAfterNow)
               SizedBox(
-                height: startToNowDuration.inMinutes * bookingHeightRatio,
+                height: startToNowDuration.inMinutes * kBookingHeightRatio,
               ),
             TweenAnimationBuilder<double>(
               tween: Tween<double>(
-                begin: preciseDuration * bookingHeightRatio,
-                end: preciseDuration * bookingHeightRatio,
+                begin: preciseDuration * kBookingHeightRatio,
+                end: preciseDuration * kBookingHeightRatio,
               ),
               duration: const Duration(milliseconds: 300),
               curve: Curves.easeInOutCubic,
@@ -62,7 +62,7 @@ class EmptyBookingSlot extends StatelessWidget {
                 return SizedBox(
                   width: double.infinity,
                   height: value,
-                  child: duration.compareTo(minSlotDuration) < 0 ||
+                  child: duration.compareTo(kMinSlotDuration) < 0 ||
                           endDateTime.compareTo(now) < 0
                       ? null
                       : Container(

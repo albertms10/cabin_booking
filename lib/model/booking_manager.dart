@@ -85,19 +85,19 @@ class BookingManager with ChangeNotifier {
       null;
 
   Duration _occupiedDuration([DateTime dateTime]) {
-    var runningDuration = const Duration();
+    var runDuration = const Duration();
 
     for (final booking
         in dateTime != null ? allBookingsOn(dateTime) : allBookings) {
-      runningDuration += booking.duration;
+      runDuration += booking.duration;
     }
 
-    return runningDuration;
+    return runDuration;
   }
 
   Duration get accumulatedDuration => _occupiedDuration();
 
-  double occupiedRatioOn(
+  double occupancyPercentOn(
     DateTime dateTime, {
     @required TimeOfDay startTime,
     @required TimeOfDay endTime,
@@ -118,27 +118,27 @@ class BookingManager with ChangeNotifier {
         maxViewDuration.inMicroseconds;
   }
 
-  double occupiedRatio({
+  double occupancyPercent({
     @required TimeOfDay startTime,
     @required TimeOfDay endTime,
     Set<DateTime> dates,
   }) {
-    var runningRatio = 0.0;
+    var runPercent = 0.0;
     var count = 0;
 
     for (final dateTime in dates ?? datesWithBookings) {
       count++;
 
-      final currentRatio = occupiedRatioOn(
+      final currentPercent = occupancyPercentOn(
         dateTime,
         startTime: startTime,
         endTime: endTime,
       );
 
-      runningRatio += (currentRatio - runningRatio) / count;
+      runPercent += (currentPercent - runPercent) / count;
     }
 
-    return runningRatio;
+    return runPercent;
   }
 
   Set<DateTime> get datesWithBookings {

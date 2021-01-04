@@ -16,8 +16,8 @@ class BookingsTable extends StatelessWidget {
     return Stack(
       children: [
         const StrippedBackground(
-          startTime: timeTableStartTime,
-          endTime: timeTableEndTime,
+          startTime: kTimeTableStartTime,
+          endTime: kTimeTableEndTime,
         ),
         Consumer2<DayHandler, CabinManager>(
           builder: (context, dayHandler, cabinManager, child) {
@@ -29,7 +29,7 @@ class BookingsTable extends StatelessWidget {
                 child,
                 for (final cabin in cabinManager.cabins)
                   SizedBox(
-                    width: columnWidth,
+                    width: kColumnWidth,
                     child: BookingsStack(
                       key: Key('${cabin.number}'),
                       cabin: cabin.simplified(),

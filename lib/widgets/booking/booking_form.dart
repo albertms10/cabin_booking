@@ -167,7 +167,7 @@ class _BookingFormState extends State<BookingForm> {
                             parsedDateTime.isBefore(
                               tryParseDateTimeWithTimeOfDay(
                                 dateTime: widget.booking.date,
-                                timeOfDay: timeTableStartTime,
+                                timeOfDay: kTimeTableStartTime,
                               ),
                             )) {
                           return appLocalizations.enterValidRange;
@@ -253,7 +253,7 @@ class _BookingFormState extends State<BookingForm> {
                             parsedDateTime.isAfter(
                               tryParseDateTimeWithTimeOfDay(
                                 dateTime: widget.booking.date,
-                                timeOfDay: timeTableEndTime,
+                                timeOfDay: kTimeTableEndTime,
                               ),
                             )) {
                           return appLocalizations.enterValidRange;

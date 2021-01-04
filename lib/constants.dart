@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-const double bookingHeightRatio = 2.2;
-const double columnWidth = 182.0;
+const kBookingHeightRatio = 2.2;
+const kColumnWidth = 182.0;
 
-const Duration minSlotDuration = Duration(minutes: 20);
-const Duration maxSlotDuration = Duration(minutes: 60);
+const kMinSlotDuration = Duration(minutes: 20);
+const kMaxSlotDuration = Duration(minutes: 60);
 
-const TimeOfDay timeTableStartTime = TimeOfDay(hour: 9, minute: 0);
-const TimeOfDay timeTableEndTime = TimeOfDay(hour: 22, minute: 0);
+const kTimeTableStartTime = TimeOfDay(hour: 9, minute: 0);
+const kTimeTableEndTime = TimeOfDay(hour: 22, minute: 0);

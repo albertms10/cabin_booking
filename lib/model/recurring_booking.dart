@@ -90,13 +90,13 @@ class RecurringBooking extends Booking {
 
     assert(_occurrences != null);
 
-    var runningDate = date;
+    var runDate = date;
 
     for (var i = 0; i <= _occurrences; i++) {
-      runningDate = runningDate.add(periodicityDuration);
+      runDate = runDate.add(periodicityDuration);
     }
 
-    return runningDate;
+    return runDate;
   }
 
   set recurringEndDate(DateTime date) {
@@ -138,14 +138,14 @@ class RecurringBooking extends Booking {
       );
 
   List<Booking> get bookings {
-    final runningBookings = <Booking>[];
-    var runningDate = date;
+    final runBookings = <Booking>[];
+    var runDate = date;
     var movedBooking = asBooking();
 
     var count = 0;
 
-    while (runningDate.isBefore(recurringEndDate)) {
-      runningBookings.add(
+    while (runDate.isBefore(recurringEndDate)) {
+      runBookings.add(
         movedBooking
           ..id = '$id-$count'
           ..recurringBookingId = id
@@ -153,15 +153,15 @@ class RecurringBooking extends Booking {
           ..recurringTotalTimes = occurrences,
       );
 
-      runningDate = runningDate.add(periodicityDuration);
+      runDate = runDate.add(periodicityDuration);
 
-      if (runningDate.isBefore(recurringEndDate)) {
-        movedBooking = movedBooking.copyWith(date: runningDate);
+      if (runDate.isBefore(recurringEndDate)) {
+        movedBooking = movedBooking.copyWith(date: runDate);
         count++;
       }
     }
 
-    return runningBookings;
+    return runBookings;
   }
 
   Booking bookingOn(DateTime dateTime) => bookings.firstWhere(

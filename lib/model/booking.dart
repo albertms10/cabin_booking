@@ -65,12 +65,12 @@ class Booking extends Item {
   Map<TimeOfDay, Duration> get hoursSpan {
     final timeRanges = <TimeOfDay, Duration>{};
 
-    var runningTime = startTime;
-    var runningDuration = const Duration();
+    var runTime = startTime;
+    var runDuration = const Duration();
 
-    while (runningDuration < duration) {
+    while (runDuration < duration) {
       final nextHour = TimeOfDay(
-        hour: (runningTime.hour + 1) % TimeOfDay.hoursPerDay,
+        hour: (runTime.hour + 1) % TimeOfDay.hoursPerDay,
         minute: 0,
       );
 
@@ -79,15 +79,15 @@ class Booking extends Item {
               ? endTime
               : nextHour;
 
-      final currentDuration = durationBetweenTimesOfDay(runningTime, nextTime);
+      final currentDuration = durationBetweenTimesOfDay(runTime, nextTime);
 
-      runningDuration += currentDuration;
+      runDuration += currentDuration;
 
       timeRanges.addAll({
-        runningTime.replacing(minute: 0): currentDuration,
+        runTime.replacing(minute: 0): currentDuration,
       });
 
-      runningTime = nextTime;
+      runTime = nextTime;
     }
 
     return timeRanges;

@@ -11,7 +11,7 @@ class ItemsTableRow<T extends Item> {
   final int bookingsCount;
   final int recurringBookingsCount;
   final Duration accumulatedDuration;
-  final double occupancyRate;
+  final double occupancyPercent;
   final Set<List<TimeOfDay>> mostOccupiedTimeRanges;
   bool selected;
 
@@ -20,7 +20,7 @@ class ItemsTableRow<T extends Item> {
     this.bookingsCount = 0,
     this.recurringBookingsCount = 0,
     this.accumulatedDuration = const Duration(),
-    this.occupancyRate = 0.0,
+    this.occupancyPercent = 0.0,
     this.mostOccupiedTimeRanges = const {},
     this.selected = false,
   });
@@ -246,7 +246,7 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
                                 child: TweenAnimationBuilder<double>(
                                   tween: Tween<double>(
                                     begin: 0.0,
-                                    end: row.occupancyRate,
+                                    end: row.occupancyPercent,
                                   ),
                                   duration: const Duration(milliseconds: 700),
                                   curve: Curves.easeOutCubic,

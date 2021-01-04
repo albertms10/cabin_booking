@@ -33,20 +33,20 @@ class CabinsIconsRow extends StatelessWidget {
               else
                 for (final cabin in cabinManager.cabins)
                   SizedBox(
-                    width: columnWidth,
+                    width: kColumnWidth,
                     child: CabinIcon(
                       number: cabin.number,
-                      progress: cabin.occupiedRatioOn(
+                      progress: cabin.occupancyPercentOn(
                         dayHandler.dateTime,
-                        startTime: timeTableStartTime,
-                        endTime: timeTableEndTime,
+                        startTime: kTimeTableStartTime,
+                        endTime: kTimeTableEndTime,
                       ),
                     ),
                   ),
             ],
           );
         },
-        child: const SizedBox(width: columnWidth),
+        child: const SizedBox(width: kColumnWidth),
       ),
     );
   }

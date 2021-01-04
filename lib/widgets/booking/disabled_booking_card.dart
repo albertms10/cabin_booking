@@ -16,7 +16,7 @@ class DisabledBookingCard extends StatelessWidget {
     @required this.booking,
   }) : super(key: key);
 
-  double get height => booking.duration.inMinutes * bookingHeightRatio - 16.0;
+  double get height => booking.duration.inMinutes * kBookingHeightRatio - 16.0;
 
   @override
   Widget build(BuildContext context) {

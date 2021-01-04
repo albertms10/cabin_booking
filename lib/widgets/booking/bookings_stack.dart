@@ -32,12 +32,12 @@ class BookingsStack extends StatelessWidget {
 
     final startDateTime = tryParseDateTimeWithTimeOfDay(
       dateTime: dayHandler.dateTime,
-      timeOfDay: timeTableStartTime,
+      timeOfDay: kTimeTableStartTime,
     );
 
     final endDateTime = tryParseDateTimeWithTimeOfDay(
       dateTime: dayHandler.dateTime,
-      timeOfDay: timeTableEndTime,
+      timeOfDay: kTimeTableEndTime,
     );
 
     var slotCount = 0;
@@ -74,12 +74,12 @@ class BookingsStack extends StatelessWidget {
         );
       }
 
-      final runningSlotList = <EmptyBookingSlot>[];
+      final runSlotList = <EmptyBookingSlot>[];
 
       if (duration > const Duration()) {
-        var runningDuration = duration;
+        var runDuration = duration;
 
-        while (runningDuration > maxSlotDuration) {
+        while (runDuration > kMaxSlotDuration) {
           final timeOfDay = TimeOfDay.fromDateTime(currentBookingDate);
 
           final duration = Duration(
@@ -88,7 +88,7 @@ class BookingsStack extends StatelessWidget {
 
           nextBookingDateTime = currentBookingDate.add(duration);
 
-          runningSlotList.add(
+          runSlotList.add(
             EmptyBookingSlot(
               key: _emptyBookingSlotKey(
                 currentBookingDate,
@@ -102,12 +102,12 @@ class BookingsStack extends StatelessWidget {
 
           currentBookingDate = nextBookingDateTime;
 
-          runningDuration -= duration;
+          runDuration -= duration;
         }
 
-        nextBookingDateTime = currentBookingDate.add(runningDuration);
+        nextBookingDateTime = currentBookingDate.add(runDuration);
 
-        runningSlotList.add(
+        runSlotList.add(
           EmptyBookingSlot(
             key: _emptyBookingSlotKey(
               currentBookingDate,
@@ -119,7 +119,7 @@ class BookingsStack extends StatelessWidget {
           ),
         );
 
-        distributedBookings.addAll(runningSlotList);
+        distributedBookings.addAll(runSlotList);
       }
     }
 

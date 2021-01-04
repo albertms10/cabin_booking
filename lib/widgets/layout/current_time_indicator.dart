@@ -18,12 +18,12 @@ class CurrentTimeIndicator extends StatelessWidget {
 
         final viewStartDateTime = tryParseDateTimeWithTimeOfDay(
           dateTime: dayHandler.dateTime,
-          timeOfDay: timeTableStartTime,
+          timeOfDay: kTimeTableStartTime,
         );
 
         final viewEndDateTime = tryParseDateTimeWithTimeOfDay(
           dateTime: dayHandler.dateTime,
-          timeOfDay: timeTableEndTime,
+          timeOfDay: kTimeTableEndTime,
         );
 
         final durationFromStart = DateTime.now().difference(viewStartDateTime);
@@ -38,7 +38,7 @@ class CurrentTimeIndicator extends StatelessWidget {
         return HorizontalIndicator(
           verticalOffset: durationFromStart.inMicroseconds /
               Duration.microsecondsPerMinute *
-              bookingHeightRatio,
+              kBookingHeightRatio,
           label: Text(
             TimeOfDay.fromDateTime(DateTime.now()).format(context),
             style: TextStyle(

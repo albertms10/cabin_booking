@@ -6,8 +6,8 @@ class TimeColumn extends StatelessWidget {
   final TimeOfDay end;
 
   const TimeColumn({
-    this.start = timeTableStartTime,
-    this.end = timeTableEndTime,
+    this.start = kTimeTableStartTime,
+    this.end = kTimeTableEndTime,
   });
 
   @override
@@ -20,7 +20,7 @@ class TimeColumn extends StatelessWidget {
         for (var hour = start.hour; hour <= end.hour; hour++)
           Container(
             width: 180.0,
-            height: 60.0 * bookingHeightRatio,
+            height: 60.0 * kBookingHeightRatio,
             padding: const EdgeInsets.all(16.0),
             alignment: Alignment.topCenter,
             child: Text(

@@ -37,9 +37,9 @@ class BookingFloatingActionButton extends StatelessWidget {
               context,
               Booking(
                 date: dateOnly(dayHandler.dateTime),
-                startTime: timeTableStartTime,
-                endTime: timeTableStartTime.replacing(
-                  hour: (timeTableStartTime.hour + 1) % TimeOfDay.hoursPerDay,
+                startTime: kTimeTableStartTime,
+                endTime: kTimeTableStartTime.replacing(
+                  hour: (kTimeTableStartTime.hour + 1) % TimeOfDay.hoursPerDay,
                 ),
                 cabinId: cabinManager.cabins.first.id,
               ),
@@ -58,10 +58,10 @@ class BookingFloatingActionButton extends StatelessWidget {
                   context,
                   RecurringBooking(
                     date: dateOnly(dayHandler.dateTime),
-                    startTime: timeTableStartTime,
-                    endTime: timeTableStartTime.replacing(
-                      hour:
-                          (timeTableStartTime.hour + 1) % TimeOfDay.hoursPerDay,
+                    startTime: kTimeTableStartTime,
+                    endTime: kTimeTableStartTime.replacing(
+                      hour: (kTimeTableStartTime.hour + 1) %
+                          TimeOfDay.hoursPerDay,
                     ),
                     occurrences: 1,
                     cabinId: cabinManager.cabins.first.id,
@@ -81,10 +81,10 @@ class BookingFloatingActionButton extends StatelessWidget {
                   context,
                   Booking(
                     date: dateOnly(dayHandler.dateTime),
-                    startTime: timeTableStartTime,
-                    endTime: timeTableStartTime.replacing(
-                      hour:
-                          (timeTableStartTime.hour + 1) % TimeOfDay.hoursPerDay,
+                    startTime: kTimeTableStartTime,
+                    endTime: kTimeTableStartTime.replacing(
+                      hour: (kTimeTableStartTime.hour + 1) %
+                          TimeOfDay.hoursPerDay,
                     ),
                     isDisabled: true,
                     cabinId: cabinManager.cabins.first.id,

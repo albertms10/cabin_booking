@@ -60,12 +60,12 @@ class Cabin extends Item {
 
   Duration get accumulatedDuration => _bookingManager.accumulatedDuration;
 
-  double occupiedRatioOn(
+  double occupancyPercentOn(
     DateTime dateTime, {
     @required TimeOfDay startTime,
     @required TimeOfDay endTime,
   }) =>
-      _bookingManager.occupiedRatioOn(
+      _bookingManager.occupancyPercentOn(
         dateTime,
         startTime: startTime,
         endTime: endTime,
@@ -76,12 +76,12 @@ class Cabin extends Item {
   Map<DateTime, int> get allBookingsCountPerDay =>
       _bookingManager.allBookingsCountPerDay;
 
-  double occupiedRatio({
+  double occupancyPercent({
     @required TimeOfDay startTime,
     @required TimeOfDay endTime,
     Set<DateTime> dates,
   }) =>
-      _bookingManager.occupiedRatio(
+      _bookingManager.occupancyPercent(
         startTime: startTime,
         endTime: endTime,
         dates: dates,

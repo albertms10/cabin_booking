@@ -48,7 +48,7 @@
   "noCabinsMessage": "Añada una cabina para empezar",
   "noSchoolYearsMessage": "Añada un curso para empezar",
   "accumulatedTime": "Tiempo acumulado",
-  "occupancyRate": "Ocupación",
+  "occupancy": "Ocupación",
   "mostOccupiedTimeRange": "Horario más ocupado",
   "mostBookedDay": "Día con más reservas",
   "onDate": "El día",

@@ -17,7 +17,7 @@ class BookingCard extends StatelessWidget {
     @required this.booking,
   }) : super(key: key);
 
-  double get height => booking.duration.inMinutes * bookingHeightRatio - 16.0;
+  double get height => booking.duration.inMinutes * kBookingHeightRatio - 16.0;
 
   bool get isRecurring => RecurringBooking.isRecurringBooking(booking);
 
