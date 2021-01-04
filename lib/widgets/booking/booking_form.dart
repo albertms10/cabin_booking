@@ -39,9 +39,9 @@ class _BookingFormState extends State<BookingForm> {
   final _occurrencesController = TextEditingController();
 
   Booking _booking;
+
   RecurringBookingMethod _recurringBookingMethod =
       RecurringBookingMethod.EndDate;
-
   Periodicity _periodicity = Periodicity.Weekly;
 
   TimeOfDay _startTime;
@@ -52,10 +52,10 @@ class _BookingFormState extends State<BookingForm> {
   void initState() {
     super.initState();
 
-    _startTime = TimeOfDay.fromDateTime(widget.booking.startDateTime);
-    _endTime = TimeOfDay.fromDateTime(widget.booking.endDateTime);
-
     _booking = widget.booking;
+
+    _startTime = widget.booking.startTime;
+    _endTime = widget.booking.endTime;
 
     if (_booking is RecurringBooking) {
       _recurringBookingMethod = (_booking as RecurringBooking).method;
