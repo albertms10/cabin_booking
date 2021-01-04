@@ -50,8 +50,13 @@ class RecurringBooking extends Booking {
     Booking booking, {
     Periodicity periodicity = Periodicity.Weekly,
     int repeatEvery = 1,
-  })  : periodicity = periodicity,
+    DateTime recurringEndDate,
+    int occurrences,
+  })  : assert((recurringEndDate == null) != (occurrences == null)),
+        periodicity = periodicity,
         repeatEvery = repeatEvery,
+        _recurringEndDate = recurringEndDate,
+        _occurrences = occurrences,
         super(
           id: booking.id,
           description: booking.description,
