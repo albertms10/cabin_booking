@@ -121,8 +121,8 @@ class SummaryPage extends StatelessWidget {
                       color: Theme.of(context).accentColor,
                     ),
                     firstDate:
-                        dayHandler.schoolYearManager.schoolYear.startDate,
-                    lastDate: dayHandler.schoolYearManager.schoolYear.endDate,
+                        dayHandler.schoolYearManager.schoolYear?.startDate,
+                    lastDate: dayHandler.schoolYearManager.schoolYear?.endDate,
                     highlightToday: true,
                     highlightOn: (date) => isSameDay(date, dayHandler.dateTime),
                     onDayTap: (dateTime, value) {

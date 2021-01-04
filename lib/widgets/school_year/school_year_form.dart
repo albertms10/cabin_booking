@@ -26,10 +26,15 @@ class _SchoolYearFormState extends State<SchoolYearForm> {
   void initState() {
     super.initState();
 
-    _startDateController.text =
-        DateFormat.yMd().format(widget.schoolYear.startDate);
-    _endDateController.text =
-        DateFormat.yMd().format(widget.schoolYear.endDate);
+    if (widget.schoolYear.startDate != null) {
+      _startDateController.text =
+          DateFormat.yMd().format(widget.schoolYear.startDate);
+    }
+
+    if (widget.schoolYear.endDate != null) {
+      _endDateController.text =
+          DateFormat.yMd().format(widget.schoolYear.endDate);
+    }
 
     _schoolYear = widget.schoolYear;
   }
