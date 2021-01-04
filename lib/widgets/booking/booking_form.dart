@@ -7,6 +7,7 @@ import 'package:cabin_booking/model/recurring_booking.dart';
 import 'package:cabin_booking/utils/date.dart';
 import 'package:cabin_booking/widgets/booking/periodicity_dropdown.dart';
 import 'package:cabin_booking/widgets/cabin/cabin_dropdown.dart';
+import 'package:cabin_booking/widgets/layout/date_form_field.dart';
 import 'package:cabin_booking/widgets/layout/item_info.dart';
 import 'package:cabin_booking/widgets/layout/submit_button.dart';
 import 'package:flutter/material.dart';
@@ -342,42 +343,15 @@ class _BookingFormState extends State<BookingForm> {
                         ),
                         trailing: SizedBox(
                           width: 154.0,
-                          child: TextFormField(
+                          child: DateFormField(
                             controller: _endDateController,
-                            enabled: _recurringBookingMethod ==
-                                RecurringBookingMethod.EndDate,
-                            autovalidateMode:
-                                AutovalidateMode.onUserInteraction,
-                            onTap: () async {
-                              final date = await showDatePicker(
-                                context: context,
-                                initialDate:
-                                    _recurringEndDate ?? DateTime.now(),
-                                firstDate: DateTime.now(),
-                                lastDate: DateTime.now()
-                                    .add(const Duration(days: 365)),
-                              );
-
-                              if (date != null) {
-                                setState(() {
-                                  _recurringEndDate = date;
-                                  _endDateController.text =
-                                      DateFormat.yMd().format(date);
-                                });
-                              }
-                            },
-                            validator: (value) {
-                              if (!widget.isRecurring ||
-                                  _recurringBookingMethod !=
-                                      RecurringBookingMethod.EndDate) {
-                                return null;
-                              }
-
-                              if (value.isEmpty) {
-                                return appLocalizations.enterDate;
-                              }
-
-                              return null;
+                            initialDate: _recurringEndDate,
+                            firstDate: DateTime.now(),
+                            skipValidation: !widget.isRecurring ||
+                                _recurringBookingMethod !=
+                                    RecurringBookingMethod.EndDate,
+                            onChange: (date) {
+                              setState(() => _recurringEndDate = date);
                             },
                           ),
                         ),
