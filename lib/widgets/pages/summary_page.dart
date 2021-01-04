@@ -32,37 +32,6 @@ class SummaryPage extends StatelessWidget {
               runSpacing: 24.0,
               children: [
                 Statistics(
-                  title: appLocalizations.schoolYears,
-                  icon: Icons.school,
-                  onTap: () {
-                    setRailPage(AppPages.SchoolYears);
-                  },
-                  items: [
-                    StatisticSimpleItem(
-                      label: appLocalizations.total,
-                      value: dayHandler.schoolYearManager.schoolYears.length,
-                    ),
-                    StatisticSimpleItem(
-                      label: appLocalizations.workingDays,
-                      value: dayHandler
-                          .schoolYearManager.totalWorkingDuration.inDays,
-                    ),
-                  ],
-                ),
-                Statistics(
-                  title: appLocalizations.cabins,
-                  icon: Icons.sensor_door,
-                  onTap: () {
-                    setRailPage(AppPages.Cabins);
-                  },
-                  items: [
-                    StatisticSimpleItem(
-                      label: appLocalizations.total,
-                      value: cabinManager.cabins.length,
-                    ),
-                  ],
-                ),
-                Statistics(
                   title: appLocalizations.bookings,
                   icon: Icons.event,
                   onTap: () {
@@ -84,6 +53,37 @@ class SummaryPage extends StatelessWidget {
                       item: DurationFigureUnit(
                         cabinManager.totalAccumulatedDuration,
                       ),
+                    ),
+                  ],
+                ),
+                Statistics(
+                  title: appLocalizations.cabins,
+                  icon: Icons.sensor_door,
+                  onTap: () {
+                    setRailPage(AppPages.Cabins);
+                  },
+                  items: [
+                    StatisticSimpleItem(
+                      label: appLocalizations.total,
+                      value: cabinManager.cabins.length,
+                    ),
+                  ],
+                ),
+                Statistics(
+                  title: appLocalizations.schoolYears,
+                  icon: Icons.school,
+                  onTap: () {
+                    setRailPage(AppPages.SchoolYears);
+                  },
+                  items: [
+                    StatisticSimpleItem(
+                      label: appLocalizations.total,
+                      value: dayHandler.schoolYearManager.schoolYears.length,
+                    ),
+                    StatisticSimpleItem(
+                      label: appLocalizations.workingDays,
+                      value: dayHandler
+                          .schoolYearManager.totalWorkingDuration.inDays,
                     ),
                   ],
                 ),
