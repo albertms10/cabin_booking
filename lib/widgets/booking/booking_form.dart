@@ -346,6 +346,8 @@ class _BookingFormState extends State<BookingForm> {
                           width: 154.0,
                           child: DateFormField(
                             controller: _endDateController,
+                            enabled: _recurringBookingMethod ==
+                                RecurringBookingMethod.EndDate,
                             initialDate: _recurringEndDate,
                             firstDate: DateTime.now(),
                             skipValidation: !widget.isRecurring ||
@@ -432,16 +434,15 @@ class _BookingFormState extends State<BookingForm> {
                   final recurringBooking = RecurringBooking.fromBooking(
                     _booking,
                     periodicity: _periodicity,
+                    recurringEndDate: _recurringBookingMethod ==
+                            RecurringBookingMethod.EndDate
+                        ? DateFormat.yMd().parseLoose(_endDateController.text)
+                        : null,
+                    occurrences: _recurringBookingMethod ==
+                            RecurringBookingMethod.Occurrences
+                        ? int.tryParse(_occurrencesController.text)
+                        : null,
                   );
-
-                  if (_recurringBookingMethod ==
-                      RecurringBookingMethod.EndDate) {
-                    recurringBooking.recurringEndDate =
-                        DateFormat.yMd().parseLoose(_endDateController.text);
-                  } else {
-                    recurringBooking.occurrences =
-                        int.tryParse(_occurrencesController.text);
-                  }
 
                   Navigator.of(context).pop<RecurringBooking>(recurringBooking);
                 } else {
