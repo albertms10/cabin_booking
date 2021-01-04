@@ -462,7 +462,7 @@ class _BookingFormState extends State<BookingForm> {
                   if (_recurringBookingMethod ==
                       RecurringBookingMethod.EndDate) {
                     recurringBooking.recurringEndDate =
-                        DateFormat.yMd().parse(_endDateController.text);
+                        DateFormat.yMd().parseLoose(_endDateController.text);
                   } else {
                     recurringBooking.occurrences =
                         int.tryParse(_occurrencesController.text);
