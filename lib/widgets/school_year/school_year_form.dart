@@ -40,6 +40,14 @@ class _SchoolYearFormState extends State<SchoolYearForm> {
   }
 
   @override
+  void dispose() {
+    _startDateController.dispose();
+    _endDateController.dispose();
+
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context);
 
