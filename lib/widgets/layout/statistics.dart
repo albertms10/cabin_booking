@@ -67,6 +67,7 @@ class StatisticItem extends StatelessWidget {
   final String label;
   final Widget item;
   final List<Widget> details;
+  final Widget detailsSeparator;
   final String tooltipMessage;
 
   const StatisticItem({
@@ -74,6 +75,7 @@ class StatisticItem extends StatelessWidget {
     this.label,
     @required this.item,
     this.details = const [],
+    this.detailsSeparator,
     this.tooltipMessage,
   }) : super(key: key);
 
@@ -110,12 +112,13 @@ class StatisticItem extends StatelessWidget {
                           Padding(
                             padding:
                                 const EdgeInsets.symmetric(horizontal: 2.0),
-                            child: Text(
-                              '+',
-                              style: TextStyle(
-                                color: Theme.of(context).hintColor,
-                              ),
-                            ),
+                            child: detailsSeparator ??
+                                Text(
+                                  '+',
+                                  style: TextStyle(
+                                    color: Theme.of(context).hintColor,
+                                  ),
+                                ),
                           ),
                       ],
                     ],
@@ -133,6 +136,7 @@ class StatisticSimpleItem<T> extends StatelessWidget {
   final String label;
   final T value;
   final List<T> details;
+  final Widget detailsSeparator;
   final String tooltipMessage;
 
   const StatisticSimpleItem({
@@ -140,6 +144,7 @@ class StatisticSimpleItem<T> extends StatelessWidget {
     this.label,
     @required this.value,
     this.details = const [],
+    this.detailsSeparator,
     this.tooltipMessage,
   }) : super(key: key);
 
@@ -154,6 +159,7 @@ class StatisticSimpleItem<T> extends StatelessWidget {
       details: [
         for (final detail in details) Text('$detail'),
       ],
+      detailsSeparator: detailsSeparator,
       tooltipMessage: tooltipMessage,
     );
   }
