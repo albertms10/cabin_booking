@@ -45,7 +45,7 @@ class CabinsTable extends StatelessWidget {
                 bookingsCount: cabin.bookings.length,
                 recurringBookingsCount:
                     cabin.generatedBookingsFromRecurring.length,
-                accumulatedDuration: cabin.occupiedDuration(),
+                occupiedDuration: cabin.occupiedDuration(),
                 occupancyPercent: cabin.occupancyPercent(
                   startTime: kTimeTableStartTime,
                   endTime: kTimeTableEndTime,

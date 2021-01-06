@@ -10,7 +10,7 @@ class ItemsTableRow<T extends Item> {
   final T item;
   final int bookingsCount;
   final int recurringBookingsCount;
-  final Duration accumulatedDuration;
+  final Duration occupiedDuration;
   final double occupancyPercent;
   final Set<List<TimeOfDay>> mostOccupiedTimeRanges;
   bool selected;
@@ -19,7 +19,7 @@ class ItemsTableRow<T extends Item> {
     @required this.item,
     this.bookingsCount = 0,
     this.recurringBookingsCount = 0,
-    this.accumulatedDuration = const Duration(),
+    this.occupiedDuration = const Duration(),
     this.occupancyPercent = 0.0,
     this.mostOccupiedTimeRanges = const {},
     this.selected = false,
@@ -121,11 +121,11 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
   void _onSortAccumulatedDuration(bool ascending) {
     if (ascending) {
       widget.rows.sort(
-        (a, b) => a.accumulatedDuration.compareTo(b.accumulatedDuration),
+        (a, b) => a.occupiedDuration.compareTo(b.occupiedDuration),
       );
     } else {
       widget.rows.sort(
-        (a, b) => b.accumulatedDuration.compareTo(a.accumulatedDuration),
+        (a, b) => b.occupiedDuration.compareTo(a.occupiedDuration),
       );
     }
   }
@@ -239,7 +239,7 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              DurationFigureUnit(row.accumulatedDuration),
+                              DurationFigureUnit(row.occupiedDuration),
                               const SizedBox(height: 12.0),
                               Padding(
                                 padding: const EdgeInsets.only(left: 24.0),

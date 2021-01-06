@@ -42,7 +42,7 @@ class SchoolYearsTable extends StatelessWidget {
                 bookingsCount: cabinManager.bookingsCountBetween(schoolYear),
                 recurringBookingsCount:
                     cabinManager.recurringBookingsCountBetween(schoolYear),
-                accumulatedDuration:
+                occupiedDuration:
                     cabinManager.totalOccupiedDuration(dateRange: schoolYear),
                 occupancyPercent: cabinManager.occupancyPercent(
                   startTime: kTimeTableStartTime,
