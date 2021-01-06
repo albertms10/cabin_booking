@@ -1,3 +1,4 @@
+import 'package:cabin_booking/model/date_range.dart';
 import 'package:cabin_booking/model/item.dart';
 import 'package:cabin_booking/utils/date.dart';
 import 'package:flutter/material.dart';
@@ -99,6 +100,8 @@ class Booking extends Item {
   String get dateTimeRange => '${DateFormat.yMd().format(date)} $timeRange';
 
   bool isOn(DateTime dateTime) => isSameDay(date, dateTime);
+
+  bool isBetween(DateRange dateRange) => dateRange.includes(startDateTime);
 
   bool collidesWith(Booking booking) =>
       startDateTime.isBefore(booking.endDateTime) &&

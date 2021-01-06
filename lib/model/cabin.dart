@@ -1,6 +1,7 @@
 import 'package:cabin_booking/model/booking.dart';
 import 'package:cabin_booking/model/booking_manager.dart';
 import 'package:cabin_booking/model/cabin_components.dart';
+import 'package:cabin_booking/model/date_range.dart';
 import 'package:cabin_booking/model/item.dart';
 import 'package:cabin_booking/model/recurring_booking.dart';
 import 'package:flutter/material.dart';
@@ -52,13 +53,23 @@ class Cabin extends Item {
 
   Set<Booking> get allBookings => _bookingManager.allBookings;
 
+  Set<Booking> bookingsBetween(DateRange dateRange) =>
+      _bookingManager.bookingsBetween(dateRange);
+
+  Set<Booking> recurringBookingsBetween(DateRange dateRange) =>
+      _bookingManager.recurringBookingsBetween(dateRange);
+
   List<Booking> get generatedBookingsFromRecurring =>
       _bookingManager.generatedBookingsFromRecurring;
 
   bool bookingsCollideWith(Booking booking) =>
       _bookingManager.bookingsCollideWith(booking);
 
-  Duration get accumulatedDuration => _bookingManager.accumulatedDuration;
+  Duration occupiedDuration({DateTime dateTime, DateRange dateRange}) =>
+      _bookingManager.occupiedDuration(
+        dateTime: dateTime,
+        dateRange: dateRange,
+      );
 
   double occupancyPercentOn(
     DateTime dateTime, {
@@ -71,7 +82,8 @@ class Cabin extends Item {
         endTime: endTime,
       );
 
-  Set<DateTime> get datesWithBookings => _bookingManager.datesWithBookings;
+  Set<DateTime> datesWithBookings([DateRange dateRange]) =>
+      _bookingManager.datesWithBookings(dateRange);
 
   Map<DateTime, int> get allBookingsCountPerDay =>
       _bookingManager.allBookingsCountPerDay;
@@ -87,11 +99,13 @@ class Cabin extends Item {
         dates: dates,
       );
 
-  Map<TimeOfDay, Duration> get accumulatedTimeRangesOccupancy =>
-      _bookingManager.accumulatedTimeRangesOccupancy;
+  Map<TimeOfDay, Duration> accumulatedTimeRangesOccupancy([
+    DateRange dateRange,
+  ]) =>
+      _bookingManager.accumulatedTimeRangesOccupancy(dateRange);
 
-  Set<TimeOfDay> get mostOccupiedTimeRange =>
-      _bookingManager.mostOccupiedTimeRange;
+  Set<TimeOfDay> mostOccupiedTimeRange([DateRange dateRange]) =>
+      _bookingManager.mostOccupiedTimeRange(dateRange);
 
   @override
   Cabin copyWith({

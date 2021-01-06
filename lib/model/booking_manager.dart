@@ -1,6 +1,7 @@
 import 'dart:collection';
 
 import 'package:cabin_booking/model/booking.dart';
+import 'package:cabin_booking/model/date_range.dart';
 import 'package:cabin_booking/model/recurring_booking.dart';
 import 'package:cabin_booking/utils/date.dart';
 import 'package:flutter/material.dart';
@@ -48,11 +49,27 @@ class BookingManager with ChangeNotifier {
         ...generatedBookingsFromRecurring,
       });
 
-  Set<Booking> _bookingsOn(DateTime dateTime) => SplayTreeSet.from(
+  Set<Booking> bookingsBetween(DateRange dateRange) => SplayTreeSet.from(
+        bookings.where((booking) => booking.isBetween(dateRange)),
+      );
+
+  Set<Booking> recurringBookingsBetween(DateRange dateRange) =>
+      SplayTreeSet.from(
+        generatedBookingsFromRecurring.where(
+          (recurringBooking) => recurringBooking.isBetween(dateRange),
+        ),
+      );
+
+  Set<Booking> allBookingsBetween(DateRange dateRange) => SplayTreeSet.from({
+        ...bookingsBetween(dateRange),
+        ...recurringBookingsBetween(dateRange),
+      });
+
+  Set<Booking> bookingsOn(DateTime dateTime) => SplayTreeSet.from(
         bookings.where((booking) => booking.isOn(dateTime)),
       );
 
-  Set<Booking> _recurringBookingsOn(DateTime dateTime) {
+  Set<Booking> recurringBookingsOn(DateTime dateTime) {
     final filteredBookings = SplayTreeSet<Booking>();
 
     for (final recurringBooking in recurringBookings) {
@@ -65,8 +82,8 @@ class BookingManager with ChangeNotifier {
   }
 
   Set<Booking> allBookingsOn(DateTime dateTime) => SplayTreeSet.from({
-        ..._bookingsOn(dateTime),
-        ..._recurringBookingsOn(dateTime),
+        ...bookingsOn(dateTime),
+        ...recurringBookingsOn(dateTime),
       });
 
   bool bookingsCollideWith(Booking booking) =>
@@ -84,18 +101,24 @@ class BookingManager with ChangeNotifier {
           ) !=
       null;
 
-  Duration _occupiedDuration([DateTime dateTime]) {
+  // ignore: always_require_non_null_named_parameters
+  Duration occupiedDuration({DateTime dateTime, DateRange dateRange}) {
+    assert(!((dateTime != null) && (dateRange != null)));
+
     var runDuration = const Duration();
 
-    for (final booking
-        in dateTime != null ? allBookingsOn(dateTime) : allBookings) {
+    final bookingsList = dateTime != null
+        ? allBookingsOn(dateTime)
+        : dateRange != null
+            ? allBookingsBetween(dateRange)
+            : allBookings;
+
+    for (final booking in bookingsList) {
       runDuration += booking.duration;
     }
 
     return runDuration;
   }
-
-  Duration get accumulatedDuration => _occupiedDuration();
 
   double occupancyPercentOn(
     DateTime dateTime, {
@@ -114,7 +137,7 @@ class BookingManager with ChangeNotifier {
 
     final maxViewDuration = endDate.difference(startDate);
 
-    return _occupiedDuration(dateTime).inMicroseconds /
+    return occupiedDuration(dateTime: dateTime).inMicroseconds /
         maxViewDuration.inMicroseconds;
   }
 
@@ -126,7 +149,7 @@ class BookingManager with ChangeNotifier {
     var runPercent = 0.0;
     var count = 0;
 
-    for (final dateTime in dates ?? datesWithBookings) {
+    for (final dateTime in dates ?? datesWithBookings()) {
       count++;
 
       final currentPercent = occupancyPercentOn(
@@ -141,10 +164,13 @@ class BookingManager with ChangeNotifier {
     return runPercent;
   }
 
-  Set<DateTime> get datesWithBookings {
+  Set<DateTime> datesWithBookings([DateRange dateRange]) {
     final dates = SplayTreeSet<DateTime>();
 
-    for (final booking in allBookings) {
+    final bookingsList =
+        dateRange != null ? allBookingsBetween(dateRange) : allBookings;
+
+    for (final booking in bookingsList) {
       final shouldAddDate = dates.firstWhere(
             (date) => isSameDay(date, booking.date),
             orElse: () => null,
@@ -171,10 +197,15 @@ class BookingManager with ChangeNotifier {
     return bookingsPerDay;
   }
 
-  Map<TimeOfDay, Duration> get accumulatedTimeRangesOccupancy {
+  Map<TimeOfDay, Duration> accumulatedTimeRangesOccupancy([
+    DateRange dateRange,
+  ]) {
     final timeRanges = <TimeOfDay, Duration>{};
 
-    for (final booking in allBookings) {
+    final bookingsList =
+        dateRange != null ? allBookingsBetween(dateRange) : allBookings;
+
+    for (final booking in bookingsList) {
       for (final bookingTimeRange in booking.hoursSpan.entries) {
         if (timeRanges.containsKey(bookingTimeRange.key)) {
           timeRanges[bookingTimeRange.key] += bookingTimeRange.value;
@@ -187,9 +218,9 @@ class BookingManager with ChangeNotifier {
     return timeRanges;
   }
 
-  Set<TimeOfDay> get mostOccupiedTimeRange {
+  Set<TimeOfDay> mostOccupiedTimeRange([DateRange dateRange]) {
     final sortedTimeRanges = SplayTreeSet<MapEntry<TimeOfDay, Duration>>.from(
-      accumulatedTimeRangesOccupancy.entries,
+      accumulatedTimeRangesOccupancy(dateRange).entries,
       (a, b) => (b.value - a.value).inMicroseconds,
     );
 

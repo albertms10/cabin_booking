@@ -3,6 +3,7 @@ import 'dart:convert' show json;
 
 import 'package:cabin_booking/model/booking.dart';
 import 'package:cabin_booking/model/cabin.dart';
+import 'package:cabin_booking/model/date_range.dart';
 import 'package:cabin_booking/model/recurring_booking.dart';
 import 'package:cabin_booking/model/writable_manager.dart';
 import 'package:flutter/foundation.dart';
@@ -29,11 +30,11 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
 
   int get lastCabinNumber => cabins.isEmpty ? 0 : cabins.last.number;
 
-  Set<DateTime> get allCabinsDatesWithBookings {
+  Set<DateTime> allCabinsDatesWithBookings([DateRange dateRange]) {
     final dates = SplayTreeSet<DateTime>();
 
     for (final cabin in cabins) {
-      dates.addAll(cabin.datesWithBookings);
+      dates.addAll(cabin.datesWithBookings(dateRange));
     }
 
     return dates;
@@ -62,6 +63,44 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
     final countEntries = allCabinsBookingsCountPerDay.entries;
 
     return countEntries.isEmpty ? null : countEntries.first;
+  }
+
+  Map<TimeOfDay, Duration> accumulatedTimeRangesOccupancy([
+    DateRange dateRange,
+  ]) {
+    final timeRanges = <TimeOfDay, Duration>{};
+
+    for (final cabin in cabins) {
+      final entries = cabin.accumulatedTimeRangesOccupancy(dateRange).entries;
+
+      for (final bookingTimeRange in entries) {
+        if (timeRanges.containsKey(bookingTimeRange.key)) {
+          timeRanges[bookingTimeRange.key] += bookingTimeRange.value;
+        } else {
+          timeRanges[bookingTimeRange.key] = bookingTimeRange.value;
+        }
+      }
+    }
+
+    return timeRanges;
+  }
+
+  Set<TimeOfDay> mostOccupiedTimeRange([DateRange dateRange]) {
+    final sortedTimeRanges = SplayTreeSet<MapEntry<TimeOfDay, Duration>>.from(
+      accumulatedTimeRangesOccupancy(dateRange).entries,
+      (a, b) => (b.value - a.value).inMicroseconds,
+    );
+
+    if (sortedTimeRanges.isEmpty) return {};
+
+    final highestOccupancyDuration = sortedTimeRanges.first.value;
+
+    return SplayTreeSet.from(
+      sortedTimeRanges
+          .where((timeRange) => timeRange.value == highestOccupancyDuration)
+          .map((timeRange) => timeRange.key),
+      (a, b) => (a.hour - b.hour) * 100 + a.minute - b.minute,
+    );
   }
 
   int get allBookingsCount {
@@ -94,14 +133,58 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
     return count;
   }
 
-  Duration get totalAccumulatedDuration {
+  Duration totalOccupiedDuration({DateTime dateTime, DateRange dateRange}) {
     var duration = const Duration();
 
     for (final cabin in cabins) {
-      duration += cabin.accumulatedDuration;
+      duration += cabin.occupiedDuration(
+        dateTime: dateTime,
+        dateRange: dateRange,
+      );
     }
 
     return duration;
+  }
+
+  double occupancyPercent({
+    @required TimeOfDay startTime,
+    @required TimeOfDay endTime,
+    Set<DateTime> dates,
+  }) {
+    final percents = <double>[];
+
+    for (final cabin in cabins) {
+      percents.add(
+        cabin.occupancyPercent(
+          startTime: startTime,
+          endTime: endTime,
+          dates: dates,
+        ),
+      );
+    }
+
+    return percents.reduce((value, element) => value + element) /
+        percents.length;
+  }
+
+  int bookingsCountBetween(DateRange dateRange) {
+    var count = 0;
+
+    for (final cabin in cabins) {
+      count += cabin.bookingsBetween(dateRange).length;
+    }
+
+    return count;
+  }
+
+  int recurringBookingsCountBetween(DateRange dateRange) {
+    var count = 0;
+
+    for (final cabin in cabins) {
+      count += cabin.recurringBookingsBetween(dateRange).length;
+    }
+
+    return count;
   }
 
   void addCabin(

@@ -51,7 +51,7 @@ class SummaryPage extends StatelessWidget {
                     StatisticItem(
                       label: appLocalizations.accumulatedTime,
                       item: DurationFigureUnit(
-                        cabinManager.totalAccumulatedDuration,
+                        cabinManager.totalOccupiedDuration(),
                       ),
                     ),
                   ],
