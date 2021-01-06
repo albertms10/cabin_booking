@@ -14,9 +14,12 @@ class SchoolYearManager extends WritableManager<Set<SchoolYear>>
   Set<SchoolYear> schoolYears;
   int schoolYearIndex;
 
+  final void Function() notifyExternalListeners;
+
   SchoolYearManager({
     this.schoolYears,
     String fileName = 'school_year_manager',
+    this.notifyExternalListeners,
   }) : super(fileName) {
     schoolYears ??= SplayTreeSet();
     schoolYearIndex = _currentSchoolYearIndex;
@@ -72,7 +75,10 @@ class SchoolYearManager extends WritableManager<Set<SchoolYear>>
   }) {
     schoolYears.add(schoolYear);
 
-    if (notify) notifyListeners();
+    if (notify) {
+      notifyListeners();
+      notifyExternalListeners();
+    }
   }
 
   void modifySchoolYear(
@@ -83,7 +89,10 @@ class SchoolYearManager extends WritableManager<Set<SchoolYear>>
         .firstWhere((_schoolYear) => schoolYear.id == _schoolYear.id)
         .replaceWith(schoolYear);
 
-    if (notify) notifyListeners();
+    if (notify) {
+      notifyListeners();
+      notifyExternalListeners();
+    }
   }
 
   @override

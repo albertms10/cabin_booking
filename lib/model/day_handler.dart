@@ -27,7 +27,10 @@ class DayHandler with ChangeNotifier {
 
   DayHandler([this.schoolYearManager]) {
     _dateTime = DateTime.now();
-    schoolYearManager ??= SchoolYearManager(schoolYears: _defaultSchoolYears);
+    schoolYearManager ??= SchoolYearManager(
+      schoolYears: _defaultSchoolYears,
+      notifyExternalListeners: notifyListeners,
+    );
   }
 
   DateTime get dateTime => _dateTime;
