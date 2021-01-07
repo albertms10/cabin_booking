@@ -36,6 +36,8 @@ class SchoolYearsTable extends StatelessWidget {
               dayHandler.schoolYearManager.modifySchoolYear(editedSchoolYear);
             }
           },
+          onRemovePressed: (selectedIds) =>
+              dayHandler.schoolYearManager.removeSchoolYearsByIds(selectedIds),
           rows: [
             for (final schoolYear in dayHandler.schoolYearManager.schoolYears)
               ItemsTableRow<SchoolYear>(

@@ -95,6 +95,18 @@ class SchoolYearManager extends WritableManager<Set<SchoolYear>>
     }
   }
 
+  void removeSchoolYearsByIds(
+    List<String> ids, {
+    bool notify = true,
+  }) {
+    schoolYears.removeWhere((schoolYear) => ids.contains(schoolYear.id));
+
+    if (notify) {
+      notifyListeners();
+      notifyExternalListeners();
+    }
+  }
+
   @override
   Future<Set<SchoolYear>> readFromFile() async {
     try {
