@@ -148,6 +148,16 @@ class StatisticSimpleItem<T> extends StatelessWidget {
     this.tooltipMessage,
   }) : super(key: key);
 
+  List<T> _filterIfEmpty(List<T> details) {
+    final list = details.toList();
+
+    list.removeWhere((detail) => [0, '', null].contains(detail));
+
+    return list;
+  }
+
+  List<T> get filteredDetails => _filterIfEmpty(details);
+
   @override
   Widget build(BuildContext context) {
     return StatisticItem(
@@ -157,10 +167,11 @@ class StatisticSimpleItem<T> extends StatelessWidget {
         style: Theme.of(context).textTheme.headline5,
       ),
       details: [
-        for (final detail in details) Text('$detail'),
+        if (filteredDetails.length > 1)
+          for (final detail in filteredDetails) Text('$detail'),
       ],
       detailsSeparator: detailsSeparator,
-      tooltipMessage: tooltipMessage,
+      tooltipMessage: filteredDetails.length > 1 ? tooltipMessage : null,
     );
   }
 }
