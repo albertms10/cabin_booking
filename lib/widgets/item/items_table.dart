@@ -187,12 +187,17 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
                 columns: [
                   for (final column in columns)
                     DataColumn(
-                      label: Padding(
-                        padding: EdgeInsets.only(
-                          right: column.numeric ? 0.0 : 8.0,
-                          left: column.numeric ? 8.0 : 0.0,
+                      label: Expanded(
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                            right: column.numeric ? 0.0 : 8.0,
+                            left: column.numeric ? 8.0 : 0.0,
+                          ),
+                          child: Text(
+                            column.title,
+                            overflow: TextOverflow.fade,
+                          ),
                         ),
-                        child: Text(column.title),
                       ),
                       onSort: column.sortable ? onSortColumn : null,
                       tooltip: column.sortable
