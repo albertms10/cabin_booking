@@ -21,6 +21,7 @@ class SchoolYearsTable extends StatelessWidget {
           itemIcon: Icons.school,
           itemHeaderLabel: appLocalizations.schoolYear,
           emptyMessage: appLocalizations.noSchoolYearsMessage,
+          shallEmpty: false,
           onEditPressed: (selectedRows) async {
             final selectedSchoolYear = selectedRows.first;
 

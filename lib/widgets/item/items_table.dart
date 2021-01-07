@@ -47,6 +47,10 @@ class ItemsTable<T extends Item> extends StatefulWidget {
   final List<ItemsTableRow<T>> rows;
   final String emptyMessage;
 
+  final bool shallEdit;
+  final bool shallEmpty;
+  final bool shallRemove;
+
   final void Function(List<ItemsTableRow<T>>) onEditPressed;
   final void Function(List<String>) onEmptyPressed;
   final void Function(List<String>) onRemovePressed;
@@ -57,6 +61,9 @@ class ItemsTable<T extends Item> extends StatefulWidget {
     this.itemHeaderLabel = 'Item',
     @required this.rows,
     this.emptyMessage,
+    this.shallEdit = true,
+    this.shallEmpty = true,
+    this.shallRemove = true,
     this.onEditPressed,
     this.onEmptyPressed,
     this.onRemovePressed,
@@ -295,27 +302,29 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
             setState(() => widget.unselect());
           },
           actions: [
-            if (widget._selectedRows.length == 1)
+            if (widget.shallEdit && widget._selectedRows.length == 1)
               IconButton(
                 onPressed: () => widget.onEditPressed(widget._selectedRows),
                 icon: const Icon(Icons.edit),
                 tooltip: appLocalizations.edit,
               ),
-            IconButton(
-              onPressed:
-                  widget.onEmptyPressed != null && widget.selectedAreBooked
-                      ? () => widget.onEmptyPressed(widget._selectedIds)
-                      : null,
-              icon: const Icon(Icons.delete_outline),
-              tooltip: appLocalizations.empty,
-            ),
-            IconButton(
-              onPressed: widget.onRemovePressed != null
-                  ? () => widget.onRemovePressed(widget._selectedIds)
-                  : null,
-              icon: const Icon(Icons.delete),
-              tooltip: MaterialLocalizations.of(context).deleteButtonTooltip,
-            ),
+            if (widget.shallEmpty)
+              IconButton(
+                onPressed:
+                    widget.onEmptyPressed != null && widget.selectedAreBooked
+                        ? () => widget.onEmptyPressed(widget._selectedIds)
+                        : null,
+                icon: const Icon(Icons.delete_outline),
+                tooltip: appLocalizations.empty,
+              ),
+            if (widget.shallRemove)
+              IconButton(
+                onPressed: widget.onRemovePressed != null
+                    ? () => widget.onRemovePressed(widget._selectedIds)
+                    : null,
+                icon: const Icon(Icons.delete),
+                tooltip: MaterialLocalizations.of(context).deleteButtonTooltip,
+              ),
           ],
         ),
       ],
