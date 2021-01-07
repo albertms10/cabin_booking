@@ -56,3 +56,5 @@ String formatTimeOfDay(TimeOfDay timeOfDay) {
 
   return '$hourLabel:$minuteLabel';
 }
+
+int weekDayMod(int n, [int shift = 0]) => (n + shift) % DateTime.daysPerWeek;
