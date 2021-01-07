@@ -120,6 +120,7 @@ class SummaryPage extends StatelessWidget {
                       highestValue: cabinManager.mostBookedDayEntry?.value ?? 1,
                       color: Theme.of(context).accentColor,
                     ),
+                    firstWeekDay: DateTime.monday,
                     firstDate:
                         dayHandler.schoolYearManager.schoolYear?.startDate,
                     lastDate: dayHandler.schoolYearManager.schoolYear?.endDate,

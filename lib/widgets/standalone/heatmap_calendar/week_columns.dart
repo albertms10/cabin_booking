@@ -1,3 +1,4 @@
+import 'package:cabin_booking/utils/date.dart';
 import 'package:flutter/material.dart';
 
 import 'heatmap_calendar.dart';
@@ -8,6 +9,7 @@ import 'time_utils.dart';
 class WeekColumns extends StatelessWidget {
   final Map<DateTime, int> input;
   final Map<int, Color> colorThresholds;
+  final int firstWeekDay;
   final int columnsToCreate;
   final double squareSize;
   final double space;
@@ -23,6 +25,7 @@ class WeekColumns extends StatelessWidget {
     @required this.squareSize,
     @required this.input,
     @required this.colorThresholds,
+    this.firstWeekDay = DateTime.sunday,
     @required this.columnsToCreate,
     this.firstDate,
     @required this.lastDate,
@@ -39,8 +42,10 @@ class WeekColumns extends StatelessWidget {
   List<Widget> buildWeekItems() {
     final dateList = getCalendarDates(columnsToCreate);
 
+    if (dateList.isEmpty) return [];
+
     final totalWeeks = (dateList.length / DateTime.daysPerWeek).ceil();
-    final amount = dateList.length + totalWeeks;
+    final amount = dateList.length + totalWeeks + dateList.first.weekday;
 
     // The list of columns that will be returned
     final columns = <Widget>[];
@@ -49,13 +54,16 @@ class WeekColumns extends StatelessWidget {
     var columnItems = <Widget>[];
     final months = <int>[];
 
+    var runWeekDayCount = weekDayMod(dateList.first.weekday - firstWeekDay);
+    var isFirstColumn = true;
+
     for (var i = 0; i < amount; i++) {
       if (dateList.isEmpty) break;
 
       final currentDate = dateList.first;
 
-      // If true, it means that it should be a label,
-      // if false, it should be a HeatMapDay
+      /// If `true`, it should be a [MonthLabel].
+      /// If `false`, it should be a [HeatMapDay].
       if (i % HeatMapCalendar.COLUMN_COUNT == 0) {
         final firstMonth = dateList.first.month;
         String monthLabel;
@@ -77,6 +85,23 @@ class WeekColumns extends StatelessWidget {
           );
         }
       } else {
+        if (isFirstColumn) {
+          runWeekDayCount--;
+
+          if (runWeekDayCount >= 0) {
+            columnItems.add(
+              Padding(
+                padding: EdgeInsets.all(space / 2),
+                child: SizedBox(height: squareSize, width: squareSize),
+              ),
+            );
+
+            continue;
+          } else {
+            isFirstColumn = false;
+          }
+        }
+
         dateList.removeAt(0);
 
         columnItems.add(
@@ -119,10 +144,11 @@ class WeekColumns extends StatelessWidget {
         TimeUtils.firstDayOfCalendar(firstDayOfTheWeek, columnsAmount);
 
     return TimeUtils.datesBetween(
-        firstDate != null && firstDate.isAfter(firstDayOfCalendar)
-            ? firstDate
-            : firstDayOfCalendar,
-        lastDate);
+      firstDate != null && firstDate.isAfter(firstDayOfCalendar)
+          ? firstDate
+          : firstDayOfCalendar,
+      lastDate,
+    );
   }
 
   @override

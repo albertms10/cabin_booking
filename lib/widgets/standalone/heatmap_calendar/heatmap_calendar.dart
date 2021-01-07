@@ -19,6 +19,9 @@ class HeatMapCalendar extends StatelessWidget {
   /// Example: {1: Colors.green[100], 20: Colors.green[200], 40: Colors.green[300]}
   final Map<int, Color> colorThresholds;
 
+  /// The day of the week [monday]..[sunday].
+  final int firstWeekDay;
+
   /// The size of each item of the calendar
   final double squareSize;
 
@@ -39,6 +42,7 @@ class HeatMapCalendar extends StatelessWidget {
     Key key,
     @required this.input,
     @required this.colorThresholds,
+    this.firstWeekDay = DateTime.sunday,
     this.squareSize = 16.0,
     this.space = 4.0,
     this.onDayTap,
@@ -72,6 +76,7 @@ class HeatMapCalendar extends StatelessWidget {
               children: [
                 WeekDaysLabels(
                   squareSize: squareSize,
+                  firstWeekDay: firstWeekDay,
                   space: space,
                 ),
                 WeekColumns(
@@ -79,6 +84,7 @@ class HeatMapCalendar extends StatelessWidget {
                   space: space,
                   input: input,
                   colorThresholds: colorThresholds,
+                  firstWeekDay: firstWeekDay,
                   columnsToCreate: getColumnsToCreate(constraints.maxWidth) - 1,
                   firstDate: firstDate,
                   lastDate: lastDate ?? DateTime.now(),
