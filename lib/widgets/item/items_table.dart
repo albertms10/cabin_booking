@@ -187,7 +187,7 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
                 columns: [
                   for (final column in columns)
                     DataColumn(
-                      label: Expanded(
+                      label: Flexible(
                         child: Padding(
                           padding: EdgeInsets.only(
                             right: column.numeric ? 0.0 : 8.0,
