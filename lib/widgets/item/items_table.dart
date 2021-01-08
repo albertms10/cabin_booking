@@ -1,6 +1,7 @@
 import 'package:cabin_booking/model/item.dart';
 import 'package:cabin_booking/widgets/layout/centered_icon_message.dart';
 import 'package:cabin_booking/widgets/layout/data_table_toolbar.dart';
+import 'package:cabin_booking/widgets/layout/detailed_figure.dart';
 import 'package:cabin_booking/widgets/layout/duration_figure_unit.dart';
 import 'package:cabin_booking/widgets/layout/wrapped_chip_list.dart';
 import 'package:flutter/material.dart';
@@ -113,18 +114,6 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
     }
   }
 
-  void _onSortRecurringBookingsCount(bool ascending) {
-    if (ascending) {
-      widget.rows.sort(
-        (a, b) => a.recurringBookingsCount.compareTo(b.recurringBookingsCount),
-      );
-    } else {
-      widget.rows.sort(
-        (a, b) => b.recurringBookingsCount.compareTo(a.recurringBookingsCount),
-      );
-    }
-  }
-
   void _onSortAccumulatedDuration(bool ascending) {
     if (ascending) {
       widget.rows.sort(
@@ -141,7 +130,6 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
     <_OnSortFunction>[
       _onSortItem,
       _onSortBookingsCount,
-      _onSortRecurringBookingsCount,
       _onSortAccumulatedDuration,
     ][columnIndex](ascending);
 
@@ -167,7 +155,6 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
     final columns = [
       ItemsTableColumn(widget.itemHeaderLabel, numeric: false),
       ItemsTableColumn(appLocalizations.bookings),
-      ItemsTableColumn(appLocalizations.recurringBookings),
       ItemsTableColumn(appLocalizations.accumulatedTime),
       ItemsTableColumn(appLocalizations.mostOccupiedTimeRange, sortable: false),
     ];
@@ -235,15 +222,15 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
                           ),
                         ),
                         DataCell(
-                          Text(
-                            '${row.bookingsCount}',
-                            style: theme.textTheme.headline5,
-                          ),
-                        ),
-                        DataCell(
-                          Text(
-                            '${row.recurringBookingsCount}',
-                            style: theme.textTheme.headline5,
+                          DetailedFigure(
+                            figure:
+                                row.bookingsCount + row.recurringBookingsCount,
+                            details: [
+                              row.bookingsCount,
+                              row.recurringBookingsCount,
+                            ],
+                            tooltipMessage:
+                                '${appLocalizations.bookings} + ${appLocalizations.recurringBookings}',
                           ),
                         ),
                         DataCell(
