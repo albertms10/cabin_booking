@@ -197,6 +197,20 @@ class BookingManager with ChangeNotifier {
     return bookingsPerDay;
   }
 
+  Map<DateTime, Duration> get occupiedDurationPerDay {
+    final bookingsPerDay = SplayTreeMap<DateTime, Duration>();
+
+    for (final booking in allBookings) {
+      if (bookingsPerDay.containsKey(booking.date)) {
+        bookingsPerDay[booking.date] += booking.duration;
+      } else {
+        bookingsPerDay[booking.date] = booking.duration;
+      }
+    }
+
+    return bookingsPerDay;
+  }
+
   Map<TimeOfDay, Duration> accumulatedTimeRangesOccupancy([
     DateRange dateRange,
   ]) {
