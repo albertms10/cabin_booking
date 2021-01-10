@@ -58,3 +58,6 @@ String formatTimeOfDay(TimeOfDay timeOfDay) {
 }
 
 int weekDayMod(int n, [int shift = 0]) => (n + shift) % DateTime.daysPerWeek;
+
+int dateToInt(DateTime dateTime) =>
+    dateTime.millisecondsSinceEpoch ~/ Duration.millisecondsPerDay;
