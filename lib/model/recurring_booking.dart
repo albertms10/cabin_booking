@@ -109,10 +109,10 @@ class RecurringBooking extends Booking {
     assert(_recurringEndDate != null);
 
     var count = 0;
-    var recurringDateTime = date;
+    var runDate = date;
 
-    while (recurringDateTime.isBefore(_recurringEndDate)) {
-      recurringDateTime = recurringDateTime.add(periodicityDuration);
+    while (runDate.isBefore(_recurringEndDate)) {
+      runDate = runDate.add(periodicityDuration);
       count++;
     }
 

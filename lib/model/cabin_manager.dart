@@ -71,9 +71,10 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
     final timeRanges = <TimeOfDay, Duration>{};
 
     for (final cabin in cabins) {
-      final entries = cabin.accumulatedTimeRangesOccupancy(dateRange).entries;
+      final accumulatedTimeRanges =
+          cabin.accumulatedTimeRangesOccupancy(dateRange);
 
-      for (final bookingTimeRange in entries) {
+      for (final bookingTimeRange in accumulatedTimeRanges.entries) {
         timeRanges.update(
           bookingTimeRange.key,
           (duration) => duration + bookingTimeRange.value,
