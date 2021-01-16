@@ -22,6 +22,7 @@ class DetailLineChart extends StatelessWidget {
 
     final colors = [
       theme.colorScheme.primary,
+      theme.colorScheme.secondaryVariant,
     ];
 
     return LineChart(
@@ -33,13 +34,14 @@ class DetailLineChart extends StatelessWidget {
         gridData: FlGridData(show: false),
         titlesData: FlTitlesData(show: false),
         borderData: FlBorderData(show: false),
+        lineTouchData: LineTouchData(enabled: false),
         lineBarsData: [
           LineChartBarData(
             spots: spots,
             isCurved: true,
             preventCurveOverShooting: true,
             colors: colors,
-            barWidth: 2.0,
+            barWidth: 2.5,
             isStrokeCapRound: true,
             dotData: FlDotData(show: false),
             belowBarData: BarAreaData(
