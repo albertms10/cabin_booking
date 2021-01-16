@@ -353,7 +353,7 @@ class _BookingFormState extends State<BookingForm> {
                             skipValidation: !widget.isRecurring ||
                                 _recurringBookingMethod !=
                                     RecurringBookingMethod.EndDate,
-                            onChange: (date) {
+                            onChanged: (date) {
                               setState(() => _recurringEndDate = date);
                             },
                           ),

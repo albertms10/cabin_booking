@@ -71,7 +71,15 @@ class _SchoolYearFormState extends State<SchoolYearForm> {
                   initialDate: _schoolYear.startDate,
                   labelText: appLocalizations.startDate,
                   autofocus: true,
-                  onChange: (date) {
+                  additionalValidator: (date) {
+                    if (_schoolYear.endDate != null &&
+                        date.isAfter(_schoolYear.endDate)) {
+                      return appLocalizations.enterDate;
+                    }
+
+                    return null;
+                  },
+                  onChanged: (date) {
                     setState(() => _schoolYear.startDate = date);
                   },
                 ),
@@ -82,7 +90,15 @@ class _SchoolYearFormState extends State<SchoolYearForm> {
                   controller: _endDateController,
                   initialDate: _schoolYear.endDate,
                   labelText: appLocalizations.endDate,
-                  onChange: (date) {
+                  additionalValidator: (date) {
+                    if (_schoolYear.startDate != null &&
+                        date.isBefore(_schoolYear.startDate)) {
+                      return appLocalizations.enterDate;
+                    }
+
+                    return null;
+                  },
+                  onChanged: (date) {
                     setState(() => _schoolYear.endDate = date);
                   },
                 ),
