@@ -6,8 +6,8 @@ import 'week_days_labels.dart';
 
 /// Source: https://pub.dev/packages/heatmap_calendar
 class HeatMapCalendar extends StatelessWidget {
-  static const int COLUMN_COUNT = DateTime.daysPerWeek + 1;
-  static const int EDGE_SIZE = 4;
+  static const int columnCount = DateTime.daysPerWeek + 1;
+  static const int edgeSize = 4;
 
   /// The inputs that will fill the calendar with data
   final Map<DateTime, int> input;
@@ -59,9 +59,9 @@ class HeatMapCalendar extends StatelessWidget {
   ///
   /// returns the number of columns that the widget should have
   int getColumnsToCreate(double maxWidth) {
-    assert(maxWidth > (2 * (HeatMapCalendar.EDGE_SIZE + squareSize)));
+    assert(maxWidth > (2 * (HeatMapCalendar.edgeSize + squareSize)));
 
-    return maxWidth ~/ (squareSize + HeatMapCalendar.EDGE_SIZE);
+    return maxWidth ~/ (squareSize + HeatMapCalendar.edgeSize);
   }
 
   @override

@@ -64,7 +64,7 @@ class WeekColumns extends StatelessWidget {
 
       /// If `true`, it should be a [MonthLabel].
       /// If `false`, it should be a [HeatMapDay].
-      if (i % HeatMapCalendar.COLUMN_COUNT == 0) {
+      if (i % HeatMapCalendar.columnCount == 0) {
         final firstMonth = dateList.first.month;
         String monthLabel;
 
@@ -118,7 +118,7 @@ class WeekColumns extends StatelessWidget {
           ),
         );
 
-        if (columnItems.length == HeatMapCalendar.COLUMN_COUNT) {
+        if (columnItems.length == HeatMapCalendar.columnCount) {
           columns.add(
             Column(children: columnItems),
           );
