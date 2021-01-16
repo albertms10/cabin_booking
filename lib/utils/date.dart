@@ -61,5 +61,21 @@ int nMod(int n, int mod, [int shift = 0]) => (n + shift) % mod;
 
 int weekDayMod(int n, [int shift = 0]) => nMod(n, DateTime.daysPerWeek, shift);
 
+DateTime firstWeekDate(DateTime dateTime) => dateTime.weekday == 1
+    ? dateTime
+    : dateTime.subtract(Duration(days: dateTime.weekday - 1));
+
 int dateToInt(DateTime dateTime) =>
     dateTime.millisecondsSinceEpoch ~/ Duration.millisecondsPerDay;
+
+Map<K, V> addEmptyKeyValues<K, V>(
+  Map<K, V> map, {
+  Iterable<K> keys = const [],
+  V emptyValue,
+}) {
+  for (final key in keys) {
+    map.update(key, (value) => value, ifAbsent: () => emptyValue);
+  }
+
+  return map;
+}
