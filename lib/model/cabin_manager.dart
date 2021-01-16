@@ -45,11 +45,11 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
 
     for (final cabin in cabins) {
       for (final bookingsCount in cabin.allBookingsCountPerDay.entries) {
-        if (bookingsPerDay.containsKey(bookingsCount.key)) {
-          bookingsPerDay[bookingsCount.key] += bookingsCount.value;
-        } else {
-          bookingsPerDay[bookingsCount.key] = bookingsCount.value;
-        }
+        bookingsPerDay.update(
+          bookingsCount.key,
+          (count) => count + bookingsCount.value,
+          ifAbsent: () => bookingsCount.value,
+        );
       }
     }
 
@@ -74,11 +74,11 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
       final entries = cabin.accumulatedTimeRangesOccupancy(dateRange).entries;
 
       for (final bookingTimeRange in entries) {
-        if (timeRanges.containsKey(bookingTimeRange.key)) {
-          timeRanges[bookingTimeRange.key] += bookingTimeRange.value;
-        } else {
-          timeRanges[bookingTimeRange.key] = bookingTimeRange.value;
-        }
+        timeRanges.update(
+          bookingTimeRange.key,
+          (duration) => duration + bookingTimeRange.value,
+          ifAbsent: () => bookingTimeRange.value,
+        );
       }
     }
 

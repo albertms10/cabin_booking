@@ -187,11 +187,11 @@ class BookingManager with ChangeNotifier {
     final bookingsPerDay = SplayTreeMap<DateTime, int>();
 
     for (final booking in allBookings) {
-      if (bookingsPerDay.containsKey(booking.date)) {
-        bookingsPerDay[booking.date] += 1;
-      } else {
-        bookingsPerDay[booking.date] = 1;
-      }
+      bookingsPerDay.update(
+        booking.date,
+        (count) => count + 1,
+        ifAbsent: () => 1,
+      );
     }
 
     return bookingsPerDay;
@@ -201,11 +201,11 @@ class BookingManager with ChangeNotifier {
     final bookingsPerDay = SplayTreeMap<DateTime, Duration>();
 
     for (final booking in allBookings) {
-      if (bookingsPerDay.containsKey(booking.date)) {
-        bookingsPerDay[booking.date] += booking.duration;
-      } else {
-        bookingsPerDay[booking.date] = booking.duration;
-      }
+      bookingsPerDay.update(
+        booking.date,
+        (duration) => duration + booking.duration,
+        ifAbsent: () => booking.duration,
+      );
     }
 
     return bookingsPerDay;
@@ -221,11 +221,11 @@ class BookingManager with ChangeNotifier {
 
     for (final booking in bookingsList) {
       for (final bookingTimeRange in booking.hoursSpan.entries) {
-        if (timeRanges.containsKey(bookingTimeRange.key)) {
-          timeRanges[bookingTimeRange.key] += bookingTimeRange.value;
-        } else {
-          timeRanges[bookingTimeRange.key] = bookingTimeRange.value;
-        }
+        timeRanges.update(
+          bookingTimeRange.key,
+          (duration) => duration + bookingTimeRange.value,
+          ifAbsent: () => bookingTimeRange.value,
+        );
       }
     }
 
