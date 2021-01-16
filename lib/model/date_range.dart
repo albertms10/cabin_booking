@@ -10,7 +10,8 @@ class DateRange extends Item {
     String id,
     this.startDate,
     this.endDate,
-  }) : super(id: id) {
+  })  : assert(endDate.isAfter(startDate)),
+        super(id: id) {
     endDate ??= startDate;
   }
 
@@ -41,6 +42,27 @@ class DateRange extends Item {
       startDate.isBefore(dateTime) && endDate.isAfter(dateTime);
 
   Duration get duration => endDate.difference(startDate);
+
+  static List<DateTime> rangeDateTimeList(
+    DateTime start,
+    DateTime end, {
+    Duration interval = const Duration(days: 1),
+  }) {
+    assert(end.isAfter(start));
+
+    final dates = <DateTime>[start];
+    var runDate = start;
+
+    while (runDate.isBefore(end)) {
+      runDate = runDate.add(interval);
+      dates.add(runDate);
+    }
+
+    return dates;
+  }
+
+  List<DateTime> dateTimeList({Duration interval = const Duration(days: 1)}) =>
+      DateRange.rangeDateTimeList(startDate, endDate, interval: interval);
 
   @override
   String toString() =>
