@@ -95,13 +95,7 @@ class RecurringBooking extends Booking {
 
     assert(_occurrences != null);
 
-    var runDate = date;
-
-    for (var i = 0; i <= _occurrences; i++) {
-      runDate = runDate.add(periodicityDuration);
-    }
-
-    return runDate;
+    return date.add(periodicityDuration * _occurrences);
   }
 
   set recurringEndDate(DateTime date) {
