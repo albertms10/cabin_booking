@@ -1,3 +1,4 @@
+import 'package:cabin_booking/utils/widgets.dart';
 import 'package:flutter/material.dart';
 
 class DetailedFigure<T> extends StatelessWidget {
@@ -23,12 +24,10 @@ class DetailedFigure<T> extends StatelessWidget {
 
   List<T> get filteredDetails => _filterIfEmpty(details);
 
-  Widget _tooltipWrap({Widget child, bool condition = true}) =>
-      condition ? Tooltip(message: tooltipMessage, child: child) : child;
-
   @override
   Widget build(BuildContext context) {
-    return _tooltipWrap(
+    return tooltipWrap(
+      tooltipMessage: tooltipMessage,
       condition: filteredDetails.length > 1 && tooltipMessage != null,
       child: Row(
         mainAxisSize: MainAxisSize.min,
