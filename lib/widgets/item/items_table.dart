@@ -1,4 +1,6 @@
+import 'package:cabin_booking/model/date_range.dart';
 import 'package:cabin_booking/model/item.dart';
+import 'package:cabin_booking/utils/date.dart';
 import 'package:cabin_booking/widgets/item/activity_line_chart.dart';
 import 'package:cabin_booking/widgets/layout/centered_icon_message.dart';
 import 'package:cabin_booking/widgets/layout/data_table_toolbar.dart';
@@ -257,6 +259,16 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
                           ActivityLineChart(
                             occupiedDurationPerWeek:
                                 row.occupiedDurationPerWeek,
+                            tooltipMessage: row.item is DateRange
+                                ? null
+                                : appLocalizations.pastYearOfActivity,
+                            dateRange: row.item is DateRange
+                                ? row.item
+                                : DateRange(
+                                    startDate: firstWeekDate(DateTime.now()
+                                        .subtract(const Duration(days: 365))),
+                                    endDate: firstWeekDate(DateTime.now()),
+                                  ),
                           ),
                         )
                       ],
