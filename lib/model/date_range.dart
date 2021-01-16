@@ -10,7 +10,11 @@ class DateRange extends Item {
     String id,
     this.startDate,
     this.endDate,
-  })  : assert(endDate.isAfter(startDate)),
+  })  : assert(
+          startDate != null && endDate != null
+              ? endDate.isAfter(startDate)
+              : true,
+        ),
         super(id: id) {
     endDate ??= startDate;
   }
