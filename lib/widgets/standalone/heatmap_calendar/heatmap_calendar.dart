@@ -53,7 +53,8 @@ class HeatMapCalendar extends StatelessWidget {
     this.lastDate,
     this.highlightToday = false,
     this.highlightOn,
-  }) : super(key: key);
+  })  : assert(firstWeekDay >= 1 && firstWeekDay <= DateTime.daysPerWeek),
+        super(key: key);
 
   /// Calculates the right amount of columns to create based on [maxWidth]
   ///
