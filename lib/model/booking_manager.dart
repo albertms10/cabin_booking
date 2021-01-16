@@ -197,12 +197,14 @@ class BookingManager with ChangeNotifier {
     return bookingsPerDay;
   }
 
-  Map<DateTime, Duration> get occupiedDurationPerDay {
+  Map<DateTime, Duration> occupiedDurationPerWeek([DateRange dateRange]) {
     final bookingsPerDay = SplayTreeMap<DateTime, Duration>();
 
     for (final booking in allBookings) {
+      if (dateRange != null && !dateRange.includes(booking.date)) continue;
+
       bookingsPerDay.update(
-        booking.date,
+        firstWeekDate(booking.date),
         (duration) => duration + booking.duration,
         ifAbsent: () => booking.duration,
       );

@@ -147,6 +147,24 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
     return duration;
   }
 
+  Map<DateTime, Duration> occupiedDurationPerWeek([DateRange dateRange]) {
+    final bookingsPerDay = SplayTreeMap<DateTime, Duration>();
+
+    for (final cabin in cabins) {
+      final occupiedDuration = cabin.occupiedDurationPerWeek(dateRange);
+
+      for (final durationPerWeek in occupiedDuration.entries) {
+        bookingsPerDay.update(
+          durationPerWeek.key,
+          (duration) => duration + durationPerWeek.value,
+          ifAbsent: () => durationPerWeek.value,
+        );
+      }
+    }
+
+    return bookingsPerDay;
+  }
+
   double occupancyPercent({
     @required TimeOfDay startTime,
     @required TimeOfDay endTime,

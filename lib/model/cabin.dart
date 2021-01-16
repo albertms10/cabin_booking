@@ -88,8 +88,8 @@ class Cabin extends Item {
   Map<DateTime, int> get allBookingsCountPerDay =>
       _bookingManager.allBookingsCountPerDay;
 
-  Map<DateTime, Duration> get occupiedDurationPerDay =>
-      _bookingManager.occupiedDurationPerDay;
+  Map<DateTime, Duration> occupiedDurationPerWeek([DateRange dateRange]) =>
+      _bookingManager.occupiedDurationPerWeek(dateRange);
 
   double occupancyPercent({
     @required TimeOfDay startTime,
