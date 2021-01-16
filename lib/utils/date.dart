@@ -71,10 +71,10 @@ int dateToInt(DateTime dateTime) =>
 Map<K, V> addEmptyKeyValues<K, V>(
   Map<K, V> map, {
   Iterable<K> keys = const [],
-  V emptyValue,
+  V Function() ifAbsent,
 }) {
   for (final key in keys) {
-    map.update(key, (value) => value, ifAbsent: () => emptyValue);
+    map.update(key, (value) => value, ifAbsent: ifAbsent);
   }
 
   return map;
