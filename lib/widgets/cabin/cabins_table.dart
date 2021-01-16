@@ -1,7 +1,8 @@
-import 'package:cabin_booking/constants.dart';
 import 'package:cabin_booking/model/cabin.dart';
 import 'package:cabin_booking/model/cabin_manager.dart';
+import 'package:cabin_booking/model/date_range.dart';
 import 'package:cabin_booking/utils/compactize_range.dart';
+import 'package:cabin_booking/utils/date.dart';
 import 'package:cabin_booking/widgets/cabin/cabin_dialog.dart';
 import 'package:cabin_booking/widgets/item/items_table.dart';
 import 'package:flutter/material.dart';
@@ -46,10 +47,23 @@ class CabinsTable extends StatelessWidget {
                 recurringBookingsCount:
                     cabin.generatedBookingsFromRecurring.length,
                 occupiedDuration: cabin.occupiedDuration(),
-                occupancyPercent: cabin.occupancyPercent(
-                  startTime: kTimeTableStartTime,
-                  endTime: kTimeTableEndTime,
-                  dates: cabinManager.allCabinsDatesWithBookings(),
+                occupiedDurationPerWeek: addEmptyKeyValues(
+                  cabin.occupiedDurationPerWeek(
+                    DateRange(
+                      startDate: DateTime.now().subtract(
+                        const Duration(days: 365),
+                      ),
+                      endDate: DateTime.now(),
+                    ),
+                  ),
+                  keys: DateRange.rangeDateTimeList(
+                    firstWeekDate(
+                      DateTime.now().subtract(const Duration(days: 365)),
+                    ),
+                    firstWeekDate(DateTime.now()),
+                    interval: const Duration(days: DateTime.daysPerWeek),
+                  ),
+                  emptyValue: const Duration(),
                 ),
                 mostOccupiedTimeRanges: compactizeRange<TimeOfDay>(
                   cabin.mostOccupiedTimeRange(),

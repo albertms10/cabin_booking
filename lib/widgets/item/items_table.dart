@@ -1,4 +1,5 @@
 import 'package:cabin_booking/model/item.dart';
+import 'package:cabin_booking/widgets/item/activity_line_chart.dart';
 import 'package:cabin_booking/widgets/layout/centered_icon_message.dart';
 import 'package:cabin_booking/widgets/layout/data_table_toolbar.dart';
 import 'package:cabin_booking/widgets/layout/detailed_figure.dart';
@@ -12,7 +13,7 @@ class ItemsTableRow<T extends Item> {
   final int bookingsCount;
   final int recurringBookingsCount;
   final Duration occupiedDuration;
-  final double occupancyPercent;
+  final Map<DateTime, Duration> occupiedDurationPerWeek;
   final Set<List<TimeOfDay>> mostOccupiedTimeRanges;
   bool selected;
 
@@ -21,7 +22,7 @@ class ItemsTableRow<T extends Item> {
     this.bookingsCount = 0,
     this.recurringBookingsCount = 0,
     this.occupiedDuration = const Duration(),
-    this.occupancyPercent = 0.0,
+    this.occupiedDurationPerWeek = const {},
     this.mostOccupiedTimeRanges = const {},
     this.selected = false,
   });
@@ -157,6 +158,7 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
       ItemsTableColumn(appLocalizations.bookings),
       ItemsTableColumn(appLocalizations.accumulatedTime),
       ItemsTableColumn(appLocalizations.mostOccupiedTimeRange, sortable: false),
+      ItemsTableColumn(appLocalizations.activity, sortable: false),
     ];
 
     return Stack(
@@ -234,35 +236,7 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
                           ),
                         ),
                         DataCell(
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              DurationFigureUnit(row.occupiedDuration),
-                              const SizedBox(height: 12.0),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 24.0),
-                                child: TweenAnimationBuilder<double>(
-                                  tween: Tween<double>(
-                                    begin: 0.0,
-                                    end: row.occupancyPercent,
-                                  ),
-                                  duration: const Duration(milliseconds: 700),
-                                  curve: Curves.easeOutCubic,
-                                  builder: (context, value, child) {
-                                    return LinearProgressIndicator(
-                                      value: value,
-                                      backgroundColor:
-                                          theme.accentColor.withOpacity(0.25),
-                                      semanticsLabel: 'Occupancy rate',
-                                      semanticsValue:
-                                          '${(value * 100).round()} %',
-                                    );
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
+                          DurationFigureUnit(row.occupiedDuration),
                         ),
                         DataCell(
                           Padding(
@@ -279,6 +253,12 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
                             ),
                           ),
                         ),
+                        DataCell(
+                          ActivityLineChart(
+                            occupiedDurationPerWeek:
+                                row.occupiedDurationPerWeek,
+                          ),
+                        )
                       ],
                     );
                   },

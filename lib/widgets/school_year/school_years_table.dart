@@ -1,8 +1,8 @@
-import 'package:cabin_booking/constants.dart';
 import 'package:cabin_booking/model/cabin_manager.dart';
 import 'package:cabin_booking/model/day_handler.dart';
 import 'package:cabin_booking/model/school_year.dart';
 import 'package:cabin_booking/utils/compactize_range.dart';
+import 'package:cabin_booking/utils/date.dart';
 import 'package:cabin_booking/widgets/item/items_table.dart';
 import 'package:cabin_booking/widgets/school_year/school_year_dialog.dart';
 import 'package:flutter/material.dart';
@@ -47,10 +47,12 @@ class SchoolYearsTable extends StatelessWidget {
                     cabinManager.recurringBookingsCountBetween(schoolYear),
                 occupiedDuration:
                     cabinManager.totalOccupiedDuration(dateRange: schoolYear),
-                occupancyPercent: cabinManager.occupancyPercent(
-                  startTime: kTimeTableStartTime,
-                  endTime: kTimeTableEndTime,
-                  dates: cabinManager.allCabinsDatesWithBookings(schoolYear),
+                occupiedDurationPerWeek: addEmptyKeyValues(
+                  cabinManager.occupiedDurationPerWeek(schoolYear),
+                  keys: schoolYear.dateTimeList(
+                    interval: const Duration(days: DateTime.daysPerWeek),
+                  ),
+                  emptyValue: const Duration(),
                 ),
                 mostOccupiedTimeRanges: compactizeRange<TimeOfDay>(
                   cabinManager.mostOccupiedTimeRange(schoolYear),
