@@ -34,8 +34,8 @@ class BookingFloatingActionButton extends StatelessWidget {
           ),
           onPressed: () {
             showNewBookingDialog(
-              context,
-              Booking(
+              context: context,
+              booking: Booking(
                 date: dateOnly(dayHandler.dateTime),
                 startTime: kTimeTableStartTime,
                 endTime: kTimeTableStartTime.replacing(
@@ -43,7 +43,7 @@ class BookingFloatingActionButton extends StatelessWidget {
                 ),
                 cabinId: cabinManager.cabins.first.id,
               ),
-              cabinManager,
+              cabinManager: cabinManager,
             );
           },
           buttons: [
@@ -55,8 +55,8 @@ class BookingFloatingActionButton extends StatelessWidget {
               ),
               onTap: () {
                 showNewBookingDialog(
-                  context,
-                  RecurringBooking(
+                  context: context,
+                  booking: RecurringBooking(
                     date: dateOnly(dayHandler.dateTime),
                     startTime: kTimeTableStartTime,
                     endTime: kTimeTableStartTime.replacing(
@@ -66,7 +66,7 @@ class BookingFloatingActionButton extends StatelessWidget {
                     occurrences: 1,
                     cabinId: cabinManager.cabins.first.id,
                   ),
-                  cabinManager,
+                  cabinManager: cabinManager,
                 );
               },
             ),
@@ -78,8 +78,8 @@ class BookingFloatingActionButton extends StatelessWidget {
               ),
               onTap: () {
                 showNewBookingDialog(
-                  context,
-                  Booking(
+                  context: context,
+                  booking: Booking(
                     date: dateOnly(dayHandler.dateTime),
                     startTime: kTimeTableStartTime,
                     endTime: kTimeTableStartTime.replacing(
@@ -89,7 +89,7 @@ class BookingFloatingActionButton extends StatelessWidget {
                     isDisabled: true,
                     cabinId: cabinManager.cabins.first.id,
                   ),
-                  cabinManager,
+                  cabinManager: cabinManager,
                 );
               },
             ),

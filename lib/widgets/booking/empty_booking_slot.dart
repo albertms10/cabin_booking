@@ -78,15 +78,15 @@ class EmptyBookingSlot extends StatelessWidget {
                                   const BorderRadius.all(Radius.circular(4.0)),
                               onTap: () {
                                 showNewBookingDialog(
-                                  context,
-                                  Booking(
+                                  context: context,
+                                  booking: Booking(
                                     date: dateOnly(start),
                                     startTime: TimeOfDay.fromDateTime(start),
                                     endTime:
                                         TimeOfDay.fromDateTime(endDateTime),
                                     cabinId: cabin.id,
                                   ),
-                                  cabinManager,
+                                  cabinManager: cabinManager,
                                 );
                               },
                               child: Icon(
