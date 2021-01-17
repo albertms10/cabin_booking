@@ -22,8 +22,6 @@ class EmptyBookingSlot extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cabinManager = Provider.of<CabinManager>(context, listen: false);
-
     return TimerBuilder.periodic(
       const Duration(seconds: 30),
       builder: (context) {
@@ -42,8 +40,6 @@ class EmptyBookingSlot extends StatelessWidget {
 
         final preciseDuration =
             (duration.inMicroseconds / Duration.microsecondsPerMinute).ceil();
-
-        final start = startsBeforeNow ? now : startDateTime;
 
         return Column(
           children: [
@@ -65,37 +61,11 @@ class EmptyBookingSlot extends StatelessWidget {
                   child: duration.compareTo(kMinSlotDuration) < 0 ||
                           endDateTime.compareTo(now) < 0
                       ? null
-                      : Container(
-                          margin: const EdgeInsets.all(8.0),
-                          decoration: const BoxDecoration(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(4.0)),
-                          ),
-                          child: Tooltip(
-                            message: '${preciseDuration} min',
-                            child: InkWell(
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(4.0)),
-                              onTap: () {
-                                showNewBookingDialog(
-                                  context: context,
-                                  booking: Booking(
-                                    date: dateOnly(start),
-                                    startTime: TimeOfDay.fromDateTime(start),
-                                    endTime:
-                                        TimeOfDay.fromDateTime(endDateTime),
-                                    cabinId: cabin.id,
-                                  ),
-                                  cabinManager: cabinManager,
-                                );
-                              },
-                              child: Icon(
-                                Icons.add,
-                                size: 18.0,
-                                color: Theme.of(context).hintColor,
-                              ),
-                            ),
-                          ),
+                      : EmptyBookingSlotActionable(
+                          cabin: cabin,
+                          startDateTime: startsBeforeNow ? now : startDateTime,
+                          endDateTime: endDateTime,
+                          preciseDuration: preciseDuration,
                         ),
                 );
               },
@@ -103,6 +73,55 @@ class EmptyBookingSlot extends StatelessWidget {
           ],
         );
       },
+    );
+  }
+}
+
+class EmptyBookingSlotActionable extends StatelessWidget {
+  final Cabin cabin;
+  final DateTime startDateTime;
+  final DateTime endDateTime;
+  final int preciseDuration;
+
+  const EmptyBookingSlotActionable({
+    this.cabin,
+    this.startDateTime,
+    this.endDateTime,
+    this.preciseDuration,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final cabinManager = Provider.of<CabinManager>(context, listen: false);
+
+    return Container(
+      margin: const EdgeInsets.all(8.0),
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(4.0)),
+      ),
+      child: Tooltip(
+        message: '${preciseDuration} min',
+        child: InkWell(
+          borderRadius: const BorderRadius.all(Radius.circular(4.0)),
+          onTap: () {
+            showNewBookingDialog(
+              context: context,
+              booking: Booking(
+                date: dateOnly(startDateTime),
+                startTime: TimeOfDay.fromDateTime(startDateTime),
+                endTime: TimeOfDay.fromDateTime(endDateTime),
+                cabinId: cabin.id,
+              ),
+              cabinManager: cabinManager,
+            );
+          },
+          child: Icon(
+            Icons.add,
+            size: 18.0,
+            color: Theme.of(context).hintColor,
+          ),
+        ),
+      ),
     );
   }
 }
