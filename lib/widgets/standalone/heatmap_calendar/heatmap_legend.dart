@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'heatmap_day.dart';
 
@@ -9,6 +8,8 @@ class HeatMapLegend extends StatelessWidget {
   final Color color;
   final Color defaultColor;
   final int samples;
+  final String lessLabel;
+  final String moreLabel;
 
   const HeatMapLegend({
     @required this.squareSize,
@@ -16,6 +17,8 @@ class HeatMapLegend extends StatelessWidget {
     @required this.color,
     this.defaultColor = Colors.black12,
     this.samples = 5,
+    this.lessLabel,
+    this.moreLabel,
   })  : assert(samples != null),
         assert(samples > 2);
 
@@ -28,13 +31,11 @@ class HeatMapLegend extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final appLocalizations = AppLocalizations.of(context);
-
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(
-          appLocalizations.less,
+          lessLabel ?? 'Less',
           style: Theme.of(context).textTheme.caption,
         ),
         SizedBox(width: space),
@@ -48,7 +49,7 @@ class HeatMapLegend extends StatelessWidget {
           ),
         SizedBox(width: space),
         Text(
-          appLocalizations.more,
+          moreLabel ?? 'More',
           style: Theme.of(context).textTheme.caption,
         ),
       ],

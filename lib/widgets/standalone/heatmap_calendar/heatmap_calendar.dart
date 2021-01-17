@@ -30,8 +30,11 @@ class HeatMapCalendar extends StatelessWidget {
 
   final void Function(DateTime, int) onDayTap;
   final String Function(int) dayValueWrapper;
+
   final bool showLegend;
   final int legendSamples;
+  final String legendLessLabel;
+  final String legendMoreLabel;
 
   final DateTime firstDate;
   final DateTime lastDate;
@@ -49,6 +52,8 @@ class HeatMapCalendar extends StatelessWidget {
     this.dayValueWrapper,
     this.showLegend = false,
     this.legendSamples = 5,
+    this.legendLessLabel,
+    this.legendMoreLabel,
     this.firstDate,
     this.lastDate,
     this.highlightToday = false,
@@ -104,6 +109,8 @@ class HeatMapCalendar extends StatelessWidget {
                   space: space,
                   color: Theme.of(context).accentColor,
                   samples: legendSamples,
+                  lessLabel: legendLessLabel,
+                  moreLabel: legendMoreLabel,
                 ),
               ),
           ],

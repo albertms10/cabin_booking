@@ -134,6 +134,8 @@ class SummaryPage extends StatelessWidget {
 
                       setRailPage(AppPages.Bookings);
                     },
+                    legendLessLabel: appLocalizations.less,
+                    legendMoreLabel: appLocalizations.more,
                   ),
                 ),
               ],
