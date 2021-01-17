@@ -11,38 +11,6 @@ import 'package:cabin_booking/widgets/layout/wrapped_chip_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class ItemsTableRow<T extends Item> {
-  final T item;
-  final int bookingsCount;
-  final int recurringBookingsCount;
-  final Duration occupiedDuration;
-  final Map<DateTime, Duration> occupiedDurationPerWeek;
-  final Set<List<TimeOfDay>> mostOccupiedTimeRanges;
-  bool selected;
-
-  ItemsTableRow({
-    @required this.item,
-    this.bookingsCount = 0,
-    this.recurringBookingsCount = 0,
-    this.occupiedDuration = const Duration(),
-    this.occupiedDurationPerWeek = const {},
-    this.mostOccupiedTimeRanges = const {},
-    this.selected = false,
-  });
-}
-
-class ItemsTableColumn {
-  final String title;
-  final bool numeric;
-  final bool sortable;
-
-  const ItemsTableColumn(
-    this.title, {
-    this.numeric = true,
-    this.sortable = true,
-  });
-}
-
 typedef _OnSortFunction = void Function(bool);
 
 class ItemsTable<T extends Item> extends StatefulWidget {
@@ -348,4 +316,36 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
       ],
     );
   }
+}
+
+class ItemsTableRow<T extends Item> {
+  final T item;
+  final int bookingsCount;
+  final int recurringBookingsCount;
+  final Duration occupiedDuration;
+  final Map<DateTime, Duration> occupiedDurationPerWeek;
+  final Set<List<TimeOfDay>> mostOccupiedTimeRanges;
+  bool selected;
+
+  ItemsTableRow({
+    @required this.item,
+    this.bookingsCount = 0,
+    this.recurringBookingsCount = 0,
+    this.occupiedDuration = const Duration(),
+    this.occupiedDurationPerWeek = const {},
+    this.mostOccupiedTimeRanges = const {},
+    this.selected = false,
+  });
+}
+
+class ItemsTableColumn {
+  final String title;
+  final bool numeric;
+  final bool sortable;
+
+  const ItemsTableColumn(
+    this.title, {
+    this.numeric = true,
+    this.sortable = true,
+  });
 }
