@@ -20,7 +20,7 @@ class WeekDaysLabels extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: <Widget>[
+      children: [
         SizedBox(height: squareSize),
         for (var i = 0; i < DateTime.daysPerWeek; i++)
           if (i.isOdd)
