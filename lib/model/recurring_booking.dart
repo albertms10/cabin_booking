@@ -14,7 +14,7 @@ class RecurringBooking extends Booking {
     DateTime date,
     TimeOfDay startTime,
     TimeOfDay endTime,
-    BookingStatus status,
+    BookingStatus status = BookingStatus.Pending,
     bool isDisabled = false,
     String cabinId,
     this.periodicity = Periodicity.Weekly,
