@@ -1,16 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class DeleteBookingDialog extends StatelessWidget {
-  const DeleteBookingDialog();
+class DangerAlertDialog extends StatelessWidget {
+  final String title;
+  final String content;
+  final String cancelText;
+  final String okText;
+
+  const DangerAlertDialog({
+    this.title,
+    this.content,
+    this.cancelText,
+    this.okText,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final appLocalizations = AppLocalizations.of(context);
-
     return AlertDialog(
-      title: Text(appLocalizations.deleteBookingTitle),
-      content: Text(appLocalizations.actionUndone),
+      title: Text(title),
+      content: Text(content),
       actionsPadding: const EdgeInsets.all(8.0),
       actions: [
         FlatButton(
@@ -19,7 +26,8 @@ class DeleteBookingDialog extends StatelessWidget {
           },
           padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
           child: Text(
-            MaterialLocalizations.of(context).cancelButtonLabel.toUpperCase(),
+            (cancelText ?? MaterialLocalizations.of(context).cancelButtonLabel)
+                .toUpperCase(),
           ),
         ),
         FlatButton(
@@ -28,7 +36,8 @@ class DeleteBookingDialog extends StatelessWidget {
           },
           padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
           child: Text(
-            MaterialLocalizations.of(context).deleteButtonTooltip.toUpperCase(),
+            (okText ?? MaterialLocalizations.of(context).deleteButtonTooltip)
+                .toUpperCase(),
             style: TextStyle(color: Theme.of(context).errorColor),
           ),
           hoverColor: Colors.red.withOpacity(0.1),
