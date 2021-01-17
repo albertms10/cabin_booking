@@ -129,9 +129,7 @@ class BookingsStack extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: [
-        for (final booking in _distributedBookings(context)) booking,
-      ],
+      children: _distributedBookings(context),
     );
   }
 }
