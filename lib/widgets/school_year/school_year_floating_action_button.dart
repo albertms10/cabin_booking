@@ -17,9 +17,7 @@ class SchoolYearFloatingActionButton extends StatelessWidget {
 
         final newSchoolYear = await showDialog<SchoolYear>(
           context: context,
-          builder: (context) => SchoolYearDialog(
-            schoolYear: SchoolYear(),
-          ),
+          builder: (context) => SchoolYearDialog(schoolYear: SchoolYear()),
         );
 
         if (newSchoolYear != null) {

@@ -12,9 +12,7 @@ class SchoolYearDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DataDialog(
-      title: Text(
-        AppLocalizations.of(context).schoolYear,
-      ),
+      title: Text(AppLocalizations.of(context).schoolYear),
       content: SizedBox(
         width: 320.0,
         child: SchoolYearForm(schoolYear: schoolYear),

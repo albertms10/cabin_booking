@@ -26,9 +26,7 @@ class CabinsTable extends StatelessWidget {
 
             final editedCabin = await showDialog<Cabin>(
               context: context,
-              builder: (context) => CabinDialog(
-                cabin: selectedCabin.item,
-              ),
+              builder: (context) => CabinDialog(cabin: selectedCabin.item),
             );
 
             if (editedCabin != null) {

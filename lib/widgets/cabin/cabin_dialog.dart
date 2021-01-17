@@ -13,9 +13,7 @@ class CabinDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DataDialog(
-      title: Text(
-        AppLocalizations.of(context).cabin,
-      ),
+      title: Text(AppLocalizations.of(context).cabin),
       content: SizedBox(
         width: 250.0,
         child: CabinForm(
