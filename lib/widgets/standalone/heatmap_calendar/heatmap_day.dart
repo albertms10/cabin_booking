@@ -1,6 +1,7 @@
-import 'package:cabin_booking/widgets/standalone/heatmap_calendar/time_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
+import 'time_utils.dart';
 
 class HeatMapDay extends StatelessWidget {
   final int value;

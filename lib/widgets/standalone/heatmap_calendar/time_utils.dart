@@ -3,12 +3,14 @@ import 'package:intl/intl.dart';
 class TimeUtils {
   /// The first element is an empty string,
   /// once Dart's DateTime counts months from 1 to 12
-  static List<String> monthsLabels = [
-    for (var i = 1; i <= 12; i++) DateFormat.MMM().format(DateTime(2020, i)),
+  static final List<String> monthsLabels = [
+    for (var i = 1; i <= DateTime.monthsPerYear; i++)
+      DateFormat.MMM().format(DateTime(2020, i)),
   ];
 
-  static List<String> weekDaysLabels = [
-    for (var i = 1; i <= 7; i++) DateFormat.E().format(DateTime(2020, 6, i)),
+  static final List<String> weekDaysLabels = [
+    for (var i = 1; i <= DateTime.daysPerWeek; i++)
+      DateFormat.E().format(DateTime(2020, 6, i)),
   ];
 
   /// Obtains the first day of the current week,
@@ -30,9 +32,7 @@ class TimeUtils {
   static DateTime firstDayOfCalendar(DateTime day, int columnsAmount) {
     return safeSubtract(
       day,
-      Duration(
-        days: DateTime.daysPerWeek * (columnsAmount - 1),
-      ),
+      Duration(days: DateTime.daysPerWeek * (columnsAmount - 1)),
     );
   }
 

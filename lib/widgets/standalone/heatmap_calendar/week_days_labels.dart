@@ -1,6 +1,7 @@
 import 'package:cabin_booking/utils/date.dart';
-import 'package:cabin_booking/widgets/standalone/heatmap_calendar/time_utils.dart';
 import 'package:flutter/material.dart';
+
+import 'time_utils.dart';
 
 class WeekDaysLabels extends StatelessWidget {
   final double squareSize;
@@ -33,9 +34,7 @@ class WeekDaysLabels extends StatelessWidget {
               ),
             )
           else
-            SizedBox(
-              height: squareSize + space,
-            )
+            SizedBox(height: squareSize + space)
       ],
     );
   }
