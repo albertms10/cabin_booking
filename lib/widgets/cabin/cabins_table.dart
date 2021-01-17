@@ -35,8 +35,10 @@ class CabinsTable extends StatelessWidget {
           },
           onEmptyPressed: (selectedIds) =>
               cabinManager.emptyCabinsByIds(selectedIds),
+          onEmptyTitle: appLocalizations.emptyCabinTitle,
           onRemovePressed: (selectedIds) =>
               cabinManager.removeCabinsByIds(selectedIds),
+          onRemoveTitle: appLocalizations.deleteCabinTitle,
           rows: [
             for (final cabin in cabinManager.cabins)
               ItemsTableRow<Cabin>(

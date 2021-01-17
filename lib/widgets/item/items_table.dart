@@ -4,6 +4,7 @@ import 'package:cabin_booking/utils/date.dart';
 import 'package:cabin_booking/widgets/item/activity_line_chart.dart';
 import 'package:cabin_booking/widgets/layout/centered_icon_message.dart';
 import 'package:cabin_booking/widgets/layout/data_table_toolbar.dart';
+import 'package:cabin_booking/widgets/layout/danger_alert_dialog.dart';
 import 'package:cabin_booking/widgets/layout/detailed_figure.dart';
 import 'package:cabin_booking/widgets/layout/duration_figure_unit.dart';
 import 'package:cabin_booking/widgets/layout/wrapped_chip_list.dart';
@@ -56,7 +57,11 @@ class ItemsTable<T extends Item> extends StatefulWidget {
   final bool shallRemove;
 
   final void Function(List<ItemsTableRow<T>>) onEditPressed;
+
+  final String onEmptyTitle;
   final void Function(List<String>) onEmptyPressed;
+
+  final String onRemoveTitle;
   final void Function(List<String>) onRemovePressed;
 
   const ItemsTable({
@@ -69,7 +74,9 @@ class ItemsTable<T extends Item> extends StatefulWidget {
     this.shallEmpty = true,
     this.shallRemove = true,
     this.onEditPressed,
+    this.onEmptyTitle,
     this.onEmptyPressed,
+    this.onRemoveTitle,
     this.onRemovePressed,
   });
 
@@ -295,17 +302,44 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
             if (widget.shallEmpty)
               IconButton(
                 onPressed:
-                    widget.onEmptyPressed != null && widget.selectedAreBooked
-                        ? () => widget.onEmptyPressed(widget._selectedIds)
-                        : null,
+                    widget.onEmptyPressed == null || !widget.selectedAreBooked
+                        ? null
+                        : () async {
+                            final shallDelete = await showDialog<bool>(
+                              context: context,
+                              builder: (context) => DangerAlertDialog(
+                                title: widget.onEmptyTitle ??
+                                    appLocalizations.emptyItemTitle,
+                                content: appLocalizations.actionUndone,
+                                okText: appLocalizations.empty,
+                              ),
+                            );
+
+                            if (shallDelete == null || !shallDelete) return;
+
+                            widget.onEmptyPressed(widget._selectedIds);
+                          },
                 icon: const Icon(Icons.delete_outline),
                 tooltip: appLocalizations.empty,
               ),
             if (widget.shallRemove)
               IconButton(
-                onPressed: widget.onRemovePressed != null
-                    ? () => widget.onRemovePressed(widget._selectedIds)
-                    : null,
+                onPressed: widget.onRemovePressed == null
+                    ? null
+                    : () async {
+                        final shallDelete = await showDialog<bool>(
+                          context: context,
+                          builder: (context) => DangerAlertDialog(
+                            title: widget.onRemoveTitle ??
+                                appLocalizations.deleteItemTitle,
+                            content: appLocalizations.actionUndone,
+                          ),
+                        );
+
+                        if (shallDelete == null || !shallDelete) return;
+
+                        widget.onRemovePressed(widget._selectedIds);
+                      },
                 icon: const Icon(Icons.delete),
                 tooltip: MaterialLocalizations.of(context).deleteButtonTooltip,
               ),

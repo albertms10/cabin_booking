@@ -3,7 +3,7 @@ import 'package:cabin_booking/model/cabin.dart';
 import 'package:cabin_booking/model/cabin_manager.dart';
 import 'package:cabin_booking/model/recurring_booking.dart';
 import 'package:cabin_booking/widgets/booking/booking_dialog.dart';
-import 'package:cabin_booking/widgets/booking/delete_booking_dialog.dart';
+import 'package:cabin_booking/widgets/layout/danger_alert_dialog.dart';
 import 'package:cabin_booking/widgets/layout/icon_menu_item_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -79,9 +79,14 @@ class BookingPopupMenu extends StatelessWidget {
                 break;
 
               case 'delete':
+                final appLocalizations = AppLocalizations.of(context);
+
                 final shallDelete = await showDialog<bool>(
                   context: context,
-                  builder: (context) => const DeleteBookingDialog(),
+                  builder: (context) => DangerAlertDialog(
+                    title: appLocalizations.deleteBookingTitle,
+                    content: appLocalizations.actionUndone,
+                  ),
                 );
 
                 if (shallDelete == null || !shallDelete) break;
