@@ -11,7 +11,7 @@ class TimeTable extends StatelessWidget {
       child: Column(
         children: [
           const CabinsIconsRow(),
-          const Divider(height: 1),
+          const Divider(height: 1.0),
           Expanded(
             child: ListView(
               key: const PageStorageKey('BookingsListView'),

@@ -17,9 +17,7 @@ class AnimatedFloatingButtonLabel extends AnimatedWidget {
   Widget build(BuildContext context) {
     final Animation<double> animation = listenable;
 
-    if (animation.value <= tween.end / 2) {
-      return const SizedBox();
-    }
+    if (animation.value <= tween.end / 2.0) return const SizedBox();
 
     return Container(
       margin: const EdgeInsets.only(right: 18.0),
@@ -27,7 +25,7 @@ class AnimatedFloatingButtonLabel extends AnimatedWidget {
       child: Opacity(
         opacity: mapNumber(
           animation.value,
-          inMin: tween.end / 2,
+          inMin: tween.end / 2.0,
           inMax: tween.end,
         ),
         child: label,

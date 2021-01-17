@@ -77,7 +77,7 @@ class AnimatedChild extends AnimatedWidget {
                         height: animation.value,
                         child: Icon(
                           icon,
-                          size: animation.value / 3,
+                          size: animation.value / 3.0,
                         ),
                       )
                     : const SizedBox(),

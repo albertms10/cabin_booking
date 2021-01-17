@@ -78,7 +78,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             ),
-            const VerticalDivider(thickness: 1, width: 1),
+            const VerticalDivider(thickness: 1.0, width: 1.0),
             Expanded(
               child: MainContent(
                 railIndex: _selectedIndex,

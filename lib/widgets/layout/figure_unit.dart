@@ -16,11 +16,11 @@ class FigureUnit extends StatelessWidget {
           '$value',
           style: Theme.of(context).textTheme.headline5,
         ),
-        const SizedBox(width: 2),
+        const SizedBox(width: 2.0),
         Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const SizedBox(height: 2),
+            const SizedBox(height: 2.0),
             Text(
               unit,
               style: Theme.of(context).textTheme.subtitle2,

@@ -18,8 +18,9 @@ class DataTableToolbar extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 54.0,
-      child: shown
-          ? AppBar(
+      child: !shown
+          ? null
+          : AppBar(
               title: Text(
                 AppLocalizations.of(context).nSelected(selectedItems),
               ),
@@ -31,8 +32,7 @@ class DataTableToolbar extends StatelessWidget {
                 tooltip: AppLocalizations.of(context).cancelSelection,
               ),
               actions: actions,
-            )
-          : null,
+            ),
     );
   }
 }

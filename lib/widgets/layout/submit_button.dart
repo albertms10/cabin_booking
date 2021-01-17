@@ -15,7 +15,7 @@ class SubmitButton extends StatelessWidget {
         onPressed: onPressed,
         icon: shouldAdd ? const Icon(Icons.add) : const Icon(Icons.check),
         label: Container(
-          margin: const EdgeInsets.symmetric(vertical: 12),
+          margin: const EdgeInsets.symmetric(vertical: 12.0),
           child: Text(
             shouldAdd
                 ? AppLocalizations.of(context).add.toUpperCase()
