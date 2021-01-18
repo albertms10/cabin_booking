@@ -47,7 +47,7 @@ class CabinsTable extends StatelessWidget {
                 recurringBookingsCount:
                     cabin.generatedBookingsFromRecurring.length,
                 occupiedDuration: cabin.occupiedDuration(),
-                occupiedDurationPerWeek: addEmptyKeyValues(
+                occupiedDurationPerWeek: fillEmptyKeyValues(
                   cabin.occupiedDurationPerWeek(
                     DateRange(
                       startDate: DateTime.now().subtract(

@@ -68,7 +68,7 @@ DateTime firstWeekDate(DateTime dateTime) => dateTime.weekday == 1
 int dateToInt(DateTime dateTime) =>
     dateTime.millisecondsSinceEpoch ~/ Duration.millisecondsPerDay;
 
-Map<K, V> addEmptyKeyValues<K, V>(
+Map<K, V> fillEmptyKeyValues<K, V>(
   Map<K, V> map, {
   Iterable<K> keys = const [],
   V Function() ifAbsent,
