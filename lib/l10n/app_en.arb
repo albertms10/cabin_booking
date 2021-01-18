@@ -113,5 +113,6 @@
   "less": "Less",
   "more": "More",
   "activity": "Activity",
-  "pastYearOfActivity": "Past year of activity"
+  "pastYearOfActivity": "Past year of activity",
+  "popularTimes": "Popular times"
 }

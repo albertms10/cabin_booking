@@ -113,5 +113,6 @@
   "less": "Menos",
   "more": "Más",
   "activity": "Actividad",
-  "pastYearOfActivity": "Último año de actividad"
+  "pastYearOfActivity": "Último año de actividad",
+  "popularTimes": "Horas de más afluencia"
 }
