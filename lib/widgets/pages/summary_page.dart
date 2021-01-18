@@ -5,6 +5,7 @@ import 'package:cabin_booking/utils/date.dart';
 import 'package:cabin_booking/widgets/layout/detailed_figure.dart';
 import 'package:cabin_booking/widgets/layout/duration_figure_unit.dart';
 import 'package:cabin_booking/widgets/layout/heading.dart';
+import 'package:cabin_booking/widgets/layout/popular_times_bar_chart.dart';
 import 'package:cabin_booking/widgets/layout/statistics.dart';
 import 'package:cabin_booking/widgets/pages/home_page.dart';
 import 'package:cabin_booking/widgets/standalone/heatmap_calendar/heatmap_calendar.dart';
@@ -106,6 +107,22 @@ class SummaryPage extends StatelessWidget {
                       ),
                     ],
                   ),
+                Statistics(
+                  title: appLocalizations.popularTimes,
+                  icon: Icons.watch_later,
+                  items: [
+                    PopularTimesBarChart(
+                      timeRangesOccupancy: fillEmptyKeyValues(
+                        cabinManager.accumulatedTimeRangesOccupancy(),
+                        keys: [
+                          for (var i = 9; i < 22; i++)
+                            TimeOfDay(hour: i, minute: 0),
+                        ],
+                        ifAbsent: () => const Duration(),
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
             const SizedBox(height: 32.0),
