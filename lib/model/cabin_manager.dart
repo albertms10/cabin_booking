@@ -68,7 +68,9 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
   Map<TimeOfDay, Duration> accumulatedTimeRangesOccupancy([
     DateRange dateRange,
   ]) {
-    final timeRanges = <TimeOfDay, Duration>{};
+    final timeRanges = SplayTreeMap<TimeOfDay, Duration>(
+      (a, b) => (a.hour - b.hour) * 60 + a.minute - b.minute,
+    );
 
     for (final cabin in cabins) {
       final accumulatedTimeRanges =
@@ -100,7 +102,7 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
       sortedTimeRanges
           .where((timeRange) => timeRange.value == highestOccupancyDuration)
           .map((timeRange) => timeRange.key),
-      (a, b) => (a.hour - b.hour) * 100 + a.minute - b.minute,
+      (a, b) => (a.hour - b.hour) * 60 + a.minute - b.minute,
     );
   }
 
