@@ -377,12 +377,16 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
 
   @override
   Future<bool> writeToFile() async {
-    final file = await fileManager.localFile(fileName);
+    try {
+      final file = await fileManager.localFile(fileName);
 
-    await file.writeAsString(
-      json.encode(cabinsToMapList()),
-    );
+      await file.writeAsString(
+        json.encode(cabinsToMapList()),
+      );
 
-    return true;
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 }
