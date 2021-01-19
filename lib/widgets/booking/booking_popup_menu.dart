@@ -20,6 +20,8 @@ class BookingPopupMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appLocalizations = AppLocalizations.of(context);
+
     return ClipRRect(
       borderRadius: const BorderRadius.all(Radius.circular(24.0)),
       child: Material(
@@ -79,8 +81,6 @@ class BookingPopupMenu extends StatelessWidget {
                 break;
 
               case 'delete':
-                final appLocalizations = AppLocalizations.of(context);
-
                 final shallDelete = await showDialog<bool>(
                   context: context,
                   builder: (context) => DangerAlertDialog(
@@ -104,13 +104,13 @@ class BookingPopupMenu extends StatelessWidget {
             }
           },
           itemBuilder: (BuildContext context) {
-            final height = 41.0;
+            const height = 41.0;
 
             return [
               PopupMenuItem(
                 value: 'edit',
                 child: IconMenuItemContent(
-                  text: AppLocalizations.of(context).edit,
+                  text: appLocalizations.edit,
                   icon: Icons.edit,
                 ),
                 height: height,

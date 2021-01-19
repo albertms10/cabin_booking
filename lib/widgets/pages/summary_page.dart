@@ -28,7 +28,7 @@ class SummaryPage extends StatelessWidget {
         return ListView(
           padding: const EdgeInsets.all(32.0),
           children: [
-            Heading(AppLocalizations.of(context).summary),
+            Heading(appLocalizations.summary),
             Wrap(
               spacing: 24.0,
               runSpacing: 24.0,
@@ -126,7 +126,7 @@ class SummaryPage extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 32.0),
-            Heading(AppLocalizations.of(context).bookings),
+            Heading(appLocalizations.bookings),
             const SizedBox(height: 16.0),
             Row(
               children: [
@@ -134,7 +134,7 @@ class SummaryPage extends StatelessWidget {
                   child: HeatMapCalendar(
                     input: cabinManager.allCabinsBookingsCountPerDay,
                     dayValueWrapper: (value) =>
-                        '${AppLocalizations.of(context).nBookings(value)}',
+                        '${appLocalizations.nBookings(value)}',
                     showLegend: true,
                     colorThresholds: mapColorsToHighestValue(
                       highestValue: cabinManager.mostBookedDayEntry?.value ?? 1,

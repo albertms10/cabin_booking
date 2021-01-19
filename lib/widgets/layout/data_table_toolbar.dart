@@ -16,20 +16,20 @@ class DataTableToolbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appLocalizations = AppLocalizations.of(context);
+
     return SizedBox(
       height: 54.0,
       child: !shown
           ? null
           : AppBar(
-              title: Text(
-                AppLocalizations.of(context).nSelected(selectedItems),
-              ),
+              title: Text(appLocalizations.nSelected(selectedItems)),
               centerTitle: false,
               backgroundColor: Theme.of(context).primaryColorDark,
               leading: IconButton(
                 onPressed: onPressedLeading,
                 icon: const Icon(Icons.close),
-                tooltip: AppLocalizations.of(context).cancelSelection,
+                tooltip: appLocalizations.cancelSelection,
               ),
               actions: actions,
             ),

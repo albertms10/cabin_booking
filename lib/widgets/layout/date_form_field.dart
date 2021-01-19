@@ -100,18 +100,20 @@ class _DateFormFieldState extends State<DateFormField> {
       validator: (value) {
         if (widget.skipValidation) return null;
 
+        final appLocalizations = AppLocalizations.of(context);
+
         if (value.isEmpty) {
-          return AppLocalizations.of(context).enterDate;
+          return appLocalizations.enterDate;
         }
 
         final date = _tryParseDate(value);
 
         if (date == null) {
-          return AppLocalizations.of(context).enterDate;
+          return appLocalizations.enterDate;
         }
 
         if (date.isBefore(_firstDate) || date.isAfter(_lastDate)) {
-          return AppLocalizations.of(context).enterDate;
+          return appLocalizations.enterDate;
         }
 
         return widget.additionalValidator?.call(date);
