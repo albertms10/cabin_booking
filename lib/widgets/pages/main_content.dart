@@ -2,6 +2,7 @@ import 'package:cabin_booking/model/cabin_manager.dart';
 import 'package:cabin_booking/model/day_handler.dart';
 import 'package:cabin_booking/model/school_year_manager.dart';
 import 'package:cabin_booking/model/writable_manager.dart';
+import 'package:cabin_booking/widgets/layout/save_changes_snack_bar_body.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
@@ -21,19 +22,15 @@ class _MainContentState extends State<MainContent> {
   SchoolYearManager _schoolYearManager;
 
   void _writeAndShowSnackBar(WritableManager manager) async {
-    await manager.writeToFile();
+    final changesSaved = await manager.writeToFile();
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Row(
-          children: [
-            Expanded(
-              child: Text(AppLocalizations.of(context).changesSaved),
-            ),
-            Chip(label: Text('${manager.runtimeType}')),
-          ],
-        ),
-        duration: const Duration(milliseconds: 1200),
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
+        behavior: SnackBarBehavior.floating,
+        duration: Duration(milliseconds: changesSaved ? 1200 : 3000),
+        content: SaveChangesSnackBarBody(changesSaved: changesSaved),
       ),
     );
   }
