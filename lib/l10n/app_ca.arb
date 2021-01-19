@@ -47,6 +47,7 @@
   "actionUndone": "Aquesta acció no es pot desfer.",
   "dataCouldNotBeLoaded": "Les dades no s’han pogut carregar.",
   "changesSaved": "S’han desat els canvis",
+  "errorSavingChanges": "Hi ha hagut un error en desar els canvis",
   "disabled": "Desactivada",
   "description": "Descripció",
   "noCabins": "Sense cabines",

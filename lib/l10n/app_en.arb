@@ -47,6 +47,7 @@
   "actionUndone": "You can’t undo this action.",
   "dataCouldNotBeLoaded": "Data could not be loaded.",
   "changesSaved": "Changes saved",
+  "errorSavingChanges": "Error saving changes",
   "disabled": "disabled",
   "description": "Description",
   "noCabins": "No cabins",
