@@ -18,10 +18,74 @@ class BookingPopupMenu extends StatelessWidget {
     @required this.booking,
   });
 
-  @override
-  Widget build(BuildContext context) {
+  void _onEditSelected(BuildContext context) async {
+    final cabinManager = Provider.of<CabinManager>(context, listen: false);
+
+    final editedBooking = await showDialog<Booking>(
+      context: context,
+      builder: (context) => BookingDialog(
+        (booking.recurringBookingId == null
+            ? booking
+            : cabinManager
+                .cabinFromId(cabin.id)
+                .recurringBookingFromId(booking.recurringBookingId))
+          ..cabinId = cabin.id,
+      ),
+    );
+
+    if (editedBooking == null) return;
+
+    if (RecurringBooking.isRecurringBooking(editedBooking)) {
+      if (RecurringBooking.isRecurringBooking(booking)) {
+        cabinManager.modifyRecurringBooking(
+          cabin.id,
+          editedBooking,
+        );
+      } else {
+        cabinManager.changeBookingToRecurring(
+          cabin.id,
+          editedBooking,
+        );
+      }
+    } else {
+      if (RecurringBooking.isRecurringBooking(booking)) {
+        cabinManager.changeRecurringToBooking(
+          cabin.id,
+          editedBooking,
+        );
+      } else {
+        cabinManager.modifyBooking(cabin.id, editedBooking);
+      }
+    }
+  }
+
+  void _onDeleteSelected(BuildContext context) async {
     final appLocalizations = AppLocalizations.of(context);
 
+    final cabinManager = Provider.of<CabinManager>(context, listen: false);
+
+    final shallDelete = await showDialog<bool>(
+      context: context,
+      builder: (context) => DangerAlertDialog(
+        title: appLocalizations.deleteBookingTitle,
+        content: appLocalizations.actionUndone,
+      ),
+    );
+
+    if (shallDelete == null || !shallDelete) return;
+
+    if (RecurringBooking.isRecurringBooking(booking)) {
+      cabinManager.removeRecurringBookingById(
+        cabin.id,
+        booking.recurringBookingId,
+      );
+    } else {
+      cabinManager.removeBookingById(cabin.id, booking.id);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: const BorderRadius.all(Radius.circular(24.0)),
       child: Material(
@@ -35,82 +99,25 @@ class BookingPopupMenu extends StatelessWidget {
               color: Theme.of(context).hintColor,
             ),
           ),
-          onSelected: (choice) async {
-            final cabinManager =
-                Provider.of<CabinManager>(context, listen: false);
-
+          onSelected: (choice) {
             switch (choice) {
               case 'edit':
-                final editedBooking = await showDialog<Booking>(
-                  context: context,
-                  builder: (context) => BookingDialog(
-                    (booking.recurringBookingId == null
-                        ? booking
-                        : cabinManager
-                            .cabinFromId(cabin.id)
-                            .recurringBookingFromId(booking.recurringBookingId))
-                      ..cabinId = cabin.id,
-                  ),
-                );
-
-                if (editedBooking == null) break;
-
-                if (RecurringBooking.isRecurringBooking(editedBooking)) {
-                  if (RecurringBooking.isRecurringBooking(booking)) {
-                    cabinManager.modifyRecurringBooking(
-                      cabin.id,
-                      editedBooking,
-                    );
-                  } else {
-                    cabinManager.changeBookingToRecurring(
-                      cabin.id,
-                      editedBooking,
-                    );
-                  }
-                } else {
-                  if (RecurringBooking.isRecurringBooking(booking)) {
-                    cabinManager.changeRecurringToBooking(
-                      cabin.id,
-                      editedBooking,
-                    );
-                  } else {
-                    cabinManager.modifyBooking(cabin.id, editedBooking);
-                  }
-                }
-
+                _onEditSelected(context);
                 break;
 
               case 'delete':
-                final shallDelete = await showDialog<bool>(
-                  context: context,
-                  builder: (context) => DangerAlertDialog(
-                    title: appLocalizations.deleteBookingTitle,
-                    content: appLocalizations.actionUndone,
-                  ),
-                );
-
-                if (shallDelete == null || !shallDelete) break;
-
-                if (RecurringBooking.isRecurringBooking(booking)) {
-                  cabinManager.removeRecurringBookingById(
-                    cabin.id,
-                    booking.recurringBookingId,
-                  );
-                } else {
-                  cabinManager.removeBookingById(cabin.id, booking.id);
-                }
-
+                _onDeleteSelected(context);
                 break;
             }
           },
-          itemBuilder: (BuildContext context) {
+          itemBuilder: (context) {
             const height = 41.0;
 
             return [
               PopupMenuItem(
                 value: 'edit',
                 child: IconMenuItemContent(
-                  text: appLocalizations.edit,
+                  text: AppLocalizations.of(context).edit,
                   icon: Icons.edit,
                 ),
                 height: height,
