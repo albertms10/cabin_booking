@@ -309,6 +309,29 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
     if (notify) notifyListeners();
   }
 
+  void modifyBookingStatusById(
+    String cabinId,
+    String bookingId,
+    BookingStatus status, {
+    bool notify = true,
+  }) {
+    cabinFromId(cabinId).modifyBookingStatusById(bookingId, status);
+
+    if (notify) notifyListeners();
+  }
+
+  void modifyRecurringBookingStatusById(
+    String cabinId,
+    String recurringBookingId,
+    BookingStatus status, {
+    bool notify = true,
+  }) {
+    cabinFromId(cabinId)
+        .modifyRecurringBookingStatusById(recurringBookingId, status);
+
+    if (notify) notifyListeners();
+  }
+
   void removeBookingById(
     String cabinId,
     String bookingId, {

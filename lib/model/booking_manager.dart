@@ -303,6 +303,28 @@ class BookingManager with ChangeNotifier {
     if (notify) notifyListeners();
   }
 
+  void modifyBookingStatusById(
+    String id,
+    BookingStatus status, {
+    bool notify = true,
+  }) {
+    bookings.firstWhere((booking) => booking.id == id).status = status;
+
+    if (notify) notifyListeners();
+  }
+
+  void modifyRecurringBookingStatusById(
+    String id,
+    BookingStatus status, {
+    bool notify = true,
+  }) {
+    recurringBookings
+        .firstWhere((recurringBooking) => recurringBooking.id == id)
+        .status = status;
+
+    if (notify) notifyListeners();
+  }
+
   void removeBookingById(
     String id, {
     bool notify = true,

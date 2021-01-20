@@ -139,6 +139,12 @@ class Cabin extends Item {
   void modifyRecurringBooking(RecurringBooking recurringBooking) =>
       _bookingManager.modifyRecurringBooking(recurringBooking);
 
+  void modifyBookingStatusById(String id, BookingStatus status) =>
+      _bookingManager.modifyBookingStatusById(id, status);
+
+  void modifyRecurringBookingStatusById(String id, BookingStatus status) =>
+      _bookingManager.modifyRecurringBookingStatusById(id, status);
+
   void removeBookingById(String id) => _bookingManager.removeBookingById(id);
 
   void removeRecurringBookingById(String id) =>
