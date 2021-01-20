@@ -115,5 +115,8 @@
   "more": "Més",
   "activity": "Activitat",
   "pastYearOfActivity": "Últim any d’activitat",
-  "popularTimes": "Hores de més afluència"
+  "popularTimes": "Hores de més afluència",
+  "pending": "Pendent",
+  "confirmed": "Confirmada",
+  "cancelled": "Cancel·lada"
 }

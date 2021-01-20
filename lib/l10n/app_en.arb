@@ -115,5 +115,8 @@
   "more": "More",
   "activity": "Activity",
   "pastYearOfActivity": "Past year of activity",
-  "popularTimes": "Popular times"
+  "popularTimes": "Popular times",
+  "pending": "Pending",
+  "confirmed": "Confirmed",
+  "cancelled": "Cancelled"
 }
