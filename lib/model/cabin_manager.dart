@@ -6,6 +6,7 @@ import 'package:cabin_booking/model/cabin.dart';
 import 'package:cabin_booking/model/date_range.dart';
 import 'package:cabin_booking/model/recurring_booking.dart';
 import 'package:cabin_booking/model/writable_manager.dart';
+import 'package:cabin_booking/utils/datetime.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -68,9 +69,7 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
   Map<TimeOfDay, Duration> accumulatedTimeRangesOccupancy([
     DateRange dateRange,
   ]) {
-    final timeRanges = SplayTreeMap<TimeOfDay, Duration>(
-      (a, b) => (a.hour - b.hour) * 60 + a.minute - b.minute,
-    );
+    final timeRanges = SplayTreeMap<TimeOfDay, Duration>(compareTime);
 
     for (final cabin in cabins) {
       final accumulatedTimeRanges =
@@ -102,7 +101,7 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
       sortedTimeRanges
           .where((timeRange) => timeRange.value == highestOccupancyDuration)
           .map((timeRange) => timeRange.key),
-      (a, b) => (a.hour - b.hour) * 60 + a.minute - b.minute,
+      compareTime,
     );
   }
 

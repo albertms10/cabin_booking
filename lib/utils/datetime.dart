@@ -79,3 +79,6 @@ Map<K, V> fillEmptyKeyValues<K, V>(
 
   return map;
 }
+
+int compareTime(TimeOfDay a, TimeOfDay b) =>
+    (a.hour - b.hour) * 60 + a.minute - b.minute;

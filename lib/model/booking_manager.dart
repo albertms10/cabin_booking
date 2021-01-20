@@ -248,7 +248,7 @@ class BookingManager with ChangeNotifier {
       sortedTimeRanges
           .where((timeRange) => timeRange.value == highestOccupancyDuration)
           .map((timeRange) => timeRange.key),
-      (a, b) => (a.hour - b.hour) * 60 + a.minute - b.minute,
+      compareTime,
     );
   }
 
