@@ -141,6 +141,7 @@ class SummaryPage extends StatelessWidget {
                     colorThresholds: mapColorsToHighestValue(
                       highestValue: cabinManager.mostBookedDayEntry?.value ?? 1,
                       color: Theme.of(context).accentColor,
+                      colorSamples: 8,
                     ),
                     firstWeekDay: DateTime.monday,
                     firstDate:

@@ -6,8 +6,11 @@ import 'package:flutter/material.dart';
 Map<int, Color> mapColorsToHighestValue({
   @required int highestValue,
   @required Color color,
-  int colorSamples = 8,
+  @required int colorSamples,
 }) {
+  assert(colorSamples != null);
+  assert(colorSamples > 0);
+
   final colorMap = SplayTreeMap<int, Color>();
 
   colorMap.addAll({1: color.withOpacity(0.2)});
