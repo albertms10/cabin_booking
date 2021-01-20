@@ -27,10 +27,9 @@ class PopularTimesBarChart extends StatelessWidget {
             bottomTitles: SideTitles(
               showTitles: true,
               getTitles: (value) => value % 3.0 == 0 ? '${value.toInt()}' : '',
-              getTextStyles: (value) => const TextStyle(
-                color: Color(0xff7589a2),
+              getTextStyles: (value) => TextStyle(
+                color: theme.hintColor,
                 fontWeight: FontWeight.bold,
-                fontSize: 14.0,
               ),
               margin: 8.0,
             ),
