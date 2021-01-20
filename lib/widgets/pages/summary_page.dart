@@ -9,7 +9,7 @@ import 'package:cabin_booking/widgets/layout/popular_times_bar_chart.dart';
 import 'package:cabin_booking/widgets/layout/radio_button_list.dart';
 import 'package:cabin_booking/widgets/layout/statistics.dart';
 import 'package:cabin_booking/widgets/pages/home_page.dart';
-import 'package:cabin_booking/widgets/standalone/heatmap_calendar/heatmap_calendar.dart';
+import 'package:cabin_booking/widgets/standalone/heat_map_calendar/heat_map_calendar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';

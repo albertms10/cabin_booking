@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'heatmap_day.dart';
+import 'heat_map_day.dart';
 
 class HeatMapLegend extends StatelessWidget {
   final double squareSize;

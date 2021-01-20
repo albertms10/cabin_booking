@@ -1,8 +1,8 @@
 import 'package:cabin_booking/utils/datetime.dart';
 import 'package:flutter/material.dart';
 
-import 'heatmap_calendar.dart';
-import 'heatmap_day.dart';
+import 'heat_map_calendar.dart';
+import 'heat_map_day.dart';
 import 'month_label.dart';
 import 'time_utils.dart';
 
