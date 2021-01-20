@@ -6,6 +6,7 @@ import 'package:cabin_booking/widgets/layout/detailed_figure.dart';
 import 'package:cabin_booking/widgets/layout/duration_figure_unit.dart';
 import 'package:cabin_booking/widgets/layout/heading.dart';
 import 'package:cabin_booking/widgets/layout/popular_times_bar_chart.dart';
+import 'package:cabin_booking/widgets/layout/radio_button_list.dart';
 import 'package:cabin_booking/widgets/layout/statistics.dart';
 import 'package:cabin_booking/widgets/pages/home_page.dart';
 import 'package:cabin_booking/widgets/standalone/heatmap_calendar/heatmap_calendar.dart';
@@ -129,6 +130,7 @@ class SummaryPage extends StatelessWidget {
             Heading(appLocalizations.bookings),
             const SizedBox(height: 16.0),
             Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
                   child: HeatMapCalendar(
@@ -154,6 +156,18 @@ class SummaryPage extends StatelessWidget {
                     legendLessLabel: appLocalizations.less,
                     legendMoreLabel: appLocalizations.more,
                   ),
+                ),
+                const SizedBox(width: 16.0),
+                RadioButtonList(
+                  itemCount: dayHandler.schoolYearManager.schoolYears.length,
+                  itemBuilder: (context, index) {
+                    return Text(
+                      '${dayHandler.schoolYearManager.schoolYears.elementAt(index)}',
+                    );
+                  },
+                  initialIndex: dayHandler.schoolYearManager.schoolYearIndex,
+                  onChanged: (index) => dayHandler.schoolYearIndex = index,
+                  reverse: true,
                 ),
               ],
             ),
