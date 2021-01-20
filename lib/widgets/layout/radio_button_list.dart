@@ -38,6 +38,8 @@ class _RadioButtonListState extends State<RadioButtonList> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Column(
       children: [
         for (var i = widget._initialLoopIndex;
@@ -47,10 +49,9 @@ class _RadioButtonListState extends State<RadioButtonList> {
             padding:
                 EdgeInsets.only(bottom: i == widget._lastLoopIndex ? 0.0 : 4.0),
             child: FlatButton(
-              color: _selectedIndex == i ? Colors.blue : null,
+              color: _selectedIndex == i ? theme.primaryColor : null,
               textTheme: ButtonTextTheme.primary,
-              textColor:
-                  _selectedIndex == i ? null : Theme.of(context).hintColor,
+              textColor: _selectedIndex == i ? null : theme.hintColor,
               padding:
                   const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
               onPressed: () {
