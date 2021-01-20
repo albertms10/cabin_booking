@@ -1,10 +1,13 @@
 import 'package:cabin_booking/constants.dart';
 import 'package:cabin_booking/model/booking.dart';
 import 'package:cabin_booking/model/cabin.dart';
+import 'package:cabin_booking/model/cabin_manager.dart';
 import 'package:cabin_booking/model/recurring_booking.dart';
 import 'package:cabin_booking/widgets/booking/booking_popup_menu.dart';
+import 'package:cabin_booking/widgets/booking/booking_status_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:provider/provider.dart';
 import 'package:timer_builder/timer_builder.dart';
 
 class BookingCard extends StatelessWidget {
@@ -129,9 +132,34 @@ class BookingCardInfo extends StatelessWidget {
                 ),
               ],
             ),
-            BookingPopupMenu(
-              cabin: cabin,
-              booking: booking,
+            SizedBox(
+              height: double.infinity,
+              child: Wrap(
+                direction: Axis.vertical,
+                alignment: WrapAlignment.spaceBetween,
+                spacing: -8.0,
+                runAlignment: WrapAlignment.center,
+                runSpacing: -8.0,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                children: [
+                  BookingPopupMenu(
+                    cabin: cabin,
+                    booking: booking,
+                  ),
+                  BookingStatusButton(
+                    status: booking.status,
+                    onPressed: () {
+                      Provider.of<CabinManager>(context, listen: false)
+                          .modifyBookingStatusById(
+                        cabin.id,
+                        booking.id,
+                        BookingStatus.values[(booking.status.index + 1) %
+                            BookingStatus.values.length],
+                      );
+                    },
+                  ),
+                ],
+              ),
             ),
           ],
         );
