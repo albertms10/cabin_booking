@@ -129,7 +129,7 @@ class BookingPopupMenu extends StatelessWidget {
                   icon: Icons.delete,
                 ),
                 height: height,
-              )
+              ),
             ];
           },
         ),

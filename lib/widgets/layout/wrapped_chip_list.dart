@@ -32,7 +32,7 @@ class WrappedChipList<T> extends StatelessWidget {
               '+${items.length - maxShown}',
               style: Theme.of(context).textTheme.overline,
             ),
-          )
+          ),
       ],
     );
   }

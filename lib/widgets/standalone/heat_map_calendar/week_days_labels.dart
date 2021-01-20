@@ -34,7 +34,7 @@ class WeekDaysLabels extends StatelessWidget {
               ),
             )
           else
-            SizedBox(height: squareSize + space)
+            SizedBox(height: squareSize + space),
       ],
     );
   }

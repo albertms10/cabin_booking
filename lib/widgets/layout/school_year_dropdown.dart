@@ -59,7 +59,7 @@ class _SchoolYearDropdownState extends State<SchoolYearDropdown> {
               '${dayHandler.schoolYearManager.schoolYears.elementAt(i)}',
             ),
             value: i,
-          )
+          ),
       ],
     );
   }

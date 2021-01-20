@@ -245,7 +245,7 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
                                     endDate: firstWeekDate(DateTime.now()),
                                   ),
                           ),
-                        )
+                        ),
                       ],
                     );
                   },

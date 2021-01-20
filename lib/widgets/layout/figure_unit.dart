@@ -26,7 +26,7 @@ class FigureUnit extends StatelessWidget {
             Text(
               unit,
               style: theme.textTheme.subtitle2,
-            )
+            ),
           ],
         ),
       ],

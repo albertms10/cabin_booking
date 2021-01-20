@@ -83,7 +83,7 @@ class AnimatedChild extends AnimatedWidget {
                     : const SizedBox(),
               ),
             ),
-          )
+          ),
         ],
       ),
     );
