@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 Set<List<T>> compactizeRange<T>(
   Set<T> rangeSet, {
   T Function(T a) nextValue,
@@ -11,7 +13,7 @@ Set<List<T>> compactizeRange<T>(
     assert(nextValue != null);
   }
 
-  final ranges = <List<T>>{};
+  final ranges = SplayTreeSet<List<T>>();
 
   var start = rangeSet.first;
   T b;
