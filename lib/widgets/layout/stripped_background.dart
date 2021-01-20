@@ -12,7 +12,7 @@ class StrippedBackground extends StatelessWidget {
     this.height = 60.0 * kBookingHeightRatio,
   });
 
-  int get rowCount => endTime.hour - startTime.hour + 1;
+  int get rowCount => (endTime.hour - startTime.hour).abs() + 1;
 
   @override
   Widget build(BuildContext context) {
