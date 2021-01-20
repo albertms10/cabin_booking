@@ -2,7 +2,7 @@ import 'package:cabin_booking/constants.dart';
 import 'package:cabin_booking/model/booking.dart';
 import 'package:cabin_booking/model/cabin.dart';
 import 'package:cabin_booking/model/day_handler.dart';
-import 'package:cabin_booking/utils/date.dart';
+import 'package:cabin_booking/utils/datetime.dart';
 import 'package:cabin_booking/widgets/booking/booking_card.dart';
 import 'package:cabin_booking/widgets/booking/disabled_booking_card.dart';
 import 'package:cabin_booking/widgets/booking/empty_booking_slot.dart';

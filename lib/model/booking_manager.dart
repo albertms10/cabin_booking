@@ -3,7 +3,7 @@ import 'dart:collection';
 import 'package:cabin_booking/model/booking.dart';
 import 'package:cabin_booking/model/date_range.dart';
 import 'package:cabin_booking/model/recurring_booking.dart';
-import 'package:cabin_booking/utils/date.dart';
+import 'package:cabin_booking/utils/datetime.dart';
 import 'package:flutter/material.dart';
 
 class BookingManager with ChangeNotifier {

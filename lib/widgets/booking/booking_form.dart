@@ -4,7 +4,7 @@ import 'package:cabin_booking/constants.dart';
 import 'package:cabin_booking/model/booking.dart';
 import 'package:cabin_booking/model/cabin_manager.dart';
 import 'package:cabin_booking/model/recurring_booking.dart';
-import 'package:cabin_booking/utils/date.dart';
+import 'package:cabin_booking/utils/datetime.dart';
 import 'package:cabin_booking/widgets/booking/periodicity_dropdown.dart';
 import 'package:cabin_booking/widgets/cabin/cabin_dropdown.dart';
 import 'package:cabin_booking/widgets/layout/date_form_field.dart';

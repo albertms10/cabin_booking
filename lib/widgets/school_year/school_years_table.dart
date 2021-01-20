@@ -2,7 +2,7 @@ import 'package:cabin_booking/model/cabin_manager.dart';
 import 'package:cabin_booking/model/day_handler.dart';
 import 'package:cabin_booking/model/school_year.dart';
 import 'package:cabin_booking/utils/compactize_range.dart';
-import 'package:cabin_booking/utils/date.dart';
+import 'package:cabin_booking/utils/datetime.dart';
 import 'package:cabin_booking/widgets/item/items_table.dart';
 import 'package:cabin_booking/widgets/school_year/school_year_dialog.dart';
 import 'package:flutter/material.dart';

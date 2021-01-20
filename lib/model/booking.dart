@@ -1,6 +1,6 @@
 import 'package:cabin_booking/model/date_range.dart';
 import 'package:cabin_booking/model/item.dart';
-import 'package:cabin_booking/utils/date.dart';
+import 'package:cabin_booking/utils/datetime.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
