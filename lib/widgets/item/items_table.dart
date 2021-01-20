@@ -190,7 +190,7 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
                             children: [
                               Icon(
                                 widget.itemIcon,
-                                color: Theme.of(context).accentColor,
+                                color: theme.accentColor,
                               ),
                               const SizedBox(width: 12.0),
                               Text(

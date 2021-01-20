@@ -26,7 +26,7 @@ class BookingFloatingActionButton extends StatelessWidget {
           animatedIcon: AnimatedIcons.add_event,
           animatedIconTheme: IconThemeData(
             size: 25.0,
-            color: Theme.of(context).colorScheme.onPrimary,
+            color: theme.colorScheme.onPrimary,
           ),
           label: Text(
             appLocalizations.booking,

@@ -31,12 +31,14 @@ class HeatMapLegend extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(
           lessLabel ?? 'Less',
-          style: Theme.of(context).textTheme.caption,
+          style: theme.textTheme.caption,
         ),
         SizedBox(width: space),
         for (final color in colorThresholds.entries)
@@ -50,7 +52,7 @@ class HeatMapLegend extends StatelessWidget {
         SizedBox(width: space),
         Text(
           moreLabel ?? 'More',
-          style: Theme.of(context).textTheme.caption,
+          style: theme.textTheme.caption,
         ),
       ],
     );

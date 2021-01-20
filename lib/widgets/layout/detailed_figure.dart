@@ -26,6 +26,8 @@ class DetailedFigure<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return tooltipWrap(
       tooltipMessage: tooltipMessage,
       condition: filteredDetails.length > 1 && tooltipMessage != null,
@@ -34,7 +36,7 @@ class DetailedFigure<T> extends StatelessWidget {
         children: [
           Text(
             '$figure',
-            style: Theme.of(context).textTheme.headline5,
+            style: theme.textTheme.headline5,
           ),
           if (filteredDetails.length > 1)
             Padding(
@@ -49,9 +51,7 @@ class DetailedFigure<T> extends StatelessWidget {
                         child: detailsSeparator ??
                             Text(
                               '+',
-                              style: TextStyle(
-                                color: Theme.of(context).hintColor,
-                              ),
+                              style: TextStyle(color: theme.hintColor),
                             ),
                       ),
                   ],

@@ -98,7 +98,7 @@ class BookingCardInfo extends StatelessWidget {
                       padding: const EdgeInsets.only(right: 4.0),
                       child: Icon(
                         Icons.repeat,
-                        color: Theme.of(context).hintColor,
+                        color: theme.hintColor,
                         size: 16.0,
                       ),
                     ),

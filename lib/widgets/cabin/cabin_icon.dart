@@ -20,11 +20,11 @@ class CabinIcon extends StatelessWidget {
 
     final text = Text(
       '$number',
-      style: Theme.of(context).accentTextTheme.headline5.copyWith(
-            color: shouldShowProgress
-                ? theme.accentColor
-                : theme.colorScheme.onPrimary,
-          ),
+      style: theme.accentTextTheme.headline5.copyWith(
+        color: shouldShowProgress
+            ? theme.accentColor
+            : theme.colorScheme.onPrimary,
+      ),
       textAlign: TextAlign.center,
     );
 

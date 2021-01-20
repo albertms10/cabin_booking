@@ -16,6 +16,8 @@ class Statistics extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Card(
       child: InkWell(
         onTap: onTap,
@@ -39,13 +41,13 @@ class Statistics extends StatelessWidget {
                           child: Icon(
                             icon,
                             size: 18.0,
-                            color: Theme.of(context).hintColor,
+                            color: theme.hintColor,
                           ),
                         ),
                       if (title != null)
                         Text(
                           title,
-                          style: Theme.of(context).textTheme.subtitle1,
+                          style: theme.textTheme.subtitle1,
                         ),
                     ],
                   ),

@@ -15,6 +15,7 @@ class ItemInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     final appLocalizations = AppLocalizations.of(context);
 
     return Column(
@@ -25,7 +26,7 @@ class ItemInfo extends StatelessWidget {
               creationDateTime.day,
               DateFormat.yMMMd().format(creationDateTime),
             ),
-            style: Theme.of(context).textTheme.caption,
+            style: theme.textTheme.caption,
           ),
         if (modificationDateTime != null)
           Text(
@@ -33,12 +34,12 @@ class ItemInfo extends StatelessWidget {
               modificationDateTime.day,
               DateFormat.yMMMd().format(modificationDateTime),
             ),
-            style: Theme.of(context).textTheme.caption,
+            style: theme.textTheme.caption,
           ),
         if (modificationCount > 1)
           Text(
             appLocalizations.nModifications(modificationCount),
-            style: Theme.of(context).textTheme.caption,
+            style: theme.textTheme.caption,
           ),
       ],
     );

@@ -12,14 +12,16 @@ class Heading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           heading,
-          style: Theme.of(context).textTheme.headline5.copyWith(
-                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.8),
-              ),
+          style: theme.textTheme.headline5.copyWith(
+            color: theme.colorScheme.onSurface.withOpacity(0.8),
+          ),
         ),
         if (divider) const Divider(),
       ],

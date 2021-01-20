@@ -8,13 +8,15 @@ class FigureUnit extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(
           '$value',
-          style: Theme.of(context).textTheme.headline5,
+          style: theme.textTheme.headline5,
         ),
         const SizedBox(width: 2.0),
         Column(
@@ -23,7 +25,7 @@ class FigureUnit extends StatelessWidget {
             const SizedBox(height: 2.0),
             Text(
               unit,
-              style: Theme.of(context).textTheme.subtitle2,
+              style: theme.textTheme.subtitle2,
             )
           ],
         ),

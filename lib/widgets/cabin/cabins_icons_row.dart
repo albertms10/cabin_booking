@@ -11,8 +11,10 @@ class CabinsIconsRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Container(
-      color: Theme.of(context).dialogBackgroundColor,
+      color: theme.dialogBackgroundColor,
       padding: const EdgeInsets.symmetric(vertical: 24.0),
       child: Consumer2<DayHandler, CabinManager>(
         builder: (context, dayHandler, cabinManager, child) {
@@ -24,9 +26,7 @@ class CabinsIconsRow extends StatelessWidget {
                   child: Text(
                     AppLocalizations.of(context).noCabins,
                     textAlign: TextAlign.center,
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline5
+                    style: theme.textTheme.headline5
                         .copyWith(color: Colors.grey[600]),
                   ),
                 )
