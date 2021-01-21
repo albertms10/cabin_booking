@@ -90,10 +90,7 @@ class BookingsStack extends StatelessWidget {
 
           runSlotList.add(
             EmptyBookingSlot(
-              key: _emptyBookingSlotKey(
-                currentBookingDate,
-                slotCount++,
-              ),
+              key: _emptyBookingSlotKey(currentBookingDate, slotCount++),
               cabin: cabin,
               startDateTime: currentBookingDate,
               endDateTime: nextBookingDateTime,
@@ -109,10 +106,7 @@ class BookingsStack extends StatelessWidget {
 
         runSlotList.add(
           EmptyBookingSlot(
-            key: _emptyBookingSlotKey(
-              currentBookingDate,
-              slotCount++,
-            ),
+            key: _emptyBookingSlotKey(currentBookingDate, slotCount++),
             cabin: cabin,
             startDateTime: currentBookingDate,
             endDateTime: nextBookingDateTime,
