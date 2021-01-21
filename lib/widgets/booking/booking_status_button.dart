@@ -25,26 +25,31 @@ class BookingStatusButton extends StatelessWidget {
 
   Map<BookingStatus, Color> _statusColors(BuildContext context) => {
         BookingStatus.Pending: Theme.of(context).hintColor,
-        BookingStatus.Confirmed: Colors.green,
-        BookingStatus.Cancelled: Colors.red,
+        BookingStatus.Confirmed: Colors.green.withOpacity(0.6),
+        BookingStatus.Cancelled: Colors.red.withOpacity(0.6),
       };
 
   Map<BookingStatus, IconData> get _statusIcons => {
         BookingStatus.Pending: Icons.help,
         BookingStatus.Confirmed: Icons.check,
-        BookingStatus.Cancelled: Icons.cancel,
+        BookingStatus.Cancelled: Icons.clear,
       };
 
   @override
   Widget build(BuildContext context) {
     return Tooltip(
       message: _statusMessages(context)[status],
-      child: IconButton(
-        icon: Icon(_statusIcons[status]),
-        iconSize: 14.0,
-        splashRadius: 14.0,
-        color: _statusColors(context)[status],
-        onPressed: onPressed,
+      child: Material(
+        color: Colors.transparent,
+        shape: const StadiumBorder(),
+        child: IconButton(
+          padding: const EdgeInsets.all(0.0),
+          icon: Icon(_statusIcons[status]),
+          iconSize: 14.0,
+          splashRadius: 14.0,
+          color: _statusColors(context)[status],
+          onPressed: onPressed,
+        ),
       ),
     );
   }

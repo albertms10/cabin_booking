@@ -50,7 +50,12 @@ class BookingCard extends StatelessWidget {
               color: Colors.transparent,
               child: Container(
                 height: value,
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.only(
+                  top: 8.0,
+                  right: 4.0,
+                  bottom: 0.0,
+                  left: 10.0,
+                ),
                 decoration: BoxDecoration(
                   color: Theme.of(context)
                       .cardColor

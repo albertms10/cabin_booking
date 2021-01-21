@@ -46,8 +46,8 @@ class PopularTimesBarChart extends StatelessWidget {
                     width: 20.0,
                     colors: colors,
                     borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(6.0),
-                      topRight: Radius.circular(6.0),
+                      topLeft: Radius.circular(4.0),
+                      topRight: Radius.circular(4.0),
                     ),
                   ),
                 ],
