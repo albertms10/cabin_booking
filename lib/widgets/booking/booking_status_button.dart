@@ -24,8 +24,11 @@ class BookingStatusButton extends StatelessWidget {
 
   Map<BookingStatus, Color> _statusColors(BuildContext context) => {
         BookingStatus.Pending: Theme.of(context).hintColor,
-        BookingStatus.Confirmed: Colors.green.withOpacity(0.6),
-        BookingStatus.Cancelled: Colors.red.withOpacity(0.6),
+        BookingStatus.Confirmed:
+            Theme.of(context).brightness == Brightness.light
+                ? Colors.greenAccent[700]
+                : Colors.greenAccent,
+        BookingStatus.Cancelled: Colors.redAccent,
       };
 
   Map<BookingStatus, IconData> get _statusIcons => {
