@@ -240,6 +240,10 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
                         _toggleChildren();
                       }
                     : _toggleChildren,
+                heroTag: widget.heroTag,
+                shape: widget.shape,
+                curve: widget.curve,
+                animationSpeed: widget.animationSpeed,
                 child: widget.animatedIcon != null
                     ? AnimatedIcon(
                         icon: widget.animatedIcon,
@@ -248,10 +252,6 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
                         size: widget.animatedIconTheme?.size,
                       )
                     : widget.child,
-                heroTag: widget.heroTag,
-                shape: widget.shape,
-                curve: widget.curve,
-                animationSpeed: widget.animationSpeed,
               ),
             ),
           ),

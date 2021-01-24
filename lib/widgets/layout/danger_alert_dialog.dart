@@ -35,13 +35,13 @@ class DangerAlertDialog extends StatelessWidget {
             Navigator.of(context).pop(true);
           },
           padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
+          hoverColor: Colors.red.withOpacity(0.1),
+          splashColor: Colors.red.withOpacity(0.15),
           child: Text(
             (okText ?? MaterialLocalizations.of(context).deleteButtonTooltip)
                 .toUpperCase(),
             style: TextStyle(color: Theme.of(context).errorColor),
           ),
-          hoverColor: Colors.red.withOpacity(0.1),
-          splashColor: Colors.red.withOpacity(0.15),
         ),
       ],
     );

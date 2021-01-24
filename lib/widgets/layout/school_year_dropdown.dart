@@ -55,10 +55,10 @@ class _SchoolYearDropdownState extends State<SchoolYearDropdown> {
             i < dayHandler.schoolYearManager.schoolYears.length;
             i++)
           DropdownMenuItem<int>(
+            value: i,
             child: Text(
               '${dayHandler.schoolYearManager.schoolYears.elementAt(i)}',
             ),
-            value: i,
           ),
       ],
     );

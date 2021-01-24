@@ -91,14 +91,6 @@ class BookingPopupMenu extends StatelessWidget {
       child: Material(
         color: Colors.transparent,
         child: PopupMenuButton<String>(
-          child: Padding(
-            padding: const EdgeInsets.all(6.0),
-            child: Icon(
-              Icons.more_vert,
-              size: 18.0,
-              color: Theme.of(context).hintColor,
-            ),
-          ),
           onSelected: (choice) {
             switch (choice) {
               case 'edit':
@@ -116,22 +108,30 @@ class BookingPopupMenu extends StatelessWidget {
             return [
               PopupMenuItem(
                 value: 'edit',
+                height: height,
                 child: IconMenuItemContent(
                   text: AppLocalizations.of(context).edit,
                   icon: Icons.edit,
                 ),
-                height: height,
               ),
               PopupMenuItem(
                 value: 'delete',
+                height: height,
                 child: IconMenuItemContent(
                   text: MaterialLocalizations.of(context).deleteButtonTooltip,
                   icon: Icons.delete,
                 ),
-                height: height,
               ),
             ];
           },
+          child: Padding(
+            padding: const EdgeInsets.all(6.0),
+            child: Icon(
+              Icons.more_vert,
+              size: 18.0,
+              color: Theme.of(context).hintColor,
+            ),
+          ),
         ),
       ),
     );
