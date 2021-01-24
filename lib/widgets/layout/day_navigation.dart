@@ -15,8 +15,10 @@ class DayNavigation extends StatelessWidget {
       builder: (context, dayHandler, child) {
         return Row(
           children: [
-            FlatButton(
-              padding: const EdgeInsets.symmetric(vertical: 18.0),
+            TextButton(
+              style: TextButton.styleFrom(
+                padding: const EdgeInsets.symmetric(vertical: 16.0),
+              ),
               onPressed: () => dayHandler.changeToNow(),
               child: Text(appLocalizations.today),
             ),

@@ -48,14 +48,17 @@ class _RadioButtonListState extends State<RadioButtonList> {
           Padding(
             padding:
                 EdgeInsets.only(bottom: i == widget._lastLoopIndex ? 0.0 : 4.0),
-            child: FlatButton(
-              color: _selectedIndex == i
-                  ? theme.colorScheme.secondaryVariant
-                  : null,
-              textTheme: ButtonTextTheme.primary,
-              textColor: _selectedIndex == i ? null : theme.hintColor,
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
+            child: TextButton(
+              style: ElevatedButton.styleFrom(
+                primary: _selectedIndex == i
+                    ? theme.colorScheme.secondaryVariant
+                    : null,
+                onPrimary: _selectedIndex == i ? Colors.white : theme.hintColor,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24.0,
+                  vertical: 16.0,
+                ),
+              ),
               onPressed: () {
                 if (i != _selectedIndex) {
                   setState(() => _selectedIndex = i);
