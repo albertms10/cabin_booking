@@ -91,14 +91,14 @@ packages:
       name: file
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.0.0"
+    version: "6.1.0"
   fl_chart:
     dependency: "direct main"
     description:
       name: fl_chart
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.12.2"
+    version: "0.12.3"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -148,7 +148,7 @@ packages:
       name: nested
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.5-nullsafety.1"
+    version: "1.0.0"
   path:
     dependency: transitive
     description:
@@ -239,7 +239,7 @@ packages:
       name: provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.0.0-nullsafety.3"
+    version: "5.0.0-nullsafety.5"
   sky_engine:
     dependency: transitive
     description: flutter
