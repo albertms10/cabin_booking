@@ -100,7 +100,7 @@ class EmptyBookingSlotActionable extends StatelessWidget {
         borderRadius: BorderRadius.all(Radius.circular(4.0)),
       ),
       child: Tooltip(
-        message: '${preciseDuration} min',
+        message: '$preciseDuration min',
         child: InkWell(
           borderRadius: const BorderRadius.all(Radius.circular(4.0)),
           onTap: () {
