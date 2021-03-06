@@ -380,7 +380,7 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
       final file = await fileManager.localFile(fileName);
       final content = await file.readAsString();
 
-      final cabins = await _parseCabins(content);
+      final cabins = _parseCabins(content);
 
       return SplayTreeSet.from(cabins);
     } catch (e) {

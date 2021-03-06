@@ -113,7 +113,7 @@ class SchoolYearManager extends WritableManager<Set<SchoolYear>>
       final file = await fileManager.localFile(fileName);
       final content = await file.readAsString();
 
-      final schoolYears = await _parseSchoolYears(content);
+      final schoolYears =  _parseSchoolYears(content);
 
       return SplayTreeSet.from(schoolYears);
     } catch (e) {
