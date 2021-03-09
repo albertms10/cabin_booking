@@ -24,7 +24,7 @@ class SchoolYearFloatingActionButton extends StatelessWidget {
           schoolYearManager.addSchoolYear(newSchoolYear);
         }
       },
-      tooltip: AppLocalizations.of(context).schoolYear,
+      tooltip: AppLocalizations.of(context)!.schoolYear,
       child: Icon(
         Icons.school_outlined,
         color: Theme.of(context).colorScheme.onPrimary,

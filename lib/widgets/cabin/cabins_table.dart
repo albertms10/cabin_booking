@@ -14,9 +14,9 @@ class CabinsTable extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<CabinManager>(
       builder: (context, cabinManager, child) {
-        final appLocalizations = AppLocalizations.of(context);
+        final appLocalizations = AppLocalizations.of(context)!;
 
-        return ItemsTable(
+        return ItemsTable<Cabin>(
           itemTitle: (row) => '${row.item.number}',
           itemIcon: Icons.sensor_door,
           itemHeaderLabel: appLocalizations.cabin,
@@ -43,7 +43,7 @@ class CabinsTable extends StatelessWidget {
             for (final cabin in cabinManager.cabins)
               ItemsTableRow<Cabin>(
                 item: cabin,
-                bookingsCount: cabin.bookings.length,
+                bookingsCount: cabin.bookings!.length,
                 recurringBookingsCount:
                     cabin.generatedBookingsFromRecurring.length,
                 occupiedDuration: cabin.occupiedDuration(),
@@ -67,7 +67,7 @@ class CabinsTable extends StatelessWidget {
                 ),
                 mostOccupiedTimeRanges: compactizeRange<TimeOfDay>(
                   cabin.mostOccupiedTimeRange(),
-                  nextValue: (timeOfDay) => timeOfDay.replacing(
+                  nextValue: (timeOfDay) => timeOfDay!.replacing(
                     hour: (timeOfDay.hour + 1) % TimeOfDay.hoursPerDay,
                   ),
                   inclusive: true,

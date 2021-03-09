@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 class CabinIcon extends StatelessWidget {
-  final int number;
-  final double progress;
+  final int? number;
+  final double? progress;
 
   const CabinIcon({
-    Key key,
-    @required this.number,
+    Key? key,
+    required this.number,
     this.progress,
   }) : super(key: key);
 
@@ -20,7 +20,7 @@ class CabinIcon extends StatelessWidget {
 
     final text = Text(
       '$number',
-      style: theme.accentTextTheme.headline5.copyWith(
+      style: theme.accentTextTheme.headline5!.copyWith(
         color: shouldShowProgress
             ? theme.accentColor
             : theme.colorScheme.onPrimary,

@@ -4,8 +4,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 class CabinDropdown extends StatelessWidget {
-  final String value;
-  final void Function(String) onChanged;
+  final String? value;
+  final void Function(String?)? onChanged;
 
   const CabinDropdown({
     this.value,
@@ -24,7 +24,7 @@ class CabinDropdown extends StatelessWidget {
               DropdownMenuItem(
                 value: cabin.id,
                 child: Text(
-                  '${AppLocalizations.of(context).cabin} ${cabin.number}',
+                  '${AppLocalizations.of(context)!.cabin} ${cabin.number}',
                 ),
               ),
           ],

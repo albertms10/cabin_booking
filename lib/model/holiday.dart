@@ -4,9 +4,9 @@ class Holiday extends DateRange {
   final HolidayKind kind;
 
   Holiday({
-    String id,
-    DateTime startDate,
-    DateTime endDate,
+    String? id,
+    DateTime? startDate,
+    DateTime? endDate,
     this.kind = HolidayKind.Festivity,
   }) : super(
           id: id,

@@ -7,8 +7,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CabinForm extends StatefulWidget {
-  final Cabin cabin;
-  final int newCabinNumber;
+  final Cabin? cabin;
+  final int? newCabinNumber;
 
   const CabinForm({
     this.cabin,
@@ -22,7 +22,7 @@ class CabinForm extends StatefulWidget {
 class _CabinFormState extends State<CabinForm> {
   final _formKey = GlobalKey<FormState>();
 
-  Cabin _cabin;
+  Cabin? _cabin;
 
   @override
   void initState() {
@@ -31,13 +31,13 @@ class _CabinFormState extends State<CabinForm> {
     _cabin = widget.cabin;
 
     if (widget.newCabinNumber != null) {
-      _cabin = widget.cabin..number = widget.newCabinNumber;
+      _cabin = widget.cabin?..number = widget.newCabinNumber;
     }
   }
 
-  String _validator(value) {
+  String? _validator(value) {
     if (value.isEmpty) {
-      return AppLocalizations.of(context).enterValue;
+      return AppLocalizations.of(context)!.enterValue;
     }
 
     return null;
@@ -45,27 +45,27 @@ class _CabinFormState extends State<CabinForm> {
 
   @override
   Widget build(BuildContext context) {
-    final appLocalizations = AppLocalizations.of(context);
+    final appLocalizations = AppLocalizations.of(context)!;
 
     return Form(
       key: _formKey,
       child: Column(
         children: [
-          CabinIcon(number: _cabin.number),
+          CabinIcon(number: _cabin!.number),
           const SizedBox(height: 32.0),
           ListTile(
             title: Text(appLocalizations.lecterns),
             trailing: SizedBox(
               width: 80.0,
               child: TextFormField(
-                initialValue: '${_cabin.components.lecterns}',
+                initialValue: '${_cabin!.components.lecterns}',
                 keyboardType: TextInputType.number,
                 inputFormatters: [
                   FilteringTextInputFormatter.digitsOnly,
                 ],
                 validator: _validator,
                 onSaved: (lecterns) {
-                  _cabin.components.lecterns = int.tryParse(lecterns);
+                  _cabin!.components.lecterns = int.tryParse(lecterns!)!;
                 },
               ),
             ),
@@ -76,14 +76,14 @@ class _CabinFormState extends State<CabinForm> {
             trailing: SizedBox(
               width: 80.0,
               child: TextFormField(
-                initialValue: '${_cabin.components.chairs}',
+                initialValue: '${_cabin!.components.chairs}',
                 keyboardType: TextInputType.number,
                 inputFormatters: [
                   FilteringTextInputFormatter.digitsOnly,
                 ],
                 validator: _validator,
                 onSaved: (chairs) {
-                  _cabin.components.chairs = int.tryParse(chairs);
+                  _cabin!.components.chairs = int.tryParse(chairs!)!;
                 },
               ),
             ),
@@ -94,14 +94,14 @@ class _CabinFormState extends State<CabinForm> {
             trailing: SizedBox(
               width: 80.0,
               child: TextFormField(
-                initialValue: '${_cabin.components.tables}',
+                initialValue: '${_cabin!.components.tables}',
                 keyboardType: TextInputType.number,
                 inputFormatters: [
                   FilteringTextInputFormatter.digitsOnly,
                 ],
                 validator: _validator,
                 onSaved: (tables) {
-                  _cabin.components.tables = int.tryParse(tables);
+                  _cabin!.components.tables = int.tryParse(tables!)!;
                 },
               ),
             ),
@@ -110,8 +110,8 @@ class _CabinFormState extends State<CabinForm> {
           SubmitButton(
             shouldAdd: widget.newCabinNumber != null,
             onPressed: () {
-              if (_formKey.currentState.validate()) {
-                _formKey.currentState.save();
+              if (_formKey.currentState!.validate()) {
+                _formKey.currentState!.save();
 
                 Navigator.of(context).pop<Cabin>(_cabin);
               }
@@ -121,9 +121,9 @@ class _CabinFormState extends State<CabinForm> {
             Padding(
               padding: const EdgeInsets.only(top: 16.0),
               child: ItemInfo(
-                creationDateTime: widget.cabin.creationDateTime,
-                modificationDateTime: widget.cabin.modificationDateTime,
-                modificationCount: widget.cabin.modificationCount,
+                creationDateTime: widget.cabin!.creationDateTime,
+                modificationDateTime: widget.cabin!.modificationDateTime,
+                modificationCount: widget.cabin!.modificationCount,
               ),
             ),
         ],

@@ -20,7 +20,7 @@ class DayNavigation extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
               ),
               onPressed: () => dayHandler.changeToNow(),
-              child: Text(appLocalizations.today),
+              child: Text(appLocalizations!.today),
             ),
             const SizedBox(width: 8.0),
             ClipRRect(

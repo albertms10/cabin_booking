@@ -10,11 +10,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class BookingsStack extends StatelessWidget {
-  final Cabin cabin;
+  final Cabin? cabin;
   final Set<Booking> bookings;
 
   const BookingsStack({
-    Key key,
+    Key? key,
     this.cabin,
     this.bookings = const <Booking>{},
   }) : super(key: key);
@@ -47,9 +47,9 @@ class BookingsStack extends StatelessWidget {
       final isLast = (i == bookings.length - 1);
 
       var currentBookingDate =
-          isFirst ? startDateTime : bookings.elementAt(i).endDateTime;
+          isFirst ? startDateTime! : bookings.elementAt(i).endDateTime!;
       var nextBookingDateTime =
-          isLast ? endDateTime : bookings.elementAt(i + 1).startDateTime;
+          isLast ? endDateTime! : bookings.elementAt(i + 1).startDateTime!;
 
       final duration = nextBookingDateTime.difference(currentBookingDate);
 
@@ -59,8 +59,7 @@ class BookingsStack extends StatelessWidget {
         distributedBookings.add(
           SizedBox(
             width: double.infinity,
-            child: booking.isDisabled
-                ? DisabledBookingCard(
+            child: booking.isDisabled? DisabledBookingCard(
                     key: Key(booking.id),
                     cabin: cabin,
                     booking: booking,

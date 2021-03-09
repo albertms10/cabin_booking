@@ -27,8 +27,8 @@ class SaveChangesSnackBarBody extends StatelessWidget {
               ),
               child: Text(
                 changesSaved
-                    ? appLocalizations.changesSaved
-                    : appLocalizations.errorSavingChanges,
+                    ? appLocalizations!.changesSaved
+                    : appLocalizations!.errorSavingChanges,
                 style: theme.snackBarTheme.contentTextStyle,
               ),
             ),

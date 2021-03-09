@@ -3,26 +3,26 @@ import 'package:flutter/material.dart';
 import 'animated_floating_button_label.dart';
 
 class AnimatedChild extends AnimatedWidget {
-  final int index;
-  final Color backgroundColor;
-  final Color foregroundColor;
-  final double elevation;
-  final IconData icon;
-  final Tween<double> tween;
+  final int? index;
+  final Color? backgroundColor;
+  final Color? foregroundColor;
+  final double? elevation;
+  final IconData? icon;
+  final Tween<double>? tween;
 
-  final Widget label;
-  final TextStyle labelStyle;
-  final Color labelBackgroundColor;
+  final Widget? label;
+  final TextStyle? labelStyle;
+  final Color? labelBackgroundColor;
 
   final bool visible;
-  final VoidCallback onTap;
-  final VoidCallback toggleChildren;
-  final ShapeBorder shape;
-  final String heroTag;
+  final VoidCallback? onTap;
+  final VoidCallback? toggleChildren;
+  final ShapeBorder? shape;
+  final String? heroTag;
 
   const AnimatedChild({
-    Key key,
-    Animation<double> animation,
+    Key? key,
+    required Animation<double> animation,
     this.tween,
     this.index,
     this.backgroundColor,
@@ -42,7 +42,7 @@ class AnimatedChild extends AnimatedWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final Animation<double> animation = listenable;
+    final animation = listenable as Animation<double>;
 
     return Container(
       child: Row(
@@ -54,19 +54,19 @@ class AnimatedChild extends AnimatedWidget {
             animation: animation,
           ),
           Container(
-            width: tween.end,
+            width: tween!.end,
             height: animation.value,
-            padding: EdgeInsets.only(bottom: tween.end - animation.value),
+            padding: EdgeInsets.only(bottom: tween!.end! - animation.value),
             child: Container(
               width: animation.value,
-              height: tween.end,
+              height: tween!.end,
               padding: const EdgeInsets.symmetric(vertical: 10.0),
               child: FloatingActionButton(
                 heroTag: heroTag,
                 onPressed: () {
-                  if (onTap != null) onTap();
+                  if (onTap != null) onTap!();
 
-                  toggleChildren();
+                  toggleChildren!();
                 },
                 backgroundColor: backgroundColor ?? theme.dialogBackgroundColor,
                 foregroundColor: foregroundColor ?? theme.accentColor,

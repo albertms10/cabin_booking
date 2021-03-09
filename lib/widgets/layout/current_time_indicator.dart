@@ -19,12 +19,12 @@ class CurrentTimeIndicator extends StatelessWidget {
         final viewStartDateTime = tryParseDateTimeWithTimeOfDay(
           dateTime: dayHandler.dateTime,
           timeOfDay: kTimeTableStartTime,
-        );
+        )!;
 
         final viewEndDateTime = tryParseDateTimeWithTimeOfDay(
           dateTime: dayHandler.dateTime,
           timeOfDay: kTimeTableEndTime,
-        );
+        )!;
 
         final durationFromStart = DateTime.now().difference(viewStartDateTime);
 

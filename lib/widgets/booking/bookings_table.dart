@@ -26,7 +26,7 @@ class BookingsTable extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                child,
+                child!,
                 for (final cabin in cabinManager.cabins)
                   SizedBox(
                     width: kColumnWidth,

@@ -10,8 +10,8 @@ class SchoolYearDropdown extends StatefulWidget {
 }
 
 class _SchoolYearDropdownState extends State<SchoolYearDropdown> {
-  DayHandler _dayHandler;
-  int _currentIndex;
+  late DayHandler _dayHandler;
+  int? _currentIndex;
 
   void _setSchoolYearState() {
     setState(() {
@@ -45,7 +45,7 @@ class _SchoolYearDropdownState extends State<SchoolYearDropdown> {
       value: _currentIndex,
       onChanged: (index) {
         setState(() {
-          _currentIndex = index;
+          _currentIndex = index!;
           dayHandler.schoolYearIndex = index;
         });
       },

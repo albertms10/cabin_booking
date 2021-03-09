@@ -7,9 +7,9 @@ DateTime dateOnly(DateTime dateTime) => DateTime(
       dateTime.day,
     );
 
-DateTime tryParseDateTimeWithTimeOfDay({
-  DateTime dateTime,
-  @required TimeOfDay timeOfDay,
+DateTime? tryParseDateTimeWithTimeOfDay({
+  DateTime? dateTime,
+  required TimeOfDay timeOfDay,
 }) =>
     DateTime.tryParse(
       DateFormat('yyyy-MM-dd').format(dateTime ?? DateTime.now()) +
@@ -19,7 +19,7 @@ DateTime tryParseDateTimeWithTimeOfDay({
 /// Constructs a new [TimeOfDay] instance based on [formattedString].
 ///
 /// Returns null when a [FormatException] would be thrown.
-TimeOfDay tryParseTimeOfDay(String formattedString) {
+TimeOfDay? tryParseTimeOfDay(String? formattedString) {
   if (formattedString == null) return null;
 
   final particles = formattedString.split(RegExp('[:.]'));
@@ -71,7 +71,7 @@ int dateToInt(DateTime dateTime) =>
 Map<K, V> fillEmptyKeyValues<K, V>(
   Map<K, V> map, {
   Iterable<K> keys = const [],
-  V Function() ifAbsent,
+  V Function()? ifAbsent,
 }) {
   for (final key in keys) {
     map.update(key, (value) => value, ifAbsent: ifAbsent);

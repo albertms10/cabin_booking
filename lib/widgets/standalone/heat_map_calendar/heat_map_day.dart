@@ -5,19 +5,19 @@ import 'time_utils.dart';
 
 class HeatMapDay extends StatelessWidget {
   final int value;
-  final double size;
+  final double? size;
   final double space;
   final Map<int, Color> thresholds;
   final Color defaultColor;
-  final DateTime date;
+  final DateTime? date;
   final bool messageHidden;
-  final void Function(DateTime, int) onTap;
-  final String Function(int) valueWrapper;
+  final void Function(DateTime, int)? onTap;
+  final String Function(int)? valueWrapper;
   final bool highlightToday;
-  final bool Function(DateTime) highlightOn;
+  final bool Function(DateTime)? highlightOn;
 
   const HeatMapDay({
-    Key key,
+    Key? key,
     this.value = 0,
     this.size,
     this.space = 4.0,
@@ -29,8 +29,7 @@ class HeatMapDay extends StatelessWidget {
     this.valueWrapper,
     this.highlightToday = false,
     this.highlightOn,
-  })  : assert(value != null),
-        super(key: key);
+  }) : super(key: key);
 
   /// Loop for getting the right color based on [thresholds] values
   ///
@@ -52,19 +51,22 @@ class HeatMapDay extends StatelessWidget {
       padding: EdgeInsets.all(space / 2.0),
       child: InkWell(
         borderRadius: const BorderRadius.all(Radius.circular(2.0)),
-        onTap: onTap == null ? null : () => onTap(date, value),
+        onTap:
+            onTap == null || date == null ? null : () => onTap!(date!, value),
         child: Container(
           height: size,
           width: size,
           decoration: BoxDecoration(
             borderRadius: const BorderRadius.all(Radius.circular(2.0)),
             color: getColorFromThreshold(),
-            border:
-                highlightToday && TimeUtils.isOnSameDay(date, DateTime.now())
+            border: date != null
+                ? (highlightToday &&
+                        TimeUtils.isOnSameDay(date!, DateTime.now())
                     ? Border.all(color: Colors.orange, width: 2.0)
-                    : highlightOn != null && highlightOn(date)
-                        ? Border.all(color: Colors.orange[200], width: 2.0)
-                        : null,
+                    : highlightOn != null && highlightOn!(date!)
+                        ? Border.all(color: Colors.orange[200]!, width: 2.0)
+                        : null)
+                : null,
           ),
         ),
       ),
@@ -74,8 +76,10 @@ class HeatMapDay extends StatelessWidget {
         ? container
         : Tooltip(
             verticalOffset: 14.0,
-            message: '${(valueWrapper?.call(value) ?? value)}'
-                ' · ${DateFormat.d().add_MMM().add_y().format(date)}',
+            message: '${(valueWrapper?.call(value) ?? value)}' +
+                (date != null
+                    ? ' · ${DateFormat.d().add_MMM().add_y().format(date!)}'
+                    : ''),
             child: container,
           );
   }

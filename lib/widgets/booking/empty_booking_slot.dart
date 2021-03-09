@@ -9,15 +9,15 @@ import 'package:provider/provider.dart';
 import 'package:timer_builder/timer_builder.dart';
 
 class EmptyBookingSlot extends StatelessWidget {
-  final Cabin cabin;
+  final Cabin? cabin;
   final DateTime startDateTime;
   final DateTime endDateTime;
 
   const EmptyBookingSlot({
-    Key key,
-    @required this.cabin,
-    @required this.startDateTime,
-    @required this.endDateTime,
+    Key? key,
+    required this.cabin,
+    required this.startDateTime,
+    required this.endDateTime,
   }) : super(key: key);
 
   @override
@@ -78,10 +78,10 @@ class EmptyBookingSlot extends StatelessWidget {
 }
 
 class EmptyBookingSlotActionable extends StatelessWidget {
-  final Cabin cabin;
-  final DateTime startDateTime;
-  final DateTime endDateTime;
-  final int preciseDuration;
+  final Cabin? cabin;
+  final DateTime? startDateTime;
+  final DateTime? endDateTime;
+  final int? preciseDuration;
 
   const EmptyBookingSlotActionable({
     this.cabin,
@@ -107,10 +107,10 @@ class EmptyBookingSlotActionable extends StatelessWidget {
             showNewBookingDialog(
               context: context,
               booking: Booking(
-                date: dateOnly(startDateTime),
-                startTime: TimeOfDay.fromDateTime(startDateTime),
-                endTime: TimeOfDay.fromDateTime(endDateTime),
-                cabinId: cabin.id,
+                date: dateOnly(startDateTime!),
+                startTime: TimeOfDay.fromDateTime(startDateTime!),
+                endTime: TimeOfDay.fromDateTime(endDateTime!),
+                cabinId: cabin!.id,
               ),
               cabinManager: cabinManager,
             );

@@ -13,22 +13,22 @@ class WeekColumns extends StatelessWidget {
   final int columnsToCreate;
   final double squareSize;
   final double space;
-  final DateTime firstDate;
+  final DateTime? firstDate;
   final DateTime lastDate;
-  final void Function(DateTime, int) onDayTap;
-  final String Function(int) dayValueWrapper;
+  final void Function(DateTime, int)? onDayTap;
+  final String Function(int)? dayValueWrapper;
   final bool highlightToday;
-  final bool Function(DateTime) highlightOn;
+  final bool Function(DateTime)? highlightOn;
 
   const WeekColumns({
-    Key key,
-    @required this.squareSize,
-    @required this.input,
-    @required this.colorThresholds,
+    Key? key,
+    required this.squareSize,
+    required this.input,
+    required this.colorThresholds,
     this.firstWeekDay = DateTime.sunday,
-    @required this.columnsToCreate,
+    required this.columnsToCreate,
     this.firstDate,
-    @required this.lastDate,
+    required this.lastDate,
     this.onDayTap,
     this.space = 4.0,
     this.dayValueWrapper,
@@ -144,8 +144,8 @@ class WeekColumns extends StatelessWidget {
         TimeUtils.firstDayOfCalendar(firstDayOfTheWeek, columnsAmount);
 
     return TimeUtils.datesBetween(
-      firstDate != null && firstDate.isAfter(firstDayOfCalendar)
-          ? firstDate
+      firstDate != null && firstDate!.isAfter(firstDayOfCalendar)
+          ? firstDate!
           : firstDayOfCalendar,
       lastDate,
     );

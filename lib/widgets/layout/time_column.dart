@@ -25,7 +25,7 @@ class TimeColumn extends StatelessWidget {
             alignment: Alignment.topCenter,
             child: Text(
               TimeOfDay(hour: hour, minute: 0).format(context),
-              style: theme.textTheme.headline5.copyWith(color: theme.hintColor),
+              style: theme.textTheme.headline5!.copyWith(color: theme.hintColor),
             ),
           ),
       ],

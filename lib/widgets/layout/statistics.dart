@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 class Statistics extends StatelessWidget {
-  final String title;
-  final IconData icon;
-  final List<Widget> items;
-  final void Function() onTap;
+  final String? title;
+  final IconData? icon;
+  final List<Widget>? items;
+  final void Function()? onTap;
 
   const Statistics({
-    Key key,
+    Key? key,
     this.title,
     this.icon,
     this.items,
@@ -46,7 +46,7 @@ class Statistics extends StatelessWidget {
                         ),
                       if (title != null)
                         Text(
-                          title,
+                          title!,
                           style: theme.textTheme.subtitle1,
                         ),
                     ],
@@ -55,7 +55,7 @@ class Statistics extends StatelessWidget {
               Wrap(
                 spacing: 24.0,
                 runSpacing: 24.0,
-                children: items,
+                children: items!,
               ),
             ],
           ),
@@ -66,13 +66,13 @@ class Statistics extends StatelessWidget {
 }
 
 class StatisticItem extends StatelessWidget {
-  final String label;
+  final String? label;
   final Widget item;
 
   const StatisticItem({
-    Key key,
+    Key? key,
     this.label,
-    @required this.item,
+    required this.item,
   }) : super(key: key);
 
   @override
@@ -84,7 +84,7 @@ class StatisticItem extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(bottom: 8.0),
             child: Text(
-              label,
+              label!,
               style: Theme.of(context).textTheme.subtitle2,
             ),
           ),
@@ -95,13 +95,13 @@ class StatisticItem extends StatelessWidget {
 }
 
 class StatisticSimpleItem<T> extends StatelessWidget {
-  final String label;
+  final String? label;
   final T value;
 
   const StatisticSimpleItem({
-    Key key,
+    Key? key,
     this.label,
-    @required this.value,
+    required this.value,
   }) : super(key: key);
 
   @override

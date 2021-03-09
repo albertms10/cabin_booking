@@ -2,10 +2,10 @@ import 'package:cabin_booking/utils/widgets.dart';
 import 'package:flutter/material.dart';
 
 class DetailedFigure<T> extends StatelessWidget {
-  final T figure;
+  final T? figure;
   final List<T> details;
-  final Widget detailsSeparator;
-  final String tooltipMessage;
+  final Widget? detailsSeparator;
+  final String? tooltipMessage;
 
   const DetailedFigure({
     this.figure,
@@ -60,6 +60,6 @@ class DetailedFigure<T> extends StatelessWidget {
             ),
         ],
       ),
-    );
+    )!;
   }
 }

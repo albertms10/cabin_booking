@@ -4,16 +4,16 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BookingStatusButton extends StatelessWidget {
   final BookingStatus status;
-  final void Function() onPressed;
+  final void Function()? onPressed;
 
   const BookingStatusButton({
-    Key key,
-    @required this.status,
+    Key? key,
+    required this.status,
     this.onPressed,
   }) : super(key: key);
 
   Map<BookingStatus, String> _statusMessages(BuildContext context) {
-    final appLocalizations = AppLocalizations.of(context);
+    final appLocalizations = AppLocalizations.of(context)!;
 
     return {
       BookingStatus.Pending: appLocalizations.pending,
@@ -22,7 +22,7 @@ class BookingStatusButton extends StatelessWidget {
     };
   }
 
-  Map<BookingStatus, Color> _statusColors(BuildContext context) => {
+  Map<BookingStatus, Color?> _statusColors(BuildContext context) => {
         BookingStatus.Pending: Theme.of(context).hintColor,
         BookingStatus.Confirmed:
             Theme.of(context).brightness == Brightness.light
@@ -40,7 +40,7 @@ class BookingStatusButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Tooltip(
-      message: _statusMessages(context)[status],
+      message: _statusMessages(context)[status]!,
       child: Material(
         color: Colors.transparent,
         shape: const StadiumBorder(),

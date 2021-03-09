@@ -3,9 +3,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 
 class ItemInfo extends StatelessWidget {
-  final DateTime creationDateTime;
-  final DateTime modificationDateTime;
-  final int modificationCount;
+  final DateTime? creationDateTime;
+  final DateTime? modificationDateTime;
+  final int? modificationCount;
 
   const ItemInfo({
     this.creationDateTime,
@@ -22,23 +22,23 @@ class ItemInfo extends StatelessWidget {
       children: [
         if (creationDateTime != null)
           Text(
-            appLocalizations.createdOn(
-              creationDateTime.day,
-              DateFormat.yMMMd().format(creationDateTime),
+            appLocalizations!.createdOn(
+              creationDateTime!.day,
+              DateFormat.yMMMd().format(creationDateTime!),
             ),
             style: theme.textTheme.caption,
           ),
         if (modificationDateTime != null)
           Text(
-            appLocalizations.modifiedOn(
-              modificationDateTime.day,
-              DateFormat.yMMMd().format(modificationDateTime),
+            appLocalizations!.modifiedOn(
+              modificationDateTime!.day,
+              DateFormat.yMMMd().format(modificationDateTime!),
             ),
             style: theme.textTheme.caption,
           ),
-        if (modificationCount > 1)
+        if (modificationCount! > 1)
           Text(
-            appLocalizations.nModifications(modificationCount),
+            appLocalizations!.nModifications(modificationCount!),
             style: theme.textTheme.caption,
           ),
       ],

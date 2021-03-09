@@ -5,9 +5,9 @@ import 'package:cabin_booking/widgets/booking/booking_dialog.dart';
 import 'package:flutter/material.dart';
 
 void showNewBookingDialog({
-  BuildContext context,
-  Booking booking,
-  CabinManager cabinManager,
+  required BuildContext context,
+  Booking? booking,
+  CabinManager? cabinManager,
 }) async {
   final newBooking = await showDialog<Booking>(
     context: context,
@@ -16,12 +16,12 @@ void showNewBookingDialog({
 
   if (newBooking != null) {
     if (newBooking is RecurringBooking) {
-      cabinManager.addRecurringBooking(
+      cabinManager!.addRecurringBooking(
         newBooking.cabinId,
         newBooking,
       );
     } else {
-      cabinManager.addBooking(newBooking.cabinId, newBooking);
+      cabinManager!.addBooking(newBooking.cabinId, newBooking);
     }
   }
 }

@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class DateRange extends Item {
-  DateTime startDate;
-  DateTime endDate;
+  DateTime? startDate;
+  DateTime? endDate;
 
   DateRange({
-    String id,
+    String? id,
     this.startDate,
     this.endDate,
   })  : assert(
@@ -27,14 +27,14 @@ class DateRange extends Item {
   @override
   Map<String, dynamic> toMap() => {
         ...super.toMap(),
-        'startDate': startDate.toIso8601String().split('T').first,
-        'endDate': endDate.toIso8601String().split('T').first,
+        'startDate': startDate!.toIso8601String().split('T').first,
+        'endDate': endDate!.toIso8601String().split('T').first,
       };
 
   @override
   DateRange copyWith({
-    DateTime startDate,
-    DateTime endDate,
+    DateTime? startDate,
+    DateTime? endDate,
   }) =>
       DateRange(
         id: id,
@@ -43,9 +43,9 @@ class DateRange extends Item {
       );
 
   bool includes(DateTime dateTime) =>
-      startDate.isBefore(dateTime) && endDate.isAfter(dateTime);
+      startDate!.isBefore(dateTime) && endDate!.isAfter(dateTime);
 
-  Duration get duration => endDate.difference(startDate);
+  Duration get duration => endDate!.difference(startDate!);
 
   static List<DateTime> rangeDateTimeList(
     DateTime start,
@@ -66,11 +66,11 @@ class DateRange extends Item {
   }
 
   List<DateTime> dateTimeList({Duration interval = const Duration(days: 1)}) =>
-      DateRange.rangeDateTimeList(startDate, endDate, interval: interval);
+      DateRange.rangeDateTimeList(startDate!, endDate!, interval: interval);
 
   @override
   String toString() =>
-      '${DateFormat.yMd().format(startDate)} – ${DateFormat.yMd().format(endDate)}';
+      '${DateFormat.yMd().format(startDate!)} – ${DateFormat.yMd().format(endDate!)}';
 
   @override
   bool operator ==(other) =>
@@ -83,5 +83,5 @@ class DateRange extends Item {
 
   @override
   int compareTo(covariant DateRange other) =>
-      startDate.compareTo(other.startDate);
+      startDate!.compareTo(other.startDate!);
 }

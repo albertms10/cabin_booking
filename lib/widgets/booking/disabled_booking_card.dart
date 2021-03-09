@@ -7,13 +7,13 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DisabledBookingCard extends StatelessWidget {
-  final Cabin cabin;
+  final Cabin? cabin;
   final Booking booking;
 
   const DisabledBookingCard({
-    Key key,
-    @required this.cabin,
-    @required this.booking,
+    Key? key,
+    required this.cabin,
+    required this.booking,
   }) : super(key: key);
 
   double get height => booking.duration.inMinutes * kBookingHeightRatio - 16.0;
@@ -24,7 +24,7 @@ class DisabledBookingCard extends StatelessWidget {
       margin: const EdgeInsets.all(8.0),
       child: Tooltip(
         message: '${booking.description} '
-            '(${AppLocalizations.of(context).disabled.toLowerCase()})',
+            '(${AppLocalizations.of(context)!.disabled.toLowerCase()})',
         child: InkWell(
           onTap: () {},
           mouseCursor: MouseCursor.defer,

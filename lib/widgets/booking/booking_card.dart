@@ -11,13 +11,13 @@ import 'package:provider/provider.dart';
 import 'package:timer_builder/timer_builder.dart';
 
 class BookingCard extends StatelessWidget {
-  final Cabin cabin;
+  final Cabin? cabin;
   final Booking booking;
 
   const BookingCard({
-    Key key,
-    @required this.cabin,
-    @required this.booking,
+    Key? key,
+    required this.cabin,
+    required this.booking,
   }) : super(key: key);
 
   double get height => booking.duration.inMinutes * kBookingHeightRatio - 16.0;
@@ -29,7 +29,7 @@ class BookingCard extends StatelessWidget {
     return TimerBuilder.periodic(
       const Duration(minutes: 1),
       builder: (context) {
-        final isBeforeNow = booking.endDateTime.isBefore(DateTime.now());
+        final isBeforeNow = booking.endDateTime!.isBefore(DateTime.now());
 
         return TweenAnimationBuilder<double>(
           tween: Tween<double>(begin: height, end: height),
@@ -43,7 +43,7 @@ class BookingCard extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: const BorderRadius.all(Radius.circular(10.0)),
                 side: BorderSide(
-                  color: Colors.grey[300].withOpacity(isBeforeNow ? 0.41 : 1.0),
+                  color: Colors.grey[300]!.withOpacity(isBeforeNow ? 0.41 : 1.0),
                   width: 1.5,
                 ),
               ),
@@ -77,13 +77,13 @@ class BookingCard extends StatelessWidget {
 }
 
 class BookingCardInfo extends StatelessWidget {
-  final Cabin cabin;
+  final Cabin? cabin;
   final Booking booking;
   final bool isRecurring;
 
   const BookingCardInfo({
-    @required this.cabin,
-    @required this.booking,
+    required this.cabin,
+    required this.booking,
     this.isRecurring = false,
   });
 
@@ -117,7 +117,7 @@ class BookingCardInfo extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
-                        booking.description,
+                        booking.description!,
                         style: TextStyle(
                             fontSize: constraints.maxHeight > 20.0
                                 ? 14.0
@@ -126,7 +126,7 @@ class BookingCardInfo extends StatelessWidget {
                       if (constraints.maxHeight > 30.0)
                         Text(
                           booking.timeRange,
-                          style: theme.textTheme.caption.copyWith(
+                          style: theme.textTheme.caption!.copyWith(
                             fontSize: constraints.maxHeight > 40.0
                                 ? 14.0
                                 : constraints.maxHeight * 0.4,
@@ -156,7 +156,7 @@ class BookingCardInfo extends StatelessWidget {
                     onPressed: () {
                       Provider.of<CabinManager>(context, listen: false)
                           .modifyBookingStatusById(
-                        cabin.id,
+                        cabin!.id,
                         booking.id,
                         BookingStatus.values[(booking.status.index + 1) %
                             BookingStatus.values.length],

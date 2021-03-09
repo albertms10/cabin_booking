@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class FigureUnit extends StatelessWidget {
-  final int value;
-  final String unit;
+  final int? value;
+  final String? unit;
 
-  const FigureUnit({Key key, this.value, this.unit}) : super(key: key);
+  const FigureUnit({Key? key, this.value, this.unit}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class FigureUnit extends StatelessWidget {
           children: [
             const SizedBox(height: 2.0),
             Text(
-              unit,
+              unit!,
               style: theme.textTheme.subtitle2,
             ),
           ],

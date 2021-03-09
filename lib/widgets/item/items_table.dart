@@ -14,29 +14,29 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 typedef _OnSortFunction = void Function(bool);
 
 class ItemsTable<T extends Item> extends StatefulWidget {
-  final String Function(ItemsTableRow<T>) itemTitle;
-  final IconData itemIcon;
+  final String Function(ItemsTableRow<T>)? itemTitle;
+  final IconData? itemIcon;
   final String itemHeaderLabel;
   final List<ItemsTableRow<T>> rows;
-  final String emptyMessage;
+  final String? emptyMessage;
 
   final bool shallEdit;
   final bool shallEmpty;
   final bool shallRemove;
 
-  final void Function(List<ItemsTableRow<T>>) onEditPressed;
+  final void Function(List<ItemsTableRow<T>>)? onEditPressed;
 
-  final String onEmptyTitle;
-  final void Function(List<String>) onEmptyPressed;
+  final String? onEmptyTitle;
+  final void Function(List<String>)? onEmptyPressed;
 
-  final String onRemoveTitle;
-  final void Function(List<String>) onRemovePressed;
+  final String? onRemoveTitle;
+  final void Function(List<String>)? onRemovePressed;
 
   const ItemsTable({
     this.itemTitle,
     this.itemIcon,
     this.itemHeaderLabel = 'Item',
-    @required this.rows,
+    required this.rows,
     this.emptyMessage,
     this.shallEdit = true,
     this.shallEmpty = true,
@@ -52,7 +52,7 @@ class ItemsTable<T extends Item> extends StatefulWidget {
   _ItemsTableState createState() => _ItemsTableState();
 
   List<ItemsTableRow<T>> get _selectedRows =>
-      rows.where((row) => row.selected).toList();
+      rows.where((row) => row.selected!).toList();
 
   List<String> get _selectedIds =>
       _selectedRows.map((row) => row.item.id).toList();
@@ -67,7 +67,7 @@ class ItemsTable<T extends Item> extends StatefulWidget {
 
   void unselect() {
     for (final row in rows) {
-      if (row.selected) row.selected = false;
+      if (row.selected!) row.selected = false;
     }
   }
 }
@@ -132,7 +132,7 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
 
     final columns = [
       ItemsTableColumn(widget.itemHeaderLabel, numeric: false),
-      ItemsTableColumn(appLocalizations.bookings),
+      ItemsTableColumn(appLocalizations!.bookings),
       ItemsTableColumn(appLocalizations.accumulatedTime),
       ItemsTableColumn(appLocalizations.mostOccupiedTimeRange, sortable: false),
       ItemsTableColumn(appLocalizations.activity, sortable: false),
@@ -178,7 +178,7 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
                     final row = widget.rows[index];
 
                     return DataRow(
-                      selected: widget.rows[index].selected,
+                      selected: widget.rows[index].selected!,
                       onSelectChanged: (selected) {
                         setState(
                           () => widget.rows[index].selected = selected,
@@ -222,9 +222,9 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
                               items: row.mostOccupiedTimeRanges.toList(),
                               maxChips: 1,
                               labelBuilder:
-                                  (context, List<TimeOfDay> timeRange) {
+                                  (context, List<TimeOfDay?> timeRange) {
                                 return Text(
-                                  '${timeRange.first.format(context)}–${timeRange.last.format(context)}',
+                                  '${timeRange.first!.format(context)}–${timeRange.last!.format(context)}',
                                 );
                               },
                             ),
@@ -238,7 +238,7 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
                                 ? null
                                 : appLocalizations.pastYearOfActivity,
                             dateRange: row.item is DateRange
-                                ? row.item
+                                ? row.item as DateRange?
                                 : DateRange(
                                     startDate: firstWeekDate(DateTime.now()
                                         .subtract(const Duration(days: 365))),
@@ -263,7 +263,7 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
           actions: [
             if (widget.shallEdit && widget._selectedRows.length == 1)
               IconButton(
-                onPressed: () => widget.onEditPressed(widget._selectedRows),
+                onPressed: () => widget.onEditPressed!(widget._selectedRows),
                 icon: const Icon(Icons.edit),
                 tooltip: appLocalizations.edit,
               ),
@@ -285,7 +285,7 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
 
                             if (shallDelete == null || !shallDelete) return;
 
-                            widget.onEmptyPressed(widget._selectedIds);
+                            widget.onEmptyPressed!(widget._selectedIds);
                           },
                 icon: const Icon(Icons.delete_outline),
                 tooltip: appLocalizations.empty,
@@ -306,7 +306,7 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
 
                         if (shallDelete == null || !shallDelete) return;
 
-                        widget.onRemovePressed(widget._selectedIds);
+                        widget.onRemovePressed!(widget._selectedIds);
                       },
                 icon: const Icon(Icons.delete),
                 tooltip: MaterialLocalizations.of(context).deleteButtonTooltip,
@@ -324,11 +324,11 @@ class ItemsTableRow<T extends Item> {
   final int recurringBookingsCount;
   final Duration occupiedDuration;
   final Map<DateTime, Duration> occupiedDurationPerWeek;
-  final Set<List<TimeOfDay>> mostOccupiedTimeRanges;
-  bool selected;
+  final Set<List<TimeOfDay?>> mostOccupiedTimeRanges;
+  bool? selected;
 
   ItemsTableRow({
-    @required this.item,
+    required this.item,
     this.bookingsCount = 0,
     this.recurringBookingsCount = 0,
     this.occupiedDuration = const Duration(),

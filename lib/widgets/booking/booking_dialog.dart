@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BookingDialog extends StatefulWidget {
-  final Booking booking;
+  final Booking? booking;
 
   const BookingDialog(this.booking);
 
@@ -34,11 +34,10 @@ class _BookingDialogState extends State<BookingDialog> {
 
     return DataDialog(
       title: Text(
-        widget.booking.isDisabled
-            ? appLocalizations.lockedRange
+        widget.booking!.isDisabled? appLocalizations!.lockedRange
             : _isRecurring
-                ? appLocalizations.recurringBooking
-                : appLocalizations.booking,
+                ? appLocalizations!.recurringBooking
+                : appLocalizations!.booking,
       ),
       content: SizedBox(
         width: 320.0,

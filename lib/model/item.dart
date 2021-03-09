@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
 abstract class Item implements Comparable<Item> {
-  String id;
+  late final String id;
   final DateTime creationDateTime;
-  DateTime modificationDateTime;
+  DateTime? modificationDateTime;
   int modificationCount;
 
-  Item({this.id})
+  Item({String? id})
       : creationDateTime = DateTime.now(),
         modificationCount = 0 {
     id ??= const Uuid().v4();
@@ -16,7 +16,7 @@ abstract class Item implements Comparable<Item> {
   Item.from(Map<String, dynamic> other)
       : id = other['id'] as String,
         creationDateTime =
-            DateTime.tryParse(other['creationDateTime'] as String),
+            DateTime.tryParse(other['creationDateTime'] as String)!,
         modificationDateTime = other.containsKey('modificationDateTime')
             ? DateTime.tryParse(other['modificationDateTime'] as String)
             : null,
@@ -27,7 +27,7 @@ abstract class Item implements Comparable<Item> {
         'id': id,
         'creationDateTime': creationDateTime.toIso8601String(),
         if (modificationDateTime != null)
-          'modificationDateTime': modificationDateTime.toIso8601String(),
+          'modificationDateTime': modificationDateTime!.toIso8601String(),
         'modificationCount': modificationCount,
       };
 

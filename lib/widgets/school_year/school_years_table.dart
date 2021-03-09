@@ -14,9 +14,9 @@ class SchoolYearsTable extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer2<DayHandler, CabinManager>(
       builder: (context, dayHandler, cabinManager, child) {
-        final appLocalizations = AppLocalizations.of(context);
+        final appLocalizations = AppLocalizations.of(context)!;
 
-        return ItemsTable(
+        return ItemsTable<SchoolYear>(
           itemTitle: (row) => '${row.item}',
           itemIcon: Icons.school,
           itemHeaderLabel: appLocalizations.schoolYear,
@@ -57,7 +57,7 @@ class SchoolYearsTable extends StatelessWidget {
                 ),
                 mostOccupiedTimeRanges: compactizeRange<TimeOfDay>(
                   cabinManager.mostOccupiedTimeRange(schoolYear),
-                  nextValue: (timeOfDay) => timeOfDay.replacing(
+                  nextValue: (timeOfDay) => timeOfDay!.replacing(
                     hour: (timeOfDay.hour + 1) % TimeOfDay.hoursPerDay,
                   ),
                   inclusive: true,

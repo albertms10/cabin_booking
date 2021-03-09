@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 
 class DetailLineChart extends StatelessWidget {
   final List<FlSpot> spots;
-  final double minX;
-  final double maxX;
+  final double? minX;
+  final double? maxX;
   final double minY;
-  final double maxY;
+  final double? maxY;
 
   const DetailLineChart({
-    @required this.spots,
+    required this.spots,
     this.minX,
     this.maxX,
     this.minY = 0.0,

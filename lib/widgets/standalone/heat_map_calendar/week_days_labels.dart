@@ -9,12 +9,11 @@ class WeekDaysLabels extends StatelessWidget {
   final double space;
 
   const WeekDaysLabels({
-    Key key,
-    @required this.squareSize,
+    Key? key,
+    required this.squareSize,
     this.firstWeekDay = DateTime.sunday,
     this.space = 4.0,
-  })  : assert(squareSize != null),
-        assert(squareSize > 0.0),
+  })  : assert(squareSize > 0.0),
         super(key: key);
 
   @override

@@ -6,7 +6,7 @@ class Heading extends StatelessWidget {
 
   const Heading(
     this.heading, {
-    Key key,
+    Key? key,
     this.divider = true,
   }) : super(key: key);
 
@@ -19,7 +19,7 @@ class Heading extends StatelessWidget {
       children: [
         Text(
           heading,
-          style: theme.textTheme.headline5.copyWith(
+          style: theme.textTheme.headline5!.copyWith(
             color: theme.colorScheme.onSurface.withOpacity(0.8),
           ),
         ),

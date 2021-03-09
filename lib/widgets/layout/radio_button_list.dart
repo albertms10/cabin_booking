@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 class RadioButtonList extends StatefulWidget {
   final int itemCount;
   final IndexedWidgetBuilder itemBuilder;
-  final int initialIndex;
-  final void Function(int) onChanged;
+  final int? initialIndex;
+  final void Function(int)? onChanged;
   final bool reverse;
 
   const RadioButtonList({
-    @required this.itemCount,
-    @required this.itemBuilder,
+    required this.itemCount,
+    required this.itemBuilder,
     this.initialIndex,
     this.onChanged,
     this.reverse = false,
@@ -27,7 +27,7 @@ class RadioButtonList extends StatefulWidget {
 }
 
 class _RadioButtonListState extends State<RadioButtonList> {
-  int _selectedIndex;
+  int? _selectedIndex;
 
   @override
   void initState() {

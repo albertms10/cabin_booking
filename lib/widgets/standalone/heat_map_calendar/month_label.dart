@@ -6,9 +6,9 @@ class MonthLabel extends StatelessWidget {
   final double space;
 
   const MonthLabel({
-    Key key,
-    @required this.text,
-    @required this.size,
+    Key? key,
+    required this.text,
+    required this.size,
     this.space = 4.0,
   }) : super(key: key);
 

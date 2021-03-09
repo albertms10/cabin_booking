@@ -4,8 +4,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class DataTableToolbar extends StatelessWidget {
   final bool shown;
   final int selectedItems;
-  final void Function() onPressedLeading;
-  final List<Widget> actions;
+  final void Function()? onPressedLeading;
+  final List<Widget>? actions;
 
   const DataTableToolbar({
     this.shown = false,
@@ -23,7 +23,7 @@ class DataTableToolbar extends StatelessWidget {
       child: !shown
           ? null
           : AppBar(
-              title: Text(appLocalizations.nSelected(selectedItems)),
+              title: Text(appLocalizations!.nSelected(selectedItems)),
               centerTitle: false,
               backgroundColor: Theme.of(context).primaryColorDark,
               leading: IconButton(

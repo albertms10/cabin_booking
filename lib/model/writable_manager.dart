@@ -2,7 +2,7 @@ import 'package:cabin_booking/model/file_manager.dart';
 
 abstract class WritableManager<T> {
   final String fileName;
-  FileManager fileManager;
+  late final FileManager fileManager;
 
   WritableManager(this.fileName) {
     fileManager = FileManager();
