@@ -6,13 +6,14 @@ author: albertms10
 repository: https://github.com/albertms10/cabin_booking.git
 
 environment:
-  sdk: ">=2.10.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
+  collection: ^1.15.0-nullsafety.4
   cupertino_icons: ^1.0.1+1
   fl_chart: ^0.20.1
   flutter_sticky_header: ^0.5.0
