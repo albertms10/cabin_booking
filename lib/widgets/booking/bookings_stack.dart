@@ -22,7 +22,7 @@ class BookingsStack extends StatelessWidget {
   Key _emptyBookingSlotKey(DateTime dateTime, int index) => Key(
         '${dateTime.toIso8601String().split('T').first}-'
         '$key-'
-        '${index}',
+        '$index',
       );
 
   List<Widget> _distributedBookings(BuildContext context) {

@@ -10,7 +10,7 @@ abstract class Item implements Comparable<Item> {
   Item({this.id})
       : creationDateTime = DateTime.now(),
         modificationCount = 0 {
-    id ??= Uuid().v4();
+    id ??= const Uuid().v4();
   }
 
   Item.from(Map<String, dynamic> other)
