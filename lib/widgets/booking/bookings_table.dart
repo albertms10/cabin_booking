@@ -13,36 +13,44 @@ class BookingsTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        const StrippedBackground(
-          startTime: kTimeTableStartTime,
-          endTime: kTimeTableEndTime,
-        ),
-        Consumer2<DayHandler, CabinManager>(
-          builder: (context, dayHandler, cabinManager, child) {
-            return Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                child,
-                for (final cabin in cabinManager.cabins)
-                  SizedBox(
-                    width: kColumnWidth,
-                    child: BookingsStack(
-                      key: Key('${cabin.number}'),
-                      cabin: cabin.simplified(),
-                      bookings: cabin.allBookingsOn(dayHandler.dateTime),
+    return LayoutBuilder(builder: (context, constraints) {
+      return Stack(
+        children: [
+          const StrippedBackground(
+            startTime: kTimeTableStartTime,
+            endTime: kTimeTableEndTime,
+          ),
+          Consumer2<DayHandler, CabinManager>(
+            builder: (context, dayHandler, cabinManager, child) {
+              final maxParentWidth = constraints.maxWidth;
+              final bookingStackWidth = (maxParentWidth - kTimeColumnWidth) /
+                  cabinManager.cabins.length;
+
+              return Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  child,
+                  for (final cabin in cabinManager.cabins)
+                    SizedBox(
+                      width: (bookingStackWidth > kBookingColumnMaxWidth)
+                          ? kBookingColumnMaxWidth
+                          : bookingStackWidth,
+                      child: BookingsStack(
+                        key: Key('${cabin.number}'),
+                        cabin: cabin.simplified(),
+                        bookings: cabin.allBookingsOn(dayHandler.dateTime),
+                      ),
                     ),
-                  ),
-              ],
-            );
-          },
-          child: const TimeColumn(),
-        ),
-        const CurrentTimeIndicator(),
-      ],
-    );
+                ],
+              );
+            },
+            child: const TimeColumn(),
+          ),
+          const CurrentTimeIndicator(),
+        ],
+      );
+    });
   }
 }

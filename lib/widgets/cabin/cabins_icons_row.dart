@@ -13,41 +13,49 @@ class CabinsIconsRow extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return Container(
-      color: theme.dialogBackgroundColor,
-      padding: const EdgeInsets.symmetric(vertical: 24.0),
-      child: Consumer2<DayHandler, CabinManager>(
-        builder: (context, dayHandler, cabinManager, child) {
-          return Row(
-            children: [
-              child,
-              if (cabinManager.cabins.isEmpty)
-                Expanded(
-                  child: Text(
-                    AppLocalizations.of(context).noCabins,
-                    textAlign: TextAlign.center,
-                    style: theme.textTheme.headline5
-                        .copyWith(color: Colors.grey[600]),
-                  ),
-                )
-              else
-                for (final cabin in cabinManager.cabins)
-                  SizedBox(
-                    width: kColumnWidth,
-                    child: CabinIcon(
-                      number: cabin.number,
-                      progress: cabin.occupancyPercentOn(
-                        dayHandler.dateTime,
-                        startTime: kTimeTableStartTime,
-                        endTime: kTimeTableEndTime,
+    return LayoutBuilder(builder: (context, constraints) {
+      return Container(
+        color: theme.dialogBackgroundColor,
+        padding: const EdgeInsets.symmetric(vertical: 24.0),
+        child: Consumer2<DayHandler, CabinManager>(
+          builder: (context, dayHandler, cabinManager, child) {
+            final maxParentWidth = constraints.maxWidth;
+            final bookingStackWidth = (maxParentWidth - kTimeColumnWidth) /
+                cabinManager.cabins.length;
+
+            return Row(
+              children: [
+                child,
+                if (cabinManager.cabins.isEmpty)
+                  Expanded(
+                    child: Text(
+                      AppLocalizations.of(context).noCabins,
+                      textAlign: TextAlign.center,
+                      style: theme.textTheme.headline5
+                          .copyWith(color: Colors.grey[600]),
+                    ),
+                  )
+                else
+                  for (final cabin in cabinManager.cabins)
+                    SizedBox(
+                      width: (bookingStackWidth > kBookingColumnMaxWidth)
+                          ? kBookingColumnMaxWidth
+                          : bookingStackWidth,
+                      child: CabinIcon(
+                        number: cabin.number,
+                        progress: cabin.occupancyPercentOn(
+                          dayHandler.dateTime,
+                          startTime: kTimeTableStartTime,
+                          endTime: kTimeTableEndTime,
+                        ),
                       ),
                     ),
-                  ),
-            ],
-          );
-        },
-        child: const SizedBox(width: kColumnWidth),
-      ),
-    );
+              ],
+            );
+          },
+          child: const SizedBox(width: kTimeColumnWidth),
+        ),
+      );
+    });
   }
 }

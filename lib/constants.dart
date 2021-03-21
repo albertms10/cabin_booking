@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 const kBookingHeightRatio = 2.2;
-const kColumnWidth = 182.0;
+const kTimeColumnWidth = 100.0;
+final kBookingColumnMaxWidth = 400.0;
 
 const kMinSlotDuration = Duration(minutes: 20);
 const kMaxSlotDuration = Duration(minutes: 60);
