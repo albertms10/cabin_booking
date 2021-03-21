@@ -161,6 +161,8 @@ class BookingCardInfo extends StatelessWidget {
                               fontSize: constraints.maxHeight > 20.0
                                   ? 14.0
                                   : constraints.maxHeight * 0.5),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 4,
                         ),
                         if (constraints.maxHeight > 30.0)
                           Text(
