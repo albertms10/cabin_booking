@@ -58,18 +58,12 @@ class BookingsStack extends StatelessWidget {
         distributedBookings.add(
           SizedBox(
             width: double.infinity,
-            child: booking.isDisabled
-                ? BookingCard(
-                    key: Key(booking.id),
-                    cabin: cabin,
-                    booking: booking,
-                    isDisabled: true,
-                  )
-                : BookingCard(
-                    key: Key(booking.id),
-                    cabin: cabin,
-                    booking: booking,
-                  ),
+            child: BookingCard(
+              key: Key(booking.id),
+              cabin: cabin,
+              booking: booking,
+              isDisabled: booking.isDisabled,
+            ),
           ),
         );
       }

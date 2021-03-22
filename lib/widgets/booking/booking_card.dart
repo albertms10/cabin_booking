@@ -38,21 +38,6 @@ class BookingCard extends StatelessWidget {
           duration: const Duration(milliseconds: 300),
           curve: Curves.easeInOutCubic,
           builder: (context, value, child) {
-            final gradientAlignmentX = -0.4;
-            final gradientAlignmentY = -0.2;
-            final gradientStops = [
-              0.0.toDouble(),
-              0.5.toDouble(),
-              0.5.toDouble(),
-              1.toDouble()
-            ];
-            final gradientColors = [
-              const Color.fromARGB(16, 0, 0, 0),
-              const Color.fromARGB(16, 0, 0, 0),
-              Colors.white10,
-              Colors.white10,
-            ];
-
             return Card(
               margin: const EdgeInsets.all(8.0),
               shadowColor: isBeforeNow ? Colors.black38 : Colors.black87,
@@ -78,18 +63,20 @@ class BookingCard extends StatelessWidget {
                         color: Theme.of(context)
                             .cardColor
                             .withOpacity(isBeforeNow ? 0.41 : 1.0),
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(10.0),
                       )
                     : BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(10.0),
                         gradient: LinearGradient(
                           begin: Alignment.topLeft,
-                          end: Alignment(
-                            gradientAlignmentX,
-                            gradientAlignmentY,
-                          ),
-                          stops: gradientStops,
-                          colors: gradientColors,
+                          end: const Alignment(-0.4, -0.2),
+                          stops: const [0.0, 0.5, 0.5, 1.0],
+                          colors: [
+                            const Color.fromARGB(16, 0, 0, 0),
+                            const Color.fromARGB(16, 0, 0, 0),
+                            Colors.white10,
+                            Colors.white10,
+                          ],
                           tileMode: TileMode.repeated,
                         ),
                       ),
