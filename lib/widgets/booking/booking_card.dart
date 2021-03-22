@@ -67,13 +67,13 @@ class BookingCard extends StatelessWidget {
                       )
                     : BoxDecoration(
                         borderRadius: BorderRadius.circular(10.0),
-                        gradient: LinearGradient(
+                        gradient: const LinearGradient(
                           begin: Alignment.topLeft,
-                          end: const Alignment(-0.4, -0.2),
-                          stops: const [0.0, 0.5, 0.5, 1.0],
+                          end: Alignment(-0.4, -0.2),
+                          stops: [0.0, 0.5, 0.5, 1.0],
                           colors: [
-                            const Color.fromARGB(16, 0, 0, 0),
-                            const Color.fromARGB(16, 0, 0, 0),
+                            Color.fromARGB(16, 0, 0, 0),
+                            Color.fromARGB(16, 0, 0, 0),
                             Colors.white10,
                             Colors.white10,
                           ],
