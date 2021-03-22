@@ -4,7 +4,6 @@ import 'package:cabin_booking/model/cabin.dart';
 import 'package:cabin_booking/model/day_handler.dart';
 import 'package:cabin_booking/utils/datetime.dart';
 import 'package:cabin_booking/widgets/booking/booking_card.dart';
-import 'package:cabin_booking/widgets/booking/disabled_booking_card.dart';
 import 'package:cabin_booking/widgets/booking/empty_booking_slot.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -59,17 +58,12 @@ class BookingsStack extends StatelessWidget {
         distributedBookings.add(
           SizedBox(
             width: double.infinity,
-            child: booking.isDisabled
-                ? DisabledBookingCard(
-                    key: Key(booking.id),
-                    cabin: cabin,
-                    booking: booking,
-                  )
-                : BookingCard(
-                    key: Key(booking.id),
-                    cabin: cabin,
-                    booking: booking,
-                  ),
+            child: BookingCard(
+              key: Key(booking.id),
+              cabin: cabin,
+              booking: booking,
+              isDisabled: booking.isDisabled,
+            ),
           ),
         );
       }
