@@ -38,21 +38,6 @@ class BookingCard extends StatelessWidget {
           duration: const Duration(milliseconds: 300),
           curve: Curves.easeInOutCubic,
           builder: (context, value, child) {
-            final gradientAlignmentX = -0.4;
-            final gradientAlignmentY = -0.2;
-            final gradientStops = [
-              0.0.toDouble(),
-              0.5.toDouble(),
-              0.5.toDouble(),
-              1.toDouble()
-            ];
-            final gradientColors = [
-              const Color.fromARGB(16, 0, 0, 0),
-              const Color.fromARGB(16, 0, 0, 0),
-              Colors.white10,
-              Colors.white10,
-            ];
-
             return Card(
               margin: const EdgeInsets.all(8.0),
               shadowColor: isBeforeNow ? Colors.black38 : Colors.black87,
