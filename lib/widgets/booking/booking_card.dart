@@ -9,19 +9,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 import 'package:timer_builder/timer_builder.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BookingCard extends StatelessWidget {
   final Cabin cabin;
   final Booking booking;
+  final bool isDisabled;
 
   const BookingCard({
     Key key,
     @required this.cabin,
     @required this.booking,
+    this.isDisabled = false,
   }) : super(key: key);
 
   double get height => booking.duration.inMinutes * kBookingHeightRatio - 16.0;
-
   bool get isRecurring => RecurringBooking.isRecurringBooking(booking);
 
   @override
@@ -56,15 +58,32 @@ class BookingCard extends StatelessWidget {
                   bottom: 0.0,
                   left: 10.0,
                 ),
-                decoration: BoxDecoration(
-                  color: Theme.of(context)
-                      .cardColor
-                      .withOpacity(isBeforeNow ? 0.41 : 1.0),
-                  borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-                ),
+                decoration: (!isDisabled)
+                    ? BoxDecoration(
+                        color: Theme.of(context)
+                            .cardColor
+                            .withOpacity(isBeforeNow ? 0.41 : 1.0),
+                        borderRadius: BorderRadius.circular(10.0),
+                      )
+                    : BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0),
+                        gradient: const LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment(-0.4, -0.2),
+                          stops: [0.0, 0.5, 0.5, 1.0],
+                          colors: [
+                            Color.fromARGB(16, 0, 0, 0),
+                            Color.fromARGB(16, 0, 0, 0),
+                            Colors.white10,
+                            Colors.white10,
+                          ],
+                          tileMode: TileMode.repeated,
+                        ),
+                      ),
                 child: BookingCardInfo(
                   cabin: cabin,
                   booking: booking,
+                  isDisabled: isDisabled,
                   isRecurring: isRecurring,
                 ),
               ),
@@ -79,12 +98,14 @@ class BookingCard extends StatelessWidget {
 class BookingCardInfo extends StatelessWidget {
   final Cabin cabin;
   final Booking booking;
+  final bool isDisabled;
   final bool isRecurring;
 
   const BookingCardInfo({
     @required this.cabin,
     @required this.booking,
     this.isRecurring = false,
+    this.isDisabled = false,
   });
 
   @override
@@ -112,58 +133,68 @@ class BookingCardInfo extends StatelessWidget {
                     ),
                   ),
                 Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        booking.description,
-                        style: TextStyle(
-                            fontSize: constraints.maxHeight > 20.0
-                                ? 14.0
-                                : constraints.maxHeight * 0.5),
-                      ),
-                      if (constraints.maxHeight > 30.0)
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 28.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
                         Text(
-                          booking.timeRange,
-                          style: theme.textTheme.caption.copyWith(
-                            fontSize: constraints.maxHeight > 40.0
-                                ? 14.0
-                                : constraints.maxHeight * 0.4,
-                          ),
+                          (!isDisabled)
+                              ? booking.description
+                              : '${booking.description} '
+                                  '(${AppLocalizations.of(context).disabled.toLowerCase()})',
+                          style: TextStyle(
+                              fontSize: constraints.maxHeight > 20.0
+                                  ? 14.0
+                                  : constraints.maxHeight * 0.5),
                         ),
-                    ],
+                        if (constraints.maxHeight > 30.0)
+                          Text(
+                            booking.timeRange,
+                            style: theme.textTheme.caption.copyWith(
+                              fontSize: constraints.maxHeight > 40.0
+                                  ? 14.0
+                                  : constraints.maxHeight * 0.4,
+                            ),
+                          ),
+                      ],
+                    ),
                   ),
                 ),
               ],
             ),
             SizedBox(
               height: double.infinity,
-              child: Wrap(
-                direction: Axis.vertical,
-                alignment: WrapAlignment.spaceBetween,
-                spacing: -8.0,
-                runAlignment: WrapAlignment.center,
-                runSpacing: -8.0,
-                crossAxisAlignment: WrapCrossAlignment.center,
-                children: [
-                  BookingPopupMenu(
-                    cabin: cabin,
-                    booking: booking,
-                  ),
-                  BookingStatusButton(
-                    status: booking.status,
-                    onPressed: () {
-                      Provider.of<CabinManager>(context, listen: false)
-                          .modifyBookingStatusById(
-                        cabin.id,
-                        booking.id,
-                        BookingStatus.values[(booking.status.index + 1) %
-                            BookingStatus.values.length],
-                      );
-                    },
-                  ),
-                ],
+              child: Container(
+                width: 48,
+                child: Wrap(
+                  direction: Axis.vertical,
+                  alignment: WrapAlignment.spaceBetween,
+                  spacing: -8.0,
+                  runAlignment: WrapAlignment.center,
+                  runSpacing: -8.0,
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  children: [
+                    BookingPopupMenu(
+                      cabin: cabin,
+                      booking: booking,
+                    ),
+                    if (!isDisabled)
+                      BookingStatusButton(
+                        status: booking.status,
+                        onPressed: () {
+                          Provider.of<CabinManager>(context, listen: false)
+                              .modifyBookingStatusById(
+                            cabin.id,
+                            booking.id,
+                            BookingStatus.values[(booking.status.index + 1) %
+                                BookingStatus.values.length],
+                          );
+                        },
+                      ),
+                  ],
+                ),
               ),
             ),
           ],
