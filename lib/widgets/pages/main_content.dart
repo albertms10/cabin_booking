@@ -62,28 +62,27 @@ class _MainContentState extends State<MainContent> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureProvider<List<int>>(
+    return FutureProvider<List<int>?>(
       create: (context) => Future.wait([
         _cabinManager.loadFromFile(),
         _schoolYearManager.loadFromFile(),
       ]),
       initialData: const [],
-      child: Consumer<List<int>?>(
-        builder: (context, items, child) {
-          if (items == null) {
-            return Center(
-              child: Text(
-                AppLocalizations.of(context)!.dataCouldNotBeLoaded,
-                style: Theme.of(context).textTheme.headline4,
-              ),
-            );
-          } else if (items.isEmpty) {
-            return const Center(child: CircularProgressIndicator());
-          }
+      builder: (context, child) {
+        final items = Provider.of<List<int>?>(context);
+        if (items == null) {
+          return Center(
+            child: Text(
+              AppLocalizations.of(context)!.dataCouldNotBeLoaded,
+              style: Theme.of(context).textTheme.headline4,
+            ),
+          );
+        } else if (items.isEmpty) {
+          return const Center(child: CircularProgressIndicator());
+        }
 
-          return widget.pages![widget.railIndex!];
-        },
-      ),
+        return widget.pages![widget.railIndex!];
+      },
     );
   }
 }
