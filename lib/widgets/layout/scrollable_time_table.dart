@@ -65,7 +65,7 @@ class ScrollableTimeTable extends StatelessWidget {
                     context, cabinManager.cabins, bookingStackWidth),
                 leftSideItemBuilder: _generateFirstColumnRow,
                 rightSideItemBuilder: _generateRightHandSideColumnRow,
-                itemCount: 1, // Hack of the day
+                itemCount: 1, // Hacking the widget a little bit
                 rowSeparatorWidget: const Divider(
                   color: Colors.black54,
                   height: 1.0,
