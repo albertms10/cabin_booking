@@ -11,7 +11,7 @@ Iterable<SchoolYear> _parseSchoolYears(String jsonString) =>
 
 class SchoolYearManager extends WritableManager<Set<SchoolYear>>
     with ChangeNotifier {
-  late final Set<SchoolYear> schoolYears;
+  late Set<SchoolYear> schoolYears;
   int? schoolYearIndex;
 
   final void Function()? notifyExternalListeners;
@@ -21,7 +21,7 @@ class SchoolYearManager extends WritableManager<Set<SchoolYear>>
     String fileName = 'school_year_manager',
     this.notifyExternalListeners,
   }) : super(fileName) {
-    schoolYears ??= SplayTreeSet();
+    this.schoolYears = schoolYears ?? SplayTreeSet();
     schoolYearIndex = _currentSchoolYearIndex;
   }
 
@@ -77,7 +77,7 @@ class SchoolYearManager extends WritableManager<Set<SchoolYear>>
 
     if (notify) {
       notifyListeners();
-      notifyExternalListeners!();
+      notifyExternalListeners?.call();
     }
   }
 
@@ -91,7 +91,7 @@ class SchoolYearManager extends WritableManager<Set<SchoolYear>>
 
     if (notify) {
       notifyListeners();
-      notifyExternalListeners!();
+      notifyExternalListeners?.call();
     }
   }
 
@@ -103,7 +103,7 @@ class SchoolYearManager extends WritableManager<Set<SchoolYear>>
 
     if (notify) {
       notifyListeners();
-      notifyExternalListeners!();
+      notifyExternalListeners?.call();
     }
   }
 

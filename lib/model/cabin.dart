@@ -22,7 +22,7 @@ class Cabin extends Item {
           recurringBookings: recurringBookings,
         ),
         super(id: id) {
-    components ??= CabinComponents();
+    this.components = components ?? CabinComponents();
   }
 
   Cabin.from(Map<String, dynamic> other)
@@ -46,9 +46,9 @@ class Cabin extends Item {
 
   Cabin simplified() => Cabin(id: id, number: number);
 
-  Set<Booking>? get bookings => _bookingManager.bookings;
+  Set<Booking> get bookings => _bookingManager.bookings;
 
-  Set<RecurringBooking>? get recurringBookings =>
+  Set<RecurringBooking> get recurringBookings =>
       _bookingManager.recurringBookings;
 
   Set<Booking> get allBookings => _bookingManager.allBookings;

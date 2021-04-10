@@ -10,7 +10,7 @@ class CabinComponents {
     this.chairs = 0,
     this.tables = 0,
   }) {
-    pianos ??= <Piano>[];
+    this.pianos = pianos ?? <Piano>[];
   }
 
   CabinComponents.from(Map<String, dynamic> other)
