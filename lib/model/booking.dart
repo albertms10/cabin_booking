@@ -109,6 +109,7 @@ class Booking extends Item {
 
   @override
   Booking copyWith({
+    String? id,
     String? description,
     DateTime? date,
     TimeOfDay? startTime,
@@ -118,7 +119,7 @@ class Booking extends Item {
     String? cabinId,
   }) =>
       Booking(
-        id: id,
+        id: id ?? this.id,
         description: description ?? this.description,
         date: date ?? this.date,
         startTime: startTime ?? this.startTime,

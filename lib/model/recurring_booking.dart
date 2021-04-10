@@ -172,6 +172,7 @@ class RecurringBooking extends Booking {
 
   @override
   RecurringBooking copyWith({
+    String? id,
     String? description,
     DateTime? date,
     TimeOfDay? startTime,
@@ -185,7 +186,7 @@ class RecurringBooking extends Booking {
     int? occurrences,
   }) =>
       RecurringBooking(
-        id: id,
+        id: id ?? this.id,
         description: description ?? this.description,
         date: date ?? this.date,
         startTime: startTime ?? this.startTime,
