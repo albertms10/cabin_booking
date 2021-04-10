@@ -119,7 +119,7 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
     var count = 0;
 
     for (final cabin in cabins) {
-      count += cabin.bookings!.length;
+      count += cabin.bookings.length;
     }
 
     return count;

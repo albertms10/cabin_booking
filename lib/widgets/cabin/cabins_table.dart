@@ -43,7 +43,7 @@ class CabinsTable extends StatelessWidget {
             for (final cabin in cabinManager.cabins)
               ItemsTableRow<Cabin>(
                 item: cabin,
-                bookingsCount: cabin.bookings!.length,
+                bookingsCount: cabin.bookings.length,
                 recurringBookingsCount:
                     cabin.generatedBookingsFromRecurring.length,
                 occupiedDuration: cabin.occupiedDuration(),
