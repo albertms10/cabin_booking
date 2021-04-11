@@ -7,7 +7,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DisabledBookingCard extends StatelessWidget {
-  final Cabin? cabin;
+  final Cabin cabin;
   final Booking booking;
 
   const DisabledBookingCard({

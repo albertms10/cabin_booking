@@ -5,4 +5,4 @@ Widget? tooltipWrap({
   bool condition = true,
   Widget? child,
 }) =>
-    condition ? Tooltip(message: tooltipMessage!, child: child) : child;
+    condition ? Tooltip(message: tooltipMessage ?? '', child: child) : child;

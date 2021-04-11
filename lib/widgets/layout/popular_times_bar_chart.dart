@@ -2,9 +2,9 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 class PopularTimesBarChart extends StatelessWidget {
-  final Map<TimeOfDay, Duration>? timeRangesOccupancy;
+  final Map<TimeOfDay, Duration> timeRangesOccupancy;
 
-  const PopularTimesBarChart({this.timeRangesOccupancy});
+  const PopularTimesBarChart({required this.timeRangesOccupancy});
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,7 @@ class PopularTimesBarChart extends StatelessWidget {
           ),
           borderData: FlBorderData(show: false),
           barGroups: [
-            for (final range in timeRangesOccupancy!.entries)
+            for (final range in timeRangesOccupancy.entries)
               BarChartGroupData(
                 x: range.key.hour,
                 barRods: [

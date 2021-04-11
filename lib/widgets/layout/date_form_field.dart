@@ -3,7 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 
 class DateFormField extends StatefulWidget {
-  final TextEditingController? controller;
+  final TextEditingController controller;
   final String? labelText;
   final bool autofocus;
   final bool enabled;
@@ -18,7 +18,7 @@ class DateFormField extends StatefulWidget {
 
   DateFormField({
     Key? key,
-    this.controller,
+    required this.controller,
     this.labelText,
     this.autofocus = false,
     this.enabled = true,
@@ -68,15 +68,14 @@ class _DateFormFieldState extends State<DateFormField> {
       enabled: widget.enabled,
       onChanged: (value) {
         final date = _tryParseDate(value);
+        if (date == null ||
+            !date.isAfter(_firstDate) ||
+            !date.isBefore(_lastDate)) return;
 
-        if (date != null &&
-            date.isAfter(_firstDate) &&
-            date.isBefore(_lastDate)) {
-          setState(() {
-            _date = date;
-            widget.onChanged?.call(date);
-          });
-        }
+        setState(() {
+          _date = date;
+          widget.onChanged?.call(date);
+        });
       },
       onTap: () async {
         if (_date != null &&
@@ -89,31 +88,31 @@ class _DateFormFieldState extends State<DateFormField> {
           lastDate: _lastDate,
         );
 
-        if (date != null) {
-          setState(() {
-            _date = date;
-            widget.controller!.text = DateFormat.yMd().format(date);
-            widget.onChanged?.call(date);
-          });
-        }
+        if (date == null) return;
+
+        setState(() {
+          _date = date;
+          widget.controller.text = DateFormat.yMd().format(date);
+          widget.onChanged?.call(date);
+        });
       },
       validator: (value) {
         if (widget.skipValidation) return null;
 
-        final appLocalizations = AppLocalizations.of(context);
+        final appLocalizations = AppLocalizations.of(context)!;
 
-        if (value!.isEmpty) {
-          return appLocalizations!.enterDate;
+        if (value == null || value.isEmpty) {
+          return appLocalizations.enterDate;
         }
 
         final date = _tryParseDate(value);
 
         if (date == null) {
-          return appLocalizations!.enterDate;
+          return appLocalizations.enterDate;
         }
 
         if (date.isBefore(_firstDate) || date.isAfter(_lastDate)) {
-          return appLocalizations!.enterDate;
+          return appLocalizations.enterDate;
         }
 
         return widget.additionalValidator?.call(date);

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class DataDialog extends StatelessWidget {
-  final Widget? title;
-  final Widget? content;
+  final Widget title;
+  final Widget content;
 
-  const DataDialog({this.title, this.content});
+  const DataDialog({required this.title, required this.content});
 
   @override
   Widget build(BuildContext context) {
@@ -20,14 +20,14 @@ class DataDialog extends StatelessWidget {
             splashRadius: 24.0,
           ),
           const SizedBox(width: 8.0),
-          title!,
+          title,
         ],
       ),
       contentPadding:
           const EdgeInsets.only(left: 24.0, right: 24.0, bottom: 24.0),
       titlePadding:
           const EdgeInsets.symmetric(horizontal: 12.0, vertical: 18.0),
-      children: [content!],
+      children: [content],
     );
   }
 }

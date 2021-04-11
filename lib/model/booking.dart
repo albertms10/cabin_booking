@@ -51,17 +51,17 @@ class Booking extends Item {
         'isDisabled': isDisabled,
       };
 
-  DateTime? get startDateTime => tryParseDateTimeWithTimeOfDay(
+  DateTime get startDateTime => dateTimeWithTimeOfDay(
         dateTime: date,
-        timeOfDay: startTime!,
+        timeOfDay: startTime,
       );
 
-  DateTime? get endDateTime => tryParseDateTimeWithTimeOfDay(
+  DateTime get endDateTime => dateTimeWithTimeOfDay(
         dateTime: date,
-        timeOfDay: endTime!,
+        timeOfDay: endTime,
       );
 
-  Duration get duration => endDateTime!.difference(startDateTime!);
+  Duration get duration => endDateTime.difference(startDateTime);
 
   Map<TimeOfDay, Duration> get hoursSpan {
     final timeRanges = <TimeOfDay, Duration>{};
@@ -99,13 +99,13 @@ class Booking extends Item {
 
   String get dateTimeRange => '${DateFormat.yMd().format(date!)} $timeRange';
 
-  bool isOn(DateTime dateTime) => isSameDay(date!, dateTime);
+  bool isOn(DateTime dateTime) => isSameDay(date, dateTime);
 
-  bool isBetween(DateRange dateRange) => dateRange.includes(startDateTime!);
+  bool isBetween(DateRange dateRange) => dateRange.includes(startDateTime);
 
   bool collidesWith(Booking booking) =>
-      startDateTime!.isBefore(booking.endDateTime!) &&
-      endDateTime!.isAfter(booking.startDateTime!);
+      startDateTime.isBefore(booking.endDateTime) &&
+      endDateTime.isAfter(booking.startDateTime);
 
   @override
   Booking copyWith({
@@ -147,7 +147,7 @@ class Booking extends Item {
 
   @override
   int compareTo(covariant Booking other) =>
-      startDateTime!.compareTo(other.startDateTime!);
+      startDateTime.compareTo(other.startDateTime);
 }
 
 enum BookingStatus { Pending, Confirmed, Cancelled }

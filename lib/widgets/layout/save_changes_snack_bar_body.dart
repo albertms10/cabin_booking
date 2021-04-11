@@ -9,7 +9,7 @@ class SaveChangesSnackBarBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final appLocalizations = AppLocalizations.of(context);
+    final appLocalizations = AppLocalizations.of(context)!;
 
     return Row(
       children: [
@@ -27,8 +27,8 @@ class SaveChangesSnackBarBody extends StatelessWidget {
               ),
               child: Text(
                 changesSaved
-                    ? appLocalizations!.changesSaved
-                    : appLocalizations!.errorSavingChanges,
+                    ? appLocalizations.changesSaved
+                    : appLocalizations.errorSavingChanges,
                 style: theme.snackBarTheme.contentTextStyle,
               ),
             ),

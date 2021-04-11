@@ -8,7 +8,7 @@ class AnimatedChild extends AnimatedWidget {
   final Color? foregroundColor;
   final double? elevation;
   final IconData? icon;
-  final Tween<double>? tween;
+  final Tween<double> tween;
 
   final Widget? label;
   final TextStyle? labelStyle;
@@ -23,7 +23,7 @@ class AnimatedChild extends AnimatedWidget {
   const AnimatedChild({
     Key? key,
     required Animation<double> animation,
-    this.tween,
+    required this.tween,
     this.index,
     this.backgroundColor,
     this.foregroundColor,
@@ -54,19 +54,20 @@ class AnimatedChild extends AnimatedWidget {
             animation: animation,
           ),
           Container(
-            width: tween!.end,
+            width: tween.end,
             height: animation.value,
-            padding: EdgeInsets.only(bottom: tween!.end! - animation.value),
+            padding: EdgeInsets.only(
+              bottom: tween.end ?? 0.0 - animation.value,
+            ),
             child: Container(
               width: animation.value,
-              height: tween!.end,
+              height: tween.end,
               padding: const EdgeInsets.symmetric(vertical: 10.0),
               child: FloatingActionButton(
                 heroTag: heroTag,
                 onPressed: () {
-                  if (onTap != null) onTap!();
-
-                  toggleChildren!();
+                  onTap?.call();
+                  toggleChildren?.call();
                 },
                 backgroundColor: backgroundColor ?? theme.dialogBackgroundColor,
                 foregroundColor: foregroundColor ?? theme.accentColor,

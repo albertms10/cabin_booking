@@ -16,14 +16,14 @@ class DataTableToolbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final appLocalizations = AppLocalizations.of(context);
+    final appLocalizations = AppLocalizations.of(context)!;
 
     return SizedBox(
       height: 54.0,
       child: !shown
           ? null
           : AppBar(
-              title: Text(appLocalizations!.nSelected(selectedItems)),
+              title: Text(appLocalizations.nSelected(selectedItems)),
               centerTitle: false,
               backgroundColor: Theme.of(context).primaryColorDark,
               leading: IconButton(

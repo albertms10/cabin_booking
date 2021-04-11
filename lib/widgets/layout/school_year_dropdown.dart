@@ -44,8 +44,10 @@ class _SchoolYearDropdownState extends State<SchoolYearDropdown> {
     return DropdownButton<int>(
       value: _currentIndex,
       onChanged: (index) {
+        if (index == null) return;
+
         setState(() {
-          _currentIndex = index!;
+          _currentIndex = index;
           dayHandler.schoolYearIndex = index;
         });
       },

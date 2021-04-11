@@ -16,20 +16,20 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class SummaryPage extends StatelessWidget {
-  final void Function(AppPages)? setRailPage;
+  final void Function(AppPages) setRailPage;
 
-  const SummaryPage({this.setRailPage});
+  const SummaryPage({required this.setRailPage});
 
   @override
   Widget build(BuildContext context) {
-    final appLocalizations = AppLocalizations.of(context);
+    final appLocalizations = AppLocalizations.of(context)!;
 
     return Consumer2<DayHandler, CabinManager>(
       builder: (context, dayHandler, cabinManager, child) {
         return ListView(
           padding: const EdgeInsets.all(32.0),
           children: [
-            Heading(appLocalizations!.summary),
+            Heading(appLocalizations.summary),
             Wrap(
               spacing: 24.0,
               runSpacing: 24.0,
@@ -38,7 +38,7 @@ class SummaryPage extends StatelessWidget {
                   title: appLocalizations.bookings,
                   icon: Icons.event,
                   onTap: () {
-                    setRailPage!(AppPages.Bookings);
+                    setRailPage(AppPages.Bookings);
                   },
                   items: [
                     StatisticItem(
@@ -65,7 +65,7 @@ class SummaryPage extends StatelessWidget {
                   title: appLocalizations.cabins,
                   icon: Icons.sensor_door,
                   onTap: () {
-                    setRailPage!(AppPages.Cabins);
+                    setRailPage(AppPages.Cabins);
                   },
                   items: [
                     StatisticSimpleItem(
@@ -78,7 +78,7 @@ class SummaryPage extends StatelessWidget {
                   title: appLocalizations.schoolYears,
                   icon: Icons.school,
                   onTap: () {
-                    setRailPage!(AppPages.SchoolYears);
+                    setRailPage(AppPages.SchoolYears);
                   },
                   items: [
                     StatisticSimpleItem(
@@ -99,7 +99,7 @@ class SummaryPage extends StatelessWidget {
                     onTap: () {
                       dayHandler.dateTime =
                           cabinManager.mostBookedDayEntry!.key;
-                      setRailPage!(AppPages.Bookings);
+                      setRailPage(AppPages.Bookings);
                     },
                     items: [
                       StatisticSimpleItem(
@@ -153,7 +153,7 @@ class SummaryPage extends StatelessWidget {
                     onDayTap: (dateTime, value) {
                       dayHandler.dateTime = dateTime;
 
-                      setRailPage!(AppPages.Bookings);
+                      setRailPage(AppPages.Bookings);
                     },
                     legendLessLabel: appLocalizations.less,
                     legendMoreLabel: appLocalizations.more,

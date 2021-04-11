@@ -2,7 +2,7 @@ import 'dart:collection';
 
 Set<List<T?>> compactizeRange<T>(
   Set<T> rangeSet, {
-  T Function(T? a)? nextValue,
+  T Function(T a)? nextValue,
   bool inclusive = false,
 }) {
   if (rangeSet.isEmpty) return {};
@@ -15,8 +15,8 @@ Set<List<T?>> compactizeRange<T>(
 
   final SplayTreeSet<List<T?>> ranges = SplayTreeSet<List<T>>();
 
-  T? start = rangeSet.first;
-  T? b;
+  late var start = rangeSet.first;
+  late T b;
 
   if (rangeSet.length > 1) {
     for (var i = 0; i < rangeSet.length - 1; i++) {

@@ -57,7 +57,7 @@ class SchoolYearsTable extends StatelessWidget {
                 ),
                 mostOccupiedTimeRanges: compactizeRange<TimeOfDay>(
                   cabinManager.mostOccupiedTimeRange(schoolYear),
-                  nextValue: (timeOfDay) => timeOfDay!.replacing(
+                  nextValue: (timeOfDay) => timeOfDay.replacing(
                     hour: (timeOfDay.hour + 1) % TimeOfDay.hoursPerDay,
                   ),
                   inclusive: true,

@@ -60,11 +60,10 @@ class _RadioButtonListState extends State<RadioButtonList> {
                 ),
               ),
               onPressed: () {
-                if (i != _selectedIndex) {
-                  setState(() => _selectedIndex = i);
+                if (i == _selectedIndex) return;
 
-                  widget.onChanged?.call(i);
-                }
+                setState(() => _selectedIndex = i);
+                widget.onChanged?.call(i);
               },
               child: widget.itemBuilder(context, i),
             ),

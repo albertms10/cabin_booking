@@ -7,14 +7,14 @@ DateTime dateOnly(DateTime dateTime) => DateTime(
       dateTime.day,
     );
 
-DateTime? tryParseDateTimeWithTimeOfDay({
+DateTime dateTimeWithTimeOfDay({
   DateTime? dateTime,
-  required TimeOfDay timeOfDay,
+  TimeOfDay? timeOfDay,
 }) =>
     DateTime.tryParse(
       DateFormat('yyyy-MM-dd').format(dateTime ?? DateTime.now()) +
-          ' ${formatTimeOfDay(timeOfDay)}',
-    );
+          ' ${formatTimeOfDay(timeOfDay ?? TimeOfDay.now())}',
+    )!;
 
 /// Constructs a new [TimeOfDay] instance based on [formattedString].
 ///
@@ -45,8 +45,8 @@ Duration durationBetweenTimesOfDay(TimeOfDay start, TimeOfDay end) => Duration(
 String parsedTimeOfDayFromDateTime(DateTime dateTime) =>
     dateTime.toString().split(RegExp('[ T]'))[1];
 
-bool isSameDay(DateTime a, DateTime b) =>
-    a.year == b.year && a.month == b.month && a.day == b.day;
+bool isSameDay(DateTime? a, DateTime? b) =>
+    a?.year == b?.year && a?.month == b?.month && a?.day == b?.day;
 
 String formatTimeOfDay(TimeOfDay timeOfDay) {
   String _pad2(num number) => number.toString().padLeft(2, '0');

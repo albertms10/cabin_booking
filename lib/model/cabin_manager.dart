@@ -29,7 +29,7 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
 
   Cabin cabinFromId(String? id) => cabins.firstWhere((cabin) => cabin.id == id);
 
-  int? get lastCabinNumber => cabins.isEmpty ? 0 : cabins.last.number;
+  int get lastCabinNumber => cabins.isEmpty ? 0 : cabins.last.number;
 
   Set<DateTime?> allCabinsDatesWithBookings([DateRange? dateRange]) {
     final dates = SplayTreeSet<DateTime?>();

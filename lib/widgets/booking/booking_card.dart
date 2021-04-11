@@ -11,7 +11,7 @@ import 'package:provider/provider.dart';
 import 'package:timer_builder/timer_builder.dart';
 
 class BookingCard extends StatelessWidget {
-  final Cabin? cabin;
+  final Cabin cabin;
   final Booking booking;
 
   const BookingCard({
@@ -29,7 +29,7 @@ class BookingCard extends StatelessWidget {
     return TimerBuilder.periodic(
       const Duration(minutes: 1),
       builder: (context) {
-        final isBeforeNow = booking.endDateTime!.isBefore(DateTime.now());
+        final isBeforeNow = booking.endDateTime.isBefore(DateTime.now());
 
         return TweenAnimationBuilder<double>(
           tween: Tween<double>(begin: height, end: height),
@@ -43,7 +43,8 @@ class BookingCard extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: const BorderRadius.all(Radius.circular(10.0)),
                 side: BorderSide(
-                  color: Colors.grey[300]!.withOpacity(isBeforeNow ? 0.41 : 1.0),
+                  color:
+                      Colors.grey[300]!.withOpacity(isBeforeNow ? 0.41 : 1.0),
                   width: 1.5,
                 ),
               ),
@@ -77,7 +78,7 @@ class BookingCard extends StatelessWidget {
 }
 
 class BookingCardInfo extends StatelessWidget {
-  final Cabin? cabin;
+  final Cabin cabin;
   final Booking booking;
   final bool isRecurring;
 
@@ -119,9 +120,10 @@ class BookingCardInfo extends StatelessWidget {
                       Text(
                         booking.description!,
                         style: TextStyle(
-                            fontSize: constraints.maxHeight > 20.0
-                                ? 14.0
-                                : constraints.maxHeight * 0.5),
+                          fontSize: constraints.maxHeight > 20.0
+                              ? 14.0
+                              : constraints.maxHeight * 0.5,
+                        ),
                       ),
                       if (constraints.maxHeight > 30.0)
                         Text(
@@ -156,7 +158,7 @@ class BookingCardInfo extends StatelessWidget {
                     onPressed: () {
                       Provider.of<CabinManager>(context, listen: false)
                           .modifyBookingStatusById(
-                        cabin!.id,
+                        cabin.id,
                         booking.id,
                         BookingStatus.values[(booking.status.index + 1) %
                             BookingStatus.values.length],

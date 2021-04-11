@@ -91,21 +91,21 @@ class RecurringBooking extends Booking {
         days: PeriodicityValues.periodicityInDays[periodicity]! * repeatEvery,
       );
 
-  DateTime? get recurringEndDate {
-    if (_recurringEndDate != null) return _recurringEndDate;
+  DateTime get recurringEndDate {
+    if (_recurringEndDate != null) return _recurringEndDate!;
 
     assert(_occurrences != null);
 
     return date!.add(periodicityDuration * _occurrences!);
   }
 
-  set recurringEndDate(DateTime? date) {
+  set recurringEndDate(DateTime date) {
     _recurringEndDate = date;
     _occurrences = null;
   }
 
-  int? get occurrences {
-    if (_occurrences != null) return _occurrences;
+  int get occurrences {
+    if (_occurrences != null) return _occurrences!;
 
     assert(_recurringEndDate != null);
 
@@ -120,7 +120,7 @@ class RecurringBooking extends Booking {
     return count;
   }
 
-  set occurrences(int? occurrences) {
+  set occurrences(int occurrences) {
     _occurrences = occurrences;
     _recurringEndDate = null;
   }
@@ -144,7 +144,7 @@ class RecurringBooking extends Booking {
 
     var count = 0;
 
-    while (runDate.isBefore(recurringEndDate!)) {
+    while (runDate.isBefore(recurringEndDate)) {
       runBookings.add(
         movedBooking
           ..id = '$id-$count'
@@ -155,7 +155,7 @@ class RecurringBooking extends Booking {
 
       runDate = runDate.add(periodicityDuration);
 
-      if (runDate.isBefore(recurringEndDate!)) {
+      if (runDate.isBefore(recurringEndDate)) {
         movedBooking = movedBooking.copyWith(date: runDate);
         count++;
       }
@@ -164,8 +164,8 @@ class RecurringBooking extends Booking {
     return runBookings;
   }
 
-  Booking? bookingOn(DateTime? dateTime) => bookings.firstWhereOrNull(
-        (booking) => booking.isOn(dateTime!),
+  Booking? bookingOn(DateTime dateTime) => bookings.firstWhereOrNull(
+        (booking) => booking.isOn(dateTime),
       );
 
   bool hasBookingOn(DateTime dateTime) => bookingOn(dateTime) != null;

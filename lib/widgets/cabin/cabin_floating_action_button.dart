@@ -18,7 +18,7 @@ class CabinFloatingActionButton extends StatelessWidget {
           context: context,
           builder: (context) => CabinDialog(
             cabin: Cabin(),
-            newCabinNumber: cabinManager.lastCabinNumber! + 1,
+            newCabinNumber: cabinManager.lastCabinNumber+ 1,
           ),
         );
 

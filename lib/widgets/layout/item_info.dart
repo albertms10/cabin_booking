@@ -5,24 +5,24 @@ import 'package:intl/intl.dart';
 class ItemInfo extends StatelessWidget {
   final DateTime? creationDateTime;
   final DateTime? modificationDateTime;
-  final int? modificationCount;
+  final int modificationCount;
 
   const ItemInfo({
     this.creationDateTime,
     this.modificationDateTime,
-    this.modificationCount,
+    this.modificationCount = 0,
   });
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final appLocalizations = AppLocalizations.of(context);
+    final appLocalizations = AppLocalizations.of(context)!;
 
     return Column(
       children: [
         if (creationDateTime != null)
           Text(
-            appLocalizations!.createdOn(
+            appLocalizations.createdOn(
               creationDateTime!.day,
               DateFormat.yMMMd().format(creationDateTime!),
             ),
@@ -30,15 +30,15 @@ class ItemInfo extends StatelessWidget {
           ),
         if (modificationDateTime != null)
           Text(
-            appLocalizations!.modifiedOn(
+            appLocalizations.modifiedOn(
               modificationDateTime!.day,
               DateFormat.yMMMd().format(modificationDateTime!),
             ),
             style: theme.textTheme.caption,
           ),
-        if (modificationCount! > 1)
+        if (modificationCount > 1)
           Text(
-            appLocalizations!.nModifications(modificationCount!),
+            appLocalizations.nModifications(modificationCount),
             style: theme.textTheme.caption,
           ),
       ],

@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CabinDialog extends StatelessWidget {
-  final Cabin? cabin;
+  final Cabin cabin;
   final int? newCabinNumber;
 
-  const CabinDialog({this.cabin, this.newCabinNumber});
+  const CabinDialog({required this.cabin, this.newCabinNumber});
 
   @override
   Widget build(BuildContext context) {

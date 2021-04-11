@@ -52,7 +52,7 @@ class ItemsTable<T extends Item> extends StatefulWidget {
   _ItemsTableState createState() => _ItemsTableState();
 
   List<ItemsTableRow<T>> get _selectedRows =>
-      rows.where((row) => row.selected!).toList();
+      rows.where((row) => row.selected).toList();
 
   List<String> get _selectedIds =>
       _selectedRows.map((row) => row.item.id).toList();
@@ -67,7 +67,7 @@ class ItemsTable<T extends Item> extends StatefulWidget {
 
   void unselect() {
     for (final row in rows) {
-      if (row.selected!) row.selected = false;
+      if (row.selected) row.selected = false;
     }
   }
 }
@@ -119,7 +119,7 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
 
   @override
   Widget build(BuildContext context) {
-    final appLocalizations = AppLocalizations.of(context);
+    final appLocalizations = AppLocalizations.of(context)!;
 
     if (widget.rows.isEmpty) {
       return CenteredIconMessage(
@@ -132,7 +132,7 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
 
     final columns = [
       ItemsTableColumn(widget.itemHeaderLabel, numeric: false),
-      ItemsTableColumn(appLocalizations!.bookings),
+      ItemsTableColumn(appLocalizations.bookings),
       ItemsTableColumn(appLocalizations.accumulatedTime),
       ItemsTableColumn(appLocalizations.mostOccupiedTimeRange, sortable: false),
       ItemsTableColumn(appLocalizations.activity, sortable: false),
@@ -178,10 +178,10 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
                     final row = widget.rows[index];
 
                     return DataRow(
-                      selected: widget.rows[index].selected!,
+                      selected: widget.rows[index].selected,
                       onSelectChanged: (selected) {
                         setState(
-                          () => widget.rows[index].selected = selected,
+                          () => widget.rows[index].selected = selected ?? false,
                         );
                       },
                       cells: [
@@ -238,7 +238,7 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
                                 ? null
                                 : appLocalizations.pastYearOfActivity,
                             dateRange: row.item is DateRange
-                                ? row.item as DateRange?
+                                ? row.item as DateRange
                                 : DateRange(
                                     startDate: firstWeekDate(DateTime.now()
                                         .subtract(const Duration(days: 365))),
@@ -263,7 +263,8 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
           actions: [
             if (widget.shallEdit && widget._selectedRows.length == 1)
               IconButton(
-                onPressed: () => widget.onEditPressed!(widget._selectedRows),
+                onPressed: () =>
+                    widget.onEditPressed?.call(widget._selectedRows),
                 icon: const Icon(Icons.edit),
                 tooltip: appLocalizations.edit,
               ),
@@ -325,7 +326,7 @@ class ItemsTableRow<T extends Item> {
   final Duration occupiedDuration;
   final Map<DateTime, Duration> occupiedDurationPerWeek;
   final Set<List<TimeOfDay?>> mostOccupiedTimeRanges;
-  bool? selected;
+  bool selected;
 
   ItemsTableRow({
     required this.item,

@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 class Statistics extends StatelessWidget {
   final String? title;
   final IconData? icon;
-  final List<Widget>? items;
+  final List<Widget> items;
   final void Function()? onTap;
 
   const Statistics({
     Key? key,
     this.title,
     this.icon,
-    this.items,
+    this.items = const [],
     this.onTap,
   }) : super(key: key);
 
@@ -55,7 +55,7 @@ class Statistics extends StatelessWidget {
               Wrap(
                 spacing: 24.0,
                 runSpacing: 24.0,
-                children: items!,
+                children: items,
               ),
             ],
           ),

@@ -7,13 +7,13 @@ import 'package:cabin_booking/model/recurring_booking.dart';
 import 'package:flutter/material.dart';
 
 class Cabin extends Item {
-  int? number;
+  late int number;
   late final CabinComponents components;
   final BookingManager _bookingManager;
 
   Cabin({
     String? id,
-    this.number,
+    this.number = 0,
     CabinComponents? components,
     Set<Booking>? bookings,
     Set<RecurringBooking>? recurringBookings,
@@ -26,7 +26,7 @@ class Cabin extends Item {
   }
 
   Cabin.from(Map<String, dynamic> other)
-      : number = other['number'] as int?,
+      : number = other['number'] as int,
         components =
             CabinComponents.from(other['components'] as Map<String, dynamic>),
         _bookingManager = BookingManager.from(
@@ -154,10 +154,10 @@ class Cabin extends Item {
 
   Booking bookingFromId(String id) => _bookingManager.bookingFromId(id);
 
-  RecurringBooking recurringBookingFromId(String? id) =>
+  RecurringBooking recurringBookingFromId(String id) =>
       _bookingManager.recurringBookingFromId(id);
 
-  Set<Booking> allBookingsOn(DateTime? dateTime) =>
+  Set<Booking> allBookingsOn(DateTime dateTime) =>
       _bookingManager.allBookingsOn(dateTime);
 
   @override
@@ -165,5 +165,5 @@ class Cabin extends Item {
       '(${allBookings.length} booking${allBookings.length != 1 ? 's' : ''})';
 
   @override
-  int compareTo(covariant Cabin other) => number!.compareTo(other.number!);
+  int compareTo(covariant Cabin other) => number.compareTo(other.number);
 }

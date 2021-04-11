@@ -66,11 +66,11 @@ class BookingManager with ChangeNotifier {
         ...recurringBookingsBetween(dateRange),
       });
 
-  Set<Booking> bookingsOn(DateTime? dateTime) => SplayTreeSet.from(
-        bookings.where((booking) => booking.isOn(dateTime!)),
+  Set<Booking> bookingsOn(DateTime dateTime) => SplayTreeSet.from(
+        bookings.where((booking) => booking.isOn(dateTime)),
       );
 
-  Set<Booking> recurringBookingsOn(DateTime? dateTime) {
+  Set<Booking> recurringBookingsOn(DateTime dateTime) {
     final filteredBookings = SplayTreeSet<Booking>();
 
     for (final recurringBooking in recurringBookings) {
@@ -82,24 +82,27 @@ class BookingManager with ChangeNotifier {
     return filteredBookings;
   }
 
-  Set<Booking> allBookingsOn(DateTime? dateTime) => SplayTreeSet.from({
+  Set<Booking> allBookingsOn(DateTime dateTime) => SplayTreeSet.from({
         ...bookingsOn(dateTime),
         ...recurringBookingsOn(dateTime),
       });
 
-  bool bookingsCollideWith(Booking booking) =>
-      allBookingsOn(booking.date)
-          .where(
-            (_booking) =>
-                (_booking.recurringBookingId == null ||
-                    _booking.recurringBookingId !=
-                        booking.recurringBookingId) &&
-                _booking.id != booking.id,
-          )
-          .firstWhereOrNull(
-            (_booking) => _booking.collidesWith(booking),
-          ) !=
-      null;
+  bool bookingsCollideWith(Booking booking) {
+    if (booking.date == null) return false;
+
+    return allBookingsOn(booking.date!)
+            .where(
+              (_booking) =>
+                  (_booking.recurringBookingId == null ||
+                      _booking.recurringBookingId !=
+                          booking.recurringBookingId) &&
+                  _booking.id != booking.id,
+            )
+            .firstWhereOrNull(
+              (_booking) => _booking.collidesWith(booking),
+            ) !=
+        null;
+  }
 
   // ignore: always_require_non_null_named_parameters
   Duration occupiedDuration({DateTime? dateTime, DateRange? dateRange}) {
@@ -125,15 +128,15 @@ class BookingManager with ChangeNotifier {
     required TimeOfDay startTime,
     required TimeOfDay endTime,
   }) {
-    final startDate = tryParseDateTimeWithTimeOfDay(
+    final startDate = dateTimeWithTimeOfDay(
       dateTime: dateTime,
       timeOfDay: startTime,
-    )!;
+    );
 
-    final endDate = tryParseDateTimeWithTimeOfDay(
+    final endDate = dateTimeWithTimeOfDay(
       dateTime: dateTime,
       timeOfDay: endTime,
-    )!;
+    );
 
     final maxViewDuration = endDate.difference(startDate);
 
@@ -172,7 +175,7 @@ class BookingManager with ChangeNotifier {
 
     for (final booking in bookingsList) {
       final shouldAddDate = dates.firstWhere(
-            (date) => isSameDay(date!, booking.date!),
+            (date) => isSameDay(date, booking.date),
             orElse: () => null,
           ) !=
           null;

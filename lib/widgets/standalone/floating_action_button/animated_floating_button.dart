@@ -4,8 +4,8 @@ import 'animated_floating_button_label.dart';
 
 class AnimatedFloatingButton extends StatelessWidget {
   final bool visible;
-  final Tween<double>? tween;
-  final Animation<double>? animation;
+  final Tween<double> tween;
+  final Animation<double> animation;
   final VoidCallback? callback;
   final VoidCallback? onLongPress;
   final Color? backgroundColor;
@@ -22,8 +22,8 @@ class AnimatedFloatingButton extends StatelessWidget {
 
   const AnimatedFloatingButton({
     this.visible = true,
-    this.tween,
-    this.animation,
+    required this.tween,
+    required this.animation,
     this.callback,
     this.backgroundColor,
     this.foregroundColor,
@@ -52,7 +52,7 @@ class AnimatedFloatingButton extends StatelessWidget {
             AnimatedFloatingButtonLabel(
               tween: tween,
               label: label,
-              animation: animation!,
+              animation: animation,
             ),
           GestureDetector(
             onLongPress: onLongPress,

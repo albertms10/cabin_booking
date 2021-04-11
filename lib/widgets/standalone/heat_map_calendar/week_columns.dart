@@ -144,7 +144,7 @@ class WeekColumns extends StatelessWidget {
         TimeUtils.firstDayOfCalendar(firstDayOfTheWeek, columnsAmount);
 
     return TimeUtils.datesBetween(
-      firstDate != null && firstDate!.isAfter(firstDayOfCalendar)
+      firstDate?.isAfter(firstDayOfCalendar) ?? false
           ? firstDate!
           : firstDayOfCalendar,
       lastDate,

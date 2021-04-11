@@ -7,12 +7,12 @@ import 'package:flutter/material.dart';
 
 class ActivityLineChart extends StatelessWidget {
   final Map<DateTime, Duration> occupiedDurationPerWeek;
-  final DateRange? dateRange;
+  final DateRange dateRange;
   final String? tooltipMessage;
 
   const ActivityLineChart({
     this.occupiedDurationPerWeek = const {},
-    this.dateRange,
+    required this.dateRange,
     this.tooltipMessage,
   });
 
@@ -25,8 +25,8 @@ class ActivityLineChart extends StatelessWidget {
         width: 250.0,
         padding: const EdgeInsets.symmetric(vertical: 24.0),
         child: DetailLineChart(
-          minX: dateToInt(dateRange!.startDate!).toDouble(),
-          maxX: dateToInt(dateRange!.endDate!).toDouble(),
+          minX: dateToInt(dateRange.startDate!).toDouble(),
+          maxX: dateToInt(dateRange.endDate!).toDouble(),
           spots: [
             for (final entry in occupiedDurationPerWeek.entries)
               FlSpot(

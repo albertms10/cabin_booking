@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 class DangerAlertDialog extends StatelessWidget {
-  final String? title;
-  final String? content;
+  final String title;
+  final String content;
   final String? cancelText;
   final String? okText;
 
   const DangerAlertDialog({
-    this.title,
-    this.content,
+    required this.title,
+    required this.content,
     this.cancelText,
     this.okText,
   });
@@ -19,8 +19,8 @@ class DangerAlertDialog extends StatelessWidget {
         EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0);
 
     return AlertDialog(
-      title: Text(title!),
-      content: Text(content!),
+      title: Text(title),
+      content: Text(content),
       actionsPadding: const EdgeInsets.all(8.0),
       actions: [
         TextButton(

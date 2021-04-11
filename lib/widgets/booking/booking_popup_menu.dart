@@ -10,7 +10,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 class BookingPopupMenu extends StatelessWidget {
-  final Cabin? cabin;
+  final Cabin cabin;
   final Booking booking;
 
   const BookingPopupMenu({
@@ -27,9 +27,9 @@ class BookingPopupMenu extends StatelessWidget {
         (booking.recurringBookingId == null
             ? booking
             : cabinManager
-                .cabinFromId(cabin!.id)
-                .recurringBookingFromId(booking.recurringBookingId))
-          ..cabinId = cabin!.id,
+                .cabinFromId(cabin.id)
+                .recurringBookingFromId(booking.recurringBookingId!))
+          ..cabinId = cabin.id,
       ),
     );
 
@@ -38,36 +38,36 @@ class BookingPopupMenu extends StatelessWidget {
     if (RecurringBooking.isRecurringBooking(editedBooking)) {
       if (RecurringBooking.isRecurringBooking(booking)) {
         cabinManager.modifyRecurringBooking(
-          cabin!.id,
+          cabin.id,
           editedBooking as RecurringBooking,
         );
       } else {
         cabinManager.changeBookingToRecurring(
-          cabin!.id,
+          cabin.id,
           editedBooking as RecurringBooking,
         );
       }
     } else {
       if (RecurringBooking.isRecurringBooking(booking)) {
         cabinManager.changeRecurringToBooking(
-          cabin!.id,
+          cabin.id,
           editedBooking,
         );
       } else {
-        cabinManager.modifyBooking(cabin!.id, editedBooking);
+        cabinManager.modifyBooking(cabin.id, editedBooking);
       }
     }
   }
 
   void _onDeleteSelected(BuildContext context) async {
-    final appLocalizations = AppLocalizations.of(context);
+    final appLocalizations = AppLocalizations.of(context)!;
 
     final cabinManager = Provider.of<CabinManager>(context, listen: false);
 
     final shallDelete = await showDialog<bool>(
       context: context,
       builder: (context) => DangerAlertDialog(
-        title: appLocalizations!.deleteBookingTitle,
+        title: appLocalizations.deleteBookingTitle,
         content: appLocalizations.actionUndone,
       ),
     );
@@ -76,11 +76,11 @@ class BookingPopupMenu extends StatelessWidget {
 
     if (RecurringBooking.isRecurringBooking(booking)) {
       cabinManager.removeRecurringBookingById(
-        cabin!.id,
+        cabin.id,
         booking.recurringBookingId,
       );
     } else {
-      cabinManager.removeBookingById(cabin!.id, booking.id);
+      cabinManager.removeBookingById(cabin.id, booking.id);
     }
   }
 

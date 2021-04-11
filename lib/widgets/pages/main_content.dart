@@ -8,10 +8,10 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 class MainContent extends StatefulWidget {
-  final int? railIndex;
-  final List<Widget>? pages;
+  final int railIndex;
+  final List<Widget> pages;
 
-  const MainContent({this.railIndex, this.pages});
+  const MainContent({required this.railIndex, this.pages = const []});
 
   @override
   _MainContentState createState() => _MainContentState();
@@ -81,7 +81,7 @@ class _MainContentState extends State<MainContent> {
           return const Center(child: CircularProgressIndicator());
         }
 
-        return widget.pages![widget.railIndex!];
+        return widget.pages[widget.railIndex];
       },
     );
   }

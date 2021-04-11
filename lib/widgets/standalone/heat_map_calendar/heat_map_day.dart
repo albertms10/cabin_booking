@@ -51,8 +51,7 @@ class HeatMapDay extends StatelessWidget {
       padding: EdgeInsets.all(space / 2.0),
       child: InkWell(
         borderRadius: const BorderRadius.all(Radius.circular(2.0)),
-        onTap:
-            onTap == null || date == null ? null : () => onTap!(date!, value),
+        onTap: date == null ? null : () => onTap?.call(date!, value),
         child: Container(
           height: size,
           width: size,
@@ -63,7 +62,7 @@ class HeatMapDay extends StatelessWidget {
                 ? (highlightToday &&
                         TimeUtils.isOnSameDay(date!, DateTime.now())
                     ? Border.all(color: Colors.orange, width: 2.0)
-                    : highlightOn != null && highlightOn!(date!)
+                    : highlightOn?.call(date!) ?? false
                         ? Border.all(color: Colors.orange[200]!, width: 2.0)
                         : null)
                 : null,

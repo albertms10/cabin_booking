@@ -67,7 +67,7 @@ class CabinsTable extends StatelessWidget {
                 ),
                 mostOccupiedTimeRanges: compactizeRange<TimeOfDay>(
                   cabin.mostOccupiedTimeRange(),
-                  nextValue: (timeOfDay) => timeOfDay!.replacing(
+                  nextValue: (timeOfDay) => timeOfDay.replacing(
                     hour: (timeOfDay.hour + 1) % TimeOfDay.hoursPerDay,
                   ),
                   inclusive: true,

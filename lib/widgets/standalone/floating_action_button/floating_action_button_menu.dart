@@ -44,7 +44,7 @@ class FloatingActionButtonMenu extends StatefulWidget {
   /// Executed when the menu is closed.
   final VoidCallback? onClose;
 
-  /// Executed when the menu is pressed. If given, the menu only opens on long press!
+  /// Executed when the menu is pressed. If given, the menu only opens on long press.
   final VoidCallback? onPressed;
 
   /// If `true` [overlay] is not rendered and user is forced to close the menu manually by tapping main button.
@@ -93,7 +93,7 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
 
-  Animation<double>? _childAnimation;
+  late Animation<double> _childAnimation;
 
   bool _open = false;
   bool _animationCompleted = true;
@@ -153,14 +153,11 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
 
   void _toggleChildren() {
     final newOpenValue = !_open;
-
     setState(() => _open = newOpenValue);
 
-    if (newOpenValue && widget.onOpen != null) widget.onOpen!();
-
+    if (newOpenValue) widget.onOpen?.call();
     _performAnimation();
-
-    if (!newOpenValue && widget.onClose != null) widget.onClose!();
+    if (!newOpenValue) widget.onClose?.call();
   }
 
   List<Widget> _getChildrenList() {
@@ -170,7 +167,7 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
 
           return AnimatedChild(
             tween: widget.tween,
-            animation: _childAnimation!,
+            animation: _childAnimation,
             index: index,
             visible: _open,
             backgroundColor: child.backgroundColor,
@@ -236,7 +233,7 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
                 onLongPress: _toggleChildren,
                 callback: _open && widget.onPressed != null
                     ? () {
-                        widget.onPressed!();
+                        widget.onPressed?.call();
                         _toggleChildren();
                       }
                     : _toggleChildren,
