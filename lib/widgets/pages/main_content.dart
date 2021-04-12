@@ -83,6 +83,7 @@ class _MainContentState extends State<MainContent> {
 
         return widget.pages[widget.railIndex];
       },
+      catchError: (context, error) => null,
     );
   }
 }
