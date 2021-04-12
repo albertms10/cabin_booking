@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 
 class Cabin extends Item {
   late int number;
-  late final CabinComponents components;
+  late CabinComponents components;
   final BookingManager _bookingManager;
 
   Cabin({

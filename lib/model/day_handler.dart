@@ -23,7 +23,7 @@ final _defaultSchoolYears = {
 
 class DayHandler with ChangeNotifier {
   late DateTime _dateTime;
-  late final SchoolYearManager schoolYearManager;
+  late SchoolYearManager schoolYearManager;
 
   DayHandler([SchoolYearManager? schoolYearManager]) {
     _dateTime = DateTime.now();

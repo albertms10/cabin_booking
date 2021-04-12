@@ -15,13 +15,13 @@ Iterable<Cabin> _parseCabins(String jsonString) =>
         .map<Cabin>((json) => Cabin.from(json));
 
 class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
-  late final Set<Cabin> cabins;
+  late Set<Cabin> cabins;
 
   CabinManager({
     Set<Cabin>? cabins,
     String fileName = 'cabin_manager',
   }) : super(fileName) {
-    cabins ??= SplayTreeSet();
+    this.cabins = cabins ?? SplayTreeSet();
   }
 
   List<Map<String, dynamic>> cabinsToMapList() =>

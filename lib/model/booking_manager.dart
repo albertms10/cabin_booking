@@ -8,12 +8,15 @@ import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
 
 class BookingManager with ChangeNotifier {
-  late final Set<Booking> bookings;
-  late final Set<RecurringBooking> recurringBookings;
+  late Set<Booking> bookings;
+  late Set<RecurringBooking> recurringBookings;
 
-  BookingManager({Set<Booking>? bookings, Set<Booking>? recurringBookings}) {
-    bookings ??= SplayTreeSet();
-    recurringBookings ??= SplayTreeSet();
+  BookingManager({
+    Set<Booking>? bookings,
+    Set<RecurringBooking>? recurringBookings,
+  }) {
+    this.bookings = bookings ?? SplayTreeSet();
+    this.recurringBookings = recurringBookings ?? SplayTreeSet();
   }
 
   BookingManager.from({

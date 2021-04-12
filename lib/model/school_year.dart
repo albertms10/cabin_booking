@@ -5,7 +5,7 @@ import 'package:cabin_booking/model/holiday.dart';
 import 'package:intl/intl.dart';
 
 class SchoolYear extends DateRange {
-  late final Set<Holiday> holidays;
+  late Set<Holiday> holidays;
 
   SchoolYear({
     String? id,
@@ -17,7 +17,7 @@ class SchoolYear extends DateRange {
           startDate: startDate,
           endDate: endDate,
         ) {
-    holidays ??= SplayTreeSet();
+    this.holidays = holidays ?? SplayTreeSet();
   }
 
   SchoolYear.from(Map<String, dynamic> other)

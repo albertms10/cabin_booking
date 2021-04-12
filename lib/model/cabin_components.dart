@@ -1,5 +1,5 @@
 class CabinComponents {
-  late final List<Piano> pianos;
+  late List<Piano> pianos;
   int lecterns;
   int chairs;
   int tables;
