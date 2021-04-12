@@ -107,7 +107,6 @@ class BookingManager with ChangeNotifier {
         null;
   }
 
-  // ignore: always_require_non_null_named_parameters
   Duration occupiedDuration({DateTime? dateTime, DateRange? dateRange}) {
     assert(!((dateTime != null) && (dateRange != null)));
 
@@ -170,31 +169,30 @@ class BookingManager with ChangeNotifier {
     return runPercent;
   }
 
-  Set<DateTime?> datesWithBookings([DateRange? dateRange]) {
-    final dates = SplayTreeSet<DateTime?>();
+  Set<DateTime> datesWithBookings([DateRange? dateRange]) {
+    final dates = SplayTreeSet<DateTime>();
 
     final bookingsList =
         dateRange != null ? allBookingsBetween(dateRange) : allBookings;
 
     for (final booking in bookingsList) {
-      final shouldAddDate = dates.firstWhere(
+      final shouldAddDate = dates.firstWhereOrNull(
             (date) => isSameDay(date, booking.date),
-            orElse: () => null,
           ) !=
           null;
 
-      if (!shouldAddDate) dates.add(booking.date);
+      if (!shouldAddDate) dates.add(booking.date!);
     }
 
     return dates;
   }
 
-  Map<DateTime?, int> get allBookingsCountPerDay {
-    final bookingsPerDay = SplayTreeMap<DateTime?, int>();
+  Map<DateTime, int> get allBookingsCountPerDay {
+    final bookingsPerDay = SplayTreeMap<DateTime, int>();
 
     for (final booking in allBookings) {
       bookingsPerDay.update(
-        booking.date,
+        booking.date!,
         (count) => count + 1,
         ifAbsent: () => 1,
       );

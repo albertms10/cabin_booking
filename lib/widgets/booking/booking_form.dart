@@ -41,7 +41,7 @@ class _BookingFormState extends State<BookingForm> {
 
   late Booking _booking = widget.booking;
 
-  RecurringBookingMethod? _recurringBookingMethod =
+  RecurringBookingMethod _recurringBookingMethod =
       RecurringBookingMethod.EndDate;
   Periodicity _periodicity = Periodicity.Weekly;
 
@@ -91,7 +91,7 @@ class _BookingFormState extends State<BookingForm> {
       child: Column(
         children: [
           CabinDropdown(
-            value: _booking.cabinId,
+            value: _booking.cabinId!,
             onChanged: (value) {
               setState(() => _booking.cabinId = value);
             },
@@ -194,7 +194,7 @@ class _BookingFormState extends State<BookingForm> {
                         });
                       },
                       onSaved: (value) {
-                        _booking.startTime = tryParseTimeOfDay(value);
+                        _booking.startTime = tryParseTimeOfDay(value ?? '');
                       },
                       decoration: InputDecoration(
                         labelText: appLocalizations.start,
@@ -276,7 +276,7 @@ class _BookingFormState extends State<BookingForm> {
                         });
                       },
                       onSaved: (value) {
-                        _booking.endTime = tryParseTimeOfDay(value);
+                        _booking.endTime = tryParseTimeOfDay(value ?? '');
                       },
                       decoration: InputDecoration(
                         labelText: appLocalizations.end,
@@ -327,6 +327,7 @@ class _BookingFormState extends State<BookingForm> {
                           value: RecurringBookingMethod.EndDate,
                           groupValue: _recurringBookingMethod,
                           onChanged: (value) {
+                            if (value == null) return;
                             setState(() => _recurringBookingMethod = value);
                           },
                         ),
@@ -359,6 +360,7 @@ class _BookingFormState extends State<BookingForm> {
                           value: RecurringBookingMethod.Occurrences,
                           groupValue: _recurringBookingMethod,
                           onChanged: (value) {
+                            if (value == null) return;
                             setState(() => _recurringBookingMethod = value);
                           },
                         ),

@@ -82,10 +82,10 @@ class Cabin extends Item {
         endTime: endTime,
       );
 
-  Set<DateTime?> datesWithBookings([DateRange? dateRange]) =>
+  Set<DateTime> datesWithBookings([DateRange? dateRange]) =>
       _bookingManager.datesWithBookings(dateRange);
 
-  Map<DateTime?, int> get allBookingsCountPerDay =>
+  Map<DateTime, int> get allBookingsCountPerDay =>
       _bookingManager.allBookingsCountPerDay;
 
   Map<DateTime, Duration> occupiedDurationPerWeek([DateRange? dateRange]) =>

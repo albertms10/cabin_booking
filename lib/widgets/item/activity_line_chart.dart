@@ -36,6 +36,6 @@ class ActivityLineChart extends StatelessWidget {
           ],
         ),
       ),
-    )!;
+    );
   }
 }

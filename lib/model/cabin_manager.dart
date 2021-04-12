@@ -31,8 +31,8 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
 
   int get lastCabinNumber => cabins.isEmpty ? 0 : cabins.last.number;
 
-  Set<DateTime?> allCabinsDatesWithBookings([DateRange? dateRange]) {
-    final dates = SplayTreeSet<DateTime?>();
+  Set<DateTime> allCabinsDatesWithBookings([DateRange? dateRange]) {
+    final dates = SplayTreeSet<DateTime>();
 
     for (final cabin in cabins) {
       dates.addAll(cabin.datesWithBookings(dateRange));
@@ -42,7 +42,7 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
   }
 
   Map<DateTime, int> get allCabinsBookingsCountPerDay {
-    final bookingsPerDay = <DateTime?, int>{};
+    final bookingsPerDay = <DateTime, int>{};
 
     for (final cabin in cabins) {
       for (final bookingsCount in cabin.allBookingsCountPerDay.entries) {

@@ -94,13 +94,16 @@ class EmptyBookingSlotActionable extends StatelessWidget {
   Widget build(BuildContext context) {
     final cabinManager = Provider.of<CabinManager>(context, listen: false);
 
+    final duration =
+        preciseDuration ?? endDateTime.difference(startDateTime).inMinutes;
+
     return Container(
       margin: const EdgeInsets.all(8.0),
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(4.0)),
       ),
       child: Tooltip(
-        message: '$preciseDuration min',
+        message: '$duration min',
         child: InkWell(
           borderRadius: const BorderRadius.all(Radius.circular(4.0)),
           onTap: () {

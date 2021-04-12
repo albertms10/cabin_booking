@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PeriodicityListTile extends StatelessWidget {
-  final Periodicity? value;
+  final Periodicity value;
   final void Function(Periodicity?)? onChanged;
 
   const PeriodicityListTile({
     Key? key,
-    this.value,
+    required this.value,
     this.onChanged,
   }) : super(key: key);
 

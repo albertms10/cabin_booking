@@ -4,11 +4,11 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 class CabinDropdown extends StatelessWidget {
-  final String? value;
+  final String value;
   final void Function(String?)? onChanged;
 
   const CabinDropdown({
-    this.value,
+    required this.value,
     this.onChanged,
   });
 

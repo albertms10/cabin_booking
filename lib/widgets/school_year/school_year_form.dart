@@ -7,9 +7,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 
 class SchoolYearForm extends StatefulWidget {
-  final SchoolYear? schoolYear;
+  final SchoolYear schoolYear;
 
-  const SchoolYearForm({this.schoolYear});
+  const SchoolYearForm({required this.schoolYear});
 
   @override
   _SchoolYearFormState createState() => _SchoolYearFormState();
@@ -21,23 +21,21 @@ class _SchoolYearFormState extends State<SchoolYearForm> {
   final _startDateController = TextEditingController();
   final _endDateController = TextEditingController();
 
-  SchoolYear? _schoolYear;
+  late final SchoolYear _schoolYear = widget.schoolYear;
 
   @override
   void initState() {
     super.initState();
 
-    if (widget.schoolYear!.startDate != null) {
+    if (widget.schoolYear.startDate != null) {
       _startDateController.text =
-          DateFormat.yMd().format(widget.schoolYear!.startDate!);
+          DateFormat.yMd().format(widget.schoolYear.startDate!);
     }
 
-    if (widget.schoolYear!.endDate != null) {
+    if (widget.schoolYear.endDate != null) {
       _endDateController.text =
-          DateFormat.yMd().format(widget.schoolYear!.endDate!);
+          DateFormat.yMd().format(widget.schoolYear.endDate!);
     }
-
-    _schoolYear = widget.schoolYear;
   }
 
   @override
@@ -68,19 +66,19 @@ class _SchoolYearFormState extends State<SchoolYearForm> {
               Expanded(
                 child: DateFormField(
                   controller: _startDateController,
-                  initialDate: _schoolYear!.startDate,
+                  initialDate: _schoolYear.startDate,
                   labelText: appLocalizations.startDate,
                   autofocus: true,
                   additionalValidator: (date) {
-                    if (_schoolYear!.endDate != null &&
-                        date.isAfter(_schoolYear!.endDate!)) {
+                    if (_schoolYear.endDate != null &&
+                        date.isAfter(_schoolYear.endDate!)) {
                       return appLocalizations.enterDate;
                     }
 
                     return null;
                   },
                   onChanged: (date) {
-                    setState(() => _schoolYear!.startDate = date);
+                    setState(() => _schoolYear.startDate = date);
                   },
                 ),
               ),
@@ -88,18 +86,18 @@ class _SchoolYearFormState extends State<SchoolYearForm> {
               Expanded(
                 child: DateFormField(
                   controller: _endDateController,
-                  initialDate: _schoolYear!.endDate,
+                  initialDate: _schoolYear.endDate,
                   labelText: appLocalizations.endDate,
                   additionalValidator: (date) {
-                    if (_schoolYear!.startDate != null &&
-                        date.isBefore(_schoolYear!.startDate!)) {
+                    if (_schoolYear.startDate != null &&
+                        date.isBefore(_schoolYear.startDate!)) {
                       return appLocalizations.enterDate;
                     }
 
                     return null;
                   },
                   onChanged: (date) {
-                    setState(() => _schoolYear!.endDate = date);
+                    setState(() => _schoolYear.endDate = date);
                   },
                 ),
               ),
@@ -114,13 +112,13 @@ class _SchoolYearFormState extends State<SchoolYearForm> {
                 Navigator.of(context).pop<SchoolYear>(_schoolYear);
               }
             },
-            shouldAdd: widget.schoolYear!.startDate == null,
+            shouldAdd: widget.schoolYear.startDate == null,
           ),
           const SizedBox(height: 16.0),
           ItemInfo(
-            creationDateTime: _schoolYear!.creationDateTime,
-            modificationDateTime: _schoolYear!.modificationDateTime,
-            modificationCount: _schoolYear!.modificationCount,
+            creationDateTime: _schoolYear.creationDateTime,
+            modificationDateTime: _schoolYear.modificationDateTime,
+            modificationCount: _schoolYear.modificationCount,
           ),
         ],
       ),

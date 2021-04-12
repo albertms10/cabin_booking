@@ -222,9 +222,9 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
                               items: row.mostOccupiedTimeRanges.toList(),
                               maxChips: 1,
                               labelBuilder:
-                                  (context, List<TimeOfDay?> timeRange) {
+                                  (context, List<TimeOfDay> timeRange) {
                                 return Text(
-                                  '${timeRange.first!.format(context)}–${timeRange.last!.format(context)}',
+                                  '${timeRange.first.format(context)}–${timeRange.last.format(context)}',
                                 );
                               },
                             ),
@@ -325,7 +325,7 @@ class ItemsTableRow<T extends Item> {
   final int recurringBookingsCount;
   final Duration occupiedDuration;
   final Map<DateTime, Duration> occupiedDurationPerWeek;
-  final Set<List<TimeOfDay?>> mostOccupiedTimeRanges;
+  final Set<List<TimeOfDay>> mostOccupiedTimeRanges;
   bool selected;
 
   ItemsTableRow({

@@ -22,11 +22,11 @@ class BookingStatusButton extends StatelessWidget {
     };
   }
 
-  Map<BookingStatus, Color?> _statusColors(BuildContext context) => {
+  Map<BookingStatus, Color> _statusColors(BuildContext context) => {
         BookingStatus.Pending: Theme.of(context).hintColor,
         BookingStatus.Confirmed:
             Theme.of(context).brightness == Brightness.light
-                ? Colors.greenAccent[700]
+                ? Colors.greenAccent[700]!
                 : Colors.greenAccent,
         BookingStatus.Cancelled: Colors.redAccent,
       };

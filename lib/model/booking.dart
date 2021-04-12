@@ -34,8 +34,8 @@ class Booking extends Item {
   Booking.from(Map<String, dynamic> other)
       : description = other['description'] as String?,
         date = DateTime.tryParse(other['date'] as String),
-        startTime = tryParseTimeOfDay(other['startTime'] as String?),
-        endTime = tryParseTimeOfDay(other['endTime'] as String?),
+        startTime = tryParseTimeOfDay(other['startTime'] as String),
+        endTime = tryParseTimeOfDay(other['endTime'] as String),
         status = BookingStatus.values[other['status'] as int],
         isDisabled = other['isDisabled'] as bool,
         super.from(other);

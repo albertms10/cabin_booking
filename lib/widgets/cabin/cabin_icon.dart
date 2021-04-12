@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CabinIcon extends StatelessWidget {
-  final int? number;
+  final int number;
   final double? progress;
 
   const CabinIcon({
@@ -40,8 +40,8 @@ class CabinIcon extends StatelessWidget {
       alignment: Alignment.center,
       children: [
         SizedBox(
-          width: radius * 2,
-          height: radius * 2,
+          width: radius * 2.0,
+          height: radius * 2.0,
           child: TweenAnimationBuilder<double>(
             tween: Tween<double>(begin: 0.0, end: progress),
             duration: const Duration(milliseconds: 700),
