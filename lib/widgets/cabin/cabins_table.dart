@@ -1,8 +1,8 @@
 import 'package:cabin_booking/model/cabin.dart';
 import 'package:cabin_booking/model/cabin_manager.dart';
 import 'package:cabin_booking/model/date_range.dart';
-import 'package:cabin_booking/utils/misc.dart';
 import 'package:cabin_booking/utils/datetime.dart';
+import 'package:cabin_booking/utils/misc.dart';
 import 'package:cabin_booking/widgets/cabin/cabin_dialog.dart';
 import 'package:cabin_booking/widgets/item/items_table.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +17,7 @@ class CabinsTable extends StatelessWidget {
         final appLocalizations = AppLocalizations.of(context)!;
 
         return ItemsTable<Cabin>(
-          itemTitle: (row) => '${row.item.number}',
+          itemTitle: (ItemsTableRow row) => '${row.item}',
           itemIcon: Icons.sensor_door,
           itemHeaderLabel: appLocalizations.cabin,
           emptyMessage: appLocalizations.noCabinsMessage,
