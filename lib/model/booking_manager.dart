@@ -244,7 +244,7 @@ class BookingManager with ChangeNotifier {
       (a, b) => (b.value - a.value).inMicroseconds,
     );
 
-    if (sortedTimeRanges.isEmpty) return {};
+    if (sortedTimeRanges.isEmpty) return SplayTreeSet();
 
     final highestOccupancyDuration = sortedTimeRanges.first.value;
 
