@@ -24,7 +24,7 @@ class ItemsTable<T extends Item> extends StatefulWidget {
   final bool shallEmpty;
   final bool shallRemove;
 
-  final void Function(List<ItemsTableRow<T>>)? onEditPressed;
+  final Future<void> Function(List<ItemsTableRow<T>>)? onEditPressed;
 
   final String? onEmptyTitle;
   final void Function(List<String>)? onEmptyPressed;
