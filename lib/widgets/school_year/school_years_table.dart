@@ -17,7 +17,6 @@ class SchoolYearsTable extends StatelessWidget {
         final appLocalizations = AppLocalizations.of(context)!;
 
         return ItemsTable<SchoolYear>(
-          itemTitle: (ItemsTableRow row) => '${row.item}',
           itemIcon: Icons.school,
           itemHeaderLabel: appLocalizations.schoolYear,
           emptyMessage: appLocalizations.noSchoolYearsMessage,

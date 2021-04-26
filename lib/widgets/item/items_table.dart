@@ -14,7 +14,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 typedef _OnSortFunction = void Function(bool);
 
 class ItemsTable<T extends Item> extends StatefulWidget {
-  final String Function(ItemsTableRow<T>) itemTitle;
+  final String Function(ItemsTableRow<T>)? itemTitle;
   final IconData? itemIcon;
   final String itemHeaderLabel;
   final List<ItemsTableRow<T>> rows;
@@ -33,7 +33,7 @@ class ItemsTable<T extends Item> extends StatefulWidget {
   final void Function(List<String>)? onRemovePressed;
 
   const ItemsTable({
-    required this.itemTitle,
+    this.itemTitle,
     this.itemIcon,
     this.itemHeaderLabel = 'Item',
     required this.rows,
@@ -194,7 +194,7 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
                               ),
                               const SizedBox(width: 12.0),
                               Text(
-                                widget.itemTitle(row),
+                                widget.itemTitle?.call(row) ?? '${row.item}',
                                 style: theme.textTheme.headline5,
                               ),
                             ],

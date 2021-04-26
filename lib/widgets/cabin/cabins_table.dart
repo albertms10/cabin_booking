@@ -17,7 +17,6 @@ class CabinsTable extends StatelessWidget {
         final appLocalizations = AppLocalizations.of(context)!;
 
         return ItemsTable<Cabin>(
-          itemTitle: (ItemsTableRow row) => '${row.item}',
           itemIcon: Icons.sensor_door,
           itemHeaderLabel: appLocalizations.cabin,
           emptyMessage: appLocalizations.noCabinsMessage,
