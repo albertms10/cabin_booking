@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 class DangerAlertDialog extends StatelessWidget {
   final String title;
   final String content;
-  final String cancelText;
-  final String okText;
+  final String? cancelText;
+  final String? okText;
 
   const DangerAlertDialog({
-    this.title,
-    this.content,
+    required this.title,
+    required this.content,
     this.cancelText,
     this.okText,
   });
@@ -41,7 +41,7 @@ class DangerAlertDialog extends StatelessWidget {
           },
           style: ButtonStyle(
             padding: MaterialStateProperty.all(buttonPadding),
-            overlayColor: MaterialStateProperty.resolveWith<Color>((states) {
+            overlayColor: MaterialStateProperty.resolveWith<Color?>((states) {
               if (states.contains(MaterialState.hovered)) {
                 return Colors.red.withOpacity(0.1);
               } else if (states.contains(MaterialState.pressed)) {

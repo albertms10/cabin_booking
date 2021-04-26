@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class CenteredIconMessage extends StatelessWidget {
-  final IconData icon;
-  final String message;
+  final IconData? icon;
+  final String? message;
 
   const CenteredIconMessage({this.icon, this.message});
 
@@ -18,15 +18,16 @@ class CenteredIconMessage extends StatelessWidget {
             size: 72.0,
             color: Colors.grey,
           ),
-          const SizedBox(height: 24.0),
-          Text(
-            message,
-            style: Theme.of(context)
-                .textTheme
-                .headline5
-                .copyWith(color: Colors.grey[600]),
-          ),
-          const SizedBox(height: 82.0),
+          if (icon != null && message != null) const SizedBox(height: 24.0),
+          if (message != null)
+            Text(
+              message!,
+              style: Theme.of(context)
+                  .textTheme
+                  .headline5!
+                  .copyWith(color: Colors.grey[600]),
+            ),
+          if (icon != null || message != null) const SizedBox(height: 82.0),
         ],
       ),
     );

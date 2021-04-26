@@ -4,17 +4,17 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PeriodicityListTile extends StatelessWidget {
   final Periodicity value;
-  final void Function(Periodicity) onChanged;
+  final void Function(Periodicity?)? onChanged;
 
   const PeriodicityListTile({
-    Key key,
-    this.value,
+    Key? key,
+    required this.value,
     this.onChanged,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final appLocalizations = AppLocalizations.of(context);
+    final appLocalizations = AppLocalizations.of(context)!;
 
     final periodicityLabels = [
       appLocalizations.daily,

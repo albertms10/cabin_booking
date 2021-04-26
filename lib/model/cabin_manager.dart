@@ -15,23 +15,23 @@ Iterable<Cabin> _parseCabins(String jsonString) =>
         .map<Cabin>((json) => Cabin.from(json));
 
 class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
-  Set<Cabin> cabins;
+  late Set<Cabin> cabins;
 
   CabinManager({
-    this.cabins,
+    Set<Cabin>? cabins,
     String fileName = 'cabin_manager',
   }) : super(fileName) {
-    cabins ??= SplayTreeSet();
+    this.cabins = cabins ?? SplayTreeSet();
   }
 
   List<Map<String, dynamic>> cabinsToMapList() =>
       cabins.map((cabin) => cabin.toMap()).toList();
 
-  Cabin cabinFromId(String id) => cabins.firstWhere((cabin) => cabin.id == id);
+  Cabin cabinFromId(String? id) => cabins.firstWhere((cabin) => cabin.id == id);
 
   int get lastCabinNumber => cabins.isEmpty ? 0 : cabins.last.number;
 
-  Set<DateTime> allCabinsDatesWithBookings([DateRange dateRange]) {
+  Set<DateTime> allCabinsDatesWithBookings([DateRange? dateRange]) {
     final dates = SplayTreeSet<DateTime>();
 
     for (final cabin in cabins) {
@@ -60,14 +60,14 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
     );
   }
 
-  MapEntry<DateTime, int> get mostBookedDayEntry {
+  MapEntry<DateTime, int>? get mostBookedDayEntry {
     final countEntries = allCabinsBookingsCountPerDay.entries;
 
     return countEntries.isEmpty ? null : countEntries.first;
   }
 
   Map<TimeOfDay, Duration> accumulatedTimeRangesOccupancy([
-    DateRange dateRange,
+    DateRange? dateRange,
   ]) {
     final timeRanges = SplayTreeMap<TimeOfDay, Duration>(compareTime);
 
@@ -87,7 +87,7 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
     return timeRanges;
   }
 
-  Set<TimeOfDay> mostOccupiedTimeRange([DateRange dateRange]) {
+  Set<TimeOfDay> mostOccupiedTimeRange([DateRange? dateRange]) {
     final sortedTimeRanges = SplayTreeSet<MapEntry<TimeOfDay, Duration>>.from(
       accumulatedTimeRangesOccupancy(dateRange).entries,
       (a, b) => (b.value - a.value).inMicroseconds,
@@ -135,7 +135,7 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
     return count;
   }
 
-  Duration totalOccupiedDuration({DateTime dateTime, DateRange dateRange}) {
+  Duration totalOccupiedDuration({DateTime? dateTime, DateRange? dateRange}) {
     var duration = const Duration();
 
     for (final cabin in cabins) {
@@ -148,7 +148,7 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
     return duration;
   }
 
-  Map<DateTime, Duration> occupiedDurationPerWeek([DateRange dateRange]) {
+  Map<DateTime, Duration> occupiedDurationPerWeek([DateRange? dateRange]) {
     final bookingsPerDay = SplayTreeMap<DateTime, Duration>();
 
     for (final cabin in cabins) {
@@ -167,9 +167,9 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
   }
 
   double occupancyPercent({
-    @required TimeOfDay startTime,
-    @required TimeOfDay endTime,
-    Set<DateTime> dates,
+    required TimeOfDay startTime,
+    required TimeOfDay endTime,
+    Set<DateTime>? dates,
   }) {
     if (cabins.isEmpty) return 0.0;
 
@@ -257,7 +257,7 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
   }
 
   void addBooking(
-    String cabinId,
+    String? cabinId,
     Booking booking, {
     bool notify = true,
   }) {
@@ -267,7 +267,7 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
   }
 
   void addRecurringBooking(
-    String cabinId,
+    String? cabinId,
     RecurringBooking recurringBooking, {
     bool notify = true,
   }) {
@@ -278,7 +278,7 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
   }
 
   void modifyBooking(
-    String cabinId,
+    String? cabinId,
     Booking booking, {
     bool notify = true,
   }) {
@@ -293,7 +293,7 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
   }
 
   void modifyRecurringBooking(
-    String cabinId,
+    String? cabinId,
     RecurringBooking recurringBooking, {
     bool notify = true,
   }) {
@@ -310,8 +310,8 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
   }
 
   void modifyBookingStatusById(
-    String cabinId,
-    String bookingId,
+    String? cabinId,
+    String? bookingId,
     BookingStatus status, {
     bool notify = true,
   }) {
@@ -333,8 +333,8 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
   }
 
   void removeBookingById(
-    String cabinId,
-    String bookingId, {
+    String? cabinId,
+    String? bookingId, {
     bool notify = true,
   }) {
     cabinFromId(cabinId).removeBookingById(bookingId);
@@ -343,8 +343,8 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
   }
 
   void removeRecurringBookingById(
-    String cabinId,
-    String bookingId, {
+    String? cabinId,
+    String? bookingId, {
     bool notify = true,
   }) {
     cabinFromId(cabinId).removeRecurringBookingById(bookingId);
@@ -353,7 +353,7 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
   }
 
   void changeRecurringToBooking(
-    String cabinId,
+    String? cabinId,
     Booking booking, {
     bool notify = true,
   }) {
@@ -364,7 +364,7 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
   }
 
   void changeBookingToRecurring(
-    String cabinId,
+    String? cabinId,
     RecurringBooking recurringBooking, {
     bool notify = true,
   }) {

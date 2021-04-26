@@ -3,27 +3,27 @@ import 'package:flutter/material.dart';
 import 'animated_floating_button_label.dart';
 
 class AnimatedChild extends AnimatedWidget {
-  final int index;
-  final Color backgroundColor;
-  final Color foregroundColor;
-  final double elevation;
-  final IconData icon;
+  final int? index;
+  final Color? backgroundColor;
+  final Color? foregroundColor;
+  final double? elevation;
+  final IconData? icon;
   final Tween<double> tween;
 
-  final Widget label;
-  final TextStyle labelStyle;
-  final Color labelBackgroundColor;
+  final Widget? label;
+  final TextStyle? labelStyle;
+  final Color? labelBackgroundColor;
 
   final bool visible;
-  final VoidCallback onTap;
-  final VoidCallback toggleChildren;
-  final ShapeBorder shape;
-  final String heroTag;
+  final VoidCallback? onTap;
+  final VoidCallback? toggleChildren;
+  final ShapeBorder? shape;
+  final String? heroTag;
 
   const AnimatedChild({
-    Key key,
-    Animation<double> animation,
-    this.tween,
+    Key? key,
+    required Animation<double> animation,
+    required this.tween,
     this.index,
     this.backgroundColor,
     this.foregroundColor,
@@ -42,7 +42,7 @@ class AnimatedChild extends AnimatedWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final Animation<double> animation = listenable;
+    final animation = listenable as Animation<double>;
 
     return Container(
       child: Row(
@@ -56,7 +56,9 @@ class AnimatedChild extends AnimatedWidget {
           Container(
             width: tween.end,
             height: animation.value,
-            padding: EdgeInsets.only(bottom: tween.end - animation.value),
+            padding: EdgeInsets.only(
+              bottom: tween.end ?? 0.0 - animation.value,
+            ),
             child: Container(
               width: animation.value,
               height: tween.end,
@@ -64,9 +66,8 @@ class AnimatedChild extends AnimatedWidget {
               child: FloatingActionButton(
                 heroTag: heroTag,
                 onPressed: () {
-                  if (onTap != null) onTap();
-
-                  toggleChildren();
+                  onTap?.call();
+                  toggleChildren?.call();
                 },
                 backgroundColor: backgroundColor ?? theme.dialogBackgroundColor,
                 foregroundColor: foregroundColor ?? theme.accentColor,

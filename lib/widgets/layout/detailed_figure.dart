@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 class DetailedFigure<T> extends StatelessWidget {
   final T figure;
   final List<T> details;
-  final Widget detailsSeparator;
-  final String tooltipMessage;
+  final Widget? detailsSeparator;
+  final String? tooltipMessage;
 
   const DetailedFigure({
-    this.figure,
+    required this.figure,
     this.details = const [],
     this.detailsSeparator,
     this.tooltipMessage,

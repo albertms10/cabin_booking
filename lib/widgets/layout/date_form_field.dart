@@ -4,21 +4,21 @@ import 'package:intl/intl.dart';
 
 class DateFormField extends StatefulWidget {
   final TextEditingController controller;
-  final String labelText;
+  final String? labelText;
   final bool autofocus;
   final bool enabled;
 
-  final DateTime initialDate;
-  final DateTime firstDate;
-  final DateTime lastDate;
+  final DateTime? initialDate;
+  final DateTime? firstDate;
+  final DateTime? lastDate;
 
-  final void Function(DateTime) onChanged;
-  final String Function(DateTime) additionalValidator;
+  final void Function(DateTime)? onChanged;
+  final String? Function(DateTime)? additionalValidator;
   final bool skipValidation;
 
   DateFormField({
-    Key key,
-    this.controller,
+    Key? key,
+    required this.controller,
     this.labelText,
     this.autofocus = false,
     this.enabled = true,
@@ -35,9 +35,9 @@ class DateFormField extends StatefulWidget {
 }
 
 class _DateFormFieldState extends State<DateFormField> {
-  DateTime _date;
-  DateTime _firstDate;
-  DateTime _lastDate;
+  DateTime? _date;
+  late DateTime _firstDate;
+  late DateTime _lastDate;
 
   @override
   void initState() {
@@ -50,7 +50,7 @@ class _DateFormFieldState extends State<DateFormField> {
         widget.lastDate ?? DateTime.now().add(const Duration(days: 365 * 20));
   }
 
-  DateTime _tryParseDate(String value) {
+  DateTime? _tryParseDate(String value) {
     try {
       return DateFormat.yMd().parseLoose(value);
     } on FormatException {
@@ -68,19 +68,18 @@ class _DateFormFieldState extends State<DateFormField> {
       enabled: widget.enabled,
       onChanged: (value) {
         final date = _tryParseDate(value);
+        if (date == null ||
+            !date.isAfter(_firstDate) ||
+            !date.isBefore(_lastDate)) return;
 
-        if (date != null &&
-            date.isAfter(_firstDate) &&
-            date.isBefore(_lastDate)) {
-          setState(() {
-            _date = date;
-            widget.onChanged?.call(date);
-          });
-        }
+        setState(() {
+          _date = date;
+          widget.onChanged?.call(date);
+        });
       },
       onTap: () async {
         if (_date != null &&
-            (_date.isBefore(_firstDate) || _date.isAfter(_lastDate))) return;
+            (_date!.isBefore(_firstDate) || _date!.isAfter(_lastDate))) return;
 
         final date = await showDatePicker(
           context: context,
@@ -89,20 +88,20 @@ class _DateFormFieldState extends State<DateFormField> {
           lastDate: _lastDate,
         );
 
-        if (date != null) {
-          setState(() {
-            _date = date;
-            widget.controller.text = DateFormat.yMd().format(date);
-            widget.onChanged?.call(date);
-          });
-        }
+        if (date == null) return;
+
+        setState(() {
+          _date = date;
+          widget.controller.text = DateFormat.yMd().format(date);
+          widget.onChanged?.call(date);
+        });
       },
       validator: (value) {
         if (widget.skipValidation) return null;
 
-        final appLocalizations = AppLocalizations.of(context);
+        final appLocalizations = AppLocalizations.of(context)!;
 
-        if (value.isEmpty) {
+        if (value == null || value.isEmpty) {
           return appLocalizations.enterDate;
         }
 

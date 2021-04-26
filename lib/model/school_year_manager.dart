@@ -11,31 +11,31 @@ Iterable<SchoolYear> _parseSchoolYears(String jsonString) =>
 
 class SchoolYearManager extends WritableManager<Set<SchoolYear>>
     with ChangeNotifier {
-  Set<SchoolYear> schoolYears;
-  int schoolYearIndex;
+  late Set<SchoolYear> schoolYears;
+  int? schoolYearIndex;
 
-  final void Function() notifyExternalListeners;
+  final void Function()? notifyExternalListeners;
 
   SchoolYearManager({
-    this.schoolYears,
+    Set<SchoolYear>? schoolYears,
     String fileName = 'school_year_manager',
     this.notifyExternalListeners,
   }) : super(fileName) {
-    schoolYears ??= SplayTreeSet();
+    this.schoolYears = schoolYears ?? SplayTreeSet();
     schoolYearIndex = _currentSchoolYearIndex;
   }
 
   List<Map<String, dynamic>> schoolYearsToMapList() =>
       schoolYears.map((schoolYear) => schoolYear.toMap()).toList();
 
-  int get _currentSchoolYearIndex => _schoolYearIndexFrom(DateTime.now());
+  int? get _currentSchoolYearIndex => _schoolYearIndexFrom(DateTime.now());
 
-  int _schoolYearIndexFrom(DateTime dateTime) {
+  int? _schoolYearIndexFrom(DateTime dateTime) {
     if (schoolYears.isEmpty) return null;
 
     for (var i = 0; i < schoolYears.length - 1; i++) {
-      if (dateTime.isAfter(schoolYears.elementAt(i).startDate) &&
-          dateTime.isBefore(schoolYears.elementAt(i + 1).startDate)) {
+      if (dateTime.isAfter(schoolYears.elementAt(i).startDate!) &&
+          dateTime.isBefore(schoolYears.elementAt(i + 1).startDate!)) {
         return i;
       }
     }
@@ -43,8 +43,8 @@ class SchoolYearManager extends WritableManager<Set<SchoolYear>>
     return schoolYears.length - 1;
   }
 
-  SchoolYear get schoolYear =>
-      schoolYearIndex != null ? schoolYears.elementAt(schoolYearIndex) : null;
+  SchoolYear? get schoolYear =>
+      schoolYearIndex != null ? schoolYears.elementAt(schoolYearIndex!) : null;
 
   Duration get totalWorkingDuration {
     var duration = const Duration();
@@ -57,7 +57,7 @@ class SchoolYearManager extends WritableManager<Set<SchoolYear>>
   }
 
   void changeToPreviousSchoolYear() =>
-      schoolYearIndex = schoolYearIndex > 0 ? schoolYearIndex - 1 : 0;
+      schoolYearIndex = schoolYearIndex! > 0 ? schoolYearIndex! - 1 : 0;
 
   void changeToCurrentSchoolYear() => schoolYearIndex = _currentSchoolYearIndex;
 
@@ -65,8 +65,8 @@ class SchoolYearManager extends WritableManager<Set<SchoolYear>>
       schoolYearIndex = _schoolYearIndexFrom(dateTime);
 
   void changeToNextSchoolYear() =>
-      schoolYearIndex = schoolYearIndex < schoolYears.length - 1
-          ? schoolYearIndex + 1
+      schoolYearIndex = schoolYearIndex! < schoolYears.length - 1
+          ? schoolYearIndex! + 1
           : schoolYears.length - 1;
 
   void addSchoolYear(
@@ -77,7 +77,7 @@ class SchoolYearManager extends WritableManager<Set<SchoolYear>>
 
     if (notify) {
       notifyListeners();
-      notifyExternalListeners();
+      notifyExternalListeners?.call();
     }
   }
 
@@ -91,7 +91,7 @@ class SchoolYearManager extends WritableManager<Set<SchoolYear>>
 
     if (notify) {
       notifyListeners();
-      notifyExternalListeners();
+      notifyExternalListeners?.call();
     }
   }
 
@@ -103,7 +103,7 @@ class SchoolYearManager extends WritableManager<Set<SchoolYear>>
 
     if (notify) {
       notifyListeners();
-      notifyExternalListeners();
+      notifyExternalListeners?.call();
     }
   }
 
@@ -113,7 +113,7 @@ class SchoolYearManager extends WritableManager<Set<SchoolYear>>
       final file = await fileManager.localFile(fileName);
       final content = await file.readAsString();
 
-      final schoolYears =  _parseSchoolYears(content);
+      final schoolYears = _parseSchoolYears(content);
 
       return SplayTreeSet.from(schoolYears);
     } catch (e) {

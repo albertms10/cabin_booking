@@ -6,24 +6,24 @@ class AnimatedFloatingButton extends StatelessWidget {
   final bool visible;
   final Tween<double> tween;
   final Animation<double> animation;
-  final VoidCallback callback;
-  final VoidCallback onLongPress;
-  final Color backgroundColor;
-  final Color foregroundColor;
-  final String tooltip;
-  final Widget label;
-  final String heroTag;
+  final VoidCallback? callback;
+  final VoidCallback? onLongPress;
+  final Color? backgroundColor;
+  final Color? foregroundColor;
+  final String? tooltip;
+  final Widget? label;
+  final String? heroTag;
   final double elevation;
   final bool isOpen;
   final ShapeBorder shape;
   final Curve curve;
   final int animationSpeed;
-  final Widget child;
+  final Widget? child;
 
   const AnimatedFloatingButton({
     this.visible = true,
-    this.tween,
-    this.animation,
+    required this.tween,
+    required this.animation,
     this.callback,
     this.backgroundColor,
     this.foregroundColor,

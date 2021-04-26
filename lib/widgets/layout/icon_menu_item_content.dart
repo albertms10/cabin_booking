@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class IconMenuItemContent extends StatelessWidget {
   final String text;
-  final IconData icon;
+  final IconData? icon;
 
-  const IconMenuItemContent({@required this.text, this.icon});
+  const IconMenuItemContent({required this.text, this.icon});
 
   @override
   Widget build(BuildContext context) {

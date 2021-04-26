@@ -8,21 +8,21 @@ import 'package:flutter/material.dart';
 
 class Cabin extends Item {
   int number;
-  CabinComponents components;
+  late CabinComponents components;
   final BookingManager _bookingManager;
 
   Cabin({
-    String id,
-    this.number,
-    this.components,
-    Set<Booking> bookings,
-    Set<RecurringBooking> recurringBookings,
+    String? id,
+    this.number = 0,
+    CabinComponents? components,
+    Set<Booking>? bookings,
+    Set<RecurringBooking>? recurringBookings,
   })  : _bookingManager = BookingManager(
           bookings: bookings,
           recurringBookings: recurringBookings,
         ),
         super(id: id) {
-    components ??= CabinComponents();
+    this.components = components ?? CabinComponents();
   }
 
   Cabin.from(Map<String, dynamic> other)
@@ -65,16 +65,16 @@ class Cabin extends Item {
   bool bookingsCollideWith(Booking booking) =>
       _bookingManager.bookingsCollideWith(booking);
 
-  Duration occupiedDuration({DateTime dateTime, DateRange dateRange}) =>
+  Duration occupiedDuration({DateTime? dateTime, DateRange? dateRange}) =>
       _bookingManager.occupiedDuration(
         dateTime: dateTime,
         dateRange: dateRange,
       );
 
   double occupancyPercentOn(
-    DateTime dateTime, {
-    @required TimeOfDay startTime,
-    @required TimeOfDay endTime,
+    DateTime? dateTime, {
+    required TimeOfDay startTime,
+    required TimeOfDay endTime,
   }) =>
       _bookingManager.occupancyPercentOn(
         dateTime,
@@ -82,19 +82,19 @@ class Cabin extends Item {
         endTime: endTime,
       );
 
-  Set<DateTime> datesWithBookings([DateRange dateRange]) =>
+  Set<DateTime> datesWithBookings([DateRange? dateRange]) =>
       _bookingManager.datesWithBookings(dateRange);
 
   Map<DateTime, int> get allBookingsCountPerDay =>
       _bookingManager.allBookingsCountPerDay;
 
-  Map<DateTime, Duration> occupiedDurationPerWeek([DateRange dateRange]) =>
+  Map<DateTime, Duration> occupiedDurationPerWeek([DateRange? dateRange]) =>
       _bookingManager.occupiedDurationPerWeek(dateRange);
 
   double occupancyPercent({
-    @required TimeOfDay startTime,
-    @required TimeOfDay endTime,
-    Set<DateTime> dates,
+    required TimeOfDay startTime,
+    required TimeOfDay endTime,
+    Set<DateTime>? dates,
   }) =>
       _bookingManager.occupancyPercent(
         startTime: startTime,
@@ -103,17 +103,17 @@ class Cabin extends Item {
       );
 
   Map<TimeOfDay, Duration> accumulatedTimeRangesOccupancy([
-    DateRange dateRange,
+    DateRange? dateRange,
   ]) =>
       _bookingManager.accumulatedTimeRangesOccupancy(dateRange);
 
-  Set<TimeOfDay> mostOccupiedTimeRange([DateRange dateRange]) =>
+  Set<TimeOfDay> mostOccupiedTimeRange([DateRange? dateRange]) =>
       _bookingManager.mostOccupiedTimeRange(dateRange);
 
   @override
   Cabin copyWith({
-    int number,
-    CabinComponents components,
+    int? number,
+    CabinComponents? components,
   }) =>
       Cabin(
         id: id,
@@ -139,15 +139,15 @@ class Cabin extends Item {
   void modifyRecurringBooking(RecurringBooking recurringBooking) =>
       _bookingManager.modifyRecurringBooking(recurringBooking);
 
-  void modifyBookingStatusById(String id, BookingStatus status) =>
+  void modifyBookingStatusById(String? id, BookingStatus status) =>
       _bookingManager.modifyBookingStatusById(id, status);
 
   void modifyRecurringBookingStatusById(String id, BookingStatus status) =>
       _bookingManager.modifyRecurringBookingStatusById(id, status);
 
-  void removeBookingById(String id) => _bookingManager.removeBookingById(id);
+  void removeBookingById(String? id) => _bookingManager.removeBookingById(id);
 
-  void removeRecurringBookingById(String id) =>
+  void removeRecurringBookingById(String? id) =>
       _bookingManager.removeRecurringBookingById(id);
 
   void emptyAllBookings() => _bookingManager.emptyAllBookings();
@@ -161,8 +161,7 @@ class Cabin extends Item {
       _bookingManager.allBookingsOn(dateTime);
 
   @override
-  String toString() => 'Cabin $number '
-      '(${allBookings.length} booking${allBookings.length != 1 ? 's' : ''})';
+  String toString() => '$number';
 
   @override
   int compareTo(covariant Cabin other) => number.compareTo(other.number);

@@ -20,13 +20,13 @@ class CabinsIconsRow extends StatelessWidget {
         builder: (context, dayHandler, cabinManager, child) {
           return Row(
             children: [
-              child,
+              child!,
               if (cabinManager.cabins.isEmpty)
                 Expanded(
                   child: Text(
-                    AppLocalizations.of(context).noCabins,
+                    AppLocalizations.of(context)!.noCabins,
                     textAlign: TextAlign.center,
-                    style: theme.textTheme.headline5
+                    style: theme.textTheme.headline5!
                         .copyWith(color: Colors.grey[600]),
                   ),
                 )

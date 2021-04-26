@@ -1,8 +1,8 @@
 import 'package:cabin_booking/model/cabin_manager.dart';
 import 'package:cabin_booking/model/day_handler.dart';
 import 'package:cabin_booking/model/school_year.dart';
-import 'package:cabin_booking/utils/misc.dart';
 import 'package:cabin_booking/utils/datetime.dart';
+import 'package:cabin_booking/utils/misc.dart';
 import 'package:cabin_booking/widgets/item/items_table.dart';
 import 'package:cabin_booking/widgets/school_year/school_year_dialog.dart';
 import 'package:flutter/material.dart';
@@ -14,10 +14,9 @@ class SchoolYearsTable extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer2<DayHandler, CabinManager>(
       builder: (context, dayHandler, cabinManager, child) {
-        final appLocalizations = AppLocalizations.of(context);
+        final appLocalizations = AppLocalizations.of(context)!;
 
-        return ItemsTable(
-          itemTitle: (row) => '${row.item}',
+        return ItemsTable<SchoolYear>(
           itemIcon: Icons.school,
           itemHeaderLabel: appLocalizations.schoolYear,
           emptyMessage: appLocalizations.noSchoolYearsMessage,

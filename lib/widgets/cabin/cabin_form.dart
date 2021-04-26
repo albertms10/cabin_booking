@@ -8,10 +8,10 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CabinForm extends StatefulWidget {
   final Cabin cabin;
-  final int newCabinNumber;
+  final int? newCabinNumber;
 
   const CabinForm({
-    this.cabin,
+    required this.cabin,
     this.newCabinNumber,
   });
 
@@ -22,22 +22,20 @@ class CabinForm extends StatefulWidget {
 class _CabinFormState extends State<CabinForm> {
   final _formKey = GlobalKey<FormState>();
 
-  Cabin _cabin;
+  late final Cabin _cabin = widget.cabin;
 
   @override
   void initState() {
     super.initState();
 
-    _cabin = widget.cabin;
-
     if (widget.newCabinNumber != null) {
-      _cabin = widget.cabin..number = widget.newCabinNumber;
+      _cabin.number = widget.newCabinNumber!;
     }
   }
 
-  String _validator(value) {
-    if (value.isEmpty) {
-      return AppLocalizations.of(context).enterValue;
+  String? _validator(String? value) {
+    if (value == null || value.isEmpty) {
+      return AppLocalizations.of(context)!.enterValue;
     }
 
     return null;
@@ -45,7 +43,7 @@ class _CabinFormState extends State<CabinForm> {
 
   @override
   Widget build(BuildContext context) {
-    final appLocalizations = AppLocalizations.of(context);
+    final appLocalizations = AppLocalizations.of(context)!;
 
     return Form(
       key: _formKey,
@@ -65,7 +63,8 @@ class _CabinFormState extends State<CabinForm> {
                 ],
                 validator: _validator,
                 onSaved: (lecterns) {
-                  _cabin.components.lecterns = int.tryParse(lecterns);
+                  _cabin.components.lecterns =
+                      int.tryParse(lecterns ?? '') ?? 0;
                 },
               ),
             ),
@@ -83,7 +82,7 @@ class _CabinFormState extends State<CabinForm> {
                 ],
                 validator: _validator,
                 onSaved: (chairs) {
-                  _cabin.components.chairs = int.tryParse(chairs);
+                  _cabin.components.chairs = int.tryParse(chairs ?? '') ?? 0;
                 },
               ),
             ),
@@ -101,7 +100,7 @@ class _CabinFormState extends State<CabinForm> {
                 ],
                 validator: _validator,
                 onSaved: (tables) {
-                  _cabin.components.tables = int.tryParse(tables);
+                  _cabin.components.tables = int.tryParse(tables ?? '') ?? 0;
                 },
               ),
             ),
@@ -110,8 +109,8 @@ class _CabinFormState extends State<CabinForm> {
           SubmitButton(
             shouldAdd: widget.newCabinNumber != null,
             onPressed: () {
-              if (_formKey.currentState.validate()) {
-                _formKey.currentState.save();
+              if (_formKey.currentState!.validate()) {
+                _formKey.currentState!.save();
 
                 Navigator.of(context).pop<Cabin>(_cabin);
               }

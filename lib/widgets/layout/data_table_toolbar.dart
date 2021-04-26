@@ -4,8 +4,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class DataTableToolbar extends StatelessWidget {
   final bool shown;
   final int selectedItems;
-  final void Function() onPressedLeading;
-  final List<Widget> actions;
+  final void Function()? onPressedLeading;
+  final List<Widget>? actions;
 
   const DataTableToolbar({
     this.shown = false,
@@ -16,7 +16,7 @@ class DataTableToolbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final appLocalizations = AppLocalizations.of(context);
+    final appLocalizations = AppLocalizations.of(context)!;
 
     return SizedBox(
       height: 54.0,

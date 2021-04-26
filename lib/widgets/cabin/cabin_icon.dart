@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 class CabinIcon extends StatelessWidget {
   final int number;
-  final double progress;
+  final double? progress;
 
   const CabinIcon({
-    Key key,
-    @required this.number,
+    Key? key,
+    required this.number,
     this.progress,
   }) : super(key: key);
 
@@ -20,7 +20,7 @@ class CabinIcon extends StatelessWidget {
 
     final text = Text(
       '$number',
-      style: theme.accentTextTheme.headline5.copyWith(
+      style: theme.accentTextTheme.headline5!.copyWith(
         color: shouldShowProgress
             ? theme.accentColor
             : theme.colorScheme.onPrimary,
@@ -40,8 +40,8 @@ class CabinIcon extends StatelessWidget {
       alignment: Alignment.center,
       children: [
         SizedBox(
-          width: radius * 2,
-          height: radius * 2,
+          width: radius * 2.0,
+          height: radius * 2.0,
           child: TweenAnimationBuilder<double>(
             tween: Tween<double>(begin: 0.0, end: progress),
             duration: const Duration(milliseconds: 700),

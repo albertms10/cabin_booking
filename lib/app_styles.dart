@@ -13,8 +13,8 @@ class AppStyles {
 
   static ThemeData lightTheme() {
     final primaryColor = Colors.blue;
-    final primaryColorLight = primaryColor[300];
-    final primaryColorDark = primaryColor[700];
+    final primaryColorLight = primaryColor[300]!;
+    final primaryColorDark = primaryColor[700]!;
 
     return ThemeData.light().copyWith(
       primaryColor: primaryColor,
@@ -36,8 +36,8 @@ class AppStyles {
 
   static ThemeData darkTheme() {
     final primaryColor = Colors.lightBlueAccent;
-    final primaryColorLight = primaryColor[100];
-    final primaryColorDark = primaryColor[700];
+    final primaryColorLight = primaryColor[100]!;
+    final primaryColorDark = primaryColor[700]!;
 
     return ThemeData.dark().copyWith(
       primaryColor: primaryColor,
@@ -57,7 +57,7 @@ class AppStyles {
     );
   }
 
-  static MaterialStateProperty<Color> _resolveSelectedMaterialState(
+  static MaterialStateProperty<Color?> _resolveSelectedMaterialState(
     Color color,
   ) {
     return MaterialStateProperty.resolveWith((states) {

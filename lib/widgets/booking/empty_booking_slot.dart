@@ -14,10 +14,10 @@ class EmptyBookingSlot extends StatelessWidget {
   final DateTime endDateTime;
 
   const EmptyBookingSlot({
-    Key key,
-    @required this.cabin,
-    @required this.startDateTime,
-    @required this.endDateTime,
+    Key? key,
+    required this.cabin,
+    required this.startDateTime,
+    required this.endDateTime,
   }) : super(key: key);
 
   @override
@@ -81,12 +81,12 @@ class EmptyBookingSlotActionable extends StatelessWidget {
   final Cabin cabin;
   final DateTime startDateTime;
   final DateTime endDateTime;
-  final int preciseDuration;
+  final int? preciseDuration;
 
   const EmptyBookingSlotActionable({
-    this.cabin,
-    this.startDateTime,
-    this.endDateTime,
+    required this.cabin,
+    required this.startDateTime,
+    required this.endDateTime,
     this.preciseDuration,
   });
 
@@ -94,13 +94,16 @@ class EmptyBookingSlotActionable extends StatelessWidget {
   Widget build(BuildContext context) {
     final cabinManager = Provider.of<CabinManager>(context, listen: false);
 
+    final duration =
+        preciseDuration ?? endDateTime.difference(startDateTime).inMinutes;
+
     return Container(
       margin: const EdgeInsets.all(8.0),
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(4.0)),
       ),
       child: Tooltip(
-        message: '$preciseDuration min',
+        message: '$duration min',
         child: InkWell(
           borderRadius: const BorderRadius.all(Radius.circular(4.0)),
           onTap: () {

@@ -28,23 +28,23 @@ class HeatMapCalendar extends StatelessWidget {
   /// Space between elements
   final double space;
 
-  final void Function(DateTime, int) onDayTap;
-  final String Function(int) dayValueWrapper;
+  final void Function(DateTime, int)? onDayTap;
+  final String Function(int)? dayValueWrapper;
 
   final bool showLegend;
   final int legendSamples;
-  final String legendLessLabel;
-  final String legendMoreLabel;
+  final String? legendLessLabel;
+  final String? legendMoreLabel;
 
-  final DateTime firstDate;
-  final DateTime lastDate;
+  final DateTime? firstDate;
+  final DateTime? lastDate;
   final bool highlightToday;
-  final bool Function(DateTime) highlightOn;
+  final bool Function(DateTime)? highlightOn;
 
   const HeatMapCalendar({
-    Key key,
-    @required this.input,
-    @required this.colorThresholds,
+    Key? key,
+    required this.input,
+    required this.colorThresholds,
     this.firstWeekDay = DateTime.sunday,
     this.squareSize = 16.0,
     this.space = 4.0,

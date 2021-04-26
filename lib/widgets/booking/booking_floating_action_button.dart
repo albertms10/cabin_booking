@@ -20,7 +20,7 @@ class BookingFloatingActionButton extends StatelessWidget {
         if (cabinManager.cabins.isEmpty) return const SizedBox();
 
         final theme = Theme.of(context);
-        final appLocalizations = AppLocalizations.of(context);
+        final appLocalizations = AppLocalizations.of(context)!;
 
         return FloatingActionButtonMenu(
           animatedIcon: AnimatedIcons.add_event,

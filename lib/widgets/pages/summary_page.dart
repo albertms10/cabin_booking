@@ -18,11 +18,11 @@ import 'package:provider/provider.dart';
 class SummaryPage extends StatelessWidget {
   final void Function(AppPages) setRailPage;
 
-  const SummaryPage({this.setRailPage});
+  const SummaryPage({required this.setRailPage});
 
   @override
   Widget build(BuildContext context) {
-    final appLocalizations = AppLocalizations.of(context);
+    final appLocalizations = AppLocalizations.of(context)!;
 
     return Consumer2<DayHandler, CabinManager>(
       builder: (context, dayHandler, cabinManager, child) {
@@ -97,13 +97,14 @@ class SummaryPage extends StatelessWidget {
                     title: appLocalizations.mostBookedDay,
                     icon: Icons.calendar_today,
                     onTap: () {
-                      dayHandler.dateTime = cabinManager.mostBookedDayEntry.key;
+                      dayHandler.dateTime =
+                          cabinManager.mostBookedDayEntry!.key;
                       setRailPage(AppPages.Bookings);
                     },
                     items: [
                       StatisticSimpleItem(
                         value: DateFormat.d().add_MMM().add_y().format(
-                              cabinManager.mostBookedDayEntry.key,
+                              cabinManager.mostBookedDayEntry!.key,
                             ),
                       ),
                     ],

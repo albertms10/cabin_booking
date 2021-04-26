@@ -22,9 +22,9 @@ class BookingForm extends StatefulWidget {
   final void Function(bool) setIsRecurring;
 
   const BookingForm({
-    this.booking,
-    this.isRecurring,
-    this.setIsRecurring,
+    required this.booking,
+    this.isRecurring = false,
+    required this.setIsRecurring,
   });
 
   @override
@@ -39,24 +39,20 @@ class _BookingFormState extends State<BookingForm> {
   final _endDateController = TextEditingController();
   final _occurrencesController = TextEditingController();
 
-  Booking _booking;
+  late Booking _booking = widget.booking;
 
   RecurringBookingMethod _recurringBookingMethod =
       RecurringBookingMethod.EndDate;
   Periodicity _periodicity = Periodicity.Weekly;
 
-  TimeOfDay _startTime;
-  TimeOfDay _endTime;
-  DateTime _recurringEndDate;
+  late TimeOfDay? _startTime = widget.booking.startTime;
+  late TimeOfDay? _endTime = widget.booking.endTime;
+
+  DateTime? _recurringEndDate;
 
   @override
   void initState() {
     super.initState();
-
-    _booking = widget.booking;
-
-    _startTime = widget.booking.startTime;
-    _endTime = widget.booking.endTime;
 
     if (_booking is RecurringBooking) {
       _recurringBookingMethod = (_booking as RecurringBooking).method;
@@ -80,10 +76,10 @@ class _BookingFormState extends State<BookingForm> {
 
   @override
   Widget build(BuildContext context) {
-    final appLocalizations = AppLocalizations.of(context);
+    final appLocalizations = AppLocalizations.of(context)!;
 
-    _startTimeController.text = _startTime.format(context);
-    _endTimeController.text = _endTime.format(context);
+    _startTimeController.text = _startTime!.format(context);
+    _endTimeController.text = _endTime!.format(context);
 
     if (_booking is RecurringBooking) {
       _occurrencesController.text =
@@ -95,7 +91,7 @@ class _BookingFormState extends State<BookingForm> {
       child: Column(
         children: [
           CabinDropdown(
-            value: _booking.cabinId,
+            value: _booking.cabinId!,
             onChanged: (value) {
               setState(() => _booking.cabinId = value);
             },
@@ -106,7 +102,7 @@ class _BookingFormState extends State<BookingForm> {
             autofocus: true,
             autovalidateMode: AutovalidateMode.onUserInteraction,
             validator: (value) {
-              if (value.isEmpty) {
+              if (value == null || value.isEmpty) {
                 return _booking.isDisabled
                     ? appLocalizations.enterDescription
                     : appLocalizations.enterStudentName;
@@ -135,7 +131,7 @@ class _BookingFormState extends State<BookingForm> {
                       controller: _startTimeController,
                       autovalidateMode: AutovalidateMode.always,
                       validator: (value) {
-                        if (value.isEmpty) {
+                        if (value == null || value.isEmpty) {
                           return appLocalizations.enterStartTime;
                         }
 
@@ -151,23 +147,19 @@ class _BookingFormState extends State<BookingForm> {
                           _startTime = parsedTimeOfDay;
                         }
 
-                        final parsedDateTime = tryParseDateTimeWithTimeOfDay(
+                        final parsedDateTime = dateTimeWithTimeOfDay(
                           dateTime: widget.booking.date,
                           timeOfDay: parsedTimeOfDay,
                         );
 
-                        if (parsedDateTime == null) {
-                          return appLocalizations.enterStartTime;
-                        }
-
                         if (parsedDateTime.isAfter(
-                              tryParseDateTimeWithTimeOfDay(
+                              dateTimeWithTimeOfDay(
                                 dateTime: widget.booking.date,
                                 timeOfDay: _endTime,
                               ),
                             ) ||
                             parsedDateTime.isBefore(
-                              tryParseDateTimeWithTimeOfDay(
+                              dateTimeWithTimeOfDay(
                                 dateTime: widget.booking.date,
                                 timeOfDay: kTimeTableStartTime,
                               ),
@@ -186,7 +178,7 @@ class _BookingFormState extends State<BookingForm> {
                       onTap: () async {
                         final time = await showTimePicker(
                           context: context,
-                          initialTime: _startTime,
+                          initialTime: _startTime!,
                           initialEntryMode: Platform.isMacOS ||
                                   Platform.isWindows ||
                                   Platform.isLinux
@@ -194,15 +186,15 @@ class _BookingFormState extends State<BookingForm> {
                               : TimePickerEntryMode.dial,
                         );
 
-                        if (time != null) {
-                          setState(() {
-                            _startTime = time;
-                            _startTimeController.text = time.format(context);
-                          });
-                        }
+                        if (time == null) return;
+
+                        setState(() {
+                          _startTime = time;
+                          _startTimeController.text = time.format(context);
+                        });
                       },
                       onSaved: (value) {
-                        _booking.startTime = tryParseTimeOfDay(value);
+                        _booking.startTime = tryParseTimeOfDay(value ?? '');
                       },
                       decoration: InputDecoration(
                         labelText: appLocalizations.start,
@@ -221,7 +213,7 @@ class _BookingFormState extends State<BookingForm> {
                       controller: _endTimeController,
                       autovalidateMode: AutovalidateMode.always,
                       validator: (value) {
-                        if (value.isEmpty) {
+                        if (value == null || value.isEmpty) {
                           return appLocalizations.enterEndTime;
                         }
 
@@ -237,23 +229,19 @@ class _BookingFormState extends State<BookingForm> {
                           _endTime = parsedTimeOfDay;
                         }
 
-                        final parsedDateTime = tryParseDateTimeWithTimeOfDay(
+                        final parsedDateTime = dateTimeWithTimeOfDay(
                           dateTime: widget.booking.date,
                           timeOfDay: parsedTimeOfDay,
                         );
 
-                        if (parsedDateTime == null) {
-                          return appLocalizations.enterEndTime;
-                        }
-
                         if (parsedDateTime.isBefore(
-                              tryParseDateTimeWithTimeOfDay(
+                              dateTimeWithTimeOfDay(
                                 dateTime: widget.booking.date,
                                 timeOfDay: _startTime,
                               ),
                             ) ||
                             parsedDateTime.isAfter(
-                              tryParseDateTimeWithTimeOfDay(
+                              dateTimeWithTimeOfDay(
                                 dateTime: widget.booking.date,
                                 timeOfDay: kTimeTableEndTime,
                               ),
@@ -272,7 +260,7 @@ class _BookingFormState extends State<BookingForm> {
                       onTap: () async {
                         final time = await showTimePicker(
                           context: context,
-                          initialTime: _endTime,
+                          initialTime: _endTime!,
                           initialEntryMode: Platform.isMacOS ||
                                   Platform.isWindows ||
                                   Platform.isLinux
@@ -280,15 +268,15 @@ class _BookingFormState extends State<BookingForm> {
                               : TimePickerEntryMode.dial,
                         );
 
-                        if (time != null) {
-                          setState(() {
-                            _endTime = time;
-                            _endTimeController.text = time.format(context);
-                          });
-                        }
+                        if (time == null) return;
+
+                        setState(() {
+                          _endTime = time;
+                          _endTimeController.text = time.format(context);
+                        });
                       },
                       onSaved: (value) {
-                        _booking.endTime = tryParseTimeOfDay(value);
+                        _booking.endTime = tryParseTimeOfDay(value ?? '');
                       },
                       decoration: InputDecoration(
                         labelText: appLocalizations.end,
@@ -327,7 +315,7 @@ class _BookingFormState extends State<BookingForm> {
                       PeriodicityListTile(
                         value: _periodicity,
                         onChanged: (value) {
-                          setState(() => _periodicity = value);
+                          setState(() => _periodicity = value!);
                         },
                       ),
                       ListTile(
@@ -335,10 +323,11 @@ class _BookingFormState extends State<BookingForm> {
                         title: Text(appLocalizations.onDate),
                         selected: _recurringBookingMethod ==
                             RecurringBookingMethod.EndDate,
-                        leading: Radio(
+                        leading: Radio<RecurringBookingMethod>(
                           value: RecurringBookingMethod.EndDate,
                           groupValue: _recurringBookingMethod,
                           onChanged: (value) {
+                            if (value == null) return;
                             setState(() => _recurringBookingMethod = value);
                           },
                         ),
@@ -367,10 +356,11 @@ class _BookingFormState extends State<BookingForm> {
                         selected: _recurringBookingMethod ==
                             RecurringBookingMethod.Occurrences,
                         minVerticalPadding: 24.0,
-                        leading: Radio(
+                        leading: Radio<RecurringBookingMethod>(
                           value: RecurringBookingMethod.Occurrences,
                           groupValue: _recurringBookingMethod,
                           onChanged: (value) {
+                            if (value == null) return;
                             setState(() => _recurringBookingMethod = value);
                           },
                         ),
@@ -398,7 +388,7 @@ class _BookingFormState extends State<BookingForm> {
                                       return null;
                                     }
 
-                                    if (value.isEmpty) {
+                                    if (value == null || value.isEmpty) {
                                       return appLocalizations.enterOccurrences;
                                     }
 
@@ -427,8 +417,8 @@ class _BookingFormState extends State<BookingForm> {
           SubmitButton(
             shouldAdd: widget.booking.description == null,
             onPressed: () {
-              if (_formKey.currentState.validate()) {
-                _formKey.currentState.save();
+              if (_formKey.currentState!.validate()) {
+                _formKey.currentState!.save();
 
                 if (widget.isRecurring) {
                   final recurringBooking = RecurringBooking.fromBooking(

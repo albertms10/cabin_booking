@@ -17,9 +17,9 @@ class BookingCard extends StatelessWidget {
   final bool isDisabled;
 
   const BookingCard({
-    Key key,
-    @required this.cabin,
-    @required this.booking,
+    Key? key,
+    required this.cabin,
+    required this.booking,
     this.isDisabled = false,
   }) : super(key: key);
 
@@ -45,7 +45,8 @@ class BookingCard extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: const BorderRadius.all(Radius.circular(10.0)),
                 side: BorderSide(
-                  color: Colors.grey[300].withOpacity(isBeforeNow ? 0.41 : 1.0),
+                  color:
+                      Colors.grey[300]!.withOpacity(isBeforeNow ? 0.41 : 1.0),
                   width: 1.5,
                 ),
               ),
@@ -102,8 +103,8 @@ class BookingCardInfo extends StatelessWidget {
   final bool isRecurring;
 
   const BookingCardInfo({
-    @required this.cabin,
-    @required this.booking,
+    required this.cabin,
+    required this.booking,
     this.isRecurring = false,
     this.isDisabled = false,
   });
@@ -141,9 +142,9 @@ class BookingCardInfo extends StatelessWidget {
                       children: [
                         Text(
                           (!isDisabled)
-                              ? booking.description
+                              ? booking.description!
                               : '${booking.description} '
-                                  '(${AppLocalizations.of(context).disabled.toLowerCase()})',
+                                  '(${AppLocalizations.of(context)!.disabled.toLowerCase()})',
                           style: TextStyle(
                               fontSize: constraints.maxHeight > 20.0
                                   ? 14.0
@@ -152,7 +153,7 @@ class BookingCardInfo extends StatelessWidget {
                         if (constraints.maxHeight > 30.0)
                           Text(
                             booking.timeRange,
-                            style: theme.textTheme.caption.copyWith(
+                            style: theme.textTheme.caption!.copyWith(
                               fontSize: constraints.maxHeight > 40.0
                                   ? 14.0
                                   : constraints.maxHeight * 0.4,

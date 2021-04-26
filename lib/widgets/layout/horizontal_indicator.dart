@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 class HorizontalIndicator extends StatelessWidget {
-  final double verticalOffset;
-  final Widget label;
-  final Color indicatorColor;
+  final double? verticalOffset;
+  final Widget? label;
+  final Color? indicatorColor;
 
   const HorizontalIndicator({
-    Key key,
+    Key? key,
     this.verticalOffset,
     this.label,
     this.indicatorColor,

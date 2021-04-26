@@ -14,8 +14,8 @@ class BookingPopupMenu extends StatelessWidget {
   final Booking booking;
 
   const BookingPopupMenu({
-    @required this.cabin,
-    @required this.booking,
+    required this.cabin,
+    required this.booking,
   });
 
   void _onEditSelected(BuildContext context) async {
@@ -28,7 +28,7 @@ class BookingPopupMenu extends StatelessWidget {
             ? booking
             : cabinManager
                 .cabinFromId(cabin.id)
-                .recurringBookingFromId(booking.recurringBookingId))
+                .recurringBookingFromId(booking.recurringBookingId!))
           ..cabinId = cabin.id,
       ),
     );
@@ -39,12 +39,12 @@ class BookingPopupMenu extends StatelessWidget {
       if (RecurringBooking.isRecurringBooking(booking)) {
         cabinManager.modifyRecurringBooking(
           cabin.id,
-          editedBooking,
+          editedBooking as RecurringBooking,
         );
       } else {
         cabinManager.changeBookingToRecurring(
           cabin.id,
-          editedBooking,
+          editedBooking as RecurringBooking,
         );
       }
     } else {
@@ -60,7 +60,7 @@ class BookingPopupMenu extends StatelessWidget {
   }
 
   void _onDeleteSelected(BuildContext context) async {
-    final appLocalizations = AppLocalizations.of(context);
+    final appLocalizations = AppLocalizations.of(context)!;
 
     final cabinManager = Provider.of<CabinManager>(context, listen: false);
 
@@ -110,7 +110,7 @@ class BookingPopupMenu extends StatelessWidget {
                 value: 'edit',
                 height: height,
                 child: IconMenuItemContent(
-                  text: AppLocalizations.of(context).edit,
+                  text: AppLocalizations.of(context)!.edit,
                   icon: Icons.edit,
                 ),
               ),

@@ -11,15 +11,15 @@ class MainContent extends StatefulWidget {
   final int railIndex;
   final List<Widget> pages;
 
-  const MainContent({this.railIndex, this.pages});
+  const MainContent({required this.railIndex, this.pages = const []});
 
   @override
   _MainContentState createState() => _MainContentState();
 }
 
 class _MainContentState extends State<MainContent> {
-  CabinManager _cabinManager;
-  SchoolYearManager _schoolYearManager;
+  late CabinManager _cabinManager;
+  late SchoolYearManager _schoolYearManager;
 
   void _writeAndShowSnackBar(WritableManager manager) async {
     final changesSaved = await manager.writeToFile();
@@ -62,28 +62,28 @@ class _MainContentState extends State<MainContent> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureProvider<List<int>>(
+    return FutureProvider<List<int>?>(
       create: (context) => Future.wait([
         _cabinManager.loadFromFile(),
         _schoolYearManager.loadFromFile(),
       ]),
       initialData: const [],
-      child: Consumer<List<int>>(
-        builder: (context, items, child) {
-          if (items == null) {
-            return Center(
-              child: Text(
-                AppLocalizations.of(context).dataCouldNotBeLoaded,
-                style: Theme.of(context).textTheme.headline4,
-              ),
-            );
-          } else if (items.isEmpty) {
-            return const Center(child: CircularProgressIndicator());
-          }
+      builder: (context, child) {
+        final items = Provider.of<List<int>?>(context);
+        if (items == null) {
+          return Center(
+            child: Text(
+              AppLocalizations.of(context)!.dataCouldNotBeLoaded,
+              style: Theme.of(context).textTheme.headline4,
+            ),
+          );
+        } else if (items.isEmpty) {
+          return const Center(child: CircularProgressIndicator());
+        }
 
-          return widget.pages[widget.railIndex];
-        },
-      ),
+        return widget.pages[widget.railIndex];
+      },
+      catchError: (context, error) => null,
     );
   }
 }

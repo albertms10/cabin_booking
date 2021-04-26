@@ -5,16 +5,16 @@ import 'package:flutter/material.dart';
 class WrappedChipList<T> extends StatelessWidget {
   final List<T> items;
   final Widget Function(BuildContext, T) labelBuilder;
-  final int maxChips;
+  final int? maxChips;
 
   const WrappedChipList({
-    @required this.items,
-    @required this.labelBuilder,
+    required this.items,
+    required this.labelBuilder,
     this.maxChips,
   });
 
   int get maxShown =>
-      maxChips == null ? items.length : min(maxChips, items.length);
+      maxChips == null ? items.length : min(maxChips!, items.length);
 
   @override
   Widget build(BuildContext context) {

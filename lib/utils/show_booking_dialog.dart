@@ -5,9 +5,9 @@ import 'package:cabin_booking/widgets/booking/booking_dialog.dart';
 import 'package:flutter/material.dart';
 
 void showNewBookingDialog({
-  BuildContext context,
-  Booking booking,
-  CabinManager cabinManager,
+  required BuildContext context,
+  required Booking booking,
+  required CabinManager cabinManager,
 }) async {
   final newBooking = await showDialog<Booking>(
     context: context,

@@ -9,7 +9,7 @@ class DayNavigation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final appLocalizations = AppLocalizations.of(context);
+    final appLocalizations = AppLocalizations.of(context)!;
 
     return Consumer<DayHandler>(
       builder: (context, dayHandler, child) {

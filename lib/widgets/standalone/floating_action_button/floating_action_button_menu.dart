@@ -15,11 +15,11 @@ class FloatingActionButtonMenu extends StatefulWidget {
   /// The curve used to animate the button on scrolling.
   final Curve curve;
 
-  final String tooltip;
-  final Widget label;
-  final String heroTag;
-  final Color backgroundColor;
-  final Color foregroundColor;
+  final String? tooltip;
+  final Widget? label;
+  final String? heroTag;
+  final Color? backgroundColor;
+  final Color? foregroundColor;
   final double elevation;
   final ShapeBorder shape;
 
@@ -27,25 +27,25 @@ class FloatingActionButtonMenu extends StatefulWidget {
   final double marginBottom;
 
   /// The color of the background overlay.
-  final Color overlayColor;
+  final Color? overlayColor;
 
   /// The opacity of the background overlay when the menu is open.
   final double overlayOpacity;
 
   /// The animated icon to show as the main button child. If this is provided the [child] is ignored.
-  final AnimatedIconData animatedIcon;
+  final AnimatedIconData? animatedIcon;
 
   /// The theme for the animated icon.
-  final IconThemeData animatedIconTheme;
+  final IconThemeData? animatedIconTheme;
 
   /// Executed when the menu is opened.
-  final VoidCallback onOpen;
+  final VoidCallback? onOpen;
 
   /// Executed when the menu is closed.
-  final VoidCallback onClose;
+  final VoidCallback? onClose;
 
-  /// Executed when the menu is pressed. If given, the menu only opens on long press!
-  final VoidCallback onPressed;
+  /// Executed when the menu is pressed. If given, the menu only opens on long press.
+  final VoidCallback? onPressed;
 
   /// If `true` [overlay] is not rendered and user is forced to close the menu manually by tapping main button.
   final bool closeManually;
@@ -56,10 +56,10 @@ class FloatingActionButtonMenu extends StatefulWidget {
   final tween = Tween<double>(begin: 0.0, end: 62.0);
 
   /// The child of the main button, ignored if [animatedIcon] is non-[null].
-  final Widget child;
+  final Widget? child;
 
   FloatingActionButtonMenu({
-    Key key,
+    Key? key,
     this.buttons = const [],
     this.visible = true,
     this.backgroundColor,
@@ -91,9 +91,9 @@ class FloatingActionButtonMenu extends StatefulWidget {
 
 class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
     with SingleTickerProviderStateMixin {
-  AnimationController _controller;
+  late AnimationController _controller;
 
-  Animation<double> _childAnimation;
+  late Animation<double> _childAnimation;
 
   bool _open = false;
   bool _animationCompleted = true;
@@ -153,14 +153,11 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
 
   void _toggleChildren() {
     final newOpenValue = !_open;
-
     setState(() => _open = newOpenValue);
 
-    if (newOpenValue && widget.onOpen != null) widget.onOpen();
-
+    if (newOpenValue) widget.onOpen?.call();
     _performAnimation();
-
-    if (!newOpenValue && widget.onClose != null) widget.onClose();
+    if (!newOpenValue) widget.onClose?.call();
   }
 
   List<Widget> _getChildrenList() {
@@ -236,7 +233,7 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
                 onLongPress: _toggleChildren,
                 callback: _open && widget.onPressed != null
                     ? () {
-                        widget.onPressed();
+                        widget.onPressed?.call();
                         _toggleChildren();
                       }
                     : _toggleChildren,
@@ -246,7 +243,7 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
                 animationSpeed: widget.animationSpeed,
                 child: widget.animatedIcon != null
                     ? AnimatedIcon(
-                        icon: widget.animatedIcon,
+                        icon: widget.animatedIcon!,
                         progress: _controller,
                         color: widget.animatedIconTheme?.color,
                         size: widget.animatedIconTheme?.size,
@@ -275,16 +272,16 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
 
 /// Provides data for Floating Action Button Menu child
 class FloatingActionButtonMenuChild {
-  final Widget label;
-  final TextStyle labelStyle;
-  final Color labelBackgroundColor;
+  final Widget? label;
+  final TextStyle? labelStyle;
+  final Color? labelBackgroundColor;
 
-  final IconData icon;
-  final Color backgroundColor;
-  final Color foregroundColor;
-  final double elevation;
-  final VoidCallback onTap;
-  final ShapeBorder shape;
+  final IconData? icon;
+  final Color? backgroundColor;
+  final Color? foregroundColor;
+  final double? elevation;
+  final VoidCallback? onTap;
+  final ShapeBorder? shape;
 
   const FloatingActionButtonMenuChild({
     this.label,

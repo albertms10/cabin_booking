@@ -13,8 +13,8 @@ class BookingsStack extends StatelessWidget {
   final Set<Booking> bookings;
 
   const BookingsStack({
-    Key key,
-    this.cabin,
+    Key? key,
+    required this.cabin,
     this.bookings = const <Booking>{},
   }) : super(key: key);
 
@@ -29,12 +29,12 @@ class BookingsStack extends StatelessWidget {
 
     final dayHandler = Provider.of<DayHandler>(context);
 
-    final startDateTime = tryParseDateTimeWithTimeOfDay(
+    final startDateTime = dateTimeWithTimeOfDay(
       dateTime: dayHandler.dateTime,
       timeOfDay: kTimeTableStartTime,
     );
 
-    final endDateTime = tryParseDateTimeWithTimeOfDay(
+    final endDateTime = dateTimeWithTimeOfDay(
       dateTime: dayHandler.dateTime,
       timeOfDay: kTimeTableEndTime,
     );

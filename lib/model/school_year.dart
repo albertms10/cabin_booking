@@ -5,19 +5,19 @@ import 'package:cabin_booking/model/holiday.dart';
 import 'package:intl/intl.dart';
 
 class SchoolYear extends DateRange {
-  Set<Holiday> holidays;
+  late Set<Holiday> holidays;
 
   SchoolYear({
-    String id,
-    DateTime startDate,
-    DateTime endDate,
-    this.holidays,
+    String? id,
+    DateTime? startDate,
+    DateTime? endDate,
+    Set<Holiday>? holidays,
   }) : super(
           id: id,
           startDate: startDate,
           endDate: endDate,
         ) {
-    holidays ??= SplayTreeSet();
+    this.holidays = holidays ?? SplayTreeSet();
   }
 
   SchoolYear.from(Map<String, dynamic> other)
@@ -56,12 +56,13 @@ class SchoolYear extends DateRange {
   @override
   String toString() {
     final bothExist = startDate != null && endDate != null;
-    final isSameYear = bothExist && startDate.year == endDate.year;
+    final isSameYear = bothExist && startDate!.year == endDate!.year;
 
-    final startYear = startDate != null ? DateFormat.y().format(startDate) : '';
+    final startYear =
+        startDate != null ? DateFormat.y().format(startDate!) : '';
 
     final endYear =
-        endDate != null && !isSameYear ? DateFormat.y().format(endDate) : '';
+        endDate != null && !isSameYear ? DateFormat.y().format(endDate!) : '';
 
     return '$startYear'
         '${bothExist && !isSameYear ? '–' : ''}'

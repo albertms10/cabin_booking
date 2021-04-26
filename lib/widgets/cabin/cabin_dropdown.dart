@@ -5,10 +5,10 @@ import 'package:provider/provider.dart';
 
 class CabinDropdown extends StatelessWidget {
   final String value;
-  final void Function(String) onChanged;
+  final void Function(String?)? onChanged;
 
   const CabinDropdown({
-    this.value,
+    required this.value,
     this.onChanged,
   });
 
@@ -24,7 +24,7 @@ class CabinDropdown extends StatelessWidget {
               DropdownMenuItem(
                 value: cabin.id,
                 child: Text(
-                  '${AppLocalizations.of(context).cabin} ${cabin.number}',
+                  '${AppLocalizations.of(context)!.cabin} ${cabin.number}',
                 ),
               ),
           ],

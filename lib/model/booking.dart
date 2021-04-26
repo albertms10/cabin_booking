@@ -5,20 +5,20 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class Booking extends Item {
-  String description;
-  DateTime date;
-  TimeOfDay startTime;
-  TimeOfDay endTime;
+  String? description;
+  DateTime? date;
+  TimeOfDay? startTime;
+  TimeOfDay? endTime;
   BookingStatus status;
   bool isDisabled;
-  String cabinId;
+  String? cabinId;
 
-  String recurringBookingId;
-  int recurringNumber;
-  int recurringTotalTimes;
+  String? recurringBookingId;
+  int? recurringNumber;
+  int? recurringTotalTimes;
 
   Booking({
-    String id,
+    String? id,
     this.description,
     this.date,
     this.startTime,
@@ -32,7 +32,7 @@ class Booking extends Item {
   }) : super(id: id);
 
   Booking.from(Map<String, dynamic> other)
-      : description = other['description'] as String,
+      : description = other['description'] as String?,
         date = DateTime.tryParse(other['date'] as String),
         startTime = tryParseTimeOfDay(other['startTime'] as String),
         endTime = tryParseTimeOfDay(other['endTime'] as String),
@@ -44,19 +44,19 @@ class Booking extends Item {
   Map<String, dynamic> toMap() => {
         ...super.toMap(),
         'description': description,
-        'date': date.toIso8601String().split('T').first,
-        'startTime': formatTimeOfDay(startTime),
-        'endTime': formatTimeOfDay(endTime),
+        'date': date!.toIso8601String().split('T').first,
+        'startTime': formatTimeOfDay(startTime!),
+        'endTime': formatTimeOfDay(endTime!),
         'status': status.index,
         'isDisabled': isDisabled,
       };
 
-  DateTime get startDateTime => tryParseDateTimeWithTimeOfDay(
+  DateTime get startDateTime => dateTimeWithTimeOfDay(
         dateTime: date,
         timeOfDay: startTime,
       );
 
-  DateTime get endDateTime => tryParseDateTimeWithTimeOfDay(
+  DateTime get endDateTime => dateTimeWithTimeOfDay(
         dateTime: date,
         timeOfDay: endTime,
       );
@@ -71,13 +71,13 @@ class Booking extends Item {
 
     while (runDuration < duration) {
       final nextHour = TimeOfDay(
-        hour: (runTime.hour + 1) % TimeOfDay.hoursPerDay,
+        hour: (runTime!.hour + 1) % TimeOfDay.hoursPerDay,
         minute: 0,
       );
 
       final nextTime =
-          durationBetweenTimesOfDay(nextHour, endTime) <= const Duration()
-              ? endTime
+          durationBetweenTimesOfDay(nextHour, endTime!) <= const Duration()
+              ? endTime!
               : nextHour;
 
       final currentDuration = durationBetweenTimesOfDay(runTime, nextTime);
@@ -95,9 +95,9 @@ class Booking extends Item {
   }
 
   String get timeRange =>
-      '${formatTimeOfDay(startTime)}–${formatTimeOfDay(endTime)}';
+      '${formatTimeOfDay(startTime!)}–${formatTimeOfDay(endTime!)}';
 
-  String get dateTimeRange => '${DateFormat.yMd().format(date)} $timeRange';
+  String get dateTimeRange => '${DateFormat.yMd().format(date!)} $timeRange';
 
   bool isOn(DateTime dateTime) => isSameDay(date, dateTime);
 
@@ -109,16 +109,17 @@ class Booking extends Item {
 
   @override
   Booking copyWith({
-    String description,
-    DateTime date,
-    TimeOfDay startTime,
-    TimeOfDay endTime,
-    BookingStatus status,
-    bool isDisabled,
-    String cabinId,
+    String? id,
+    String? description,
+    DateTime? date,
+    TimeOfDay? startTime,
+    TimeOfDay? endTime,
+    BookingStatus? status,
+    bool? isDisabled,
+    String? cabinId,
   }) =>
       Booking(
-        id: id,
+        id: id ?? this.id,
         description: description ?? this.description,
         date: date ?? this.date,
         startTime: startTime ?? this.startTime,

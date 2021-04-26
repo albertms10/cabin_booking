@@ -9,7 +9,7 @@ import 'package:intl/intl.dart';
 class SchoolYearForm extends StatefulWidget {
   final SchoolYear schoolYear;
 
-  const SchoolYearForm({this.schoolYear});
+  const SchoolYearForm({required this.schoolYear});
 
   @override
   _SchoolYearFormState createState() => _SchoolYearFormState();
@@ -21,7 +21,7 @@ class _SchoolYearFormState extends State<SchoolYearForm> {
   final _startDateController = TextEditingController();
   final _endDateController = TextEditingController();
 
-  SchoolYear _schoolYear;
+  late final SchoolYear _schoolYear = widget.schoolYear;
 
   @override
   void initState() {
@@ -29,15 +29,13 @@ class _SchoolYearFormState extends State<SchoolYearForm> {
 
     if (widget.schoolYear.startDate != null) {
       _startDateController.text =
-          DateFormat.yMd().format(widget.schoolYear.startDate);
+          DateFormat.yMd().format(widget.schoolYear.startDate!);
     }
 
     if (widget.schoolYear.endDate != null) {
       _endDateController.text =
-          DateFormat.yMd().format(widget.schoolYear.endDate);
+          DateFormat.yMd().format(widget.schoolYear.endDate!);
     }
-
-    _schoolYear = widget.schoolYear;
   }
 
   @override
@@ -50,7 +48,7 @@ class _SchoolYearFormState extends State<SchoolYearForm> {
 
   @override
   Widget build(BuildContext context) {
-    final appLocalizations = AppLocalizations.of(context);
+    final appLocalizations = AppLocalizations.of(context)!;
 
     return Form(
       key: _formKey,
@@ -73,7 +71,7 @@ class _SchoolYearFormState extends State<SchoolYearForm> {
                   autofocus: true,
                   additionalValidator: (date) {
                     if (_schoolYear.endDate != null &&
-                        date.isAfter(_schoolYear.endDate)) {
+                        date.isAfter(_schoolYear.endDate!)) {
                       return appLocalizations.enterDate;
                     }
 
@@ -92,7 +90,7 @@ class _SchoolYearFormState extends State<SchoolYearForm> {
                   labelText: appLocalizations.endDate,
                   additionalValidator: (date) {
                     if (_schoolYear.startDate != null &&
-                        date.isBefore(_schoolYear.startDate)) {
+                        date.isBefore(_schoolYear.startDate!)) {
                       return appLocalizations.enterDate;
                     }
 
@@ -108,8 +106,8 @@ class _SchoolYearFormState extends State<SchoolYearForm> {
           const SizedBox(height: 16.0),
           SubmitButton(
             onPressed: () {
-              if (_formKey.currentState.validate()) {
-                _formKey.currentState.save();
+              if (_formKey.currentState!.validate()) {
+                _formKey.currentState!.save();
 
                 Navigator.of(context).pop<SchoolYear>(_schoolYear);
               }

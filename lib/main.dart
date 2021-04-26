@@ -30,7 +30,7 @@ class CabinBookingApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      onGenerateTitle: (context) => AppLocalizations.of(context).title,
+      onGenerateTitle: (context) => AppLocalizations.of(context)!.title,
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
@@ -49,7 +49,7 @@ class CabinBookingApp extends StatelessWidget {
 
         return MediaQuery(
           data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
-          child: child,
+          child: child!,
         );
       },
       home: const HomePage(),

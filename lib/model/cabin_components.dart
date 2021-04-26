@@ -1,16 +1,16 @@
 class CabinComponents {
-  List<Piano> pianos;
+  late List<Piano> pianos;
   int lecterns;
   int chairs;
   int tables;
 
   CabinComponents({
-    this.pianos,
+    List<Piano>? pianos,
     this.lecterns = 0,
     this.chairs = 0,
     this.tables = 0,
   }) {
-    pianos ??= <Piano>[];
+    this.pianos = pianos ?? <Piano>[];
   }
 
   CabinComponents.from(Map<String, dynamic> other)
@@ -30,8 +30,8 @@ class CabinComponents {
 }
 
 class Piano {
-  String brand;
-  String model;
+  String? brand;
+  String? model;
   bool isElectronic;
 
   Piano({
@@ -41,8 +41,8 @@ class Piano {
   });
 
   Piano.from(Map<String, dynamic> other)
-      : brand = other['brand'] as String,
-        model = other['model'] as String,
+      : brand = other['brand'] as String?,
+        model = other['model'] as String?,
         isElectronic = other['isElectronic'] as bool;
 
   Map<String, dynamic> toMap() => {

@@ -14,29 +14,29 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 typedef _OnSortFunction = void Function(bool);
 
 class ItemsTable<T extends Item> extends StatefulWidget {
-  final String Function(ItemsTableRow<T>) itemTitle;
-  final IconData itemIcon;
+  final String Function(ItemsTableRow<T>)? itemTitle;
+  final IconData? itemIcon;
   final String itemHeaderLabel;
   final List<ItemsTableRow<T>> rows;
-  final String emptyMessage;
+  final String? emptyMessage;
 
   final bool shallEdit;
   final bool shallEmpty;
   final bool shallRemove;
 
-  final void Function(List<ItemsTableRow<T>>) onEditPressed;
+  final Future<void> Function(List<ItemsTableRow<T>>)? onEditPressed;
 
-  final String onEmptyTitle;
-  final void Function(List<String>) onEmptyPressed;
+  final String? onEmptyTitle;
+  final void Function(List<String>)? onEmptyPressed;
 
-  final String onRemoveTitle;
-  final void Function(List<String>) onRemovePressed;
+  final String? onRemoveTitle;
+  final void Function(List<String>)? onRemovePressed;
 
   const ItemsTable({
     this.itemTitle,
     this.itemIcon,
     this.itemHeaderLabel = 'Item',
-    @required this.rows,
+    required this.rows,
     this.emptyMessage,
     this.shallEdit = true,
     this.shallEmpty = true,
@@ -49,7 +49,7 @@ class ItemsTable<T extends Item> extends StatefulWidget {
   });
 
   @override
-  _ItemsTableState createState() => _ItemsTableState();
+  _ItemsTableState createState() => _ItemsTableState<T>();
 
   List<ItemsTableRow<T>> get _selectedRows =>
       rows.where((row) => row.selected).toList();
@@ -119,7 +119,7 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
 
   @override
   Widget build(BuildContext context) {
-    final appLocalizations = AppLocalizations.of(context);
+    final appLocalizations = AppLocalizations.of(context)!;
 
     if (widget.rows.isEmpty) {
       return CenteredIconMessage(
@@ -181,7 +181,7 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
                       selected: widget.rows[index].selected,
                       onSelectChanged: (selected) {
                         setState(
-                          () => widget.rows[index].selected = selected,
+                          () => widget.rows[index].selected = selected ?? false,
                         );
                       },
                       cells: [
@@ -194,7 +194,7 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
                               ),
                               const SizedBox(width: 12.0),
                               Text(
-                                widget.itemTitle?.call(row) ?? '',
+                                widget.itemTitle?.call(row) ?? '${row.item}',
                                 style: theme.textTheme.headline5,
                               ),
                             ],
@@ -238,7 +238,7 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
                                 ? null
                                 : appLocalizations.pastYearOfActivity,
                             dateRange: row.item is DateRange
-                                ? row.item
+                                ? row.item as DateRange
                                 : DateRange(
                                     startDate: firstWeekDate(DateTime.now()
                                         .subtract(const Duration(days: 365))),
@@ -263,7 +263,8 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
           actions: [
             if (widget.shallEdit && widget._selectedRows.length == 1)
               IconButton(
-                onPressed: () => widget.onEditPressed(widget._selectedRows),
+                onPressed: () =>
+                    widget.onEditPressed?.call(widget._selectedRows),
                 icon: const Icon(Icons.edit),
                 tooltip: appLocalizations.edit,
               ),
@@ -285,7 +286,7 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
 
                             if (shallDelete == null || !shallDelete) return;
 
-                            widget.onEmptyPressed(widget._selectedIds);
+                            widget.onEmptyPressed!(widget._selectedIds);
                           },
                 icon: const Icon(Icons.delete_outline),
                 tooltip: appLocalizations.empty,
@@ -306,7 +307,7 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
 
                         if (shallDelete == null || !shallDelete) return;
 
-                        widget.onRemovePressed(widget._selectedIds);
+                        widget.onRemovePressed!(widget._selectedIds);
                       },
                 icon: const Icon(Icons.delete),
                 tooltip: MaterialLocalizations.of(context).deleteButtonTooltip,
@@ -328,7 +329,7 @@ class ItemsTableRow<T extends Item> {
   bool selected;
 
   ItemsTableRow({
-    @required this.item,
+    required this.item,
     this.bookingsCount = 0,
     this.recurringBookingsCount = 0,
     this.occupiedDuration = const Duration(),

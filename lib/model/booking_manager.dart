@@ -4,21 +4,25 @@ import 'package:cabin_booking/model/booking.dart';
 import 'package:cabin_booking/model/date_range.dart';
 import 'package:cabin_booking/model/recurring_booking.dart';
 import 'package:cabin_booking/utils/datetime.dart';
+import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
 
 class BookingManager with ChangeNotifier {
-  Set<Booking> bookings;
-  Set<RecurringBooking> recurringBookings;
+  late Set<Booking> bookings;
+  late Set<RecurringBooking> recurringBookings;
 
-  BookingManager({this.bookings, this.recurringBookings}) {
-    bookings ??= SplayTreeSet();
-    recurringBookings ??= SplayTreeSet();
+  BookingManager({
+    Set<Booking>? bookings,
+    Set<RecurringBooking>? recurringBookings,
+  }) {
+    this.bookings = bookings ?? SplayTreeSet();
+    this.recurringBookings = recurringBookings ?? SplayTreeSet();
   }
 
   BookingManager.from({
-    List<dynamic> bookings,
-    List<dynamic> recurringBookings,
-  })  : bookings = SplayTreeSet.from(
+    required List<dynamic> bookings,
+    required List<dynamic> recurringBookings,
+  })   : bookings = SplayTreeSet.from(
           bookings.map((booking) => Booking.from(booking)),
         ),
         recurringBookings = SplayTreeSet.from(
@@ -86,23 +90,24 @@ class BookingManager with ChangeNotifier {
         ...recurringBookingsOn(dateTime),
       });
 
-  bool bookingsCollideWith(Booking booking) =>
-      allBookingsOn(booking.date)
-          .where(
-            (_booking) =>
-                (_booking.recurringBookingId == null ||
-                    _booking.recurringBookingId !=
-                        booking.recurringBookingId) &&
-                _booking.id != booking.id,
-          )
-          .firstWhere(
-            (_booking) => _booking.collidesWith(booking),
-            orElse: () => null,
-          ) !=
-      null;
+  bool bookingsCollideWith(Booking booking) {
+    if (booking.date == null) return false;
 
-  // ignore: always_require_non_null_named_parameters
-  Duration occupiedDuration({DateTime dateTime, DateRange dateRange}) {
+    return allBookingsOn(booking.date!)
+            .where(
+              (_booking) =>
+                  (_booking.recurringBookingId == null ||
+                      _booking.recurringBookingId !=
+                          booking.recurringBookingId) &&
+                  _booking.id != booking.id,
+            )
+            .firstWhereOrNull(
+              (_booking) => _booking.collidesWith(booking),
+            ) !=
+        null;
+  }
+
+  Duration occupiedDuration({DateTime? dateTime, DateRange? dateRange}) {
     assert(!((dateTime != null) && (dateRange != null)));
 
     var runDuration = const Duration();
@@ -121,16 +126,16 @@ class BookingManager with ChangeNotifier {
   }
 
   double occupancyPercentOn(
-    DateTime dateTime, {
-    @required TimeOfDay startTime,
-    @required TimeOfDay endTime,
+    DateTime? dateTime, {
+    required TimeOfDay startTime,
+    required TimeOfDay endTime,
   }) {
-    final startDate = tryParseDateTimeWithTimeOfDay(
+    final startDate = dateTimeWithTimeOfDay(
       dateTime: dateTime,
       timeOfDay: startTime,
     );
 
-    final endDate = tryParseDateTimeWithTimeOfDay(
+    final endDate = dateTimeWithTimeOfDay(
       dateTime: dateTime,
       timeOfDay: endTime,
     );
@@ -142,9 +147,9 @@ class BookingManager with ChangeNotifier {
   }
 
   double occupancyPercent({
-    @required TimeOfDay startTime,
-    @required TimeOfDay endTime,
-    Set<DateTime> dates,
+    required TimeOfDay startTime,
+    required TimeOfDay endTime,
+    Set<DateTime>? dates,
   }) {
     var runPercent = 0.0;
     var count = 0;
@@ -164,20 +169,19 @@ class BookingManager with ChangeNotifier {
     return runPercent;
   }
 
-  Set<DateTime> datesWithBookings([DateRange dateRange]) {
+  Set<DateTime> datesWithBookings([DateRange? dateRange]) {
     final dates = SplayTreeSet<DateTime>();
 
     final bookingsList =
         dateRange != null ? allBookingsBetween(dateRange) : allBookings;
 
     for (final booking in bookingsList) {
-      final shouldAddDate = dates.firstWhere(
+      final shouldAddDate = dates.firstWhereOrNull(
             (date) => isSameDay(date, booking.date),
-            orElse: () => null,
           ) !=
           null;
 
-      if (!shouldAddDate) dates.add(booking.date);
+      if (!shouldAddDate) dates.add(booking.date!);
     }
 
     return dates;
@@ -188,7 +192,7 @@ class BookingManager with ChangeNotifier {
 
     for (final booking in allBookings) {
       bookingsPerDay.update(
-        booking.date,
+        booking.date!,
         (count) => count + 1,
         ifAbsent: () => 1,
       );
@@ -197,14 +201,14 @@ class BookingManager with ChangeNotifier {
     return bookingsPerDay;
   }
 
-  Map<DateTime, Duration> occupiedDurationPerWeek([DateRange dateRange]) {
+  Map<DateTime, Duration> occupiedDurationPerWeek([DateRange? dateRange]) {
     final bookingsPerDay = SplayTreeMap<DateTime, Duration>();
 
     for (final booking in allBookings) {
-      if (dateRange != null && !dateRange.includes(booking.date)) continue;
+      if (dateRange != null && !dateRange.includes(booking.date!)) continue;
 
       bookingsPerDay.update(
-        firstWeekDate(booking.date),
+        firstWeekDate(booking.date!),
         (duration) => duration + booking.duration,
         ifAbsent: () => booking.duration,
       );
@@ -214,7 +218,7 @@ class BookingManager with ChangeNotifier {
   }
 
   Map<TimeOfDay, Duration> accumulatedTimeRangesOccupancy([
-    DateRange dateRange,
+    DateRange? dateRange,
   ]) {
     final timeRanges = <TimeOfDay, Duration>{};
 
@@ -234,7 +238,7 @@ class BookingManager with ChangeNotifier {
     return timeRanges;
   }
 
-  Set<TimeOfDay> mostOccupiedTimeRange([DateRange dateRange]) {
+  Set<TimeOfDay> mostOccupiedTimeRange([DateRange? dateRange]) {
     final sortedTimeRanges = SplayTreeSet<MapEntry<TimeOfDay, Duration>>.from(
       accumulatedTimeRangesOccupancy(dateRange).entries,
       (a, b) => (b.value - a.value).inMicroseconds,
@@ -255,7 +259,7 @@ class BookingManager with ChangeNotifier {
   Booking bookingFromId(String id) =>
       bookings.firstWhere((booking) => booking.id == id);
 
-  RecurringBooking recurringBookingFromId(String id) => recurringBookings
+  RecurringBooking recurringBookingFromId(String? id) => recurringBookings
       .firstWhere((recurringBooking) => recurringBooking.id == id)
         ..recurringBookingId = id;
 
@@ -304,7 +308,7 @@ class BookingManager with ChangeNotifier {
   }
 
   void modifyBookingStatusById(
-    String id,
+    String? id,
     BookingStatus status, {
     bool notify = true,
   }) {
@@ -326,7 +330,7 @@ class BookingManager with ChangeNotifier {
   }
 
   void removeBookingById(
-    String id, {
+    String? id, {
     bool notify = true,
   }) {
     bookings.removeWhere((booking) => booking.id == id);
@@ -335,7 +339,7 @@ class BookingManager with ChangeNotifier {
   }
 
   void removeRecurringBookingById(
-    String id, {
+    String? id, {
     bool notify = true,
   }) {
     recurringBookings

@@ -4,12 +4,11 @@ import 'package:cabin_booking/utils/map_number.dart';
 import 'package:flutter/material.dart';
 
 Map<int, Color> mapColorsToHighestValue({
-  @required int highestValue,
-  @required Color color,
-  @required int colorSamples,
+  required int highestValue,
+  required Color color,
+  required int colorSamples,
   double minOpacity = 0.2,
 }) {
-  assert(colorSamples != null);
   assert(colorSamples > 0);
 
   final colorMap = SplayTreeMap<int, Color>();
