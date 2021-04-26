@@ -7,7 +7,7 @@ import 'package:cabin_booking/model/recurring_booking.dart';
 import 'package:flutter/material.dart';
 
 class Cabin extends Item {
-  late int number;
+  int number;
   late CabinComponents components;
   final BookingManager _bookingManager;
 
