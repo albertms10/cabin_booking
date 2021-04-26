@@ -49,7 +49,7 @@ class ItemsTable<T extends Item> extends StatefulWidget {
   });
 
   @override
-  _ItemsTableState createState() => _ItemsTableState();
+  _ItemsTableState createState() => _ItemsTableState<T>();
 
   List<ItemsTableRow<T>> get _selectedRows =>
       rows.where((row) => row.selected).toList();
