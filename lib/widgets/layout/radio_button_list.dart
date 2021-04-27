@@ -27,14 +27,7 @@ class RadioButtonList extends StatefulWidget {
 }
 
 class _RadioButtonListState extends State<RadioButtonList> {
-  int? _selectedIndex;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _selectedIndex = widget.initialIndex ?? 0;
-  }
+  late int? _selectedIndex = widget.initialIndex ?? 0;
 
   @override
   Widget build(BuildContext context) {

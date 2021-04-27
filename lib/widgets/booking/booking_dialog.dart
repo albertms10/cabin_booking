@@ -15,14 +15,7 @@ class BookingDialog extends StatefulWidget {
 }
 
 class _BookingDialogState extends State<BookingDialog> {
-  bool _isRecurring = false;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _isRecurring = RecurringBooking.isRecurringBooking(widget.booking);
-  }
+  late bool _isRecurring = RecurringBooking.isRecurringBooking(widget.booking);
 
   void _setIsRecurring(bool isRecurring) {
     setState(() => _isRecurring = isRecurring);

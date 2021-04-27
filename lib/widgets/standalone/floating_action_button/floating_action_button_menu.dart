@@ -91,34 +91,25 @@ class FloatingActionButtonMenu extends StatefulWidget {
 
 class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
     with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
+  late final AnimationController _controller = AnimationController(
+    duration: _calculateMainControllerDuration(),
+    vsync: this,
+  );
 
-  late Animation<double> _childAnimation;
+  late final Animation<double> _childAnimation = widget.tween.animate(
+    CurvedAnimation(
+      parent: _controller,
+      curve: widget.curve,
+    )..addStatusListener((status) {
+        setState(() {
+          _animationCompleted = status == AnimationStatus.completed ||
+              status == AnimationStatus.dismissed;
+        });
+      }),
+  );
 
   bool _open = false;
   bool _animationCompleted = true;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _controller = AnimationController(
-      duration: _calculateMainControllerDuration(),
-      vsync: this,
-    );
-
-    _childAnimation = widget.tween.animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: widget.curve,
-      )..addStatusListener((status) {
-          setState(() {
-            _animationCompleted = status == AnimationStatus.completed ||
-                status == AnimationStatus.dismissed;
-          });
-        }),
-    );
-  }
 
   @override
   void dispose() {

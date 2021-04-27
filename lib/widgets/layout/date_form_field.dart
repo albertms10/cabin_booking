@@ -35,20 +35,17 @@ class DateFormField extends StatefulWidget {
 }
 
 class _DateFormFieldState extends State<DateFormField> {
-  DateTime? _date;
-  late DateTime _firstDate;
-  late DateTime _lastDate;
+  late DateTime? _date = widget.initialDate;
 
-  @override
-  void initState() {
-    super.initState();
+  late final DateTime _firstDate = widget.firstDate ??
+      DateTime.now().subtract(
+        const Duration(days: 365 * 20),
+      );
 
-    _date = widget.initialDate;
-    _firstDate = widget.firstDate ??
-        DateTime.now().subtract(const Duration(days: 365 * 20));
-    _lastDate =
-        widget.lastDate ?? DateTime.now().add(const Duration(days: 365 * 20));
-  }
+  late final DateTime _lastDate = widget.lastDate ??
+      DateTime.now().add(
+        const Duration(days: 365 * 20),
+      );
 
   DateTime? _tryParseDate(String value) {
     try {

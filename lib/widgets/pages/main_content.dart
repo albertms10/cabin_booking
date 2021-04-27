@@ -18,8 +18,13 @@ class MainContent extends StatefulWidget {
 }
 
 class _MainContentState extends State<MainContent> {
-  late CabinManager _cabinManager;
-  late SchoolYearManager _schoolYearManager;
+  late final CabinManager _cabinManager =
+      Provider.of<CabinManager>(context, listen: false)
+        ..addListener(_writeCabinsAndShowSnackBar);
+
+  late final SchoolYearManager _schoolYearManager =
+      Provider.of<DayHandler>(context, listen: false).schoolYearManager
+        ..addListener(_writeSchoolYearsAndShowSnackBar);
 
   void _writeAndShowSnackBar(WritableManager manager) async {
     final changesSaved = await manager.writeToFile();
@@ -39,18 +44,6 @@ class _MainContentState extends State<MainContent> {
 
   void _writeSchoolYearsAndShowSnackBar() =>
       _writeAndShowSnackBar(_schoolYearManager);
-
-  @override
-  void initState() {
-    super.initState();
-
-    _cabinManager = Provider.of<CabinManager>(context, listen: false)
-      ..addListener(_writeCabinsAndShowSnackBar);
-
-    _schoolYearManager = Provider.of<DayHandler>(context, listen: false)
-        .schoolYearManager
-      ..addListener(_writeSchoolYearsAndShowSnackBar);
-  }
 
   @override
   void dispose() {
