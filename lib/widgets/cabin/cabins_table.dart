@@ -21,11 +21,9 @@ class CabinsTable extends StatelessWidget {
           itemHeaderLabel: appLocalizations.cabin,
           emptyMessage: appLocalizations.noCabinsMessage,
           onEditPressed: (selectedRows) async {
-            final selectedCabin = selectedRows.first;
-
             final editedCabin = await showDialog<Cabin>(
               context: context,
-              builder: (context) => CabinDialog(cabin: selectedCabin.item),
+              builder: (context) => CabinDialog(cabin: selectedRows.first.item),
             );
 
             if (editedCabin != null) {
