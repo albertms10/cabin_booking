@@ -1,3 +1,8 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:timer_builder/timer_builder.dart';
+import 'package:provider/provider.dart';
 import 'package:cabin_booking/constants.dart';
 import 'package:cabin_booking/model/booking.dart';
 import 'package:cabin_booking/model/cabin.dart';
@@ -5,11 +10,6 @@ import 'package:cabin_booking/model/cabin_manager.dart';
 import 'package:cabin_booking/model/recurring_booking.dart';
 import 'package:cabin_booking/widgets/booking/booking_popup_menu.dart';
 import 'package:cabin_booking/widgets/booking/booking_status_button.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:provider/provider.dart';
-import 'package:timer_builder/timer_builder.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BookingCard extends StatelessWidget {
   final Cabin cabin;
@@ -149,6 +149,8 @@ class BookingCardInfo extends StatelessWidget {
                               fontSize: constraints.maxHeight > 20.0
                                   ? 14.0
                                   : constraints.maxHeight * 0.5),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 4,
                         ),
                         if (constraints.maxHeight > 30.0)
                           Text(
