@@ -14,16 +14,15 @@ import 'package:timer_builder/timer_builder.dart';
 class BookingCard extends StatelessWidget {
   final Cabin cabin;
   final Booking booking;
-  final bool isDisabled;
 
   const BookingCard({
     Key? key,
     required this.cabin,
     required this.booking,
-    this.isDisabled = false,
   }) : super(key: key);
 
   double get height => booking.duration.inMinutes * kBookingHeightRatio - 16.0;
+
   bool get isRecurring => RecurringBooking.isRecurringBooking(booking);
 
   @override
@@ -59,7 +58,7 @@ class BookingCard extends StatelessWidget {
                   bottom: 0.0,
                   left: 10.0,
                 ),
-                decoration: (!isDisabled)
+                decoration: (!booking.isDisabled)
                     ? BoxDecoration(
                         color: Theme.of(context)
                             .cardColor
@@ -84,7 +83,6 @@ class BookingCard extends StatelessWidget {
                 child: BookingCardInfo(
                   cabin: cabin,
                   booking: booking,
-                  isDisabled: isDisabled,
                   isRecurring: isRecurring,
                 ),
               ),
@@ -99,14 +97,12 @@ class BookingCard extends StatelessWidget {
 class BookingCardInfo extends StatelessWidget {
   final Cabin cabin;
   final Booking booking;
-  final bool isDisabled;
   final bool isRecurring;
 
   const BookingCardInfo({
     required this.cabin,
     required this.booking,
     this.isRecurring = false,
-    this.isDisabled = false,
   });
 
   @override
@@ -141,7 +137,7 @@ class BookingCardInfo extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
-                          (!isDisabled)
+                          (!booking.isDisabled)
                               ? booking.description!
                               : '${booking.description} '
                                   '(${AppLocalizations.of(context)!.disabled.toLowerCase()})',
@@ -183,7 +179,7 @@ class BookingCardInfo extends StatelessWidget {
                       cabin: cabin,
                       booking: booking,
                     ),
-                    if (!isDisabled)
+                    if (!booking.isDisabled)
                       BookingStatusButton(
                         status: booking.status,
                         onPressed: () {

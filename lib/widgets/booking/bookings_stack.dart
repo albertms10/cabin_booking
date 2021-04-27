@@ -62,7 +62,6 @@ class BookingsStack extends StatelessWidget {
               key: Key(booking.id),
               cabin: cabin,
               booking: booking,
-              isDisabled: booking.isDisabled,
             ),
           ),
         );
