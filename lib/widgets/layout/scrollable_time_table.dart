@@ -12,10 +12,6 @@ import 'package:cabin_booking/widgets/cabin/cabin_icon.dart';
 
 class ScrollableTimeTable extends StatelessWidget {
   const ScrollableTimeTable();
-  static const int sortName = 0;
-  static const int sortStatus = 1;
-  final bool isAscending = true;
-  final int sortType = sortName;
 
   @override
   Widget build(BuildContext context) {
