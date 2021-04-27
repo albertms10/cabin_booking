@@ -1,14 +1,14 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:horizontal_data_table/horizontal_data_table.dart';
-import 'package:provider/provider.dart';
 import 'package:cabin_booking/constants.dart';
 import 'package:cabin_booking/model/cabin.dart';
 import 'package:cabin_booking/model/cabin_manager.dart';
 import 'package:cabin_booking/model/day_handler.dart';
-import 'package:cabin_booking/widgets/layout/time_column.dart';
 import 'package:cabin_booking/widgets/booking/bookings_table.dart';
 import 'package:cabin_booking/widgets/cabin/cabin_icon.dart';
+import 'package:cabin_booking/widgets/layout/time_column.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:horizontal_data_table/horizontal_data_table.dart';
+import 'package:provider/provider.dart';
 
 class ScrollableTimeTable extends StatelessWidget {
   const ScrollableTimeTable();

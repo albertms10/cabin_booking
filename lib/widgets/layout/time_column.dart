@@ -1,7 +1,7 @@
 import 'package:cabin_booking/constants.dart';
-import 'package:flutter/material.dart';
-import 'package:cabin_booking/widgets/layout/stripped_background.dart';
 import 'package:cabin_booking/widgets/layout/current_time_indicator.dart';
+import 'package:cabin_booking/widgets/layout/stripped_background.dart';
+import 'package:flutter/material.dart';
 
 class TimeColumn extends StatelessWidget {
   final TimeOfDay start;
