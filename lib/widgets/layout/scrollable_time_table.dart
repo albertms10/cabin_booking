@@ -43,9 +43,9 @@ class ScrollableTimeTable extends StatelessWidget {
             if (cabinManager.cabins.isEmpty) {
               return Center(
                 child: Text(
-                  AppLocalizations.of(context).noCabins,
+                  AppLocalizations.of(context)!.noCabins,
                   textAlign: TextAlign.center,
-                  style: theme.textTheme.headline5
+                  style: theme.textTheme.headline5!
                       .copyWith(color: Colors.grey[600]),
                 ),
               );
