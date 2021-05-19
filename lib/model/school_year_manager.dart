@@ -12,7 +12,7 @@ Iterable<SchoolYear> _parseSchoolYears(String jsonString) =>
 class SchoolYearManager extends WritableManager<Set<SchoolYear>>
     with ChangeNotifier {
   late Set<SchoolYear> schoolYears;
-  int? schoolYearIndex;
+  int? _schoolYearIndex;
 
   final void Function()? notifyExternalListeners;
 
@@ -27,6 +27,13 @@ class SchoolYearManager extends WritableManager<Set<SchoolYear>>
 
   List<Map<String, dynamic>> schoolYearsToMapList() =>
       schoolYears.map((schoolYear) => schoolYear.toMap()).toList();
+
+  int? get schoolYearIndex => _schoolYearIndex;
+
+  set schoolYearIndex(int? schoolYearIndex) {
+    if (schoolYearIndex == null) return;
+    _schoolYearIndex = schoolYearIndex;
+  }
 
   int? get _currentSchoolYearIndex => _schoolYearIndexFrom(DateTime.now());
 
@@ -56,18 +63,24 @@ class SchoolYearManager extends WritableManager<Set<SchoolYear>>
     return duration;
   }
 
-  void changeToPreviousSchoolYear() =>
-      schoolYearIndex = schoolYearIndex! > 0 ? schoolYearIndex! - 1 : 0;
+  void changeToPreviousSchoolYear() {
+    if (schoolYearIndex == null) return;
+
+    schoolYearIndex = schoolYearIndex! > 0 ? schoolYearIndex! - 1 : 0;
+  }
 
   void changeToCurrentSchoolYear() => schoolYearIndex = _currentSchoolYearIndex;
 
   void changeToSchoolYearFrom(DateTime dateTime) =>
       schoolYearIndex = _schoolYearIndexFrom(dateTime);
 
-  void changeToNextSchoolYear() =>
-      schoolYearIndex = schoolYearIndex! < schoolYears.length - 1
-          ? schoolYearIndex! + 1
-          : schoolYears.length - 1;
+  void changeToNextSchoolYear() {
+    if (schoolYearIndex == null) return;
+
+    schoolYearIndex = schoolYearIndex! < schoolYears.length - 1
+        ? schoolYearIndex! + 1
+        : schoolYears.length - 1;
+  }
 
   void addSchoolYear(
     SchoolYear schoolYear, {
