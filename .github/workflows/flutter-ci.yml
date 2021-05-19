@@ -14,8 +14,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: subosito/flutter-action@v1
-        with:
-          channel: dev
 
       - run: flutter analyze --fatal-infos
     # - run: flutter test
@@ -30,8 +28,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: subosito/flutter-action@v1
-      with:
-        channel: dev
 
     - run: flutter pub get
     - run: flutter build ios --release --no-codesign
@@ -54,8 +50,6 @@ jobs:
         with:
           java-version: '12.x'
       - uses: subosito/flutter-action@v1
-        with:
-          channel: dev
 
       - run: flutter pub get
       - run: flutter build apk
@@ -74,8 +68,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: subosito/flutter-action@v1
-        with:
-          channel: dev
 
       - run: flutter config --enable-macos-desktop
       - run: flutter pub get
@@ -98,8 +90,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: subosito/flutter-action@v1
-        with:
-          channel: dev
 
       - run: flutter config --enable-windows-desktop
       - run: flutter pub get
@@ -122,8 +112,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: subosito/flutter-action@v1
-        with:
-          channel: dev
 
       - run: flutter config --enable-web
       - run: flutter pub get
