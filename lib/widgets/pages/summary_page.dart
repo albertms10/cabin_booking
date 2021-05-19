@@ -141,7 +141,7 @@ class SummaryPage extends StatelessWidget {
                     showLegend: true,
                     colorThresholds: mapColorsToHighestValue(
                       highestValue: cabinManager.mostBookedDayEntry?.value ?? 1,
-                      color: Theme.of(context).accentColor,
+                      color: Theme.of(context).colorScheme.secondary,
                       colorSamples: 8,
                     ),
                     firstWeekDay: DateTime.monday,

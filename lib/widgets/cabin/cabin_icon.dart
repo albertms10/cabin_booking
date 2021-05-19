@@ -20,10 +20,10 @@ class CabinIcon extends StatelessWidget {
 
     final text = Text(
       '$number',
-      style: theme.accentTextTheme.headline5!.copyWith(
+      style: theme.textTheme.headline5!.copyWith(
         color: shouldShowProgress
-            ? theme.accentColor
-            : theme.colorScheme.onPrimary,
+            ? theme.colorScheme.secondary
+            : theme.colorScheme.onSecondary,
       ),
       textAlign: TextAlign.center,
     );
@@ -31,7 +31,7 @@ class CabinIcon extends StatelessWidget {
     if (!shouldShowProgress) {
       return CircleAvatar(
         radius: radius,
-        backgroundColor: theme.accentColor,
+        backgroundColor: theme.colorScheme.secondary,
         child: text,
       );
     }
@@ -49,7 +49,7 @@ class CabinIcon extends StatelessWidget {
             builder: (context, value, child) {
               return CircularProgressIndicator(
                 value: value,
-                backgroundColor: theme.accentColor.withOpacity(0.25),
+                backgroundColor: theme.colorScheme.secondary.withOpacity(0.25),
               );
             },
           ),

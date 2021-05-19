@@ -20,7 +20,6 @@ class AppStyles {
       primaryColor: primaryColor,
       primaryColorLight: primaryColorLight,
       primaryColorDark: primaryColorDark,
-      accentColor: primaryColor,
       colorScheme: ColorScheme.light(
         primary: primaryColor,
         primaryVariant: primaryColorLight,
@@ -43,7 +42,6 @@ class AppStyles {
       primaryColor: primaryColor,
       primaryColorLight: primaryColorLight,
       primaryColorDark: primaryColorDark,
-      accentColor: primaryColor,
       colorScheme: ColorScheme.dark(
         primary: primaryColor,
         primaryVariant: primaryColorLight,

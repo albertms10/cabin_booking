@@ -70,7 +70,7 @@ class AnimatedChild extends AnimatedWidget {
                   toggleChildren?.call();
                 },
                 backgroundColor: backgroundColor ?? theme.dialogBackgroundColor,
-                foregroundColor: foregroundColor ?? theme.accentColor,
+                foregroundColor: foregroundColor ?? theme.colorScheme.secondary,
                 elevation: elevation,
                 child: animation.value > 50.0
                     ? SizedBox(
