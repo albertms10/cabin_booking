@@ -27,7 +27,7 @@ class _BookingDialogState extends State<BookingDialog> {
 
     return DataDialog(
       title: Text(
-        widget.booking.isDisabled
+        widget.booking.isLocked
             ? appLocalizations.lockedRange
             : _isRecurring
                 ? appLocalizations.recurringBooking

@@ -22,7 +22,7 @@ class BookingManager with ChangeNotifier {
   BookingManager.from({
     required List<dynamic> bookings,
     required List<dynamic> recurringBookings,
-  })   : bookings = SplayTreeSet.from(
+  })  : bookings = SplayTreeSet.from(
           bookings.map((booking) => Booking.from(booking)),
         ),
         recurringBookings = SplayTreeSet.from(

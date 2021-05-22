@@ -48,7 +48,7 @@
   "dataCouldNotBeLoaded": "Data could not be loaded.",
   "changesSaved": "Changes saved",
   "errorSavingChanges": "Error saving changes",
-  "disabled": "disabled",
+  "locked": "locked",
   "description": "Description",
   "noCabins": "No cabins",
   "noCabinsMessage": "Add a cabin to begin",

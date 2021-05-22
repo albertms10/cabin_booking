@@ -58,7 +58,7 @@ class BookingCard extends StatelessWidget {
                   bottom: 0.0,
                   left: 10.0,
                 ),
-                decoration: (!booking.isDisabled)
+                decoration: (!booking.isLocked)
                     ? BoxDecoration(
                         color: Theme.of(context)
                             .cardColor
@@ -137,10 +137,10 @@ class BookingCardInfo extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
-                          (!booking.isDisabled)
+                          (!booking.isLocked)
                               ? booking.description!
                               : '${booking.description} '
-                                  '(${AppLocalizations.of(context)!.disabled.toLowerCase()})',
+                                  '(${AppLocalizations.of(context)!.locked.toLowerCase()})',
                           style: TextStyle(
                               fontSize: constraints.maxHeight > 20.0
                                   ? 14.0
@@ -179,7 +179,7 @@ class BookingCardInfo extends StatelessWidget {
                       cabin: cabin,
                       booking: booking,
                     ),
-                    if (!booking.isDisabled)
+                    if (!booking.isLocked)
                       BookingStatusButton(
                         status: booking.status,
                         onPressed: () {

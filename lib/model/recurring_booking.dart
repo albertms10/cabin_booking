@@ -16,7 +16,7 @@ class RecurringBooking extends Booking {
     TimeOfDay? startTime,
     TimeOfDay? endTime,
     BookingStatus status = BookingStatus.Pending,
-    bool isDisabled = false,
+    bool isLocked = false,
     String? cabinId,
     this.periodicity = Periodicity.Weekly,
     this.repeatEvery = 1,
@@ -32,7 +32,7 @@ class RecurringBooking extends Booking {
           startTime: startTime,
           endTime: endTime,
           status: status,
-          isDisabled: isDisabled,
+          isLocked: isLocked,
           cabinId: cabinId,
         );
 
@@ -65,7 +65,7 @@ class RecurringBooking extends Booking {
           startTime: booking.startTime,
           endTime: booking.endTime,
           status: booking.status,
-          isDisabled: booking.isDisabled,
+          isLocked: booking.isLocked,
           cabinId: booking.cabinId,
         );
 
@@ -132,7 +132,7 @@ class RecurringBooking extends Booking {
         startTime: startTime,
         endTime: endTime,
         status: status,
-        isDisabled: isDisabled,
+        isLocked: isLocked,
         cabinId: cabinId,
         recurringBookingId: linked ? id : null,
       );
@@ -178,7 +178,7 @@ class RecurringBooking extends Booking {
     TimeOfDay? startTime,
     TimeOfDay? endTime,
     BookingStatus? status,
-    bool? isDisabled,
+    bool? isLocked,
     String? cabinId,
     Periodicity? periodicity,
     int? repeatEvery,
@@ -192,7 +192,7 @@ class RecurringBooking extends Booking {
         startTime: startTime ?? this.startTime,
         endTime: endTime ?? this.endTime,
         status: status ?? this.status,
-        isDisabled: isDisabled ?? this.isDisabled,
+        isLocked: isLocked ?? this.isLocked,
         cabinId: cabinId ?? this.cabinId,
         periodicity: periodicity ?? this.periodicity,
         repeatEvery: repeatEvery ?? this.repeatEvery,

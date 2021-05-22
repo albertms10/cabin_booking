@@ -10,7 +10,7 @@ class Booking extends Item {
   TimeOfDay? startTime;
   TimeOfDay? endTime;
   BookingStatus status;
-  bool isDisabled;
+  bool isLocked;
   String? cabinId;
 
   String? recurringBookingId;
@@ -24,7 +24,7 @@ class Booking extends Item {
     this.startTime,
     this.endTime,
     this.status = BookingStatus.Pending,
-    this.isDisabled = false,
+    this.isLocked = false,
     this.cabinId,
     this.recurringBookingId,
     this.recurringNumber,
@@ -37,7 +37,7 @@ class Booking extends Item {
         startTime = tryParseTimeOfDay(other['startTime'] as String),
         endTime = tryParseTimeOfDay(other['endTime'] as String),
         status = BookingStatus.values[other['status'] as int],
-        isDisabled = other['isDisabled'] as bool,
+        isLocked = other['isLocked'] as bool,
         super.from(other);
 
   @override
@@ -48,7 +48,7 @@ class Booking extends Item {
         'startTime': formatTimeOfDay(startTime!),
         'endTime': formatTimeOfDay(endTime!),
         'status': status.index,
-        'isDisabled': isDisabled,
+        'isLocked': isLocked,
       };
 
   DateTime get startDateTime => dateTimeWithTimeOfDay(
@@ -115,7 +115,7 @@ class Booking extends Item {
     TimeOfDay? startTime,
     TimeOfDay? endTime,
     BookingStatus? status,
-    bool? isDisabled,
+    bool? isLocked,
     String? cabinId,
   }) =>
       Booking(
@@ -125,7 +125,7 @@ class Booking extends Item {
         startTime: startTime ?? this.startTime,
         endTime: endTime ?? this.endTime,
         status: status ?? this.status,
-        isDisabled: isDisabled ?? this.isDisabled,
+        isLocked: isLocked ?? this.isLocked,
         cabinId: cabinId ?? this.cabinId,
       );
 
@@ -136,14 +136,13 @@ class Booking extends Item {
     startTime = booking.startTime;
     endTime = booking.endTime;
     status = booking.status;
-    isDisabled = booking.isDisabled;
+    isLocked = booking.isLocked;
 
     super.replaceWith(booking);
   }
 
   @override
-  String toString() =>
-      '$description $dateTimeRange${isDisabled ? ' (disabled)' : ''}';
+  String toString() => '${isLocked ? '🔒 ' : ''}$description $dateTimeRange';
 
   @override
   int compareTo(covariant Booking other) =>

@@ -48,7 +48,7 @@
   "dataCouldNotBeLoaded": "Los datos no se han podido cargar.",
   "changesSaved": "Se han guardado los cambios",
   "errorSavingChanges": "Ha ocurrido un error al guardar los cambios",
-  "disabled": "Desactivada",
+  "locked": "Bloqueada",
   "description": "Descripción",
   "noCabins": "Sin cabinas",
   "noCabinsMessage": "Añada una cabina para empezar",

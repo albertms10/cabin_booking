@@ -103,7 +103,7 @@ class _BookingFormState extends State<BookingForm> {
             autovalidateMode: AutovalidateMode.onUserInteraction,
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return _booking.isDisabled
+                return _booking.isLocked
                     ? appLocalizations.enterDescription
                     : appLocalizations.enterStudentName;
               }
@@ -114,7 +114,7 @@ class _BookingFormState extends State<BookingForm> {
               _booking.description = value;
             },
             decoration: InputDecoration(
-              labelText: _booking.isDisabled
+              labelText: _booking.isLocked
                   ? appLocalizations.description
                   : appLocalizations.student,
             ),

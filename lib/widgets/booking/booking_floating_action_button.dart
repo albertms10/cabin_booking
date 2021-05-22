@@ -86,7 +86,7 @@ class BookingFloatingActionButton extends StatelessWidget {
                       hour: (kTimeTableStartTime.hour + 1) %
                           TimeOfDay.hoursPerDay,
                     ),
-                    isDisabled: true,
+                    isLocked: true,
                     cabinId: cabinManager.cabins.first.id,
                   ),
                   cabinManager: cabinManager,
