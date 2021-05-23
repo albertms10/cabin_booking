@@ -26,71 +26,76 @@ class ScrollableTimeTable extends StatelessWidget {
   Widget _getBodyWidget(context) {
     final theme = Theme.of(context);
 
-    return LayoutBuilder(builder: (context, constraints) {
-      return Container(
-        color: theme.dialogBackgroundColor,
-        child: Consumer2<DayHandler, CabinManager>(
-          builder: (context, dayHandler, cabinManager, child) {
-            final maxParentWidth = constraints.maxWidth;
-            final calculatedBookingStackWidth =
-                (maxParentWidth - kTimeColumnWidth) /
-                    cabinManager.cabins.length;
-            final bookingStackWidth =
-                (calculatedBookingStackWidth < kBookingColumnMinWidth)
-                    ? kBookingColumnMinWidth
-                    : calculatedBookingStackWidth;
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return Container(
+          color: theme.dialogBackgroundColor,
+          child: Consumer2<DayHandler, CabinManager>(
+            builder: (context, dayHandler, cabinManager, child) {
+              final maxParentWidth = constraints.maxWidth;
+              final calculatedBookingStackWidth =
+                  (maxParentWidth - kTimeColumnWidth) /
+                      cabinManager.cabins.length;
+              final bookingStackWidth =
+                  (calculatedBookingStackWidth < kBookingColumnMinWidth)
+                      ? kBookingColumnMinWidth
+                      : calculatedBookingStackWidth;
 
-            if (cabinManager.cabins.isEmpty) {
-              return Center(
-                child: Text(
-                  AppLocalizations.of(context)!.noCabins,
-                  textAlign: TextAlign.center,
-                  style: theme.textTheme.headline5!
-                      .copyWith(color: Colors.grey[600]),
+              if (cabinManager.cabins.isEmpty) {
+                return Center(
+                  child: Text(
+                    AppLocalizations.of(context)!.noCabins,
+                    textAlign: TextAlign.center,
+                    style: theme.textTheme.headline5!
+                        .copyWith(color: Colors.grey[600]),
+                  ),
+                );
+              }
+
+              return Container(
+                child: HorizontalDataTable(
+                  leftHandSideColumnWidth: kTimeColumnWidth,
+                  rightHandSideColumnWidth:
+                      bookingStackWidth * cabinManager.cabins.length,
+                  isFixedHeader: true,
+                  headerWidgets: _getTitleWidget(
+                      context, cabinManager.cabins, bookingStackWidth),
+                  leftSideItemBuilder: _generateFirstColumnRow,
+                  rightSideItemBuilder: _generateRightHandSideColumnRow,
+                  itemCount: 1, // Hacking the widget a little bit
+                  rowSeparatorWidget: const Divider(
+                    color: Colors.black54,
+                    height: 1.0,
+                    thickness: 0.0,
+                  ),
+                  leftHandSideColBackgroundColor: theme.dialogBackgroundColor,
+                  rightHandSideColBackgroundColor: theme.dialogBackgroundColor,
+                  verticalScrollbarStyle: const ScrollbarStyle(
+                    isAlwaysShown: false,
+                    thickness: 4.0,
+                    radius: Radius.circular(5.0),
+                  ),
+                  horizontalScrollbarStyle: const ScrollbarStyle(
+                    isAlwaysShown: false,
+                    thickness: 4.0,
+                    radius: Radius.circular(5.0),
+                  ),
+                  refreshIndicator: const WaterDropHeader(),
+                  refreshIndicatorHeight: 60,
                 ),
               );
-            }
-
-            return Container(
-              child: HorizontalDataTable(
-                leftHandSideColumnWidth: kTimeColumnWidth,
-                rightHandSideColumnWidth:
-                    bookingStackWidth * cabinManager.cabins.length,
-                isFixedHeader: true,
-                headerWidgets: _getTitleWidget(
-                    context, cabinManager.cabins, bookingStackWidth),
-                leftSideItemBuilder: _generateFirstColumnRow,
-                rightSideItemBuilder: _generateRightHandSideColumnRow,
-                itemCount: 1, // Hacking the widget a little bit
-                rowSeparatorWidget: const Divider(
-                  color: Colors.black54,
-                  height: 1.0,
-                  thickness: 0.0,
-                ),
-                leftHandSideColBackgroundColor: theme.dialogBackgroundColor,
-                rightHandSideColBackgroundColor: theme.dialogBackgroundColor,
-                verticalScrollbarStyle: const ScrollbarStyle(
-                  isAlwaysShown: false,
-                  thickness: 4.0,
-                  radius: Radius.circular(5.0),
-                ),
-                horizontalScrollbarStyle: const ScrollbarStyle(
-                  isAlwaysShown: false,
-                  thickness: 4.0,
-                  radius: Radius.circular(5.0),
-                ),
-                refreshIndicator: const WaterDropHeader(),
-                refreshIndicatorHeight: 60,
-              ),
-            );
-          },
-        ),
-      );
-    });
+            },
+          ),
+        );
+      },
+    );
   }
 
   List<Widget> _getTitleWidget(
-      BuildContext context, Set<Cabin> cabins, double bookingStackWidth) {
+    BuildContext context,
+    Set<Cabin> cabins,
+    double bookingStackWidth,
+  ) {
     final theme = Theme.of(context);
 
     return [
@@ -110,7 +115,10 @@ class ScrollableTimeTable extends StatelessWidget {
   }
 
   Widget _getTitleIconWidget(
-      BuildContext context, Cabin cabin, double bookingStackWidth) {
+    BuildContext context,
+    Cabin cabin,
+    double bookingStackWidth,
+  ) {
     final dayHandler = Provider.of<DayHandler>(context);
 
     return SizedBox(
