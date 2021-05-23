@@ -51,7 +51,9 @@ class SchoolYearManager extends WritableManager<Set<SchoolYear>>
   }
 
   SchoolYear? get schoolYear =>
-      schoolYearIndex != null ? schoolYears.elementAt(schoolYearIndex!) : null;
+      schoolYearIndex != null && schoolYearIndex! < schoolYears.length
+          ? schoolYears.elementAt(schoolYearIndex!)
+          : null;
 
   Duration get totalWorkingDuration {
     var duration = const Duration();
