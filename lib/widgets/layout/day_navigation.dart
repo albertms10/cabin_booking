@@ -13,7 +13,7 @@ class DayNavigation extends StatelessWidget {
 
     return Consumer<DayHandler>(
       builder: (context, dayHandler, child) {
-        return Row(
+        return Wrap(
           children: [
             TextButton(
               style: TextButton.styleFrom(
