@@ -2,12 +2,12 @@
 
 ![Flutter CI](https://github.com/albertms10/cabin_booking/workflows/Flutter%20CI/badge.svg)
 
-An app for cabin booking
+A multiplatform app for cabin booking
 
 ### Bookings timetable
 
-![Bookings page](docs/screenshots/bookings_v0.4.jpg)
+![Bookings page](docs/screenshots/v0.4/bookings.jpg)
 
 ### Cabins list
 
-![Cabins page](docs/screenshots/cabins_v0.4.jpg)
+![Cabins page](docs/screenshots/v0.4/cabins.jpg)
