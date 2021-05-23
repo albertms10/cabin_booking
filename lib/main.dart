@@ -38,6 +38,7 @@ class CabinBookingApp extends StatelessWidget {
         Locale('es'),
       ],
       debugShowCheckedModeBanner: false,
+      scrollBehavior: const ScrollBehavior().copyWith(scrollbars: false),
       theme: AppStyles.lightTheme(),
       darkTheme: AppStyles.darkTheme(),
       builder: (context, child) {

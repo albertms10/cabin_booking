@@ -71,12 +71,12 @@ class ScrollableTimeTable extends StatelessWidget {
                   leftHandSideColBackgroundColor: theme.dialogBackgroundColor,
                   rightHandSideColBackgroundColor: theme.dialogBackgroundColor,
                   verticalScrollbarStyle: const ScrollbarStyle(
-                    isAlwaysShown: false,
+                    isAlwaysShown: true,
                     thickness: 4.0,
                     radius: Radius.circular(5.0),
                   ),
                   horizontalScrollbarStyle: const ScrollbarStyle(
-                    isAlwaysShown: false,
+                    isAlwaysShown: true,
                     thickness: 4.0,
                     radius: Radius.circular(5.0),
                   ),
