@@ -9,8 +9,6 @@ import 'package:cabin_booking/widgets/school_year/school_year_floating_action_bu
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-enum AppPages { Summary, Bookings, Cabins, SchoolYears }
-
 class HomePage extends StatefulWidget {
   const HomePage();
 
@@ -96,3 +94,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
+enum AppPages { Summary, Bookings, Cabins, SchoolYears }
+

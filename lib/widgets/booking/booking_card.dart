@@ -137,7 +137,7 @@ class BookingCardInfo extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
-                          (!booking.isLocked)
+                          !booking.isLocked
                               ? booking.description!
                               : '${booking.description} '
                                   '(${AppLocalizations.of(context)!.locked.toLowerCase()})',
