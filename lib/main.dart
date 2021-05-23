@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cabin_booking/app_styles.dart';
 import 'package:cabin_booking/model/cabin_manager.dart';
 import 'package:cabin_booking/model/day_handler.dart';
@@ -7,8 +9,15 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:window_size/window_size.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
+    setWindowMinSize(const Size(400, 600));
+  }
+
   runApp(
     MultiProvider(
       providers: [

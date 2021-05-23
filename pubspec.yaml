@@ -1,6 +1,7 @@
 name: cabin_booking
 description: An app for booking cabins.
 version: 0.4.0
+publish_to: none
 
 author: albertms10
 repository: https://github.com/albertms10/cabin_booking.git
@@ -22,6 +23,10 @@ dependencies:
   provider: ^5.0.0
   timer_builder: ^2.0.0
   uuid: ^3.0.4
+  window_size:
+    git:
+      url: git://github.com/google/flutter-desktop-embedding.git
+      path: plugins/window_size
 
 dev_dependencies:
   flutter_test:
