@@ -17,7 +17,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _selectedIndex = 0;
+  int _selectedNavigationIndex = 0;
 
   final _floatingActionButtons = const [
     SizedBox(),
@@ -26,11 +26,38 @@ class _HomePageState extends State<HomePage> {
     SchoolYearFloatingActionButton(),
   ];
 
-  void _setRailIndex(int index) {
-    setState(() => _selectedIndex = index);
+  void _setNavigationIndex(int index) {
+    setState(() => _selectedNavigationIndex = index);
   }
 
-  void _setRailPage(AppPages page) => _setRailIndex(page.index);
+  void _setNavigationPage(AppPages page) => _setNavigationIndex(page.index);
+
+  List<_PageDestination> _pageDestinations(AppLocalizations appLocalizations) =>
+      [
+        _PageDestination(
+          icon: const Icon(Icons.home_outlined),
+          selectedIcon: const Icon(Icons.home),
+          label: appLocalizations.summary,
+        ),
+        _PageDestination(
+          icon: const Icon(Icons.event_outlined),
+          selectedIcon: const Icon(Icons.event),
+          label: appLocalizations.bookings,
+        ),
+        _PageDestination(
+          icon: const Icon(Icons.sensor_door_outlined),
+          selectedIcon: const Icon(Icons.sensor_door),
+          label: appLocalizations.cabins,
+        ),
+        _PageDestination(
+          icon: const Icon(Icons.school_outlined),
+          selectedIcon: const Icon(Icons.school),
+          label: appLocalizations.schoolYears,
+        ),
+      ];
+
+  bool _isSmallDisplay(BuildContext context) =>
+      MediaQuery.of(context).size.width < 768.0;
 
   @override
   Widget build(BuildContext context) {
@@ -45,43 +72,45 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-      floatingActionButton: _floatingActionButtons[_selectedIndex],
+      floatingActionButton: _floatingActionButtons[_selectedNavigationIndex],
+      bottomNavigationBar: _isSmallDisplay(context)
+          ? BottomNavigationBar(
+              currentIndex: _selectedNavigationIndex,
+              onTap: _setNavigationIndex,
+              items: [
+                for (final page in _pageDestinations(appLocalizations))
+                  BottomNavigationBarItem(
+                    icon: page.icon,
+                    activeIcon: page.selectedIcon,
+                    label: page.label,
+                  ),
+              ],
+            )
+          : null,
       body: SafeArea(
         child: Row(
           children: [
-            NavigationRail(
-              selectedIndex: _selectedIndex,
-              onDestinationSelected: _setRailIndex,
-              labelType: NavigationRailLabelType.selected,
-              destinations: [
-                NavigationRailDestination(
-                  icon: const Icon(Icons.home_outlined),
-                  selectedIcon: const Icon(Icons.home),
-                  label: Text(appLocalizations.summary),
-                ),
-                NavigationRailDestination(
-                  icon: const Icon(Icons.event_outlined),
-                  selectedIcon: const Icon(Icons.event),
-                  label: Text(appLocalizations.bookings),
-                ),
-                NavigationRailDestination(
-                  icon: const Icon(Icons.sensor_door_outlined),
-                  selectedIcon: const Icon(Icons.sensor_door),
-                  label: Text(appLocalizations.cabins),
-                ),
-                NavigationRailDestination(
-                  icon: const Icon(Icons.school_outlined),
-                  selectedIcon: const Icon(Icons.school),
-                  label: Text(appLocalizations.schoolYears),
-                ),
-              ],
-            ),
-            const VerticalDivider(thickness: 1.0, width: 1.0),
+            if (!_isSmallDisplay(context)) ...[
+              NavigationRail(
+                selectedIndex: _selectedNavigationIndex,
+                onDestinationSelected: _setNavigationIndex,
+                labelType: NavigationRailLabelType.selected,
+                destinations: [
+                  for (final page in _pageDestinations(appLocalizations))
+                    NavigationRailDestination(
+                      icon: page.icon,
+                      selectedIcon: page.selectedIcon,
+                      label: Text(page.label ?? ''),
+                    ),
+                ],
+              ),
+              const VerticalDivider(thickness: 1.0, width: 1.0),
+            ],
             Expanded(
               child: MainContent(
-                railIndex: _selectedIndex,
+                railIndex: _selectedNavigationIndex,
                 pages: [
-                  SummaryPage(setRailPage: _setRailPage),
+                  SummaryPage(setNavigationPage: _setNavigationPage),
                   const BookingsPage(),
                   const CabinsPage(),
                   const SchoolYearsPage(),
@@ -97,3 +126,10 @@ class _HomePageState extends State<HomePage> {
 
 enum AppPages { Summary, Bookings, Cabins, SchoolYears }
 
+class _PageDestination {
+  final Icon icon;
+  final Icon? selectedIcon;
+  final String? label;
+
+  _PageDestination({required this.icon, this.selectedIcon, this.label});
+}

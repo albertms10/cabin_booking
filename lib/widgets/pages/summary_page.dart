@@ -16,9 +16,9 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class SummaryPage extends StatelessWidget {
-  final void Function(AppPages) setRailPage;
+  final void Function(AppPages)? setNavigationPage;
 
-  const SummaryPage({required this.setRailPage});
+  const SummaryPage({this.setNavigationPage});
 
   @override
   Widget build(BuildContext context) {
@@ -37,9 +37,11 @@ class SummaryPage extends StatelessWidget {
                 Statistics(
                   title: appLocalizations.bookings,
                   icon: Icons.event,
-                  onTap: () {
-                    setRailPage(AppPages.Bookings);
-                  },
+                  onTap: setNavigationPage == null
+                      ? null
+                      : () {
+                          setNavigationPage!.call(AppPages.Bookings);
+                        },
                   items: [
                     StatisticItem(
                       label: appLocalizations.total,
@@ -64,9 +66,11 @@ class SummaryPage extends StatelessWidget {
                 Statistics(
                   title: appLocalizations.cabins,
                   icon: Icons.sensor_door,
-                  onTap: () {
-                    setRailPage(AppPages.Cabins);
-                  },
+                  onTap: setNavigationPage == null
+                      ? null
+                      : () {
+                          setNavigationPage!.call(AppPages.Cabins);
+                        },
                   items: [
                     StatisticSimpleItem(
                       label: appLocalizations.total,
@@ -77,9 +81,11 @@ class SummaryPage extends StatelessWidget {
                 Statistics(
                   title: appLocalizations.schoolYears,
                   icon: Icons.school,
-                  onTap: () {
-                    setRailPage(AppPages.SchoolYears);
-                  },
+                  onTap: setNavigationPage == null
+                      ? null
+                      : () {
+                          setNavigationPage!.call(AppPages.SchoolYears);
+                        },
                   items: [
                     StatisticSimpleItem(
                       label: appLocalizations.total,
@@ -96,11 +102,13 @@ class SummaryPage extends StatelessWidget {
                   Statistics(
                     title: appLocalizations.mostBookedDay,
                     icon: Icons.calendar_today,
-                    onTap: () {
-                      dayHandler.dateTime =
-                          cabinManager.mostBookedDayEntry!.key;
-                      setRailPage(AppPages.Bookings);
-                    },
+                    onTap: setNavigationPage == null
+                        ? null
+                        : () {
+                            dayHandler.dateTime =
+                                cabinManager.mostBookedDayEntry!.key;
+                            setNavigationPage!.call(AppPages.Bookings);
+                          },
                     items: [
                       StatisticSimpleItem(
                         value: DateFormat.d().add_MMM().add_y().format(
@@ -150,11 +158,12 @@ class SummaryPage extends StatelessWidget {
                     lastDate: dayHandler.schoolYearManager.schoolYear?.endDate,
                     highlightToday: true,
                     highlightOn: (date) => isSameDay(date, dayHandler.dateTime),
-                    onDayTap: (dateTime, value) {
-                      dayHandler.dateTime = dateTime;
-
-                      setRailPage(AppPages.Bookings);
-                    },
+                    onDayTap: setNavigationPage == null
+                        ? null
+                        : (dateTime, value) {
+                            dayHandler.dateTime = dateTime;
+                            setNavigationPage!.call(AppPages.Bookings);
+                          },
                     legendLessLabel: appLocalizations.less,
                     legendMoreLabel: appLocalizations.more,
                   ),
