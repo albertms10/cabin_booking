@@ -25,6 +25,7 @@ class AppStyles {
         primaryVariant: primaryColorLight,
         secondary: primaryColor,
         secondaryVariant: primaryColorDark,
+        onSecondary: Colors.white,
       ),
       inputDecorationTheme: _baseThemeData().inputDecorationTheme,
       radioTheme: RadioThemeData(
@@ -51,6 +52,12 @@ class AppStyles {
       inputDecorationTheme: _baseThemeData().inputDecorationTheme,
       radioTheme: RadioThemeData(
         fillColor: _resolveSelectedMaterialState(primaryColor),
+      ),
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        selectedIconTheme: IconThemeData(color: primaryColorDark),
+        selectedItemColor: primaryColorDark,
+        unselectedIconTheme: const IconThemeData(color: Colors.grey),
+        unselectedItemColor: Colors.grey,
       ),
     );
   }
