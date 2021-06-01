@@ -38,15 +38,10 @@ class BookingManager with ChangeNotifier {
       .map((recurringBooking) => recurringBooking.toMap())
       .toList();
 
-  List<Booking> get generatedBookingsFromRecurring {
-    final generatedBookings = <Booking>[];
-
-    for (final recurringBooking in recurringBookings) {
-      generatedBookings.addAll(recurringBooking.bookings);
-    }
-
-    return generatedBookings;
-  }
+  List<Booking> get generatedBookingsFromRecurring => [
+        for (final recurringBooking in recurringBookings)
+          ...recurringBooking.bookings,
+      ];
 
   Set<Booking> get allBookings => SplayTreeSet.from({
         ...bookings,

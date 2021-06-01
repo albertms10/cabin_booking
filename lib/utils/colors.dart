@@ -11,9 +11,9 @@ Map<int, Color> mapColorsToHighestValue({
 }) {
   assert(colorSamples > 0);
 
-  final colorMap = SplayTreeMap<int, Color>();
-
-  colorMap.addAll({1: color.withOpacity(minOpacity)});
+  final colorMap = SplayTreeMap<int, Color>.from({
+    1: color.withOpacity(minOpacity),
+  });
 
   for (var i = 1; i <= colorSamples; i++) {
     final currentValue = highestValue * i ~/ colorSamples;

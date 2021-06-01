@@ -31,15 +31,10 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
 
   int get lastCabinNumber => cabins.isEmpty ? 0 : cabins.last.number;
 
-  Set<DateTime> allCabinsDatesWithBookings([DateRange? dateRange]) {
-    final dates = SplayTreeSet<DateTime>();
-
-    for (final cabin in cabins) {
-      dates.addAll(cabin.datesWithBookings(dateRange));
-    }
-
-    return dates;
-  }
+  Set<DateTime> allCabinsDatesWithBookings([DateRange? dateRange]) =>
+      SplayTreeSet<DateTime>.from({
+        for (final cabin in cabins) ...cabin.datesWithBookings(dateRange),
+      });
 
   Map<DateTime, int> get allCabinsBookingsCountPerDay {
     final bookingsPerDay = <DateTime, int>{};
@@ -173,17 +168,14 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
   }) {
     if (cabins.isEmpty) return 0.0;
 
-    final percents = <double>[];
-
-    for (final cabin in cabins) {
-      percents.add(
+    final percents = [
+      for (final cabin in cabins)
         cabin.occupancyPercent(
           startTime: startTime,
           endTime: endTime,
           dates: dates,
         ),
-      );
-    }
+    ];
 
     return percents.reduce((value, element) => value + element) /
         percents.length;
