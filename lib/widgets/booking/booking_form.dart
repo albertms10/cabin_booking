@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'dart:io' show Platform;
 
 import 'package:cabin_booking/constants.dart';
 import 'package:cabin_booking/model/booking.dart';

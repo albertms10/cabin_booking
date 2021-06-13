@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'dart:io' show Platform;
 
 import 'package:cabin_booking/widgets/cabin_booking_app.dart';
 import 'package:cabin_booking/model/cabin_manager.dart';
@@ -11,7 +11,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
-    setWindowMinSize(const Size(400, 600));
+    setWindowMinSize(const Size(400.0, 600.0));
   }
 
   runApp(

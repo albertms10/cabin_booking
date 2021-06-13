@@ -1,4 +1,4 @@
-import 'dart:collection';
+import 'dart:collection' show SplayTreeSet;
 import 'dart:convert' show json;
 
 import 'package:cabin_booking/model/school_year.dart';

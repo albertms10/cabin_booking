@@ -1,4 +1,4 @@
-import 'dart:collection';
+import 'dart:collection' show SplayTreeSet;
 
 import 'package:cabin_booking/model/date_range.dart';
 import 'package:cabin_booking/model/holiday.dart';

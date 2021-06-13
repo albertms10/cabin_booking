@@ -1,4 +1,4 @@
-import 'dart:collection';
+import 'dart:collection' show SplayTreeMap, SplayTreeSet;
 import 'dart:convert' show json;
 
 import 'package:cabin_booking/model/booking.dart';

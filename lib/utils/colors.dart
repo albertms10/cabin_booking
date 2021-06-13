@@ -1,4 +1,4 @@
-import 'dart:collection';
+import 'dart:collection' show SplayTreeMap;
 
 import 'package:cabin_booking/utils/map_number.dart';
 import 'package:flutter/material.dart';
