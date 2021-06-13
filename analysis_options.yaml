@@ -2,6 +2,8 @@ include: package:pedantic/analysis_options.yaml
 
 linter:
   rules:
+    - avoid_annotating_with_dynamic
+    - avoid_dynamic_calls
     - prefer_const_constructors
     - prefer_const_literals_to_create_immutables
     - prefer_final_in_for_each
