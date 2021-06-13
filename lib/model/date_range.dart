@@ -69,8 +69,8 @@ class DateRange extends Item {
       DateRange.rangeDateTimeList(startDate!, endDate!, interval: interval);
 
   @override
-  String toString() =>
-      '${DateFormat.yMd().format(startDate!)} – ${DateFormat.yMd().format(endDate!)}';
+  String toString() => '${DateFormat.yMd().format(startDate!)}'
+      ' - ${DateFormat.yMd().format(endDate!)}';
 
   @override
   bool operator ==(other) =>
