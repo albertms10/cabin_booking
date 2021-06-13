@@ -1,7 +1,8 @@
+import 'package:cabin_booking/model/serializable.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
-abstract class Item implements Comparable<Item> {
+abstract class Item implements Comparable<Item>, Serializable {
   late String id;
   final DateTime creationDateTime;
   DateTime? modificationDateTime;
@@ -22,6 +23,7 @@ abstract class Item implements Comparable<Item> {
             : null,
         modificationCount = other['modificationCount'] as int;
 
+  @override
   @mustCallSuper
   Map<String, dynamic> toMap() => {
         'id': id,
