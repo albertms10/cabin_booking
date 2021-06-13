@@ -33,7 +33,8 @@ jobs:
     - run: flutter pub get
     - run: flutter build ios --release --no-codesign
 
-    - uses: actions/upload-artifact@v2
+    - if: ${{ github.event_name == 'push' }}
+      uses: actions/upload-artifact@v2
       with:
         name: ios_release
         path: build/ios/iphoneos/Runner.app
@@ -55,7 +56,8 @@ jobs:
       - run: flutter pub get
       - run: flutter build apk
 
-      - uses: actions/upload-artifact@v2
+      - if: ${{ github.event_name == 'push' }}
+        uses: actions/upload-artifact@v2
         with:
           name: android_release
           path: build/app/outputs/flutter-apk/app-release.apk
@@ -74,10 +76,12 @@ jobs:
       - run: flutter pub get
       - run: flutter build macos
 
-      - name: 'Tar app'
+      - if: ${{ github.event_name == 'push' }}
+        name: 'Tar app'
         run: cd build/macos/Build/Products/Release/ && tar -cvjf macos_release.tar.bz2 "Cabin Booking.app"
 
-      - uses: actions/upload-artifact@v2
+      - if: ${{ github.event_name == 'push' }}
+        uses: actions/upload-artifact@v2
         with:
           name: macos_release
           path: build/macos/Build/Products/Release/macos_release.tar.bz2
@@ -96,10 +100,12 @@ jobs:
       - run: flutter pub get
       - run: flutter build windows
 
-      - name: 'Tar app'
+      - if: ${{ github.event_name == 'push' }}
+        name: 'Tar app'
         run: cd build/windows/runner/ && tar -cvzf windows_release.tar.gz Release
 
-      - uses: actions/upload-artifact@v2
+      - if: ${{ github.event_name == 'push' }}
+        uses: actions/upload-artifact@v2
         with:
           name: windows_release
           path: build/windows/runner/windows_release.tar.gz
@@ -118,10 +124,12 @@ jobs:
       - run: flutter pub get
       - run: flutter build web
 
-      - name: 'Tar app'
+      - if: ${{ github.event_name == 'push' }}
+        name: 'Tar app'
         run: cd build/ && tar -cvjf web_release.tar.bz2 web/
 
-      - uses: actions/upload-artifact@v2
+      - if: ${{ github.event_name == 'push' }}
+        uses: actions/upload-artifact@v2
         with:
           name: web_release
           path: build/web_release.tar.bz2
