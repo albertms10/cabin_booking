@@ -24,27 +24,29 @@ jobs:
     name: iOS build
     runs-on: macos-latest
     needs: [analyze]
-    if: ${{ false }}
 
     steps:
-    - uses: actions/checkout@v2
-    - uses: subosito/flutter-action@v1
+      - uses: actions/checkout@v2
+      - uses: subosito/flutter-action@v1
 
-    - run: flutter pub get
-    - run: flutter build ios --release --no-codesign
+      - run: flutter pub get
+      - run: flutter build ios --release --no-codesign
 
-    - if: ${{ github.event_name == 'push' }}
-      uses: actions/upload-artifact@v2
-      with:
-        name: ios_release
-        path: build/ios/iphoneos/Runner.app
+      - if: ${{ github.event_name == 'push' }}
+        name: 'Tar app'
+        run: cd build/ios/iphoneos/ && tar -cvjf ios_release.tar.bz2 "Runner.app"
+
+      - if: ${{ github.event_name == 'push' }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: ios_release
+          path: build/ios/iphoneos/ios_release.tar.bz2
 
 
   android-build:
     name: Android build
     runs-on: ubuntu-latest
     needs: [analyze]
-    if: ${{ false }}
 
     steps:
       - uses: actions/checkout@v2
@@ -57,10 +59,14 @@ jobs:
       - run: flutter build apk
 
       - if: ${{ github.event_name == 'push' }}
+        name: 'Tar app'
+        run: cd build/app/outputs/flutter-apk/ && tar -cvjf android_release.tar.bz2 "app-release.apk"
+
+      - if: ${{ github.event_name == 'push' }}
         uses: actions/upload-artifact@v2
         with:
           name: android_release
-          path: build/app/outputs/flutter-apk/app-release.apk
+          path: build/app/outputs/flutter-apk/android_release.tar.bz2
 
 
   macos-build:
