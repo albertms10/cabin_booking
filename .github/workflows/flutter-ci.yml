@@ -5,11 +5,13 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+    types: [opened, synchronize, ready_for_review, reopened]
 
 jobs:
   analyze:
     name: Analyze
     runs-on: ubuntu-latest
+    if: ${{ github.event.pull_request.draft == false }}
 
     steps:
       - uses: actions/checkout@v2
@@ -24,6 +26,7 @@ jobs:
     name: iOS build
     runs-on: macos-latest
     needs: [analyze]
+    if: ${{ github.event.pull_request.draft == false }}
 
     steps:
       - uses: actions/checkout@v2
@@ -47,6 +50,7 @@ jobs:
     name: Android build
     runs-on: ubuntu-latest
     needs: [analyze]
+    if: ${{ github.event.pull_request.draft == false }}
 
     steps:
       - uses: actions/checkout@v2
@@ -74,6 +78,7 @@ jobs:
     name: macOS build
     runs-on: macos-latest
     needs: [analyze]
+    if: ${{ github.event.pull_request.draft == false }}
 
     steps:
       - uses: actions/checkout@v2
@@ -98,6 +103,7 @@ jobs:
     name: Windows build
     runs-on: windows-latest
     needs: [analyze]
+    if: ${{ github.event.pull_request.draft == false }}
 
     steps:
       - uses: actions/checkout@v2
@@ -122,6 +128,7 @@ jobs:
     name: Web build
     runs-on: ubuntu-latest
     needs: [analyze]
+    if: ${{ github.event.pull_request.draft == false }}
 
     steps:
       - uses: actions/checkout@v2
