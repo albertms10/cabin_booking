@@ -9,12 +9,13 @@ class DetailLineChart extends StatelessWidget {
   final double? maxY;
 
   const DetailLineChart({
+    Key? key,
     required this.spots,
     this.minX,
     this.maxX,
     this.minY = 0.0,
     this.maxY,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -4,7 +4,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class SaveChangesSnackBarBody extends StatelessWidget {
   final bool changesSaved;
 
-  const SaveChangesSnackBarBody({this.changesSaved = true});
+  const SaveChangesSnackBarBody({Key? key, this.changesSaved = true})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

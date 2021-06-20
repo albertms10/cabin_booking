@@ -33,6 +33,7 @@ class ItemsTable<T extends Item> extends StatefulWidget {
   final void Function(List<String>)? onRemovePressed;
 
   const ItemsTable({
+    Key? key,
     this.itemTitle,
     this.itemIcon,
     this.itemHeaderLabel = 'Item',
@@ -46,7 +47,7 @@ class ItemsTable<T extends Item> extends StatefulWidget {
     this.onEmptyPressed,
     this.onRemoveTitle,
     this.onRemovePressed,
-  });
+  }) : super(key: key);
 
   @override
   _ItemsTableState createState() => _ItemsTableState<T>();

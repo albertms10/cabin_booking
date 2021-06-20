@@ -16,25 +16,25 @@ class BookingStatusButton extends StatelessWidget {
     final appLocalizations = AppLocalizations.of(context)!;
 
     return {
-      BookingStatus.Pending: appLocalizations.pending,
-      BookingStatus.Confirmed: appLocalizations.confirmed,
-      BookingStatus.Cancelled: appLocalizations.cancelled,
+      BookingStatus.pending: appLocalizations.pending,
+      BookingStatus.confirmed: appLocalizations.confirmed,
+      BookingStatus.cancelled: appLocalizations.cancelled,
     };
   }
 
   Map<BookingStatus, Color> _statusColors(BuildContext context) => {
-        BookingStatus.Pending: Theme.of(context).hintColor,
-        BookingStatus.Confirmed:
+        BookingStatus.pending: Theme.of(context).hintColor,
+        BookingStatus.confirmed:
             Theme.of(context).brightness == Brightness.light
                 ? Colors.greenAccent[700]!
                 : Colors.greenAccent,
-        BookingStatus.Cancelled: Colors.redAccent,
+        BookingStatus.cancelled: Colors.redAccent,
       };
 
   Map<BookingStatus, IconData> get _statusIcons => {
-        BookingStatus.Pending: Icons.help,
-        BookingStatus.Confirmed: Icons.check,
-        BookingStatus.Cancelled: Icons.clear,
+        BookingStatus.pending: Icons.help,
+        BookingStatus.confirmed: Icons.check,
+        BookingStatus.cancelled: Icons.clear,
       };
 
   @override

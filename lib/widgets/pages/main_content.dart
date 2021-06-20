@@ -11,7 +11,8 @@ class MainContent extends StatefulWidget {
   final int railIndex;
   final List<Widget> pages;
 
-  const MainContent({required this.railIndex, this.pages = const []});
+  const MainContent({Key? key, required this.railIndex, this.pages = const []})
+      : super(key: key);
 
   @override
   _MainContentState createState() => _MainContentState();

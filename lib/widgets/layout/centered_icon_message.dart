@@ -4,7 +4,8 @@ class CenteredIconMessage extends StatelessWidget {
   final IconData? icon;
   final String? message;
 
-  const CenteredIconMessage({this.icon, this.message});
+  const CenteredIconMessage({Key? key, this.icon, this.message})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

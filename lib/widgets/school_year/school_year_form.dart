@@ -9,7 +9,7 @@ import 'package:intl/intl.dart';
 class SchoolYearForm extends StatefulWidget {
   final SchoolYear schoolYear;
 
-  const SchoolYearForm({required this.schoolYear});
+  const SchoolYearForm({Key? key, required this.schoolYear}) : super(key: key);
 
   @override
   _SchoolYearFormState createState() => _SchoolYearFormState();

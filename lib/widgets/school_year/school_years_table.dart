@@ -10,6 +10,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 class SchoolYearsTable extends StatelessWidget {
+  const SchoolYearsTable({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Consumer2<DayHandler, CabinManager>(

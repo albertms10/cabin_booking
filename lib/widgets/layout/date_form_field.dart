@@ -16,7 +16,7 @@ class DateFormField extends StatefulWidget {
   final String? Function(DateTime)? additionalValidator;
   final bool skipValidation;
 
-  DateFormField({
+  const DateFormField({
     Key? key,
     required this.controller,
     this.labelText,

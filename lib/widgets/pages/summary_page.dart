@@ -18,7 +18,7 @@ import 'package:provider/provider.dart';
 class SummaryPage extends StatelessWidget {
   final void Function(AppPages)? setNavigationPage;
 
-  const SummaryPage({this.setNavigationPage});
+  const SummaryPage({Key? key, this.setNavigationPage}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +40,7 @@ class SummaryPage extends StatelessWidget {
                   onTap: setNavigationPage == null
                       ? null
                       : () {
-                          setNavigationPage!.call(AppPages.Bookings);
+                          setNavigationPage!.call(AppPages.bookings);
                         },
                   items: [
                     StatisticItem(
@@ -69,7 +69,7 @@ class SummaryPage extends StatelessWidget {
                   onTap: setNavigationPage == null
                       ? null
                       : () {
-                          setNavigationPage!.call(AppPages.Cabins);
+                          setNavigationPage!.call(AppPages.cabins);
                         },
                   items: [
                     StatisticSimpleItem(
@@ -84,7 +84,7 @@ class SummaryPage extends StatelessWidget {
                   onTap: setNavigationPage == null
                       ? null
                       : () {
-                          setNavigationPage!.call(AppPages.SchoolYears);
+                          setNavigationPage!.call(AppPages.schoolYears);
                         },
                   items: [
                     StatisticSimpleItem(
@@ -107,7 +107,7 @@ class SummaryPage extends StatelessWidget {
                         : () {
                             dayHandler.dateTime =
                                 cabinManager.mostBookedDayEntry!.key;
-                            setNavigationPage!.call(AppPages.Bookings);
+                            setNavigationPage!.call(AppPages.bookings);
                           },
                     items: [
                       StatisticSimpleItem(
@@ -145,7 +145,7 @@ class SummaryPage extends StatelessWidget {
                   child: HeatMapCalendar(
                     input: cabinManager.allCabinsBookingsCountPerDay,
                     dayValueWrapper: (value) =>
-                        '${appLocalizations.nBookings(value)}',
+                        appLocalizations.nBookings(value),
                     showLegend: true,
                     colorThresholds: mapColorsToHighestValue(
                       highestValue: cabinManager.mostBookedDayEntry?.value ?? 1,
@@ -162,7 +162,7 @@ class SummaryPage extends StatelessWidget {
                         ? null
                         : (dateTime, value) {
                             dayHandler.dateTime = dateTime;
-                            setNavigationPage!.call(AppPages.Bookings);
+                            setNavigationPage!.call(AppPages.bookings);
                           },
                     legendLessLabel: appLocalizations.less,
                     legendMoreLabel: appLocalizations.more,

@@ -44,49 +44,47 @@ class AnimatedChild extends AnimatedWidget {
     final theme = Theme.of(context);
     final animation = listenable as Animation<double>;
 
-    return Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          AnimatedFloatingButtonLabel(
-            tween: tween,
-            label: label,
-            animation: animation,
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        AnimatedFloatingButtonLabel(
+          tween: tween,
+          label: label,
+          animation: animation,
+        ),
+        Container(
+          width: tween.end,
+          height: animation.value,
+          padding: EdgeInsets.only(
+            bottom: tween.end ?? 0.0 - animation.value,
           ),
-          Container(
-            width: tween.end,
-            height: animation.value,
-            padding: EdgeInsets.only(
-              bottom: tween.end ?? 0.0 - animation.value,
-            ),
-            child: Container(
-              width: animation.value,
-              height: tween.end,
-              padding: const EdgeInsets.symmetric(vertical: 10.0),
-              child: FloatingActionButton(
-                heroTag: heroTag,
-                onPressed: () {
-                  onTap?.call();
-                  toggleChildren?.call();
-                },
-                backgroundColor: backgroundColor ?? theme.dialogBackgroundColor,
-                foregroundColor: foregroundColor ?? theme.colorScheme.secondary,
-                elevation: elevation,
-                child: animation.value > 50.0
-                    ? SizedBox(
-                        width: animation.value,
-                        height: animation.value,
-                        child: Icon(
-                          icon,
-                          size: animation.value / 3.0,
-                        ),
-                      )
-                    : const SizedBox(),
-              ),
+          child: Container(
+            width: animation.value,
+            height: tween.end,
+            padding: const EdgeInsets.symmetric(vertical: 10.0),
+            child: FloatingActionButton(
+              heroTag: heroTag,
+              onPressed: () {
+                onTap?.call();
+                toggleChildren?.call();
+              },
+              backgroundColor: backgroundColor ?? theme.dialogBackgroundColor,
+              foregroundColor: foregroundColor ?? theme.colorScheme.secondary,
+              elevation: elevation,
+              child: animation.value > 50.0
+                  ? SizedBox(
+                      width: animation.value,
+                      height: animation.value,
+                      child: Icon(
+                        icon,
+                        size: animation.value / 3.0,
+                      ),
+                    )
+                  : const SizedBox(),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

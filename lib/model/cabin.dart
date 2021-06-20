@@ -122,11 +122,11 @@ class Cabin extends Item {
       );
 
   @override
-  void replaceWith(covariant Cabin cabin) {
-    number = cabin.number;
-    components = cabin.components;
+  void replaceWith(covariant Cabin item) {
+    number = item.number;
+    components = item.components;
 
-    super.replaceWith(cabin);
+    super.replaceWith(item);
   }
 
   void addBooking(Booking booking) => _bookingManager.addBooking(booking);

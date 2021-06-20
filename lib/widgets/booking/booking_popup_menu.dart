@@ -14,9 +14,10 @@ class BookingPopupMenu extends StatelessWidget {
   final Booking booking;
 
   const BookingPopupMenu({
+    Key? key,
     required this.cabin,
     required this.booking,
-  });
+  }) : super(key: key);
 
   void _onEditSelected(BuildContext context) async {
     final cabinManager = Provider.of<CabinManager>(context, listen: false);
@@ -24,7 +25,7 @@ class BookingPopupMenu extends StatelessWidget {
     final editedBooking = await showDialog<Booking>(
       context: context,
       builder: (context) => BookingDialog(
-        (booking.recurringBookingId == null
+        booking: (booking.recurringBookingId == null
             ? booking
             : cabinManager
                 .cabinFromId(cabin.id)

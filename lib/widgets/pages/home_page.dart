@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage();
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -124,7 +124,7 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-enum AppPages { Summary, Bookings, Cabins, SchoolYears }
+enum AppPages { summary, bookings, cabins, schoolYears }
 
 class _PageDestination {
   final Icon icon;

@@ -15,10 +15,10 @@ class RecurringBooking extends Booking {
     DateTime? date,
     TimeOfDay? startTime,
     TimeOfDay? endTime,
-    BookingStatus status = BookingStatus.Pending,
+    BookingStatus status = BookingStatus.pending,
     bool isLocked = false,
     String? cabinId,
-    this.periodicity = Periodicity.Weekly,
+    this.periodicity = Periodicity.weekly,
     this.repeatEvery = 1,
     DateTime? recurringEndDate,
     int? occurrences,
@@ -49,13 +49,11 @@ class RecurringBooking extends Booking {
 
   RecurringBooking.fromBooking(
     Booking booking, {
-    Periodicity periodicity = Periodicity.Weekly,
-    int repeatEvery = 1,
+    this.periodicity = Periodicity.weekly,
+    this.repeatEvery = 1,
     DateTime? recurringEndDate,
     int? occurrences,
   })  : assert((recurringEndDate == null) != (occurrences == null)),
-        periodicity = periodicity,
-        repeatEvery = repeatEvery,
         _recurringEndDate = recurringEndDate,
         _occurrences = occurrences,
         super(
@@ -77,15 +75,15 @@ class RecurringBooking extends Booking {
         ...super.toMap(),
         'periodicityIndex': periodicity.index,
         'repeatEvery': repeatEvery,
-        if (method == RecurringBookingMethod.EndDate)
+        if (method == RecurringBookingMethod.endDate)
           'endDate': _recurringEndDate!.toIso8601String().split('T').first
-        else if (method == RecurringBookingMethod.Occurrences)
+        else if (method == RecurringBookingMethod.occurrences)
           'occurrences': _occurrences,
       };
 
   RecurringBookingMethod get method => _recurringEndDate != null
-      ? RecurringBookingMethod.EndDate
-      : RecurringBookingMethod.Occurrences;
+      ? RecurringBookingMethod.endDate
+      : RecurringBookingMethod.occurrences;
 
   Duration get periodicityDuration => Duration(
         days: PeriodicityValues.periodicityInDays[periodicity]! * repeatEvery,
@@ -204,27 +202,27 @@ class RecurringBooking extends Booking {
       );
 
   @override
-  void replaceWith(covariant RecurringBooking recurringBooking) {
-    periodicity = recurringBooking.periodicity;
-    _recurringEndDate = recurringBooking._recurringEndDate;
-    _occurrences = recurringBooking._occurrences;
+  void replaceWith(covariant RecurringBooking item) {
+    periodicity = item.periodicity;
+    _recurringEndDate = item._recurringEndDate;
+    _occurrences = item._occurrences;
 
-    super.replaceWith(recurringBooking);
+    super.replaceWith(item);
   }
 
   @override
   String toString() => '$occurrences × ${super.toString()}';
 }
 
-enum Periodicity { Daily, Weekly, Monthly, Annually }
+enum Periodicity { daily, weekly, monthly, annually }
 
 extension PeriodicityValues on Periodicity {
   static const periodicityInDays = {
-    Periodicity.Daily: 1,
-    Periodicity.Weekly: 7,
-    Periodicity.Monthly: 30,
-    Periodicity.Annually: 365,
+    Periodicity.daily: 1,
+    Periodicity.weekly: 7,
+    Periodicity.monthly: 30,
+    Periodicity.annually: 365,
   };
 }
 
-enum RecurringBookingMethod { EndDate, Occurrences }
+enum RecurringBookingMethod { endDate, occurrences }

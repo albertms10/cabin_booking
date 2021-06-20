@@ -7,7 +7,7 @@ class Holiday extends DateRange {
     String? id,
     DateTime? startDate,
     DateTime? endDate,
-    this.kind = HolidayKind.Festivity,
+    this.kind = HolidayKind.festivity,
   }) : super(
           id: id,
           startDate: startDate,
@@ -25,4 +25,4 @@ class Holiday extends DateRange {
       };
 }
 
-enum HolidayKind { Festivity, FreeDisposal }
+enum HolidayKind { festivity, freeDisposal }

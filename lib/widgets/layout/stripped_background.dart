@@ -7,10 +7,11 @@ class StrippedBackground extends StatelessWidget {
   final double height;
 
   const StrippedBackground({
+    Key? key,
     required this.startTime,
     required this.endTime,
     this.height = 60.0 * kBookingHeightRatio,
-  });
+  }) : super(key: key);
 
   int get rowCount => (endTime.hour - startTime.hour).abs() + 1;
 

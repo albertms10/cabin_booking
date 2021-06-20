@@ -11,83 +11,79 @@ import 'package:horizontal_data_table/horizontal_data_table.dart';
 import 'package:provider/provider.dart';
 
 class ScrollableTimeTable extends StatelessWidget {
-  const ScrollableTimeTable();
+  const ScrollableTimeTable({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        width: MediaQuery.of(context).size.width,
-        child: _getBodyWidget(context),
-      ),
-    );
-  }
-
-  Widget _getBodyWidget(context) {
     final theme = Theme.of(context);
 
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        return Container(
-          color: theme.dialogBackgroundColor,
-          child: Consumer2<DayHandler, CabinManager>(
-            builder: (context, dayHandler, cabinManager, child) {
-              final maxParentWidth = constraints.maxWidth;
-              final calculatedBookingStackWidth =
-                  (maxParentWidth - kTimeColumnWidth) /
-                      cabinManager.cabins.length;
-              final bookingStackWidth =
-                  (calculatedBookingStackWidth < kBookingColumnMinWidth)
-                      ? kBookingColumnMinWidth
-                      : calculatedBookingStackWidth;
+    return Expanded(
+      child: SizedBox(
+        width: MediaQuery.of(context).size.width,
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            return Container(
+              color: theme.dialogBackgroundColor,
+              child: Consumer2<DayHandler, CabinManager>(
+                builder: (context, dayHandler, cabinManager, child) {
+                  final maxParentWidth = constraints.maxWidth;
+                  final calculatedBookingStackWidth =
+                      (maxParentWidth - kTimeColumnWidth) /
+                          cabinManager.cabins.length;
+                  final bookingStackWidth =
+                      (calculatedBookingStackWidth < kBookingColumnMinWidth)
+                          ? kBookingColumnMinWidth
+                          : calculatedBookingStackWidth;
 
-              if (cabinManager.cabins.isEmpty) {
-                return Center(
-                  child: Text(
-                    AppLocalizations.of(context)!.noCabins,
-                    textAlign: TextAlign.center,
-                    style: theme.textTheme.headline5!
-                        .copyWith(color: Colors.grey[600]),
-                  ),
-                );
-              }
+                  if (cabinManager.cabins.isEmpty) {
+                    return Center(
+                      child: Text(
+                        AppLocalizations.of(context)!.noCabins,
+                        textAlign: TextAlign.center,
+                        style: theme.textTheme.headline5!
+                            .copyWith(color: Colors.grey[600]),
+                      ),
+                    );
+                  }
 
-              return Container(
-                child: HorizontalDataTable(
-                  leftHandSideColumnWidth: kTimeColumnWidth,
-                  rightHandSideColumnWidth:
-                      bookingStackWidth * cabinManager.cabins.length,
-                  isFixedHeader: true,
-                  headerWidgets: _getTitleWidget(
-                      context, cabinManager.cabins, bookingStackWidth),
-                  leftSideItemBuilder: _generateFirstColumnRow,
-                  rightSideItemBuilder: _generateRightHandSideColumnRow,
-                  itemCount: 1, // Hacking the widget a little bit
-                  rowSeparatorWidget: const Divider(
-                    color: Colors.black54,
-                    height: 1.0,
-                    thickness: 0.0,
-                  ),
-                  leftHandSideColBackgroundColor: theme.dialogBackgroundColor,
-                  rightHandSideColBackgroundColor: theme.dialogBackgroundColor,
-                  verticalScrollbarStyle: const ScrollbarStyle(
-                    isAlwaysShown: true,
-                    thickness: 4.0,
-                    radius: Radius.circular(5.0),
-                  ),
-                  horizontalScrollbarStyle: const ScrollbarStyle(
-                    isAlwaysShown: true,
-                    thickness: 4.0,
-                    radius: Radius.circular(5.0),
-                  ),
-                  refreshIndicator: const WaterDropHeader(),
-                  refreshIndicatorHeight: 60,
-                ),
-              );
-            },
-          ),
-        );
-      },
+                  return HorizontalDataTable(
+                    leftHandSideColumnWidth: kTimeColumnWidth,
+                    rightHandSideColumnWidth:
+                        bookingStackWidth * cabinManager.cabins.length,
+                    isFixedHeader: true,
+                    headerWidgets: _getTitleWidget(
+                        context, cabinManager.cabins, bookingStackWidth),
+                    leftSideItemBuilder: (context, index) => const TimeColumn(),
+                    rightSideItemBuilder: (context, index) =>
+                        const BookingsTable(),
+                    itemCount: 1, // Hacking the widget a little bit
+                    rowSeparatorWidget: const Divider(
+                      color: Colors.black54,
+                      height: 1.0,
+                      thickness: 0.0,
+                    ),
+                    leftHandSideColBackgroundColor: theme.dialogBackgroundColor,
+                    rightHandSideColBackgroundColor:
+                        theme.dialogBackgroundColor,
+                    verticalScrollbarStyle: const ScrollbarStyle(
+                      isAlwaysShown: true,
+                      thickness: 4.0,
+                      radius: Radius.circular(5.0),
+                    ),
+                    horizontalScrollbarStyle: const ScrollbarStyle(
+                      isAlwaysShown: true,
+                      thickness: 4.0,
+                      radius: Radius.circular(5.0),
+                    ),
+                    refreshIndicator: const WaterDropHeader(),
+                    refreshIndicatorHeight: 60,
+                  );
+                },
+              ),
+            );
+          },
+        ),
+      ),
     );
   }
 
@@ -132,13 +128,5 @@ class ScrollableTimeTable extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  Widget _generateFirstColumnRow(BuildContext context, int index) {
-    return const TimeColumn();
-  }
-
-  Widget _generateRightHandSideColumnRow(BuildContext context, int index) {
-    return const BookingsTable();
   }
 }

@@ -3,7 +3,7 @@ import 'package:cabin_booking/widgets/layout/scrollable_time_table.dart';
 import 'package:flutter/material.dart';
 
 class BookingsPage extends StatelessWidget {
-  const BookingsPage();
+  const BookingsPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -3,7 +3,7 @@ import 'package:cabin_booking/widgets/layout/school_year_dropdown.dart';
 import 'package:flutter/material.dart';
 
 class BookingDateNavigation extends StatelessWidget {
-  const BookingDateNavigation();
+  const BookingDateNavigation({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -11,7 +11,7 @@ void showNewBookingDialog({
 }) async {
   final newBooking = await showDialog<Booking>(
     context: context,
-    builder: (context) => BookingDialog(booking),
+    builder: (context) => BookingDialog(booking: booking),
   );
 
   if (newBooking != null) {

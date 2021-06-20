@@ -8,10 +8,11 @@ class ItemInfo extends StatelessWidget {
   final int modificationCount;
 
   const ItemInfo({
+    Key? key,
     this.creationDateTime,
     this.modificationDateTime,
     this.modificationCount = 0,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

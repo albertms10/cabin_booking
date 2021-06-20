@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 class PopularTimesBarChart extends StatelessWidget {
   final Map<TimeOfDay, Duration> timeRangesOccupancy;
 
-  const PopularTimesBarChart({required this.timeRangesOccupancy});
+  const PopularTimesBarChart({Key? key, required this.timeRangesOccupancy})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

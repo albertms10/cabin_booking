@@ -9,9 +9,8 @@ import 'package:timer_builder/timer_builder.dart';
 class CurrentTimeIndicator extends StatelessWidget {
   final bool hideText;
 
-  const CurrentTimeIndicator({
-    this.hideText = false,
-  });
+  const CurrentTimeIndicator({Key? key, this.hideText = false})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

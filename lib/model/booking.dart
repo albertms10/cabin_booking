@@ -23,7 +23,7 @@ class Booking extends Item {
     this.date,
     this.startTime,
     this.endTime,
-    this.status = BookingStatus.Pending,
+    this.status = BookingStatus.pending,
     this.isLocked = false,
     this.cabinId,
     this.recurringBookingId,
@@ -130,15 +130,15 @@ class Booking extends Item {
       );
 
   @override
-  void replaceWith(covariant Booking booking) {
-    description = booking.description;
-    date = booking.date;
-    startTime = booking.startTime;
-    endTime = booking.endTime;
-    status = booking.status;
-    isLocked = booking.isLocked;
+  void replaceWith(covariant Booking item) {
+    description = item.description;
+    date = item.date;
+    startTime = item.startTime;
+    endTime = item.endTime;
+    status = item.status;
+    isLocked = item.isLocked;
 
-    super.replaceWith(booking);
+    super.replaceWith(item);
   }
 
   @override
@@ -149,4 +149,4 @@ class Booking extends Item {
       startDateTime.compareTo(other.startDateTime);
 }
 
-enum BookingStatus { Pending, Confirmed, Cancelled }
+enum BookingStatus { pending, confirmed, cancelled }

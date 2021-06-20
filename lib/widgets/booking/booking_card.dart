@@ -100,10 +100,11 @@ class BookingCardInfo extends StatelessWidget {
   final bool isRecurring;
 
   const BookingCardInfo({
+    Key? key,
     required this.cabin,
     required this.booking,
     this.isRecurring = false,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -165,7 +166,7 @@ class BookingCardInfo extends StatelessWidget {
             ),
             SizedBox(
               height: double.infinity,
-              child: Container(
+              child: SizedBox(
                 width: 48,
                 child: Wrap(
                   direction: Axis.vertical,

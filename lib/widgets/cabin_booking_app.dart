@@ -6,7 +6,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart';
 
 class CabinBookingApp extends StatelessWidget {
-  const CabinBookingApp();
+  const CabinBookingApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

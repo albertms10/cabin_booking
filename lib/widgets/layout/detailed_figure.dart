@@ -8,11 +8,12 @@ class DetailedFigure<T> extends StatelessWidget {
   final String? tooltipMessage;
 
   const DetailedFigure({
+    Key? key,
     required this.figure,
     this.details = const [],
     this.detailsSeparator,
     this.tooltipMessage,
-  });
+  }) : super(key: key);
 
   List<T> _filterIfEmpty(List<T> details) {
     final list = details.toList();

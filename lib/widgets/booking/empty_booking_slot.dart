@@ -84,11 +84,12 @@ class EmptyBookingSlotActionable extends StatelessWidget {
   final int? preciseDuration;
 
   const EmptyBookingSlotActionable({
+    Key? key,
     required this.cabin,
     required this.startDateTime,
     required this.endDateTime,
     this.preciseDuration,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

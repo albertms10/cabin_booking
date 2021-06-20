@@ -46,11 +46,11 @@ class SchoolYear extends DateRange {
   Duration get workingDuration => duration - holidaysDuration;
 
   @override
-  void replaceWith(covariant SchoolYear schoolYear) {
-    startDate = schoolYear.startDate;
-    endDate = schoolYear.endDate;
+  void replaceWith(covariant SchoolYear item) {
+    startDate = item.startDate;
+    endDate = item.endDate;
 
-    super.replaceWith(schoolYear);
+    super.replaceWith(item);
   }
 
   @override

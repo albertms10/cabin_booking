@@ -7,7 +7,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class SchoolYearDialog extends StatelessWidget {
   final SchoolYear schoolYear;
 
-  const SchoolYearDialog({required this.schoolYear});
+  const SchoolYearDialog({Key? key, required this.schoolYear})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

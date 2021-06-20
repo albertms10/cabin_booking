@@ -8,9 +8,10 @@ class TimeColumn extends StatelessWidget {
   final TimeOfDay end;
 
   const TimeColumn({
+    Key? key,
     this.start = kTimeTableStartTime,
     this.end = kTimeTableEndTime,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

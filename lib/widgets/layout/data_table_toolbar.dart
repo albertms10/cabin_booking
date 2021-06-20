@@ -8,11 +8,12 @@ class DataTableToolbar extends StatelessWidget {
   final List<Widget>? actions;
 
   const DataTableToolbar({
+    Key? key,
     this.shown = false,
     this.selectedItems = 0,
     this.onPressedLeading,
     this.actions,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -10,6 +10,8 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 class CabinsTable extends StatelessWidget {
+  const CabinsTable({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Consumer<CabinManager>(
