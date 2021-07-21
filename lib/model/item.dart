@@ -46,7 +46,7 @@ abstract class Item implements Comparable<Item>, Serializable {
   }
 
   @override
-  bool operator ==(other) => other is Item && id == other.id;
+  bool operator ==(Object other) => other is Item && id == other.id;
 
   @override
   int get hashCode => id.hashCode;
