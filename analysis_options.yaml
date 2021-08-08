@@ -2,9 +2,21 @@ include: package:flutter_lints/flutter.yaml
 
 linter:
   rules:
-    - avoid_annotating_with_dynamic
+    - avoid_bool_literals_in_conditional_expressions
+    - avoid_catches_without_on_clauses
     - avoid_dynamic_calls
+    - avoid_redundant_argument_values
+    - cascade_invocations
+    - lines_longer_than_80_chars
+    - flutter_style_todos
+    - no_default_cases
+    - omit_local_variable_types
     - prefer_const_constructors
     - prefer_const_literals_to_create_immutables
     - prefer_final_in_for_each
     - prefer_final_locals
+    - prefer_if_elements_to_conditional_expressions
+    - sort_unnamed_constructors_first
+    - type_annotate_public_apis
+    - unnecessary_null_checks
+    - unnecessary_parenthesis
