@@ -1,4 +1,5 @@
 import 'package:cabin_booking/utils/widgets.dart';
+import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
 
 class DetailedFigure<T> extends StatelessWidget {
@@ -15,13 +16,9 @@ class DetailedFigure<T> extends StatelessWidget {
     this.tooltipMessage,
   }) : super(key: key);
 
-  List<T> _filterIfEmpty(List<T> details) {
-    final list = details.toList();
-
-    list.removeWhere((detail) => [0, '', null].contains(detail));
-
-    return list;
-  }
+  List<T> _filterIfEmpty(List<T> details) => details
+      .whereNot((detail) => const [0, '', null].contains(detail))
+      .toList();
 
   List<T> get filteredDetails => _filterIfEmpty(details);
 

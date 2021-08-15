@@ -14,9 +14,17 @@ class HeatMapCalendar extends StatelessWidget {
 
   /// The thresholds which will map the given [input] to a color
   ///
-  /// Make sure to map starting on number 1, so the user might notice the difference between
-  /// a day that had no input and one that had
-  /// Example: {1: Colors.green[100], 20: Colors.green[200], 40: Colors.green[300]}
+  /// Make sure to map starting on number 1, so the user might notice
+  /// the difference between a day that had no input and one that had.
+  /// 
+  /// Example:
+  /// ```dart
+  /// {
+  ///   1: Colors.green[100],
+  ///   20: Colors.green[200],
+  ///   40: Colors.green[300],
+  /// }
+  /// ```
   final Map<int, Color> colorThresholds;
 
   /// The day of the week [monday]..[sunday].

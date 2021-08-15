@@ -375,7 +375,7 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
       final cabins = _parseCabins(content);
 
       return SplayTreeSet.from(cabins);
-    } catch (e) {
+    } on Exception {
       return SplayTreeSet();
     }
   }
@@ -399,7 +399,7 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
       );
 
       return true;
-    } catch (e) {
+    } on Exception {
       return false;
     }
   }

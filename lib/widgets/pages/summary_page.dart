@@ -51,8 +51,8 @@ class SummaryPage extends StatelessWidget {
                           cabinManager.bookingsCount,
                           cabinManager.recurringBookingsCount,
                         ],
-                        tooltipMessage:
-                            '${appLocalizations.bookings} + ${appLocalizations.recurringBookings}',
+                        tooltipMessage: '${appLocalizations.bookings}'
+                            ' + ${appLocalizations.recurringBookings}',
                       ),
                     ),
                     StatisticItem(
@@ -173,7 +173,9 @@ class SummaryPage extends StatelessWidget {
                   itemCount: dayHandler.schoolYearManager.schoolYears.length,
                   itemBuilder: (context, index) {
                     return Text(
-                      '${dayHandler.schoolYearManager.schoolYears.elementAt(index)}',
+                      dayHandler.schoolYearManager.schoolYears
+                          .elementAt(index)
+                          .toString(),
                     );
                   },
                   initialIndex: dayHandler.schoolYearManager.schoolYearIndex,

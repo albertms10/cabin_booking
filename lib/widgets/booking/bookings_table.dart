@@ -30,8 +30,6 @@ class BookingsTable extends StatelessWidget {
                       : calculatedBookingStackWidth;
 
               return Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   for (final cabin in cabinManager.cabins)

@@ -148,7 +148,6 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
               padding: const EdgeInsets.only(top: 54.0),
               child: DataTable(
                 dataRowHeight: 82.0,
-                showCheckboxColumn: true,
                 sortAscending: _sortAscending,
                 sortColumnIndex: _sortColumnIndex,
                 columns: [
@@ -209,8 +208,8 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
                               row.bookingsCount,
                               row.recurringBookingsCount,
                             ],
-                            tooltipMessage:
-                                '${appLocalizations.bookings} + ${appLocalizations.recurringBookings}',
+                            tooltipMessage: '${appLocalizations.bookings}'
+                                ' + ${appLocalizations.recurringBookings}',
                           ),
                         ),
                         DataCell(
@@ -225,7 +224,9 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
                               labelBuilder:
                                   (context, List<TimeOfDay> timeRange) {
                                 return Text(
-                                  '${timeRange.first.format(context)}–${timeRange.last.format(context)}',
+                                  timeRange
+                                      .map((time) => time.format(context))
+                                      .join('–'),
                                 );
                               },
                             ),

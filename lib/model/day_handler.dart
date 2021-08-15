@@ -12,7 +12,7 @@ final _defaultSchoolYears = {
     endDate: DateTime(2020, DateTime.july, 25),
   ),
   SchoolYear(
-    startDate: DateTime(2020, DateTime.september, 1),
+    startDate: DateTime(2020, DateTime.september),
     endDate: DateTime(2021, DateTime.july, 24),
   ),
   SchoolYear(

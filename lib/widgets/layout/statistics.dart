@@ -32,7 +32,6 @@ class Statistics extends StatelessWidget {
                   padding: const EdgeInsets.only(bottom: 16.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.center,
                     textBaseline: TextBaseline.ideographic,
                     children: [
                       if (icon != null)

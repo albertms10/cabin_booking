@@ -131,7 +131,7 @@ class SchoolYearManager extends WritableManager<Set<SchoolYear>>
       final schoolYears = _parseSchoolYears(content);
 
       return SplayTreeSet.from(schoolYears);
-    } catch (e) {
+    } on Exception {
       return SplayTreeSet();
     }
   }

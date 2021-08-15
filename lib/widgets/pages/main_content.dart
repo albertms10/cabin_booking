@@ -62,6 +62,7 @@ class _MainContentState extends State<MainContent> {
         _schoolYearManager.loadFromFile(),
       ]),
       initialData: const [],
+      catchError: (context, error) => null,
       builder: (context, child) {
         final items = Provider.of<List<int>?>(context);
         if (items == null) {
@@ -77,7 +78,6 @@ class _MainContentState extends State<MainContent> {
 
         return widget.pages[widget.railIndex];
       },
-      catchError: (context, error) => null,
     );
   }
 }

@@ -32,7 +32,8 @@ class FloatingActionButtonMenu extends StatefulWidget {
   /// The opacity of the background overlay when the menu is open.
   final double overlayOpacity;
 
-  /// The animated icon to show as the main button child. If this is provided the [child] is ignored.
+  /// The animated icon to show as the main button child.
+  /// If this is provided the [child] is ignored.
   final AnimatedIconData? animatedIcon;
 
   /// The theme for the animated icon.
@@ -44,10 +45,12 @@ class FloatingActionButtonMenu extends StatefulWidget {
   /// Executed when the menu is closed.
   final VoidCallback? onClose;
 
-  /// Executed when the menu is pressed. If given, the menu only opens on long press.
+  /// Executed when the menu is pressed.
+  /// If given, the menu only opens on long press.
   final VoidCallback? onPressed;
 
-  /// If `true` [overlay] is not rendered and user is forced to close the menu manually by tapping main button.
+  /// If `true` [overlay] is not rendered and user is forced
+  /// to close the menu manually by tapping main button.
   final bool closeManually;
 
   /// The speed of the animation
