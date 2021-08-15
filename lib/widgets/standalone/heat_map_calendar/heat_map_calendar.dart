@@ -16,7 +16,7 @@ class HeatMapCalendar extends StatelessWidget {
   ///
   /// Make sure to map starting on number 1, so the user might notice
   /// the difference between a day that had no input and one that had.
-  /// 
+  ///
   /// Example:
   /// ```dart
   /// {

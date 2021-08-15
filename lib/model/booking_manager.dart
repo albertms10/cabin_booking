@@ -256,7 +256,7 @@ class BookingManager with ChangeNotifier {
 
   Set<TimeOfDay> mostOccupiedTimeRange([DateRange? dateRange]) =>
       mostOccupiedTimeRangeFromAccumulated(
-        accumulatedTimeRangesOccupancy(dateRange).entries,
+        accumulatedTimeRangesOccupancy(dateRange),
       );
 
   Booking bookingFromId(String id) =>

@@ -85,7 +85,7 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
 
   Set<TimeOfDay> mostOccupiedTimeRange([DateRange? dateRange]) =>
       BookingManager.mostOccupiedTimeRangeFromAccumulated(
-        accumulatedTimeRangesOccupancy(dateRange).entries,
+        accumulatedTimeRangesOccupancy(dateRange),
       );
 
   int get allBookingsCount {
