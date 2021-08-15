@@ -4,7 +4,7 @@ class Statistics extends StatelessWidget {
   final String? title;
   final IconData? icon;
   final List<Widget> items;
-  final void Function()? onTap;
+  final VoidCallback? onTap;
 
   const Statistics({
     Key? key,

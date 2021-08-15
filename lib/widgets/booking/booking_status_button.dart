@@ -4,7 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BookingStatusButton extends StatelessWidget {
   final BookingStatus status;
-  final void Function()? onPressed;
+  final VoidCallback? onPressed;
 
   const BookingStatusButton({
     Key? key,
