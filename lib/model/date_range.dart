@@ -23,8 +23,8 @@ class DateRange extends Item {
         super.from(other);
 
   @override
-  Map<String, dynamic> toMap() => {
-        ...super.toMap(),
+  Map<String, dynamic> toJson() => {
+        ...super.toJson(),
         'startDate': startDate!.toIso8601String().split('T').first,
         'endDate': endDate!.toIso8601String().split('T').first,
       };

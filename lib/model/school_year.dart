@@ -28,9 +28,9 @@ class SchoolYear extends DateRange {
         super.from(other);
 
   @override
-  Map<String, dynamic> toMap() => {
-        ...super.toMap(),
-        'holidays': holidays.map((holiday) => holiday.toMap()).toList(),
+  Map<String, dynamic> toJson() => {
+        ...super.toJson(),
+        'holidays': holidays.map((holiday) => holiday.toJson()).toList(),
       };
 
   Duration get holidaysDuration {

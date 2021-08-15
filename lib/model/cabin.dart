@@ -36,12 +36,12 @@ class Cabin extends Item {
         super.from(other);
 
   @override
-  Map<String, dynamic> toMap() => {
-        ...super.toMap(),
+  Map<String, dynamic> toJson() => {
+        ...super.toJson(),
         'number': number,
-        'components': components.toMap(),
-        'bookings': _bookingManager.bookingsToMapList(),
-        'recurringBookings': _bookingManager.recurringBookingsToMapList(),
+        'components': components.toJson(),
+        'bookings': _bookingManager.bookingsToJson(),
+        'recurringBookings': _bookingManager.recurringBookingsToJson(),
       };
 
   Cabin simplified() => Cabin(id: id, number: number);

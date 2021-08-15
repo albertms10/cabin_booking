@@ -25,8 +25,8 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
     this.cabins = cabins ?? SplayTreeSet();
   }
 
-  List<Map<String, dynamic>> cabinsToMapList() =>
-      cabins.map((cabin) => cabin.toMap()).toList();
+  List<Map<String, dynamic>> cabinsToJson() =>
+      cabins.map((cabin) => cabin.toJson()).toList();
 
   Cabin cabinFromId(String? id) => cabins.firstWhere((cabin) => cabin.id == id);
 
@@ -383,7 +383,7 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
       final file = await fileManager.localFile(fileName);
 
       await file.writeAsString(
-        json.encode(cabinsToMapList()),
+        json.encode(cabinsToJson()),
       );
 
       return true;

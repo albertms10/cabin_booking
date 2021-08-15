@@ -41,8 +41,8 @@ class Booking extends Item {
         super.from(other);
 
   @override
-  Map<String, dynamic> toMap() => {
-        ...super.toMap(),
+  Map<String, dynamic> toJson() => {
+        ...super.toJson(),
         'description': description,
         'date': date!.toIso8601String().split('T').first,
         'startTime': formatTimeOfDay(startTime!),

@@ -31,11 +31,11 @@ class BookingManager with ChangeNotifier {
           ),
         );
 
-  List<Map<String, dynamic>> bookingsToMapList() =>
-      bookings.map((booking) => booking.toMap()).toList();
+  List<Map<String, dynamic>> bookingsToJson() =>
+      bookings.map((booking) => booking.toJson()).toList();
 
-  List<Map<String, dynamic>> recurringBookingsToMapList() => recurringBookings
-      .map((recurringBooking) => recurringBooking.toMap())
+  List<Map<String, dynamic>> recurringBookingsToJson() => recurringBookings
+      .map((recurringBooking) => recurringBooking.toJson())
       .toList();
 
   List<Booking> get generatedBookingsFromRecurring => [
