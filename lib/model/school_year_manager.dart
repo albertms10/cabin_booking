@@ -14,7 +14,7 @@ class SchoolYearManager extends WritableManager<Set<SchoolYear>>
   late Set<SchoolYear> schoolYears;
   int? _schoolYearIndex;
 
-  final void Function()? notifyExternalListeners;
+  final VoidCallback? notifyExternalListeners;
 
   SchoolYearManager({
     Set<SchoolYear>? schoolYears,
@@ -25,8 +25,8 @@ class SchoolYearManager extends WritableManager<Set<SchoolYear>>
     schoolYearIndex = _currentSchoolYearIndex;
   }
 
-  List<Map<String, dynamic>> schoolYearsToMapList() =>
-      schoolYears.map((schoolYear) => schoolYear.toMap()).toList();
+  List<Map<String, dynamic>> schoolYearsToJson() =>
+      schoolYears.map((schoolYear) => schoolYear.toJson()).toList();
 
   int? get schoolYearIndex => _schoolYearIndex;
 
@@ -56,7 +56,7 @@ class SchoolYearManager extends WritableManager<Set<SchoolYear>>
           : null;
 
   Duration get totalWorkingDuration {
-    var duration = const Duration();
+    var duration = Duration.zero;
 
     for (final schoolYear in schoolYears) {
       duration += schoolYear.workingDuration;
@@ -131,7 +131,7 @@ class SchoolYearManager extends WritableManager<Set<SchoolYear>>
       final schoolYears = _parseSchoolYears(content);
 
       return SplayTreeSet.from(schoolYears);
-    } catch (e) {
+    } on Exception {
       return SplayTreeSet();
     }
   }
@@ -151,7 +151,7 @@ class SchoolYearManager extends WritableManager<Set<SchoolYear>>
     final file = await fileManager.localFile(fileName);
 
     await file.writeAsString(
-      json.encode(schoolYearsToMapList()),
+      json.encode(schoolYearsToJson()),
     );
 
     return true;

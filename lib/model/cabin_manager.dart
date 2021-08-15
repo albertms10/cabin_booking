@@ -2,6 +2,7 @@ import 'dart:collection' show SplayTreeMap, SplayTreeSet;
 import 'dart:convert' show json;
 
 import 'package:cabin_booking/model/booking.dart';
+import 'package:cabin_booking/model/booking_manager.dart';
 import 'package:cabin_booking/model/cabin.dart';
 import 'package:cabin_booking/model/date_range.dart';
 import 'package:cabin_booking/model/recurring_booking.dart';
@@ -24,8 +25,8 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
     this.cabins = cabins ?? SplayTreeSet();
   }
 
-  List<Map<String, dynamic>> cabinsToMapList() =>
-      cabins.map((cabin) => cabin.toMap()).toList();
+  List<Map<String, dynamic>> cabinsToJson() =>
+      cabins.map((cabin) => cabin.toJson()).toList();
 
   Cabin cabinFromId(String? id) => cabins.firstWhere((cabin) => cabin.id == id);
 
@@ -82,23 +83,10 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
     return timeRanges;
   }
 
-  Set<TimeOfDay> mostOccupiedTimeRange([DateRange? dateRange]) {
-    final sortedTimeRanges = SplayTreeSet<MapEntry<TimeOfDay, Duration>>.from(
-      accumulatedTimeRangesOccupancy(dateRange).entries,
-      (a, b) => (b.value - a.value).inMicroseconds,
-    );
-
-    if (sortedTimeRanges.isEmpty) return SplayTreeSet();
-
-    final highestOccupancyDuration = sortedTimeRanges.first.value;
-
-    return SplayTreeSet.from(
-      sortedTimeRanges
-          .where((timeRange) => timeRange.value == highestOccupancyDuration)
-          .map((timeRange) => timeRange.key),
-      compareTime,
-    );
-  }
+  Set<TimeOfDay> mostOccupiedTimeRange([DateRange? dateRange]) =>
+      BookingManager.mostOccupiedTimeRangeFromAccumulated(
+        accumulatedTimeRangesOccupancy(dateRange),
+      );
 
   int get allBookingsCount {
     var count = 0;
@@ -131,7 +119,7 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
   }
 
   Duration totalOccupiedDuration({DateTime? dateTime, DateRange? dateRange}) {
-    var duration = const Duration();
+    var duration = Duration.zero;
 
     for (final cabin in cabins) {
       duration += cabin.occupiedDuration(
@@ -375,7 +363,7 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
       final cabins = _parseCabins(content);
 
       return SplayTreeSet.from(cabins);
-    } catch (e) {
+    } on Exception {
       return SplayTreeSet();
     }
   }
@@ -395,11 +383,11 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
       final file = await fileManager.localFile(fileName);
 
       await file.writeAsString(
-        json.encode(cabinsToMapList()),
+        json.encode(cabinsToJson()),
       );
 
       return true;
-    } catch (e) {
+    } on Exception {
       return false;
     }
   }

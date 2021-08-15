@@ -4,5 +4,5 @@ abstract class Serializable {
   Serializable.from(Map<String, dynamic> other);
 
   @mustCallSuper
-  Map<String, dynamic> toMap();
+  Map<String, dynamic> toJson();
 }

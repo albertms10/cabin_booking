@@ -4,7 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class DataTableToolbar extends StatelessWidget {
   final bool shown;
   final int selectedItems;
-  final void Function()? onPressedLeading;
+  final VoidCallback? onPressedLeading;
   final List<Widget>? actions;
 
   const DataTableToolbar({

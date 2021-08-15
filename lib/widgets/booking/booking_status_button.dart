@@ -4,7 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BookingStatusButton extends StatelessWidget {
   final BookingStatus status;
-  final void Function()? onPressed;
+  final VoidCallback? onPressed;
 
   const BookingStatusButton({
     Key? key,
@@ -45,7 +45,7 @@ class BookingStatusButton extends StatelessWidget {
         color: Colors.transparent,
         shape: const StadiumBorder(),
         child: IconButton(
-          padding: const EdgeInsets.all(0.0),
+          padding: EdgeInsets.zero,
           icon: Icon(_statusIcons[status]),
           iconSize: 14.0,
           splashRadius: 14.0,

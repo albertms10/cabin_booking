@@ -62,7 +62,7 @@ class CabinsTable extends StatelessWidget {
                     firstWeekDate(DateTime.now()),
                     interval: const Duration(days: DateTime.daysPerWeek),
                   ),
-                  ifAbsent: () => const Duration(),
+                  ifAbsent: () => Duration.zero,
                 ),
                 mostOccupiedTimeRanges: compactizeRange<TimeOfDay>(
                   cabin.mostOccupiedTimeRange(),

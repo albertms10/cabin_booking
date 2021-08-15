@@ -148,7 +148,6 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
               padding: const EdgeInsets.only(top: 54.0),
               child: DataTable(
                 dataRowHeight: 82.0,
-                showCheckboxColumn: true,
                 sortAscending: _sortAscending,
                 sortColumnIndex: _sortColumnIndex,
                 columns: [
@@ -209,8 +208,8 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
                               row.bookingsCount,
                               row.recurringBookingsCount,
                             ],
-                            tooltipMessage:
-                                '${appLocalizations.bookings} + ${appLocalizations.recurringBookings}',
+                            tooltipMessage: '${appLocalizations.bookings}'
+                                ' + ${appLocalizations.recurringBookings}',
                           ),
                         ),
                         DataCell(
@@ -219,13 +218,14 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
                         DataCell(
                           Padding(
                             padding: const EdgeInsets.only(left: 8.0),
-                            child: WrappedChipList(
+                            child: WrappedChipList<List<TimeOfDay>>(
                               items: row.mostOccupiedTimeRanges.toList(),
                               maxChips: 1,
-                              labelBuilder:
-                                  (context, List<TimeOfDay> timeRange) {
+                              labelBuilder: (context, timeRange) {
                                 return Text(
-                                  '${timeRange.first.format(context)}–${timeRange.last.format(context)}',
+                                  timeRange
+                                      .map((time) => time.format(context))
+                                      .join('–'),
                                 );
                               },
                             ),
@@ -333,7 +333,7 @@ class ItemsTableRow<T extends Item> {
     required this.item,
     this.bookingsCount = 0,
     this.recurringBookingsCount = 0,
-    this.occupiedDuration = const Duration(),
+    this.occupiedDuration = Duration.zero,
     this.occupiedDurationPerWeek = const {},
     this.mostOccupiedTimeRanges = const {},
     this.selected = false,

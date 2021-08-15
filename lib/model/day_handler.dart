@@ -12,7 +12,7 @@ final _defaultSchoolYears = {
     endDate: DateTime(2020, DateTime.july, 25),
   ),
   SchoolYear(
-    startDate: DateTime(2020, DateTime.september, 1),
+    startDate: DateTime(2020, DateTime.september),
     endDate: DateTime(2021, DateTime.july, 24),
   ),
   SchoolYear(
@@ -56,7 +56,9 @@ class DayHandler with ChangeNotifier {
   void changeToPreviousDay() =>
       dateTime = _dateTime.subtract(const Duration(days: 1));
 
-  set schoolYearIndex(int index) {
+  int? get schoolYearIndex => schoolYearManager.schoolYearIndex;
+
+  set schoolYearIndex(int? index) {
     schoolYearManager.schoolYearIndex = index;
 
     if (!schoolYearManager.schoolYear!.includes(_dateTime)) {

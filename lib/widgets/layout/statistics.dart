@@ -4,7 +4,7 @@ class Statistics extends StatelessWidget {
   final String? title;
   final IconData? icon;
   final List<Widget> items;
-  final void Function()? onTap;
+  final VoidCallback? onTap;
 
   const Statistics({
     Key? key,
@@ -32,7 +32,6 @@ class Statistics extends StatelessWidget {
                   padding: const EdgeInsets.only(bottom: 16.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.center,
                     textBaseline: TextBaseline.ideographic,
                     children: [
                       if (icon != null)

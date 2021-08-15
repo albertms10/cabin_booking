@@ -290,7 +290,7 @@ class _BookingFormState extends State<BookingForm> {
           ),
           const SizedBox(height: 32.0),
           ExpansionPanelList(
-            expandedHeaderPadding: const EdgeInsets.all(0.0),
+            expandedHeaderPadding: EdgeInsets.zero,
             expansionCallback: (index, isExpanded) {
               widget.setIsRecurring(!isExpanded);
             },

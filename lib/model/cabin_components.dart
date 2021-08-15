@@ -21,8 +21,8 @@ class CabinComponents {
         chairs = other['chairs'] as int,
         tables = other['tables'] as int;
 
-  Map<String, dynamic> toMap() => {
-        'pianos': pianos.map((piano) => piano.toMap()).toList(),
+  Map<String, dynamic> toJson() => {
+        'pianos': pianos.map((piano) => piano.toJson()).toList(),
         'lecterns': lecterns,
         'chairs': chairs,
         'tables': tables,
@@ -45,7 +45,7 @@ class Piano {
         model = other['model'] as String?,
         isElectronic = other['isElectronic'] as bool;
 
-  Map<String, dynamic> toMap() => {
+  Map<String, dynamic> toJson() => {
         'brand': brand,
         'model': model,
         'isElectronic': isElectronic,

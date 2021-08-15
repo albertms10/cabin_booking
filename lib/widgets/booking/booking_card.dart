@@ -55,7 +55,6 @@ class BookingCard extends StatelessWidget {
                 padding: const EdgeInsets.only(
                   top: 8.0,
                   right: 4.0,
-                  bottom: 0.0,
                   left: 10.0,
                 ),
                 decoration: (!booking.isLocked)
@@ -109,6 +108,7 @@ class BookingCardInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final appLocalizations = AppLocalizations.of(context)!;
 
     return LayoutBuilder(
       builder: (context, constraints) {
@@ -141,7 +141,7 @@ class BookingCardInfo extends StatelessWidget {
                           !booking.isLocked
                               ? booking.description!
                               : '${booking.description} '
-                                  '(${AppLocalizations.of(context)!.locked.toLowerCase()})',
+                                  '(${appLocalizations.locked.toLowerCase()})',
                           style: TextStyle(
                               fontSize: constraints.maxHeight > 20.0
                                   ? 14.0

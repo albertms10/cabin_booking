@@ -19,8 +19,8 @@ class Holiday extends DateRange {
         super.from(other);
 
   @override
-  Map<String, dynamic> toMap() => {
-        ...super.toMap(),
+  Map<String, dynamic> toJson() => {
+        ...super.toJson(),
         'kind': kind.index,
       };
 }

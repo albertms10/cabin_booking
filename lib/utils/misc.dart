@@ -6,7 +6,7 @@ Set<List<T>> compactizeRange<T>(
   if (rangeSet.isEmpty) return {};
 
   if (T == int) {
-    nextValue ??= (a) => ((a as int) + 1) as T;
+    nextValue ??= (a) => (a as int) + 1 as T;
   } else {
     assert(nextValue != null);
   }
@@ -22,7 +22,10 @@ Set<List<T>> compactizeRange<T>(
       b = rangeSet.elementAt(i + 1);
 
       if (b != nextValue!(a)) {
-        ranges.add([start, inclusive ? nextValue(a) : a]);
+        ranges.add([
+          start,
+          if (inclusive) nextValue(a) else a,
+        ]);
         start = b;
       }
     }
@@ -30,7 +33,7 @@ Set<List<T>> compactizeRange<T>(
     b = rangeSet.first;
   }
 
-  ranges.add([start, inclusive ? nextValue!(b) : b]);
+  ranges.add([start, if (inclusive) nextValue!(b) else b]);
 
   return ranges;
 }

@@ -23,17 +23,16 @@ class CurrentTimeIndicator extends StatelessWidget {
           dateTime: dayHandler.dateTime,
           timeOfDay: kTimeTableStartTime,
         );
-
         final viewEndDateTime = dateTimeWithTimeOfDay(
           dateTime: dayHandler.dateTime,
           timeOfDay: kTimeTableEndTime,
         );
 
-        final durationFromStart = DateTime.now().difference(viewStartDateTime);
+        final now = DateTime.now();
+        final durationFromStart = now.difference(viewStartDateTime);
+        final durationFromEnd = now.difference(viewEndDateTime);
 
-        final durationFromEnd = DateTime.now().difference(viewEndDateTime);
-
-        if (durationFromStart <= const Duration() ||
+        if (durationFromStart <= Duration.zero ||
             durationFromEnd >= const Duration(minutes: 15)) {
           return const SizedBox();
         }

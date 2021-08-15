@@ -83,7 +83,8 @@ class TimeUtils {
     return addTZ(add);
   }
 
-  /// Creates a list of [DateTime], including all days between [startDate] and [finishDate]
+  /// Creates a list of [DateTime], including all days
+  /// between [startDate] and [finishDate]
   static List<DateTime> datesBetween(DateTime startDate, DateTime finishDate) {
     assert(startDate.isBefore(finishDate));
 

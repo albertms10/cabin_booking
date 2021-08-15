@@ -42,8 +42,8 @@ class BookingsStack extends StatelessWidget {
     var slotCount = 0;
 
     for (var i = -1; i < bookings.length; i++) {
-      final isFirst = (i == -1);
-      final isLast = (i == bookings.length - 1);
+      final isFirst = i == -1;
+      final isLast = i == bookings.length - 1;
 
       var currentBookingDate =
           isFirst ? startDateTime : bookings.elementAt(i).endDateTime;
@@ -69,7 +69,7 @@ class BookingsStack extends StatelessWidget {
 
       final runSlotList = <EmptyBookingSlot>[];
 
-      if (duration > const Duration()) {
+      if (duration > Duration.zero) {
         var runDuration = duration;
 
         while (runDuration > kMaxSlotDuration) {

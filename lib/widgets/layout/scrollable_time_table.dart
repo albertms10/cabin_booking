@@ -76,7 +76,6 @@ class ScrollableTimeTable extends StatelessWidget {
                       radius: Radius.circular(5.0),
                     ),
                     refreshIndicator: const WaterDropHeader(),
-                    refreshIndicatorHeight: 60,
                   );
                 },
               ),

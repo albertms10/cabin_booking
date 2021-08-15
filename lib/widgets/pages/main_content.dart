@@ -27,9 +27,10 @@ class _MainContentState extends State<MainContent> {
       Provider.of<DayHandler>(context, listen: false).schoolYearManager
         ..addListener(_writeSchoolYearsAndShowSnackBar);
 
-  void _writeAndShowSnackBar(WritableManager manager) async {
+  Future<void> _writeAndShowSnackBar(WritableManager manager) async {
     final changesSaved = await manager.writeToFile();
 
+    if (!mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         backgroundColor: Colors.transparent,
@@ -62,6 +63,7 @@ class _MainContentState extends State<MainContent> {
         _schoolYearManager.loadFromFile(),
       ]),
       initialData: const [],
+      catchError: (context, error) => null,
       builder: (context, child) {
         final items = Provider.of<List<int>?>(context);
         if (items == null) {
@@ -77,7 +79,6 @@ class _MainContentState extends State<MainContent> {
 
         return widget.pages[widget.railIndex];
       },
-      catchError: (context, error) => null,
     );
   }
 }

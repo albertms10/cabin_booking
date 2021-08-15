@@ -51,8 +51,8 @@ class SummaryPage extends StatelessWidget {
                           cabinManager.bookingsCount,
                           cabinManager.recurringBookingsCount,
                         ],
-                        tooltipMessage:
-                            '${appLocalizations.bookings} + ${appLocalizations.recurringBookings}',
+                        tooltipMessage: '${appLocalizations.bookings}'
+                            ' + ${appLocalizations.recurringBookings}',
                       ),
                     ),
                     StatisticItem(
@@ -128,7 +128,7 @@ class SummaryPage extends StatelessWidget {
                           for (var i = 9; i < 22; i++)
                             TimeOfDay(hour: i, minute: 0),
                         ],
-                        ifAbsent: () => const Duration(),
+                        ifAbsent: () => Duration.zero,
                       ),
                     ),
                   ],
@@ -144,8 +144,7 @@ class SummaryPage extends StatelessWidget {
                 Expanded(
                   child: HeatMapCalendar(
                     input: cabinManager.allCabinsBookingsCountPerDay,
-                    dayValueWrapper: (value) =>
-                        appLocalizations.nBookings(value),
+                    dayValueWrapper: appLocalizations.nBookings,
                     showLegend: true,
                     colorThresholds: mapColorsToHighestValue(
                       highestValue: cabinManager.mostBookedDayEntry?.value ?? 1,
@@ -173,7 +172,9 @@ class SummaryPage extends StatelessWidget {
                   itemCount: dayHandler.schoolYearManager.schoolYears.length,
                   itemBuilder: (context, index) {
                     return Text(
-                      '${dayHandler.schoolYearManager.schoolYears.elementAt(index)}',
+                      dayHandler.schoolYearManager.schoolYears
+                          .elementAt(index)
+                          .toString(),
                     );
                   },
                   initialIndex: dayHandler.schoolYearManager.schoolYearIndex,

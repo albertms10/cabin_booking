@@ -71,8 +71,8 @@ class RecurringBooking extends Booking {
       booking is RecurringBooking || booking!.recurringBookingId != null;
 
   @override
-  Map<String, dynamic> toMap() => {
-        ...super.toMap(),
+  Map<String, dynamic> toJson() => {
+        ...super.toJson(),
         'periodicityIndex': periodicity.index,
         'repeatEvery': repeatEvery,
         if (method == RecurringBookingMethod.endDate)

@@ -25,7 +25,7 @@ abstract class Item implements Comparable<Item>, Serializable {
 
   @override
   @mustCallSuper
-  Map<String, dynamic> toMap() => {
+  Map<String, dynamic> toJson() => {
         'id': id,
         'creationDateTime': creationDateTime.toIso8601String(),
         if (modificationDateTime != null)

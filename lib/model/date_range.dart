@@ -11,9 +11,7 @@ class DateRange extends Item {
     this.startDate,
     this.endDate,
   })  : assert(
-          startDate != null && endDate != null
-              ? endDate.isAfter(startDate)
-              : true,
+          startDate == null || endDate == null || endDate.isAfter(startDate),
         ),
         super(id: id) {
     endDate ??= startDate;
@@ -25,8 +23,8 @@ class DateRange extends Item {
         super.from(other);
 
   @override
-  Map<String, dynamic> toMap() => {
-        ...super.toMap(),
+  Map<String, dynamic> toJson() => {
+        ...super.toJson(),
         'startDate': startDate!.toIso8601String().split('T').first,
         'endDate': endDate!.toIso8601String().split('T').first,
       };
@@ -54,7 +52,7 @@ class DateRange extends Item {
   }) {
     assert(end.isAfter(start));
 
-    final dates = <DateTime>[start];
+    final dates = [start];
     var runDate = start;
 
     while (runDate.isBefore(end)) {
@@ -73,7 +71,7 @@ class DateRange extends Item {
       ' - ${DateFormat.yMd().format(endDate!)}';
 
   @override
-  bool operator ==(other) =>
+  bool operator ==(Object other) =>
       other is DateRange &&
       startDate == other.startDate &&
       endDate == other.endDate;

@@ -1,6 +1,7 @@
 # Cabin booking
 
 ![Flutter CI](https://github.com/albertms10/cabin_booking/workflows/Flutter%20CI/badge.svg)
+[![style: very good analysis](https://img.shields.io/badge/style-very_good_analysis-B22C89.svg)](https://pub.dev/packages/very_good_analysis)
 
 A multiplatform app for cabin booking
 
