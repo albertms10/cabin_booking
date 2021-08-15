@@ -218,11 +218,10 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
                         DataCell(
                           Padding(
                             padding: const EdgeInsets.only(left: 8.0),
-                            child: WrappedChipList(
+                            child: WrappedChipList<List<TimeOfDay>>(
                               items: row.mostOccupiedTimeRanges.toList(),
                               maxChips: 1,
-                              labelBuilder:
-                                  (context, List<TimeOfDay> timeRange) {
+                              labelBuilder: (context, timeRange) {
                                 return Text(
                                   timeRange
                                       .map((time) => time.format(context))
