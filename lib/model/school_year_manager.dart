@@ -56,7 +56,7 @@ class SchoolYearManager extends WritableManager<Set<SchoolYear>>
           : null;
 
   Duration get totalWorkingDuration {
-    var duration = const Duration();
+    var duration = Duration.zero;
 
     for (final schoolYear in schoolYears) {
       duration += schoolYear.workingDuration;

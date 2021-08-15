@@ -67,7 +67,7 @@ class Booking extends Item {
     final timeRanges = <TimeOfDay, Duration>{};
 
     var runTime = startTime;
-    var runDuration = const Duration();
+    var runDuration = Duration.zero;
 
     while (runDuration < duration) {
       final nextHour = TimeOfDay(
@@ -76,7 +76,7 @@ class Booking extends Item {
       );
 
       final nextTime =
-          durationBetweenTimesOfDay(nextHour, endTime!) <= const Duration()
+          durationBetweenTimesOfDay(nextHour, endTime!) <= Duration.zero
               ? endTime!
               : nextHour;
 
@@ -142,7 +142,8 @@ class Booking extends Item {
   }
 
   @override
-  String toString() => '${isLocked ? '🔒 ' : ''}$description $dateTimeRange';
+  String toString() =>
+      [if (isLocked) '🔒', description, dateTimeRange].join(' ');
 
   @override
   int compareTo(covariant Booking other) =>

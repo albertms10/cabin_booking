@@ -49,7 +49,7 @@ class FloatingActionButtonMenu extends StatefulWidget {
   /// If given, the menu only opens on long press.
   final VoidCallback? onPressed;
 
-  /// If `true` [overlay] is not rendered and user is forced
+  /// If `true` [BackgroundOverlay] is not rendered and user is forced
   /// to close the menu manually by tapping main button.
   final bool closeManually;
 
@@ -58,7 +58,7 @@ class FloatingActionButtonMenu extends StatefulWidget {
 
   final tween = Tween<double>(begin: 0.0, end: 62.0);
 
-  /// The child of the main button, ignored if [animatedIcon] is non-[null].
+  /// The child of the main button, ignored if [animatedIcon] is non-null.
   final Widget? child;
 
   FloatingActionButtonMenu({

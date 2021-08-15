@@ -12,8 +12,8 @@ DateTime dateTimeWithTimeOfDay({
   TimeOfDay? timeOfDay,
 }) =>
     DateTime.tryParse(
-      DateFormat('yyyy-MM-dd').format(dateTime ?? DateTime.now()) +
-          ' ${formatTimeOfDay(timeOfDay ?? TimeOfDay.now())}',
+      '${DateFormat('yyyy-MM-dd').format(dateTime ?? DateTime.now())}'
+      ' ${formatTimeOfDay(timeOfDay ?? TimeOfDay.now())}',
     )!;
 
 /// Constructs a new [TimeOfDay] instance based on [formattedString].
@@ -81,3 +81,5 @@ Map<K, V> fillEmptyKeyValues<K, V>(
 
 int compareTime(TimeOfDay a, TimeOfDay b) =>
     (a.hour - b.hour) * 60 + a.minute - b.minute;
+
+int compareDuration(Duration a, Duration b) => (b - a).inMicroseconds;

@@ -2,6 +2,7 @@ import 'dart:collection' show SplayTreeMap, SplayTreeSet;
 import 'dart:convert' show json;
 
 import 'package:cabin_booking/model/booking.dart';
+import 'package:cabin_booking/model/booking_manager.dart';
 import 'package:cabin_booking/model/cabin.dart';
 import 'package:cabin_booking/model/date_range.dart';
 import 'package:cabin_booking/model/recurring_booking.dart';
@@ -82,23 +83,10 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
     return timeRanges;
   }
 
-  Set<TimeOfDay> mostOccupiedTimeRange([DateRange? dateRange]) {
-    final sortedTimeRanges = SplayTreeSet<MapEntry<TimeOfDay, Duration>>.from(
-      accumulatedTimeRangesOccupancy(dateRange).entries,
-      (a, b) => (b.value - a.value).inMicroseconds,
-    );
-
-    if (sortedTimeRanges.isEmpty) return SplayTreeSet();
-
-    final highestOccupancyDuration = sortedTimeRanges.first.value;
-
-    return SplayTreeSet.from(
-      sortedTimeRanges
-          .where((timeRange) => timeRange.value == highestOccupancyDuration)
-          .map((timeRange) => timeRange.key),
-      compareTime,
-    );
-  }
+  Set<TimeOfDay> mostOccupiedTimeRange([DateRange? dateRange]) =>
+      BookingManager.mostOccupiedTimeRangeFromAccumulated(
+        accumulatedTimeRangesOccupancy(dateRange).entries,
+      );
 
   int get allBookingsCount {
     var count = 0;
@@ -131,7 +119,7 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
   }
 
   Duration totalOccupiedDuration({DateTime? dateTime, DateRange? dateRange}) {
-    var duration = const Duration();
+    var duration = Duration.zero;
 
     for (final cabin in cabins) {
       duration += cabin.occupiedDuration(

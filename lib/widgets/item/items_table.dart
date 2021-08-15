@@ -334,7 +334,7 @@ class ItemsTableRow<T extends Item> {
     required this.item,
     this.bookingsCount = 0,
     this.recurringBookingsCount = 0,
-    this.occupiedDuration = const Duration(),
+    this.occupiedDuration = Duration.zero,
     this.occupiedDurationPerWeek = const {},
     this.mostOccupiedTimeRanges = const {},
     this.selected = false,

@@ -54,7 +54,7 @@ class SchoolYearsTable extends StatelessWidget {
                   keys: schoolYear.dateTimeList(
                     interval: const Duration(days: DateTime.daysPerWeek),
                   ),
-                  ifAbsent: () => const Duration(),
+                  ifAbsent: () => Duration.zero,
                 ),
                 mostOccupiedTimeRanges: compactizeRange<TimeOfDay>(
                   cabinManager.mostOccupiedTimeRange(schoolYear),

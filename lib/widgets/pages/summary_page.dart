@@ -128,7 +128,7 @@ class SummaryPage extends StatelessWidget {
                           for (var i = 9; i < 22; i++)
                             TimeOfDay(hour: i, minute: 0),
                         ],
-                        ifAbsent: () => const Duration(),
+                        ifAbsent: () => Duration.zero,
                       ),
                     ),
                   ],
@@ -144,8 +144,7 @@ class SummaryPage extends StatelessWidget {
                 Expanded(
                   child: HeatMapCalendar(
                     input: cabinManager.allCabinsBookingsCountPerDay,
-                    dayValueWrapper: (value) =>
-                        appLocalizations.nBookings(value),
+                    dayValueWrapper: appLocalizations.nBookings,
                     showLegend: true,
                     colorThresholds: mapColorsToHighestValue(
                       highestValue: cabinManager.mostBookedDayEntry?.value ?? 1,

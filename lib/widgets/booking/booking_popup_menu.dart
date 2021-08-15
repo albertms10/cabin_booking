@@ -19,7 +19,7 @@ class BookingPopupMenu extends StatelessWidget {
     required this.booking,
   }) : super(key: key);
 
-  void _onEditSelected(BuildContext context) async {
+  Future<void> _onEditSelected(BuildContext context) async {
     final cabinManager = Provider.of<CabinManager>(context, listen: false);
 
     final editedBooking = await showDialog<Booking>(
@@ -60,7 +60,7 @@ class BookingPopupMenu extends StatelessWidget {
     }
   }
 
-  void _onDeleteSelected(BuildContext context) async {
+  Future<void> _onDeleteSelected(BuildContext context) async {
     final appLocalizations = AppLocalizations.of(context)!;
 
     final cabinManager = Provider.of<CabinManager>(context, listen: false);

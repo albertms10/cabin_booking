@@ -32,7 +32,7 @@ class CurrentTimeIndicator extends StatelessWidget {
         final durationFromStart = now.difference(viewStartDateTime);
         final durationFromEnd = now.difference(viewEndDateTime);
 
-        if (durationFromStart <= const Duration() ||
+        if (durationFromStart <= Duration.zero ||
             durationFromEnd >= const Duration(minutes: 15)) {
           return const SizedBox();
         }

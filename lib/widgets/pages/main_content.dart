@@ -27,9 +27,10 @@ class _MainContentState extends State<MainContent> {
       Provider.of<DayHandler>(context, listen: false).schoolYearManager
         ..addListener(_writeSchoolYearsAndShowSnackBar);
 
-  void _writeAndShowSnackBar(WritableManager manager) async {
+  Future<void> _writeAndShowSnackBar(WritableManager manager) async {
     final changesSaved = await manager.writeToFile();
 
+    if (!mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         backgroundColor: Colors.transparent,

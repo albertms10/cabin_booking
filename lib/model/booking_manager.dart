@@ -23,10 +23,10 @@ class BookingManager with ChangeNotifier {
     required List<dynamic> bookings,
     required List<dynamic> recurringBookings,
   })  : bookings = SplayTreeSet.from(
-          bookings.map((booking) => Booking.from(booking)),
+          bookings.map<Booking>((booking) => Booking.from(booking)),
         ),
         recurringBookings = SplayTreeSet.from(
-          recurringBookings.map(
+          recurringBookings.map<RecurringBooking>(
             (recurringBooking) => RecurringBooking.from(recurringBooking),
           ),
         );
@@ -105,7 +105,7 @@ class BookingManager with ChangeNotifier {
   Duration occupiedDuration({DateTime? dateTime, DateRange? dateRange}) {
     assert(!((dateTime != null) && (dateRange != null)));
 
-    var runDuration = const Duration();
+    var runDuration = Duration.zero;
 
     final bookingsList = dateTime != null
         ? allBookingsOn(dateTime)
@@ -215,12 +215,12 @@ class BookingManager with ChangeNotifier {
   Map<TimeOfDay, Duration> accumulatedTimeRangesOccupancy([
     DateRange? dateRange,
   ]) {
-    final timeRanges = <TimeOfDay, Duration>{};
+    final timeRanges = SplayTreeMap<TimeOfDay, Duration>(compareTime);
 
-    final bookingsList =
+    final bookingsSet =
         dateRange != null ? allBookingsBetween(dateRange) : allBookings;
 
-    for (final booking in bookingsList) {
+    for (final booking in bookingsSet) {
       for (final bookingTimeRange in booking.hoursSpan.entries) {
         timeRanges.update(
           bookingTimeRange.key,
@@ -233,23 +233,31 @@ class BookingManager with ChangeNotifier {
     return timeRanges;
   }
 
-  Set<TimeOfDay> mostOccupiedTimeRange([DateRange? dateRange]) {
-    final sortedTimeRanges = SplayTreeSet<MapEntry<TimeOfDay, Duration>>.from(
-      accumulatedTimeRangesOccupancy(dateRange).entries,
-      (a, b) => (b.value - a.value).inMicroseconds,
+  static Set<TimeOfDay> mostOccupiedTimeRangeFromAccumulated(
+    Map<TimeOfDay, Duration> accumulatedTimeRangesOccupancy,
+  ) {
+    if (accumulatedTimeRangesOccupancy.isEmpty) return SplayTreeSet();
+
+    final timeRangesSortedByDuration =
+        SplayTreeSet<MapEntry<TimeOfDay, Duration>>.from(
+      accumulatedTimeRangesOccupancy,
+      compareDuration,
     );
 
-    if (sortedTimeRanges.isEmpty) return SplayTreeSet();
-
-    final highestOccupancyDuration = sortedTimeRanges.first.value;
+    final highestOccupancyDuration = timeRangesSortedByDuration.first.value;
 
     return SplayTreeSet.from(
-      sortedTimeRanges
+      timeRangesSortedByDuration
           .where((timeRange) => timeRange.value == highestOccupancyDuration)
-          .map((timeRange) => timeRange.key),
+          .map<TimeOfDay>((timeRange) => timeRange.key),
       compareTime,
     );
   }
+
+  Set<TimeOfDay> mostOccupiedTimeRange([DateRange? dateRange]) =>
+      mostOccupiedTimeRangeFromAccumulated(
+        accumulatedTimeRangesOccupancy(dateRange).entries,
+      );
 
   Booking bookingFromId(String id) =>
       bookings.firstWhere((booking) => booking.id == id);

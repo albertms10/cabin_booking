@@ -69,7 +69,7 @@ class BookingsStack extends StatelessWidget {
 
       final runSlotList = <EmptyBookingSlot>[];
 
-      if (duration > const Duration()) {
+      if (duration > Duration.zero) {
         var runDuration = duration;
 
         while (runDuration > kMaxSlotDuration) {

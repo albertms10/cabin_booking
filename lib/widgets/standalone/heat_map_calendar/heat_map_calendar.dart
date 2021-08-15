@@ -27,7 +27,7 @@ class HeatMapCalendar extends StatelessWidget {
   /// ```
   final Map<int, Color> colorThresholds;
 
-  /// The day of the week [monday]..[sunday].
+  /// The day of the week (Monday to Sunday).
   final int firstWeekDay;
 
   /// The size of each item of the calendar

@@ -52,7 +52,7 @@ class DateRange extends Item {
   }) {
     assert(end.isAfter(start));
 
-    final dates = <DateTime>[start];
+    final dates = [start];
     var runDate = start;
 
     while (runDate.isBefore(end)) {

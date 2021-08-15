@@ -23,7 +23,7 @@ class SchoolYear extends DateRange {
   SchoolYear.from(Map<String, dynamic> other)
       : holidays = SplayTreeSet.from(
           (other['holidays'] as List<dynamic>)
-              .map((holiday) => Holiday.from(holiday)),
+              .map<Holiday>((holiday) => Holiday.from(holiday)),
         ),
         super.from(other);
 
@@ -34,7 +34,7 @@ class SchoolYear extends DateRange {
       };
 
   Duration get holidaysDuration {
-    var duration = const Duration();
+    var duration = Duration.zero;
 
     for (final holiday in holidays) {
       duration += holiday.duration;

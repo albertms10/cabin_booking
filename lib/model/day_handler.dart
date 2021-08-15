@@ -56,7 +56,9 @@ class DayHandler with ChangeNotifier {
   void changeToPreviousDay() =>
       dateTime = _dateTime.subtract(const Duration(days: 1));
 
-  set schoolYearIndex(int index) {
+  int? get schoolYearIndex => schoolYearManager.schoolYearIndex;
+
+  set schoolYearIndex(int? index) {
     schoolYearManager.schoolYearIndex = index;
 
     if (!schoolYearManager.schoolYear!.includes(_dateTime)) {

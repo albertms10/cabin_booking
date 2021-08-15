@@ -45,7 +45,7 @@ class BookingStatusButton extends StatelessWidget {
         color: Colors.transparent,
         shape: const StadiumBorder(),
         child: IconButton(
-          padding: const EdgeInsets.all(0.0),
+          padding: EdgeInsets.zero,
           icon: Icon(_statusIcons[status]),
           iconSize: 14.0,
           splashRadius: 14.0,
