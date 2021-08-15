@@ -240,8 +240,8 @@ class BookingManager with ChangeNotifier {
 
     final timeRangesSortedByDuration =
         SplayTreeSet<MapEntry<TimeOfDay, Duration>>.from(
-      accumulatedTimeRangesOccupancy,
-      compareDuration,
+      accumulatedTimeRangesOccupancy.entries,
+      (a, b) => compareDuration(a.value, b.value),
     );
 
     final highestOccupancyDuration = timeRangesSortedByDuration.first.value;
