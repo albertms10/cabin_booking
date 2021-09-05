@@ -91,7 +91,7 @@ packages:
       name: fl_chart
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.36.1"
+    version: "0.40.0"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -113,7 +113,7 @@ packages:
       name: horizontal_data_table
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.4.1"
+    version: "3.4.3"
   intl:
     dependency: "direct main"
     description:
@@ -155,7 +155,7 @@ packages:
       name: path_provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.2"
+    version: "2.0.3"
   path_provider_linux:
     dependency: transitive
     description:
@@ -218,7 +218,7 @@ packages:
       name: provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.0.0"
+    version: "6.0.0"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -326,4 +326,4 @@ packages:
     version: "0.2.0"
 sdks:
   dart: ">=2.13.0 <3.0.0"
-  flutter: ">=1.20.0"
+  flutter: ">=2.0.0"
