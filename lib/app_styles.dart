@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
 
 class AppStyles {
-  static ThemeData _baseThemeData() {
-    return ThemeData(
-      inputDecorationTheme: const InputDecorationTheme(
-        filled: true,
-        errorMaxLines: 2,
-        border: OutlineInputBorder(),
-      ),
-    );
-  }
+  static final ThemeData _baseThemeData = ThemeData(
+    inputDecorationTheme: const InputDecorationTheme(
+      filled: true,
+      errorMaxLines: 2,
+      border: OutlineInputBorder(),
+    ),
+  );
 
   static ThemeData lightTheme() {
-    final primaryColor = Colors.blue;
+    const primaryColor = Colors.blue;
     final primaryColorLight = primaryColor[300]!;
     final primaryColorDark = primaryColor[700]!;
 
@@ -27,15 +25,21 @@ class AppStyles {
         secondaryVariant: primaryColorDark,
         onSecondary: Colors.white,
       ),
-      inputDecorationTheme: _baseThemeData().inputDecorationTheme,
+      inputDecorationTheme: _baseThemeData.inputDecorationTheme,
       radioTheme: RadioThemeData(
         fillColor: _resolveSelectedMaterialState(primaryColor),
+      ),
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        selectedIconTheme: IconThemeData(color: primaryColorDark),
+        selectedItemColor: primaryColorDark,
+        unselectedIconTheme: const IconThemeData(color: Colors.grey),
+        unselectedItemColor: Colors.grey,
       ),
     );
   }
 
   static ThemeData darkTheme() {
-    final primaryColor = Colors.lightBlueAccent;
+    const primaryColor = Colors.lightBlueAccent;
     final primaryColorLight = primaryColor[100]!;
     final primaryColorDark = primaryColor[700]!;
 
@@ -48,10 +52,15 @@ class AppStyles {
         primaryVariant: primaryColorLight,
         secondary: primaryColor,
         secondaryVariant: primaryColorDark,
+        onPrimary: Colors.white,
+        onSecondary: Colors.white,
       ),
-      inputDecorationTheme: _baseThemeData().inputDecorationTheme,
+      inputDecorationTheme: _baseThemeData.inputDecorationTheme,
       radioTheme: RadioThemeData(
         fillColor: _resolveSelectedMaterialState(primaryColor),
+      ),
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: primaryColorDark,
       ),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
         selectedIconTheme: IconThemeData(color: primaryColorDark),
