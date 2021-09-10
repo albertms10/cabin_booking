@@ -3,7 +3,6 @@ description: An app for booking cabins.
 version: 0.4.0
 publish_to: none
 
-author: Albert Mañosa <albertmasa2@gmail.com>
 repository: https://github.com/albertms10/cabin_booking.git
 
 environment:
