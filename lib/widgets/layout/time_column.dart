@@ -1,6 +1,6 @@
 import 'package:cabin_booking/constants.dart';
 import 'package:cabin_booking/widgets/layout/current_time_indicator.dart';
-import 'package:cabin_booking/widgets/layout/stripped_background.dart';
+import 'package:cabin_booking/widgets/layout/striped_background.dart';
 import 'package:flutter/material.dart';
 
 class TimeColumn extends StatelessWidget {
@@ -19,7 +19,7 @@ class TimeColumn extends StatelessWidget {
 
     return Stack(
       children: [
-        const StrippedBackground(
+        const StripedBackground(
           startTime: kTimeTableStartTime,
           endTime: kTimeTableEndTime,
         ),

@@ -1,12 +1,12 @@
 import 'package:cabin_booking/constants.dart';
 import 'package:flutter/material.dart';
 
-class StrippedBackground extends StatelessWidget {
+class StripedBackground extends StatelessWidget {
   final TimeOfDay startTime;
   final TimeOfDay endTime;
   final double height;
 
-  const StrippedBackground({
+  const StripedBackground({
     Key? key,
     required this.startTime,
     required this.endTime,
