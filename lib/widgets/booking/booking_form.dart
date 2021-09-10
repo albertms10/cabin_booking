@@ -352,7 +352,8 @@ class _BookingFormState extends State<BookingForm> {
                       ListTile(
                         title: Text(
                           appLocalizations.after(
-                              int.tryParse(_occurrencesController.text) ?? 0),
+                            int.tryParse(_occurrencesController.text) ?? 0,
+                          ),
                         ),
                         selected: _recurringBookingMethod ==
                             RecurringBookingMethod.occurrences,

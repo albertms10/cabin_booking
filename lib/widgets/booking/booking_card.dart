@@ -143,9 +143,10 @@ class BookingCardInfo extends StatelessWidget {
                               : '${booking.description} '
                                   '(${appLocalizations.locked.toLowerCase()})',
                           style: TextStyle(
-                              fontSize: constraints.maxHeight > 20.0
-                                  ? 14.0
-                                  : constraints.maxHeight * 0.5),
+                            fontSize: constraints.maxHeight > 20.0
+                                ? 14.0
+                                : constraints.maxHeight * 0.5,
+                          ),
                           overflow: TextOverflow.ellipsis,
                           maxLines: 4,
                         ),

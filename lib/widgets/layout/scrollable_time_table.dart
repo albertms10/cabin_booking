@@ -52,7 +52,10 @@ class ScrollableTimeTable extends StatelessWidget {
                         bookingStackWidth * cabinManager.cabins.length,
                     isFixedHeader: true,
                     headerWidgets: _getTitleWidget(
-                        context, cabinManager.cabins, bookingStackWidth),
+                      context,
+                      cabinManager.cabins,
+                      bookingStackWidth,
+                    ),
                     leftSideItemBuilder: (context, index) => const TimeColumn(),
                     rightSideItemBuilder: (context, index) =>
                         const BookingsTable(),

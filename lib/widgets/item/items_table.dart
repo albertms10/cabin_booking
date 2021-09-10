@@ -241,8 +241,10 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
                             dateRange: row.item is DateRange
                                 ? row.item as DateRange
                                 : DateRange(
-                                    startDate: firstWeekDate(DateTime.now()
-                                        .subtract(const Duration(days: 365))),
+                                    startDate: firstWeekDate(
+                                      DateTime.now()
+                                          .subtract(const Duration(days: 365)),
+                                    ),
                                     endDate: firstWeekDate(DateTime.now()),
                                   ),
                           ),
