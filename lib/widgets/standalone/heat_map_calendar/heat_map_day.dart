@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import 'time_utils.dart';
+import 'utils/time.dart';
 
 class HeatMapDay extends StatelessWidget {
   final int value;
@@ -59,8 +59,7 @@ class HeatMapDay extends StatelessWidget {
             borderRadius: const BorderRadius.all(Radius.circular(2.0)),
             color: getColorFromThreshold(),
             border: date != null
-                ? (highlightToday &&
-                        TimeUtils.isOnSameDay(date!, DateTime.now())
+                ? (highlightToday && isOnSameDay(date!, DateTime.now())
                     ? Border.all(color: Colors.orange, width: 2.0)
                     : highlightOn?.call(date!) ?? false
                         ? Border.all(color: Colors.orange[200]!, width: 2.0)

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'heat_map_calendar.dart';
 import 'heat_map_day.dart';
 import 'month_label.dart';
-import 'time_utils.dart';
+import 'utils/time.dart';
 
 class WeekColumns extends StatelessWidget {
   final Map<DateTime, int> input;
@@ -70,7 +70,7 @@ class WeekColumns extends StatelessWidget {
 
         if ((months.isEmpty || months.last != firstMonth) &&
             currentDate.day <= 14) {
-          monthLabel = TimeUtils.monthsLabels[firstMonth - 1];
+          monthLabel = monthsLabels[firstMonth - 1];
           months.add(firstMonth);
 
           columnItems.add(
@@ -139,14 +139,11 @@ class WeekColumns extends StatelessWidget {
 
   /// Creates a list of all weeks based on given [columnsAmount]
   List<DateTime> getCalendarDates(int columnsAmount) {
-    final firstDayOfTheWeek = TimeUtils.firstDayOfTheWeek(lastDate);
-    final firstDayOfCalendar =
-        TimeUtils.firstDayOfCalendar(firstDayOfTheWeek, columnsAmount);
+    final firstDay =
+        firstDayOfCalendar(firstDayOfTheWeek(lastDate), columnsAmount);
 
-    return TimeUtils.datesBetween(
-      firstDate?.isAfter(firstDayOfCalendar) ?? false
-          ? firstDate!
-          : firstDayOfCalendar,
+    return datesBetween(
+      firstDate?.isAfter(firstDay) ?? false ? firstDate! : firstDay,
       lastDate,
     );
   }
