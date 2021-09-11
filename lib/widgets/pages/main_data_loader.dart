@@ -7,18 +7,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
-class MainContent extends StatefulWidget {
-  final int railIndex;
-  final List<Widget> pages;
+class MainDataLoader extends StatefulWidget {
+  final Widget child;
 
-  const MainContent({Key? key, required this.railIndex, this.pages = const []})
-      : super(key: key);
+  const MainDataLoader({Key? key, required this.child}) : super(key: key);
 
   @override
-  _MainContentState createState() => _MainContentState();
+  State<MainDataLoader> createState() => _MainDataLoaderState();
 }
 
-class _MainContentState extends State<MainContent> {
+class _MainDataLoaderState extends State<MainDataLoader> {
   late final CabinManager _cabinManager =
       Provider.of<CabinManager>(context, listen: false)
         ..addListener(_writeCabinsAndShowSnackBar);
@@ -64,8 +62,10 @@ class _MainContentState extends State<MainContent> {
       ]),
       initialData: const [],
       catchError: (context, error) => null,
+      child: widget.child,
       builder: (context, child) {
         final items = Provider.of<List<int>?>(context);
+
         if (items == null) {
           return Center(
             child: Text(
@@ -77,7 +77,7 @@ class _MainContentState extends State<MainContent> {
           return const Center(child: CircularProgressIndicator());
         }
 
-        return widget.pages[widget.railIndex];
+        return child!;
       },
     );
   }

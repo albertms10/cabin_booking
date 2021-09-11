@@ -1,5 +1,6 @@
 import 'package:cabin_booking/app_styles.dart';
 import 'package:cabin_booking/widgets/pages/home_page.dart';
+import 'package:cabin_booking/widgets/pages/main_data_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
@@ -25,7 +26,9 @@ class CabinBookingApp extends StatelessWidget {
           child: child!,
         );
       },
-      home: const HomePage(),
+      home: const MainDataLoader(
+        child: HomePage(),
+      ),
     );
   }
 }
