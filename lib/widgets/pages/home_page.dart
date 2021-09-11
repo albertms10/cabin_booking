@@ -2,7 +2,6 @@ import 'package:cabin_booking/widgets/booking/booking_floating_action_button.dar
 import 'package:cabin_booking/widgets/cabin/cabin_floating_action_button.dart';
 import 'package:cabin_booking/widgets/pages/bookings_page.dart';
 import 'package:cabin_booking/widgets/pages/cabins_page.dart';
-import 'package:cabin_booking/widgets/pages/main_content.dart';
 import 'package:cabin_booking/widgets/pages/school_years_page.dart';
 import 'package:cabin_booking/widgets/pages/summary_page.dart';
 import 'package:cabin_booking/widgets/school_year/school_year_floating_action_button.dart';
@@ -17,7 +16,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _selectedNavigationIndex = 0;
+  final PageController pageController = PageController();
 
   final _floatingActionButtons = const [
     SizedBox(),
@@ -26,8 +25,13 @@ class _HomePageState extends State<HomePage> {
     SchoolYearFloatingActionButton(),
   ];
 
+  int get currentIndex =>
+      pageController.hasClients && pageController.page != null
+          ? pageController.page!.floor()
+          : pageController.initialPage;
+
   void _setNavigationIndex(int index) {
-    setState(() => _selectedNavigationIndex = index);
+    setState(() => pageController.jumpToPage(index));
   }
 
   void _setNavigationPage(AppPages page) => _setNavigationIndex(page.index);
@@ -72,10 +76,10 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-      floatingActionButton: _floatingActionButtons[_selectedNavigationIndex],
+      floatingActionButton: _floatingActionButtons[currentIndex],
       bottomNavigationBar: _isSmallDisplay(context)
           ? BottomNavigationBar(
-              currentIndex: _selectedNavigationIndex,
+              currentIndex: currentIndex,
               onTap: _setNavigationIndex,
               items: [
                 for (final page in _pageDestinations(appLocalizations))
@@ -92,7 +96,7 @@ class _HomePageState extends State<HomePage> {
           children: [
             if (!_isSmallDisplay(context)) ...[
               NavigationRail(
-                selectedIndex: _selectedNavigationIndex,
+                selectedIndex: currentIndex,
                 onDestinationSelected: _setNavigationIndex,
                 labelType: NavigationRailLabelType.selected,
                 destinations: [
@@ -107,9 +111,10 @@ class _HomePageState extends State<HomePage> {
               const VerticalDivider(thickness: 1.0, width: 1.0),
             ],
             Expanded(
-              child: MainContent(
-                railIndex: _selectedNavigationIndex,
-                pages: [
+              child: PageView(
+                controller: pageController,
+                physics: const NeverScrollableScrollPhysics(),
+                children: [
                   SummaryPage(setNavigationPage: _setNavigationPage),
                   const BookingsPage(),
                   const CabinsPage(),
