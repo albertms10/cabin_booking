@@ -1,8 +1,8 @@
 import 'package:cabin_booking/model/cabin_manager.dart';
 import 'package:cabin_booking/model/day_handler.dart';
 import 'package:cabin_booking/model/school_year.dart';
-import 'package:cabin_booking/utils/datetime.dart';
-import 'package:cabin_booking/utils/misc.dart';
+import 'package:cabin_booking/utils/map_extension.dart';
+import 'package:cabin_booking/utils/set_extension.dart';
 import 'package:cabin_booking/widgets/item/items_table.dart';
 import 'package:cabin_booking/widgets/school_year/school_year_dialog.dart';
 import 'package:flutter/material.dart';
@@ -49,20 +49,22 @@ class SchoolYearsTable extends StatelessWidget {
                     cabinManager.recurringBookingsCountBetween(schoolYear),
                 occupiedDuration:
                     cabinManager.totalOccupiedDuration(dateRange: schoolYear),
-                occupiedDurationPerWeek: fillEmptyKeyValues(
-                  cabinManager.occupiedDurationPerWeek(schoolYear),
-                  keys: schoolYear.dateTimeList(
-                    interval: const Duration(days: DateTime.daysPerWeek),
-                  ),
-                  ifAbsent: () => Duration.zero,
-                ),
-                mostOccupiedTimeRanges: compactizeRange<TimeOfDay>(
-                  cabinManager.mostOccupiedTimeRange(schoolYear),
-                  nextValue: (timeOfDay) => timeOfDay.replacing(
-                    hour: (timeOfDay.hour + 1) % TimeOfDay.hoursPerDay,
-                  ),
-                  inclusive: true,
-                ),
+                occupiedDurationPerWeek: cabinManager
+                    .occupiedDurationPerWeek(schoolYear)
+                    .fillEmptyKeyValues(
+                      keys: schoolYear.dateTimeList(
+                        interval: const Duration(days: DateTime.daysPerWeek),
+                      ),
+                      ifAbsent: () => Duration.zero,
+                    ),
+                mostOccupiedTimeRanges: cabinManager
+                    .mostOccupiedTimeRange(schoolYear)
+                    .compactizeRange(
+                      nextValue: (timeOfDay) => timeOfDay.replacing(
+                        hour: (timeOfDay.hour + 1) % TimeOfDay.hoursPerDay,
+                      ),
+                      inclusive: true,
+                    ),
               ),
           ],
         );

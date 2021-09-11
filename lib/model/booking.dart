@@ -1,6 +1,7 @@
 import 'package:cabin_booking/model/date_range.dart';
 import 'package:cabin_booking/model/item.dart';
-import 'package:cabin_booking/utils/datetime.dart';
+import 'package:cabin_booking/utils/date_time_extension.dart';
+import 'package:cabin_booking/utils/time_of_day_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -34,8 +35,8 @@ class Booking extends Item {
   Booking.from(Map<String, dynamic> other)
       : description = other['description'] as String?,
         date = DateTime.tryParse(other['date'] as String),
-        startTime = tryParseTimeOfDay(other['startTime'] as String),
-        endTime = tryParseTimeOfDay(other['endTime'] as String),
+        startTime = TimeOfDayExtension.tryParse(other['startTime'] as String),
+        endTime = TimeOfDayExtension.tryParse(other['endTime'] as String),
         status = BookingStatus.values[other['status'] as int],
         isLocked = other['isLocked'] as bool,
         super.from(other);
@@ -45,21 +46,15 @@ class Booking extends Item {
         ...super.toJson(),
         'description': description,
         'date': date!.toIso8601String().split('T').first,
-        'startTime': formatTimeOfDay(startTime!),
-        'endTime': formatTimeOfDay(endTime!),
+        'startTime': startTime!.format24Hour(),
+        'endTime': endTime!.format24Hour(),
         'status': status.index,
         'isLocked': isLocked,
       };
 
-  DateTime get startDateTime => dateTimeWithTimeOfDay(
-        dateTime: date,
-        timeOfDay: startTime,
-      );
+  DateTime get startDateTime => date!.addTimeOfDay(startTime);
 
-  DateTime get endDateTime => dateTimeWithTimeOfDay(
-        dateTime: date,
-        timeOfDay: endTime,
-      );
+  DateTime get endDateTime => date!.addTimeOfDay(endTime);
 
   Duration get duration => endDateTime.difference(startDateTime);
 
@@ -75,12 +70,11 @@ class Booking extends Item {
         minute: 0,
       );
 
-      final nextTime =
-          durationBetweenTimesOfDay(nextHour, endTime!) <= Duration.zero
-              ? endTime!
-              : nextHour;
+      final nextTime = nextHour.durationBetween(endTime!) <= Duration.zero
+          ? endTime!
+          : nextHour;
 
-      final currentDuration = durationBetweenTimesOfDay(runTime, nextTime);
+      final currentDuration = runTime.durationBetween(nextTime);
 
       runDuration += currentDuration;
 
@@ -94,12 +88,12 @@ class Booking extends Item {
     return timeRanges;
   }
 
-  String get timeRange =>
-      '${formatTimeOfDay(startTime!)}–${formatTimeOfDay(endTime!)}';
+  String get timeRange => '${startTime!.format24Hour()}'
+      '–${endTime!.format24Hour()}';
 
   String get dateTimeRange => '${DateFormat.yMd().format(date!)} $timeRange';
 
-  bool isOn(DateTime dateTime) => isSameDay(date, dateTime);
+  bool isOn(DateTime dateTime) => date?.isSameDate(dateTime) ?? false;
 
   bool isBetween(DateRange dateRange) => dateRange.includes(startDateTime);
 

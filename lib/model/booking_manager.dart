@@ -3,7 +3,8 @@ import 'dart:collection' show SplayTreeMap, SplayTreeSet;
 import 'package:cabin_booking/model/booking.dart';
 import 'package:cabin_booking/model/date_range.dart';
 import 'package:cabin_booking/model/recurring_booking.dart';
-import 'package:cabin_booking/utils/datetime.dart';
+import 'package:cabin_booking/utils/date_time_extension.dart';
+import 'package:cabin_booking/utils/time_of_day_extension.dart';
 import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
 
@@ -125,15 +126,8 @@ class BookingManager with ChangeNotifier {
     required TimeOfDay startTime,
     required TimeOfDay endTime,
   }) {
-    final startDate = dateTimeWithTimeOfDay(
-      dateTime: dateTime,
-      timeOfDay: startTime,
-    );
-
-    final endDate = dateTimeWithTimeOfDay(
-      dateTime: dateTime,
-      timeOfDay: endTime,
-    );
+    final startDate = (dateTime ?? DateTime.now()).addTimeOfDay(startTime);
+    final endDate = (dateTime ?? DateTime.now()).addTimeOfDay(endTime);
 
     final maxViewDuration = endDate.difference(startDate);
 
@@ -172,7 +166,7 @@ class BookingManager with ChangeNotifier {
 
     for (final booking in bookingsList) {
       final shouldAddDate = dates.firstWhereOrNull(
-            (date) => isSameDay(date, booking.date),
+            (date) => date.isSameDate(booking.date),
           ) !=
           null;
 
@@ -203,7 +197,7 @@ class BookingManager with ChangeNotifier {
       if (dateRange != null && !dateRange.includes(booking.date!)) continue;
 
       bookingsPerDay.update(
-        firstWeekDate(booking.date!),
+        booking.date!.firstDayOfWeek,
         (duration) => duration + booking.duration,
         ifAbsent: () => booking.duration,
       );
@@ -215,7 +209,8 @@ class BookingManager with ChangeNotifier {
   Map<TimeOfDay, Duration> accumulatedTimeRangesOccupancy([
     DateRange? dateRange,
   ]) {
-    final timeRanges = SplayTreeMap<TimeOfDay, Duration>(compareTime);
+    final timeRanges =
+        SplayTreeMap<TimeOfDay, Duration>(TimeOfDayExtension.compare);
 
     final bookingsSet =
         dateRange != null ? allBookingsBetween(dateRange) : allBookings;
@@ -241,7 +236,7 @@ class BookingManager with ChangeNotifier {
     final timeRangesSortedByDuration =
         SplayTreeSet<MapEntry<TimeOfDay, Duration>>.from(
       accumulatedTimeRangesOccupancy.entries,
-      (a, b) => compareDuration(a.value, b.value),
+      (a, b) => a.value.compareTo(b.value),
     );
 
     final highestOccupancyDuration = timeRangesSortedByDuration.first.value;
@@ -250,7 +245,7 @@ class BookingManager with ChangeNotifier {
       timeRangesSortedByDuration
           .where((timeRange) => timeRange.value == highestOccupancyDuration)
           .map<TimeOfDay>((timeRange) => timeRange.key),
-      compareTime,
+      TimeOfDayExtension.compare,
     );
   }
 

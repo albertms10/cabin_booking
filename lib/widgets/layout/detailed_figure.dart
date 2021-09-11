@@ -1,4 +1,4 @@
-import 'package:cabin_booking/utils/widgets.dart';
+import 'package:cabin_booking/utils/widget.dart';
 import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
 

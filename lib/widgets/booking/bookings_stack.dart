@@ -2,7 +2,7 @@ import 'package:cabin_booking/constants.dart';
 import 'package:cabin_booking/model/booking.dart';
 import 'package:cabin_booking/model/cabin.dart';
 import 'package:cabin_booking/model/day_handler.dart';
-import 'package:cabin_booking/utils/datetime.dart';
+import 'package:cabin_booking/utils/date_time_extension.dart';
 import 'package:cabin_booking/widgets/booking/booking_card.dart';
 import 'package:cabin_booking/widgets/booking/empty_booking_slot.dart';
 import 'package:flutter/material.dart';
@@ -29,15 +29,8 @@ class BookingsStack extends StatelessWidget {
 
     final dayHandler = Provider.of<DayHandler>(context);
 
-    final startDateTime = dateTimeWithTimeOfDay(
-      dateTime: dayHandler.dateTime,
-      timeOfDay: kTimeTableStartTime,
-    );
-
-    final endDateTime = dateTimeWithTimeOfDay(
-      dateTime: dayHandler.dateTime,
-      timeOfDay: kTimeTableEndTime,
-    );
+    final startDateTime = dayHandler.dateTime.addTimeOfDay(kTimeTableStartTime);
+    final endDateTime = dayHandler.dateTime.addTimeOfDay(kTimeTableEndTime);
 
     var slotCount = 0;
 

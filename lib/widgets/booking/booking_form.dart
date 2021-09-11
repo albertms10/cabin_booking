@@ -4,7 +4,8 @@ import 'package:cabin_booking/constants.dart';
 import 'package:cabin_booking/model/booking.dart';
 import 'package:cabin_booking/model/cabin_manager.dart';
 import 'package:cabin_booking/model/recurring_booking.dart';
-import 'package:cabin_booking/utils/datetime.dart';
+import 'package:cabin_booking/utils/date_time_extension.dart';
+import 'package:cabin_booking/utils/time_of_day_extension.dart';
 import 'package:cabin_booking/widgets/booking/periodicity_dropdown.dart';
 import 'package:cabin_booking/widgets/cabin/cabin_dropdown.dart';
 import 'package:cabin_booking/widgets/layout/date_form_field.dart';
@@ -136,7 +137,8 @@ class _BookingFormState extends State<BookingForm> {
                           return appLocalizations.enterStartTime;
                         }
 
-                        final parsedTimeOfDay = tryParseTimeOfDay(value);
+                        final parsedTimeOfDay =
+                            TimeOfDayExtension.tryParse(value);
 
                         if (parsedTimeOfDay == null) {
                           return appLocalizations.enterStartTime;
@@ -148,22 +150,15 @@ class _BookingFormState extends State<BookingForm> {
                           _startTime = parsedTimeOfDay;
                         }
 
-                        final parsedDateTime = dateTimeWithTimeOfDay(
-                          dateTime: widget.booking.date,
-                          timeOfDay: parsedTimeOfDay,
-                        );
+                        final parsedDateTime =
+                            widget.booking.date!.addTimeOfDay(parsedTimeOfDay);
 
                         if (parsedDateTime.isAfter(
-                              dateTimeWithTimeOfDay(
-                                dateTime: widget.booking.date,
-                                timeOfDay: _endTime,
-                              ),
+                              widget.booking.date!.addTimeOfDay(_endTime),
                             ) ||
                             parsedDateTime.isBefore(
-                              dateTimeWithTimeOfDay(
-                                dateTime: widget.booking.date,
-                                timeOfDay: kTimeTableStartTime,
-                              ),
+                              widget.booking.date!
+                                  .addTimeOfDay(kTimeTableStartTime),
                             )) {
                           return appLocalizations.enterValidRange;
                         }
@@ -195,7 +190,8 @@ class _BookingFormState extends State<BookingForm> {
                         });
                       },
                       onSaved: (value) {
-                        _booking.startTime = tryParseTimeOfDay(value ?? '');
+                        _booking.startTime =
+                            TimeOfDayExtension.tryParse(value ?? '');
                       },
                       decoration: InputDecoration(
                         labelText: appLocalizations.start,
@@ -218,7 +214,8 @@ class _BookingFormState extends State<BookingForm> {
                           return appLocalizations.enterEndTime;
                         }
 
-                        final parsedTimeOfDay = tryParseTimeOfDay(value);
+                        final parsedTimeOfDay =
+                            TimeOfDayExtension.tryParse(value);
 
                         if (parsedTimeOfDay == null) {
                           return appLocalizations.enterEndTime;
@@ -230,22 +227,15 @@ class _BookingFormState extends State<BookingForm> {
                           _endTime = parsedTimeOfDay;
                         }
 
-                        final parsedDateTime = dateTimeWithTimeOfDay(
-                          dateTime: widget.booking.date,
-                          timeOfDay: parsedTimeOfDay,
-                        );
+                        final parsedDateTime =
+                            widget.booking.date!.addTimeOfDay(parsedTimeOfDay);
 
                         if (parsedDateTime.isBefore(
-                              dateTimeWithTimeOfDay(
-                                dateTime: widget.booking.date,
-                                timeOfDay: _startTime,
-                              ),
+                              widget.booking.date!.addTimeOfDay(_startTime),
                             ) ||
                             parsedDateTime.isAfter(
-                              dateTimeWithTimeOfDay(
-                                dateTime: widget.booking.date,
-                                timeOfDay: kTimeTableEndTime,
-                              ),
+                              widget.booking.date!
+                                  .addTimeOfDay(kTimeTableEndTime),
                             )) {
                           return appLocalizations.enterValidRange;
                         }
@@ -277,7 +267,8 @@ class _BookingFormState extends State<BookingForm> {
                         });
                       },
                       onSaved: (value) {
-                        _booking.endTime = tryParseTimeOfDay(value ?? '');
+                        _booking.endTime =
+                            TimeOfDayExtension.tryParse(value ?? '');
                       },
                       decoration: InputDecoration(
                         labelText: appLocalizations.end,

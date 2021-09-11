@@ -1,6 +1,6 @@
 import 'package:cabin_booking/constants.dart';
 import 'package:cabin_booking/model/day_handler.dart';
-import 'package:cabin_booking/utils/datetime.dart';
+import 'package:cabin_booking/utils/date_time_extension.dart';
 import 'package:cabin_booking/widgets/layout/horizontal_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -19,14 +19,10 @@ class CurrentTimeIndicator extends StatelessWidget {
       builder: (context) {
         final dayHandler = Provider.of<DayHandler>(context);
 
-        final viewStartDateTime = dateTimeWithTimeOfDay(
-          dateTime: dayHandler.dateTime,
-          timeOfDay: kTimeTableStartTime,
-        );
-        final viewEndDateTime = dateTimeWithTimeOfDay(
-          dateTime: dayHandler.dateTime,
-          timeOfDay: kTimeTableEndTime,
-        );
+        final viewStartDateTime =
+            dayHandler.dateTime.addTimeOfDay(kTimeTableStartTime);
+        final viewEndDateTime =
+            dayHandler.dateTime.addTimeOfDay(kTimeTableEndTime);
 
         final now = DateTime.now();
         final durationFromStart = now.difference(viewStartDateTime);

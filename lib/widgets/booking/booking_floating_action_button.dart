@@ -3,8 +3,8 @@ import 'package:cabin_booking/model/booking.dart';
 import 'package:cabin_booking/model/cabin_manager.dart';
 import 'package:cabin_booking/model/day_handler.dart';
 import 'package:cabin_booking/model/recurring_booking.dart';
-import 'package:cabin_booking/utils/datetime.dart';
-import 'package:cabin_booking/utils/show_booking_dialog.dart';
+import 'package:cabin_booking/utils/date_time_extension.dart';
+import 'package:cabin_booking/utils/dialog.dart';
 import 'package:cabin_booking/widgets/standalone/floating_action_button/floating_action_button_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -36,7 +36,7 @@ class BookingFloatingActionButton extends StatelessWidget {
             showNewBookingDialog(
               context: context,
               booking: Booking(
-                date: dateOnly(dayHandler.dateTime),
+                date: dayHandler.dateTime.dateOnly,
                 startTime: kTimeTableStartTime,
                 endTime: kTimeTableStartTime.replacing(
                   hour: (kTimeTableStartTime.hour + 1) % TimeOfDay.hoursPerDay,
@@ -57,7 +57,7 @@ class BookingFloatingActionButton extends StatelessWidget {
                 showNewBookingDialog(
                   context: context,
                   booking: RecurringBooking(
-                    date: dateOnly(dayHandler.dateTime),
+                    date: dayHandler.dateTime.dateOnly,
                     startTime: kTimeTableStartTime,
                     endTime: kTimeTableStartTime.replacing(
                       hour: (kTimeTableStartTime.hour + 1) %
@@ -80,7 +80,7 @@ class BookingFloatingActionButton extends StatelessWidget {
                 showNewBookingDialog(
                   context: context,
                   booking: Booking(
-                    date: dateOnly(dayHandler.dateTime),
+                    date: dayHandler.dateTime.dateOnly,
                     startTime: kTimeTableStartTime,
                     endTime: kTimeTableStartTime.replacing(
                       hour: (kTimeTableStartTime.hour + 1) %

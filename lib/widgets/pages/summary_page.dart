@@ -1,7 +1,8 @@
 import 'package:cabin_booking/model/cabin_manager.dart';
 import 'package:cabin_booking/model/day_handler.dart';
-import 'package:cabin_booking/utils/colors.dart';
-import 'package:cabin_booking/utils/datetime.dart';
+import 'package:cabin_booking/utils/color_extension.dart';
+import 'package:cabin_booking/utils/date_time_extension.dart';
+import 'package:cabin_booking/utils/map_extension.dart';
 import 'package:cabin_booking/widgets/layout/detailed_figure.dart';
 import 'package:cabin_booking/widgets/layout/duration_figure_unit.dart';
 import 'package:cabin_booking/widgets/layout/heading.dart';
@@ -122,8 +123,9 @@ class SummaryPage extends StatelessWidget {
                   icon: Icons.watch_later,
                   items: [
                     PopularTimesBarChart(
-                      timeRangesOccupancy: fillEmptyKeyValues(
-                        cabinManager.accumulatedTimeRangesOccupancy(),
+                      timeRangesOccupancy: cabinManager
+                          .accumulatedTimeRangesOccupancy()
+                          .fillEmptyKeyValues(
                         keys: [
                           for (var i = 9; i < 22; i++)
                             TimeOfDay(hour: i, minute: 0),
@@ -146,17 +148,20 @@ class SummaryPage extends StatelessWidget {
                     input: cabinManager.allCabinsBookingsCountPerDay,
                     dayValueWrapper: appLocalizations.nBookings,
                     showLegend: true,
-                    colorThresholds: mapColorsToHighestValue(
-                      highestValue: cabinManager.mostBookedDayEntry?.value ?? 1,
-                      color: Theme.of(context).colorScheme.secondary,
-                      colorSamples: 8,
-                    ),
+                    colorThresholds: Theme.of(context)
+                        .colorScheme
+                        .secondary
+                        .opacityThresholds(
+                          highestValue:
+                              cabinManager.mostBookedDayEntry?.value ?? 1,
+                          samples: 8,
+                        ),
                     firstWeekDay: DateTime.monday,
                     firstDate:
                         dayHandler.schoolYearManager.schoolYear?.startDate,
                     lastDate: dayHandler.schoolYearManager.schoolYear?.endDate,
                     highlightToday: true,
-                    highlightOn: (date) => isSameDay(date, dayHandler.dateTime),
+                    highlightOn: (date) => date.isSameDate(dayHandler.dateTime),
                     onDayTap: setNavigationPage == null
                         ? null
                         : (dateTime, value) {

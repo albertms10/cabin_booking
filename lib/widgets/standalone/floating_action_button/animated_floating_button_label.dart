@@ -1,4 +1,4 @@
-import 'package:cabin_booking/utils/map_number.dart';
+import 'package:cabin_booking/utils/num_extension.dart';
 import 'package:flutter/material.dart';
 
 class AnimatedFloatingButtonLabel extends AnimatedWidget {
@@ -23,8 +23,7 @@ class AnimatedFloatingButtonLabel extends AnimatedWidget {
       margin: const EdgeInsets.only(right: 18.0),
       padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 8.0),
       child: Opacity(
-        opacity: mapNumber(
-          animation.value,
+        opacity: animation.value.map(
           inMin: (tween.end ?? 0.0) / 2.0,
           inMax: tween.end ?? 0.0,
         ),
