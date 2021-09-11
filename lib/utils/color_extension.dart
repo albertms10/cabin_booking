@@ -20,7 +20,7 @@ extension ColorExtension on Color {
 
       if (currentValue <= 1) continue;
 
-      final colorValue = currentValue.map(inMax: highestValue);
+      final colorValue = currentValue.map(inMax: highestValue).toDouble();
 
       if (!colorMap.containsKey(currentValue)) {
         colorMap.addAll({currentValue: withOpacity(colorValue)});
