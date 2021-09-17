@@ -93,7 +93,7 @@ jobs:
 
       - run: flutter config --enable-macos-desktop
       - run: flutter pub get
-      - run: flutter build macos
+      - run: flutter build macos --obfuscate --split-debug-info=cabin_booking/
 
       - if: ${{ github.event_name == 'push' }}
         name: 'Tar app'
