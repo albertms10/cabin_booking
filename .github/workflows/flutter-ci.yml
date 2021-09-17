@@ -20,8 +20,11 @@ jobs:
 
       - run: flutter format --set-exit-if-changed .
       - run: flutter analyze --fatal-infos
-      - run: flutter test
-
+      - run: flutter test --coverage
+      - name: Coveralls GitHub Action
+        uses: coverallsapp/github-action@1.1.3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
   ios-build:
     name: iOS build
