@@ -161,7 +161,8 @@ class SummaryPage extends StatelessWidget {
                         dayHandler.schoolYearManager.schoolYear?.startDate,
                     lastDate: dayHandler.schoolYearManager.schoolYear?.endDate,
                     highlightToday: true,
-                    highlightOn: (date) => date.isSameDate(dayHandler.dateTime),
+                    highlightOn: (date) =>
+                        date.isSameDateAs(dayHandler.dateTime),
                     onDayTap: setNavigationPage == null
                         ? null
                         : (dateTime, value) {

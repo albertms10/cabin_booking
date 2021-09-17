@@ -166,7 +166,7 @@ class BookingManager with ChangeNotifier {
 
     for (final booking in bookingsList) {
       final shouldAddDate = dates.firstWhereOrNull(
-            (date) => booking.date != null && date.isSameDate(booking.date!),
+            (date) => booking.date != null && date.isSameDateAs(booking.date!),
           ) !=
           null;
 
