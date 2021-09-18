@@ -1,8 +1,8 @@
 import 'package:cabin_booking/model/cabin_manager.dart';
 import 'package:cabin_booking/model/day_handler.dart';
 import 'package:cabin_booking/model/school_year.dart';
+import 'package:cabin_booking/utils/iterable_extension.dart';
 import 'package:cabin_booking/utils/map_extension.dart';
-import 'package:cabin_booking/utils/set_extension.dart';
 import 'package:cabin_booking/widgets/item/items_table.dart';
 import 'package:cabin_booking/widgets/school_year/school_year_dialog.dart';
 import 'package:flutter/material.dart';
@@ -64,7 +64,8 @@ class SchoolYearsTable extends StatelessWidget {
                         hour: (timeOfDay.hour + 1) % TimeOfDay.hoursPerDay,
                       ),
                       inclusive: true,
-                    ),
+                    )
+                    .toSet(),
               ),
           ],
         );
