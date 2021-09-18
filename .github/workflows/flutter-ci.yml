@@ -38,7 +38,7 @@ jobs:
       - uses: subosito/flutter-action@v1
 
       - run: flutter pub get
-      - run: flutter build ios --release --no-codesign
+      - run: flutter build ios --release --no-codesign --obfuscate --split-debug-info=cabin_booking/
 
       - if: ${{ github.event_name == 'push' }}
         name: 'Tar app'
@@ -67,7 +67,7 @@ jobs:
       - uses: subosito/flutter-action@v1
 
       - run: flutter pub get
-      - run: flutter build apk
+      - run: flutter build apk --obfuscate --split-debug-info=cabin_booking/
 
       - if: ${{ github.event_name == 'push' }}
         name: 'Tar app'
@@ -93,7 +93,7 @@ jobs:
 
       - run: flutter config --enable-macos-desktop
       - run: flutter pub get
-      - run: flutter build macos
+      - run: flutter build macos --obfuscate --split-debug-info=cabin_booking/
 
       - if: ${{ github.event_name == 'push' }}
         name: 'Tar app'
@@ -119,7 +119,7 @@ jobs:
 
       - run: flutter config --enable-windows-desktop
       - run: flutter pub get
-      - run: flutter build windows
+      - run: flutter build windows --obfuscate --split-debug-info=cabin_booking/
 
       - if: ${{ github.event_name == 'push' }}
         name: 'Tar app'
