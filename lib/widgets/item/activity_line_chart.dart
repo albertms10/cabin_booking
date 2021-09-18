@@ -23,7 +23,7 @@ class ActivityLineChart extends StatelessWidget {
       condition: tooltipMessage != null,
       conditionalBuilder: (child) {
         return Tooltip(
-          message: tooltipMessage,
+          message: tooltipMessage!,
           child: child,
         );
       },

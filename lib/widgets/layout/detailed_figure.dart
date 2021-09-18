@@ -26,7 +26,7 @@ class DetailedFigure<T> extends StatelessWidget {
       condition: filteredDetails.length > 1 && tooltipMessage != null,
       conditionalBuilder: (child) {
         return Tooltip(
-          message: tooltipMessage,
+          message: tooltipMessage!,
           child: child,
         );
       },
