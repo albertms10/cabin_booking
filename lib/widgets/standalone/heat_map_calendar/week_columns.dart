@@ -1,4 +1,4 @@
-import 'package:cabin_booking/utils/int_extension.dart';
+import 'package:cabin_booking/utils/num_extension.dart';
 import 'package:flutter/material.dart';
 
 import 'heat_map_calendar.dart';
@@ -54,7 +54,7 @@ class WeekColumns extends StatelessWidget {
     var columnItems = <Widget>[];
     final months = <int>[];
 
-    var runWeekDayCount = (dateList.first.weekday - firstWeekDay).weekDayMod();
+    var runWeekDayCount = (dateList.first.weekday - firstWeekDay).weekdayMod();
     var isFirstColumn = true;
 
     for (var i = 0; i < amount; i++) {
