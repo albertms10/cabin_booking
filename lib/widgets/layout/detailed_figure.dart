@@ -1,4 +1,4 @@
-import 'package:cabin_booking/utils/widget.dart';
+import 'package:cabin_booking/widgets/layout/conditional_widget_wrap.dart';
 import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
 
@@ -26,9 +26,14 @@ class DetailedFigure<T> extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return tooltipWrap(
-      tooltipMessage: tooltipMessage,
+    return ConditionalParentWidget(
       condition: filteredDetails.length > 1 && tooltipMessage != null,
+      conditionalBuilder: (child) {
+        return Tooltip(
+          message: tooltipMessage,
+          child: child,
+        );
+      },
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
