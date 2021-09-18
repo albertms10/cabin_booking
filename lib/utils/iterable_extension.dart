@@ -1,4 +1,9 @@
+import 'package:collection/collection.dart' show IterableExtension;
+
 extension IterableExtension<E> on Iterable<E> {
+  Iterable<E> get filterFalsy =>
+      whereNot((element) => const [false, 0, '', null].contains(element));
+
   /// Returns a compactized representation of this Iterable
   /// based on [nextValue], which:
   ///
