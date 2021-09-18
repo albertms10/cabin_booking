@@ -67,7 +67,7 @@ void main() {
 
   group('toDouble', () {
     test('should return a double representation of this DateTime', () {
-      expect(DateTime(2021, 1, 10, 9, 30).toDouble(), closeTo(18637.35, 0.01));
+      expect(DateTime(2021, 1, 10, 9, 30).toDouble(), closeTo(18637.3, 0.1));
     });
   });
 }
