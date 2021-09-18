@@ -27,7 +27,7 @@ extension TimeOfDayExtension on TimeOfDay {
         minutes: other.minute - minute,
       );
 
-  String format24Hour() => '${hour.pad2}:${minute.pad2}';
+  String format24Hour() => '${hour.padLeft2}:${minute.padLeft2}';
 
   int compareTo(TimeOfDay other) =>
       (hour - other.hour) * 60 + minute - other.minute;
