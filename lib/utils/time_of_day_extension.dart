@@ -27,10 +27,10 @@ extension TimeOfDayExtension on TimeOfDay {
 
     if ((hour >= 0 && hour < TimeOfDay.hoursPerDay) &&
         (minute >= 0 && minute < TimeOfDay.minutesPerHour)) {
-      throw FormatException('Time out of range', formattedString);
+      return TimeOfDay(hour: hour, minute: minute);
     }
 
-    return TimeOfDay(hour: hour, minute: minute);
+    throw FormatException('Time out of range', formattedString);
   }
 
   /// Constructs a new [TimeOfDay] instance based on [formattedString].
