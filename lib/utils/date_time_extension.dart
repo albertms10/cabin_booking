@@ -10,7 +10,7 @@ extension DateTimeExtension on DateTime {
         ' ${(timeOfDay ?? TimeOfDay.now()).format24Hour()}',
       )!;
 
-  bool isSameDate(DateTime other) =>
+  bool isSameDateAs(DateTime other) =>
       year == other.year && month == other.month && day == other.day;
 
   DateTime get firstDayOfWeek =>

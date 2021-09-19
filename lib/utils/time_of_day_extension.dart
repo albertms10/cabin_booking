@@ -22,13 +22,18 @@ extension TimeOfDayExtension on TimeOfDay {
 
   static int compare(TimeOfDay a, TimeOfDay b) => a.compareTo(b);
 
+  int get inMinutes => hour * TimeOfDay.minutesPerHour + minute;
+
+  int compareTo(TimeOfDay? other) {
+    if (other == null) return 1;
+    if (other == this) return 0;
+    return inMinutes.compareTo(other.inMinutes);
+  }
+
   Duration durationBetween(TimeOfDay other) => Duration(
         hours: other.hour - hour,
         minutes: other.minute - minute,
       );
 
-  String format24Hour() => '${hour.pad2}:${minute.pad2}';
-
-  int compareTo(TimeOfDay other) =>
-      (hour - other.hour) * 60 + minute - other.minute;
+  String format24Hour() => '${hour.padLeft2}:${minute.padLeft2}';
 }

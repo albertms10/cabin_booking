@@ -8,34 +8,48 @@ on:
     types: [opened, synchronize, ready_for_review, reopened]
 
 jobs:
-  analyze:
-    name: Analyze
+  analyze-and-test:
+    name: Analyze and test
     runs-on: ubuntu-latest
     timeout-minutes: 3
     if: ${{ github.event.pull_request.draft == false }}
 
     steps:
       - uses: actions/checkout@v2
+      - name: Cache Flutter dependencies
+        uses: actions/cache@v1
+        with:
+          path: /opt/hostedtoolcache/flutter
+          key: ubuntu-latest-flutter
       - uses: subosito/flutter-action@v1
 
       - run: flutter format --set-exit-if-changed .
       - run: flutter analyze --fatal-infos
-    # - run: flutter test
+      - run: flutter test --coverage
+      - name: Coveralls GitHub Action
+        uses: coverallsapp/github-action@1.1.3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
 
   ios-build:
     name: iOS build
     runs-on: macos-latest
-    needs: [analyze]
+    needs: [analyze-and-test]
     timeout-minutes: 10
     if: ${{ github.event.pull_request.draft == false }}
 
     steps:
       - uses: actions/checkout@v2
+      - name: Cache Flutter dependencies
+        uses: actions/cache@v1
+        with:
+          path: /Users/runner/hostedtoolcache/flutter
+          key: macos-latest-flutter
       - uses: subosito/flutter-action@v1
 
       - run: flutter pub get
-      - run: flutter build ios --release --no-codesign
+      - run: flutter build ios --release --no-codesign --obfuscate --split-debug-info=cabin_booking/
 
       - if: ${{ github.event_name == 'push' }}
         name: 'Tar app'
@@ -51,7 +65,7 @@ jobs:
   android-build:
     name: Android build
     runs-on: ubuntu-latest
-    needs: [analyze]
+    needs: [analyze-and-test]
     timeout-minutes: 10
     if: ${{ github.event.pull_request.draft == false }}
 
@@ -61,10 +75,15 @@ jobs:
         with:
           distribution: 'adopt'
           java-version: '12.x'
+      - name: Cache Flutter dependencies
+        uses: actions/cache@v1
+        with:
+          path: /opt/hostedtoolcache/flutter
+          key: ubuntu-latest-flutter
       - uses: subosito/flutter-action@v1
 
       - run: flutter pub get
-      - run: flutter build apk
+      - run: flutter build apk --obfuscate --split-debug-info=cabin_booking/
 
       - if: ${{ github.event_name == 'push' }}
         name: 'Tar app'
@@ -80,17 +99,22 @@ jobs:
   macos-build:
     name: macOS build
     runs-on: macos-latest
-    needs: [analyze]
+    needs: [analyze-and-test]
     timeout-minutes: 10
     if: ${{ github.event.pull_request.draft == false }}
 
     steps:
       - uses: actions/checkout@v2
+      - name: Cache Flutter dependencies
+        uses: actions/cache@v1
+        with:
+          path: /Users/runner/hostedtoolcache/flutter
+          key: macos-latest-flutter
       - uses: subosito/flutter-action@v1
 
       - run: flutter config --enable-macos-desktop
       - run: flutter pub get
-      - run: flutter build macos
+      - run: flutter build macos --obfuscate --split-debug-info=cabin_booking/
 
       - if: ${{ github.event_name == 'push' }}
         name: 'Tar app'
@@ -106,7 +130,7 @@ jobs:
   windows-build:
     name: Windows build
     runs-on: windows-latest
-    needs: [analyze]
+    needs: [analyze-and-test]
     timeout-minutes: 10
     if: ${{ github.event.pull_request.draft == false }}
 
@@ -116,7 +140,7 @@ jobs:
 
       - run: flutter config --enable-windows-desktop
       - run: flutter pub get
-      - run: flutter build windows
+      - run: flutter build windows --obfuscate --split-debug-info=cabin_booking/
 
       - if: ${{ github.event_name == 'push' }}
         name: 'Tar app'
@@ -132,12 +156,17 @@ jobs:
   web-build:
     name: Web build
     runs-on: ubuntu-latest
-    needs: [analyze]
+    needs: [analyze-and-test]
     timeout-minutes: 10
     if: ${{ github.event.pull_request.draft == false }}
 
     steps:
       - uses: actions/checkout@v2
+      - name: Cache Flutter dependencies
+        uses: actions/cache@v1
+        with:
+          path: /opt/hostedtoolcache/flutter
+          key: ubuntu-latest-flutter
       - uses: subosito/flutter-action@v1
 
       - run: flutter config --enable-web

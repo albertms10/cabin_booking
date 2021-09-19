@@ -93,7 +93,7 @@ class Booking extends Item {
 
   String get dateTimeRange => '${DateFormat.yMd().format(date!)} $timeRange';
 
-  bool isOn(DateTime dateTime) => date?.isSameDate(dateTime) ?? false;
+  bool isOn(DateTime dateTime) => date?.isSameDateAs(dateTime) ?? false;
 
   bool isBetween(DateRange dateRange) => dateRange.includes(startDateTime);
 

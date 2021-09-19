@@ -1,5 +1,5 @@
-import 'package:cabin_booking/utils/widget.dart';
-import 'package:collection/collection.dart' show IterableExtension;
+import 'package:cabin_booking/utils/iterable_extension.dart';
+import 'package:cabin_booking/widgets/layout/conditional_widget_wrap.dart';
 import 'package:flutter/material.dart';
 
 class DetailedFigure<T> extends StatelessWidget {
@@ -16,19 +16,20 @@ class DetailedFigure<T> extends StatelessWidget {
     this.tooltipMessage,
   }) : super(key: key);
 
-  List<T> _filterIfEmpty(List<T> details) => details
-      .whereNot((detail) => const [0, '', null].contains(detail))
-      .toList();
-
-  List<T> get filteredDetails => _filterIfEmpty(details);
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return tooltipWrap(
-      tooltipMessage: tooltipMessage,
+    final filteredDetails = details.filterFalsy;
+
+    return ConditionalParentWidget(
       condition: filteredDetails.length > 1 && tooltipMessage != null,
+      conditionalBuilder: (child) {
+        return Tooltip(
+          message: tooltipMessage!,
+          child: child,
+        );
+      },
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -42,7 +43,7 @@ class DetailedFigure<T> extends StatelessWidget {
               child: Row(
                 children: [
                   for (var i = 0; i < filteredDetails.length; i++) ...[
-                    Text('${filteredDetails[i]}'),
+                    Text('${filteredDetails.elementAt(i)}'),
                     if (i < filteredDetails.length - 1)
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 2.0),

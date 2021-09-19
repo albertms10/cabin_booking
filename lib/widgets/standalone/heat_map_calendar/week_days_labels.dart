@@ -1,4 +1,4 @@
-import 'package:cabin_booking/utils/int_extension.dart';
+import 'package:cabin_booking/utils/num_extension.dart';
 import 'package:flutter/material.dart';
 
 import 'utils/time.dart';
@@ -28,7 +28,7 @@ class WeekDaysLabels extends StatelessWidget {
               padding: EdgeInsets.only(right: space),
               alignment: Alignment.centerLeft,
               child: Text(
-                weekDaysLabels[i.weekDayMod(firstWeekDay - 1)],
+                weekDaysLabels[i.weekdayMod(firstWeekDay - 1).toInt()],
                 style: Theme.of(context).textTheme.caption,
               ),
             )
