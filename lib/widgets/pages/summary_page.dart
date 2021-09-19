@@ -174,7 +174,7 @@ class _SummaryPageState extends State<SummaryPage>
                     highlightToday: true,
                     highlightOn: (date) =>
                         date.isSameDateAs(dayHandler.dateTime),
-                    onDayTap: setNavigationPage == null
+                    onDayTap: widget.setNavigationPage == null
                         ? null
                         : (dateTime, value) {
                             dayHandler.dateTime = dateTime;
