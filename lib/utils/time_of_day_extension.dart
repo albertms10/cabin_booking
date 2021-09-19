@@ -45,6 +45,18 @@ extension TimeOfDayExtension on TimeOfDay {
     }
   }
 
+  /// Returns a [Duration] with the difference when subtracting [other] from
+  /// this [TimeOfDay].
+  Duration difference(TimeOfDay other) => Duration(
+        hours: (other.hour - hour) % TimeOfDay.hoursPerDay,
+        minutes: (other.minute - minute) % TimeOfDay.minutesPerHour,
+      );
+
+  /// Returns the 24-hour formatted string representation of this [TimeOfDay],
+  /// separated with ':'.
+  String format24Hour() => '${hour.padLeft2}:${minute.padLeft2}';
+
+  // TODO(albertms10): remove when implemented in Flutter, https://github.com/flutter/flutter/pull/59981
   static int compare(TimeOfDay a, TimeOfDay b) => a.compareTo(b);
 
   int get inMinutes => hour * TimeOfDay.minutesPerHour + minute;
@@ -54,11 +66,4 @@ extension TimeOfDayExtension on TimeOfDay {
     if (other == this) return 0;
     return inMinutes.compareTo(other.inMinutes);
   }
-
-  Duration durationBetween(TimeOfDay other) => Duration(
-        hours: other.hour - hour,
-        minutes: other.minute - minute,
-      );
-
-  String format24Hour() => '${hour.padLeft2}:${minute.padLeft2}';
 }

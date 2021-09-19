@@ -70,11 +70,9 @@ class Booking extends Item {
         minute: 0,
       );
 
-      final nextTime = nextHour.durationBetween(endTime!) <= Duration.zero
-          ? endTime!
-          : nextHour;
-
-      final currentDuration = runTime.durationBetween(nextTime);
+      final nextTime =
+          nextHour.difference(endTime!) <= Duration.zero ? endTime! : nextHour;
+      final currentDuration = runTime.difference(nextTime);
 
       runDuration += currentDuration;
 
