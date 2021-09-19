@@ -4,13 +4,13 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('DateTimeExtension', () {
-    group('dateOnly', () {
+    group('.dateOnly', () {
       test('should return only the date information of this DateTime', () {
         expect(DateTime(2021, 9, 7, 21, 30, 10).dateOnly, DateTime(2021, 9, 7));
       });
     });
 
-    group('addTimeOfDay', () {
+    group('.addTimeOfDay', () {
       test('should return a new DateTime adding the TimeOfDay information', () {
         expect(
           DateTime(2021, 9, 7)
@@ -29,7 +29,7 @@ void main() {
       });
     });
 
-    group('isSameDateAs', () {
+    group('.isSameDateAs', () {
       test('should return true when the dates are the same', () {
         expect(
           DateTime(2021, 9, 7, 21, 30, 10)
@@ -47,7 +47,7 @@ void main() {
       });
     });
 
-    group('firstDayOfWeek', () {
+    group('.firstDayOfWeek', () {
       test(
           'should return the first day of the week relative to this DateTime, '
           'whose weekday are the same', () {
@@ -67,7 +67,7 @@ void main() {
       });
     });
 
-    group('toDouble', () {
+    group('.toDouble', () {
       test('should return a double representation of this DateTime', () {
         expect(DateTime(2021, 1, 10, 9, 30).toDouble(), closeTo(18637.3, 0.1));
       });

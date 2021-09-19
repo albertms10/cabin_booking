@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('IterableExtension', () {
-    group('filterFalsy', () {
+    group('.filterFalsy', () {
       test('should return this Iterable excluding falsy values', () {
         expect(
           const [true, false, 0, 1, 'Hello', 'world', '', null].filterFalsy,
@@ -13,7 +13,7 @@ void main() {
       });
     });
 
-    group('compactizeRange', () {
+    group('.compactizeRange', () {
       test('should return a compactized Iterable<num>', () {
         expect(
           const [1, 2, 3, 4, 5.0, 7, 8, 9, 11].compactizeRange(),
@@ -60,7 +60,7 @@ void main() {
 
       test(
           'should return an inclusive compactized Iterable<DateTime> '
-          'providing a custom nextValue callback', () {
+          'providing a custom nextValue and compare callbacks', () {
         expect(
           [
             DateTime(2021, 8, 30, 9, 30),
