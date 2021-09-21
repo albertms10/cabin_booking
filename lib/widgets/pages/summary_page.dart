@@ -16,13 +16,24 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-class SummaryPage extends StatelessWidget {
+class SummaryPage extends StatefulWidget {
   final void Function(AppPages)? setNavigationPage;
 
   const SummaryPage({Key? key, this.setNavigationPage}) : super(key: key);
 
   @override
+  State<SummaryPage> createState() => _SummaryPageState();
+}
+
+class _SummaryPageState extends State<SummaryPage>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
+
     final appLocalizations = AppLocalizations.of(context)!;
 
     return Consumer2<DayHandler, CabinManager>(
@@ -38,10 +49,10 @@ class SummaryPage extends StatelessWidget {
                 Statistics(
                   title: appLocalizations.bookings,
                   icon: Icons.event,
-                  onTap: setNavigationPage == null
+                  onTap: widget.setNavigationPage == null
                       ? null
                       : () {
-                          setNavigationPage!.call(AppPages.bookings);
+                          widget.setNavigationPage!.call(AppPages.bookings);
                         },
                   items: [
                     StatisticItem(
@@ -67,10 +78,10 @@ class SummaryPage extends StatelessWidget {
                 Statistics(
                   title: appLocalizations.cabins,
                   icon: Icons.sensor_door,
-                  onTap: setNavigationPage == null
+                  onTap: widget.setNavigationPage == null
                       ? null
                       : () {
-                          setNavigationPage!.call(AppPages.cabins);
+                          widget.setNavigationPage!.call(AppPages.cabins);
                         },
                   items: [
                     StatisticSimpleItem(
@@ -82,10 +93,10 @@ class SummaryPage extends StatelessWidget {
                 Statistics(
                   title: appLocalizations.schoolYears,
                   icon: Icons.school,
-                  onTap: setNavigationPage == null
+                  onTap: widget.setNavigationPage == null
                       ? null
                       : () {
-                          setNavigationPage!.call(AppPages.schoolYears);
+                          widget.setNavigationPage!.call(AppPages.schoolYears);
                         },
                   items: [
                     StatisticSimpleItem(
@@ -103,12 +114,12 @@ class SummaryPage extends StatelessWidget {
                   Statistics(
                     title: appLocalizations.mostBookedDay,
                     icon: Icons.calendar_today,
-                    onTap: setNavigationPage == null
+                    onTap: widget.setNavigationPage == null
                         ? null
                         : () {
                             dayHandler.dateTime =
                                 cabinManager.mostBookedDayEntry!.key;
-                            setNavigationPage!.call(AppPages.bookings);
+                            widget.setNavigationPage!.call(AppPages.bookings);
                           },
                     items: [
                       StatisticSimpleItem(
@@ -163,11 +174,11 @@ class SummaryPage extends StatelessWidget {
                     highlightToday: true,
                     highlightOn: (date) =>
                         date.isSameDateAs(dayHandler.dateTime),
-                    onDayTap: setNavigationPage == null
+                    onDayTap: widget.setNavigationPage == null
                         ? null
                         : (dateTime, value) {
                             dayHandler.dateTime = dateTime;
-                            setNavigationPage!.call(AppPages.bookings);
+                            widget.setNavigationPage!.call(AppPages.bookings);
                           },
                     legendLessLabel: appLocalizations.less,
                     legendMoreLabel: appLocalizations.more,

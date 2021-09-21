@@ -1,5 +1,4 @@
 import 'package:cabin_booking/constants.dart';
-import 'package:cabin_booking/model/cabin.dart';
 import 'package:cabin_booking/model/cabin_manager.dart';
 import 'package:cabin_booking/model/day_handler.dart';
 import 'package:cabin_booking/widgets/booking/bookings_table.dart';
@@ -51,15 +50,37 @@ class ScrollableTimeTable extends StatelessWidget {
                     rightHandSideColumnWidth:
                         bookingStackWidth * cabinManager.cabins.length,
                     isFixedHeader: true,
-                    headerWidgets: _getTitleWidget(
-                      context,
-                      cabinManager.cabins,
-                      bookingStackWidth,
-                    ),
-                    leftSideItemBuilder: (context, index) => const TimeColumn(),
-                    rightSideItemBuilder: (context, index) =>
-                        const BookingsTable(),
-                    itemCount: 1, // Hacking the widget a little bit
+                    headerWidgets: [
+                      Container(height: kBookingHeaderHeight),
+                      Container(
+                        color: theme.dialogBackgroundColor,
+                        height: kBookingHeaderHeight,
+                        padding: const EdgeInsets.symmetric(vertical: 24.0),
+                        child: Row(
+                          children: [
+                            for (final cabin in cabinManager.cabins)
+                              SizedBox(
+                                width: bookingStackWidth,
+                                child: CabinIcon(
+                                  number: cabin.number,
+                                  progress: cabin.occupancyPercentOn(
+                                    dayHandler.dateTime,
+                                    startTime: kTimeTableStartTime,
+                                    endTime: kTimeTableEndTime,
+                                  ),
+                                ),
+                              ),
+                          ],
+                        ),
+                      ),
+                    ],
+                    leftSideItemBuilder: (context, index) {
+                      return const TimeColumn();
+                    },
+                    rightSideItemBuilder: (context, index) {
+                      return const BookingsTable();
+                    },
+                    itemCount: 1,
                     rowSeparatorWidget: const Divider(
                       color: Colors.black54,
                       height: 1.0,
@@ -84,49 +105,6 @@ class ScrollableTimeTable extends StatelessWidget {
               ),
             );
           },
-        ),
-      ),
-    );
-  }
-
-  List<Widget> _getTitleWidget(
-    BuildContext context,
-    Set<Cabin> cabins,
-    double bookingStackWidth,
-  ) {
-    final theme = Theme.of(context);
-
-    return [
-      Container(height: kBookingHeaderHeight),
-      Container(
-        color: theme.dialogBackgroundColor,
-        height: kBookingHeaderHeight,
-        padding: const EdgeInsets.symmetric(vertical: 24.0),
-        child: Row(
-          children: [
-            for (final cabin in cabins)
-              _getTitleIconWidget(context, cabin, bookingStackWidth),
-          ],
-        ),
-      ),
-    ];
-  }
-
-  Widget _getTitleIconWidget(
-    BuildContext context,
-    Cabin cabin,
-    double bookingStackWidth,
-  ) {
-    final dayHandler = Provider.of<DayHandler>(context);
-
-    return SizedBox(
-      width: bookingStackWidth,
-      child: CabinIcon(
-        number: cabin.number,
-        progress: cabin.occupancyPercentOn(
-          dayHandler.dateTime,
-          startTime: kTimeTableStartTime,
-          endTime: kTimeTableEndTime,
         ),
       ),
     );
