@@ -14,6 +14,24 @@ void main() {
     });
 
     group('.compactizeRange', () {
+      test('should throw an ArgumentError', () {
+        expect(() => const [true].compactizeRange(), throwsArgumentError);
+        expect(() => [() {}].compactizeRange(), throwsArgumentError);
+        expect(() => [[]].compactizeRange(), throwsArgumentError);
+        expect(
+          () => [
+            {''},
+          ].compactizeRange(),
+          throwsArgumentError,
+        );
+        expect(
+          () => [
+            {'': ''},
+          ].compactizeRange(),
+          throwsArgumentError,
+        );
+      });
+
       test('should return an empty Iterable', () {
         expect(const [].compactizeRange(), const []);
       });
