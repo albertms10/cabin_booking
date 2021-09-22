@@ -81,11 +81,9 @@ extension IterableExtension<E> on Iterable<E> {
         final a = elementAt(i);
         b = elementAt(i + 1);
 
-        if (!(compare ??= (a, b) => a == b)(nextValue(a), b)) {
-          ranges.add([
-            start,
-            if (inclusive) nextValue(a) else a,
-          ]);
+        final nextA = nextValue(a);
+        if (!(compare ??= (a, b) => a == b)(nextA, b)) {
+          ranges.add([start, if (inclusive) nextA else a]);
           start = b;
         }
       }
