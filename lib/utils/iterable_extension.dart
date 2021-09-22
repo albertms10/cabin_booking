@@ -55,17 +55,17 @@ extension IterableExtension<E> on Iterable<E> {
   /// );
   /// ```
   Iterable<List<E>> compactizeRange({
-    E Function(E a)? nextValue,
+    E Function(E current)? nextValue,
     bool Function(E a, E b)? compare,
     bool inclusive = false,
   }) {
     if (isEmpty) return const Iterable.empty();
 
-    if (E == num) {
-      nextValue ??= (a) => (a as num) + 1 as E;
+    if (E == num || E == int || E == double) {
+      nextValue ??= (current) => (current as num) + 1 as E;
     } else if (E == String) {
-      nextValue ??= (a) {
-        final charCodes = (a as String).codeUnits.map((a) => a + 1);
+      nextValue ??= (current) {
+        final charCodes = (current as String).codeUnits.map((a) => a + 1);
         return String.fromCharCodes(charCodes) as E;
       };
     } else if (nextValue == null) {
@@ -81,11 +81,9 @@ extension IterableExtension<E> on Iterable<E> {
         final a = elementAt(i);
         b = elementAt(i + 1);
 
-        if (!(compare ??= (a, b) => a == b)(nextValue(a), b)) {
-          ranges.add([
-            start,
-            if (inclusive) nextValue(a) else a,
-          ]);
+        final nextA = nextValue(a);
+        if (!(compare ??= (a, b) => a == b)(nextA, b)) {
+          ranges.add([start, if (inclusive) nextA else a]);
           start = b;
         }
       }
