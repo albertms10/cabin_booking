@@ -14,6 +14,28 @@ void main() {
     });
 
     group('.compactizeRange', () {
+      test('should return an empty Iterable', () {
+        expect(const [].compactizeRange(), const []);
+      });
+
+      test('should return one range pair', () {
+        expect(
+          const [1].compactizeRange(),
+          const [
+            [1, 1],
+          ],
+        );
+      });
+
+      test('should return one range pair, inclusive', () {
+        expect(
+          const [1].compactizeRange(inclusive: true),
+          const [
+            [1, 2],
+          ],
+        );
+      });
+
       test('should return a compactized Iterable<num>', () {
         expect(
           const [1, 2, 3, 4, 5.0, 7, 8, 9, 11].compactizeRange(),
