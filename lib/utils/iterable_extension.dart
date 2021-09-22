@@ -61,7 +61,7 @@ extension IterableExtension<E> on Iterable<E> {
   }) {
     if (isEmpty) return const Iterable.empty();
 
-    if (E == num) {
+    if (E == num || E == int || E == double) {
       nextValue ??= (a) => (a as num) + 1 as E;
     } else if (E == String) {
       nextValue ??= (a) {
