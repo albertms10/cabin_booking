@@ -49,7 +49,32 @@ linter:
     - use_test_throws_matchers
     - use_to_and_as_if_applicable
 
+dart_code_metrics:
+  metrics:
+    cyclomatic-complexity: 20
+    maximum-nesting-level: 5
+  metrics-exclude:
+    - test/**
+  rules:
+    - always-remove-listener
+  # - avoid-returning-widgets
+    - avoid-unnecessary-setstate
+    - avoid-wrapping-in-padding
+    - newline-before-return
+    - no-boolean-literal-compare
+    - no-equal-then-else
+    - prefer-conditional-expressions
+  # - prefer-extracting-callbacks
+    - prefer-trailing-comma
+    - prefer-single-widget-per-file:
+        ignore-private-widgets: true
+  anti-patterns:
+  # - long-parameter-list
+
 analyzer:
+  plugins:
+    - dart_code_metrics
+
   errors:
     always_put_required_named_parameters_first: ignore
     always_use_package_imports: ignore
