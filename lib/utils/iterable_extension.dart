@@ -66,6 +66,7 @@ extension IterableExtension<E> on Iterable<E> {
     } else if (E == String) {
       nextValue ??= (current) {
         final charCodes = (current as String).codeUnits.map((a) => a + 1);
+
         return String.fromCharCodes(charCodes) as E;
       };
     } else if (nextValue == null) {

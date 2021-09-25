@@ -72,6 +72,7 @@ DateTime addTZ(DateTime dateTime) {
 /// That prevents from problems with time shift if DST changed
 DateTime safeSubtract(DateTime dateTime, Duration duration) {
   final add = removeTZ(dateTime).subtract(duration);
+
   return addTZ(add);
 }
 
@@ -79,6 +80,7 @@ DateTime safeSubtract(DateTime dateTime, Duration duration) {
 /// That prevents from problems with time shift if DST changed
 DateTime safeAdd(DateTime dateTime, Duration duration) {
   final add = removeTZ(dateTime).add(duration);
+
   return addTZ(add);
 }
 

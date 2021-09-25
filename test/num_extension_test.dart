@@ -32,18 +32,22 @@ void main() {
 
     group('.padLeft2', () {
       test(
-          'should pad this [num] on the left with zeros '
-          'if it is shorter than 2.', () {
-        expect((-1).padLeft2, '01');
-        expect(4.padLeft2, '04');
-      });
+        'should pad this [num] on the left with zeros '
+        'if it is shorter than 2.',
+        () {
+          expect((-1).padLeft2, '01');
+          expect(4.padLeft2, '04');
+        },
+      );
 
       test(
-          'should return a string representation of this num '
-          'if it is longer than or equal to 2', () {
-        expect((-10).padLeft2, '10');
-        expect(500.padLeft2, '500');
-      });
+        'should return a string representation of this num '
+        'if it is longer than or equal to 2',
+        () {
+          expect((-10).padLeft2, '10');
+          expect(500.padLeft2, '500');
+        },
+      );
     });
   });
 }

@@ -53,6 +53,7 @@ class ConditionalParentWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (condition) return conditionalBuilder(child);
+
     return child;
   }
 }

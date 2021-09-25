@@ -76,7 +76,7 @@ class HeatMapDay extends StatelessWidget {
             verticalOffset: 14.0,
             message: [
               valueWrapper?.call(value) ?? '$value',
-              if (date != null) DateFormat.d().add_MMM().add_y().format(date!)
+              if (date != null) DateFormat.d().add_MMM().add_y().format(date!),
             ].join(' · '),
             child: container,
           );
