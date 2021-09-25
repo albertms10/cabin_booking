@@ -11,7 +11,7 @@ jobs:
   analyze-and-test:
     name: Analyze and test
     runs-on: ubuntu-latest
-    timeout-minutes: 3
+    timeout-minutes: 4
     if: ${{ github.event.pull_request.draft == false }}
 
     steps:
@@ -26,7 +26,13 @@ jobs:
       - run: flutter format --set-exit-if-changed .
       - run: flutter analyze --fatal-infos
       - run: flutter test --coverage
-      - name: Coveralls GitHub Action
+
+      - name: Run dart-code-metrics
+        uses: dart-code-checker/dart-code-metrics-action@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run Coveralls
         uses: coverallsapp/github-action@1.1.3
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
