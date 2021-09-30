@@ -19,14 +19,16 @@ void main() {
         );
       });
 
-      test('should return a new DateTime replacing the TimeOfDay information',
-          () {
-        expect(
-          DateTime(2021, 9, 7, 8, 15)
-              .addTimeOfDay(const TimeOfDay(hour: 21, minute: 30)),
-          DateTime(2021, 9, 7, 21, 30),
-        );
-      });
+      test(
+        'should return a new DateTime replacing the TimeOfDay information',
+        () {
+          expect(
+            DateTime(2021, 9, 7, 8, 15)
+                .addTimeOfDay(const TimeOfDay(hour: 21, minute: 30)),
+            DateTime(2021, 9, 7, 21, 30),
+          );
+        },
+      );
     });
 
     group('.isSameDateAs', () {
@@ -49,22 +51,26 @@ void main() {
 
     group('.firstDayOfWeek', () {
       test(
-          'should return the first day of the week relative to this DateTime, '
-          'whose weekday are the same', () {
-        expect(
-          DateTime(2021, 1, 10, 9, 30).firstDayOfWeek.weekday,
-          DateTime(2021, 1, 4).weekday,
-        );
-      });
+        'should return the first day of the week relative to this DateTime, '
+        'whose weekday are the same',
+        () {
+          expect(
+            DateTime(2021, 1, 10, 9, 30).firstDayOfWeek.weekday,
+            DateTime(2021, 1, 4).weekday,
+          );
+        },
+      );
 
       test(
-          'should return the first day of the week relative to this DateTime '
-          'while preserving time information', () {
-        expect(
-          DateTime(2021, 1, 10, 9, 30).firstDayOfWeek,
-          DateTime(2021, 1, 4, 9, 30),
-        );
-      });
+        'should return the first day of the week relative to this DateTime '
+        'while preserving time information',
+        () {
+          expect(
+            DateTime(2021, 1, 10, 9, 30).firstDayOfWeek,
+            DateTime(2021, 1, 4, 9, 30),
+          );
+        },
+      );
     });
 
     group('.toDouble', () {

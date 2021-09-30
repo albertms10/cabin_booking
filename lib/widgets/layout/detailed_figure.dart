@@ -22,7 +22,7 @@ class DetailedFigure<T> extends StatelessWidget {
 
     final filteredDetails = details.filterFalsy;
 
-    return ConditionalParentWidget(
+    return ConditionalWidgetWrap(
       condition: filteredDetails.length > 1 && tooltipMessage != null,
       conditionalBuilder: (child) {
         return Tooltip(

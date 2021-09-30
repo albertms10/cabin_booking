@@ -64,6 +64,7 @@ extension TimeOfDayExtension on TimeOfDay {
   int compareTo(TimeOfDay? other) {
     if (other == null) return 1;
     if (other == this) return 0;
+
     return inMinutes.compareTo(other.inMinutes);
   }
 }

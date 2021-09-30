@@ -79,7 +79,7 @@ class BookingCard extends StatelessWidget {
                           tileMode: TileMode.repeated,
                         ),
                       ),
-                child: BookingCardInfo(
+                child: _BookingCardInfo(
                   cabin: cabin,
                   booking: booking,
                   isRecurring: isRecurring,
@@ -93,12 +93,12 @@ class BookingCard extends StatelessWidget {
   }
 }
 
-class BookingCardInfo extends StatelessWidget {
+class _BookingCardInfo extends StatelessWidget {
   final Cabin cabin;
   final Booking booking;
   final bool isRecurring;
 
-  const BookingCardInfo({
+  const _BookingCardInfo({
     Key? key,
     required this.cabin,
     required this.booking,

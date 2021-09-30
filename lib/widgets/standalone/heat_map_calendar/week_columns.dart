@@ -1,3 +1,5 @@
+// ignore_for_file: avoid-returning-widgets
+
 import 'package:cabin_booking/utils/num_extension.dart';
 import 'package:flutter/material.dart';
 

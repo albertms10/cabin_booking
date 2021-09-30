@@ -16,8 +16,6 @@ class Statistics extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return Card(
       child: InkWell(
         onTap: onTap,
@@ -28,29 +26,7 @@ class Statistics extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               if (icon != null || title != null)
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 16.0),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    textBaseline: TextBaseline.ideographic,
-                    children: [
-                      if (icon != null)
-                        Padding(
-                          padding: const EdgeInsets.only(right: 8.0),
-                          child: Icon(
-                            icon,
-                            size: 18.0,
-                            color: theme.hintColor,
-                          ),
-                        ),
-                      if (title != null)
-                        Text(
-                          title!,
-                          style: theme.textTheme.subtitle1,
-                        ),
-                    ],
-                  ),
-                ),
+                _StatisticsHeading(title: title, icon: icon),
               Wrap(
                 spacing: 24.0,
                 runSpacing: 24.0,
@@ -64,52 +40,37 @@ class Statistics extends StatelessWidget {
   }
 }
 
-class StatisticItem extends StatelessWidget {
-  final String? label;
-  final Widget item;
+class _StatisticsHeading extends StatelessWidget {
+  final String? title;
+  final IconData? icon;
 
-  const StatisticItem({
-    Key? key,
-    this.label,
-    required this.item,
-  }) : super(key: key);
+  const _StatisticsHeading({Key? key, this.title, this.icon}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        if (label != null)
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8.0),
-            child: Text(
-              label!,
-              style: Theme.of(context).textTheme.subtitle2,
+    final theme = Theme.of(context);
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16.0),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        textBaseline: TextBaseline.ideographic,
+        children: [
+          if (icon != null)
+            Padding(
+              padding: const EdgeInsets.only(right: 8.0),
+              child: Icon(
+                icon,
+                size: 18.0,
+                color: theme.hintColor,
+              ),
             ),
-          ),
-        item,
-      ],
-    );
-  }
-}
-
-class StatisticSimpleItem<T> extends StatelessWidget {
-  final String? label;
-  final T value;
-
-  const StatisticSimpleItem({
-    Key? key,
-    this.label,
-    required this.value,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return StatisticItem(
-      label: label,
-      item: Text(
-        '$value',
-        style: Theme.of(context).textTheme.headline5,
+          if (title != null)
+            Text(
+              title!,
+              style: theme.textTheme.subtitle1,
+            ),
+        ],
       ),
     );
   }

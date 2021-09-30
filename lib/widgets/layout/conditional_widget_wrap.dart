@@ -32,7 +32,7 @@ import 'package:flutter/widgets.dart';
 ///
 /// return shouldIncludeParent ? SomeParentWidget(child: child) : child;
 /// ```
-class ConditionalParentWidget extends StatelessWidget {
+class ConditionalWidgetWrap extends StatelessWidget {
   /// The subtree that should always be build.
   final Widget child;
 
@@ -43,7 +43,7 @@ class ConditionalParentWidget extends StatelessWidget {
   /// Builds the parent with the subtree [child].
   final Widget Function(Widget) conditionalBuilder;
 
-  const ConditionalParentWidget({
+  const ConditionalWidgetWrap({
     required this.child,
     required this.condition,
     required this.conditionalBuilder,
@@ -53,6 +53,7 @@ class ConditionalParentWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (condition) return conditionalBuilder(child);
+
     return child;
   }
 }

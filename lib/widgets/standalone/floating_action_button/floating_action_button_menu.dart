@@ -1,3 +1,5 @@
+// ignore_for_file: avoid-returning-widgets
+
 import 'package:flutter/material.dart';
 
 import 'animated_child.dart';
@@ -155,35 +157,30 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
   }
 
   List<Widget> _getChildrenList() {
-    return widget.buttons
-        .map((child) {
-          final index = widget.buttons.indexOf(child);
+    return widget.buttons.reversed.map((child) {
+      final index = widget.buttons.indexOf(child);
 
-          return AnimatedChild(
-            tween: widget.tween,
-            animation: _childAnimation,
-            index: index,
-            visible: _open,
-            backgroundColor: child.backgroundColor,
-            foregroundColor: child.foregroundColor,
-            elevation: child.elevation,
-            icon: child.icon,
-            label: child.label,
-            labelStyle: child.labelStyle,
-            labelBackgroundColor: child.labelBackgroundColor,
-            onTap: child.onTap,
-            toggleChildren: () {
-              if (!widget.closeManually) _toggleChildren();
-            },
-            shape: child.shape,
-            heroTag: widget.heroTag != null
-                ? '${widget.heroTag}-child-$index'
-                : null,
-          );
-        })
-        .toList()
-        .reversed
-        .toList();
+      return AnimatedChild(
+        tween: widget.tween,
+        animation: _childAnimation,
+        index: index,
+        visible: _open,
+        backgroundColor: child.backgroundColor,
+        foregroundColor: child.foregroundColor,
+        elevation: child.elevation,
+        icon: child.icon,
+        label: child.label,
+        labelStyle: child.labelStyle,
+        labelBackgroundColor: child.labelBackgroundColor,
+        onTap: child.onTap,
+        toggleChildren: () {
+          if (!widget.closeManually) _toggleChildren();
+        },
+        shape: child.shape,
+        heroTag:
+            widget.heroTag != null ? '${widget.heroTag}-child-$index' : null,
+      );
+    }).toList();
   }
 
   Widget _renderOverlay() {

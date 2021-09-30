@@ -99,25 +99,27 @@ void main() {
       });
 
       test(
-          'should return an inclusive compactized Iterable<DateTime> '
-          'providing a custom nextValue and compare callbacks', () {
-        expect(
-          [
-            DateTime(2021, 8, 30, 9, 30),
-            DateTime(2021, 8, 31),
-            for (var i = 1; i < 10; i++) DateTime(2021, 9, i, 21, 30),
-            DateTime(2021, 9, 30),
-          ].compactizeRange(
-            nextValue: (dateTime) => dateTime.add(const Duration(days: 1)),
-            compare: (a, b) => a.isSameDateAs(b),
-            inclusive: true,
-          ),
-          [
-            [DateTime(2021, 8, 30, 9, 30), DateTime(2021, 9, 10, 21, 30)],
-            [DateTime(2021, 9, 30), DateTime(2021, 10)],
-          ],
-        );
-      });
+        'should return an inclusive compactized Iterable<DateTime> '
+        'providing a custom nextValue and compare callbacks',
+        () {
+          expect(
+            [
+              DateTime(2021, 8, 30, 9, 30),
+              DateTime(2021, 8, 31),
+              for (var i = 1; i < 10; i++) DateTime(2021, 9, i, 21, 30),
+              DateTime(2021, 9, 30),
+            ].compactizeRange(
+              nextValue: (dateTime) => dateTime.add(const Duration(days: 1)),
+              compare: (a, b) => a.isSameDateAs(b),
+              inclusive: true,
+            ),
+            [
+              [DateTime(2021, 8, 30, 9, 30), DateTime(2021, 9, 10, 21, 30)],
+              [DateTime(2021, 9, 30), DateTime(2021, 10)],
+            ],
+          );
+        },
+      );
     });
   });
 }

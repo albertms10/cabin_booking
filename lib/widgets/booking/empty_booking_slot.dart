@@ -61,7 +61,7 @@ class EmptyBookingSlot extends StatelessWidget {
                   child: duration.compareTo(kMinSlotDuration) < 0 ||
                           endDateTime.compareTo(now) < 0
                       ? null
-                      : EmptyBookingSlotActionable(
+                      : _EmptyBookingSlotActionable(
                           cabin: cabin,
                           startDateTime: startsBeforeNow ? now : startDateTime,
                           endDateTime: endDateTime,
@@ -77,13 +77,13 @@ class EmptyBookingSlot extends StatelessWidget {
   }
 }
 
-class EmptyBookingSlotActionable extends StatelessWidget {
+class _EmptyBookingSlotActionable extends StatelessWidget {
   final Cabin cabin;
   final DateTime startDateTime;
   final DateTime endDateTime;
   final int? preciseDuration;
 
-  const EmptyBookingSlotActionable({
+  const _EmptyBookingSlotActionable({
     Key? key,
     required this.cabin,
     required this.startDateTime,
