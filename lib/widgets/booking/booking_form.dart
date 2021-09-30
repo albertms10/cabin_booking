@@ -6,7 +6,7 @@ import 'package:cabin_booking/model/cabin_manager.dart';
 import 'package:cabin_booking/model/recurring_booking.dart';
 import 'package:cabin_booking/utils/date_time_extension.dart';
 import 'package:cabin_booking/utils/time_of_day_extension.dart';
-import 'package:cabin_booking/widgets/booking/periodicity_dropdown.dart';
+import 'package:cabin_booking/widgets/booking/periodicity_list_tile.dart';
 import 'package:cabin_booking/widgets/cabin/cabin_dropdown.dart';
 import 'package:cabin_booking/widgets/layout/date_form_field.dart';
 import 'package:cabin_booking/widgets/layout/item_info.dart';

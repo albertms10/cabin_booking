@@ -1,4 +1,4 @@
-import 'package:cabin_booking/widgets/layout/statistics_item.dart';
+import 'package:cabin_booking/widgets/layout/statistic_item.dart';
 import 'package:flutter/material.dart';
 
 class StatisticSimpleItem<T> extends StatelessWidget {

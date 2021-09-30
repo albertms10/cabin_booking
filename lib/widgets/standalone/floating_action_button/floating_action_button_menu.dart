@@ -1,3 +1,5 @@
+// ignore_for_file: avoid-returning-widgets
+
 import 'package:flutter/material.dart';
 
 import 'animated_child.dart';

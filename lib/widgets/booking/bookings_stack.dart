@@ -109,6 +109,7 @@ class BookingsStack extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      // ignore: avoid-returning-widgets
       children: _distributedBookings(context),
     );
   }

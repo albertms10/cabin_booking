@@ -10,7 +10,7 @@ class StripedBackground extends StatelessWidget {
     Key? key,
     required this.startTime,
     required this.endTime,
-    this.height = 60.0 * kBookingHeightRatio,
+    this.height = kBookingHeightRatio * 60.0,
   }) : super(key: key);
 
   int get rowCount => (endTime.hour - startTime.hour).abs() + 1;

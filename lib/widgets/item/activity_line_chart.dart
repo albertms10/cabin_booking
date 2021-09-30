@@ -19,7 +19,7 @@ class ActivityLineChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ConditionalParentWidget(
+    return ConditionalWidgetWrap(
       condition: tooltipMessage != null,
       conditionalBuilder: (child) {
         return Tooltip(
