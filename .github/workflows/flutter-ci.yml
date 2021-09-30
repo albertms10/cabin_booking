@@ -11,7 +11,7 @@ jobs:
   analyze-and-test:
     name: Analyze and test
     runs-on: ubuntu-latest
-    timeout-minutes: 3
+    timeout-minutes: 5
     if: ${{ github.event.pull_request.draft == false }}
 
     steps:
