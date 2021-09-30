@@ -68,7 +68,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [analyze-and-test]
     timeout-minutes: 10
-    if: ${{ github.event.pull_request.draft == false }}
+    if: ${{ false }} # ${{ github.event.pull_request.draft == false }}
 
     steps:
       - uses: actions/checkout@v2
