@@ -1,6 +1,6 @@
 name: cabin_booking
 description: An app for booking cabins.
-version: 0.4.0
+version: 0.5.0
 publish_to: none
 
 repository: https://github.com/albertms10/cabin_booking.git
