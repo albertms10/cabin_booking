@@ -16,19 +16,19 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  horizontal_data_table: ^3.4.3
+  horizontal_data_table: ^3.5.0
   intl: any
-  path_provider: ^2.0.3
-  provider: ^6.0.0
+  path_provider: ^2.0.5
+  provider: ^6.0.1
   timer_builder: ^2.0.0
-  uuid: ^3.0.4
+  uuid: ^3.0.5
   window_size:
     git:
       url: git://github.com/google/flutter-desktop-embedding.git
       path: plugins/window_size
 
 dev_dependencies:
-  dart_code_metrics: ^4.3.3
+  dart_code_metrics: ^4.4.0
   flutter_test:
     sdk: flutter
   very_good_analysis: ^2.3.0
