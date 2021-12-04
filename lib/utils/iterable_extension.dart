@@ -5,7 +5,8 @@ extension IterableExtension<E> on Iterable<E> {
   Iterable<E> get filterFalsy =>
       whereNot((element) => const [false, 0, '', null].contains(element));
 
-  /// Returns a compactized representation of this Iterable
+  /// Returns a list of consecutive values of this [Iterable]
+  /// compacted as tuples. Consecutive values are computed
   /// based on [nextValue], which:
   ///
   /// * if [E] is of type [num], it defaults to an increment of 1.
@@ -16,7 +17,7 @@ extension IterableExtension<E> on Iterable<E> {
   /// Examples:
   /// ```dart
   /// assert(
-  ///    const [1, 2, 3, 4, 5.0, 7, 8, 9, 11].compactizeRange() ==
+  ///    const [1, 2, 3, 4, 5.0, 7, 8, 9, 11].compactConsecutive() ==
   ///        const [
   ///          [1, 5],
   ///          [7, 9],
@@ -25,7 +26,7 @@ extension IterableExtension<E> on Iterable<E> {
   ///  );
   ///
   /// assert(
-  ///    'abcdfxy'.split('').compactizeRange(inclusive: true) ==
+  ///    'abcdfxy'.split('').compactConsecutive(inclusive: true) ==
   ///        const [
   ///          ['a', 'e'],
   ///          ['f', 'g'],
@@ -46,7 +47,7 @@ extension IterableExtension<E> on Iterable<E> {
   /// ];
   ///
   /// assert(
-  ///   input.compactizeRange(
+  ///   input.compactConsecutive(
   ///         nextValue: (dateTime) => dateTime.add(const Duration(days: 1)),
   ///         compare: (a, b) => a.isSameDateAs(b),
   ///         inclusive: true,
@@ -54,7 +55,7 @@ extension IterableExtension<E> on Iterable<E> {
   ///       output,
   /// );
   /// ```
-  Iterable<List<E>> compactizeRange({
+  Iterable<List<E>> compactConsecutive({
     E Function(E current)? nextValue,
     bool Function(E a, E b)? compare,
     bool inclusive = false,
