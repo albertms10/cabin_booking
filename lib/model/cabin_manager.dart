@@ -5,6 +5,7 @@ import 'package:cabin_booking/model/booking.dart';
 import 'package:cabin_booking/model/booking_manager.dart';
 import 'package:cabin_booking/model/cabin.dart';
 import 'package:cabin_booking/model/date_range.dart';
+import 'package:cabin_booking/model/file_manager.dart';
 import 'package:cabin_booking/model/recurring_booking.dart';
 import 'package:cabin_booking/model/writable_manager.dart';
 import 'package:cabin_booking/utils/time_of_day_extension.dart';
@@ -359,7 +360,7 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
   Future<Set<Cabin>> readFromFile() async {
     try {
       final file = await fileManager.localFile(fileName);
-      final content = await file.readAsString();
+      final content = await file.readAsUncompressedString();
 
       final cabins = _parseCabins(content);
 
@@ -383,7 +384,7 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
     try {
       final file = await fileManager.localFile(fileName);
 
-      await file.writeAsString(
+      await file.writeAsCompressedString(
         json.encode(cabinsToJson()),
       );
 

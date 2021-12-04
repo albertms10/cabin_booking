@@ -1,4 +1,5 @@
-import 'dart:io' show File;
+import 'dart:convert';
+import 'dart:io' show File, gzip;
 
 import 'package:path_provider/path_provider.dart';
 
@@ -20,4 +21,13 @@ class FileManager {
 
     return File('$path/$fileName.json');
   }
+}
+
+extension FileExtension on File {
+  Future<File> writeAsCompressedString(String contents) => writeAsString(
+        String.fromCharCodes(gzip.encode(utf8.encode(contents))),
+      );
+
+  Future<String> readAsUncompressedString() async =>
+      utf8.decode(gzip.decode((await readAsString()).codeUnits));
 }
