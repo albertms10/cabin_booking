@@ -6,6 +6,13 @@ import 'package:cabin_booking/model/item.dart';
 import 'package:cabin_booking/model/recurring_booking.dart';
 import 'package:flutter/material.dart';
 
+abstract class _JsonFields {
+  static const number = 'n';
+  static const elements = 'e';
+  static const bookings = 'b';
+  static const recurringBookings = 'rb';
+}
+
 class Cabin extends Item {
   int number;
   late CabinElements elements;
@@ -26,23 +33,25 @@ class Cabin extends Item {
   }
 
   Cabin.from(Map<String, dynamic> other)
-      : number = other['number'] as int,
+      : number = other[_JsonFields.number] as int,
         elements = CabinElements.from(
-          other['elements'] as Map<String, dynamic>,
+          other[_JsonFields.elements] as Map<String, dynamic>,
         ),
         _bookingManager = BookingManager.from(
-          bookings: other['bookings'] as List<dynamic>,
-          recurringBookings: other['recurringBookings'] as List<dynamic>,
+          bookings: other[_JsonFields.bookings] as List<dynamic>,
+          recurringBookings:
+              other[_JsonFields.recurringBookings] as List<dynamic>,
         ),
         super.from(other);
 
   @override
   Map<String, dynamic> toJson() => {
         ...super.toJson(),
-        'number': number,
-        'elements': elements.toJson(),
-        'bookings': _bookingManager.bookingsToJson(),
-        'recurringBookings': _bookingManager.recurringBookingsToJson(),
+        _JsonFields.number: number,
+        _JsonFields.elements: elements.toJson(),
+        _JsonFields.bookings: _bookingManager.bookingsToJson(),
+        _JsonFields.recurringBookings:
+            _bookingManager.recurringBookingsToJson(),
       };
 
   Cabin simplified() => Cabin(id: id, number: number);

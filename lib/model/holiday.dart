@@ -1,5 +1,9 @@
 import 'package:cabin_booking/model/date_range.dart';
 
+abstract class _JsonFields {
+  static const kind = 'k';
+}
+
 class Holiday extends DateRange {
   final HolidayKind kind;
 
@@ -15,13 +19,13 @@ class Holiday extends DateRange {
         );
 
   Holiday.from(Map<String, dynamic> other)
-      : kind = HolidayKind.values[other['kind'] as int],
+      : kind = HolidayKind.values[other[_JsonFields.kind] as int],
         super.from(other);
 
   @override
   Map<String, dynamic> toJson() => {
         ...super.toJson(),
-        'kind': kind.index,
+        _JsonFields.kind: kind.index,
       };
 }
 

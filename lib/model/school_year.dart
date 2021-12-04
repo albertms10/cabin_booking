@@ -4,6 +4,10 @@ import 'package:cabin_booking/model/date_range.dart';
 import 'package:cabin_booking/model/holiday.dart';
 import 'package:intl/intl.dart';
 
+abstract class _JsonFields {
+  static const holidays = 'h';
+}
+
 class SchoolYear extends DateRange {
   late Set<Holiday> holidays;
 
@@ -22,7 +26,7 @@ class SchoolYear extends DateRange {
 
   SchoolYear.from(Map<String, dynamic> other)
       : holidays = SplayTreeSet.from(
-          (other['holidays'] as List<dynamic>)
+          (other[_JsonFields.holidays] as List<dynamic>)
               .map<Holiday>((holiday) => Holiday.from(holiday)),
         ),
         super.from(other);
@@ -30,7 +34,8 @@ class SchoolYear extends DateRange {
   @override
   Map<String, dynamic> toJson() => {
         ...super.toJson(),
-        'holidays': holidays.map((holiday) => holiday.toJson()).toList(),
+        _JsonFields.holidays:
+            holidays.map((holiday) => holiday.toJson()).toList(),
       };
 
   Duration get holidaysDuration {

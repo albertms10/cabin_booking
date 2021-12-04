@@ -5,6 +5,15 @@ import 'package:cabin_booking/utils/time_of_day_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+abstract class _JsonFields {
+  static const description = 'de';
+  static const date = 'd';
+  static const startTime = 'st';
+  static const endTime = 'et';
+  static const status = 's';
+  static const isLocked = 'il';
+}
+
 class Booking extends Item {
   String? description;
   DateTime? date;
@@ -33,23 +42,25 @@ class Booking extends Item {
   }) : super(id: id);
 
   Booking.from(Map<String, dynamic> other)
-      : description = other['description'] as String?,
-        date = DateTime.tryParse(other['date'] as String),
-        startTime = TimeOfDayExtension.tryParse(other['startTime'] as String),
-        endTime = TimeOfDayExtension.tryParse(other['endTime'] as String),
-        status = BookingStatus.values[other['status'] as int],
-        isLocked = other['isLocked'] as bool,
+      : description = other[_JsonFields.description] as String?,
+        date = DateTime.tryParse(other[_JsonFields.date] as String),
+        startTime =
+            TimeOfDayExtension.tryParse(other[_JsonFields.startTime] as String),
+        endTime =
+            TimeOfDayExtension.tryParse(other[_JsonFields.endTime] as String),
+        status = BookingStatus.values[other[_JsonFields.status] as int],
+        isLocked = other[_JsonFields.isLocked] as bool,
         super.from(other);
 
   @override
   Map<String, dynamic> toJson() => {
         ...super.toJson(),
-        'description': description,
-        'date': date!.toIso8601String().split('T').first,
-        'startTime': startTime!.format24Hour(),
-        'endTime': endTime!.format24Hour(),
-        'status': status.index,
-        'isLocked': isLocked,
+        _JsonFields.description: description,
+        _JsonFields.date: date!.toIso8601String().split('T').first,
+        _JsonFields.startTime: startTime!.format24Hour(),
+        _JsonFields.endTime: endTime!.format24Hour(),
+        _JsonFields.status: status.index,
+        _JsonFields.isLocked: isLocked,
       };
 
   DateTime get startDateTime => date!.addTimeOfDay(startTime);

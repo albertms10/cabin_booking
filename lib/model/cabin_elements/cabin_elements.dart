@@ -1,3 +1,12 @@
+import 'package:cabin_booking/model/cabin_elements/piano.dart';
+
+abstract class _JsonFields {
+  static const pianos = 'p';
+  static const lecterns = 'l';
+  static const chairs = 'c';
+  static const tables = 't';
+}
+
 class CabinElements {
   late List<Piano> pianos;
   int lecterns;
@@ -14,40 +23,17 @@ class CabinElements {
   }
 
   CabinElements.from(Map<String, dynamic> other)
-      : pianos = (other['pianos'] as List<dynamic>)
+      : pianos = (other[_JsonFields.pianos] as List<dynamic>)
             .map((piano) => Piano.from(piano))
             .toList(),
-        lecterns = other['lecterns'] as int,
-        chairs = other['chairs'] as int,
-        tables = other['tables'] as int;
+        lecterns = other[_JsonFields.lecterns] as int,
+        chairs = other[_JsonFields.chairs] as int,
+        tables = other[_JsonFields.tables] as int;
 
   Map<String, dynamic> toJson() => {
-        'pianos': pianos.map((piano) => piano.toJson()).toList(),
-        'lecterns': lecterns,
-        'chairs': chairs,
-        'tables': tables,
-      };
-}
-
-class Piano {
-  String? brand;
-  String? model;
-  bool isElectronic;
-
-  Piano({
-    this.brand,
-    this.model,
-    this.isElectronic = false,
-  });
-
-  Piano.from(Map<String, dynamic> other)
-      : brand = other['brand'] as String?,
-        model = other['model'] as String?,
-        isElectronic = other['isElectronic'] as bool;
-
-  Map<String, dynamic> toJson() => {
-        'brand': brand,
-        'model': model,
-        'isElectronic': isElectronic,
+        _JsonFields.pianos: pianos.map((piano) => piano.toJson()).toList(),
+        _JsonFields.lecterns: lecterns,
+        _JsonFields.chairs: chairs,
+        _JsonFields.tables: tables,
       };
 }

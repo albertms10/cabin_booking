@@ -2,6 +2,13 @@ import 'package:cabin_booking/model/booking.dart';
 import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
 
+abstract class _JsonFields {
+  static const periodicity = 'p';
+  static const repeatEvery = 're';
+  static const recurringEndDate = 'edt';
+  static const occurrences = 'o';
+}
+
 class RecurringBooking extends Booking {
   Periodicity periodicity;
   int repeatEvery;
@@ -37,13 +44,13 @@ class RecurringBooking extends Booking {
         );
 
   RecurringBooking.from(Map<String, dynamic> other)
-      : periodicity = Periodicity.values[other['periodicityIndex'] as int],
-        repeatEvery = other['repeatEvery'] as int,
-        _recurringEndDate = other.containsKey('endDate')
-            ? DateTime.tryParse(other['endDate'] as String)
+      : periodicity = Periodicity.values[other[_JsonFields.periodicity] as int],
+        repeatEvery = other[_JsonFields.repeatEvery] as int,
+        _recurringEndDate = other.containsKey(_JsonFields.recurringEndDate)
+            ? DateTime.tryParse(other[_JsonFields.recurringEndDate] as String)
             : null,
-        _occurrences = other.containsKey('occurrences')
-            ? other['occurrences'] as int?
+        _occurrences = other.containsKey(_JsonFields.occurrences)
+            ? other[_JsonFields.occurrences] as int?
             : null,
         super.from(other);
 
@@ -73,12 +80,13 @@ class RecurringBooking extends Booking {
   @override
   Map<String, dynamic> toJson() => {
         ...super.toJson(),
-        'periodicityIndex': periodicity.index,
-        'repeatEvery': repeatEvery,
+        _JsonFields.periodicity: periodicity.index,
+        _JsonFields.repeatEvery: repeatEvery,
         if (method == RecurringBookingMethod.endDate)
-          'endDate': _recurringEndDate!.toIso8601String().split('T').first
+          _JsonFields.recurringEndDate:
+              _recurringEndDate!.toIso8601String().split('T').first
         else if (method == RecurringBookingMethod.occurrences)
-          'occurrences': _occurrences,
+          _JsonFields.occurrences: _occurrences,
       };
 
   RecurringBookingMethod get method => _recurringEndDate != null
