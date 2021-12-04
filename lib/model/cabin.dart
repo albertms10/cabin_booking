@@ -1,6 +1,6 @@
 import 'package:cabin_booking/model/booking.dart';
 import 'package:cabin_booking/model/booking_manager.dart';
-import 'package:cabin_booking/model/cabin_components.dart';
+import 'package:cabin_booking/model/cabin_elements/cabin_elements.dart';
 import 'package:cabin_booking/model/date_range.dart';
 import 'package:cabin_booking/model/item.dart';
 import 'package:cabin_booking/model/recurring_booking.dart';
@@ -8,13 +8,13 @@ import 'package:flutter/material.dart';
 
 class Cabin extends Item {
   int number;
-  late CabinComponents components;
+  late CabinElements elements;
   final BookingManager _bookingManager;
 
   Cabin({
     String? id,
     this.number = 0,
-    CabinComponents? components,
+    CabinElements? elements,
     Set<Booking>? bookings,
     Set<RecurringBooking>? recurringBookings,
   })  : _bookingManager = BookingManager(
@@ -22,13 +22,14 @@ class Cabin extends Item {
           recurringBookings: recurringBookings,
         ),
         super(id: id) {
-    this.components = components ?? CabinComponents();
+    this.elements = elements ?? CabinElements();
   }
 
   Cabin.from(Map<String, dynamic> other)
       : number = other['number'] as int,
-        components =
-            CabinComponents.from(other['components'] as Map<String, dynamic>),
+        elements = CabinElements.from(
+          other['elements'] as Map<String, dynamic>,
+        ),
         _bookingManager = BookingManager.from(
           bookings: other['bookings'] as List<dynamic>,
           recurringBookings: other['recurringBookings'] as List<dynamic>,
@@ -39,7 +40,7 @@ class Cabin extends Item {
   Map<String, dynamic> toJson() => {
         ...super.toJson(),
         'number': number,
-        'components': components.toJson(),
+        'elements': elements.toJson(),
         'bookings': _bookingManager.bookingsToJson(),
         'recurringBookings': _bookingManager.recurringBookingsToJson(),
       };
@@ -113,18 +114,18 @@ class Cabin extends Item {
   @override
   Cabin copyWith({
     int? number,
-    CabinComponents? components,
+    CabinElements? elements,
   }) =>
       Cabin(
         id: id,
         number: number ?? this.number,
-        components: components ?? this.components,
+        elements: elements ?? this.elements,
       );
 
   @override
   void replaceWith(covariant Cabin item) {
     number = item.number;
-    components = item.components;
+    elements = item.elements;
 
     super.replaceWith(item);
   }

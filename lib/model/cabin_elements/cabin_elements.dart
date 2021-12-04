@@ -1,10 +1,10 @@
-class CabinComponents {
+class CabinElements {
   late List<Piano> pianos;
   int lecterns;
   int chairs;
   int tables;
 
-  CabinComponents({
+  CabinElements({
     List<Piano>? pianos,
     this.lecterns = 0,
     this.chairs = 0,
@@ -13,7 +13,7 @@ class CabinComponents {
     this.pianos = pianos ?? <Piano>[];
   }
 
-  CabinComponents.from(Map<String, dynamic> other)
+  CabinElements.from(Map<String, dynamic> other)
       : pianos = (other['pianos'] as List<dynamic>)
             .map((piano) => Piano.from(piano))
             .toList(),
