@@ -2,6 +2,13 @@ import 'package:cabin_booking/model/serializable.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
+abstract class _JsonFields {
+  static const id = 'id';
+  static const creationDateTime = 'cdt';
+  static const modificationDateTime = 'mdt';
+  static const modificationCount = 'mc';
+}
+
 abstract class Item implements Comparable<Item>, Serializable {
   late String id;
   final DateTime creationDateTime;
@@ -15,22 +22,26 @@ abstract class Item implements Comparable<Item>, Serializable {
   }
 
   Item.from(Map<String, dynamic> other)
-      : id = other['id'] as String,
+      : id = other[_JsonFields.id] as String,
         creationDateTime =
-            DateTime.tryParse(other['creationDateTime'] as String)!,
-        modificationDateTime = other.containsKey('modificationDateTime')
-            ? DateTime.tryParse(other['modificationDateTime'] as String)
-            : null,
-        modificationCount = other['modificationCount'] as int;
+            DateTime.tryParse(other[_JsonFields.creationDateTime] as String)!,
+        modificationDateTime =
+            other.containsKey(_JsonFields.modificationDateTime)
+                ? DateTime.tryParse(
+                    other[_JsonFields.modificationDateTime] as String,
+                  )
+                : null,
+        modificationCount = other[_JsonFields.modificationCount] as int;
 
   @override
   @mustCallSuper
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'creationDateTime': creationDateTime.toIso8601String(),
+        _JsonFields.id: id,
+        _JsonFields.creationDateTime: creationDateTime.toIso8601String(),
         if (modificationDateTime != null)
-          'modificationDateTime': modificationDateTime!.toIso8601String(),
-        'modificationCount': modificationCount,
+          _JsonFields.modificationDateTime:
+              modificationDateTime!.toIso8601String(),
+        _JsonFields.modificationCount: modificationCount,
       };
 
   Item copyWith();

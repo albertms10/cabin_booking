@@ -1,20 +1,27 @@
 import 'package:cabin_booking/model/booking.dart';
 import 'package:cabin_booking/model/booking_manager.dart';
-import 'package:cabin_booking/model/cabin_components.dart';
+import 'package:cabin_booking/model/cabin_elements/cabin_elements.dart';
 import 'package:cabin_booking/model/date_range.dart';
 import 'package:cabin_booking/model/item.dart';
 import 'package:cabin_booking/model/recurring_booking.dart';
 import 'package:flutter/material.dart';
 
+abstract class _JsonFields {
+  static const number = 'n';
+  static const elements = 'e';
+  static const bookings = 'b';
+  static const recurringBookings = 'rb';
+}
+
 class Cabin extends Item {
   int number;
-  late CabinComponents components;
+  late CabinElements elements;
   final BookingManager _bookingManager;
 
   Cabin({
     String? id,
     this.number = 0,
-    CabinComponents? components,
+    CabinElements? elements,
     Set<Booking>? bookings,
     Set<RecurringBooking>? recurringBookings,
   })  : _bookingManager = BookingManager(
@@ -22,26 +29,29 @@ class Cabin extends Item {
           recurringBookings: recurringBookings,
         ),
         super(id: id) {
-    this.components = components ?? CabinComponents();
+    this.elements = elements ?? CabinElements();
   }
 
   Cabin.from(Map<String, dynamic> other)
-      : number = other['number'] as int,
-        components =
-            CabinComponents.from(other['components'] as Map<String, dynamic>),
+      : number = other[_JsonFields.number] as int,
+        elements = CabinElements.from(
+          other[_JsonFields.elements] as Map<String, dynamic>,
+        ),
         _bookingManager = BookingManager.from(
-          bookings: other['bookings'] as List<dynamic>,
-          recurringBookings: other['recurringBookings'] as List<dynamic>,
+          bookings: other[_JsonFields.bookings] as List<dynamic>,
+          recurringBookings:
+              other[_JsonFields.recurringBookings] as List<dynamic>,
         ),
         super.from(other);
 
   @override
   Map<String, dynamic> toJson() => {
         ...super.toJson(),
-        'number': number,
-        'components': components.toJson(),
-        'bookings': _bookingManager.bookingsToJson(),
-        'recurringBookings': _bookingManager.recurringBookingsToJson(),
+        _JsonFields.number: number,
+        _JsonFields.elements: elements.toJson(),
+        _JsonFields.bookings: _bookingManager.bookingsToJson(),
+        _JsonFields.recurringBookings:
+            _bookingManager.recurringBookingsToJson(),
       };
 
   Cabin simplified() => Cabin(id: id, number: number);
@@ -113,18 +123,18 @@ class Cabin extends Item {
   @override
   Cabin copyWith({
     int? number,
-    CabinComponents? components,
+    CabinElements? elements,
   }) =>
       Cabin(
         id: id,
         number: number ?? this.number,
-        components: components ?? this.components,
+        elements: elements ?? this.elements,
       );
 
   @override
   void replaceWith(covariant Cabin item) {
     number = item.number;
-    components = item.components;
+    elements = item.elements;
 
     super.replaceWith(item);
   }

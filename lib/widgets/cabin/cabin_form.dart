@@ -57,15 +57,14 @@ class _CabinFormState extends State<CabinForm> {
             trailing: SizedBox(
               width: 80.0,
               child: TextFormField(
-                initialValue: '${_cabin.components.lecterns}',
+                initialValue: '${_cabin.elements.lecterns}',
                 keyboardType: TextInputType.number,
                 inputFormatters: [
                   FilteringTextInputFormatter.digitsOnly,
                 ],
                 validator: _validator,
                 onSaved: (lecterns) {
-                  _cabin.components.lecterns =
-                      int.tryParse(lecterns ?? '') ?? 0;
+                  _cabin.elements.lecterns = int.tryParse(lecterns ?? '') ?? 0;
                 },
               ),
             ),
@@ -76,14 +75,14 @@ class _CabinFormState extends State<CabinForm> {
             trailing: SizedBox(
               width: 80.0,
               child: TextFormField(
-                initialValue: '${_cabin.components.chairs}',
+                initialValue: '${_cabin.elements.chairs}',
                 keyboardType: TextInputType.number,
                 inputFormatters: [
                   FilteringTextInputFormatter.digitsOnly,
                 ],
                 validator: _validator,
                 onSaved: (chairs) {
-                  _cabin.components.chairs = int.tryParse(chairs ?? '') ?? 0;
+                  _cabin.elements.chairs = int.tryParse(chairs ?? '') ?? 0;
                 },
               ),
             ),
@@ -94,14 +93,14 @@ class _CabinFormState extends State<CabinForm> {
             trailing: SizedBox(
               width: 80.0,
               child: TextFormField(
-                initialValue: '${_cabin.components.tables}',
+                initialValue: '${_cabin.elements.tables}',
                 keyboardType: TextInputType.number,
                 inputFormatters: [
                   FilteringTextInputFormatter.digitsOnly,
                 ],
                 validator: _validator,
                 onSaved: (tables) {
-                  _cabin.components.tables = int.tryParse(tables ?? '') ?? 0;
+                  _cabin.elements.tables = int.tryParse(tables ?? '') ?? 0;
                 },
               ),
             ),

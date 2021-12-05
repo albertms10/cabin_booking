@@ -2,6 +2,11 @@ import 'package:cabin_booking/model/item.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+abstract class _JsonFields {
+  static const startDate = 'sd';
+  static const endDate = 'ed';
+}
+
 class DateRange extends Item {
   DateTime? startDate;
   DateTime? endDate;
@@ -18,15 +23,15 @@ class DateRange extends Item {
   }
 
   DateRange.from(Map<String, dynamic> other)
-      : startDate = DateTime.tryParse(other['startDate'] as String),
-        endDate = DateTime.tryParse(other['endDate'] as String),
+      : startDate = DateTime.tryParse(other[_JsonFields.startDate] as String),
+        endDate = DateTime.tryParse(other[_JsonFields.endDate] as String),
         super.from(other);
 
   @override
   Map<String, dynamic> toJson() => {
         ...super.toJson(),
-        'startDate': startDate!.toIso8601String().split('T').first,
-        'endDate': endDate!.toIso8601String().split('T').first,
+        _JsonFields.startDate: startDate!.toIso8601String().split('T').first,
+        _JsonFields.endDate: endDate!.toIso8601String().split('T').first,
       };
 
   @override
