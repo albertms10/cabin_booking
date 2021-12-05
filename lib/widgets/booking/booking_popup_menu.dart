@@ -1,7 +1,4 @@
-import 'package:cabin_booking/model/booking.dart';
-import 'package:cabin_booking/model/cabin.dart';
-import 'package:cabin_booking/model/cabin_manager.dart';
-import 'package:cabin_booking/model/recurring_booking.dart';
+import 'package:cabin_booking/model.dart';
 import 'package:cabin_booking/widgets/booking/booking_dialog.dart';
 import 'package:cabin_booking/widgets/layout/danger_alert_dialog.dart';
 import 'package:cabin_booking/widgets/layout/icon_menu_item_content.dart';

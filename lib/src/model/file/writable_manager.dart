@@ -1,4 +1,4 @@
-import 'package:cabin_booking/model/file_manager.dart';
+import 'file_manager.dart';
 
 abstract class WritableManager<T> {
   final String fileName;

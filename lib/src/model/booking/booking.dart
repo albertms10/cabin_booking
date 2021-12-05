@@ -1,9 +1,10 @@
-import 'package:cabin_booking/model/date_range.dart';
-import 'package:cabin_booking/model/item.dart';
 import 'package:cabin_booking/utils/date_time_extension.dart';
 import 'package:cabin_booking/utils/time_of_day_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
+import '../date/date_range.dart';
+import '../item.dart';
 
 abstract class _JsonFields {
   static const description = 'de';

@@ -1,4 +1,4 @@
-import 'package:cabin_booking/model/date_range.dart';
+import 'date_range.dart';
 
 abstract class _JsonFields {
   static const kind = 'k';

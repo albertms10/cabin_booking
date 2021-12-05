@@ -1,8 +1,5 @@
 import 'package:cabin_booking/constants.dart';
-import 'package:cabin_booking/model/booking.dart';
-import 'package:cabin_booking/model/cabin_manager.dart';
-import 'package:cabin_booking/model/day_handler.dart';
-import 'package:cabin_booking/model/recurring_booking.dart';
+import 'package:cabin_booking/model.dart';
 import 'package:cabin_booking/utils/date_time_extension.dart';
 import 'package:cabin_booking/utils/dialog.dart';
 import 'package:cabin_booking/widgets/standalone/floating_action_button/floating_action_button_menu.dart';

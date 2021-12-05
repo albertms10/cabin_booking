@@ -1,4 +1,4 @@
-import 'package:cabin_booking/model/cabin_elements/piano.dart';
+import 'piano.dart';
 
 abstract class _JsonFields {
   static const pianos = 'p';

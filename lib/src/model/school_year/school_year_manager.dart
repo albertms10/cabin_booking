@@ -1,9 +1,10 @@
 import 'dart:collection' show SplayTreeSet;
 import 'dart:convert' show json;
 
-import 'package:cabin_booking/model/school_year.dart';
-import 'package:cabin_booking/model/writable_manager.dart';
 import 'package:flutter/foundation.dart';
+
+import '../file/writable_manager.dart';
+import 'school_year.dart';
 
 Iterable<SchoolYear> _parseSchoolYears(String jsonString) =>
     (json.decode(jsonString) as List<dynamic>)

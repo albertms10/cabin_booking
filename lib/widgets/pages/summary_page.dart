@@ -1,5 +1,4 @@
-import 'package:cabin_booking/model/cabin_manager.dart';
-import 'package:cabin_booking/model/day_handler.dart';
+import 'package:cabin_booking/model.dart';
 import 'package:cabin_booking/utils/color_extension.dart';
 import 'package:cabin_booking/utils/date_time_extension.dart';
 import 'package:cabin_booking/utils/map_extension.dart';

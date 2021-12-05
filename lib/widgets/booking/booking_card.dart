@@ -1,8 +1,5 @@
 import 'package:cabin_booking/constants.dart';
-import 'package:cabin_booking/model/booking.dart';
-import 'package:cabin_booking/model/cabin.dart';
-import 'package:cabin_booking/model/cabin_manager.dart';
-import 'package:cabin_booking/model/recurring_booking.dart';
+import 'package:cabin_booking/model.dart';
 import 'package:cabin_booking/widgets/booking/booking_popup_menu.dart';
 import 'package:cabin_booking/widgets/booking/booking_status_button.dart';
 import 'package:flutter/material.dart';

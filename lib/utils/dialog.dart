@@ -1,6 +1,4 @@
-import 'package:cabin_booking/model/booking.dart';
-import 'package:cabin_booking/model/cabin_manager.dart';
-import 'package:cabin_booking/model/recurring_booking.dart';
+import 'package:cabin_booking/model.dart';
 import 'package:cabin_booking/widgets/booking/booking_dialog.dart';
 import 'package:flutter/material.dart';
 

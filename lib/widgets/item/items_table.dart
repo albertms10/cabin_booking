@@ -1,5 +1,4 @@
-import 'package:cabin_booking/model/date_range.dart';
-import 'package:cabin_booking/model/item.dart';
+import 'package:cabin_booking/model.dart';
 import 'package:cabin_booking/utils/date_time_extension.dart';
 import 'package:cabin_booking/widgets/item/activity_line_chart.dart';
 import 'package:cabin_booking/widgets/layout/centered_icon_message.dart';

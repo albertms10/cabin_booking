@@ -1,5 +1,4 @@
-import 'package:cabin_booking/model/cabin.dart';
-import 'package:cabin_booking/model/cabin_manager.dart';
+import 'package:cabin_booking/model.dart';
 import 'package:cabin_booking/widgets/cabin/cabin_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

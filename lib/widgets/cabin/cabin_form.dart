@@ -1,4 +1,4 @@
-import 'package:cabin_booking/model/cabin.dart';
+import 'package:cabin_booking/model.dart';
 import 'package:cabin_booking/widgets/cabin/cabin_icon.dart';
 import 'package:cabin_booking/widgets/layout/item_info.dart';
 import 'package:cabin_booking/widgets/layout/submit_button.dart';

@@ -1,10 +1,11 @@
-import 'package:cabin_booking/model/booking.dart';
-import 'package:cabin_booking/model/booking_manager.dart';
-import 'package:cabin_booking/model/cabin_elements/cabin_elements.dart';
-import 'package:cabin_booking/model/date_range.dart';
-import 'package:cabin_booking/model/item.dart';
-import 'package:cabin_booking/model/recurring_booking.dart';
 import 'package:flutter/material.dart';
+
+import '../booking/booking.dart';
+import '../booking/booking_manager.dart';
+import '../booking/recurring_booking.dart';
+import '../date/date_range.dart';
+import '../item.dart';
+import 'cabin_elements.dart';
 
 abstract class _JsonFields {
   static const number = 'n';
