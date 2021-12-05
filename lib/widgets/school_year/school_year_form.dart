@@ -1,4 +1,4 @@
-import 'package:cabin_booking/model/school_year.dart';
+import 'package:cabin_booking/model.dart';
 import 'package:cabin_booking/widgets/layout/date_form_field.dart';
 import 'package:cabin_booking/widgets/layout/item_info.dart';
 import 'package:cabin_booking/widgets/layout/submit_button.dart';

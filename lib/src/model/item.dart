@@ -1,6 +1,7 @@
-import 'package:cabin_booking/model/serializable.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
+
+import 'serializable.dart';
 
 abstract class _JsonFields {
   static const id = 'id';

@@ -1,12 +1,13 @@
 import 'dart:collection' show SplayTreeMap, SplayTreeSet;
 
-import 'package:cabin_booking/model/booking.dart';
-import 'package:cabin_booking/model/date_range.dart';
-import 'package:cabin_booking/model/recurring_booking.dart';
 import 'package:cabin_booking/utils/date_time_extension.dart';
 import 'package:cabin_booking/utils/time_of_day_extension.dart';
 import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
+
+import '../date/date_range.dart';
+import 'booking.dart';
+import 'recurring_booking.dart';
 
 class BookingManager with ChangeNotifier {
   late Set<Booking> bookings;

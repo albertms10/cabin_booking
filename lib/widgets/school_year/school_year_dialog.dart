@@ -1,4 +1,4 @@
-import 'package:cabin_booking/model/school_year.dart';
+import 'package:cabin_booking/model.dart';
 import 'package:cabin_booking/widgets/layout/data_dialog.dart';
 import 'package:cabin_booking/widgets/school_year/school_year_form.dart';
 import 'package:flutter/material.dart';

@@ -1,7 +1,4 @@
-import 'package:cabin_booking/model/cabin_manager.dart';
-import 'package:cabin_booking/model/day_handler.dart';
-import 'package:cabin_booking/model/school_year_manager.dart';
-import 'package:cabin_booking/model/writable_manager.dart';
+import 'package:cabin_booking/model.dart';
 import 'package:cabin_booking/widgets/layout/save_changes_snack_bar_body.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

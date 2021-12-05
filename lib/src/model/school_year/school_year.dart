@@ -1,8 +1,9 @@
 import 'dart:collection' show SplayTreeSet;
 
-import 'package:cabin_booking/model/date_range.dart';
-import 'package:cabin_booking/model/holiday.dart';
 import 'package:intl/intl.dart';
+
+import '../date/date_range.dart';
+import '../date/holiday.dart';
 
 abstract class _JsonFields {
   static const holidays = 'h';

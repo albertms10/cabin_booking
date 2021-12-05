@@ -1,7 +1,6 @@
 import 'dart:io' show Platform;
 
-import 'package:cabin_booking/model/cabin_manager.dart';
-import 'package:cabin_booking/model/day_handler.dart';
+import 'package:cabin_booking/model.dart';
 import 'package:cabin_booking/widgets/cabin_booking_app.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

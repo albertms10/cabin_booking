@@ -1,6 +1,7 @@
-import 'package:cabin_booking/model/school_year.dart';
-import 'package:cabin_booking/model/school_year_manager.dart';
 import 'package:flutter/material.dart';
+
+import '../school_year/school_year.dart';
+import '../school_year/school_year_manager.dart';
 
 final _defaultSchoolYears = {
   SchoolYear(

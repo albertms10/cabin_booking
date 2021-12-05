@@ -1,7 +1,5 @@
 import 'package:cabin_booking/constants.dart';
-import 'package:cabin_booking/model/booking.dart';
-import 'package:cabin_booking/model/cabin.dart';
-import 'package:cabin_booking/model/cabin_manager.dart';
+import 'package:cabin_booking/model.dart';
 import 'package:cabin_booking/utils/date_time_extension.dart';
 import 'package:cabin_booking/utils/dialog.dart';
 import 'package:flutter/material.dart';

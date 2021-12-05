@@ -1,6 +1,7 @@
-import 'package:cabin_booking/model/item.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
+import '../item.dart';
 
 abstract class _JsonFields {
   static const startDate = 'sd';

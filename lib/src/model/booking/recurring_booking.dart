@@ -1,6 +1,7 @@
-import 'package:cabin_booking/model/booking.dart';
 import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
+
+import 'booking.dart';
 
 abstract class _JsonFields {
   static const periodicity = 'p';

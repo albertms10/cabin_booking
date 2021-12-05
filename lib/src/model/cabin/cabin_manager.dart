@@ -1,16 +1,17 @@
 import 'dart:collection' show SplayTreeMap, SplayTreeSet;
 import 'dart:convert' show json;
 
-import 'package:cabin_booking/model/booking.dart';
-import 'package:cabin_booking/model/booking_manager.dart';
-import 'package:cabin_booking/model/cabin.dart';
-import 'package:cabin_booking/model/date_range.dart';
-import 'package:cabin_booking/model/file_manager.dart';
-import 'package:cabin_booking/model/recurring_booking.dart';
-import 'package:cabin_booking/model/writable_manager.dart';
 import 'package:cabin_booking/utils/time_of_day_extension.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+import '../booking/booking.dart';
+import '../booking/booking_manager.dart';
+import '../booking/recurring_booking.dart';
+import '../date/date_range.dart';
+import '../file/file_manager.dart';
+import '../file/writable_manager.dart';
+import 'cabin.dart';
 
 Iterable<Cabin> _parseCabins(String jsonString) =>
     (json.decode(jsonString) as List<dynamic>)

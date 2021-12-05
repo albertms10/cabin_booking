@@ -1,6 +1,5 @@
 import 'package:cabin_booking/constants.dart';
-import 'package:cabin_booking/model/cabin_manager.dart';
-import 'package:cabin_booking/model/day_handler.dart';
+import 'package:cabin_booking/model.dart';
 import 'package:cabin_booking/widgets/booking/bookings_table.dart';
 import 'package:cabin_booking/widgets/cabin/cabin_icon.dart';
 import 'package:cabin_booking/widgets/layout/time_column.dart';
