@@ -1,26 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../school_year/school_year.dart';
 import '../school_year/school_year_manager.dart';
-
-final _defaultSchoolYears = {
-  SchoolYear(
-    startDate: DateTime(2018, DateTime.september, 3),
-    endDate: DateTime(2019, DateTime.july, 26),
-  ),
-  SchoolYear(
-    startDate: DateTime(2019, DateTime.september, 2),
-    endDate: DateTime(2020, DateTime.july, 25),
-  ),
-  SchoolYear(
-    startDate: DateTime(2020, DateTime.september),
-    endDate: DateTime(2021, DateTime.july, 24),
-  ),
-  SchoolYear(
-    startDate: DateTime(2021, DateTime.august, 31),
-    endDate: DateTime(2022, DateTime.july, 23),
-  ),
-};
 
 class DayHandler with ChangeNotifier {
   late DateTime _dateTime;
@@ -29,10 +9,7 @@ class DayHandler with ChangeNotifier {
   DayHandler([SchoolYearManager? schoolYearManager]) {
     _dateTime = DateTime.now();
     this.schoolYearManager = schoolYearManager ??
-        SchoolYearManager(
-          schoolYears: _defaultSchoolYears,
-          notifyExternalListeners: notifyListeners,
-        );
+        SchoolYearManager(notifyExternalListeners: notifyListeners);
   }
 
   DateTime get dateTime => _dateTime;

@@ -124,6 +124,25 @@ class SchoolYearManager extends WritableManager<Set<SchoolYear>>
     }
   }
 
+  Set<SchoolYear> get _defaultSchoolYears => SplayTreeSet.from({
+        SchoolYear(
+          startDate: DateTime(2018, DateTime.september, 3),
+          endDate: DateTime(2019, DateTime.july, 26),
+        ),
+        SchoolYear(
+          startDate: DateTime(2019, DateTime.september, 2),
+          endDate: DateTime(2020, DateTime.july, 25),
+        ),
+        SchoolYear(
+          startDate: DateTime(2020, DateTime.september),
+          endDate: DateTime(2021, DateTime.july, 24),
+        ),
+        SchoolYear(
+          startDate: DateTime(2021, DateTime.august, 31),
+          endDate: DateTime(2022, DateTime.july, 23),
+        ),
+      });
+
   @override
   Future<Set<SchoolYear>> readFromFile() async {
     try {
@@ -132,9 +151,11 @@ class SchoolYearManager extends WritableManager<Set<SchoolYear>>
 
       final schoolYears = _parseSchoolYears(content);
 
-      return SplayTreeSet.from(schoolYears);
+      return schoolYears.isEmpty
+          ? _defaultSchoolYears
+          : SplayTreeSet.from(schoolYears);
     } on Exception {
-      return SplayTreeSet();
+      return _defaultSchoolYears;
     }
   }
 
