@@ -8,7 +8,10 @@
   "nBookings": "{n, plural, =0 {No bookings} =1 {{n} booking} other {{n} bookings}}",
   "@nBookings": {
     "placeholders": {
-      "n": {}
+      "n": {
+        "type": "int",
+        "format": "compactLong"
+      }
     }
   },
   "recurringBooking": "Recurring booking",
@@ -57,7 +60,10 @@
   "nPercentOccupied": "{n}% occupied",
   "@nPercentOccupied": {
     "placeholders": {
-      "n": {}
+      "n": {
+        "type": "int",
+        "format": "compactLong"
+      }
     }
   },
   "mostOccupiedTimeRange": "Most occupied time range",
@@ -66,19 +72,28 @@
   "after": "{n, plural, other {After }}",
   "@after": {
     "placeholders": {
-      "n": {}
+      "n": {
+        "type": "int",
+        "format": "compactLong"
+      }
     }
   },
   "nOccurrences": "{n, plural, =1 {occurrence} other {occurrences}}",
   "@nOccurrences": {
     "placeholders": {
-      "n": {}
+      "n": {
+        "type": "int",
+        "format": "compactLong"
+      }
     }
   },
   "nSelected": "{n, plural, other {{n} selected}}",
   "@nSelected": {
     "placeholders": {
-      "n": {}
+      "n": {
+        "type": "int",
+        "format": "compactLong"
+      }
     }
   },
   "cancelSelection": "Cancel selection",
@@ -98,21 +113,34 @@
   "createdOn": "{day, plural, other {Created on {date}}}",
   "@createdOn": {
     "placeholders": {
-      "day": {},
-      "date": {}
+      "day": {
+        "type": "int",
+        "format": "compactLong"
+      },
+      "date": {
+        "type": "String"
+      }
     }
   },
   "modifiedOn": "{day, plural, other {Modified on {date}}}",
   "@modifiedOn": {
     "placeholders": {
-      "day": {},
-      "date": {}
+      "day": {
+        "type": "int",
+        "format": "compactLong"
+      },
+      "date": {
+        "type": "String"
+      }
     }
   },
   "nModifications": "{n, plural, =1 {{n} modification} other {{n} modifications}}",
   "@nModifications": {
     "placeholders": {
-      "n": {}
+      "n": {
+        "type": "int",
+        "format": "compactLong"
+      }
     }
   },
   "total": "Total",

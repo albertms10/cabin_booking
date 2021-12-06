@@ -8,7 +8,10 @@
   "nBookings": "{n, plural, =0 {Sense reserves} =1 {{n} reserva} other {{n} reserves}}",
   "@nBookings": {
     "placeholders": {
-      "n": {}
+      "n": {
+        "type": "int",
+        "format": "compactLong"
+      }
     }
   },
   "recurringBooking": "Reserva periòdica",
@@ -36,7 +39,7 @@
   "enterEndTime": "Introdueix l’hora d’acabament",
   "enterValidRange": "Introdueix un rang vàlid",
   "enterDate": "Introdueix la data",
-  "enterOccurrences": "Introdueix les ocourrències",
+  "enterOccurrences": "Introdueix les ocurrències",
   "occupied": "Espai ocupat",
   "deleteBookingTitle": "Confirmes que vols suprimir la reserva?",
   "emptyItemTitle": "Confirmes que vols buidar l’ítem?",
@@ -57,7 +60,10 @@
   "nPercentOccupied": "{n} % d’ocupació",
   "@nPercentOccupied": {
     "placeholders": {
-      "n": {}
+      "n": {
+        "type": "int",
+        "format": "compactLong"
+      }
     }
   },
   "mostOccupiedTimeRange": "Horari més ocupat",
@@ -66,19 +72,28 @@
   "after": "{n, plural, =1 {Després d’} =11 {Després d’} other {Després de }}",
   "@after": {
     "placeholders": {
-      "n": {}
+      "n": {
+        "type": "int",
+        "format": "compactLong"
+      }
     }
   },
   "nOccurrences": "{n, plural, =1 {ocurrència} other {ocurrències}}",
   "@nOccurrences": {
     "placeholders": {
-      "n": {}
+      "n": {
+        "type": "int",
+        "format": "compactLong"
+      }
     }
   },
   "nSelected": "{n, plural, =1 {{n} seleccionada} other {{n} seleccionades}}",
   "@nSelected": {
     "placeholders": {
-      "n": {}
+      "n": {
+        "type": "int",
+        "format": "compactLong"
+      }
     }
   },
   "cancelSelection": "Cancel·la la selecció",
@@ -98,21 +113,34 @@
   "createdOn": "{day, plural, =1 {Creat l’{date}} =11 {Creat l’{date}} other {Creat el {date}}}",
   "@createdOn": {
     "placeholders": {
-      "day": {},
-      "date": {}
+      "day": {
+        "type": "int",
+        "format": "compactLong"
+      },
+      "date": {
+        "type": "String"
+      }
     }
   },
   "modifiedOn": "{day, plural, =1 {Modificat l’{date}} =11 {Modificat l’{date}} other {Modificat el {date}}}",
   "@modifiedOn": {
     "placeholders": {
-      "day": {},
-      "date": {}
+      "day": {
+        "type": "int",
+        "format": "compactLong"
+      },
+      "date": {
+        "type": "String"
+      }
     }
   },
   "nModifications": "{n, plural, =1 {{n} modificació} other {{n} modificacions}}",
   "@nModifications": {
     "placeholders": {
-      "n": {}
+      "n": {
+        "type": "int",
+        "format": "compactLong"
+      }
     }
   },
   "total": "Total",
