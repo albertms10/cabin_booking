@@ -357,6 +357,8 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
     if (notify) notifyListeners();
   }
 
+  Set<Cabin> get _defaultCabins => SplayTreeSet();
+
   @override
   Future<Set<Cabin>> readFromFile() async {
     try {
@@ -365,9 +367,9 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
 
       final cabins = _parseCabins(content);
 
-      return SplayTreeSet.from(cabins);
+      return cabins.isEmpty ? _defaultCabins : SplayTreeSet.from(cabins);
     } on Exception {
-      return SplayTreeSet();
+      return _defaultCabins;
     }
   }
 
