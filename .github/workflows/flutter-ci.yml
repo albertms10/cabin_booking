@@ -6,6 +6,8 @@ on:
   pull_request:
     branches: [main]
     types: [opened, synchronize, ready_for_review, reopened]
+  release:
+    types: [published]
 
 jobs:
   analyze-and-test:
@@ -38,7 +40,7 @@ jobs:
     runs-on: macos-latest
     needs: [analyze-and-test]
     timeout-minutes: 15
-    if: ${{ github.event.pull_request.draft == false }}
+    if: ${{ github.event.release.tag_name }}
 
     steps:
       - uses: actions/checkout@v2
@@ -52,12 +54,10 @@ jobs:
       - run: flutter pub get
       - run: flutter build ios --release --no-codesign --obfuscate --split-debug-info=cabin_booking/
 
-      - if: ${{ github.event_name == 'push' }}
-        name: 'Tar app'
+      - name: 'Tar app'
         run: cd build/ios/iphoneos/ && tar -cvjf ios_release.tar.bz2 "Runner.app"
 
-      - if: ${{ github.event_name == 'push' }}
-        uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v2
         with:
           name: ios_release
           path: build/ios/iphoneos/ios_release.tar.bz2
@@ -68,7 +68,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [analyze-and-test]
     timeout-minutes: 15
-    if: ${{ false }} # ${{ github.event.pull_request.draft == false }}
+    if: ${{ false }} # ${{ github.event.release.tag_name }}
 
     steps:
       - uses: actions/checkout@v2
@@ -86,12 +86,10 @@ jobs:
       - run: flutter pub get
       - run: flutter build apk --obfuscate --split-debug-info=cabin_booking/
 
-      - if: ${{ github.event_name == 'push' }}
-        name: 'Tar app'
+      - name: 'Tar app'
         run: cd build/app/outputs/flutter-apk/ && tar -cvjf android_release.tar.bz2 "app-release.apk"
 
-      - if: ${{ github.event_name == 'push' }}
-        uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v2
         with:
           name: android_release
           path: build/app/outputs/flutter-apk/android_release.tar.bz2
@@ -102,7 +100,7 @@ jobs:
     runs-on: macos-latest
     needs: [analyze-and-test]
     timeout-minutes: 15
-    if: ${{ github.event.pull_request.draft == false }}
+    if: ${{ github.event.release.tag_name }}
 
     steps:
       - uses: actions/checkout@v2
@@ -117,12 +115,10 @@ jobs:
       - run: flutter pub get
       - run: flutter build macos --obfuscate --split-debug-info=cabin_booking/
 
-      - if: ${{ github.event_name == 'push' }}
-        name: 'Tar app'
+      - name: 'Tar app'
         run: cd build/macos/Build/Products/Release/ && tar -cvjf macos_release.tar.bz2 "Cabin Booking.app"
 
-      - if: ${{ github.event_name == 'push' }}
-        uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v2
         with:
           name: macos_release
           path: build/macos/Build/Products/Release/macos_release.tar.bz2
@@ -133,7 +129,7 @@ jobs:
     runs-on: windows-latest
     needs: [analyze-and-test]
     timeout-minutes: 15
-    if: ${{ github.event.pull_request.draft == false }}
+    if: ${{ github.event.release.tag_name }}
 
     steps:
       - uses: actions/checkout@v2
@@ -143,12 +139,10 @@ jobs:
       - run: flutter pub get
       - run: flutter build windows --obfuscate --split-debug-info=cabin_booking/
 
-      - if: ${{ github.event_name == 'push' }}
-        name: 'Tar app'
+      - name: 'Tar app'
         run: cd build/windows/runner/ && tar -cvzf windows_release.tar.gz Release
 
-      - if: ${{ github.event_name == 'push' }}
-        uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v2
         with:
           name: windows_release
           path: build/windows/runner/windows_release.tar.gz
@@ -159,7 +153,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [analyze-and-test]
     timeout-minutes: 15
-    if: ${{ false }} # ${{ github.event.pull_request.draft == false }}
+    if: ${{ false }} # ${{ github.event.release.tag_name }}
 
     steps:
       - uses: actions/checkout@v2
@@ -174,12 +168,10 @@ jobs:
       - run: flutter pub get
       - run: flutter build web
 
-      - if: ${{ github.event_name == 'push' }}
-        name: 'Tar app'
+      - name: 'Tar app'
         run: cd build/ && tar -cvjf web_release.tar.bz2 web/
 
-      - if: ${{ github.event_name == 'push' }}
-        uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v2
         with:
           name: web_release
           path: build/web_release.tar.bz2
