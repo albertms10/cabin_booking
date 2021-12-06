@@ -7,6 +7,7 @@ import 'package:cabin_booking/widgets/layout/data_table_toolbar.dart';
 import 'package:cabin_booking/widgets/layout/detailed_figure.dart';
 import 'package:cabin_booking/widgets/layout/duration_figure_unit.dart';
 import 'package:cabin_booking/widgets/layout/wrapped_chip_list.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -50,14 +51,21 @@ class ItemsTable<T extends Item> extends StatefulWidget {
 
   @override
   _ItemsTableState createState() => _ItemsTableState<T>();
+}
 
-  List<ItemsTableRow<T>> get _selectedRows =>
-      rows.where((row) => row.selected).toList();
+class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
+  bool _sortAscending = true;
+  int _sortColumnIndex = 0;
+  late final List<int> _selectedIndexes = [];
+
+  List<ItemsTableRow<T>> get _selectedRows => widget.rows
+      .whereIndexed((index, row) => _selectedIndexes.contains(index))
+      .toList();
 
   List<String> get _selectedIds =>
       _selectedRows.map((row) => row.item.id).toList();
 
-  bool get selectedAreBooked {
+  bool get _selectedAreBooked {
     for (final row in _selectedRows) {
       if (row.bookingsCount > 0 || row.recurringBookingsCount > 0) return true;
     }
@@ -65,16 +73,9 @@ class ItemsTable<T extends Item> extends StatefulWidget {
     return false;
   }
 
-  void unselect() {
-    for (final row in rows) {
-      if (row.selected) row.selected = false;
-    }
+  void _unselect() {
+    setState(_selectedIndexes.clear);
   }
-}
-
-class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
-  bool _sortAscending = true;
-  int _sortColumnIndex = 0;
 
   void _onSortItem(bool ascending) {
     if (ascending) {
@@ -177,11 +178,17 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
                     final row = widget.rows[index];
 
                     return DataRow(
-                      selected: widget.rows[index].selected,
+                      selected: _selectedIndexes.contains(index),
                       onSelectChanged: (selected) {
-                        setState(
-                          () => widget.rows[index].selected = selected ?? false,
-                        );
+                        if (selected == null) return;
+
+                        setState(() {
+                          selected
+                              ? _selectedIndexes.add(index)
+                              : _selectedIndexes.removeWhere(
+                                  (selectedIndex) => selectedIndex == index,
+                                );
+                        });
                       },
                       cells: [
                         DataCell(
@@ -256,39 +263,35 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
           ],
         ),
         DataTableToolbar(
-          shown: widget._selectedRows.isNotEmpty,
-          selectedItems: widget._selectedRows.length,
-          onPressedLeading: () {
-            setState(() => widget.unselect());
-          },
+          shown: _selectedRows.isNotEmpty,
+          selectedItems: _selectedRows.length,
+          onPressedLeading: _unselect,
           actions: [
-            if (widget.shallEdit && widget._selectedRows.length == 1)
+            if (widget.shallEdit && _selectedRows.length == 1)
               IconButton(
-                onPressed: () =>
-                    widget.onEditPressed?.call(widget._selectedRows),
+                onPressed: () => widget.onEditPressed?.call(_selectedRows),
                 icon: const Icon(Icons.edit),
                 tooltip: appLocalizations.edit,
               ),
             if (widget.shallEmpty)
               IconButton(
-                onPressed:
-                    widget.onEmptyPressed == null || !widget.selectedAreBooked
-                        ? null
-                        : () async {
-                            final shallDelete = await showDialog<bool>(
-                              context: context,
-                              builder: (context) => DangerAlertDialog(
-                                title: widget.onEmptyTitle ??
-                                    appLocalizations.emptyItemTitle,
-                                content: appLocalizations.actionUndone,
-                                okText: appLocalizations.empty,
-                              ),
-                            );
+                onPressed: widget.onEmptyPressed == null || !_selectedAreBooked
+                    ? null
+                    : () async {
+                        final shallDelete = await showDialog<bool>(
+                          context: context,
+                          builder: (context) => DangerAlertDialog(
+                            title: widget.onEmptyTitle ??
+                                appLocalizations.emptyItemTitle,
+                            content: appLocalizations.actionUndone,
+                            okText: appLocalizations.empty,
+                          ),
+                        );
 
-                            if (shallDelete == null || !shallDelete) return;
+                        if (shallDelete == null || !shallDelete) return;
 
-                            widget.onEmptyPressed!(widget._selectedIds);
-                          },
+                        widget.onEmptyPressed!(_selectedIds);
+                      },
                 icon: const Icon(Icons.delete_outline),
                 tooltip: appLocalizations.empty,
               ),
@@ -308,7 +311,7 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
 
                         if (shallDelete == null || !shallDelete) return;
 
-                        widget.onRemovePressed!(widget._selectedIds);
+                        widget.onRemovePressed!(_selectedIds);
                       },
                 icon: const Icon(Icons.delete),
                 tooltip: MaterialLocalizations.of(context).deleteButtonTooltip,
@@ -327,7 +330,6 @@ class ItemsTableRow<T extends Item> {
   final Duration occupiedDuration;
   final Map<DateTime, Duration> occupiedDurationPerWeek;
   final Set<List<TimeOfDay>> mostOccupiedTimeRanges;
-  bool selected;
 
   ItemsTableRow({
     required this.item,
@@ -336,7 +338,6 @@ class ItemsTableRow<T extends Item> {
     this.occupiedDuration = Duration.zero,
     this.occupiedDurationPerWeek = const {},
     this.mostOccupiedTimeRanges = const {},
-    this.selected = false,
   });
 }
 
