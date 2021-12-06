@@ -14,6 +14,9 @@ class DayNavigation extends StatelessWidget {
     return Consumer<DayHandler>(
       builder: (context, dayHandler, child) {
         return Wrap(
+          crossAxisAlignment: WrapCrossAlignment.center,
+          spacing: 8.0,
+          runSpacing: 8.0,
           children: [
             TextButton(
               style: TextButton.styleFrom(
@@ -22,7 +25,6 @@ class DayNavigation extends StatelessWidget {
               onPressed: () => dayHandler.changeToNow(),
               child: Text(appLocalizations.today),
             ),
-            const SizedBox(width: 8.0),
             ClipRRect(
               borderRadius: const BorderRadius.all(Radius.circular(24.0)),
               child: Material(
@@ -35,7 +37,6 @@ class DayNavigation extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(width: 8.0),
             ClipRRect(
               borderRadius: const BorderRadius.all(Radius.circular(24.0)),
               child: Material(
@@ -48,14 +49,37 @@ class DayNavigation extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(width: 24.0),
-            Text(
-              DateFormat.yMMMMEEEEd().format(dayHandler.dateTime),
-              style: Theme.of(context).textTheme.headline5,
-            ),
+            const SizedBox(width: 8.0),
+            _WeekDateTime(dateTime: dayHandler.dateTime),
           ],
         );
       },
+    );
+  }
+}
+
+class _WeekDateTime extends StatelessWidget {
+  final DateTime dateTime;
+
+  const _WeekDateTime({required this.dateTime, Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          DateFormat.EEEE().format(dateTime),
+          style: Theme.of(context).textTheme.headline5,
+        ),
+        Text(
+          DateFormat.yMMMMd().format(dateTime),
+          style: Theme.of(context)
+              .textTheme
+              .subtitle2!
+              .copyWith(color: Colors.white70),
+        ),
+      ],
     );
   }
 }
