@@ -11,44 +11,47 @@ class BookingsTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        return Stack(
-          children: [
-            const StripedBackground(
-              startTime: kTimeTableStartTime,
-              endTime: kTimeTableEndTime,
-            ),
-            Consumer2<DayHandler, CabinManager>(
-              builder: (context, dayHandler, cabinManager, child) {
-                final maxParentWidth = constraints.maxWidth;
-                final calculatedBookingStackWidth =
-                    maxParentWidth / cabinManager.cabins.length;
-                final bookingStackWidth =
-                    (calculatedBookingStackWidth < kBookingColumnMinWidth)
-                        ? kBookingColumnMinWidth
-                        : calculatedBookingStackWidth;
+    return Material(
+      color: Colors.transparent,
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          return Stack(
+            children: [
+              const StripedBackground(
+                startTime: kTimeTableStartTime,
+                endTime: kTimeTableEndTime,
+              ),
+              Consumer2<DayHandler, CabinManager>(
+                builder: (context, dayHandler, cabinManager, child) {
+                  final maxParentWidth = constraints.maxWidth;
+                  final calculatedBookingStackWidth =
+                      maxParentWidth / cabinManager.cabins.length;
+                  final bookingStackWidth =
+                      (calculatedBookingStackWidth < kBookingColumnMinWidth)
+                          ? kBookingColumnMinWidth
+                          : calculatedBookingStackWidth;
 
-                return Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    for (final cabin in cabinManager.cabins)
-                      SizedBox(
-                        width: bookingStackWidth,
-                        child: BookingsStack(
-                          key: Key('${cabin.number}'),
-                          cabin: cabin.simplified(),
-                          bookings: cabin.allBookingsOn(dayHandler.dateTime),
+                  return Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      for (final cabin in cabinManager.cabins)
+                        SizedBox(
+                          width: bookingStackWidth,
+                          child: BookingsStack(
+                            key: Key('${cabin.number}'),
+                            cabin: cabin.simplified(),
+                            bookings: cabin.allBookingsOn(dayHandler.dateTime),
+                          ),
                         ),
-                      ),
-                  ],
-                );
-              },
-            ),
-            const CurrentTimeIndicator(hideText: true),
-          ],
-        );
-      },
+                    ],
+                  );
+                },
+              ),
+              const CurrentTimeIndicator(hideText: true),
+            ],
+          );
+        },
+      ),
     );
   }
 }
