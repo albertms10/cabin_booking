@@ -54,7 +54,12 @@
   "noCabinsMessage": "Add a cabin to begin",
   "noSchoolYearsMessage": "Add a school year to begin",
   "accumulatedTime": "Accumulated time",
-  "occupancy": "Occupancy",
+  "nPercentOccupied": "{n}% occupied",
+  "@nPercentOccupied": {
+    "placeholders": {
+      "n": {}
+    }
+  },
   "mostOccupiedTimeRange": "Most occupied time range",
   "mostBookedDay": "Most booked day",
   "onDate": "On",
