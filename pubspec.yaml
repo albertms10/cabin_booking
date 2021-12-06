@@ -18,10 +18,10 @@ dependencies:
     sdk: flutter
   horizontal_data_table: ^3.5.0
   intl: any
+  nanoid: ^1.0.0
   path_provider: ^2.0.5
   provider: ^6.0.1
   timer_builder: ^2.0.0
-  uuid: ^3.0.5
   window_size:
     git:
       url: git://github.com/google/flutter-desktop-embedding.git

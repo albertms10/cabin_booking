@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:uuid/uuid.dart';
+import 'package:nanoid/nanoid.dart';
 
 import 'serializable.dart';
 
@@ -19,7 +19,7 @@ abstract class Item implements Comparable<Item>, Serializable {
   Item({String? id})
       : creationDateTime = DateTime.now(),
         modificationCount = 0 {
-    this.id = id ?? const Uuid().v4();
+    this.id = id ?? nanoid();
   }
 
   Item.from(Map<String, dynamic> other)
