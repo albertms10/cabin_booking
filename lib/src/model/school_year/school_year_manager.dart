@@ -3,6 +3,7 @@ import 'dart:convert' show json;
 
 import 'package:flutter/foundation.dart';
 
+import '../file/file_manager.dart';
 import '../file/writable_manager.dart';
 import 'school_year.dart';
 
@@ -127,7 +128,7 @@ class SchoolYearManager extends WritableManager<Set<SchoolYear>>
   Future<Set<SchoolYear>> readFromFile() async {
     try {
       final file = await fileManager.localFile(fileName);
-      final content = await file.readAsString();
+      final content = await file.readAsUncompressedString();
 
       final schoolYears = _parseSchoolYears(content);
 
@@ -151,7 +152,7 @@ class SchoolYearManager extends WritableManager<Set<SchoolYear>>
   Future<bool> writeToFile() async {
     final file = await fileManager.localFile(fileName);
 
-    await file.writeAsString(
+    await file.writeAsCompressedString(
       json.encode(schoolYearsToJson()),
     );
 
