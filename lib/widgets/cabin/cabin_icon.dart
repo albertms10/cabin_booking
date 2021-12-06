@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CabinIcon extends StatelessWidget {
   final int number;
@@ -36,26 +37,32 @@ class CabinIcon extends StatelessWidget {
       );
     }
 
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        SizedBox(
-          width: radius * 2.0,
-          height: radius * 2.0,
-          child: TweenAnimationBuilder<double>(
-            tween: Tween<double>(begin: 0.0, end: progress),
-            duration: const Duration(milliseconds: 700),
-            curve: Curves.easeOutCubic,
-            builder: (context, value, child) {
-              return CircularProgressIndicator(
-                value: value,
-                backgroundColor: theme.colorScheme.secondary.withOpacity(0.25),
-              );
-            },
+    final appLocalizations = AppLocalizations.of(context)!;
+
+    return Tooltip(
+      message: appLocalizations.nPercentOccupied((progress! * 100).ceil()),
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          SizedBox(
+            width: radius * 2.0,
+            height: radius * 2.0,
+            child: TweenAnimationBuilder<double>(
+              tween: Tween<double>(begin: 0.0, end: progress),
+              duration: const Duration(milliseconds: 700),
+              curve: Curves.easeOutCubic,
+              builder: (context, value, child) {
+                return CircularProgressIndicator(
+                  value: value,
+                  backgroundColor:
+                      theme.colorScheme.secondary.withOpacity(0.25),
+                );
+              },
+            ),
           ),
-        ),
-        text,
-      ],
+          text,
+        ],
+      ),
     );
   }
 }
