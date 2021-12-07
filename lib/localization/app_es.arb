@@ -8,7 +8,10 @@
   "nBookings": "{n, plural, =0 {Sin reservas} =1 {{n} reserva} other {{n} reservas}}",
   "@nBookings": {
     "placeholders": {
-      "n": {}
+      "n": {
+        "type": "int",
+        "format": "compactLong"
+      }
     }
   },
   "recurringBooking": "Reserva periódica",
@@ -57,7 +60,10 @@
   "nPercentOccupied": "{n} % de ocupación",
   "@nPercentOccupied": {
     "placeholders": {
-      "n": {}
+      "n": {
+        "type": "int",
+        "format": "compactLong"
+      }
     }
   },
   "mostOccupiedTimeRange": "Horario más ocupado",
@@ -66,19 +72,28 @@
   "after": "{n, plural, other {Después de }}",
   "@after": {
     "placeholders": {
-      "n": {}
+      "n": {
+        "type": "int",
+        "format": "compactLong"
+      }
     }
   },
   "nOccurrences": "{n, plural, =1 {ocurrencia} other {ocurrencias}}",
   "@nOccurrences": {
     "placeholders": {
-      "n": {}
+      "n": {
+        "type": "int",
+        "format": "compactLong"
+      }
     }
   },
   "nSelected": "{n, plural, =1 {{n} seleccionada} other {{n} seleccionadas}}",
   "@nSelected": {
     "placeholders": {
-      "n": {}
+      "n": {
+        "type": "int",
+        "format": "compactLong"
+      }
     }
   },
   "cancelSelection": "Cancelar la selección",
@@ -98,21 +113,34 @@
   "createdOn": "{day, plural, other {Creado el {date}}}",
   "@createdOn": {
     "placeholders": {
-      "day": {},
-      "date": {}
+      "day": {
+        "type": "int",
+        "format": "compactLong"
+      },
+      "date": {
+        "type": "String"
+      }
     }
   },
   "modifiedOn": "{day, plural, other {Modificado el {date}}}",
   "@modifiedOn": {
     "placeholders": {
-      "day": {},
-      "date": {}
+      "day": {
+        "type": "int",
+        "format": "compactLong"
+      },
+      "date": {
+        "type": "String"
+      }
     }
   },
   "nModifications": "{n, plural, =1 {{n} modificación} other {{n} modificaciones}}",
   "@nModifications": {
     "placeholders": {
-      "n": {}
+      "n": {
+        "type": "int",
+        "format": "compactLong"
+      }
     }
   },
   "total": "Total",
