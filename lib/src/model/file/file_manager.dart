@@ -19,7 +19,7 @@ class FileManager {
   Future<File> localFile(String fileName) async {
     final path = await _localPath;
 
-    return File('$path/$fileName.json');
+    return File('$path/$fileName');
   }
 }
 
