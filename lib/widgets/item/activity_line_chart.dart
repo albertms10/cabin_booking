@@ -31,8 +31,8 @@ class ActivityLineChart extends StatelessWidget {
         width: 250.0,
         padding: const EdgeInsets.symmetric(vertical: 24.0),
         child: DetailLineChart(
-          minX: dateRange.startDate!.toDouble(),
-          maxX: dateRange.endDate!.toDouble(),
+          minX: dateRange.startDate?.toDouble(),
+          maxX: dateRange.endDate?.toDouble(),
           spots: [
             for (final entry in occupiedDurationPerWeek.entries)
               FlSpot(
