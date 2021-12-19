@@ -2,21 +2,22 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Flutter: Run all Tests",
+      "name": "Production",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "release"
+    },
+    {
+      "name": "Development",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "debug"
+    },
+    {
+      "name": "Test",
       "type": "dart",
       "request": "launch",
       "program": "./test/"
-    },
-    {
-      "name": "cabin_booking",
-      "request": "launch",
-      "type": "dart"
-    },
-    {
-      "name": "cabin_booking (profile mode)",
-      "request": "launch",
-      "type": "dart",
-      "flutterMode": "profile"
     }
   ]
 }
