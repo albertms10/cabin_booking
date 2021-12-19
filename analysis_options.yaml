@@ -94,6 +94,8 @@ analyzer:
     implicit_dynamic_parameter: ignore
     implicit_dynamic_variable: ignore
     import_of_legacy_library_into_null_safe: ignore
+    library_private_types_in_public_api: ignore
+    prefer_asserts_with_message: ignore
     prefer_int_literals: ignore
     public_member_api_docs: ignore
     sort_constructors_first: ignore
