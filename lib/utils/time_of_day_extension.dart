@@ -59,12 +59,12 @@ extension TimeOfDayExtension on TimeOfDay {
   // TODO(albertms10): remove when implemented in Flutter, https://github.com/flutter/flutter/pull/59981
   static int compare(TimeOfDay a, TimeOfDay b) => a.compareTo(b);
 
-  int get inMinutes => hour * TimeOfDay.minutesPerHour + minute;
+  int get _inMinutes => hour * TimeOfDay.minutesPerHour + minute;
 
   int compareTo(TimeOfDay? other) {
     if (other == null) return 1;
     if (other == this) return 0;
 
-    return inMinutes.compareTo(other.inMinutes);
+    return _inMinutes.compareTo(other._inMinutes);
   }
 }
