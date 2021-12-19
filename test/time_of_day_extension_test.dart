@@ -94,23 +94,13 @@ void main() {
 
     // TODO(albertms10): remove when implemented in Flutter, https://github.com/flutter/flutter/pull/59981
     group('Comparable<TimeOfDay>', () {
-      test('.compare', () {
-        expect(
-          TimeOfDayExtension.compare(
-            const TimeOfDay(hour: 0, minute: 0),
-            const TimeOfDay(hour: 0, minute: 0),
-          ),
-          0,
-        );
-      });
-
       test('.compareTo', () {
         expect(
           [
             const TimeOfDay(hour: 12, minute: 0),
             const TimeOfDay(hour: 23, minute: 59),
             const TimeOfDay(hour: 0, minute: 0),
-          ]..sort(),
+          ]..sort(TimeOfDayExtension.compare),
           [
             const TimeOfDay(hour: 0, minute: 0),
             const TimeOfDay(hour: 12, minute: 0),
@@ -134,7 +124,7 @@ void main() {
             const TimeOfDay(hour: 0, minute: 0),
             const TimeOfDay(hour: 23, minute: 59),
             const TimeOfDay(hour: 12, minute: 0),
-          ]..sort(),
+          ]..sort(TimeOfDayExtension.compare),
           [
             const TimeOfDay(hour: 0, minute: 0),
             const TimeOfDay(hour: 12, minute: 0),
