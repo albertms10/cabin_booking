@@ -53,7 +53,7 @@ class _SummaryPageState extends State<SummaryPage>
                   onTap: widget.setNavigationPage == null
                       ? null
                       : () {
-                          widget.setNavigationPage!.call(AppPages.bookings);
+                          widget.setNavigationPage?.call(AppPages.bookings);
                         },
                   items: [
                     StatisticItem(
@@ -82,7 +82,7 @@ class _SummaryPageState extends State<SummaryPage>
                   onTap: widget.setNavigationPage == null
                       ? null
                       : () {
-                          widget.setNavigationPage!.call(AppPages.cabins);
+                          widget.setNavigationPage?.call(AppPages.cabins);
                         },
                   items: [
                     StatisticSimpleItem(
@@ -97,7 +97,7 @@ class _SummaryPageState extends State<SummaryPage>
                   onTap: widget.setNavigationPage == null
                       ? null
                       : () {
-                          widget.setNavigationPage!.call(AppPages.schoolYears);
+                          widget.setNavigationPage?.call(AppPages.schoolYears);
                         },
                   items: [
                     StatisticSimpleItem(
@@ -120,7 +120,7 @@ class _SummaryPageState extends State<SummaryPage>
                         : () {
                             dayHandler.dateTime =
                                 cabinManager.mostBookedDayEntry!.key;
-                            widget.setNavigationPage!.call(AppPages.bookings);
+                            widget.setNavigationPage?.call(AppPages.bookings);
                           },
                     items: [
                       StatisticSimpleItem(
@@ -179,7 +179,7 @@ class _SummaryPageState extends State<SummaryPage>
                         ? null
                         : (dateTime, value) {
                             dayHandler.dateTime = dateTime;
-                            widget.setNavigationPage!.call(AppPages.bookings);
+                            widget.setNavigationPage?.call(AppPages.bookings);
                           },
                     legendLessLabel: appLocalizations.less,
                     legendMoreLabel: appLocalizations.more,

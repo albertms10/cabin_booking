@@ -21,7 +21,7 @@ class CabinIcon extends StatelessWidget {
 
     final text = Text(
       '$number',
-      style: theme.textTheme.headline5!.copyWith(
+      style: theme.textTheme.headline5?.copyWith(
         color: shouldShowProgress
             ? theme.colorScheme.secondary
             : theme.colorScheme.onSecondary,

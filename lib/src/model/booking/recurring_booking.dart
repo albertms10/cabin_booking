@@ -85,7 +85,7 @@ class RecurringBooking extends Booking {
         _JsonFields.repeatEvery: repeatEvery,
         if (method == RecurringBookingMethod.endDate)
           _JsonFields.recurringEndDate:
-              _recurringEndDate!.toIso8601String().split('T').first
+              _recurringEndDate?.toIso8601String().split('T').first
         else if (method == RecurringBookingMethod.occurrences)
           _JsonFields.occurrences: _occurrences,
       };

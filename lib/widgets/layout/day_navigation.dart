@@ -76,7 +76,7 @@ class _WeekDateTime extends StatelessWidget {
         ),
         Text(
           DateFormat.yMMMMd().format(dateTime),
-          style: theme.textTheme.subtitle2!.copyWith(color: theme.hintColor),
+          style: theme.textTheme.subtitle2?.copyWith(color: theme.hintColor),
         ),
       ],
     );

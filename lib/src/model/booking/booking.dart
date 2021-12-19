@@ -57,9 +57,9 @@ class Booking extends Item {
   Map<String, dynamic> toJson() => {
         ...super.toJson(),
         _JsonFields.description: description,
-        _JsonFields.date: date!.toIso8601String().split('T').first,
-        _JsonFields.startTime: startTime!.format24Hour(),
-        _JsonFields.endTime: endTime!.format24Hour(),
+        _JsonFields.date: date?.toIso8601String().split('T').first,
+        _JsonFields.startTime: startTime?.format24Hour(),
+        _JsonFields.endTime: endTime?.format24Hour(),
         _JsonFields.status: status.index,
         _JsonFields.isLocked: isLocked,
       };
@@ -73,12 +73,12 @@ class Booking extends Item {
   Map<TimeOfDay, Duration> get hoursSpan {
     final timeRanges = <TimeOfDay, Duration>{};
 
-    var runTime = startTime;
+    var runTime = startTime!;
     var runDuration = Duration.zero;
 
     while (runDuration < duration) {
       final nextHour = TimeOfDay(
-        hour: (runTime!.hour + 1) % TimeOfDay.hoursPerDay,
+        hour: (runTime.hour + 1) % TimeOfDay.hoursPerDay,
         minute: 0,
       );
 
@@ -98,8 +98,8 @@ class Booking extends Item {
     return timeRanges;
   }
 
-  String get timeRange => '${startTime!.format24Hour()}'
-      '–${endTime!.format24Hour()}';
+  String get timeRange => '${startTime?.format24Hour()}'
+      '–${endTime?.format24Hour()}';
 
   String get dateTimeRange => '${DateFormat.yMd().format(date!)} $timeRange';
 
