@@ -10,7 +10,7 @@ class MainDataLoader extends StatefulWidget {
   const MainDataLoader({Key? key, required this.child}) : super(key: key);
 
   @override
-  State<MainDataLoader> createState() => _MainDataLoaderState();
+  _MainDataLoaderState createState() => _MainDataLoaderState();
 }
 
 class _MainDataLoaderState extends State<MainDataLoader> {
