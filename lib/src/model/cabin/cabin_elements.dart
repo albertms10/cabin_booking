@@ -24,7 +24,8 @@ class CabinElements {
 
   CabinElements.from(Map<String, dynamic> other)
       : pianos = (other[_JsonFields.pianos] as List<dynamic>)
-            .map((piano) => Piano.from(piano))
+            .cast<Map<String, dynamic>>()
+            .map(Piano.from)
             .toList(),
         lecterns = other[_JsonFields.lecterns] as int,
         chairs = other[_JsonFields.chairs] as int,

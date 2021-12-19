@@ -2,7 +2,6 @@ import 'dart:collection' show SplayTreeMap, SplayTreeSet;
 import 'dart:convert' show json;
 
 import 'package:cabin_booking/utils/time_of_day_extension.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../booking/booking.dart';
@@ -15,7 +14,8 @@ import 'cabin.dart';
 
 Iterable<Cabin> _parseCabins(String jsonString) =>
     (json.decode(jsonString) as List<dynamic>)
-        .map<Cabin>((json) => Cabin.from(json));
+        .cast<Map<String, dynamic>>()
+        .map(Cabin.from);
 
 class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
   late Set<Cabin> cabins;

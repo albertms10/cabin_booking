@@ -25,12 +25,12 @@ class BookingManager with ChangeNotifier {
     required List<dynamic> bookings,
     required List<dynamic> recurringBookings,
   })  : bookings = SplayTreeSet.from(
-          bookings.map<Booking>((booking) => Booking.from(booking)),
+          bookings.cast<Map<String, dynamic>>().map<Booking>(Booking.from),
         ),
         recurringBookings = SplayTreeSet.from(
-          recurringBookings.map<RecurringBooking>(
-            (recurringBooking) => RecurringBooking.from(recurringBooking),
-          ),
+          recurringBookings
+              .cast<Map<String, dynamic>>()
+              .map<RecurringBooking>(RecurringBooking.from),
         );
 
   List<Map<String, dynamic>> bookingsToJson() =>

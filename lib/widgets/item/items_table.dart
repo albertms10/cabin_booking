@@ -11,7 +11,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-typedef _OnSortFunction = void Function(bool);
+typedef OnSortFunction = void Function({bool ascending});
 
 class ItemsTable<T extends Item> extends StatefulWidget {
   final String Function(ItemsTableRow<T>)? itemTitle;
@@ -77,7 +77,7 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
     setState(_selectedIndexes.clear);
   }
 
-  void _onSortItem(bool ascending) {
+  void _onSortItem({bool ascending = true}) {
     if (ascending) {
       widget.rows.sort((a, b) => a.item.compareTo(b.item));
     } else {
@@ -85,7 +85,7 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
     }
   }
 
-  void _onSortBookingsCount(bool ascending) {
+  void _onSortBookingsCount({bool ascending = true}) {
     if (ascending) {
       widget.rows.sort((a, b) => a.bookingsCount.compareTo(b.bookingsCount));
     } else {
@@ -93,7 +93,7 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
     }
   }
 
-  void _onSortAccumulatedDuration(bool ascending) {
+  void _onSortAccumulatedDuration({bool ascending = true}) {
     if (ascending) {
       widget.rows.sort(
         (a, b) => a.occupiedDuration.compareTo(b.occupiedDuration),
@@ -105,12 +105,12 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
     }
   }
 
-  void onSortColumn(int columnIndex, bool ascending) {
-    <_OnSortFunction>[
+  void onSortColumn(int columnIndex, {bool ascending = true}) {
+    <OnSortFunction>[
       _onSortItem,
       _onSortBookingsCount,
       _onSortAccumulatedDuration,
-    ][columnIndex](ascending);
+    ][columnIndex](ascending: ascending);
 
     setState(() {
       _sortColumnIndex = columnIndex;
@@ -165,7 +165,12 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
                           ),
                         ),
                       ),
-                      onSort: column.sortable ? onSortColumn : null,
+                      onSort: column.sortable
+                          ? (columnIndex, ascending) {
+                              // lambda to avoid positional boolean parameters
+                              onSortColumn(columnIndex, ascending: ascending);
+                            }
+                          : null,
                       tooltip: column.sortable
                           ? '${appLocalizations.sortBy} ${column.title}'
                           : null,

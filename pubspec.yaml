@@ -6,20 +6,20 @@ publish_to: none
 repository: https://github.com/albertms10/cabin_booking.git
 
 environment:
-  sdk: ">=2.12.0-0 <3.0.0"
+  sdk: ">=2.15.0 <3.0.0"
 
 dependencies:
   collection: ^1.15.0
-  cupertino_icons: ^1.0.3
-  fl_chart: ^0.40.0
+  cupertino_icons: ^1.0.4
+  fl_chart: ^0.40.6
   flutter:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  horizontal_data_table: ^3.5.0
-  intl: any
+  horizontal_data_table: ^3.6.0
+  intl: ^0.17.0
   nanoid: ^1.0.0
-  path_provider: ^2.0.5
+  path_provider: ^2.0.8
   provider: ^6.0.1
   timer_builder: ^2.0.0
   window_size:
@@ -28,10 +28,10 @@ dependencies:
       path: plugins/window_size
 
 dev_dependencies:
-  dart_code_metrics: ^4.4.0
+  dart_code_metrics: ^4.8.1
   flutter_test:
     sdk: flutter
-  very_good_analysis: ^2.3.0
+  very_good_analysis: ^2.4.0
 
 flutter:
   generate: true

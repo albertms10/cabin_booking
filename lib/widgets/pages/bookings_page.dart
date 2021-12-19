@@ -6,7 +6,7 @@ class BookingsPage extends StatefulWidget {
   const BookingsPage({Key? key}) : super(key: key);
 
   @override
-  State<BookingsPage> createState() => _BookingsPageState();
+  _BookingsPageState createState() => _BookingsPageState();
 }
 
 class _BookingsPageState extends State<BookingsPage>

@@ -5,7 +5,7 @@ class CabinsPage extends StatefulWidget {
   const CabinsPage({Key? key}) : super(key: key);
 
   @override
-  State<CabinsPage> createState() => _CabinsPageState();
+  _CabinsPageState createState() => _CabinsPageState();
 }
 
 class _CabinsPageState extends State<CabinsPage>
