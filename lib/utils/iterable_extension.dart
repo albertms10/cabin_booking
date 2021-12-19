@@ -65,6 +65,7 @@ extension IterableExtension<E> on Iterable<E> {
     if (E == num || E == int || E == double) {
       nextValue ??= (current) => (current as num) + 1 as E;
     } else if (E == String) {
+      // ignore: parameter_assignments
       nextValue ??= (current) {
         final charCodes = (current as String).codeUnits.map((a) => a + 1);
 

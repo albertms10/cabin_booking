@@ -2,7 +2,6 @@ import 'dart:collection' show SplayTreeMap, SplayTreeSet;
 import 'dart:convert' show json;
 
 import 'package:cabin_booking/utils/time_of_day_extension.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../booking/booking.dart';

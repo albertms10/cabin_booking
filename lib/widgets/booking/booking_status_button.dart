@@ -40,7 +40,7 @@ class BookingStatusButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Tooltip(
-      message: _statusMessages(context)[status]!,
+      message: _statusMessages(context)[status],
       child: Material(
         color: Colors.transparent,
         shape: const StadiumBorder(),
