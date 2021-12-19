@@ -91,5 +91,57 @@ void main() {
         expect(const TimeOfDay(hour: 17, minute: 45).format24Hour(), '17:45');
       });
     });
+
+    // TODO(albertms10): remove when implemented in Flutter, https://github.com/flutter/flutter/pull/59981
+    group('Comparable<TimeOfDay>', () {
+      test('.compare', () {
+        expect(
+          TimeOfDayExtension.compare(
+            const TimeOfDay(hour: 0, minute: 0),
+            const TimeOfDay(hour: 0, minute: 0),
+          ),
+          0,
+        );
+      });
+
+      test('.compareTo', () {
+        expect(
+          [
+            const TimeOfDay(hour: 12, minute: 0),
+            const TimeOfDay(hour: 23, minute: 59),
+            const TimeOfDay(hour: 0, minute: 0),
+          ]..sort(),
+          [
+            const TimeOfDay(hour: 0, minute: 0),
+            const TimeOfDay(hour: 12, minute: 0),
+            const TimeOfDay(hour: 23, minute: 59),
+          ],
+        );
+
+        expect(const TimeOfDay(hour: 0, minute: 0).compareTo(null) > 0, true);
+
+        const zero = TimeOfDay(hour: 0, minute: 0);
+        expect(zero.compareTo(zero), 0);
+
+        expect(
+          const TimeOfDay(hour: 0, minute: 0)
+              .compareTo(const TimeOfDay(hour: 0, minute: 0)),
+          0,
+        );
+
+        expect(
+          [
+            const TimeOfDay(hour: 0, minute: 0),
+            const TimeOfDay(hour: 23, minute: 59),
+            const TimeOfDay(hour: 12, minute: 0),
+          ]..sort(),
+          [
+            const TimeOfDay(hour: 0, minute: 0),
+            const TimeOfDay(hour: 12, minute: 0),
+            const TimeOfDay(hour: 23, minute: 59),
+          ],
+        );
+      });
+    });
   });
 }
