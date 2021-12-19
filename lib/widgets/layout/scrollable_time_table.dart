@@ -38,8 +38,8 @@ class ScrollableTimeTable extends StatelessWidget {
                       child: Text(
                         AppLocalizations.of(context)!.noCabins,
                         textAlign: TextAlign.center,
-                        style: theme.textTheme.headline5!
-                            .copyWith(color: Colors.grey[600]),
+                        style: theme.textTheme.headline5
+                            ?.copyWith(color: Colors.grey[600]),
                       ),
                     );
                   }
