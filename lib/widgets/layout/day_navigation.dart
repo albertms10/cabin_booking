@@ -65,19 +65,18 @@ class _WeekDateTime extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           DateFormat.EEEE().format(dateTime),
-          style: Theme.of(context).textTheme.headline5,
+          style: theme.textTheme.headline5,
         ),
         Text(
           DateFormat.yMMMMd().format(dateTime),
-          style: Theme.of(context)
-              .textTheme
-              .subtitle2!
-              .copyWith(color: Colors.white70),
+          style: theme.textTheme.subtitle2!.copyWith(color: theme.hintColor),
         ),
       ],
     );
