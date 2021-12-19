@@ -165,7 +165,12 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
                           ),
                         ),
                       ),
-                      onSort: column.sortable ? onSortColumn : null,
+                      onSort: column.sortable
+                          ? (columnIndex, ascending) {
+                              // lambda to avoid positional boolean parameters
+                              onSortColumn(columnIndex, ascending: ascending);
+                            }
+                          : null,
                       tooltip: column.sortable
                           ? '${appLocalizations.sortBy} ${column.title}'
                           : null,
