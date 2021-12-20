@@ -4,10 +4,10 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('IterableExtension', () {
-    group('.filterFalsy', () {
+    group('.whereTruthy', () {
       test('should return this Iterable excluding falsy values', () {
         expect(
-          const [true, false, 0, 1, 'Hello', 'world', '', null].filterFalsy,
+          const [true, false, 0, 1, 'Hello', 'world', '', null].whereTruthy(),
           const [true, 1, 'Hello', 'world'],
         );
       });
