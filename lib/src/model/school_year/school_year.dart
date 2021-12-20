@@ -52,6 +52,14 @@ class SchoolYear extends DateRange {
 
   Duration get workingDuration => duration - holidaysDuration;
 
+  bool isOnHolidays(DateTime dateTime) {
+    for (final holiday in holidays) {
+      if (holiday.includes(dateTime)) return true;
+    }
+
+    return false;
+  }
+
   @override
   void replaceWith(covariant SchoolYear item) {
     startDate = item.startDate;
