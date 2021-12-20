@@ -50,7 +50,10 @@ class SchoolYearManager extends WritableManager<Set<SchoolYear>>
       }
     }
 
-    return schoolYears.length - 1;
+    if (dateTime.isAfter(schoolYears.last.startDate!) &&
+        dateTime.isBefore(schoolYears.last.endDate!)) {
+      return schoolYears.length - 1;
+    }
   }
 
   SchoolYear? get schoolYear =>
