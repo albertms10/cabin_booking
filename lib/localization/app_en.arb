@@ -20,6 +20,8 @@
   "schoolYears": "School years",
   "workingDays": "Working days",
   "holidays": "Holidays",
+  "schoolDay": "School day",
+  "nonSchoolDay": "Non-school day",
   "lockedRange": "Locked range",
   "book": "Book",
   "student": "Student",

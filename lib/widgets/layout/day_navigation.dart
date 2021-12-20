@@ -50,7 +50,10 @@ class DayNavigation extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 8.0),
-            _WeekDateTime(dateTime: dayHandler.dateTime),
+            _WeekDateTime(
+              dateTime: dayHandler.dateTime,
+              isNonSchoolDay: dayHandler.dateTimeIsNonSchool,
+            ),
           ],
         );
       },
@@ -60,19 +63,37 @@ class DayNavigation extends StatelessWidget {
 
 class _WeekDateTime extends StatelessWidget {
   final DateTime dateTime;
+  final bool isNonSchoolDay;
 
-  const _WeekDateTime({required this.dateTime, Key? key}) : super(key: key);
+  const _WeekDateTime({
+    required this.dateTime,
+    Key? key,
+    this.isNonSchoolDay = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final appLocalizations = AppLocalizations.of(context)!;
     final theme = Theme.of(context);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          DateFormat.EEEE().format(dateTime),
-          style: theme.textTheme.headline5,
+        Wrap(
+          spacing: 8.0,
+          runSpacing: 4.0,
+          crossAxisAlignment: WrapCrossAlignment.center,
+          children: [
+            Text(
+              DateFormat.EEEE().format(dateTime),
+              style: theme.textTheme.headline5,
+            ),
+            if (isNonSchoolDay)
+              Chip(
+                label: Text(appLocalizations.nonSchoolDay),
+                visualDensity: const VisualDensity(vertical: -4.0),
+              ),
+          ],
         ),
         Text(
           DateFormat.yMMMMd().format(dateTime),

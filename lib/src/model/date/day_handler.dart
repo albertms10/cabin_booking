@@ -1,3 +1,4 @@
+import 'package:cabin_booking/constants.dart';
 import 'package:flutter/material.dart';
 
 import '../school_year/school_year_manager.dart';
@@ -29,6 +30,10 @@ class DayHandler with ChangeNotifier {
   bool get hasNextDay =>
       schoolYearManager.schoolYears.isNotEmpty &&
       _dateTime.isBefore(schoolYearManager.schoolYears.last.endDate!);
+
+  bool get dateTimeIsNonSchool =>
+      nonSchoolWeekdays.contains(dateTime.weekday) ||
+      schoolYearManager.schoolYear!.isOnHolidays(dateTime);
 
   void changeToNow() => dateTime = DateTime.now();
 
