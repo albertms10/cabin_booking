@@ -20,7 +20,7 @@ class DetailedFigure<T> extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    final filteredDetails = details.filterFalsy;
+    final filteredDetails = details.whereTruthy();
 
     return ConditionalWidgetWrap(
       condition: filteredDetails.length > 1 && tooltipMessage != null,
