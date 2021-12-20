@@ -6,6 +6,9 @@ final ThemeData _baseThemeData = ThemeData(
     errorMaxLines: 2,
     border: OutlineInputBorder(),
   ),
+  tooltipTheme: const TooltipThemeData(
+    waitDuration: Duration(milliseconds: 200),
+  ),
 );
 
 ThemeData lightTheme() {
@@ -24,7 +27,6 @@ ThemeData lightTheme() {
       secondaryVariant: primaryColorDark,
       onSecondary: Colors.white,
     ),
-    inputDecorationTheme: _baseThemeData.inputDecorationTheme,
     radioTheme: RadioThemeData(
       fillColor: _resolveSelectedMaterialState(primaryColor),
     ),
@@ -34,6 +36,8 @@ ThemeData lightTheme() {
       unselectedIconTheme: const IconThemeData(color: Colors.grey),
       unselectedItemColor: Colors.grey,
     ),
+    inputDecorationTheme: _baseThemeData.inputDecorationTheme,
+    tooltipTheme: _baseThemeData.tooltipTheme,
   );
 }
 
@@ -54,7 +58,6 @@ ThemeData darkTheme() {
       onPrimary: Colors.white,
       onSecondary: Colors.white,
     ),
-    inputDecorationTheme: _baseThemeData.inputDecorationTheme,
     radioTheme: RadioThemeData(
       fillColor: _resolveSelectedMaterialState(primaryColor),
     ),
@@ -67,6 +70,8 @@ ThemeData darkTheme() {
       unselectedIconTheme: const IconThemeData(color: Colors.grey),
       unselectedItemColor: Colors.grey,
     ),
+    inputDecorationTheme: _baseThemeData.inputDecorationTheme,
+    tooltipTheme: _baseThemeData.tooltipTheme,
   );
 }
 
@@ -74,10 +79,6 @@ MaterialStateProperty<Color?> _resolveSelectedMaterialState(
   Color color,
 ) {
   return MaterialStateProperty.resolveWith((states) {
-    if (states.contains(MaterialState.selected)) {
-      return color;
-    }
-
-    return null;
+    if (states.contains(MaterialState.selected)) return color;
   });
 }
