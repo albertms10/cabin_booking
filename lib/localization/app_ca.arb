@@ -20,6 +20,8 @@
   "schoolYears": "Cursos",
   "workingDays": "Dies laborables",
   "holidays": "Vacances",
+  "schoolDay": "Lectiu",
+  "nonSchoolDay": "No lectiu",
   "lockedRange": "Rang bloquejat",
   "book": "Reserva",
   "student": "Estudiant",

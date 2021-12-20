@@ -20,6 +20,8 @@
   "schoolYears": "Cursos",
   "workingDays": "Días laborables",
   "holidays": "Vacaciones",
+  "schoolDay": "Lectivo",
+  "nonSchoolDay": "No lectivo",
   "lockedRange": "Rango bloqueado",
   "book": "Reservar",
   "student": "Estudiante",
