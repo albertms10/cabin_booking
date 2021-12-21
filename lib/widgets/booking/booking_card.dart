@@ -19,72 +19,98 @@ class BookingCard extends StatelessWidget {
 
   double get height => booking.duration.inMinutes * kBookingHeightRatio - 16.0;
 
-  bool get isRecurring => RecurringBooking.isRecurringBooking(booking);
-
   @override
   Widget build(BuildContext context) {
     return TimerBuilder.periodic(
       const Duration(minutes: 1),
       builder: (context) {
-        final isBeforeNow = booking.endDateTime.isBefore(DateTime.now());
-
         return TweenAnimationBuilder<double>(
           tween: Tween<double>(begin: height, end: height),
           duration: const Duration(milliseconds: 300),
           curve: Curves.easeInOutCubic,
           builder: (context, value, child) {
-            return Card(
-              margin: const EdgeInsets.all(8.0),
-              shadowColor: isBeforeNow ? Colors.black38 : Colors.black87,
-              elevation: 0.0,
-              shape: RoundedRectangleBorder(
-                borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-                side: BorderSide(
-                  color:
-                      Colors.grey[300]!.withOpacity(isBeforeNow ? 0.41 : 1.0),
-                  width: 1.5,
-                ),
-              ),
-              color: Colors.transparent,
-              child: Container(
-                height: value,
-                padding: const EdgeInsets.only(
-                  top: 8.0,
-                  right: 4.0,
-                  left: 10.0,
-                ),
-                decoration: (!booking.isLocked)
-                    ? BoxDecoration(
-                        color: Theme.of(context)
-                            .cardColor
-                            .withOpacity(isBeforeNow ? 0.41 : 1.0),
-                        borderRadius: BorderRadius.circular(10.0),
-                      )
-                    : BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.0),
-                        gradient: const LinearGradient(
-                          begin: Alignment.topLeft,
-                          end: Alignment(-0.4, -0.2),
-                          stops: [0.0, 0.5, 0.5, 1.0],
-                          colors: [
-                            Color.fromARGB(16, 0, 0, 0),
-                            Color.fromARGB(16, 0, 0, 0),
-                            Colors.white10,
-                            Colors.white10,
-                          ],
-                          tileMode: TileMode.repeated,
-                        ),
-                      ),
-                child: _BookingCardInfo(
-                  cabin: cabin,
-                  booking: booking,
-                  isRecurring: isRecurring,
-                ),
-              ),
+            return _BookingCardBody(
+              cabin: cabin,
+              booking: booking,
+              height: value,
             );
           },
         );
       },
+    );
+  }
+}
+
+class _BookingCardBody extends StatefulWidget {
+  final Cabin cabin;
+  final Booking booking;
+  final double height;
+
+  const _BookingCardBody({
+    Key? key,
+    required this.cabin,
+    required this.booking,
+    required this.height,
+  }) : super(key: key);
+
+  bool get isRecurring => RecurringBooking.isRecurringBooking(booking);
+
+  @override
+  _BookingCardBodyState createState() => _BookingCardBodyState();
+}
+
+class _BookingCardBodyState extends State<_BookingCardBody> {
+  @override
+  Widget build(BuildContext context) {
+    final isBeforeNow = widget.booking.endDateTime.isBefore(DateTime.now());
+
+    return Card(
+      margin: const EdgeInsets.all(8.0),
+      shadowColor: isBeforeNow ? Colors.black38 : Colors.black87,
+      elevation: 0.0,
+      shape: RoundedRectangleBorder(
+        borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+        side: BorderSide(
+          color: Colors.grey[300]!.withOpacity(isBeforeNow ? 0.41 : 1.0),
+          width: 1.5,
+        ),
+      ),
+      color: Colors.transparent,
+      child: Container(
+        height: widget.height,
+        padding: const EdgeInsets.only(
+          top: 8.0,
+          right: 4.0,
+          left: 10.0,
+        ),
+        decoration: (!widget.booking.isLocked)
+            ? BoxDecoration(
+                color: Theme.of(context)
+                    .cardColor
+                    .withOpacity(isBeforeNow ? 0.41 : 1.0),
+                borderRadius: BorderRadius.circular(10.0),
+              )
+            : BoxDecoration(
+                borderRadius: BorderRadius.circular(10.0),
+                gradient: const LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment(-0.4, -0.2),
+                  stops: [0.0, 0.5, 0.5, 1.0],
+                  colors: [
+                    Color.fromARGB(16, 0, 0, 0),
+                    Color.fromARGB(16, 0, 0, 0),
+                    Colors.white10,
+                    Colors.white10,
+                  ],
+                  tileMode: TileMode.repeated,
+                ),
+              ),
+        child: _BookingCardInfo(
+          cabin: widget.cabin,
+          booking: widget.booking,
+          isRecurring: widget.isRecurring,
+        ),
+      ),
     );
   }
 }
