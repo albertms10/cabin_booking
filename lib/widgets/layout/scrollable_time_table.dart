@@ -1,5 +1,6 @@
 import 'package:cabin_booking/constants.dart';
 import 'package:cabin_booking/model.dart';
+import 'package:cabin_booking/widgets/booking/booking_preview_panel_overlay.dart';
 import 'package:cabin_booking/widgets/booking/bookings_table.dart';
 import 'package:cabin_booking/widgets/cabin/cabin_icon.dart';
 import 'package:cabin_booking/widgets/layout/time_column.dart';
@@ -44,61 +45,68 @@ class ScrollableTimeTable extends StatelessWidget {
                     );
                   }
 
-                  return HorizontalDataTable(
-                    leftHandSideColumnWidth: kTimeColumnWidth,
-                    rightHandSideColumnWidth:
-                        bookingStackWidth * cabinManager.cabins.length,
-                    isFixedHeader: true,
-                    headerWidgets: [
-                      Container(height: kBookingHeaderHeight),
-                      Container(
-                        color: theme.dialogBackgroundColor,
-                        height: kBookingHeaderHeight,
-                        padding: const EdgeInsets.symmetric(vertical: 24.0),
-                        child: Row(
-                          children: [
-                            for (final cabin in cabinManager.cabins)
-                              SizedBox(
-                                width: bookingStackWidth,
-                                child: CabinIcon(
-                                  number: cabin.number,
-                                  progress: cabin.occupancyPercentOn(
-                                    dayHandler.dateTime,
-                                    startTime: kTimeTableStartTime,
-                                    endTime: kTimeTableEndTime,
+                  return BookingPreviewPanelOverlay(
+                    builder: (context, showPreviewPanel) {
+                      return HorizontalDataTable(
+                        leftHandSideColumnWidth: kTimeColumnWidth,
+                        rightHandSideColumnWidth:
+                            bookingStackWidth * cabinManager.cabins.length,
+                        isFixedHeader: true,
+                        headerWidgets: [
+                          const SizedBox(height: kBookingHeaderHeight),
+                          Container(
+                            height: kBookingHeaderHeight,
+                            color: theme.dialogBackgroundColor,
+                            padding: const EdgeInsets.symmetric(vertical: 24.0),
+                            child: Row(
+                              children: [
+                                for (final cabin in cabinManager.cabins)
+                                  SizedBox(
+                                    width: bookingStackWidth,
+                                    child: CabinIcon(
+                                      number: cabin.number,
+                                      progress: cabin.occupancyPercentOn(
+                                        dayHandler.dateTime,
+                                        startTime: kTimeTableStartTime,
+                                        endTime: kTimeTableEndTime,
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ),
-                          ],
+                              ],
+                            ),
+                          ),
+                        ],
+                        leftSideItemBuilder: (context, index) {
+                          return const TimeColumn();
+                        },
+                        rightSideItemBuilder: (context, index) {
+                          return BookingsTable(
+                            showPreviewPanel: showPreviewPanel,
+                          );
+                        },
+                        itemCount: 1,
+                        rowSeparatorWidget: const Divider(
+                          color: Colors.black54,
+                          height: 1.0,
+                          thickness: 0.0,
                         ),
-                      ),
-                    ],
-                    leftSideItemBuilder: (context, index) {
-                      return const TimeColumn();
+                        leftHandSideColBackgroundColor:
+                            theme.dialogBackgroundColor,
+                        rightHandSideColBackgroundColor:
+                            theme.dialogBackgroundColor,
+                        verticalScrollbarStyle: const ScrollbarStyle(
+                          isAlwaysShown: true,
+                          thickness: 4.0,
+                          radius: Radius.circular(5.0),
+                        ),
+                        horizontalScrollbarStyle: const ScrollbarStyle(
+                          isAlwaysShown: true,
+                          thickness: 4.0,
+                          radius: Radius.circular(5.0),
+                        ),
+                        refreshIndicator: const WaterDropHeader(),
+                      );
                     },
-                    rightSideItemBuilder: (context, index) {
-                      return const BookingsTable();
-                    },
-                    itemCount: 1,
-                    rowSeparatorWidget: const Divider(
-                      color: Colors.black54,
-                      height: 1.0,
-                      thickness: 0.0,
-                    ),
-                    leftHandSideColBackgroundColor: theme.dialogBackgroundColor,
-                    rightHandSideColBackgroundColor:
-                        theme.dialogBackgroundColor,
-                    verticalScrollbarStyle: const ScrollbarStyle(
-                      isAlwaysShown: true,
-                      thickness: 4.0,
-                      radius: Radius.circular(5.0),
-                    ),
-                    horizontalScrollbarStyle: const ScrollbarStyle(
-                      isAlwaysShown: true,
-                      thickness: 4.0,
-                      radius: Radius.circular(5.0),
-                    ),
-                    refreshIndicator: const WaterDropHeader(),
                   );
                 },
               ),

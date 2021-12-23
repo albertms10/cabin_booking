@@ -1,5 +1,6 @@
 import 'package:cabin_booking/constants.dart';
 import 'package:cabin_booking/model.dart';
+import 'package:cabin_booking/widgets/booking/booking_preview_panel_overlay.dart';
 import 'package:cabin_booking/widgets/booking/bookings_stack.dart';
 import 'package:cabin_booking/widgets/layout/current_time_indicator.dart';
 import 'package:cabin_booking/widgets/layout/striped_background.dart';
@@ -7,7 +8,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class BookingsTable extends StatelessWidget {
-  const BookingsTable({Key? key}) : super(key: key);
+  final ShowPreviewOverlayCallback? showPreviewPanel;
+
+  const BookingsTable({
+    Key? key,
+    this.showPreviewPanel,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +47,7 @@ class BookingsTable extends StatelessWidget {
                             key: Key('${cabin.number}'),
                             cabin: cabin.simplified(),
                             bookings: cabin.allBookingsOn(dayHandler.dateTime),
+                            showPreviewPanel: showPreviewPanel,
                           ),
                         ),
                     ],
