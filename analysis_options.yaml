@@ -7,6 +7,7 @@ linter:
     - avoid_catches_without_on_clauses
     - avoid_classes_with_only_static_members
     - avoid_dynamic_calls
+  # - avoid_final_parameters
     - avoid_function_literals_in_foreach_calls
     - avoid_redundant_argument_values
     - avoid_renaming_method_parameters
@@ -22,6 +23,8 @@ linter:
     - eol_at_end_of_file
     - flutter_style_todos
     - no_default_cases
+  # - no_leading_underscores_for_library_prefixes
+  # - no_leading_underscores_for_local_identifiers
     - noop_primitive_operations
     - omit_local_variable_types
     - only_throw_errors
@@ -34,17 +37,23 @@ linter:
     - prefer_interpolation_to_compose_strings
     - prefer_is_empty
     - prefer_is_not_empty
+    - prefer_null_aware_method_calls
     - prefer_single_quotes
     - prefer_void_to_null
     - require_trailing_commas
+  # - secure_pubspec_urls
+  # - sized_box_shrink_expand
     - sort_pub_dependencies
     - sort_unnamed_constructors_first
     - type_annotate_public_apis
     - unawaited_futures
+    - unnecessary_constructor_name
     - unnecessary_null_checks
     - unnecessary_parenthesis
     - unnecessary_statements
     - use_build_context_synchronously
+  # - use_decorated_box
+    - use_if_null_to_convert_nulls_to_bools
     - use_late_for_private_fields_and_variables
     - use_setters_to_change_properties
     - use_test_throws_matchers
@@ -53,14 +62,20 @@ linter:
 dart_code_metrics:
   metrics:
     cyclomatic-complexity: 20
-    number-of-arguments: 4
     maximum-nesting-level: 5
+    number-of-arguments: 4
   metrics-exclude:
     - test/**
   rules:
     - always-remove-listener
+    - avoid-missing-enum-constant-in-map
+    - avoid-nested-conditional-expressions:
+        acceptable-level: 2
     - avoid-returning-widgets
+    - avoid-throw-in-catch-block
     - avoid-unnecessary-setstate
+    - avoid-unnecessary-type-assertions
+    - avoid-unnecessary-type-casts
     - avoid-wrapping-in-padding
     - binary-expression-operand-order
     - double-literal-format
@@ -71,12 +86,16 @@ dart_code_metrics:
   # - no-magic-number
     - prefer-conditional-expressions
   # - prefer-extracting-callbacks
+    - prefer-first
+    - prefer-last
     - prefer-match-file-name:
         exclude:
           - test/**
     - prefer-trailing-comma
     - prefer-single-widget-per-file:
         ignore-private-widgets: true
+  anti-patterns:
+    - long-parameter-list
 
 analyzer:
   plugins:
@@ -89,7 +108,6 @@ analyzer:
     avoid_print: ignore
     avoid_returning_null: ignore
     avoid_unused_constructor_parameters: ignore
-    argument_type_not_assignable: ignore
     implicit_dynamic_list_literal: ignore
     implicit_dynamic_map_literal: ignore
     implicit_dynamic_parameter: ignore
