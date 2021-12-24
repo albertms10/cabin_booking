@@ -11,9 +11,8 @@ class PopularTimesBarChart extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    final colors = [
-      theme.colorScheme.primary,
-    ];
+    final mainColors = [theme.colorScheme.primary];
+    final highlightColors = [theme.colorScheme.secondaryVariant];
 
     return Container(
       width: 420.0,
@@ -44,8 +43,10 @@ class PopularTimesBarChart extends StatelessWidget {
                 barRods: [
                   BarChartRodData(
                     y: range.value.inMinutes.toDouble(),
-                    width: 20.0,
-                    colors: colors,
+                    width: 22.0,
+                    colors: range.key.hour == DateTime.now().hour
+                        ? highlightColors
+                        : mainColors,
                     borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(4.0),
                       topRight: Radius.circular(4.0),
