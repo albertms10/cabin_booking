@@ -52,12 +52,9 @@ class AnimatedChild extends AnimatedWidget {
           label: label,
           animation: animation,
         ),
-        Container(
+        SizedBox(
           width: tween.end,
           height: animation.value,
-          padding: EdgeInsets.only(
-            bottom: tween.end ?? 0.0 - animation.value,
-          ),
           child: Container(
             width: animation.value,
             height: tween.end,
