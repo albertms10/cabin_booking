@@ -15,9 +15,9 @@ class PopularTimesBarChart extends StatelessWidget {
     final highlightColors = [theme.colorScheme.secondaryVariant];
 
     return Container(
-      width: 420.0,
-      height: 182.0,
-      padding: const EdgeInsets.all(16.0),
+      width: 320.0,
+      height: 120.0,
+      padding: const EdgeInsets.symmetric(horizontal: 4.0),
       child: BarChart(
         BarChartData(
           alignment: BarChartAlignment.spaceAround,
