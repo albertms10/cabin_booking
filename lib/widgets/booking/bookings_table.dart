@@ -9,55 +9,45 @@ import 'package:provider/provider.dart';
 
 class BookingsTable extends StatelessWidget {
   final ShowPreviewOverlayCallback? showPreviewPanel;
+  final double stackWidth;
 
   const BookingsTable({
     Key? key,
     this.showPreviewPanel,
+    required this.stackWidth,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Material(
       color: Colors.transparent,
-      child: LayoutBuilder(
-        builder: (context, constraints) {
-          return Stack(
-            children: [
-              const StripedBackground(
-                startTime: kTimeTableStartTime,
-                endTime: kTimeTableEndTime,
-              ),
-              Consumer2<DayHandler, CabinManager>(
-                builder: (context, dayHandler, cabinManager, child) {
-                  final maxParentWidth = constraints.maxWidth;
-                  final calculatedBookingStackWidth =
-                      maxParentWidth / cabinManager.cabins.length;
-                  final bookingStackWidth =
-                      (calculatedBookingStackWidth < kBookingColumnMinWidth)
-                          ? kBookingColumnMinWidth
-                          : calculatedBookingStackWidth;
-
-                  return Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      for (final cabin in cabinManager.cabins)
-                        SizedBox(
-                          width: bookingStackWidth,
-                          child: BookingsStack(
-                            key: Key('${cabin.number}'),
-                            cabin: cabin.simplified(),
-                            bookings: cabin.allBookingsOn(dayHandler.dateTime),
-                            showPreviewPanel: showPreviewPanel,
-                          ),
-                        ),
-                    ],
-                  );
-                },
-              ),
-              const CurrentTimeIndicator(hideText: true),
-            ],
-          );
-        },
+      child: Stack(
+        children: [
+          const StripedBackground(
+            startTime: kTimeTableStartTime,
+            endTime: kTimeTableEndTime,
+          ),
+          Consumer2<DayHandler, CabinManager>(
+            builder: (context, dayHandler, cabinManager, child) {
+              return Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  for (final cabin in cabinManager.cabins)
+                    SizedBox(
+                      width: stackWidth,
+                      child: BookingsStack(
+                        key: Key('${cabin.number}'),
+                        cabin: cabin.simplified(),
+                        bookings: cabin.allBookingsOn(dayHandler.dateTime),
+                        showPreviewPanel: showPreviewPanel,
+                      ),
+                    ),
+                ],
+              );
+            },
+          ),
+          const CurrentTimeIndicator(hideText: true),
+        ],
       ),
     );
   }
