@@ -1,6 +1,8 @@
+import 'package:cabin_booking/widgets/layout/conditional_widget_wrap.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import 'utils/map_int_color_extension.dart';
 import 'utils/time.dart';
 
 class HeatMapDay extends StatelessWidget {
@@ -10,7 +12,7 @@ class HeatMapDay extends StatelessWidget {
   final Map<int, Color> thresholds;
   final Color defaultColor;
   final DateTime? date;
-  final bool messageHidden;
+  final bool showTooltip;
   final void Function(DateTime, int)? onTap;
   final String Function(int)? valueWrapper;
   final bool highlightToday;
@@ -24,61 +26,55 @@ class HeatMapDay extends StatelessWidget {
     this.thresholds = const {},
     this.defaultColor = Colors.black12,
     this.date,
-    this.messageHidden = false,
+    this.showTooltip = true,
     this.onTap,
     this.valueWrapper,
     this.highlightToday = false,
     this.highlightOn,
   }) : super(key: key);
 
-  /// Loop for getting the right color based on [thresholds] values
-  ///
-  /// If the [value] is greater than or equal one of [thresholds]' key,
-  /// it will receive its value
-  Color getColorFromThreshold() {
-    var color = defaultColor;
+  BoxBorder? get containerBorder {
+    if (date == null) return null;
 
-    for (final threshold in thresholds.entries) {
-      if (value > 0 && value >= threshold.key) color = threshold.value;
+    if (highlightToday && isOnSameDay(date!, DateTime.now())) {
+      return Border.all(color: Colors.orange, width: 2.0);
     }
 
-    return color;
+    if (highlightOn?.call(date!) ?? false) {
+      return Border.all(color: Colors.orange[200]!, width: 2.0);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    final container = Padding(
-      padding: EdgeInsets.all(space / 2.0),
-      child: InkWell(
-        borderRadius: const BorderRadius.all(Radius.circular(2.0)),
-        onTap: date == null ? null : () => onTap?.call(date!, value),
-        child: Container(
-          height: size,
-          width: size,
-          decoration: BoxDecoration(
-            borderRadius: const BorderRadius.all(Radius.circular(2.0)),
-            color: getColorFromThreshold(),
-            border: date != null
-                ? (highlightToday && isOnSameDay(date!, DateTime.now())
-                    ? Border.all(color: Colors.orange, width: 2.0)
-                    : highlightOn?.call(date!) ?? false
-                        ? Border.all(color: Colors.orange[200]!, width: 2.0)
-                        : null)
-                : null,
+    return ConditionalWidgetWrap(
+      condition: showTooltip,
+      conditionalBuilder: (child) {
+        return Tooltip(
+          verticalOffset: 14.0,
+          message: [
+            valueWrapper?.call(value) ?? '$value',
+            if (date != null) DateFormat.d().add_MMM().add_y().format(date!),
+          ].join(' · '),
+          child: child,
+        );
+      },
+      child: Padding(
+        padding: EdgeInsets.all(space * 0.5),
+        child: InkWell(
+          borderRadius: const BorderRadius.all(Radius.circular(2.0)),
+          onTap: date == null ? null : () => onTap?.call(date!, value),
+          child: Container(
+            height: size,
+            width: size,
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.all(Radius.circular(2.0)),
+              color: thresholds.colorFromThreshold(value, defaultColor),
+              border: containerBorder,
+            ),
           ),
         ),
       ),
     );
-
-    return messageHidden
-        ? container
-        : Tooltip(
-            verticalOffset: 14.0,
-            message: [
-              valueWrapper?.call(value) ?? '$value',
-              if (date != null) DateFormat.d().add_MMM().add_y().format(date!),
-            ].join(' · '),
-            child: container,
-          );
   }
 }

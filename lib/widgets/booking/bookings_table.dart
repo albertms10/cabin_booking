@@ -26,7 +26,7 @@ class BookingsTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Colors.transparent,
+      type: MaterialType.transparency,
       child: Stack(
         children: [
           const StripedBackground(
