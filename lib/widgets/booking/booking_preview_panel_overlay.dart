@@ -63,6 +63,8 @@ class _BookingPreviewPanelOverlayState
 
     _lastBookingId = booking.id;
 
+    final resolvedOffset = _resolvedOffsetFromContext(context, renderBox);
+
     _overlayEntry = OverlayEntry(
       builder: (context) {
         return Stack(
@@ -77,7 +79,7 @@ class _BookingPreviewPanelOverlayState
                 link: _layerLink,
                 showWhenUnlinked: false,
                 offset: _desiredOffset(
-                  offset: _resolvedOffsetFromContext(context, renderBox),
+                  offset: resolvedOffset,
                   screenSize: MediaQuery.of(context).size,
                   overlaySize: Size(widget.width, 200.0),
                   renderBoxSize: renderBox.size,
