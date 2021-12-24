@@ -71,7 +71,7 @@ class _BookingPreviewPanelOverlayState
           children: [
             GestureDetector(
               onTap: _hidePreviewPanel,
-              behavior: HitTestBehavior.deferToChild,
+              behavior: HitTestBehavior.translucent,
             ),
             Positioned(
               width: widget.width,
