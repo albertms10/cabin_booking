@@ -11,20 +11,21 @@ class PopularTimesBarChart extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    final colors = [
-      theme.colorScheme.primary,
-    ];
+    final mainColors = [theme.colorScheme.primary];
+    final highlightColors = [theme.colorScheme.secondaryVariant];
 
     return Container(
-      width: 420.0,
-      height: 182.0,
-      padding: const EdgeInsets.all(16.0),
+      width: 320.0,
+      height: 120.0,
+      padding: const EdgeInsets.symmetric(horizontal: 4.0),
       child: BarChart(
         BarChartData(
           alignment: BarChartAlignment.spaceAround,
           barTouchData: BarTouchData(enabled: false),
           titlesData: FlTitlesData(
             show: true,
+            topTitles: SideTitles(showTitles: false),
+            rightTitles: SideTitles(showTitles: false),
             bottomTitles: SideTitles(
               showTitles: true,
               getTitles: (value) => value % 3.0 == 0 ? '${value.toInt()}' : '',
@@ -36,7 +37,13 @@ class PopularTimesBarChart extends StatelessWidget {
             ),
             leftTitles: SideTitles(showTitles: false),
           ),
-          borderData: FlBorderData(show: false),
+          gridData: FlGridData(show: false),
+          borderData: FlBorderData(
+            show: true,
+            border: Border(
+              bottom: BorderSide(color: theme.hintColor.withOpacity(0.25)),
+            ),
+          ),
           barGroups: [
             for (final range in timeRangesOccupancy.entries)
               BarChartGroupData(
@@ -44,8 +51,10 @@ class PopularTimesBarChart extends StatelessWidget {
                 barRods: [
                   BarChartRodData(
                     y: range.value.inMinutes.toDouble(),
-                    width: 20.0,
-                    colors: colors,
+                    width: 22.0,
+                    colors: range.key.hour == DateTime.now().hour
+                        ? highlightColors
+                        : mainColors,
                     borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(4.0),
                       topRight: Radius.circular(4.0),
