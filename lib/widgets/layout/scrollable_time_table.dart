@@ -116,6 +116,8 @@ class _ScrollablePanelOverlayTimeTableState
               },
               rightSideItemBuilder: (context, index) {
                 return BookingsTable(
+                  cabins: widget.cabins,
+                  dateTime: widget.dateTime,
                   showPreviewPanel: showPreviewPanel,
                   stackWidth: bookingStackWidth,
                 );
