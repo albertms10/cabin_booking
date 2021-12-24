@@ -24,6 +24,8 @@ class PopularTimesBarChart extends StatelessWidget {
           barTouchData: BarTouchData(enabled: false),
           titlesData: FlTitlesData(
             show: true,
+            topTitles: SideTitles(showTitles: false),
+            rightTitles: SideTitles(showTitles: false),
             bottomTitles: SideTitles(
               showTitles: true,
               getTitles: (value) => value % 3.0 == 0 ? '${value.toInt()}' : '',
@@ -35,7 +37,13 @@ class PopularTimesBarChart extends StatelessWidget {
             ),
             leftTitles: SideTitles(showTitles: false),
           ),
-          borderData: FlBorderData(show: false),
+          gridData: FlGridData(show: false),
+          borderData: FlBorderData(
+            show: true,
+            border: Border(
+              bottom: BorderSide(color: theme.hintColor.withOpacity(0.25)),
+            ),
+          ),
           barGroups: [
             for (final range in timeRangesOccupancy.entries)
               BarChartGroupData(
