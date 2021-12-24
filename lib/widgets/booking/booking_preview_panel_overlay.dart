@@ -1,8 +1,15 @@
 import 'package:cabin_booking/model.dart';
 import 'package:cabin_booking/widgets/booking/booking_preview_panel.dart';
+import 'package:cabin_booking/widgets/layout/scrollable_time_table.dart';
 import 'package:flutter/material.dart';
 
-typedef ShowPreviewOverlayCallback = void Function(Cabin, Booking, RenderBox);
+typedef ShowPreviewOverlayCallback = void Function(
+  Cabin,
+  Booking,
+  RenderBox,
+  SetPreventTimeTableScroll? setPreventTimeTableScroll,
+);
+
 typedef PanelOverlayBuilder = Widget Function(
   BuildContext,
   ShowPreviewOverlayCallback showPreviewPanel,
@@ -52,11 +59,17 @@ class _BookingPreviewPanelOverlayState
     return offset + Offset(dx, -5.0);
   }
 
-  void _showPreviewPanel(Cabin cabin, Booking booking, RenderBox renderBox) {
+  void _showPreviewPanel(
+    Cabin cabin,
+    Booking booking,
+    RenderBox renderBox,
+    SetPreventTimeTableScroll? setPreventTimeTableScroll,
+  ) {
     if (_overlayEntry != null) _hidePreviewPanel(resetPrevious: false);
 
     if (_lastBookingId == booking.id) {
       _lastBookingId = null;
+      setPreventTimeTableScroll?.call(value: false);
 
       return;
     }
@@ -65,12 +78,18 @@ class _BookingPreviewPanelOverlayState
 
     final resolvedOffset = _resolvedOffsetFromContext(context, renderBox);
 
+    setPreventTimeTableScroll?.call(value: true);
+
     _overlayEntry = OverlayEntry(
       builder: (context) {
         return Stack(
           children: [
             GestureDetector(
-              onTap: _hidePreviewPanel,
+              onTap: () {
+                _hidePreviewPanel(
+                  setPreventTimeTableScroll: setPreventTimeTableScroll,
+                );
+              },
               behavior: HitTestBehavior.translucent,
             ),
             Positioned(
@@ -98,7 +117,12 @@ class _BookingPreviewPanelOverlayState
                         child: BookingPreviewPanel(
                           cabin: cabin,
                           booking: booking,
-                          onClose: _hidePreviewPanel,
+                          onClose: () {
+                            _hidePreviewPanel(
+                              setPreventTimeTableScroll:
+                                  setPreventTimeTableScroll,
+                            );
+                          },
                         ),
                       ),
                     );
@@ -114,10 +138,16 @@ class _BookingPreviewPanelOverlayState
     Overlay.of(context)?.insert(_overlayEntry!);
   }
 
-  void _hidePreviewPanel({bool resetPrevious = true}) {
+  void _hidePreviewPanel({
+    bool resetPrevious = true,
+    SetPreventTimeTableScroll? setPreventTimeTableScroll,
+  }) {
     if (_overlayEntry == null) return;
 
-    if (resetPrevious) _lastBookingId = null;
+    if (resetPrevious) {
+      _lastBookingId = null;
+      setPreventTimeTableScroll?.call(value: false);
+    }
 
     _overlayEntry!.remove();
     _overlayEntry = null;

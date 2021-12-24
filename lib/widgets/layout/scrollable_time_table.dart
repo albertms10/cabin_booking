@@ -46,6 +46,8 @@ class ScrollableTimeTable extends StatelessWidget {
   }
 }
 
+typedef SetPreventTimeTableScroll = void Function({required bool value});
+
 class _ScrollablePanelOverlayTimeTable extends StatefulWidget {
   final Set<Cabin> cabins;
   final DateTime dateTime;
@@ -63,6 +65,14 @@ class _ScrollablePanelOverlayTimeTable extends StatefulWidget {
 
 class _ScrollablePanelOverlayTimeTableState
     extends State<_ScrollablePanelOverlayTimeTable> {
+  bool _preventTimeTableScroll = false;
+
+  void setPreventTimeTableScroll({required bool value}) {
+    setState(() {
+      _preventTimeTableScroll = value;
+    });
+  }
+
   double _stackWidth(double maxParentWidth) {
     final calculatedBookingStackWidth =
         (maxParentWidth - kTimeColumnWidth) / widget.cabins.length;
@@ -87,6 +97,12 @@ class _ScrollablePanelOverlayTimeTableState
               rightHandSideColumnWidth:
                   bookingStackWidth * widget.cabins.length,
               isFixedHeader: true,
+              scrollPhysics: _preventTimeTableScroll
+                  ? const NeverScrollableScrollPhysics()
+                  : null,
+              horizontalScrollPhysics: _preventTimeTableScroll
+                  ? const NeverScrollableScrollPhysics()
+                  : null,
               headerWidgets: [
                 const SizedBox(height: kBookingHeaderHeight),
                 Container(
@@ -120,6 +136,7 @@ class _ScrollablePanelOverlayTimeTableState
                   dateTime: widget.dateTime,
                   showPreviewPanel: showPreviewPanel,
                   stackWidth: bookingStackWidth,
+                  setPreventTimeTableScroll: setPreventTimeTableScroll,
                 );
               },
               itemCount: 1,

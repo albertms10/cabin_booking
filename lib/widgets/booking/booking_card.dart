@@ -1,6 +1,7 @@
 import 'package:cabin_booking/constants.dart';
 import 'package:cabin_booking/model.dart';
 import 'package:cabin_booking/widgets/booking/booking_preview_panel_overlay.dart';
+import 'package:cabin_booking/widgets/layout/scrollable_time_table.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:timer_builder/timer_builder.dart';
@@ -9,12 +10,14 @@ class BookingCard extends StatelessWidget {
   final Cabin cabin;
   final Booking booking;
   final ShowPreviewOverlayCallback? showPreviewPanel;
+  final SetPreventTimeTableScroll? setPreventTimeTableScroll;
 
   const BookingCard({
     Key? key,
     required this.cabin,
     required this.booking,
     this.showPreviewPanel,
+    this.setPreventTimeTableScroll,
   }) : super(key: key);
 
   double get height => booking.duration.inMinutes * kBookingHeightRatio - 16.0;
@@ -72,6 +75,7 @@ class BookingCard extends StatelessWidget {
                   booking: booking,
                   height: value,
                   showPreviewPanel: showPreviewPanel,
+                  setPreventTimeTableScroll: setPreventTimeTableScroll,
                 ),
               ),
             );
@@ -87,6 +91,7 @@ class _BookingCardInteractive extends StatefulWidget {
   final Booking booking;
   final double height;
   final ShowPreviewOverlayCallback? showPreviewPanel;
+  final SetPreventTimeTableScroll? setPreventTimeTableScroll;
 
   const _BookingCardInteractive({
     Key? key,
@@ -94,6 +99,7 @@ class _BookingCardInteractive extends StatefulWidget {
     required this.booking,
     required this.height,
     this.showPreviewPanel,
+    this.setPreventTimeTableScroll,
   }) : super(key: key);
 
   bool get isRecurring => RecurringBooking.isRecurringBooking(booking);
@@ -115,8 +121,12 @@ class _BookingCardInteractiveState extends State<_BookingCardInteractive> {
           final renderBox = context.findRenderObject() as RenderBox?;
           if (renderBox == null) return;
 
-          widget.showPreviewPanel
-              ?.call(widget.cabin, widget.booking, renderBox);
+          widget.showPreviewPanel?.call(
+            widget.cabin,
+            widget.booking,
+            renderBox,
+            widget.setPreventTimeTableScroll,
+          );
         },
         child: Padding(
           padding: const EdgeInsets.only(top: 8.0, right: 4.0, left: 10.0),

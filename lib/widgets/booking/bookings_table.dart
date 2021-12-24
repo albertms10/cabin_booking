@@ -3,6 +3,7 @@ import 'package:cabin_booking/model.dart';
 import 'package:cabin_booking/widgets/booking/booking_preview_panel_overlay.dart';
 import 'package:cabin_booking/widgets/booking/bookings_stack.dart';
 import 'package:cabin_booking/widgets/layout/current_time_indicator.dart';
+import 'package:cabin_booking/widgets/layout/scrollable_time_table.dart';
 import 'package:cabin_booking/widgets/layout/striped_background.dart';
 import 'package:flutter/material.dart';
 
@@ -11,6 +12,7 @@ class BookingsTable extends StatelessWidget {
   final DateTime dateTime;
   final ShowPreviewOverlayCallback? showPreviewPanel;
   final double stackWidth;
+  final SetPreventTimeTableScroll? setPreventTimeTableScroll;
 
   const BookingsTable({
     Key? key,
@@ -18,6 +20,7 @@ class BookingsTable extends StatelessWidget {
     required this.dateTime,
     this.showPreviewPanel,
     required this.stackWidth,
+    this.setPreventTimeTableScroll,
   }) : super(key: key);
 
   @override
@@ -41,6 +44,7 @@ class BookingsTable extends StatelessWidget {
                     cabin: cabin.simplified(),
                     bookings: cabin.allBookingsOn(dateTime),
                     showPreviewPanel: showPreviewPanel,
+                    setPreventTimeTableScroll: setPreventTimeTableScroll,
                   ),
                 ),
             ],

@@ -4,6 +4,7 @@ import 'package:cabin_booking/utils/date_time_extension.dart';
 import 'package:cabin_booking/widgets/booking/booking_card.dart';
 import 'package:cabin_booking/widgets/booking/booking_preview_panel_overlay.dart';
 import 'package:cabin_booking/widgets/booking/empty_booking_slot.dart';
+import 'package:cabin_booking/widgets/layout/scrollable_time_table.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -11,12 +12,14 @@ class BookingsStack extends StatelessWidget {
   final Cabin cabin;
   final Set<Booking> bookings;
   final ShowPreviewOverlayCallback? showPreviewPanel;
+  final SetPreventTimeTableScroll? setPreventTimeTableScroll;
 
   const BookingsStack({
     Key? key,
     required this.cabin,
     this.bookings = const <Booking>{},
     this.showPreviewPanel,
+    this.setPreventTimeTableScroll,
   }) : super(key: key);
 
   Key _emptyBookingSlotKey(DateTime dateTime, int index) => Key(
@@ -57,6 +60,7 @@ class BookingsStack extends StatelessWidget {
               cabin: cabin,
               booking: booking,
               showPreviewPanel: showPreviewPanel,
+              setPreventTimeTableScroll: setPreventTimeTableScroll,
             ),
           ),
         );
