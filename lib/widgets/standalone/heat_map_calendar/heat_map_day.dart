@@ -48,7 +48,7 @@ class HeatMapDay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final container = Padding(
-      padding: EdgeInsets.all(space / 2.0),
+      padding: EdgeInsets.all(space * 0.5),
       child: InkWell(
         borderRadius: const BorderRadius.all(Radius.circular(2.0)),
         onTap: date == null ? null : () => onTap?.call(date!, value),
