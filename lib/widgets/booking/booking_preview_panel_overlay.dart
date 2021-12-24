@@ -113,7 +113,6 @@ class _BookingPreviewPanelOverlayState
                         shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(10.0)),
                         ),
-                        color: Theme.of(context).scaffoldBackgroundColor,
                         child: BookingPreviewPanel(
                           cabin: cabin,
                           booking: booking,
