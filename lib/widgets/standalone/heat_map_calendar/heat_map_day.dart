@@ -45,6 +45,18 @@ class HeatMapDay extends StatelessWidget {
     return color;
   }
 
+  BoxBorder? get containerBorder {
+    if (date == null) return null;
+
+    if (highlightToday && isOnSameDay(date!, DateTime.now())) {
+      return Border.all(color: Colors.orange, width: 2.0);
+    }
+
+    if (highlightOn?.call(date!) ?? false) {
+      return Border.all(color: Colors.orange[200]!, width: 2.0);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final container = Padding(
@@ -58,13 +70,7 @@ class HeatMapDay extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: const BorderRadius.all(Radius.circular(2.0)),
             color: getColorFromThreshold(),
-            border: date != null
-                ? (highlightToday && isOnSameDay(date!, DateTime.now())
-                    ? Border.all(color: Colors.orange, width: 2.0)
-                    : highlightOn?.call(date!) ?? false
-                        ? Border.all(color: Colors.orange[200]!, width: 2.0)
-                        : null)
-                : null,
+            border: containerBorder,
           ),
         ),
       ),
