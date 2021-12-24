@@ -12,7 +12,7 @@ class BookingsTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Colors.transparent,
+      type: MaterialType.transparency,
       child: LayoutBuilder(
         builder: (context, constraints) {
           return Stack(
