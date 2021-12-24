@@ -1,3 +1,4 @@
+import 'package:cabin_booking/widgets/layout/conditional_widget_wrap.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -11,7 +12,7 @@ class HeatMapDay extends StatelessWidget {
   final Map<int, Color> thresholds;
   final Color defaultColor;
   final DateTime? date;
-  final bool messageHidden;
+  final bool showTooltip;
   final void Function(DateTime, int)? onTap;
   final String Function(int)? valueWrapper;
   final bool highlightToday;
@@ -25,7 +26,7 @@ class HeatMapDay extends StatelessWidget {
     this.thresholds = const {},
     this.defaultColor = Colors.black12,
     this.date,
-    this.messageHidden = false,
+    this.showTooltip = true,
     this.onTap,
     this.valueWrapper,
     this.highlightToday = false,
@@ -46,32 +47,34 @@ class HeatMapDay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final container = Padding(
-      padding: EdgeInsets.all(space * 0.5),
-      child: InkWell(
-        borderRadius: const BorderRadius.all(Radius.circular(2.0)),
-        onTap: date == null ? null : () => onTap?.call(date!, value),
-        child: Container(
-          height: size,
-          width: size,
-          decoration: BoxDecoration(
-            borderRadius: const BorderRadius.all(Radius.circular(2.0)),
-            color: thresholds.colorFromThreshold(value, defaultColor),
-            border: containerBorder,
+    return ConditionalWidgetWrap(
+      condition: showTooltip,
+      conditionalBuilder: (child) {
+        return Tooltip(
+          verticalOffset: 14.0,
+          message: [
+            valueWrapper?.call(value) ?? '$value',
+            if (date != null) DateFormat.d().add_MMM().add_y().format(date!),
+          ].join(' · '),
+          child: child,
+        );
+      },
+      child: Padding(
+        padding: EdgeInsets.all(space * 0.5),
+        child: InkWell(
+          borderRadius: const BorderRadius.all(Radius.circular(2.0)),
+          onTap: date == null ? null : () => onTap?.call(date!, value),
+          child: Container(
+            height: size,
+            width: size,
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.all(Radius.circular(2.0)),
+              color: thresholds.colorFromThreshold(value, defaultColor),
+              border: containerBorder,
+            ),
           ),
         ),
       ),
     );
-
-    return messageHidden
-        ? container
-        : Tooltip(
-            verticalOffset: 14.0,
-            message: [
-              valueWrapper?.call(value) ?? '$value',
-              if (date != null) DateFormat.d().add_MMM().add_y().format(date!),
-            ].join(' · '),
-            child: container,
-          );
   }
 }
