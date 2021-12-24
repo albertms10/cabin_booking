@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import 'utils/map_int_color_extension.dart';
 import 'utils/time.dart';
 
 class HeatMapDay extends StatelessWidget {
@@ -31,20 +32,6 @@ class HeatMapDay extends StatelessWidget {
     this.highlightOn,
   }) : super(key: key);
 
-  /// Loop for getting the right color based on [thresholds] values
-  ///
-  /// If the [value] is greater than or equal one of [thresholds]' key,
-  /// it will receive its value
-  Color getColorFromThreshold() {
-    var color = defaultColor;
-
-    for (final threshold in thresholds.entries) {
-      if (value > 0 && value >= threshold.key) color = threshold.value;
-    }
-
-    return color;
-  }
-
   BoxBorder? get containerBorder {
     if (date == null) return null;
 
@@ -69,7 +56,7 @@ class HeatMapDay extends StatelessWidget {
           width: size,
           decoration: BoxDecoration(
             borderRadius: const BorderRadius.all(Radius.circular(2.0)),
-            color: getColorFromThreshold(),
+            color: thresholds.colorFromThreshold(value, defaultColor),
             border: containerBorder,
           ),
         ),
