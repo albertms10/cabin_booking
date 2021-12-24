@@ -25,28 +25,28 @@ class DayNavigation extends StatelessWidget {
               onPressed: () => dayHandler.changeToNow(),
               child: Text(appLocalizations.today),
             ),
-            ClipRRect(
-              borderRadius: const BorderRadius.all(Radius.circular(24.0)),
-              child: Material(
-                child: IconButton(
-                  onPressed: dayHandler.hasPreviousDay
-                      ? () => dayHandler.changeToPreviousDay()
-                      : null,
-                  icon: const Icon(Icons.chevron_left),
-                  tooltip: appLocalizations.previousDay,
-                ),
+            Material(
+              type: MaterialType.transparency,
+              clipBehavior: Clip.antiAlias,
+              shape: const CircleBorder(),
+              child: IconButton(
+                onPressed: dayHandler.hasPreviousDay
+                    ? () => dayHandler.changeToPreviousDay()
+                    : null,
+                icon: const Icon(Icons.chevron_left),
+                tooltip: appLocalizations.previousDay,
               ),
             ),
-            ClipRRect(
-              borderRadius: const BorderRadius.all(Radius.circular(24.0)),
-              child: Material(
-                child: IconButton(
-                  onPressed: dayHandler.hasNextDay
-                      ? () => dayHandler.changeToNextDay()
-                      : null,
-                  icon: const Icon(Icons.chevron_right),
-                  tooltip: appLocalizations.nextDay,
-                ),
+            Material(
+              type: MaterialType.transparency,
+              clipBehavior: Clip.antiAlias,
+              shape: const CircleBorder(),
+              child: IconButton(
+                onPressed: dayHandler.hasNextDay
+                    ? () => dayHandler.changeToNextDay()
+                    : null,
+                icon: const Icon(Icons.chevron_right),
+                tooltip: appLocalizations.nextDay,
               ),
             ),
             const SizedBox(width: 8.0),
