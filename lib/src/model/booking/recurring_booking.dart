@@ -149,7 +149,7 @@ class RecurringBooking extends Booking {
     var runDate = date!;
     var movedBooking = asBooking();
 
-    var count = 0;
+    var count = 1;
 
     while (runDate.isBefore(recurringEndDate)) {
       runBookings.add(
