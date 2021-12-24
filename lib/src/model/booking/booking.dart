@@ -1,6 +1,7 @@
 import 'package:cabin_booking/utils/date_time_extension.dart';
 import 'package:cabin_booking/utils/time_of_day_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 
 import '../date/date_range.dart';
@@ -155,3 +156,42 @@ class Booking extends Item {
 }
 
 enum BookingStatus { pending, confirmed, cancelled }
+
+extension LocalizedBookingStatus on BookingStatus {
+  String localized(AppLocalizations appLocalizations) {
+    switch (this) {
+      case BookingStatus.pending:
+        return appLocalizations.pending;
+      case BookingStatus.confirmed:
+        return appLocalizations.confirmed;
+      case BookingStatus.cancelled:
+        return appLocalizations.cancelled;
+    }
+  }
+}
+
+extension LayoutBookingStatus on BookingStatus {
+  Color color(ThemeData theme) {
+    switch (this) {
+      case BookingStatus.pending:
+        return theme.hintColor;
+      case BookingStatus.confirmed:
+        return theme.brightness == Brightness.light
+            ? Colors.greenAccent[700]!
+            : Colors.greenAccent;
+      case BookingStatus.cancelled:
+        return Colors.redAccent;
+    }
+  }
+
+  IconData get icon {
+    switch (this) {
+      case BookingStatus.pending:
+        return Icons.help_outline;
+      case BookingStatus.confirmed:
+        return Icons.check;
+      case BookingStatus.cancelled:
+        return Icons.clear;
+    }
+  }
+}

@@ -1,56 +1,56 @@
 import 'package:cabin_booking/constants.dart';
 import 'package:cabin_booking/model.dart';
+import 'package:cabin_booking/widgets/booking/booking_preview_panel_overlay.dart';
 import 'package:cabin_booking/widgets/booking/bookings_stack.dart';
 import 'package:cabin_booking/widgets/layout/current_time_indicator.dart';
+import 'package:cabin_booking/widgets/layout/scrollable_time_table.dart';
 import 'package:cabin_booking/widgets/layout/striped_background.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class BookingsTable extends StatelessWidget {
-  const BookingsTable({Key? key}) : super(key: key);
+  final Set<Cabin> cabins;
+  final DateTime dateTime;
+  final ShowPreviewOverlayCallback? showPreviewPanel;
+  final double stackWidth;
+  final SetPreventTimeTableScroll? setPreventTimeTableScroll;
+
+  const BookingsTable({
+    Key? key,
+    required this.cabins,
+    required this.dateTime,
+    this.showPreviewPanel,
+    required this.stackWidth,
+    this.setPreventTimeTableScroll,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Material(
       type: MaterialType.transparency,
-      child: LayoutBuilder(
-        builder: (context, constraints) {
-          return Stack(
+      child: Stack(
+        children: [
+          const StripedBackground(
+            startTime: kTimeTableStartTime,
+            endTime: kTimeTableEndTime,
+          ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const StripedBackground(
-                startTime: kTimeTableStartTime,
-                endTime: kTimeTableEndTime,
-              ),
-              Consumer2<DayHandler, CabinManager>(
-                builder: (context, dayHandler, cabinManager, child) {
-                  final maxParentWidth = constraints.maxWidth;
-                  final calculatedBookingStackWidth =
-                      maxParentWidth / cabinManager.cabins.length;
-                  final bookingStackWidth =
-                      (calculatedBookingStackWidth < kBookingColumnMinWidth)
-                          ? kBookingColumnMinWidth
-                          : calculatedBookingStackWidth;
-
-                  return Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      for (final cabin in cabinManager.cabins)
-                        SizedBox(
-                          width: bookingStackWidth,
-                          child: BookingsStack(
-                            key: Key('${cabin.number}'),
-                            cabin: cabin.simplified(),
-                            bookings: cabin.allBookingsOn(dayHandler.dateTime),
-                          ),
-                        ),
-                    ],
-                  );
-                },
-              ),
-              const CurrentTimeIndicator(hideText: true),
+              for (final cabin in cabins)
+                SizedBox(
+                  width: stackWidth,
+                  child: BookingsStack(
+                    key: Key('${cabin.number}'),
+                    cabin: cabin.simplified(),
+                    bookings: cabin.allBookingsOn(dateTime),
+                    showPreviewPanel: showPreviewPanel,
+                    setPreventTimeTableScroll: setPreventTimeTableScroll,
+                  ),
+                ),
             ],
-          );
-        },
+          ),
+          const CurrentTimeIndicator(hideText: true),
+        ],
       ),
     );
   }
