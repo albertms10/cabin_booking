@@ -1,17 +1,14 @@
 import 'package:cabin_booking/model.dart';
-import 'package:cabin_booking/utils/color_extension.dart';
-import 'package:cabin_booking/utils/date_time_extension.dart';
 import 'package:cabin_booking/utils/map_extension.dart';
+import 'package:cabin_booking/widgets/booking/bookings_heat_map_calendar.dart';
 import 'package:cabin_booking/widgets/layout/detailed_figure.dart';
 import 'package:cabin_booking/widgets/layout/duration_figure_unit.dart';
 import 'package:cabin_booking/widgets/layout/heading.dart';
 import 'package:cabin_booking/widgets/layout/popular_times_bar_chart.dart';
-import 'package:cabin_booking/widgets/layout/radio_button_list.dart';
 import 'package:cabin_booking/widgets/layout/statistic_item.dart';
 import 'package:cabin_booking/widgets/layout/statistic_simple_item.dart';
 import 'package:cabin_booking/widgets/layout/statistics.dart';
 import 'package:cabin_booking/widgets/pages/home_page.dart';
-import 'package:cabin_booking/widgets/standalone/heat_map_calendar/heat_map_calendar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
@@ -47,163 +44,195 @@ class _SummaryPageState extends State<SummaryPage>
               spacing: 24.0,
               runSpacing: 24.0,
               children: [
-                Statistics(
-                  title: appLocalizations.bookings,
-                  icon: Icons.event,
-                  onTap: widget.setNavigationPage == null
-                      ? null
-                      : () {
-                          widget.setNavigationPage?.call(AppPages.bookings);
-                        },
-                  items: [
-                    StatisticItem(
-                      label: appLocalizations.total,
-                      item: DetailedFigure(
-                        figure: cabinManager.allBookingsCount,
-                        details: [
-                          cabinManager.bookingsCount,
-                          cabinManager.recurringBookingsCount,
-                        ],
-                        tooltipMessage: '${appLocalizations.bookings}'
-                            ' + ${appLocalizations.recurringBookings}',
-                      ),
-                    ),
-                    StatisticItem(
-                      label: appLocalizations.accumulatedTime,
-                      item: DurationFigureUnit(
-                        cabinManager.totalOccupiedDuration(),
-                      ),
-                    ),
-                  ],
+                _BookingsCountStatistics(
+                  onTap: () {
+                    widget.setNavigationPage?.call(AppPages.bookings);
+                  },
                 ),
-                Statistics(
-                  title: appLocalizations.cabins,
-                  icon: Icons.sensor_door,
-                  onTap: widget.setNavigationPage == null
-                      ? null
-                      : () {
-                          widget.setNavigationPage?.call(AppPages.cabins);
-                        },
-                  items: [
-                    StatisticSimpleItem(
-                      label: appLocalizations.total,
-                      value: cabinManager.cabins.length,
-                    ),
-                  ],
+                _CabinsCountStatistics(
+                  onTap: () {
+                    widget.setNavigationPage?.call(AppPages.cabins);
+                  },
                 ),
-                Statistics(
-                  title: appLocalizations.schoolYears,
-                  icon: Icons.school,
-                  onTap: widget.setNavigationPage == null
-                      ? null
-                      : () {
-                          widget.setNavigationPage?.call(AppPages.schoolYears);
-                        },
-                  items: [
-                    StatisticSimpleItem(
-                      label: appLocalizations.total,
-                      value: dayHandler.schoolYearManager.schoolYears.length,
-                    ),
-                    StatisticSimpleItem(
-                      label: appLocalizations.workingDays,
-                      value: dayHandler
-                          .schoolYearManager.totalWorkingDuration.inDays,
-                    ),
-                  ],
+                _SchoolYearsStatistics(
+                  onTap: () {
+                    widget.setNavigationPage?.call(AppPages.schoolYears);
+                  },
                 ),
                 if (cabinManager.mostBookedDayEntry != null)
-                  Statistics(
-                    title: appLocalizations.mostBookedDay,
-                    icon: Icons.calendar_today,
-                    onTap: widget.setNavigationPage == null
-                        ? null
-                        : () {
-                            dayHandler.dateTime =
-                                cabinManager.mostBookedDayEntry!.key;
-                            widget.setNavigationPage?.call(AppPages.bookings);
-                          },
-                    items: [
-                      StatisticSimpleItem(
-                        value: DateFormat.d().add_MMM().add_y().format(
-                              cabinManager.mostBookedDayEntry!.key,
-                            ),
-                      ),
-                    ],
+                  _MostBookedDayStatistics(
+                    onTap: () {
+                      widget.setNavigationPage?.call(AppPages.bookings);
+                    },
                   ),
-                Statistics(
-                  title: appLocalizations.popularTimes,
-                  icon: Icons.watch_later,
-                  items: [
-                    PopularTimesBarChart(
-                      timeRangesOccupancy: cabinManager
-                          .accumulatedTimeRangesOccupancy()
-                          .fillEmptyKeyValues(
-                        keys: [
-                          for (var i = 9; i < 22; i++)
-                            TimeOfDay(hour: i, minute: 0),
-                        ],
-                        ifAbsent: () => Duration.zero,
-                      ),
-                    ),
-                  ],
-                ),
+                const _PopularTimesStatistics(),
               ],
             ),
             const SizedBox(height: 32.0),
             Heading(appLocalizations.bookings),
             const SizedBox(height: 16.0),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  child: HeatMapCalendar(
-                    input: cabinManager.allCabinsBookingsCountPerDay,
-                    dayValueWrapper: appLocalizations.nBookings,
-                    showLegend: true,
-                    colorThresholds: Theme.of(context)
-                        .colorScheme
-                        .secondary
-                        .opacityThresholds(
-                          highestValue:
-                              cabinManager.mostBookedDayEntry?.value ?? 1,
-                          samples: 8,
-                        ),
-                    firstWeekDay: DateTime.monday,
-                    firstDate:
-                        dayHandler.schoolYearManager.schoolYear?.startDate,
-                    lastDate: dayHandler.schoolYearManager.schoolYear?.endDate,
-                    highlightToday: true,
-                    highlightOn: (date) =>
-                        date.isSameDateAs(dayHandler.dateTime),
-                    onDayTap: widget.setNavigationPage == null
-                        ? null
-                        : (dateTime, value) {
-                            dayHandler.dateTime = dateTime;
-                            widget.setNavigationPage?.call(AppPages.bookings);
-                          },
-                    legendLessLabel: appLocalizations.less,
-                    legendMoreLabel: appLocalizations.more,
-                  ),
-                ),
-                const SizedBox(width: 16.0),
-                RadioButtonList(
-                  itemCount: dayHandler.schoolYearManager.schoolYears.length,
-                  itemBuilder: (context, index) {
-                    return Text(
-                      dayHandler.schoolYearManager.schoolYears
-                          .elementAt(index)
-                          .toString(),
-                    );
-                  },
-                  initialIndex: dayHandler.schoolYearManager.schoolYearIndex,
-                  onChanged: (index) => dayHandler.schoolYearIndex = index,
-                  reverse: true,
-                ),
-              ],
+            BookingsHeatMapCalendar(
+              onDayTap: () {
+                widget.setNavigationPage?.call(AppPages.bookings);
+              },
             ),
           ],
         );
       },
+    );
+  }
+}
+
+class _BookingsCountStatistics extends StatelessWidget {
+  final VoidCallback? onTap;
+
+  const _BookingsCountStatistics({Key? key, this.onTap}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final appLocalizations = AppLocalizations.of(context)!;
+
+    final cabinManager = Provider.of<CabinManager>(context);
+
+    return Statistics(
+      title: appLocalizations.bookings,
+      icon: Icons.event,
+      onTap: onTap,
+      items: [
+        StatisticItem(
+          label: appLocalizations.total,
+          item: DetailedFigure(
+            figure: cabinManager.allBookingsCount,
+            details: [
+              cabinManager.bookingsCount,
+              cabinManager.recurringBookingsCount,
+            ],
+            tooltipMessage: '${appLocalizations.bookings}'
+                ' + ${appLocalizations.recurringBookings}',
+          ),
+        ),
+        StatisticItem(
+          label: appLocalizations.accumulatedTime,
+          item: DurationFigureUnit(
+            cabinManager.totalOccupiedDuration(),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _CabinsCountStatistics extends StatelessWidget {
+  final VoidCallback? onTap;
+
+  const _CabinsCountStatistics({Key? key, this.onTap}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final appLocalizations = AppLocalizations.of(context)!;
+
+    final cabinManager = Provider.of<CabinManager>(context);
+
+    return Statistics(
+      title: appLocalizations.cabins,
+      icon: Icons.sensor_door,
+      onTap: onTap,
+      items: [
+        StatisticSimpleItem(
+          label: appLocalizations.total,
+          value: cabinManager.cabins.length,
+        ),
+      ],
+    );
+  }
+}
+
+class _SchoolYearsStatistics extends StatelessWidget {
+  final VoidCallback? onTap;
+
+  const _SchoolYearsStatistics({Key? key, this.onTap}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final appLocalizations = AppLocalizations.of(context)!;
+
+    final dayHandler = Provider.of<DayHandler>(context);
+
+    return Statistics(
+      title: appLocalizations.schoolYears,
+      icon: Icons.school,
+      onTap: onTap,
+      items: [
+        StatisticSimpleItem(
+          label: appLocalizations.total,
+          value: dayHandler.schoolYearManager.schoolYears.length,
+        ),
+        StatisticSimpleItem(
+          label: appLocalizations.workingDays,
+          value: dayHandler.schoolYearManager.totalWorkingDuration.inDays,
+        ),
+      ],
+    );
+  }
+}
+
+class _MostBookedDayStatistics extends StatelessWidget {
+  final VoidCallback? onTap;
+
+  const _MostBookedDayStatistics({Key? key, this.onTap}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final appLocalizations = AppLocalizations.of(context)!;
+
+    final cabinManager = Provider.of<CabinManager>(context);
+    final dayHandler = Provider.of<DayHandler>(context);
+
+    if (cabinManager.mostBookedDayEntry == null) return const SizedBox();
+
+    return Statistics(
+      title: appLocalizations.mostBookedDay,
+      icon: Icons.calendar_today,
+      onTap: onTap == null
+          ? null
+          : () {
+              dayHandler.dateTime = cabinManager.mostBookedDayEntry!.key;
+              onTap!.call();
+            },
+      items: [
+        StatisticSimpleItem(
+          value: DateFormat.d().add_MMM().add_y().format(
+                cabinManager.mostBookedDayEntry!.key,
+              ),
+        ),
+      ],
+    );
+  }
+}
+
+class _PopularTimesStatistics extends StatelessWidget {
+  const _PopularTimesStatistics({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final appLocalizations = AppLocalizations.of(context)!;
+
+    final cabinManager = Provider.of<CabinManager>(context);
+
+    return Statistics(
+      title: appLocalizations.popularTimes,
+      icon: Icons.watch_later,
+      items: [
+        PopularTimesBarChart(
+          timeRangesOccupancy:
+              cabinManager.accumulatedTimeRangesOccupancy().fillEmptyKeyValues(
+            keys: [
+              for (var i = 9; i < 22; i++) TimeOfDay(hour: i, minute: 0),
+            ],
+            ifAbsent: () => Duration.zero,
+          ),
+        ),
+      ],
     );
   }
 }
