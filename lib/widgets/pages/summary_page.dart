@@ -34,51 +34,46 @@ class _SummaryPageState extends State<SummaryPage>
 
     final appLocalizations = AppLocalizations.of(context)!;
 
-    return Consumer2<DayHandler, CabinManager>(
-      builder: (context, dayHandler, cabinManager, child) {
-        return ListView(
-          padding: const EdgeInsets.all(32.0),
+    return ListView(
+      padding: const EdgeInsets.all(32.0),
+      children: [
+        Heading(appLocalizations.summary),
+        Wrap(
+          spacing: 24.0,
+          runSpacing: 24.0,
           children: [
-            Heading(appLocalizations.summary),
-            Wrap(
-              spacing: 24.0,
-              runSpacing: 24.0,
-              children: [
-                _BookingsCountStatistics(
-                  onTap: () {
-                    widget.setNavigationPage?.call(AppPages.bookings);
-                  },
-                ),
-                _CabinsCountStatistics(
-                  onTap: () {
-                    widget.setNavigationPage?.call(AppPages.cabins);
-                  },
-                ),
-                _SchoolYearsStatistics(
-                  onTap: () {
-                    widget.setNavigationPage?.call(AppPages.schoolYears);
-                  },
-                ),
-                if (cabinManager.mostBookedDayEntry != null)
-                  _MostBookedDayStatistics(
-                    onTap: () {
-                      widget.setNavigationPage?.call(AppPages.bookings);
-                    },
-                  ),
-                const _PopularTimesStatistics(),
-              ],
-            ),
-            const SizedBox(height: 32.0),
-            Heading(appLocalizations.bookings),
-            const SizedBox(height: 16.0),
-            BookingsHeatMapCalendar(
-              onDayTap: () {
+            _BookingsCountStatistics(
+              onTap: () {
                 widget.setNavigationPage?.call(AppPages.bookings);
               },
             ),
+            _CabinsCountStatistics(
+              onTap: () {
+                widget.setNavigationPage?.call(AppPages.cabins);
+              },
+            ),
+            _SchoolYearsStatistics(
+              onTap: () {
+                widget.setNavigationPage?.call(AppPages.schoolYears);
+              },
+            ),
+            _MostBookedDayStatistics(
+              onTap: () {
+                widget.setNavigationPage?.call(AppPages.bookings);
+              },
+            ),
+            const _PopularTimesStatistics(),
           ],
-        );
-      },
+        ),
+        const SizedBox(height: 32.0),
+        Heading(appLocalizations.bookings),
+        const SizedBox(height: 16.0),
+        BookingsHeatMapCalendar(
+          onDayTap: () {
+            widget.setNavigationPage?.call(AppPages.bookings);
+          },
+        ),
+      ],
     );
   }
 }
