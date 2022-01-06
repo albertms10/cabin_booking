@@ -31,6 +31,8 @@ class _HomePageState extends State<HomePage> {
           : _pageController.initialPage;
 
   void _setNavigationIndex(int index) {
+    if (index == currentIndex) return;
+
     setState(() => _pageController.jumpToPage(index));
   }
 
