@@ -34,7 +34,7 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
 
   int get lastCabinNumber => cabins.isEmpty ? 0 : cabins.last.number;
 
-  Set<DateTime> allCabinsDatesWithBookings([DateRange? dateRange]) =>
+  Set<DateTime> allCabinsDatesWithBookings([DateRanger? dateRange]) =>
       SplayTreeSet.from({
         for (final cabin in cabins) ...cabin.datesWithBookings(dateRange),
       });
@@ -65,7 +65,7 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
   }
 
   Map<TimeOfDay, Duration> accumulatedTimeRangesOccupancy([
-    DateRange? dateRange,
+    DateRanger? dateRange,
   ]) {
     final timeRanges =
         SplayTreeMap<TimeOfDay, Duration>(TimeOfDayExtension.compare);
@@ -86,7 +86,7 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
     return timeRanges;
   }
 
-  Set<TimeOfDay> mostOccupiedTimeRange([DateRange? dateRange]) =>
+  Set<TimeOfDay> mostOccupiedTimeRange([DateRanger? dateRange]) =>
       BookingManager.mostOccupiedTimeRangeFromAccumulated(
         accumulatedTimeRangesOccupancy(dateRange),
       );
@@ -121,7 +121,7 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
     return count;
   }
 
-  Duration totalOccupiedDuration({DateTime? dateTime, DateRange? dateRange}) {
+  Duration totalOccupiedDuration({DateTime? dateTime, DateRanger? dateRange}) {
     var duration = Duration.zero;
 
     for (final cabin in cabins) {
@@ -134,7 +134,7 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
     return duration;
   }
 
-  Map<DateTime, Duration> occupiedDurationPerWeek([DateRange? dateRange]) {
+  Map<DateTime, Duration> occupiedDurationPerWeek([DateRanger? dateRange]) {
     final bookingsPerDay = SplayTreeMap<DateTime, Duration>();
 
     for (final cabin in cabins) {
@@ -172,7 +172,7 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
         percents.length;
   }
 
-  int bookingsCountBetween(DateRange dateRange) {
+  int bookingsCountBetween(DateRanger dateRange) {
     var count = 0;
 
     for (final cabin in cabins) {
@@ -182,7 +182,7 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
     return count;
   }
 
-  int recurringBookingsCountBetween(DateRange dateRange) {
+  int recurringBookingsCountBetween(DateRanger dateRange) {
     var count = 0;
 
     for (final cabin in cabins) {

@@ -2,14 +2,14 @@ import 'dart:collection' show SplayTreeSet;
 
 import 'package:intl/intl.dart';
 
-import '../date/date_range.dart';
+import '../date/date_range_item.dart';
 import '../date/holiday.dart';
 
 abstract class _JsonFields {
   static const holidays = 'h';
 }
 
-class SchoolYear extends DateRange {
+class SchoolYear extends DateRangeItem {
   late Set<Holiday> holidays;
 
   SchoolYear({

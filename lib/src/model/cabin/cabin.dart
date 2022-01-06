@@ -64,10 +64,10 @@ class Cabin extends Item {
 
   Set<Booking> get allBookings => _bookingManager.allBookings;
 
-  Set<Booking> bookingsBetween(DateRange dateRange) =>
+  Set<Booking> bookingsBetween(DateRanger dateRange) =>
       _bookingManager.bookingsBetween(dateRange);
 
-  Set<Booking> recurringBookingsBetween(DateRange dateRange) =>
+  Set<Booking> recurringBookingsBetween(DateRanger dateRange) =>
       _bookingManager.recurringBookingsBetween(dateRange);
 
   List<Booking> get generatedBookingsFromRecurring =>
@@ -76,7 +76,7 @@ class Cabin extends Item {
   bool bookingsCollideWith(Booking booking) =>
       _bookingManager.bookingsCollideWith(booking);
 
-  Duration occupiedDuration({DateTime? dateTime, DateRange? dateRange}) =>
+  Duration occupiedDuration({DateTime? dateTime, DateRanger? dateRange}) =>
       _bookingManager.occupiedDuration(
         dateTime: dateTime,
         dateRange: dateRange,
@@ -93,13 +93,13 @@ class Cabin extends Item {
         endTime: endTime,
       );
 
-  Set<DateTime> datesWithBookings([DateRange? dateRange]) =>
+  Set<DateTime> datesWithBookings([DateRanger? dateRange]) =>
       _bookingManager.datesWithBookings(dateRange);
 
   Map<DateTime, int> get allBookingsCountPerDay =>
       _bookingManager.allBookingsCountPerDay;
 
-  Map<DateTime, Duration> occupiedDurationPerWeek([DateRange? dateRange]) =>
+  Map<DateTime, Duration> occupiedDurationPerWeek([DateRanger? dateRange]) =>
       _bookingManager.occupiedDurationPerWeek(dateRange);
 
   double occupancyPercent({
@@ -114,11 +114,11 @@ class Cabin extends Item {
       );
 
   Map<TimeOfDay, Duration> accumulatedTimeRangesOccupancy([
-    DateRange? dateRange,
+    DateRanger? dateRange,
   ]) =>
       _bookingManager.accumulatedTimeRangesOccupancy(dateRange);
 
-  Set<TimeOfDay> mostOccupiedTimeRange([DateRange? dateRange]) =>
+  Set<TimeOfDay> mostOccupiedTimeRange([DateRanger? dateRange]) =>
       _bookingManager.mostOccupiedTimeRange(dateRange);
 
   @override

@@ -246,11 +246,11 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
                           ActivityLineChart(
                             occupiedDurationPerWeek:
                                 row.occupiedDurationPerWeek,
-                            tooltipMessage: row.item is DateRange
+                            tooltipMessage: row.item is DateRanger
                                 ? null
                                 : appLocalizations.pastYearOfActivity,
-                            dateRange: row.item is DateRange
-                                ? row.item as DateRange
+                            dateRange: row.item is DateRanger
+                                ? row.item as DateRanger
                                 : DateRange(
                                     startDate: DateTime.now()
                                         .subtract(const Duration(days: 365))

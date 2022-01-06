@@ -55,7 +55,7 @@ class CabinsTable extends StatelessWidget {
                       ),
                     )
                     .fillEmptyKeyValues(
-                      keys: DateRange.rangeDateTimeList(
+                      keys: DateRanger.rangeDateTimeList(
                         DateTime.now()
                             .subtract(const Duration(days: 365))
                             .firstDayOfWeek,
