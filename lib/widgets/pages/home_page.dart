@@ -16,7 +16,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final PageController pageController = PageController();
+  final PageController _pageController = PageController();
 
   static const _floatingActionButtons = [
     SizedBox(),
@@ -26,12 +26,12 @@ class _HomePageState extends State<HomePage> {
   ];
 
   int get currentIndex =>
-      pageController.hasClients && pageController.page != null
-          ? pageController.page!.floor()
-          : pageController.initialPage;
+      _pageController.hasClients && _pageController.page != null
+          ? _pageController.page!.floor()
+          : _pageController.initialPage;
 
   void _setNavigationIndex(int index) {
-    setState(() => pageController.jumpToPage(index));
+    setState(() => _pageController.jumpToPage(index));
   }
 
   void _setNavigationPage(AppPages page) => _setNavigationIndex(page.index);
@@ -112,7 +112,7 @@ class _HomePageState extends State<HomePage> {
             ],
             Expanded(
               child: PageView(
-                controller: pageController,
+                controller: _pageController,
                 physics: const NeverScrollableScrollPhysics(),
                 children: [
                   SummaryPage(setNavigationPage: _setNavigationPage),
