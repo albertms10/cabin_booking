@@ -25,7 +25,7 @@ class ItemInfo extends StatelessWidget {
           Text(
             appLocalizations.createdOn(
               creationDateTime!.day,
-              DateFormat.yMMMd().format(creationDateTime!),
+              DateFormat.yMMMd().add_Hm().format(creationDateTime!.toLocal()),
             ),
             style: theme.textTheme.caption,
           ),
@@ -33,7 +33,9 @@ class ItemInfo extends StatelessWidget {
           Text(
             appLocalizations.modifiedOn(
               modificationDateTime!.day,
-              DateFormat.yMMMd().format(modificationDateTime!),
+              DateFormat.yMMMd()
+                  .add_Hm()
+                  .format(modificationDateTime!.toLocal()),
             ),
             style: theme.textTheme.caption,
           ),
