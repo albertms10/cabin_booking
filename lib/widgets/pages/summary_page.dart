@@ -181,9 +181,9 @@ class _MostBookedDayStatistics extends StatelessWidget {
     final appLocalizations = AppLocalizations.of(context)!;
 
     final cabinManager = Provider.of<CabinManager>(context);
-    final dayHandler = Provider.of<DayHandler>(context);
-
     if (cabinManager.mostBookedDayEntry == null) return const SizedBox();
+
+    final dayHandler = Provider.of<DayHandler>(context);
 
     return Statistics(
       title: appLocalizations.mostBookedDay,
