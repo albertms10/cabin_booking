@@ -18,7 +18,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final PageController pageController = PageController();
 
-  final _floatingActionButtons = const [
+  static const _floatingActionButtons = [
     SizedBox(),
     BookingFloatingActionButton(),
     CabinFloatingActionButton(),
