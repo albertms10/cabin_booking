@@ -9,6 +9,9 @@ extension MapIntColorExtension on Map<int, Color> {
   ]) {
     if (threshold <= 0) return defaultColor;
 
+    final color = this[threshold];
+    if (color != null) return color;
+
     for (final entry in entries) {
       if (threshold <= entry.key) return entry.value;
     }
