@@ -17,7 +17,7 @@ abstract class Item implements Comparable<Item>, Serializable {
   int modificationCount;
 
   Item({String? id})
-      : creationDateTime = DateTime.now(),
+      : creationDateTime = DateTime.now().toUtc(),
         modificationCount = 0 {
     this.id = id ?? nanoid();
   }
@@ -25,12 +25,13 @@ abstract class Item implements Comparable<Item>, Serializable {
   Item.from(Map<String, dynamic> other)
       : id = other[_JsonFields.id] as String,
         creationDateTime =
-            DateTime.tryParse(other[_JsonFields.creationDateTime] as String)!,
+            DateTime.tryParse(other[_JsonFields.creationDateTime] as String)!
+                .toUtc(),
         modificationDateTime =
             other.containsKey(_JsonFields.modificationDateTime)
                 ? DateTime.tryParse(
                     other[_JsonFields.modificationDateTime] as String,
-                  )
+                  )?.toUtc()
                 : null,
         modificationCount = other[_JsonFields.modificationCount] as int;
 
@@ -48,7 +49,7 @@ abstract class Item implements Comparable<Item>, Serializable {
   Item copyWith();
 
   void _modify() {
-    modificationDateTime = DateTime.now();
+    modificationDateTime = DateTime.now().toUtc();
     modificationCount++;
   }
 
