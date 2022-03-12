@@ -12,7 +12,7 @@ class PopularTimesBarChart extends StatelessWidget {
     final theme = Theme.of(context);
 
     final mainColors = [theme.colorScheme.primary];
-    final highlightColors = [theme.colorScheme.secondaryVariant];
+    final highlightColors = [theme.colorScheme.secondaryContainer];
 
     return Container(
       width: 320.0,
