@@ -23,7 +23,7 @@ class DetailLineChart extends StatelessWidget {
 
     final colors = [
       theme.colorScheme.primary,
-      theme.colorScheme.secondaryVariant,
+      theme.colorScheme.secondaryContainer,
     ];
 
     return LineChart(

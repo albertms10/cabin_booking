@@ -54,6 +54,8 @@ class SchoolYearManager extends WritableManager<Set<SchoolYear>>
         dateTime.isBefore(schoolYears.last.endDate!)) {
       return schoolYears.length - 1;
     }
+
+    return null;
   }
 
   SchoolYear? get schoolYear =>

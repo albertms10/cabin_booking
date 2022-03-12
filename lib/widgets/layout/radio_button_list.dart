@@ -45,7 +45,7 @@ class _RadioButtonListState extends State<RadioButtonList> {
             child: TextButton(
               style: ElevatedButton.styleFrom(
                 primary: _selectedIndex == i
-                    ? theme.colorScheme.secondaryVariant
+                    ? theme.colorScheme.secondaryContainer
                     : null,
                 onPrimary: _selectedIndex == i ? Colors.white : theme.hintColor,
                 padding: const EdgeInsets.symmetric(

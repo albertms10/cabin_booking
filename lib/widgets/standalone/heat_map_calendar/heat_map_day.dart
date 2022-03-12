@@ -43,6 +43,8 @@ class HeatMapDay extends StatelessWidget {
     if (highlightOn?.call(date!) ?? false) {
       return Border.all(color: Colors.orange[200]!, width: 2.0);
     }
+
+    return null;
   }
 
   @override

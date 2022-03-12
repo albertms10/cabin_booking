@@ -22,9 +22,9 @@ ThemeData lightTheme() {
     primaryColorDark: primaryColorDark,
     colorScheme: ColorScheme.light(
       primary: primaryColor,
-      primaryVariant: primaryColorLight,
+      primaryContainer: primaryColorLight,
       secondary: primaryColor,
-      secondaryVariant: primaryColorDark,
+      secondaryContainer: primaryColorDark,
       onSecondary: Colors.white,
     ),
     radioTheme: RadioThemeData(
@@ -52,9 +52,9 @@ ThemeData darkTheme() {
     primaryColorDark: primaryColorDark,
     colorScheme: ColorScheme.dark(
       primary: primaryColor,
-      primaryVariant: primaryColorLight,
+      primaryContainer: primaryColorLight,
       secondary: primaryColor,
-      secondaryVariant: primaryColorDark,
+      secondaryContainer: primaryColorDark,
       onPrimary: Colors.white,
       onSecondary: Colors.white,
     ),
@@ -80,5 +80,7 @@ MaterialStateProperty<Color?> _resolveSelectedMaterialState(
 ) {
   return MaterialStateProperty.resolveWith((states) {
     if (states.contains(MaterialState.selected)) return color;
+
+    return null;
   });
 }
