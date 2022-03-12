@@ -23,7 +23,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: /opt/hostedtoolcache/flutter
-          key: ubuntu-latest-flutter
+          key: ${{ runner.os }}-pubspec-${{ hashFiles('**/pubspec.lock') }}
 
       - uses: subosito/flutter-action@v2
         with:
@@ -64,7 +64,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: /Users/runner/hostedtoolcache/flutter
-          key: macos-latest-flutter
+          key: ${{ runner.os }}-pubspec-${{ hashFiles('**/pubspec.lock') }}
 
       - uses: subosito/flutter-action@v2
 
@@ -102,7 +102,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: /opt/hostedtoolcache/flutter
-          key: ubuntu-latest-flutter
+          key: ${{ runner.os }}-pubspec-${{ hashFiles('**/pubspec.lock') }}
 
       - uses: subosito/flutter-action@v2
 
@@ -135,7 +135,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: /Users/runner/hostedtoolcache/flutter
-          key: macos-latest-flutter
+          key: ${{ runner.os }}-pubspec-${{ hashFiles('**/pubspec.lock') }}
 
       - uses: subosito/flutter-action@v2
 
@@ -166,12 +166,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-
-      - name: Cache Flutter dependencies
-        uses: actions/cache@v2
-        with:
-          path: /Users/runner/hostedtoolcache/flutter
-          key: windows-latest-flutter
 
       - uses: subosito/flutter-action@v2
 
