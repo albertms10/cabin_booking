@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 
 class ActivityLineChart extends StatelessWidget {
   final Map<DateTime, Duration> occupiedDurationPerWeek;
-  final DateRange dateRange;
+  final DateRanger dateRange;
   final String? tooltipMessage;
 
   const ActivityLineChart({

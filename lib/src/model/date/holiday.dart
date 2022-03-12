@@ -1,10 +1,10 @@
-import 'date_range.dart';
+import 'date_range_item.dart';
 
 abstract class _JsonFields {
   static const kind = 'k';
 }
 
-class Holiday extends DateRange {
+class Holiday extends DateRangeItem {
   final HolidayKind kind;
 
   Holiday({

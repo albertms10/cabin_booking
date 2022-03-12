@@ -106,7 +106,7 @@ class Booking extends Item {
 
   bool isOn(DateTime dateTime) => date?.isSameDateAs(dateTime) ?? false;
 
-  bool isBetween(DateRange dateRange) => dateRange.includes(startDateTime);
+  bool isBetween(DateRanger dateRange) => dateRange.includes(startDateTime);
 
   bool collidesWith(Booking booking) =>
       startDateTime.isBefore(booking.endDateTime) &&

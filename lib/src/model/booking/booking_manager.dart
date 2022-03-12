@@ -50,18 +50,18 @@ class BookingManager with ChangeNotifier {
         ...generatedBookingsFromRecurring,
       });
 
-  Set<Booking> bookingsBetween(DateRange dateRange) => SplayTreeSet.from(
+  Set<Booking> bookingsBetween(DateRanger dateRange) => SplayTreeSet.from(
         bookings.where((booking) => booking.isBetween(dateRange)),
       );
 
-  Set<Booking> recurringBookingsBetween(DateRange dateRange) =>
+  Set<Booking> recurringBookingsBetween(DateRanger dateRange) =>
       SplayTreeSet.from(
         generatedBookingsFromRecurring.where(
           (recurringBooking) => recurringBooking.isBetween(dateRange),
         ),
       );
 
-  Set<Booking> allBookingsBetween(DateRange dateRange) => SplayTreeSet.from({
+  Set<Booking> allBookingsBetween(DateRanger dateRange) => SplayTreeSet.from({
         ...bookingsBetween(dateRange),
         ...recurringBookingsBetween(dateRange),
       });
@@ -104,7 +104,7 @@ class BookingManager with ChangeNotifier {
         null;
   }
 
-  Duration occupiedDuration({DateTime? dateTime, DateRange? dateRange}) {
+  Duration occupiedDuration({DateTime? dateTime, DateRanger? dateRange}) {
     assert(!((dateTime != null) && (dateRange != null)));
 
     var runDuration = Duration.zero;
@@ -159,7 +159,7 @@ class BookingManager with ChangeNotifier {
     return runPercent;
   }
 
-  Set<DateTime> datesWithBookings([DateRange? dateRange]) {
+  Set<DateTime> datesWithBookings([DateRanger? dateRange]) {
     final dates = SplayTreeSet<DateTime>();
 
     final bookingsList =
@@ -191,7 +191,7 @@ class BookingManager with ChangeNotifier {
     return bookingsPerDay;
   }
 
-  Map<DateTime, Duration> occupiedDurationPerWeek([DateRange? dateRange]) {
+  Map<DateTime, Duration> occupiedDurationPerWeek([DateRanger? dateRange]) {
     final bookingsPerDay = SplayTreeMap<DateTime, Duration>();
 
     for (final booking in allBookings) {
@@ -208,7 +208,7 @@ class BookingManager with ChangeNotifier {
   }
 
   Map<TimeOfDay, Duration> accumulatedTimeRangesOccupancy([
-    DateRange? dateRange,
+    DateRanger? dateRange,
   ]) {
     final timeRanges =
         SplayTreeMap<TimeOfDay, Duration>(TimeOfDayExtension.compare);
@@ -250,7 +250,7 @@ class BookingManager with ChangeNotifier {
     );
   }
 
-  Set<TimeOfDay> mostOccupiedTimeRange([DateRange? dateRange]) =>
+  Set<TimeOfDay> mostOccupiedTimeRange([DateRanger? dateRange]) =>
       mostOccupiedTimeRangeFromAccumulated(
         accumulatedTimeRangesOccupancy(dateRange),
       );
