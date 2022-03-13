@@ -2,6 +2,7 @@ import 'package:cabin_booking/model.dart';
 import 'package:cabin_booking/utils/date_time_extension.dart';
 import 'package:cabin_booking/utils/iterable_extension.dart';
 import 'package:cabin_booking/utils/map_extension.dart';
+import 'package:cabin_booking/utils/time_of_day_extension.dart';
 import 'package:cabin_booking/widgets/cabin/cabin_dialog.dart';
 import 'package:cabin_booking/widgets/item/items_table.dart';
 import 'package:flutter/material.dart';
@@ -67,9 +68,7 @@ class CabinsTable extends StatelessWidget {
                 mostOccupiedTimeRanges: cabin
                     .mostOccupiedTimeRange()
                     .compactConsecutive(
-                      nextValue: (timeOfDay) => timeOfDay.replacing(
-                        hour: (timeOfDay.hour + 1) % TimeOfDay.hoursPerDay,
-                      ),
+                      nextValue: (timeOfDay) => timeOfDay.increment(hours: 1),
                       inclusive: true,
                     )
                     .toSet(),

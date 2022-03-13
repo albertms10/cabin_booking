@@ -38,9 +38,7 @@ class CurrentTimeIndicator extends StatelessWidget {
               Duration.microsecondsPerMinute *
               kBookingHeightRatio,
           label: Text(
-            hideText
-                ? ''
-                : TimeOfDay.fromDateTime(DateTime.now()).format(context),
+            hideText ? '' : TimeOfDay.fromDateTime(now).format(context),
             style: TextStyle(
               color: Colors.red[400],
               fontWeight: FontWeight.bold,

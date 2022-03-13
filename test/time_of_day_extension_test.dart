@@ -59,6 +59,63 @@ void main() {
       });
     });
 
+    group('.increment', () {
+      test('should return a TimeOfDay incremented by hours', () {
+        expect(
+          const TimeOfDay(hour: 10, minute: 30).increment(hours: 1),
+          const TimeOfDay(hour: 11, minute: 30),
+        );
+        expect(
+          const TimeOfDay(hour: 10, minute: 30).increment(hours: -2),
+          const TimeOfDay(hour: 8, minute: 30),
+        );
+        expect(
+          const TimeOfDay(hour: 22, minute: 30).increment(hours: 4),
+          const TimeOfDay(hour: 2, minute: 30),
+        );
+        expect(
+          const TimeOfDay(hour: 2, minute: 30).increment(hours: -5),
+          const TimeOfDay(hour: 21, minute: 30),
+        );
+      });
+
+      test('should return a TimeOfDay incremented by minutes', () {
+        expect(
+          const TimeOfDay(hour: 10, minute: 30).increment(minutes: 1),
+          const TimeOfDay(hour: 10, minute: 31),
+        );
+        expect(
+          const TimeOfDay(hour: 10, minute: 30).increment(minutes: -40),
+          const TimeOfDay(hour: 9, minute: 50),
+        );
+        expect(
+          const TimeOfDay(hour: 23, minute: 30).increment(minutes: 120),
+          const TimeOfDay(hour: 1, minute: 30),
+        );
+        expect(
+          const TimeOfDay(hour: 23, minute: 30).increment(minutes: 30),
+          const TimeOfDay(hour: 0, minute: 0),
+        );
+      });
+
+      test('should return a TimeOfDay incremented by hours and minutes', () {
+        expect(
+          const TimeOfDay(hour: 10, minute: 30).increment(hours: 1, minutes: 1),
+          const TimeOfDay(hour: 11, minute: 31),
+        );
+        expect(
+          const TimeOfDay(hour: 10, minute: 30)
+              .increment(hours: -2, minutes: 40),
+          const TimeOfDay(hour: 9, minute: 10),
+        );
+        expect(
+          const TimeOfDay(hour: 23, minute: 30)
+              .increment(hours: 2, minutes: -120),
+          const TimeOfDay(hour: 23, minute: 30),
+        );
+      });
+    });
+
     group('.durationBetween', () {
       test('should return the duration between two TimeOfDay objects', () {
         expect(
