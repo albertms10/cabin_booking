@@ -45,6 +45,32 @@ extension TimeOfDayExtension on TimeOfDay {
     }
   }
 
+  /// Returns a new [TimeOfDay] incrementing the number of [hours]
+  /// and [minutes].
+  ///
+  /// Example:
+  /// ```dart
+  /// const timeOfDay = TimeOfDay(hour: 10, minute: 30);
+  /// assert(
+  ///   timeOfDay.increment(minutes: 15) ==
+  ///       const TimeOfDay(hour: 10, minute: 45),
+  /// );
+  /// assert(
+  ///   timeOfDay.increment(hours: -2) ==
+  ///       const TimeOfDay(hour: 8, minute: 30),
+  /// );
+  /// ```
+  TimeOfDay increment({int hours = 0, int minutes = 0}) {
+    final totalMinutes = minute + minutes;
+    final hoursDelta = (totalMinutes / TimeOfDay.minutesPerHour).floor();
+    final totalHours = hour + hours + hoursDelta;
+
+    return replacing(
+      hour: totalHours % TimeOfDay.hoursPerDay,
+      minute: totalMinutes % TimeOfDay.minutesPerHour,
+    );
+  }
+
   /// Returns a [Duration] with the difference when subtracting [other] from
   /// this [TimeOfDay].
   Duration difference(TimeOfDay other) => Duration(
