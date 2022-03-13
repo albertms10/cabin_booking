@@ -2,16 +2,16 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Production",
-      "request": "launch",
-      "type": "dart",
-      "flutterMode": "release"
-    },
-    {
       "name": "Development",
       "request": "launch",
       "type": "dart",
       "flutterMode": "debug"
+    },
+    {
+      "name": "Production",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "release"
     },
     {
       "name": "Test",
