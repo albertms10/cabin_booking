@@ -73,6 +73,16 @@ extension TimeOfDayExtension on TimeOfDay {
 
   /// Returns a [Duration] with the difference when subtracting [other] from
   /// this [TimeOfDay].
+  ///
+  /// The returned [Duration] will be negative if [other] occurs after `this`.
+  ///
+  /// ```dart
+  /// const morning = TimeOfDay(hour: 9, minute: 30);
+  /// const evening = TimeOfDay(hour: 19, minute: 30);
+  ///
+  /// final difference = evening.difference(morning);
+  /// assert(difference.inHours == 10);
+  /// ```
   Duration difference(TimeOfDay other) => Duration(
         hours: hour - other.hour,
         minutes: minute - other.minute,
