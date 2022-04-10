@@ -116,29 +116,55 @@ void main() {
       });
     });
 
-    group('.durationBetween', () {
-      test('should return the duration between two TimeOfDay objects', () {
-        expect(
-          const TimeOfDay(hour: 10, minute: 50)
-              .difference(const TimeOfDay(hour: 12, minute: 20)),
-          const Duration(hours: 2, minutes: 30),
-        );
-        expect(
-          const TimeOfDay(hour: 12, minute: 00)
-              .difference(const TimeOfDay(hour: 12, minute: 00)),
-          Duration.zero,
-        );
-        expect(
-          const TimeOfDay(hour: 23, minute: 00)
-              .difference(const TimeOfDay(hour: 1, minute: 00)),
-          const Duration(hours: 2),
-        );
-        expect(
-          const TimeOfDay(hour: 12, minute: 00)
-              .difference(const TimeOfDay(hour: 10, minute: 45)),
-          const Duration(hours: 22, minutes: 45),
-        );
-      });
+    group('.difference', () {
+      test(
+        'should return the duration between two TimeOfDay objects '
+        'when other occurs before this',
+        () {
+          expect(
+            const TimeOfDay(hour: 12, minute: 20)
+                .difference(const TimeOfDay(hour: 10, minute: 50)),
+            const Duration(hours: 1, minutes: 30),
+          );
+          expect(
+            const TimeOfDay(hour: 23, minute: 0)
+                .difference(const TimeOfDay(hour: 1, minute: 0)),
+            const Duration(hours: 22),
+          );
+          expect(
+            const TimeOfDay(hour: 12, minute: 0)
+                .difference(const TimeOfDay(hour: 10, minute: 45)),
+            const Duration(hours: 1, minutes: 15),
+          );
+          expect(
+            const TimeOfDay(hour: 12, minute: 0)
+                .difference(const TimeOfDay(hour: 12, minute: 0)),
+            Duration.zero,
+          );
+        },
+      );
+
+      test(
+        'should return the duration between two TimeOfDay objects '
+        'when other occurs after this',
+        () {
+          expect(
+            const TimeOfDay(hour: 10, minute: 50)
+                .difference(const TimeOfDay(hour: 12, minute: 20)),
+            -const Duration(hours: 1, minutes: 30),
+          );
+          expect(
+            const TimeOfDay(hour: 1, minute: 0)
+                .difference(const TimeOfDay(hour: 23, minute: 0)),
+            -const Duration(hours: 22),
+          );
+          expect(
+            const TimeOfDay(hour: 10, minute: 45)
+                .difference(const TimeOfDay(hour: 12, minute: 0)),
+            -const Duration(hours: 1, minutes: 15),
+          );
+        },
+      );
     });
 
     group('.format24Hour', () {
