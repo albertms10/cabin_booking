@@ -74,8 +74,8 @@ extension TimeOfDayExtension on TimeOfDay {
   /// Returns a [Duration] with the difference when subtracting [other] from
   /// this [TimeOfDay].
   Duration difference(TimeOfDay other) => Duration(
-        hours: (other.hour - hour) % TimeOfDay.hoursPerDay,
-        minutes: (other.minute - minute) % TimeOfDay.minutesPerHour,
+        hours: hour - other.hour,
+        minutes: minute - other.minute,
       );
 
   /// Returns the 24-hour formatted string representation of this [TimeOfDay],
