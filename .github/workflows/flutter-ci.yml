@@ -64,6 +64,9 @@ on:
         required: false
         type: boolean
 
+env:
+  FLUTTER_SDK_VERSION: '2.10.4'
+
 jobs:
   analyze:
     name: Analyze
@@ -74,15 +77,15 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Cache Flutter dependencies
-        uses: actions/cache@v2
+      - name: Cache dependencies
+        uses: actions/cache@v3
         with:
           path: /opt/hostedtoolcache/flutter
           key: ${{ runner.os }}-pubspec-${{ hashFiles('**/pubspec.lock') }}
 
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: '2.10.3'
+          flutter-version: ${{ env.FLUTTER_SDK_VERSION }}
 
       - name: Verify formatting
         run: flutter format --output=none --set-exit-if-changed .
@@ -122,13 +125,15 @@ jobs:
         id: filename
         run: echo ::set-output name=artifact::ios_release_$(git describe --tags)
 
-      - name: Cache Flutter dependencies
-        uses: actions/cache@v2
+      - name: Cache dependencies
+        uses: actions/cache@v3
         with:
           path: /Users/runner/hostedtoolcache/flutter
           key: ${{ runner.os }}-pubspec-${{ hashFiles('**/pubspec.lock') }}
 
       - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_SDK_VERSION }}
 
       - name: Get dependencies
         run: flutter pub get
@@ -176,13 +181,15 @@ jobs:
           distribution: 'temurin'
           java-version: 17
 
-      - name: Cache Flutter dependencies
-        uses: actions/cache@v2
+      - name: Cache dependencies
+        uses: actions/cache@v3
         with:
           path: /opt/hostedtoolcache/flutter
           key: ${{ runner.os }}-pubspec-${{ hashFiles('**/pubspec.lock') }}
 
       - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_SDK_VERSION }}
 
       - name: Get dependencies
         run: flutter pub get
@@ -225,13 +232,15 @@ jobs:
         id: filename
         run: echo ::set-output name=artifact::macos_release_$(git describe --tags)
 
-      - name: Cache Flutter dependencies
-        uses: actions/cache@v2
+      - name: Cache dependencies
+        uses: actions/cache@v3
         with:
           path: /Users/runner/hostedtoolcache/flutter
           key: ${{ runner.os }}-pubspec-${{ hashFiles('**/pubspec.lock') }}
 
       - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_SDK_VERSION }}
 
       - name: Enable macOS desktop support
         run: flutter config --enable-macos-desktop
@@ -277,7 +286,15 @@ jobs:
         id: filename
         run: echo ::set-output name=artifact::windows_release_$(git describe --tags)
 
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: /opt/hostedtoolcache/flutter
+          key: ${{ runner.os }}-pubspec-${{ hashFiles('**/pubspec.lock') }}
+
       - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_SDK_VERSION }}
 
       - name: Get dependencies
         run: flutter pub get
