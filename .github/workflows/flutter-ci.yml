@@ -284,7 +284,7 @@ jobs:
       - if: ${{ github.event.inputs.store_artifacts == 'true' }}
         name: Get tagged filename
         id: filename
-        run: echo ::set-output name=artifact::windows_release_$(git describe --tags)
+        run: echo "::set-output name=artifact::windows_release_$(git describe --tags)"
 
       - name: Cache dependencies
         uses: actions/cache@v3
