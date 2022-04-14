@@ -301,8 +301,8 @@ jobs:
 
       - name: Build Windows
         run: |
-          flutter build windows --obfuscate --split-debug-info=cabin_booking/ ^
-            ${APP_BUILD_NAME:+"--build-name=$APP_BUILD_NAME"} ^
+          flutter build windows --obfuscate --split-debug-info=cabin_booking/ `
+            ${APP_BUILD_NAME:+"--build-name=$APP_BUILD_NAME"} `
             ${APP_BUILD_NUMBER:+"--build-number=$APP_BUILD_NUMBER"}
         env:
           APP_BUILD_NAME: ${{ github.event.inputs.build_name }}
