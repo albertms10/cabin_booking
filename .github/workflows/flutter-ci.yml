@@ -3,9 +3,33 @@ name: Flutter CI
 on:
   push:
     branches: [main]
+    paths-ignore:
+      - '.vscode/**'
+      - 'android/**'
+      - 'docs/**'
+      - 'ios/**'
+      - 'macos/**'
+      - 'windows/**'
+      - '**.md'
+      - '.gitignore'
+      - 'CODEOWNERS'
+      - 'LICENSE'
+
   pull_request:
     branches: [main]
     types: [opened, synchronize, ready_for_review, reopened]
+    paths-ignore:
+      - '.vscode/**'
+      - 'android/**'
+      - 'docs/**'
+      - 'ios/**'
+      - 'macos/**'
+      - 'windows/**'
+      - '**.md'
+      - '.gitignore'
+      - 'CODEOWNERS'
+      - 'LICENSE'
+
   release:
     types: [published]
 
