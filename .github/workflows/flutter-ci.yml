@@ -79,6 +79,7 @@ jobs:
 
       - name: Cache dependencies
         uses: actions/cache@v3
+        id: cache
         with:
           path: /opt/hostedtoolcache/flutter
           key: ${{ runner.os }}-pubspec-${{ hashFiles('**/pubspec.lock') }}
@@ -90,7 +91,8 @@ jobs:
       - name: Verify formatting
         run: flutter format --output=none --set-exit-if-changed .
 
-      - name: Get dependencies
+      - if: ${{ steps.cache.outputs.cache-hit != 'true' }}
+        name: Get dependencies
         run: flutter pub get
 
       - name: Analyze project source
@@ -127,6 +129,7 @@ jobs:
 
       - name: Cache dependencies
         uses: actions/cache@v3
+        id: cache
         with:
           path: /Users/runner/hostedtoolcache/flutter
           key: ${{ runner.os }}-pubspec-${{ hashFiles('**/pubspec.lock') }}
@@ -135,7 +138,8 @@ jobs:
         with:
           flutter-version: ${{ env.FLUTTER_SDK_VERSION }}
 
-      - name: Get dependencies
+      - if: ${{ steps.cache.outputs.cache-hit != 'true' }}
+        name: Get dependencies
         run: flutter pub get
 
       - name: Build iOS
@@ -183,6 +187,7 @@ jobs:
 
       - name: Cache dependencies
         uses: actions/cache@v3
+        id: cache
         with:
           path: /opt/hostedtoolcache/flutter
           key: ${{ runner.os }}-pubspec-${{ hashFiles('**/pubspec.lock') }}
@@ -191,7 +196,8 @@ jobs:
         with:
           flutter-version: ${{ env.FLUTTER_SDK_VERSION }}
 
-      - name: Get dependencies
+      - if: ${{ steps.cache.outputs.cache-hit != 'true' }}
+        name: Get dependencies
         run: flutter pub get
 
       - name: Build Android
@@ -234,6 +240,7 @@ jobs:
 
       - name: Cache dependencies
         uses: actions/cache@v3
+        id: cache
         with:
           path: /Users/runner/hostedtoolcache/flutter
           key: ${{ runner.os }}-pubspec-${{ hashFiles('**/pubspec.lock') }}
@@ -245,7 +252,8 @@ jobs:
       - name: Enable macOS desktop support
         run: flutter config --enable-macos-desktop
 
-      - name: Get dependencies
+      - if: ${{ steps.cache.outputs.cache-hit != 'true' }}
+        name: Get dependencies
         run: flutter pub get
 
       - name: Build macOS
@@ -288,6 +296,7 @@ jobs:
 
       - name: Cache dependencies
         uses: actions/cache@v3
+        id: cache
         with:
           path: /opt/hostedtoolcache/flutter
           key: ${{ runner.os }}-pubspec-${{ hashFiles('**/pubspec.lock') }}
@@ -296,17 +305,12 @@ jobs:
         with:
           flutter-version: ${{ env.FLUTTER_SDK_VERSION }}
 
-      - name: Get dependencies
+      - if: ${{ steps.cache.outputs.cache-hit != 'true' }}
+        name: Get dependencies
         run: flutter pub get
 
       - name: Build Windows
-        run: |
-          flutter build windows --obfuscate --split-debug-info=cabin_booking/ `
-            ${APP_BUILD_NAME:+"--build-name=$APP_BUILD_NAME"} `
-            ${APP_BUILD_NUMBER:+"--build-number=$APP_BUILD_NUMBER"}
-        env:
-          APP_BUILD_NAME: ${{ github.event.inputs.build_name }}
-          APP_BUILD_NUMBER: ${{ github.event.inputs.build_number }}
+        run: flutter build windows --obfuscate --split-debug-info=cabin_booking/
 
       - name: Tar app
         working-directory: ./build/windows/runner/
