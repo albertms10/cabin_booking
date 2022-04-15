@@ -56,10 +56,10 @@ class ItemsTable<T extends Item> extends StatefulWidget {
 class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
   bool _sortAscending = true;
   int _sortColumnIndex = 0;
-  late final List<int> _selectedIndexes = [];
+  late final List<int> _selectedIndices = [];
 
   List<ItemsTableRow<T>> get _selectedRows => widget.rows
-      .whereIndexed((index, row) => _selectedIndexes.contains(index))
+      .whereIndexed((index, row) => _selectedIndices.contains(index))
       .toList();
 
   List<String> get _selectedIds =>
@@ -74,7 +74,7 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
   }
 
   void _unselect() {
-    setState(_selectedIndexes.clear);
+    setState(_selectedIndices.clear);
   }
 
   void _onSortItem({bool ascending = true}) {
@@ -183,14 +183,14 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
                     final row = widget.rows[index];
 
                     return DataRow(
-                      selected: _selectedIndexes.contains(index),
+                      selected: _selectedIndices.contains(index),
                       onSelectChanged: (selected) {
                         if (selected == null) return;
 
                         setState(() {
                           selected
-                              ? _selectedIndexes.add(index)
-                              : _selectedIndexes.removeWhere(
+                              ? _selectedIndices.add(index)
+                              : _selectedIndices.removeWhere(
                                   (selectedIndex) => selectedIndex == index,
                                 );
                         });
