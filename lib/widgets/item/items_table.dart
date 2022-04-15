@@ -56,7 +56,7 @@ class ItemsTable<T extends Item> extends StatefulWidget {
 class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
   bool _sortAscending = true;
   int _sortColumnIndex = 0;
-  late final List<int> _selectedIndices = [];
+  final List<int> _selectedIndices = [];
 
   List<ItemsTableRow<T>> get _selectedRows => widget.rows
       .whereIndexed((index, row) => _selectedIndices.contains(index))
