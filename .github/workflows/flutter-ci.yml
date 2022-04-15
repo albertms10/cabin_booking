@@ -151,13 +151,15 @@ jobs:
           APP_BUILD_NAME: ${{ github.event.inputs.build_name }}
           APP_BUILD_NUMBER: ${{ github.event.inputs.build_number }}
 
-      - name: Tar app
+      - if: ${{ github.event.inputs.store_artifacts == 'true' }}
+        name: Tar app
         working-directory: ./build/ios/iphoneos/
         run: tar -cvjf ${ARTIFACT_FILENAME}.tar.bz2 "Runner.app"
         env:
           ARTIFACT_FILENAME: ${{ steps.filename.outputs.artifact }}
 
-      - uses: actions/upload-artifact@v2
+      - if: ${{ github.event.inputs.store_artifacts == 'true' }}
+        uses: actions/upload-artifact@v2
         with:
           name: ${{ steps.filename.outputs.artifact }}
           path: build/ios/iphoneos/${{ steps.filename.outputs.artifact }}.tar.bz2
@@ -209,13 +211,15 @@ jobs:
           APP_BUILD_NAME: ${{ github.event.inputs.build_name }}
           APP_BUILD_NUMBER: ${{ github.event.inputs.build_number }}
 
-      - name: Tar app
+      - if: ${{ github.event.inputs.store_artifacts == 'true' }}
+        name: Tar app
         working-directory: ./build/app/outputs/flutter-apk/
         run: tar -cvjf ${ARTIFACT_FILENAME}.tar.bz2 "app-release.apk"
         env:
           ARTIFACT_FILENAME: ${{ steps.filename.outputs.artifact }}
 
-      - uses: actions/upload-artifact@v2
+      - if: ${{ github.event.inputs.store_artifacts == 'true' }}
+        uses: actions/upload-artifact@v2
         with:
           name: ${{ steps.filename.outputs.artifact }}
           path: build/app/outputs/flutter-apk/${{ steps.filename.outputs.artifact }}.tar.bz2
@@ -265,13 +269,15 @@ jobs:
           APP_BUILD_NAME: ${{ github.event.inputs.build_name }}
           APP_BUILD_NUMBER: ${{ github.event.inputs.build_number }}
 
-      - name: Tar app
+      - if: ${{ github.event.inputs.store_artifacts == 'true' }}
+        name: Tar app
         working-directory: ./build/macos/Build/Products/Release/
         run: tar -cvjf ${ARTIFACT_FILENAME}.tar.bz2 "Cabin Booking.app"
         env:
           ARTIFACT_FILENAME: ${{ steps.filename.outputs.artifact }}
 
-      - uses: actions/upload-artifact@v2
+      - if: ${{ github.event.inputs.store_artifacts == 'true' }}
+        uses: actions/upload-artifact@v2
         with:
           name: ${{ steps.filename.outputs.artifact }}
           path: build/macos/Build/Products/Release/${{ steps.filename.outputs.artifact }}.tar.bz2
@@ -312,13 +318,15 @@ jobs:
       - name: Build Windows
         run: flutter build windows --obfuscate --split-debug-info=cabin_booking/
 
-      - name: Tar app
+      - if: ${{ github.event.inputs.store_artifacts == 'true' }}
+        name: Tar app
         working-directory: ./build/windows/runner/
         run: tar -cvzf ${ARTIFACT_FILENAME}.tar.gz "Release"
         env:
           ARTIFACT_FILENAME: ${{ steps.filename.outputs.artifact }}
 
-      - uses: actions/upload-artifact@v2
+      - if: ${{ github.event.inputs.store_artifacts == 'true' }}
+        uses: actions/upload-artifact@v2
         with:
           name: ${{ steps.filename.outputs.artifact }}
           path: build/windows/runner/${{ steps.filename.outputs.artifact }}.tar.gz
