@@ -124,7 +124,7 @@ jobs:
       - if: ${{ github.event.inputs.store_artifacts == 'true' }}
         name: Get tagged filename
         id: filename
-        run: echo ::set-output name=artifact::ios_release_$(git describe --tags)
+        run: echo "::set-output name=artifact::ios_release_$(git describe --tags)"
 
       - name: Cache dependencies
         uses: actions/cache@v3
@@ -179,7 +179,7 @@ jobs:
       - if: ${{ github.event.inputs.store_artifacts == 'true' }}
         name: Get tagged filename
         id: filename
-        run: echo ::set-output name=artifact::android_release_$(git describe --tags)
+        run: echo "::set-output name=artifact::android_release_$(git describe --tags)"
 
       - uses: actions/setup-java@v3
         with:
@@ -238,7 +238,7 @@ jobs:
       - if: ${{ github.event.inputs.store_artifacts == 'true' }}
         name: Get tagged filename
         id: filename
-        run: echo ::set-output name=artifact::macos_release_$(git describe --tags)
+        run: echo "::set-output name=artifact::macos_release_$(git describe --tags)"
 
       - name: Cache dependencies
         uses: actions/cache@v3
