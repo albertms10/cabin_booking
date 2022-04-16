@@ -91,8 +91,7 @@ jobs:
       - name: Verify formatting
         run: flutter format --output=none --set-exit-if-changed .
 
-      - if: ${{ steps.cache.outputs.cache-hit != 'true' }}
-        name: Get dependencies
+      - name: Get dependencies
         run: flutter pub get
 
       - name: Analyze project source
@@ -138,8 +137,7 @@ jobs:
         with:
           flutter-version: ${{ env.FLUTTER_SDK_VERSION }}
 
-      - if: ${{ steps.cache.outputs.cache-hit != 'true' }}
-        name: Get dependencies
+      - name: Get dependencies
         run: flutter pub get
 
       - name: Build iOS
@@ -199,8 +197,7 @@ jobs:
         with:
           flutter-version: ${{ env.FLUTTER_SDK_VERSION }}
 
-      - if: ${{ steps.cache.outputs.cache-hit != 'true' }}
-        name: Get dependencies
+      - name: Get dependencies
         run: flutter pub get
 
       - name: Build Android
@@ -257,8 +254,7 @@ jobs:
       - name: Enable macOS desktop support
         run: flutter config --enable-macos-desktop
 
-      - if: ${{ steps.cache.outputs.cache-hit != 'true' }}
-        name: Get dependencies
+      - name: Get dependencies
         run: flutter pub get
 
       - name: Build macOS
@@ -312,8 +308,7 @@ jobs:
         with:
           flutter-version: ${{ env.FLUTTER_SDK_VERSION }}
 
-      - if: ${{ steps.cache.outputs.cache-hit != 'true' }}
-        name: Get dependencies
+      - name: Get dependencies
         run: flutter pub get
 
       - name: Build Windows
