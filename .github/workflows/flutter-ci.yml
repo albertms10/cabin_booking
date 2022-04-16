@@ -96,7 +96,7 @@ jobs:
         run: flutter pub get
 
       - name: Analyze project source
-        run: flutter analyze --fatal-infos
+        run: flutter analyze --no-pub --fatal-infos
 
       - name: Analyze Dart Code Metrics
         run: flutter pub run dart_code_metrics:metrics analyze lib
@@ -144,7 +144,8 @@ jobs:
 
       - name: Build iOS
         run: |
-          flutter build ios --release --no-codesign --obfuscate --split-debug-info=cabin_booking/ \
+          flutter build ios --release --no-pub --no-codesign --obfuscate \
+            --split-debug-info=cabin_booking/ \
             ${APP_BUILD_NAME:+"--build-name=$APP_BUILD_NAME"} \
             ${APP_BUILD_NUMBER:+"--build-number=$APP_BUILD_NUMBER"}
         env:
@@ -204,7 +205,7 @@ jobs:
 
       - name: Build Android
         run: |
-          flutter build apk --obfuscate --split-debug-info=cabin_booking/ \
+          flutter build apk --no-pub --obfuscate --split-debug-info=cabin_booking/ \
             ${APP_BUILD_NAME:+"--build-name=$APP_BUILD_NAME"} \
             ${APP_BUILD_NUMBER:+"--build-number=$APP_BUILD_NUMBER"}
         env:
@@ -262,7 +263,7 @@ jobs:
 
       - name: Build macOS
         run: |
-          flutter build macos --obfuscate --split-debug-info=cabin_booking/ \
+          flutter build macos --no-pub --obfuscate --split-debug-info=cabin_booking/ \
             ${APP_BUILD_NAME:+"--build-name=$APP_BUILD_NAME"} \
             ${APP_BUILD_NUMBER:+"--build-number=$APP_BUILD_NUMBER"}
         env:
@@ -316,7 +317,7 @@ jobs:
         run: flutter pub get
 
       - name: Build Windows
-        run: flutter build windows --obfuscate --split-debug-info=cabin_booking/
+        run: flutter build windows --no-pub --obfuscate --split-debug-info=cabin_booking/
 
       - if: ${{ github.event.inputs.store_artifacts == 'true' }}
         name: Tar app
