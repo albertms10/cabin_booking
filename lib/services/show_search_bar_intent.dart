@@ -19,7 +19,7 @@ class ShowSearchBarAction extends Action<ShowSearchBarIntent> {
     return showDialog<void>(
       context: context,
       builder: (context) {
-        return const SearchBar();
+        return const SizedBox();
       },
     );
   }
