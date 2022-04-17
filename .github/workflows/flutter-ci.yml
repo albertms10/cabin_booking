@@ -101,7 +101,7 @@ jobs:
         run: flutter pub run dart_code_metrics:metrics analyze lib
 
       - name: Run tests
-        run: flutter test --coverage
+        run: flutter test test/main.dart --coverage
 
       - name: Upload Coveralls
         uses: coverallsapp/github-action@1.1.3
