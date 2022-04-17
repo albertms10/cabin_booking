@@ -1,5 +1,4 @@
 import 'package:cabin_booking/utils/reg_exp_match_extension.dart';
-import 'package:collection/collection.dart' show IterableNullableExtension;
 
 extension StringExtension on String {
   /// Returns a [Map] with all named groups that [expressions] match this
@@ -18,10 +17,8 @@ extension StringExtension on String {
     final namedGroups = <String, String?>{};
 
     for (final expression in expressions) {
-      final matches = expression
-          .allMatches(this)
-          .map((match) => match.namedGroups)
-          .whereNotNull();
+      final matches =
+          expression.allMatches(this).map((match) => match.namedGroups);
 
       for (final match in matches) {
         namedGroups.addAll(match);
