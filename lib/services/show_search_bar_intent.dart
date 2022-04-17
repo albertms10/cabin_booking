@@ -1,4 +1,3 @@
-import 'package:cabin_booking/widgets/layout/search_bar.dart';
 import 'package:flutter/material.dart';
 
 /// An intent that is bound to [ShowSearchBarAction] to show the search bar in
