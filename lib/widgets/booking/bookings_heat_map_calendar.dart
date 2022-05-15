@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 class BookingsHeatMapCalendar extends StatelessWidget {
   final VoidCallback? onDayTap;
 
-  const BookingsHeatMapCalendar({Key? key, this.onDayTap}) : super(key: key);
+  const BookingsHeatMapCalendar({super.key, this.onDayTap});
 
   @override
   Widget build(BuildContext context) {

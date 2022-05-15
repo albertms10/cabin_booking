@@ -6,11 +6,11 @@ class MonthLabel extends StatelessWidget {
   final double space;
 
   const MonthLabel({
-    Key? key,
+    super.key,
     required this.text,
     required this.size,
     this.space = 4.0,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

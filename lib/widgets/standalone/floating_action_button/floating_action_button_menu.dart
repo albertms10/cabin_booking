@@ -64,7 +64,7 @@ class FloatingActionButtonMenu extends StatefulWidget {
   final Widget? child;
 
   FloatingActionButtonMenu({
-    Key? key,
+    super.key,
     this.buttons = const [],
     this.visible = true,
     this.backgroundColor,
@@ -87,7 +87,7 @@ class FloatingActionButtonMenu extends StatefulWidget {
     this.onPressed,
     this.animationSpeed = 150,
     this.child,
-  }) : super(key: key);
+  });
 
   @override
   _FloatingActionButtonMenuState createState() =>

@@ -2,7 +2,7 @@ import 'package:cabin_booking/widgets/school_year/school_years_table.dart';
 import 'package:flutter/material.dart';
 
 class SchoolYearsPage extends StatefulWidget {
-  const SchoolYearsPage({Key? key}) : super(key: key);
+  const SchoolYearsPage({super.key});
 
   @override
   _SchoolYearsPageState createState() => _SchoolYearsPageState();

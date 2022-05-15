@@ -30,7 +30,7 @@ class Booking extends Item {
   int? recurringTotalTimes;
 
   Booking({
-    String? id,
+    super.id,
     this.description,
     this.date,
     this.startTime,
@@ -41,9 +41,9 @@ class Booking extends Item {
     this.recurringBookingId,
     this.recurringNumber,
     this.recurringTotalTimes,
-  }) : super(id: id);
+  });
 
-  Booking.from(Map<String, dynamic> other)
+  Booking.from(super.other)
       : description = other[_JsonFields.description] as String?,
         date = DateTime.tryParse(other[_JsonFields.date] as String),
         startTime =
@@ -52,7 +52,7 @@ class Booking extends Item {
             TimeOfDayExtension.tryParse(other[_JsonFields.endTime] as String),
         status = BookingStatus.values[other[_JsonFields.status] as int],
         isLocked = other[_JsonFields.isLocked] as bool,
-        super.from(other);
+        super.from();
 
   @override
   Map<String, dynamic> toJson() => {

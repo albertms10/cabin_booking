@@ -19,7 +19,7 @@ class HeatMapDay extends StatelessWidget {
   final bool Function(DateTime)? highlightOn;
 
   const HeatMapDay({
-    Key? key,
+    super.key,
     this.value = 0,
     this.size,
     this.space = 4.0,
@@ -31,7 +31,7 @@ class HeatMapDay extends StatelessWidget {
     this.valueWrapper,
     this.highlightToday = false,
     this.highlightOn,
-  }) : super(key: key);
+  });
 
   BoxBorder? get containerBorder {
     if (date == null) return null;

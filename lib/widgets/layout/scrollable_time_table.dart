@@ -10,7 +10,7 @@ import 'package:horizontal_data_table/horizontal_data_table.dart';
 import 'package:provider/provider.dart';
 
 class ScrollableTimeTable extends StatelessWidget {
-  const ScrollableTimeTable({Key? key}) : super(key: key);
+  const ScrollableTimeTable({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class ScrollableTimeTable extends StatelessWidget {
     return Expanded(
       child: SizedBox(
         width: MediaQuery.of(context).size.width,
-        child: Container(
+        child: ColoredBox(
           color: theme.dialogBackgroundColor,
           child: Consumer2<DayHandler, CabinManager>(
             builder: (context, dayHandler, cabinManager, child) {
@@ -55,8 +55,8 @@ class _ScrollablePanelOverlayTimeTable extends StatefulWidget {
   const _ScrollablePanelOverlayTimeTable({
     required this.cabins,
     required this.dateTime,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   _ScrollablePanelOverlayTimeTableState createState() =>

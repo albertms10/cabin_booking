@@ -7,12 +7,12 @@ class Statistics extends StatelessWidget {
   final VoidCallback? onTap;
 
   const Statistics({
-    Key? key,
+    super.key,
     this.title,
     this.icon,
     this.items = const [],
     this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +44,7 @@ class _StatisticsHeading extends StatelessWidget {
   final String? title;
   final IconData? icon;
 
-  const _StatisticsHeading({Key? key, this.title, this.icon}) : super(key: key);
+  const _StatisticsHeading({super.key, this.title, this.icon});
 
   @override
   Widget build(BuildContext context) {

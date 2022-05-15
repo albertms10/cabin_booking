@@ -20,10 +20,10 @@ class BookingPreviewPanelOverlay extends StatefulWidget {
   final PanelOverlayBuilder builder;
 
   const BookingPreviewPanelOverlay({
-    Key? key,
+    super.key,
     required this.builder,
     this.width = 400.0,
-  }) : super(key: key);
+  });
 
   @override
   _BookingPreviewPanelOverlayState createState() =>
@@ -167,11 +167,11 @@ class _AnimatedOffsetBuilder extends StatefulWidget {
   final Widget Function(BuildContext, Animation<Offset>) builder;
 
   const _AnimatedOffsetBuilder({
-    Key? key,
+    super.key,
     required this.duration,
     this.curve = Curves.easeInOutCubic,
     required this.builder,
-  }) : super(key: key);
+  });
 
   @override
   _AnimatedOffsetBuilderState createState() => _AnimatedOffsetBuilderState();

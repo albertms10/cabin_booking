@@ -6,10 +6,10 @@ class StatisticSimpleItem<T> extends StatelessWidget {
   final T value;
 
   const StatisticSimpleItem({
-    Key? key,
+    super.key,
     this.label,
     required this.value,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

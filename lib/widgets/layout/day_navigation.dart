@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class DayNavigation extends StatelessWidget {
-  const DayNavigation({Key? key}) : super(key: key);
+  const DayNavigation({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -67,9 +67,9 @@ class _WeekDateTime extends StatelessWidget {
 
   const _WeekDateTime({
     required this.dateTime,
-    Key? key,
+    super.key,
     this.isNonSchoolDay = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

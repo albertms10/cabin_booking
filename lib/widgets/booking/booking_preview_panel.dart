@@ -13,9 +13,9 @@ class BookingPreviewPanel extends StatelessWidget {
   const BookingPreviewPanel({
     required this.cabin,
     required this.booking,
-    Key? key,
+    super.key,
     this.onClose,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -47,8 +47,7 @@ class BookingPreviewPanel extends StatelessWidget {
 class _BookingPreviewPanelHeadline extends StatelessWidget {
   final Booking booking;
 
-  const _BookingPreviewPanelHeadline({Key? key, required this.booking})
-      : super(key: key);
+  const _BookingPreviewPanelHeadline({super.key, required this.booking});
 
   @override
   Widget build(BuildContext context) {

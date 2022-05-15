@@ -13,9 +13,9 @@ class BookingPreviewPanelActionBar extends StatelessWidget {
   const BookingPreviewPanelActionBar({
     required this.cabin,
     required this.booking,
-    Key? key,
+    super.key,
     this.onClose,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -51,11 +51,11 @@ class _BookingPreviewIconButton extends StatelessWidget {
   final IconData icon;
 
   const _BookingPreviewIconButton({
-    Key? key,
+    super.key,
     this.onPressed,
     this.tooltip,
     required this.icon,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -76,11 +76,11 @@ class _BookingPreviewEditIconButton extends StatelessWidget {
   final VoidCallback? onClose;
 
   const _BookingPreviewEditIconButton({
-    Key? key,
+    super.key,
     required this.cabin,
     required this.booking,
     this.onClose,
-  }) : super(key: key);
+  });
 
   Future<void> _onEdit(BuildContext context) async {
     final cabinManager = Provider.of<CabinManager>(context, listen: false);
@@ -144,11 +144,11 @@ class _BookingPreviewDeleteIconButton extends StatelessWidget {
   final VoidCallback? onClose;
 
   const _BookingPreviewDeleteIconButton({
-    Key? key,
+    super.key,
     required this.cabin,
     required this.booking,
     this.onClose,
-  }) : super(key: key);
+  });
 
   Future<void> _onDelete(BuildContext context) async {
     final appLocalizations = AppLocalizations.of(context)!;

@@ -13,12 +13,12 @@ class BookingCard extends StatelessWidget {
   final SetPreventTimeTableScroll? setPreventTimeTableScroll;
 
   const BookingCard({
-    Key? key,
+    super.key,
     required this.cabin,
     required this.booking,
     this.showPreviewPanel,
     this.setPreventTimeTableScroll,
-  }) : super(key: key);
+  });
 
   double get height => booking.duration.inMinutes * kBookingHeightRatio - 16.0;
 
@@ -94,13 +94,13 @@ class _BookingCardInteractive extends StatefulWidget {
   final SetPreventTimeTableScroll? setPreventTimeTableScroll;
 
   const _BookingCardInteractive({
-    Key? key,
+    super.key,
     required this.cabin,
     required this.booking,
     required this.height,
     this.showPreviewPanel,
     this.setPreventTimeTableScroll,
-  }) : super(key: key);
+  });
 
   bool get isRecurring => RecurringBooking.isRecurringBooking(booking);
 
@@ -147,11 +147,11 @@ class _BookingCardInfo extends StatelessWidget {
   final bool isRecurring;
 
   const _BookingCardInfo({
-    Key? key,
+    super.key,
     required this.cabin,
     required this.booking,
     this.isRecurring = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -6,10 +6,10 @@ class CabinIcon extends StatelessWidget {
   final double? progress;
 
   const CabinIcon({
-    Key? key,
+    super.key,
     required this.number,
     this.progress,
-  }) : super(key: key);
+  });
 
   double get radius => 28.0;
 

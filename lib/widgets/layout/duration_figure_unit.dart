@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class DurationFigureUnit extends StatelessWidget {
   final Duration duration;
 
-  const DurationFigureUnit(this.duration, {Key? key}) : super(key: key);
+  const DurationFigureUnit(this.duration, {super.key});
 
   int get hours => duration.inHours;
 

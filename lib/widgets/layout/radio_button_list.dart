@@ -8,13 +8,13 @@ class RadioButtonList extends StatefulWidget {
   final bool reverse;
 
   const RadioButtonList({
-    Key? key,
+    super.key,
     required this.itemCount,
     required this.itemBuilder,
     this.initialIndex,
     this.onChanged,
     this.reverse = false,
-  }) : super(key: key);
+  });
 
   int get _initialLoopIndex => reverse ? itemCount - 1 : 0;
 

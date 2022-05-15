@@ -2,7 +2,7 @@ import 'package:cabin_booking/widgets/cabin/cabins_table.dart';
 import 'package:flutter/material.dart';
 
 class CabinsPage extends StatefulWidget {
-  const CabinsPage({Key? key}) : super(key: key);
+  const CabinsPage({super.key});
 
   @override
   _CabinsPageState createState() => _CabinsPageState();

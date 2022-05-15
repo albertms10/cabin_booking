@@ -21,7 +21,7 @@ class AnimatedChild extends AnimatedWidget {
   final String? heroTag;
 
   const AnimatedChild({
-    Key? key,
+    super.key,
     required Animation<double> animation,
     required this.tween,
     this.index,
@@ -37,7 +37,7 @@ class AnimatedChild extends AnimatedWidget {
     this.toggleChildren,
     this.shape,
     this.heroTag,
-  }) : super(key: key, listenable: animation);
+  }) : super(listenable: animation);
 
   @override
   Widget build(BuildContext context) {

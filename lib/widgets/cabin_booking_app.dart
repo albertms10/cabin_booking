@@ -10,7 +10,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 
 class CabinBookingApp extends StatelessWidget {
-  const CabinBookingApp({Key? key}) : super(key: key);
+  const CabinBookingApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -42,8 +42,7 @@ class CabinBookingApp extends StatelessWidget {
 class _ActionableFocusedShortcuts extends StatelessWidget {
   final Widget child;
 
-  const _ActionableFocusedShortcuts({Key? key, required this.child})
-      : super(key: key);
+  const _ActionableFocusedShortcuts({super.key, required this.child});
 
   LogicalKeySet get _searchBarLogicalKeySet => Platform.isMacOS
       ? LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.keyK)

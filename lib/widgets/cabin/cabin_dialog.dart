@@ -8,8 +8,7 @@ class CabinDialog extends StatelessWidget {
   final Cabin cabin;
   final int? newCabinNumber;
 
-  const CabinDialog({Key? key, required this.cabin, this.newCabinNumber})
-      : super(key: key);
+  const CabinDialog({super.key, required this.cabin, this.newCabinNumber});
 
   @override
   Widget build(BuildContext context) {

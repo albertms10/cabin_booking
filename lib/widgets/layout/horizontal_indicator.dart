@@ -6,11 +6,11 @@ class HorizontalIndicator extends StatelessWidget {
   final Color? indicatorColor;
 
   const HorizontalIndicator({
-    Key? key,
+    super.key,
     this.verticalOffset,
     this.label,
     this.indicatorColor,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

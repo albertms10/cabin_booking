@@ -15,12 +15,12 @@ class BookingsStack extends StatelessWidget {
   final SetPreventTimeTableScroll? setPreventTimeTableScroll;
 
   const BookingsStack({
-    Key? key,
+    super.key,
     required this.cabin,
     this.bookings = const <Booking>{},
     this.showPreviewPanel,
     this.setPreventTimeTableScroll,
-  }) : super(key: key);
+  });
 
   Key _emptyBookingSlotKey(DateTime dateTime, int index) => Key(
         '${dateTime.toIso8601String().split('T').first}'

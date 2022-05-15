@@ -12,11 +12,11 @@ class EmptyBookingSlot extends StatelessWidget {
   final DateTime endDateTime;
 
   const EmptyBookingSlot({
-    Key? key,
+    super.key,
     required this.cabin,
     required this.startDateTime,
     required this.endDateTime,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -82,12 +82,12 @@ class _EmptyBookingSlotActionable extends StatelessWidget {
   final int? preciseDuration;
 
   const _EmptyBookingSlotActionable({
-    Key? key,
+    super.key,
     required this.cabin,
     required this.startDateTime,
     required this.endDateTime,
     this.preciseDuration,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

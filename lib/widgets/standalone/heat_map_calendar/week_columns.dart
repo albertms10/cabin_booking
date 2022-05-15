@@ -23,7 +23,7 @@ class WeekColumns extends StatelessWidget {
   final bool Function(DateTime)? highlightOn;
 
   const WeekColumns({
-    Key? key,
+    super.key,
     required this.squareSize,
     required this.input,
     required this.colorThresholds,
@@ -36,7 +36,7 @@ class WeekColumns extends StatelessWidget {
     this.dayValueWrapper,
     this.highlightToday = false,
     this.highlightOn,
-  }) : super(key: key);
+  });
 
   /// The main logic for generating a list of columns representing a week.
   ///
