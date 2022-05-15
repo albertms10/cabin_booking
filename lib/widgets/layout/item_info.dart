@@ -18,6 +18,7 @@ class ItemInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final appLocalizations = AppLocalizations.of(context)!;
+    final dateFormat = DateFormat.yMMMd().add_Hm();
 
     return Column(
       children: [
@@ -25,7 +26,7 @@ class ItemInfo extends StatelessWidget {
           Text(
             appLocalizations.createdOn(
               creationDateTime!.day,
-              DateFormat.yMMMd().add_Hm().format(creationDateTime!.toLocal()),
+              dateFormat.format(creationDateTime!.toLocal()),
             ),
             style: theme.textTheme.caption,
           ),
@@ -33,9 +34,7 @@ class ItemInfo extends StatelessWidget {
           Text(
             appLocalizations.modifiedOn(
               modificationDateTime!.day,
-              DateFormat.yMMMd()
-                  .add_Hm()
-                  .format(modificationDateTime!.toLocal()),
+              dateFormat.format(modificationDateTime!.toLocal()),
             ),
             style: theme.textTheme.caption,
           ),

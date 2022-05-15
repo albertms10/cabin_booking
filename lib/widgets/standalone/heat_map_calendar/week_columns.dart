@@ -49,10 +49,10 @@ class WeekColumns extends StatelessWidget {
     final totalWeeks = (dateList.length / DateTime.daysPerWeek).ceil();
     final amount = dateList.length + totalWeeks + dateList.first.weekday;
 
-    // The list of columns that will be returned
+    // The list of columns that will be returned.
     final columns = <Widget>[];
 
-    // The list of items that will be used to form a week
+    // The list of items that will be used to form a week.
     var columnItems = <Widget>[];
     final months = <int>[];
 
@@ -139,7 +139,7 @@ class WeekColumns extends StatelessWidget {
     return columns;
   }
 
-  /// Creates a list of all weeks based on given [columnsAmount]
+  /// Creates a list of all weeks based on given [columnsAmount].
   List<DateTime> getCalendarDates(int columnsAmount) {
     final firstDay =
         firstDayOfCalendar(firstDayOfTheWeek(lastDate), columnsAmount);

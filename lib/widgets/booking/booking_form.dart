@@ -59,8 +59,7 @@ class _BookingFormState extends State<BookingForm> {
       _periodicity = (_booking as RecurringBooking).periodicity;
       _recurringEndDate = (_booking as RecurringBooking).recurringEndDate;
 
-      _endDateController.text = DateFormat.yMd()
-          .format((_booking as RecurringBooking).recurringEndDate);
+      _endDateController.text = DateFormat.yMd().format(_recurringEndDate!);
     }
   }
 

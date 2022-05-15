@@ -12,7 +12,10 @@ class DateRange with DateRanger {
     this.startDate,
     this.endDate,
   }) : assert(
-          startDate == null || endDate == null || endDate.isAfter(startDate),
+          startDate == null ||
+              endDate == null ||
+              endDate.isAfter(startDate) ||
+              endDate.isAtSameMomentAs(startDate),
         ) {
     endDate ??= startDate;
   }

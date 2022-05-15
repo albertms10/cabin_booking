@@ -92,14 +92,14 @@ class BookingManager with ChangeNotifier {
 
     return allBookingsOn(booking.date!)
             .where(
-              (_booking) =>
-                  (_booking.recurringBookingId == null ||
-                      _booking.recurringBookingId !=
+              (comparingBooking) =>
+                  (comparingBooking.recurringBookingId == null ||
+                      comparingBooking.recurringBookingId !=
                           booking.recurringBookingId) &&
-                  _booking.id != booking.id,
+                  comparingBooking.id != booking.id,
             )
             .firstWhereOrNull(
-              (_booking) => _booking.collidesWith(booking),
+              (comparingBooking) => comparingBooking.collidesWith(booking),
             ) !=
         null;
   }
@@ -286,7 +286,7 @@ class BookingManager with ChangeNotifier {
     bool notify = true,
   }) {
     bookings
-        .firstWhere((_booking) => booking.id == _booking.id)
+        .firstWhere((comparingBooking) => comparingBooking.id == booking.id)
         .replaceWith(booking);
 
     if (notify) notifyListeners();
@@ -298,9 +298,10 @@ class BookingManager with ChangeNotifier {
   }) {
     recurringBookings
         .firstWhere(
-          (_recurringBooking) =>
-              recurringBooking.recurringBookingId == _recurringBooking.id ||
-              recurringBooking.id == _recurringBooking.id,
+          (comparingRecurringBooking) =>
+              recurringBooking.recurringBookingId ==
+                  comparingRecurringBooking.id ||
+              recurringBooking.id == comparingRecurringBooking.id,
         )
         .replaceWith(recurringBooking);
 
@@ -342,8 +343,9 @@ class BookingManager with ChangeNotifier {
     String? id, {
     bool notify = true,
   }) {
-    recurringBookings
-        .removeWhere((_recurringBooking) => _recurringBooking.id == id);
+    recurringBookings.removeWhere(
+      (comparingRecurringBooking) => comparingRecurringBooking.id == id,
+    );
 
     if (notify) notifyListeners();
   }

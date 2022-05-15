@@ -6,7 +6,7 @@ import 'animated_child.dart';
 import 'animated_floating_button.dart';
 import 'background_overlay.dart';
 
-/// Source: https://pub.dev/packages/flutter_speed_dial
+/// Source: https://pub.dev/packages/flutter_speed_dial.
 class FloatingActionButtonMenu extends StatefulWidget {
   /// Children buttons, from the lowest to the highest.
   final List<FloatingActionButtonMenuChild> buttons;
@@ -55,7 +55,7 @@ class FloatingActionButtonMenu extends StatefulWidget {
   /// to close the menu manually by tapping main button.
   final bool closeManually;
 
-  /// The speed of the animation
+  /// The speed of the animation.
   final int animationSpeed;
 
   final tween = Tween<double>(begin: 0.0, end: 62.0);
@@ -261,7 +261,7 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
   }
 }
 
-/// Provides data for Floating Action Button Menu child
+/// Provides data for Floating Action Button Menu child.
 class FloatingActionButtonMenuChild {
   final Widget? label;
   final TextStyle? labelStyle;

@@ -167,7 +167,6 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
                       ),
                       onSort: column.sortable
                           ? (columnIndex, ascending) {
-                              // lambda to avoid positional boolean parameters
                               onSortColumn(columnIndex, ascending: ascending);
                             }
                           : null,

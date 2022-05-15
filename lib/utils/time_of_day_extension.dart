@@ -92,7 +92,7 @@ extension TimeOfDayExtension on TimeOfDay {
   /// separated with ':'.
   String format24Hour() => '${hour.padLeft2}:${minute.padLeft2}';
 
-  // TODO(albertms10): remove when implemented in Flutter, https://github.com/flutter/flutter/pull/59981
+  // TODO(albertms10): remove when implemented in Flutter, https://github.com/flutter/flutter/pull/59981.
   static int compare(TimeOfDay a, TimeOfDay b) => a.compareTo(b);
 
   int get _inMinutes => hour * TimeOfDay.minutesPerHour + minute;

@@ -7,7 +7,7 @@ linter:
     - avoid_catches_without_on_clauses
     - avoid_classes_with_only_static_members
     - avoid_dynamic_calls
-  # - avoid_final_parameters
+    - avoid_final_parameters
     - avoid_function_literals_in_foreach_calls
     - avoid_redundant_argument_values
     - avoid_renaming_method_parameters
@@ -23,8 +23,8 @@ linter:
     - eol_at_end_of_file
     - flutter_style_todos
     - no_default_cases
-  # - no_leading_underscores_for_library_prefixes
-  # - no_leading_underscores_for_local_identifiers
+    - no_leading_underscores_for_library_prefixes
+    - no_leading_underscores_for_local_identifiers
     - noop_primitive_operations
     - omit_local_variable_types
     - only_throw_errors
@@ -41,8 +41,8 @@ linter:
     - prefer_single_quotes
     - prefer_void_to_null
     - require_trailing_commas
-  # - secure_pubspec_urls
-  # - sized_box_shrink_expand
+    - secure_pubspec_urls
+    - sized_box_shrink_expand
     - sort_pub_dependencies
     - sort_unnamed_constructors_first
     - type_annotate_public_apis
@@ -52,7 +52,7 @@ linter:
     - unnecessary_parenthesis
     - unnecessary_statements
     - use_build_context_synchronously
-  # - use_decorated_box
+    - use_decorated_box
     - use_if_null_to_convert_nulls_to_bools
     - use_late_for_private_fields_and_variables
     - use_setters_to_change_properties
@@ -68,6 +68,9 @@ dart_code_metrics:
     - test/**
   rules:
     - always-remove-listener
+    - avoid-border-all
+    - avoid-collection-methods-with-unrelated-types
+    - avoid-global-state
     - avoid-missing-enum-constant-in-map
     - avoid-nested-conditional-expressions:
         acceptable-level: 2
@@ -76,9 +79,11 @@ dart_code_metrics:
     - avoid-unnecessary-setstate
     - avoid-unnecessary-type-assertions
     - avoid-unnecessary-type-casts
+    - avoid-unrelated-type-assertions
     - avoid-wrapping-in-padding
     - binary-expression-operand-order
     - double-literal-format
+    - format-comment
   # - member-ordering-extended
     - newline-before-return
     - no-boolean-literal-compare
@@ -87,10 +92,12 @@ dart_code_metrics:
     - prefer-conditional-expressions
   # - prefer-extracting-callbacks
     - prefer-first
+    - prefer-immediate-return
     - prefer-last
     - prefer-match-file-name:
         exclude:
           - test/**
+  # - prefer-moving-to-variable
     - prefer-trailing-comma
     - prefer-single-widget-per-file:
         ignore-private-widgets: true
@@ -105,14 +112,10 @@ analyzer:
     always_put_required_named_parameters_first: ignore
     always_use_package_imports: ignore
     avoid_equals_and_hash_code_on_mutable_classes: ignore
-    avoid_print: ignore
-    avoid_returning_null: ignore
-    avoid_unused_constructor_parameters: ignore
     implicit_dynamic_list_literal: ignore
     implicit_dynamic_map_literal: ignore
     implicit_dynamic_parameter: ignore
     implicit_dynamic_variable: ignore
-    import_of_legacy_library_into_null_safe: ignore
     library_private_types_in_public_api: ignore
     prefer_asserts_with_message: ignore
     prefer_int_literals: ignore

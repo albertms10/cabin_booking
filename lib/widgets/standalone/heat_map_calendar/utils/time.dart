@@ -35,12 +35,12 @@ DateTime firstDayOfCalendar(DateTime day, int columnsAmount) {
   );
 }
 
-/// Sets a DateTime hours/minutes/seconds/microseconds/milliseconds to 0
+/// Sets a DateTime hours/minutes/seconds/microseconds/milliseconds to 0.
 DateTime removeTime(DateTime dateTime) {
   return DateTime(dateTime.year, dateTime.month, dateTime.day);
 }
 
-/// Returns date without timezone info (UTC format)
+/// Returns date without timezone info (UTC format).
 DateTime removeTZ(DateTime dateTime) {
   return DateTime.utc(
     dateTime.year,
@@ -54,7 +54,7 @@ DateTime removeTZ(DateTime dateTime) {
   );
 }
 
-/// Returns date with local timezone
+/// Returns date with local timezone.
 DateTime addTZ(DateTime dateTime) {
   return DateTime(
     dateTime.year,

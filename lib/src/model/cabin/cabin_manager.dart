@@ -205,7 +205,9 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
     Cabin cabin, {
     bool notify = true,
   }) {
-    cabins.firstWhere((_cabin) => cabin.id == _cabin.id).replaceWith(cabin);
+    cabins
+        .firstWhere((comparingCabin) => cabin.id == comparingCabin.id)
+        .replaceWith(cabin);
 
     if (notify) notifyListeners();
   }
