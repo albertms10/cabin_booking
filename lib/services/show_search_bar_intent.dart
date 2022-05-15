@@ -1,3 +1,4 @@
+import 'package:cabin_booking/widgets/layout/jump_bar.dart';
 import 'package:flutter/material.dart';
 
 /// An intent that is bound to [ShowSearchBarAction] to show the search bar in
@@ -18,7 +19,7 @@ class ShowSearchBarAction extends Action<ShowSearchBarIntent> {
     return showDialog<void>(
       context: context,
       builder: (context) {
-        return const SizedBox();
+        return const JumpBar();
       },
     );
   }
