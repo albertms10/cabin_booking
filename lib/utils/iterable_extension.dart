@@ -16,43 +16,35 @@ extension IterableExtension<E> on Iterable<E> {
   /// ---
   /// Examples:
   /// ```dart
-  /// assert(
-  ///    const [1, 2, 3, 4, 5.0, 7, 8, 9, 11].compactConsecutive() ==
-  ///        const [
-  ///          [1, 5],
-  ///          [7, 9],
-  ///          [11, 11],
-  ///        ],
-  ///  );
+  /// const inputNum = [1, 2, 3, 4, 5.0, 7, 8, 9, 11];
+  /// const compactedNum = [[1, 5], [7, 9], [11, 11]];
+  /// assert(inputNum.compactConsecutive() == compactedNum);
   ///
+  /// final inputString = 'abcdfxy'.split('');
+  /// const compactedString = [['a', 'e'], ['f', 'g'], ['x', 'z']];
   /// assert(
-  ///    'abcdfxy'.split('').compactConsecutive(inclusive: true) ==
-  ///        const [
-  ///          ['a', 'e'],
-  ///          ['f', 'g'],
-  ///          ['x', 'z'],
-  ///        ],
-  ///  );
+  ///   inputString.compactConsecutive(inclusive: true) == compactedString,
+  /// );
   ///
-  /// final input = [
+  /// final inputDateTime = [
   ///   DateTime(2021, 8, 30, 9, 30),
   ///   DateTime(2021, 8, 31),
   ///   for (var i = 1; i < 10; i++) DateTime(2021, 9, i, 21, 30),
   ///   DateTime(2021, 9, 30),
   /// ];
   ///
-  /// final output = [
+  /// final compactedDateTime = [
   ///   [DateTime(2021, 8, 30, 9, 30), DateTime(2021, 9, 10, 21, 30)],
   ///   [DateTime(2021, 9, 30), DateTime(2021, 10)],
   /// ];
   ///
   /// assert(
-  ///   input.compactConsecutive(
+  ///   inputDateTime.compactConsecutive(
   ///         nextValue: (dateTime) => dateTime.add(const Duration(days: 1)),
   ///         compare: (a, b) => a.isSameDateAs(b),
   ///         inclusive: true,
   ///       ) ==
-  ///       output,
+  ///       compactedDateTime,
   /// );
   /// ```
   Iterable<List<E>> compactConsecutive({
