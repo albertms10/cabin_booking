@@ -11,8 +11,8 @@ class PopularTimesBarChart extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    final mainColors = [theme.colorScheme.primary];
-    final highlightColors = [theme.colorScheme.secondaryContainer];
+    final mainColor = theme.colorScheme.primary;
+    final highlightColor = theme.colorScheme.secondaryContainer;
 
     return Container(
       width: 320.0,
@@ -24,18 +24,23 @@ class PopularTimesBarChart extends StatelessWidget {
           barTouchData: BarTouchData(enabled: false),
           titlesData: FlTitlesData(
             show: true,
-            topTitles: SideTitles(showTitles: false),
-            rightTitles: SideTitles(showTitles: false),
-            bottomTitles: SideTitles(
-              showTitles: true,
-              getTitles: (value) => value % 3.0 == 0 ? '${value.toInt()}' : '',
-              getTextStyles: (context, value) => TextStyle(
-                color: theme.hintColor,
-                fontWeight: FontWeight.bold,
+            topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+            rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+            bottomTitles: AxisTitles(
+              sideTitles: SideTitles(
+                showTitles: true,
+                getTitlesWidget: (value, meta) {
+                  return Text(
+                    value % 3.0 == 0 ? '${value.toInt()}' : '',
+                    style: TextStyle(
+                      color: theme.hintColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  );
+                },
               ),
-              margin: 8.0,
             ),
-            leftTitles: SideTitles(showTitles: false),
+            leftTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
           ),
           gridData: FlGridData(show: false),
           borderData: FlBorderData(
@@ -52,9 +57,9 @@ class PopularTimesBarChart extends StatelessWidget {
                   BarChartRodData(
                     toY: range.value.inMinutes.toDouble(),
                     width: 22.0,
-                    colors: range.key.hour == DateTime.now().hour
-                        ? highlightColors
-                        : mainColors,
+                    color: range.key.hour == DateTime.now().hour
+                        ? highlightColor
+                        : mainColor,
                     borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(4.0),
                       topRight: Radius.circular(4.0),

@@ -20,11 +20,7 @@ class DetailLineChart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-
-    final colors = [
-      theme.colorScheme.primary,
-      theme.colorScheme.secondaryContainer,
-    ];
+    final color = theme.colorScheme.primary;
 
     return LineChart(
       LineChartData(
@@ -41,13 +37,13 @@ class DetailLineChart extends StatelessWidget {
             spots: spots,
             isCurved: true,
             preventCurveOverShooting: true,
-            colors: colors,
+            color: color,
             barWidth: 2.5,
             isStrokeCapRound: true,
             dotData: FlDotData(show: false),
             belowBarData: BarAreaData(
               show: true,
-              colors: colors.map((color) => color.withOpacity(0.3)).toList(),
+              color: color.withOpacity(0.3),
             ),
           ),
         ],
