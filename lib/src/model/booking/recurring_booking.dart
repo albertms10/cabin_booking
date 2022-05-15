@@ -1,5 +1,8 @@
+import 'package:cabin_booking/utils/app_localizations_extension.dart';
+import 'package:cabin_booking/utils/iterable_string_extension.dart';
 import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'booking.dart';
 
@@ -221,6 +224,13 @@ class RecurringBooking extends Booking {
 
   @override
   String toString() => '$occurrences × ${super.toString()}';
+
+  static List<RegExp> tokenExpressions(AppLocalizations appLocalizations) => [
+        RegExp(
+          '(?<periodicity>${appLocalizations.periodicityTerms.union})',
+          caseSensitive: false,
+        ),
+      ];
 }
 
 enum Periodicity { daily, weekly, monthly, annually }

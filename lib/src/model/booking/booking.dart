@@ -1,4 +1,7 @@
+import 'package:cabin_booking/constants.dart';
+import 'package:cabin_booking/utils/app_localizations_extension.dart';
 import 'package:cabin_booking/utils/date_time_extension.dart';
+import 'package:cabin_booking/utils/iterable_string_extension.dart';
 import 'package:cabin_booking/utils/time_of_day_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -153,6 +156,68 @@ class Booking extends Item {
   @override
   int compareTo(covariant Booking other) =>
       startDateTime.compareTo(other.startDateTime);
+
+  static List<RegExp> tokenExpressions(AppLocalizations appLocalizations) => [
+        RegExp('(?<startTime>$timeExpression)'),
+        RegExp(
+          '(?<startTime>$timeExpression)(?:.*?)(?<endTime>$timeExpression)',
+          dotAll: true,
+        ),
+        RegExp(
+          r'(?<durationValue1>\d+)\W*'
+          '(?<durationUnit1>${appLocalizations.timeUnits.union})',
+        ),
+        RegExp(
+          r'(?<durationValue1>\d+)\W*'
+          '(?<durationUnit1>${appLocalizations.timeUnits.union})'
+          r'(:?.*?)(?<durationValue2>\d+)\W*'
+          '(?<durationUnit2>${appLocalizations.timeUnits.union})',
+          dotAll: true,
+        ),
+        RegExp(
+          '(?<relativeDay>${appLocalizations.relativeDays.union})',
+          caseSensitive: false,
+        ),
+        // DateTime.
+      ];
+
+  factory Booking.fromTokens(
+    Map<String, String?> tokens,
+    AppLocalizations appLocalizations,
+  ) {
+    final durationValue1 = int.tryParse(tokens['durationValue1'] ?? '');
+
+    final duration1 =
+        appLocalizations.minuteUnits.contains(tokens['durationUnit1'])
+            ? Duration(minutes: durationValue1 ?? 0)
+            : Duration(hours: durationValue1 ?? 0);
+
+    final durationValue2 = int.tryParse(tokens['durationValue2'] ?? '');
+
+    final duration2 =
+        appLocalizations.minuteUnits.contains(tokens['durationUnit2'])
+            ? Duration(minutes: durationValue2 ?? 0)
+            : Duration(hours: durationValue2 ?? 0);
+
+    final startTime = TimeOfDayExtension.tryParse(tokens['startTime'] ?? '');
+
+    var endTime = startTime?.increment(
+      minutes: duration1.inMinutes + duration2.inMinutes,
+    );
+
+    if (startTime != null && endTime != null) {
+      if (endTime.difference(startTime).isNegative) {
+        print('negative');
+        endTime = const TimeOfDay(hour: 23, minute: 59);
+      }
+    }
+
+    return Booking(
+      date: DateTime.now(),
+      startTime: startTime,
+      endTime: TimeOfDayExtension.tryParse(tokens['endTime'] ?? '') ?? endTime,
+    );
+  }
 }
 
 enum BookingStatus { pending, confirmed, cancelled }
