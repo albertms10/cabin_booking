@@ -15,3 +15,6 @@ const kMaxSlotDuration = Duration(minutes: 60);
 
 // Weekdays.
 const nonSchoolWeekdays = {DateTime.saturday, DateTime.sunday};
+
+// Regular expressions.
+const timeExpression = r'\d{1,2}[.:]\d{2}';
