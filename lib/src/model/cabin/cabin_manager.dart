@@ -2,6 +2,7 @@ import 'dart:collection' show SplayTreeMap, SplayTreeSet;
 import 'dart:convert' show json;
 
 import 'package:cabin_booking/utils/time_of_day_extension.dart';
+import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
 
 import '../booking/booking.dart';
@@ -30,7 +31,11 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
   List<Map<String, dynamic>> cabinsToJson() =>
       cabins.map((cabin) => cabin.toJson()).toList();
 
+  // TODO(albertms10): use `singleWhereOrNull`.
   Cabin cabinFromId(String? id) => cabins.firstWhere((cabin) => cabin.id == id);
+
+  Cabin? findCabinFromNumber(int number) =>
+      cabins.singleWhereOrNull((cabin) => cabin.number == number);
 
   int get lastCabinNumber => cabins.isEmpty ? 0 : cabins.last.number;
 
@@ -357,6 +362,13 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
     addRecurringBooking(cabinId, recurringBooking, notify: false);
 
     if (notify) notifyListeners();
+  }
+
+  Cabin? findCabinFromTokens(Map<String, String?> tokens) {
+    final cabinNumber = int.tryParse(tokens['cabinNumber'] ?? '');
+    if (cabinNumber == null) return null;
+
+    return findCabinFromNumber(cabinNumber);
   }
 
   Set<Cabin> get _defaultCabins => SplayTreeSet();
