@@ -3,7 +3,7 @@ import 'package:collection/collection.dart' show IterableExtension;
 extension IterableExtension<E> on Iterable<E> {
   /// Returns a filtered this Iterable excluding falsy values.
   Iterable<E> whereTruthy() =>
-      whereNot((element) => const [false, 0, '', null].contains(element));
+      whereNot(const <dynamic>[false, 0, '', null].contains);
 
   /// Returns a list of consecutive values of this [Iterable]
   /// compacted as tuples. Consecutive values are computed
