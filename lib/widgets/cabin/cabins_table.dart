@@ -18,6 +18,9 @@ class CabinsTable extends StatelessWidget {
       builder: (context, cabinManager, child) {
         final appLocalizations = AppLocalizations.of(context)!;
 
+        final now = DateTime.now();
+        final lastYear = now.subtract(const Duration(days: 365));
+
         return ItemsTable<Cabin>(
           itemIcon: Icons.sensor_door,
           itemHeaderLabel: appLocalizations.cabin,
@@ -48,19 +51,12 @@ class CabinsTable extends StatelessWidget {
                 occupiedDuration: cabin.occupiedDuration(),
                 occupiedDurationPerWeek: cabin
                     .occupiedDurationPerWeek(
-                      DateRange(
-                        startDate: DateTime.now().subtract(
-                          const Duration(days: 365),
-                        ),
-                        endDate: DateTime.now(),
-                      ),
+                      DateRange(startDate: lastYear, endDate: now),
                     )
                     .fillEmptyKeyValues(
                       keys: DateRanger.rangeDateTimeList(
-                        DateTime.now()
-                            .subtract(const Duration(days: 365))
-                            .firstDayOfWeek,
-                        DateTime.now().firstDayOfWeek,
+                        lastYear.firstDayOfWeek,
+                        now.firstDayOfWeek,
                         interval: const Duration(days: DateTime.daysPerWeek),
                       ),
                       ifAbsent: () => Duration.zero,

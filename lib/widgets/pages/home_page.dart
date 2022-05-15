@@ -69,6 +69,9 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
 
+    final isSmallDisplay = _isSmallDisplay(context);
+    final pageDestinations = _pageDestinations(appLocalizations);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -79,12 +82,12 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       floatingActionButton: _floatingActionButtons[currentIndex],
-      bottomNavigationBar: _isSmallDisplay(context)
+      bottomNavigationBar: isSmallDisplay
           ? BottomNavigationBar(
               currentIndex: currentIndex,
               onTap: _setNavigationIndex,
               items: [
-                for (final page in _pageDestinations(appLocalizations))
+                for (final page in pageDestinations)
                   BottomNavigationBarItem(
                     icon: page.icon,
                     activeIcon: page.selectedIcon,
@@ -96,13 +99,13 @@ class _HomePageState extends State<HomePage> {
       body: SafeArea(
         child: Row(
           children: [
-            if (!_isSmallDisplay(context)) ...[
+            if (!isSmallDisplay) ...[
               NavigationRail(
                 selectedIndex: currentIndex,
                 onDestinationSelected: _setNavigationIndex,
                 labelType: NavigationRailLabelType.selected,
                 destinations: [
-                  for (final page in _pageDestinations(appLocalizations))
+                  for (final page in pageDestinations)
                     NavigationRailDestination(
                       icon: page.icon,
                       selectedIcon: page.selectedIcon,

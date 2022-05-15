@@ -29,6 +29,8 @@ class CabinIcon extends StatelessWidget {
       textAlign: TextAlign.center,
     );
 
+    // TODO(albertms10): split Widgets in different constructors:
+    //  CabinIcon(), CabinIcon.progress().
     if (!shouldShowProgress) {
       return CircleAvatar(
         radius: radius,

@@ -42,16 +42,14 @@ class BookingsStack extends StatelessWidget {
       final isFirst = i == -1;
       final isLast = i == bookings.length - 1;
 
-      var currentBookingDate =
-          isFirst ? startDateTime : bookings.elementAt(i).endDateTime;
+      final booking = bookings.elementAt(i);
+      var currentBookingDate = isFirst ? startDateTime : booking.endDateTime;
       var nextBookingDateTime =
           isLast ? endDateTime : bookings.elementAt(i + 1).startDateTime;
 
       final duration = nextBookingDateTime.difference(currentBookingDate);
 
       if (!isFirst) {
-        final booking = bookings.elementAt(i);
-
         distributedBookings.add(
           SizedBox(
             width: double.infinity,

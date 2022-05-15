@@ -4,15 +4,15 @@ import 'heat_map_legend.dart';
 import 'week_columns.dart';
 import 'week_days_labels.dart';
 
-/// Source: https://pub.dev/packages/heatmap_calendar
+/// Source: https://pub.dev/packages/heatmap_calendar.
 class HeatMapCalendar extends StatelessWidget {
   static const int columnCount = DateTime.daysPerWeek + 1;
   static const int edgeSize = 4;
 
-  /// The inputs that will fill the calendar with data
+  /// The inputs that will fill the calendar with data.
   final Map<DateTime, int> input;
 
-  /// The thresholds which will map the given [input] to a color
+  /// The thresholds which will map the given [input] to a color.
   ///
   /// Make sure to map starting on number 1, so the user might notice
   /// the difference between a day that had no input and one that had.
@@ -30,10 +30,10 @@ class HeatMapCalendar extends StatelessWidget {
   /// The day of the week (Monday to Sunday).
   final int firstWeekDay;
 
-  /// The size of each item of the calendar
+  /// The size of each item of the calendar.
   final double squareSize;
 
-  /// Space between elements
+  /// Space between elements.
   final double space;
 
   final void Function(DateTime, int)? onDayTap;

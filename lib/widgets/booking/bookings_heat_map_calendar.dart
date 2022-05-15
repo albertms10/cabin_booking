@@ -18,6 +18,8 @@ class BookingsHeatMapCalendar extends StatelessWidget {
 
     return Consumer2<DayHandler, CabinManager>(
       builder: (context, dayHandler, cabinManager, child) {
+        final schoolYear = dayHandler.schoolYearManager.schoolYear;
+
         return Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -34,8 +36,8 @@ class BookingsHeatMapCalendar extends StatelessWidget {
                       samples: 8,
                     ),
                 firstWeekDay: DateTime.monday,
-                firstDate: dayHandler.schoolYearManager.schoolYear?.startDate,
-                lastDate: dayHandler.schoolYearManager.schoolYear?.endDate,
+                firstDate: schoolYear?.startDate,
+                lastDate: schoolYear?.endDate,
                 highlightToday: true,
                 highlightOn: (date) => date.isSameDateAs(dayHandler.dateTime),
                 onDayTap: onDayTap == null

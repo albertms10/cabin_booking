@@ -175,7 +175,7 @@ void main() {
       });
     });
 
-    // TODO(albertms10): remove when implemented in Flutter, https://github.com/flutter/flutter/pull/59981
+    // TODO(albertms10): remove when implemented in Flutter, https://github.com/flutter/flutter/pull/59981.
     group('Comparable<TimeOfDay>', () {
       test('.compareTo', () {
         expect(

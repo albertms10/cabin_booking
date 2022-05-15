@@ -109,7 +109,9 @@ class SchoolYearManager extends WritableManager<Set<SchoolYear>>
     bool notify = true,
   }) {
     schoolYears
-        .firstWhere((_schoolYear) => schoolYear.id == _schoolYear.id)
+        .firstWhere(
+          (comparingSchoolYear) => schoolYear.id == comparingSchoolYear.id,
+        )
         .replaceWith(schoolYear);
 
     if (notify) {

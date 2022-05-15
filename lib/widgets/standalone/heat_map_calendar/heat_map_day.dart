@@ -37,11 +37,15 @@ class HeatMapDay extends StatelessWidget {
     if (date == null) return null;
 
     if (highlightToday && isOnSameDay(date!, DateTime.now())) {
-      return Border.all(color: Colors.orange, width: 2.0);
+      return const Border.fromBorderSide(
+        BorderSide(color: Colors.orange, width: 2.0),
+      );
     }
 
     if (highlightOn?.call(date!) ?? false) {
-      return Border.all(color: Colors.orange[200]!, width: 2.0);
+      return Border.fromBorderSide(
+        BorderSide(color: Colors.orange[200]!, width: 2.0),
+      );
     }
 
     return null;

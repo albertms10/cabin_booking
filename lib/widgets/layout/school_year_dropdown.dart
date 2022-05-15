@@ -32,6 +32,8 @@ class _SchoolYearDropdownState extends State<SchoolYearDropdown> {
   Widget build(BuildContext context) {
     final dayHandler = Provider.of<DayHandler>(context);
 
+    final schoolYears = dayHandler.schoolYearManager.schoolYears;
+
     return DropdownButton<int>(
       value: _currentIndex,
       onChanged: (index) {
@@ -44,14 +46,10 @@ class _SchoolYearDropdownState extends State<SchoolYearDropdown> {
       },
       underline: const SizedBox(),
       items: [
-        for (var i = 0;
-            i < dayHandler.schoolYearManager.schoolYears.length;
-            i++)
+        for (var i = 0; i < schoolYears.length; i++)
           DropdownMenuItem<int>(
             value: i,
-            child: Text(
-              '${dayHandler.schoolYearManager.schoolYears.elementAt(i)}',
-            ),
+            child: Text('${schoolYears.elementAt(i)}'),
           ),
       ],
     );

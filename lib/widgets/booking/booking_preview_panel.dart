@@ -52,6 +52,8 @@ class _BookingPreviewPanelHeadline extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return BookingPreviewPanelRow.headline(
       trailing: booking.isLocked
           ? const Icon(Icons.lock_outline)
@@ -61,7 +63,7 @@ class _BookingPreviewPanelHeadline extends StatelessWidget {
                   width: 14.0,
                   height: 14.0,
                   decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.primary,
+                    color: theme.colorScheme.primary,
                     borderRadius: const BorderRadius.all(Radius.circular(4.0)),
                   ),
                 ),
@@ -73,7 +75,7 @@ class _BookingPreviewPanelHeadline extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Text(
               '·',
-              style: TextStyle(color: Theme.of(context).hintColor),
+              style: TextStyle(color: theme.hintColor),
             ),
           ),
           Text(booking.timeRange),
