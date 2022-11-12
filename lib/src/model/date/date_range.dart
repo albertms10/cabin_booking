@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class DateRange with DateRanger {
@@ -40,7 +39,7 @@ class DateRange with DateRanger {
       endDate == other.endDate;
 
   @override
-  int get hashCode => hashValues(startDate, endDate);
+  int get hashCode => Object.hash(startDate, endDate);
 }
 
 mixin DateRanger {
