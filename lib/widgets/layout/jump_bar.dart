@@ -19,10 +19,10 @@ class _JumpBarState extends State<JumpBar> {
 
   Booking? _suggestedBooking;
 
-  List get _items => const [1];
+  List<int> get _items => const [1];
 
-  static const double _searchBarHeight = 48.0;
-  static const double _itemHeight = 64.0;
+  static const double _searchBarHeight = 48;
+  static const double _itemHeight = 64;
 
   double get _height =>
       _searchBarHeight + _itemHeight + (_items.length * _itemHeight);
@@ -65,21 +65,21 @@ class _JumpBarState extends State<JumpBar> {
   Widget build(BuildContext context) {
     return Center(
       child: SizedBox(
-        height: 200.0,
+        height: 200,
         child: Column(
           children: [
             AnimatedContainer(
               duration: const Duration(milliseconds: 200),
               height: _height,
-              width: 360.0,
+              width: 360,
               child: Material(
-                borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-                elevation: 12.0,
+                borderRadius: const BorderRadius.all(Radius.circular(8)),
+                elevation: 12,
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     _SearchBarField(controller: _controller),
-                    if (_items.isNotEmpty) const Divider(height: 0.0),
+                    if (_items.isNotEmpty) const Divider(height: 0),
                     if (_suggestedBooking != null)
                       _SearchBarItem(
                         icon: Icons.auto_awesome,
@@ -113,10 +113,10 @@ class _SearchBarField extends StatelessWidget {
         filled: false,
         border: InputBorder.none,
         icon: Padding(
-          padding: EdgeInsetsDirectional.only(start: 12.0),
+          padding: EdgeInsetsDirectional.only(start: 12),
           child: Icon(Icons.search),
         ),
-        contentPadding: EdgeInsetsDirectional.only(end: 16.0),
+        contentPadding: EdgeInsetsDirectional.only(end: 16),
       ),
     );
   }
@@ -170,7 +170,7 @@ class _BookingSearchResult extends StatelessWidget {
             _SearchResultLabel(label: booking.description),
           ],
         ),
-        const SizedBox(width: 8.0),
+        const SizedBox(width: 8),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
