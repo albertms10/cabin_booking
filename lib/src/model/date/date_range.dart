@@ -15,6 +15,7 @@ class DateRange with DateRanger {
               endDate == null ||
               endDate.isAfter(startDate) ||
               endDate.isAtSameMomentAs(startDate),
+          'endDate must be at the same moment or after startDate.',
         ) {
     endDate ??= startDate;
   }
@@ -56,7 +57,7 @@ mixin DateRanger {
     DateTime end, {
     Duration interval = const Duration(days: 1),
   }) {
-    assert(end.isAfter(start));
+    assert(end.isAfter(start), 'end must be after start.');
 
     final dates = [start];
     var runDate = start;

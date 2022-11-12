@@ -20,7 +20,7 @@ class HeatMapLegend extends StatelessWidget {
     this.samples = 5,
     this.lessLabel,
     this.moreLabel,
-  }) : assert(samples > 2);
+  }) : assert(samples > 2, 'samples must be greater than two.');
 
   Map<int, Color> get colorThresholds => {
         1: defaultColor,

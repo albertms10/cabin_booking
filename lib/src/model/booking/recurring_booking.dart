@@ -30,7 +30,11 @@ class RecurringBooking extends Booking {
     this.repeatEvery = 1,
     DateTime? recurringEndDate,
     int? occurrences,
-  })  : assert((recurringEndDate == null) != (occurrences == null)),
+  })  : assert(
+          (recurringEndDate == null) != (occurrences == null),
+          'Either recurringEndDate, occurrences or none must be given, '
+          'but not both.',
+        ),
         _recurringEndDate = recurringEndDate,
         _occurrences = occurrences;
 
@@ -51,7 +55,11 @@ class RecurringBooking extends Booking {
     this.repeatEvery = 1,
     DateTime? recurringEndDate,
     int? occurrences,
-  })  : assert((recurringEndDate == null) != (occurrences == null)),
+  })  : assert(
+          (recurringEndDate == null) != (occurrences == null),
+          'Either recurringEndDate, occurrences or none must be given, '
+          'but not both.',
+        ),
         _recurringEndDate = recurringEndDate,
         _occurrences = occurrences,
         super(
@@ -91,7 +99,7 @@ class RecurringBooking extends Booking {
   DateTime get recurringEndDate {
     if (_recurringEndDate != null) return _recurringEndDate!;
 
-    assert(_occurrences != null);
+    assert(_occurrences != null, '_occurrences must be non-null.');
 
     return date!.add(periodicityDuration * _occurrences!);
   }
@@ -104,7 +112,7 @@ class RecurringBooking extends Booking {
   int get occurrences {
     if (_occurrences != null) return _occurrences!;
 
-    assert(_recurringEndDate != null);
+    assert(_recurringEndDate != null, '_recurringEndDate must be non-null.');
 
     var count = 0;
     var runDate = date!;

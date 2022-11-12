@@ -105,7 +105,11 @@ class BookingManager with ChangeNotifier {
   }
 
   Duration occupiedDuration({DateTime? dateTime, DateRanger? dateRange}) {
-    assert(!((dateTime != null) && (dateRange != null)));
+    if (dateTime != null && dateRange != null) {
+      throw ArgumentError(
+        'Either dateTime or dateRange must be given, but not both.',
+      );
+    }
 
     var runDuration = Duration.zero;
 

@@ -13,7 +13,7 @@ class WeekDaysLabels extends StatelessWidget {
     required this.squareSize,
     this.firstWeekDay = DateTime.sunday,
     this.space = 4,
-  }) : assert(squareSize > 0);
+  }) : assert(squareSize > 0, 'squareSize must be greater than zero.');
 
   @override
   Widget build(BuildContext context) {

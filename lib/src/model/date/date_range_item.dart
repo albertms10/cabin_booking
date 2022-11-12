@@ -20,7 +20,11 @@ class DateRangeItem extends Item with DateRanger {
     DateTime? startDate,
     DateTime? endDate,
   }) : assert(
-          startDate == null || endDate == null || endDate.isAfter(startDate),
+          startDate == null ||
+              endDate == null ||
+              endDate.isAfter(startDate) ||
+              endDate.isAtSameMomentAs(startDate),
+          'endDate must be at the same moment or after startDate.',
         ) {
     endDate ??= startDate;
   }

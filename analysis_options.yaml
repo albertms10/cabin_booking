@@ -73,7 +73,6 @@ analyzer:
     always_put_required_named_parameters_first: ignore
     always_use_package_imports: ignore
     avoid_equals_and_hash_code_on_mutable_classes: ignore
-    prefer_asserts_with_message: ignore
     public_member_api_docs: ignore
     sort_constructors_first: ignore
     unused_element: ignore
