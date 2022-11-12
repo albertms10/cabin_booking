@@ -58,7 +58,7 @@ class AnimatedChild extends AnimatedWidget {
           child: Container(
             width: animation.value,
             height: tween.end,
-            padding: const EdgeInsets.symmetric(vertical: 10.0),
+            padding: const EdgeInsets.symmetric(vertical: 10),
             child: FloatingActionButton(
               heroTag: heroTag,
               onPressed: () {

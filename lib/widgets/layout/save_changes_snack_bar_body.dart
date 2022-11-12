@@ -13,17 +13,17 @@ class SaveChangesSnackBarBody extends StatelessWidget {
 
     return Row(
       children: [
-        const SizedBox(width: 72.0),
+        const SizedBox(width: 72),
         Flexible(
           child: Card(
-            elevation: 6.0,
+            elevation: 6,
             color: theme.snackBarTheme.backgroundColor,
             child: Padding(
               padding: const EdgeInsets.only(
-                top: 12.0,
-                right: 18.0,
-                bottom: 12.0,
-                left: 12.0,
+                top: 12,
+                right: 18,
+                bottom: 12,
+                left: 12,
               ),
               child: Text(
                 changesSaved

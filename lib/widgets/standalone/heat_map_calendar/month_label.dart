@@ -24,7 +24,7 @@ class MonthLabel extends StatelessWidget {
         clipBehavior: Clip.none,
         children: [
           Positioned(
-            bottom: 0.0,
+            bottom: 0,
             child: Text(
               text,
               style: Theme.of(context).textTheme.caption,

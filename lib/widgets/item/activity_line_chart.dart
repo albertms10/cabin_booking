@@ -28,8 +28,8 @@ class ActivityLineChart extends StatelessWidget {
         );
       },
       child: Container(
-        width: 250.0,
-        padding: const EdgeInsets.symmetric(vertical: 24.0),
+        width: 250,
+        padding: const EdgeInsets.symmetric(vertical: 24),
         child: DetailLineChart(
           minX: dateRange.startDate?.toDouble(),
           maxX: dateRange.endDate?.toDouble(),

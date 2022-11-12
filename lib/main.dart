@@ -10,7 +10,7 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
   if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
-    setWindowMinSize(const Size(400.0, 600.0));
+    setWindowMinSize(const Size(400, 600));
   }
 
   runApp(

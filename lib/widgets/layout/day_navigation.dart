@@ -15,12 +15,12 @@ class DayNavigation extends StatelessWidget {
       builder: (context, dayHandler, child) {
         return Wrap(
           crossAxisAlignment: WrapCrossAlignment.center,
-          spacing: 8.0,
-          runSpacing: 8.0,
+          spacing: 8,
+          runSpacing: 8,
           children: [
             TextButton(
               style: TextButton.styleFrom(
-                padding: const EdgeInsets.symmetric(vertical: 16.0),
+                padding: const EdgeInsets.symmetric(vertical: 16),
               ),
               onPressed: () => dayHandler.changeToNow(),
               child: Text(appLocalizations.today),
@@ -49,7 +49,7 @@ class DayNavigation extends StatelessWidget {
                 tooltip: appLocalizations.nextDay,
               ),
             ),
-            const SizedBox(width: 8.0),
+            const SizedBox(width: 8),
             _WeekDateTime(
               dateTime: dayHandler.dateTime,
               isNonSchoolDay: dayHandler.dateTimeIsNonSchool,
@@ -80,8 +80,8 @@ class _WeekDateTime extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Wrap(
-          spacing: 8.0,
-          runSpacing: 4.0,
+          spacing: 8,
+          runSpacing: 4,
           crossAxisAlignment: WrapCrossAlignment.center,
           children: [
             Text(
@@ -91,7 +91,7 @@ class _WeekDateTime extends StatelessWidget {
             if (isNonSchoolDay)
               Chip(
                 label: Text(appLocalizations.nonSchoolDay),
-                visualDensity: const VisualDensity(vertical: -4.0),
+                visualDensity: const VisualDensity(vertical: -4),
               ),
           ],
         ),

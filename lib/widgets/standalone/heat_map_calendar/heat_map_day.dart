@@ -38,13 +38,13 @@ class HeatMapDay extends StatelessWidget {
 
     if (highlightToday && isOnSameDay(date!, DateTime.now())) {
       return const Border.fromBorderSide(
-        BorderSide(color: Colors.orange, width: 2.0),
+        BorderSide(color: Colors.orange, width: 2),
       );
     }
 
     if (highlightOn?.call(date!) ?? false) {
       return Border.fromBorderSide(
-        BorderSide(color: Colors.orange[200]!, width: 2.0),
+        BorderSide(color: Colors.orange[200]!, width: 2),
       );
     }
 
@@ -57,7 +57,7 @@ class HeatMapDay extends StatelessWidget {
       condition: showTooltip,
       conditionalBuilder: (child) {
         return Tooltip(
-          verticalOffset: 14.0,
+          verticalOffset: 14,
           message: [
             valueWrapper?.call(value) ?? '$value',
             if (date != null) DateFormat.d().add_MMM().add_y().format(date!),
@@ -68,13 +68,13 @@ class HeatMapDay extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.all(space * 0.5),
         child: InkWell(
-          borderRadius: const BorderRadius.all(Radius.circular(2.0)),
+          borderRadius: const BorderRadius.all(Radius.circular(2)),
           onTap: date == null ? null : () => onTap?.call(date!, value),
           child: Container(
             height: size,
             width: size,
             decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(Radius.circular(2.0)),
+              borderRadius: const BorderRadius.all(Radius.circular(2)),
               color: thresholds.colorFromThreshold(value, defaultColor),
               border: containerBorder,
             ),

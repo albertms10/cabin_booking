@@ -110,7 +110,7 @@ class HeatMapCalendar extends StatelessWidget {
             ),
             if (showLegend)
               Padding(
-                padding: const EdgeInsets.only(top: 16.0, right: 24.0),
+                padding: const EdgeInsets.only(top: 16, right: 24),
                 child: HeatMapLegend(
                   squareSize: squareSize,
                   space: space,

@@ -29,7 +29,7 @@ class _MainDataLoaderState extends State<MainDataLoader> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         backgroundColor: Colors.transparent,
-        elevation: 0.0,
+        elevation: 0,
         behavior: SnackBarBehavior.floating,
         duration: Duration(milliseconds: changesSaved ? 1200 : 3000),
         content: SaveChangesSnackBarBody(changesSaved: changesSaved),

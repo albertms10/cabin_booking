@@ -25,9 +25,9 @@ class PeriodicityListTile extends StatelessWidget {
 
     return ListTile(
       title: Text(appLocalizations.repeats),
-      minVerticalPadding: 24.0,
+      minVerticalPadding: 24,
       trailing: SizedBox(
-        width: 182.0,
+        width: 182,
         child: DropdownButtonFormField(
           value: value,
           onChanged: onChanged,

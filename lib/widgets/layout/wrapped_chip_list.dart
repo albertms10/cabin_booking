@@ -20,8 +20,8 @@ class WrappedChipList<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Wrap(
-      spacing: 8.0,
-      runSpacing: 6.0,
+      spacing: 8,
+      runSpacing: 6,
       children: [
         for (var i = 0; i < maxShown; i++)
           Chip(

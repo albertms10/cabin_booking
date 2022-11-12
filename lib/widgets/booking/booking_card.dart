@@ -35,11 +35,11 @@ class BookingCard extends StatelessWidget {
           curve: Curves.easeInOutCubic,
           builder: (context, value, child) {
             return Card(
-              margin: const EdgeInsets.all(8.0),
+              margin: const EdgeInsets.all(8),
               shadowColor: isBeforeNow ? Colors.black38 : Colors.black87,
-              elevation: 0.0,
+              elevation: 0,
               shape: RoundedRectangleBorder(
-                borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                borderRadius: const BorderRadius.all(Radius.circular(10)),
                 side: BorderSide(
                   color:
                       Colors.grey[300]!.withOpacity(isBeforeNow ? 0.41 : 1.0),
@@ -50,7 +50,7 @@ class BookingCard extends StatelessWidget {
                 height: height,
                 decoration: booking.isLocked
                     ? BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.0),
+                        borderRadius: BorderRadius.circular(10),
                         gradient: const LinearGradient(
                           begin: Alignment.topLeft,
                           end: Alignment(-0.4, -0.2),
@@ -68,7 +68,7 @@ class BookingCard extends StatelessWidget {
                         color: Theme.of(context)
                             .cardColor
                             .withOpacity(isBeforeNow ? 0.41 : 1.0),
-                        borderRadius: BorderRadius.circular(10.0),
+                        borderRadius: BorderRadius.circular(10),
                       ),
                 child: _BookingCardInteractive(
                   cabin: cabin,
@@ -115,7 +115,7 @@ class _BookingCardInteractiveState extends State<_BookingCardInteractive> {
       type: MaterialType.transparency,
       child: InkWell(
         customBorder: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+          borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
         onTap: () {
           final renderBox = context.findRenderObject() as RenderBox?;
@@ -129,7 +129,7 @@ class _BookingCardInteractiveState extends State<_BookingCardInteractive> {
           );
         },
         child: Padding(
-          padding: const EdgeInsets.only(top: 8.0, right: 4.0, left: 10.0),
+          padding: const EdgeInsets.only(top: 8, right: 4, left: 10),
           child: _BookingCardInfo(
             cabin: widget.cabin,
             booking: widget.booking,
@@ -168,17 +168,17 @@ class _BookingCardInfo extends StatelessWidget {
                 message:
                     '${booking.recurringNumber}/${booking.recurringTotalTimes}',
                 child: Padding(
-                  padding: const EdgeInsets.only(right: 4.0),
+                  padding: const EdgeInsets.only(right: 4),
                   child: Icon(
                     Icons.repeat,
                     color: theme.hintColor,
-                    size: 16.0,
+                    size: 16,
                   ),
                 ),
               ),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.only(right: 28.0),
+                padding: const EdgeInsets.only(right: 28),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisSize: MainAxisSize.min,

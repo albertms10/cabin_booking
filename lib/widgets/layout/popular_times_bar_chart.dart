@@ -14,9 +14,9 @@ class PopularTimesBarChart extends StatelessWidget {
     final highlightColor = theme.colorScheme.secondaryContainer;
 
     return Container(
-      width: 320.0,
-      height: 120.0,
-      padding: const EdgeInsets.symmetric(horizontal: 4.0),
+      width: 320,
+      height: 120,
+      padding: const EdgeInsets.symmetric(horizontal: 4),
       child: BarChart(
         BarChartData(
           alignment: BarChartAlignment.spaceAround,
@@ -55,13 +55,13 @@ class PopularTimesBarChart extends StatelessWidget {
                 barRods: [
                   BarChartRodData(
                     toY: range.value.inMinutes.toDouble(),
-                    width: 22.0,
+                    width: 22,
                     color: range.key.hour == DateTime.now().hour
                         ? highlightColor
                         : mainColor,
                     borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(4.0),
-                      topRight: Radius.circular(4.0),
+                      topLeft: Radius.circular(4),
+                      topRight: Radius.circular(4),
                     ),
                   ),
                 ],

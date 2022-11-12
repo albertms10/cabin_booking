@@ -54,7 +54,7 @@ class _BookingPreviewPanelRowHeadline extends BookingPreviewPanelRow {
       child: Row(
         children: [
           _BookingPreviewPanelRowTrailing(
-            iconSize: 26.0,
+            iconSize: 26,
             child: trailing,
           ),
           Expanded(
@@ -69,7 +69,7 @@ class _BookingPreviewPanelRowHeadline extends BookingPreviewPanelRow {
                       .headline5
                       ?.copyWith(fontWeight: FontWeight.w300),
                 ),
-                const SizedBox(height: 4.0),
+                const SizedBox(height: 4),
               ],
             ),
           ),
@@ -92,7 +92,7 @@ class _BookingPreviewPanelRowTrailing extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 60.0,
+      width: 60,
       child: child != null
           ? SizedBox(
               width: iconSize,

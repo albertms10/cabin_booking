@@ -14,7 +14,7 @@ class SchoolYearDialog extends StatelessWidget {
     return DataDialog(
       title: Text(AppLocalizations.of(context)!.schoolYear),
       content: SizedBox(
-        width: 320.0,
+        width: 320,
         child: SchoolYearForm(schoolYear: schoolYear),
       ),
     );

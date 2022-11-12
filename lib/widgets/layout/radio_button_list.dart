@@ -50,8 +50,8 @@ class _RadioButtonListState extends State<RadioButtonList> {
                     ? theme.colorScheme.secondaryContainer
                     : null,
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 24.0,
-                  vertical: 16.0,
+                  horizontal: 24,
+                  vertical: 16,
                 ),
               ),
               onPressed: () {

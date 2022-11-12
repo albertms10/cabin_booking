@@ -113,7 +113,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                 ],
               ),
-              const VerticalDivider(thickness: 1.0, width: 1.0),
+              const VerticalDivider(thickness: 1, width: 1),
             ],
             Expanded(
               child: PageView(

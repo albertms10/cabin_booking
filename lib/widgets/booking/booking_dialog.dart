@@ -33,7 +33,7 @@ class _BookingDialogState extends State<BookingDialog> {
                 : appLocalizations.booking,
       ),
       content: SizedBox(
-        width: 320.0,
+        width: 320,
         child: BookingForm(
           booking: widget.booking,
           isRecurring: _isRecurring,

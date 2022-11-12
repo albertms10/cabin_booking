@@ -157,7 +157,7 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
     required TimeOfDay endTime,
     Set<DateTime>? dates,
   }) {
-    if (cabins.isEmpty) return 0.0;
+    if (cabins.isEmpty) return 0;
 
     final percents = [
       for (final cabin in cabins)

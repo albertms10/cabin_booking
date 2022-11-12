@@ -50,7 +50,7 @@ class BookingsHeatMapCalendar extends StatelessWidget {
                 legendMoreLabel: appLocalizations.more,
               ),
             ),
-            const SizedBox(width: 16.0),
+            const SizedBox(width: 16),
             RadioButtonList(
               itemCount: dayHandler.schoolYearManager.schoolYears.length,
               itemBuilder: (context, index) {

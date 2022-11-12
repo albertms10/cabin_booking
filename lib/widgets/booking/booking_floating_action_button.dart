@@ -22,7 +22,7 @@ class BookingFloatingActionButton extends StatelessWidget {
         return FloatingActionButtonMenu(
           animatedIcon: AnimatedIcons.add_event,
           animatedIconTheme: IconThemeData(
-            size: 25.0,
+            size: 25,
             color: theme.colorScheme.onPrimary,
           ),
           label: Text(
