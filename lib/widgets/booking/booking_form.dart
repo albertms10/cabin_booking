@@ -28,7 +28,7 @@ class BookingForm extends StatefulWidget {
   });
 
   @override
-  _BookingFormState createState() => _BookingFormState();
+  State<BookingForm> createState() => _BookingFormState();
 }
 
 class _BookingFormState extends State<BookingForm> {

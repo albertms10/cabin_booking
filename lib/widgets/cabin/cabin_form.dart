@@ -17,7 +17,7 @@ class CabinForm extends StatefulWidget {
   });
 
   @override
-  _CabinFormState createState() => _CabinFormState();
+  State<CabinForm> createState() => _CabinFormState();
 }
 
 class _CabinFormState extends State<CabinForm> {

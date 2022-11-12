@@ -90,7 +90,7 @@ class FloatingActionButtonMenu extends StatefulWidget {
   });
 
   @override
-  _FloatingActionButtonMenuState createState() =>
+  State<FloatingActionButtonMenu> createState() =>
       _FloatingActionButtonMenuState();
 }
 

@@ -20,7 +20,7 @@ class SummaryPage extends StatefulWidget {
   const SummaryPage({super.key, this.setNavigationPage});
 
   @override
-  _SummaryPageState createState() => _SummaryPageState();
+  State<SummaryPage> createState() => _SummaryPageState();
 }
 
 class _SummaryPageState extends State<SummaryPage>

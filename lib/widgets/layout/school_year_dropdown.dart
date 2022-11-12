@@ -6,7 +6,7 @@ class SchoolYearDropdown extends StatefulWidget {
   const SchoolYearDropdown({super.key});
 
   @override
-  _SchoolYearDropdownState createState() => _SchoolYearDropdownState();
+  State<SchoolYearDropdown> createState() => _SchoolYearDropdownState();
 }
 
 class _SchoolYearDropdownState extends State<SchoolYearDropdown> {
