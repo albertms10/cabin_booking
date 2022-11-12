@@ -1,125 +1,51 @@
-name: Flutter CI
+name: Build CD
 
 on:
-  push:
-    branches: [main]
-    paths-ignore:
-      - '.vscode/**'
-      - 'android/**'
-      - 'docs/**'
-      - 'ios/**'
-      - 'macos/**'
-      - 'windows/**'
-      - '**.md'
-      - '.gitignore'
-      - 'CODEOWNERS'
-      - 'LICENSE'
-
-  pull_request:
-    branches: [main]
-    types: [opened, synchronize, ready_for_review, reopened]
-    paths-ignore:
-      - '.vscode/**'
-      - 'android/**'
-      - 'docs/**'
-      - 'ios/**'
-      - 'macos/**'
-      - 'windows/**'
-      - '**.md'
-      - '.gitignore'
-      - 'CODEOWNERS'
-      - 'LICENSE'
-
-  release:
-    types: [published]
-
   workflow_dispatch:
     inputs:
       build_name:
-        description: 'Build name <x.y.z>'
+        description: "Build name <x.y.z>"
         required: false
         type: string
       build_number:
-        description: 'Build number'
+        description: "Build number"
         required: false
         type: string
       build_ios:
-        description: 'Build iOS app'
+        description: "Build iOS app"
         required: false
         type: boolean
       build_android:
-        description: 'Build Android app'
+        description: "Build Android app"
         required: false
         type: boolean
       build_macos:
-        description: 'Build macOS app'
+        description: "Build macOS app"
         required: false
         type: boolean
       build_windows:
-        description: 'Build Windows app'
+        description: "Build Windows app"
         required: false
         type: boolean
       store_artifacts:
-        description: 'Store build artifacts'
+        description: "Store build artifacts"
         required: false
         type: boolean
 
 env:
-  FLUTTER_SDK_VERSION: '3.3.8'
+  FLUTTER_SDK_VERSION: "3.3.8"
 
 jobs:
-  analyze:
-    name: Analyze
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    if: github.event.pull_request.draft == false
-
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Cache dependencies
-        uses: actions/cache@v3
-        id: cache
-        with:
-          path: /opt/hostedtoolcache/flutter
-          key: ${{ runner.os }}-pubspec-${{ env.FLUTTER_SDK_VERSION }}-${{ hashFiles('**/pubspec.lock') }}
-
-      - uses: subosito/flutter-action@v2
-        with:
-          flutter-version: ${{ env.FLUTTER_SDK_VERSION }}
-
-      - name: Verify formatting
-        run: flutter format --output=none --set-exit-if-changed .
-
-      - name: Get dependencies
-        run: flutter pub get
-
-      - name: Analyze project source
-        run: flutter analyze --no-pub --fatal-infos
-
-      - name: Analyze Dart Code Metrics
-        run: flutter pub run dart_code_metrics:metrics analyze lib
-
-      - name: Run tests
-        run: flutter test test/main.dart --coverage
-
-      - name: Upload Coveralls
-        uses: coverallsapp/github-action@1.1.3
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-
-
   ios-build:
     name: iOS build
     runs-on: macos-latest
-    needs: [analyze]
     timeout-minutes: 15
-    if: github.event.release.tag_name || github.event.inputs.build_ios == 'true'
+    if: wgithub.event.inputs.build_ios == 'true'
 
     steps:
       - uses: actions/checkout@v3
         with:
-          fetch-depth: '0'
+          fetch-depth: "0"
 
       - if: github.event.inputs.store_artifacts == 'true'
         name: Get tagged filename
@@ -163,18 +89,16 @@ jobs:
           name: ${{ steps.filename.outputs.artifact }}
           path: build/ios/iphoneos/${{ steps.filename.outputs.artifact }}.tar.bz2
 
-
   android-build:
     name: Android build
     runs-on: ubuntu-latest
-    needs: [analyze]
     timeout-minutes: 15
-    if: false # github.event.release.tag_name || github.event.inputs.build_android == 'true'
+    if:w github.event.inputs.build_android == 'true'
 
     steps:
       - uses: actions/checkout@v3
         with:
-          fetch-depth: '0'
+          fetch-depth: "0"
 
       - if: github.event.inputs.store_artifacts == 'true'
         name: Get tagged filename
@@ -183,7 +107,7 @@ jobs:
 
       - uses: actions/setup-java@v3
         with:
-          distribution: 'temurin'
+          distribution: "temurin"
           java-version: 17
 
       - name: Cache dependencies
@@ -222,18 +146,16 @@ jobs:
           name: ${{ steps.filename.outputs.artifact }}
           path: build/app/outputs/flutter-apk/${{ steps.filename.outputs.artifact }}.tar.bz2
 
-
   macos-build:
     name: macOS build
     runs-on: macos-latest
-    needs: [analyze]
     timeout-minutes: 15
-    if: github.event.release.tag_name || github.event.inputs.build_macos == 'true'
+    if: wgithub.event.inputs.build_macos == 'true'
 
     steps:
       - uses: actions/checkout@v3
         with:
-          fetch-depth: '0'
+          fetch-depth: "0"
 
       - if: github.event.inputs.store_artifacts == 'true'
         name: Get tagged filename
@@ -279,18 +201,16 @@ jobs:
           name: ${{ steps.filename.outputs.artifact }}
           path: build/macos/Build/Products/Release/${{ steps.filename.outputs.artifact }}.tar.bz2
 
-
   windows-build:
     name: Windows build
     runs-on: windows-latest
-    needs: [analyze]
     timeout-minutes: 15
-    if: github.event.release.tag_name || github.event.inputs.build_windows == 'true'
+    if:w github.event.inputs.build_windows == 'true'
 
     steps:
       - uses: actions/checkout@v3
         with:
-          fetch-depth: '0'
+          fetch-depth: "0"
 
       - if: github.event.inputs.store_artifacts == 'true'
         name: Get tagged filename

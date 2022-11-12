@@ -1,0 +1,82 @@
+name: Analysis CI
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - ".github/dependabot.yml"
+      - ".github/workflows/build-cd.yml"
+      - ".vscode/**"
+      - "android/**"
+      - "docs/**"
+      - "ios/**"
+      - "macos/**"
+      - "windows/**"
+      - "**.md"
+      - ".gitignore"
+      - "CODEOWNERS"
+      - "LICENSE"
+
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, ready_for_review, reopened]
+    paths-ignore:
+      - ".github/dependabot.yml"
+      - ".github/workflows/build-cd.yml"
+      - ".vscode/**"
+      - "android/**"
+      - "docs/**"
+      - "ios/**"
+      - "macos/**"
+      - "windows/**"
+      - "**.md"
+      - ".gitignore"
+      - "CODEOWNERS"
+      - "LICENSE"
+
+  release:
+    types: [published]
+
+env:
+  FLUTTER_SDK_VERSION: "3.3.8"
+
+jobs:
+  analyze:
+    name: Analyze
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    if: github.event.pull_request.draft == false
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        id: cache
+        with:
+          path: /opt/hostedtoolcache/flutter
+          key: ${{ runner.os }}-pubspec-${{ env.FLUTTER_SDK_VERSION }}-${{ hashFiles('**/pubspec.lock') }}
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_SDK_VERSION }}
+
+      - name: Verify formatting
+        run: flutter format --output=none --set-exit-if-changed .
+
+      - name: Get dependencies
+        run: flutter pub get
+
+      - name: Analyze project source
+        run: flutter analyze --no-pub --fatal-infos
+
+      - name: Analyze Dart Code Metrics
+        run: flutter pub run dart_code_metrics:metrics analyze lib --fatal-style --fatal-performance
+
+      - name: Run tests
+        run: flutter test test/main.dart --no-pub --coverage
+
+      - name: Upload Coveralls
+        uses: coverallsapp/github-action@1.1.3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
