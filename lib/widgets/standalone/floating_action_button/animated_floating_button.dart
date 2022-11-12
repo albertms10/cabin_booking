@@ -31,7 +31,7 @@ class AnimatedFloatingButton extends StatelessWidget {
     this.tooltip,
     this.label,
     this.heroTag,
-    this.elevation = 6.0,
+    this.elevation = 6,
     this.isOpen = false,
     this.shape = const CircleBorder(),
     this.curve = Curves.easeOutCubic,
@@ -44,7 +44,7 @@ class AnimatedFloatingButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimatedContainer(
       curve: curve,
-      margin: EdgeInsets.all(visible ? 0.0 : 28.0),
+      margin: EdgeInsets.all(visible ? 0 : 28),
       duration: Duration(milliseconds: animationSpeed),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,

@@ -13,7 +13,7 @@ class DetailLineChart extends StatelessWidget {
     required this.spots,
     this.minX,
     this.maxX,
-    this.minY = 0.0,
+    this.minY = 0,
     this.maxY,
   });
 

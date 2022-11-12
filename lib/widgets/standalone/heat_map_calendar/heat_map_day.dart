@@ -22,7 +22,7 @@ class HeatMapDay extends StatelessWidget {
     super.key,
     this.value = 0,
     this.size,
-    this.space = 4.0,
+    this.space = 4,
     this.thresholds = const {},
     this.defaultColor = Colors.black12,
     this.date,

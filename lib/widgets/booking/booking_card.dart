@@ -20,7 +20,7 @@ class BookingCard extends StatelessWidget {
     this.setPreventTimeTableScroll,
   });
 
-  double get height => booking.duration.inMinutes * kBookingHeightRatio - 16.0;
+  double get height => booking.duration.inMinutes * kBookingHeightRatio - 16;
 
   @override
   Widget build(BuildContext context) {
@@ -41,8 +41,7 @@ class BookingCard extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: const BorderRadius.all(Radius.circular(10)),
                 side: BorderSide(
-                  color:
-                      Colors.grey[300]!.withOpacity(isBeforeNow ? 0.41 : 1.0),
+                  color: Colors.grey[300]!.withOpacity(isBeforeNow ? 0.41 : 1),
                   width: 1.5,
                 ),
               ),
@@ -54,7 +53,7 @@ class BookingCard extends StatelessWidget {
                         gradient: const LinearGradient(
                           begin: Alignment.topLeft,
                           end: Alignment(-0.4, -0.2),
-                          stops: [0.0, 0.5, 0.5, 1.0],
+                          stops: [0, 0.5, 0.5, 1],
                           colors: [
                             Color.fromARGB(16, 0, 0, 0),
                             Color.fromARGB(16, 0, 0, 0),
@@ -67,7 +66,7 @@ class BookingCard extends StatelessWidget {
                     : BoxDecoration(
                         color: Theme.of(context)
                             .cardColor
-                            .withOpacity(isBeforeNow ? 0.41 : 1.0),
+                            .withOpacity(isBeforeNow ? 0.41 : 1),
                         borderRadius: BorderRadius.circular(10),
                       ),
                 child: _BookingCardInteractive(
@@ -189,19 +188,19 @@ class _BookingCardInfo extends StatelessWidget {
                           : '${booking.description} '
                               '(${appLocalizations.locked.toLowerCase()})',
                       style: TextStyle(
-                        fontSize: constraints.maxHeight > 20.0
-                            ? 14.0
+                        fontSize: constraints.maxHeight > 20
+                            ? 14
                             : constraints.maxHeight * 0.5,
                       ),
                       overflow: TextOverflow.ellipsis,
                       maxLines: 4,
                     ),
-                    if (constraints.maxHeight > 30.0)
+                    if (constraints.maxHeight > 30)
                       Text(
                         booking.timeRange,
                         style: theme.textTheme.caption?.copyWith(
-                          fontSize: constraints.maxHeight > 40.0
-                              ? 14.0
+                          fontSize: constraints.maxHeight > 40
+                              ? 14
                               : constraints.maxHeight * 0.4,
                         ),
                       ),

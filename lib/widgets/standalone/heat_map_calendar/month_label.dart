@@ -9,7 +9,7 @@ class MonthLabel extends StatelessWidget {
     super.key,
     required this.text,
     required this.size,
-    this.space = 4.0,
+    this.space = 4,
   });
 
   @override

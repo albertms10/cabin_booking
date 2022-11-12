@@ -47,8 +47,8 @@ class CabinIcon extends StatelessWidget {
         alignment: Alignment.center,
         children: [
           SizedBox(
-            width: radius * 2.0,
-            height: radius * 2.0,
+            width: radius * 2,
+            height: radius * 2,
             child: TweenAnimationBuilder<double>(
               tween: Tween<double>(begin: 0, end: progress),
               duration: const Duration(milliseconds: 700),

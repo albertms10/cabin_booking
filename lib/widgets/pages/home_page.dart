@@ -63,7 +63,7 @@ class _HomePageState extends State<HomePage> {
       ];
 
   bool _isSmallDisplay(BuildContext context) =>
-      MediaQuery.of(context).size.width < 768.0;
+      MediaQuery.of(context).size.width < 768;
 
   @override
   Widget build(BuildContext context) {

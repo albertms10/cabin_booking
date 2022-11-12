@@ -22,7 +22,7 @@ class BookingPreviewPanelOverlay extends StatefulWidget {
   const BookingPreviewPanelOverlay({
     super.key,
     required this.builder,
-    this.width = 400.0,
+    this.width = 400,
   });
 
   @override

@@ -32,7 +32,7 @@ class WeekColumns extends StatelessWidget {
     this.firstDate,
     required this.lastDate,
     this.onDayTap,
-    this.space = 4.0,
+    this.space = 4,
     this.dayValueWrapper,
     this.highlightToday = false,
     this.highlightOn,

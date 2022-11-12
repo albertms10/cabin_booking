@@ -85,7 +85,7 @@ class _BookingPreviewPanelRowTrailing extends StatelessWidget {
 
   const _BookingPreviewPanelRowTrailing({
     super.key,
-    this.iconSize = 20.0,
+    this.iconSize = 20,
     this.child,
   });
 

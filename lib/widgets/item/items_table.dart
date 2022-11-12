@@ -156,8 +156,8 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
                       label: Flexible(
                         child: Padding(
                           padding: EdgeInsets.only(
-                            right: column.numeric ? 0.0 : 8.0,
-                            left: column.numeric ? 8.0 : 0.0,
+                            right: column.numeric ? 0 : 8,
+                            left: column.numeric ? 8 : 0,
                           ),
                           child: Text(
                             column.title,
