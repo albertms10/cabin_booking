@@ -5,7 +5,7 @@ class SchoolYearsPage extends StatefulWidget {
   const SchoolYearsPage({super.key});
 
   @override
-  _SchoolYearsPageState createState() => _SchoolYearsPageState();
+  State<SchoolYearsPage> createState() => _SchoolYearsPageState();
 }
 
 class _SchoolYearsPageState extends State<SchoolYearsPage>

@@ -24,7 +24,7 @@ class RadioButtonList extends StatefulWidget {
       reverse ? (index >= 0) : (index < itemCount);
 
   @override
-  _RadioButtonListState createState() => _RadioButtonListState();
+  State<RadioButtonList> createState() => _RadioButtonListState();
 }
 
 class _RadioButtonListState extends State<RadioButtonList> {

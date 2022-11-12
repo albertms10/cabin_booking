@@ -12,7 +12,7 @@ class SchoolYearForm extends StatefulWidget {
   const SchoolYearForm({super.key, required this.schoolYear});
 
   @override
-  _SchoolYearFormState createState() => _SchoolYearFormState();
+  State<SchoolYearForm> createState() => _SchoolYearFormState();
 }
 
 class _SchoolYearFormState extends State<SchoolYearForm> {

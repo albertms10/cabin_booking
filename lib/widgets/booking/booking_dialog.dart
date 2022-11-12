@@ -10,7 +10,7 @@ class BookingDialog extends StatefulWidget {
   const BookingDialog({super.key, required this.booking});
 
   @override
-  _BookingDialogState createState() => _BookingDialogState();
+  State<BookingDialog> createState() => _BookingDialogState();
 }
 
 class _BookingDialogState extends State<BookingDialog> {

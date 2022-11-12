@@ -26,7 +26,7 @@ class BookingPreviewPanelOverlay extends StatefulWidget {
   });
 
   @override
-  _BookingPreviewPanelOverlayState createState() =>
+  State<BookingPreviewPanelOverlay> createState() =>
       _BookingPreviewPanelOverlayState();
 }
 

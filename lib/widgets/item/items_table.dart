@@ -50,7 +50,7 @@ class ItemsTable<T extends Item> extends StatefulWidget {
   });
 
   @override
-  _ItemsTableState createState() => _ItemsTableState<T>();
+  State<ItemsTable<T>> createState() => _ItemsTableState<T>();
 }
 
 class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
