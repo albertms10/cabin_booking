@@ -8,7 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class JumpBar extends StatefulWidget {
-  const JumpBar({Key? key}) : super(key: key);
+  const JumpBar({super.key});
 
   @override
   State<JumpBar> createState() => _JumpBarState();
@@ -101,7 +101,7 @@ class _JumpBarState extends State<JumpBar> {
 class _SearchBarField extends StatelessWidget {
   final TextEditingController? controller;
 
-  const _SearchBarField({Key? key, this.controller}) : super(key: key);
+  const _SearchBarField({super.key, this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -128,11 +128,11 @@ class _SearchBarItem extends StatelessWidget {
   final bool enabled;
 
   const _SearchBarItem({
-    Key? key,
+    super.key,
     this.icon,
     this.child,
     this.enabled = true,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -149,8 +149,7 @@ class _SearchBarItem extends StatelessWidget {
 class _BookingSearchResult extends StatelessWidget {
   final Booking booking;
 
-  const _BookingSearchResult({required this.booking, Key? key})
-      : super(key: key);
+  const _BookingSearchResult({required this.booking, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -208,8 +207,7 @@ class _SearchResultLabel<T> extends StatelessWidget {
   final T? label;
   final String Function(T)? formatter;
 
-  const _SearchResultLabel({Key? key, this.label, this.formatter})
-      : super(key: key);
+  const _SearchResultLabel({super.key, this.label, this.formatter});
 
   @override
   Widget build(BuildContext context) {
