@@ -25,7 +25,7 @@ void main() {
         () {
           final match =
               RegExp(r'(?<digit>\d*)?(?<word>\w*)?').firstMatch('---')!;
-          expect(match.namedGroups, const {});
+          expect(match.namedGroups, const <String, String?>{});
         },
       );
 
@@ -33,7 +33,7 @@ void main() {
         'should return an empty Map when no named groups are specified',
         () {
           final matchNonNamed = RegExp(r'(\d+)(\w+)').firstMatch('12ab')!;
-          expect(matchNonNamed.namedGroups, const {});
+          expect(matchNonNamed.namedGroups, const <String, String?>{});
         },
       );
     });
@@ -56,12 +56,12 @@ void main() {
 
       test('should return an empty Map when all matched groups are null', () {
         final match = RegExp(r'(\d*)?(\w*)?').firstMatch('---')!;
-        expect(match.allGroups, const []);
+        expect(match.allGroups, const <String>[]);
       });
 
       test('should return an empty List when no groups are specified', () {
         final match = RegExp(r'\d+\w+').firstMatch('12ab')!;
-        expect(match.allGroups, const []);
+        expect(match.allGroups, const <String>[]);
       });
     });
   });

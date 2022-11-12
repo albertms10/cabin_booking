@@ -17,7 +17,10 @@ void main() {
       });
 
       test('should return an empty Map when no expressions are matched', () {
-        expect('Think different.'.tokenize(expressions), const {});
+        expect(
+          'Think different.'.tokenize(expressions),
+          const <String, String?>{},
+        );
       });
     });
   });
