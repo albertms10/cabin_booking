@@ -158,7 +158,7 @@ jobs:
           ARTIFACT_FILENAME: ${{ steps.filename.outputs.artifact }}
 
       - if: github.event.inputs.store_artifacts == 'true'
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: ${{ steps.filename.outputs.artifact }}
           path: build/ios/iphoneos/${{ steps.filename.outputs.artifact }}.tar.bz2
@@ -217,7 +217,7 @@ jobs:
           ARTIFACT_FILENAME: ${{ steps.filename.outputs.artifact }}
 
       - if: github.event.inputs.store_artifacts == 'true'
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: ${{ steps.filename.outputs.artifact }}
           path: build/app/outputs/flutter-apk/${{ steps.filename.outputs.artifact }}.tar.bz2
@@ -274,7 +274,7 @@ jobs:
           ARTIFACT_FILENAME: ${{ steps.filename.outputs.artifact }}
 
       - if: github.event.inputs.store_artifacts == 'true'
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: ${{ steps.filename.outputs.artifact }}
           path: build/macos/Build/Products/Release/${{ steps.filename.outputs.artifact }}.tar.bz2
@@ -322,7 +322,7 @@ jobs:
           ARTIFACT_FILENAME: ${{ steps.filename.outputs.artifact }}
 
       - if: github.event.inputs.store_artifacts == 'true'
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: ${{ steps.filename.outputs.artifact }}
           path: build/windows/runner/${{ steps.filename.outputs.artifact }}.tar.gz
