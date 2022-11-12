@@ -42,7 +42,7 @@ class WeekColumns extends StatelessWidget {
   ///
   /// Each column is a week with a [MonthLabel] and 7 [HeatMapDay] widgets
   List<Widget> buildWeekItems() {
-    final dateList = getCalendarDates(columnsToCreate);
+    final dateList = calendarDatesFromColumns(columnsToCreate);
 
     if (dateList.isEmpty) return [];
 
@@ -139,10 +139,10 @@ class WeekColumns extends StatelessWidget {
     return columns;
   }
 
-  /// Creates a list of all weeks based on given [columnsAmount].
-  List<DateTime> getCalendarDates(int columnsAmount) {
+  /// Creates a list of all weeks based on given [columnAmount].
+  List<DateTime> calendarDatesFromColumns(int columnAmount) {
     final firstDay =
-        firstDayOfCalendar(firstDayOfTheWeek(lastDate), columnsAmount);
+        firstDayOfCalendar(firstDayOfTheWeek(lastDate), columnAmount);
 
     return datesBetween(
       firstDate?.isAfter(firstDay) ?? false ? firstDate! : firstDay,
