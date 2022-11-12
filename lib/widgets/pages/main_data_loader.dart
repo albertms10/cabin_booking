@@ -22,7 +22,7 @@ class _MainDataLoaderState extends State<MainDataLoader> {
       Provider.of<DayHandler>(context, listen: false).schoolYearManager
         ..addListener(_writeSchoolYearsAndShowSnackBar);
 
-  Future<void> _writeAndShowSnackBar(WritableManager manager) async {
+  Future<void> _writeAndShowSnackBar(WritableManager<dynamic> manager) async {
     final changesSaved = await manager.writeToFile();
 
     if (!mounted) return;

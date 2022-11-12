@@ -17,7 +17,7 @@ void main() {
       test('should throw an ArgumentError', () {
         expect(() => const [true].compactConsecutive(), throwsArgumentError);
         expect(() => [() {}].compactConsecutive(), throwsArgumentError);
-        expect(() => [[]].compactConsecutive(), throwsArgumentError);
+        expect(() => [<bool>[]].compactConsecutive(), throwsArgumentError);
         expect(
           () => [
             {''},
@@ -33,7 +33,7 @@ void main() {
       });
 
       test('should return an empty Iterable', () {
-        expect(const [].compactConsecutive(), const []);
+        expect(const <String>[].compactConsecutive(), const <String>[]);
       });
 
       test('should return one range pair', () {

@@ -207,7 +207,7 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.end,
-        children: List.from(_getChildrenList())
+        children: List.of(_getChildrenList())
           ..add(
             Container(
               margin: const EdgeInsets.only(top: 8.0, right: 2.0),

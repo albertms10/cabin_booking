@@ -10,7 +10,7 @@ abstract class WritableManager<T> {
 
   Future<T> readFromFile();
 
-  Future loadFromFile();
+  Future<int> loadFromFile();
 
   Future<bool> writeToFile();
 }

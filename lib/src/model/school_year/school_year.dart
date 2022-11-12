@@ -22,7 +22,7 @@ class SchoolYear extends DateRangeItem {
   }
 
   SchoolYear.from(super.other)
-      : holidays = SplayTreeSet.from(
+      : holidays = SplayTreeSet.of(
           (other[_JsonFields.holidays] as List<dynamic>)
               .cast<Map<String, dynamic>>()
               .map<Holiday>(Holiday.from),
