@@ -9,15 +9,10 @@ extension NumExtension on num {
   /// Examples:
   ///
   /// ```dart
-  /// assert(8.5.map(inMax: 10.0) == 0.85);
-  /// assert(5.0.map(inMax: 10.0, outMin: 1.0, outMax: 4.0) == 2.5);
+  /// assert(8.5.map(inMax: 10) == 0.85);
+  /// assert(5.map(inMax: 10, outMin: 1, outMax: 4) == 2.5);
   /// ```
-  num map({
-    num inMin = 0.0,
-    num inMax = 1.0,
-    num outMin = 0.0,
-    num outMax = 1.0,
-  }) =>
+  num map({num inMin = 0, num inMax = 1, num outMin = 0, num outMax = 1}) =>
       ((this - inMin) * (outMax - outMin)) / (inMax - inMin) + outMin;
 
   /// Returns the euclidean modulo of this number by [other]

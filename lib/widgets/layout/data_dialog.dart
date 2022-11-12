@@ -17,16 +17,14 @@ class DataDialog extends StatelessWidget {
             onPressed: () {
               Navigator.of(context).pop();
             },
-            splashRadius: 24.0,
+            splashRadius: 24,
           ),
-          const SizedBox(width: 8.0),
+          const SizedBox(width: 8),
           title,
         ],
       ),
-      contentPadding:
-          const EdgeInsets.only(left: 24.0, right: 24.0, bottom: 24.0),
-      titlePadding:
-          const EdgeInsets.symmetric(horizontal: 12.0, vertical: 18.0),
+      contentPadding: const EdgeInsets.only(left: 24, right: 24, bottom: 24),
+      titlePadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 18),
       children: [content],
     );
   }

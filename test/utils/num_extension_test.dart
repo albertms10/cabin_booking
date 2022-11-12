@@ -5,8 +5,8 @@ void main() {
   group('NumExtension', () {
     group('.map', () {
       test('should re-map a number from one range to another', () {
-        expect(8.5.map(inMax: 10.0), 0.85);
-        expect(5.0.map(inMax: 10.0, outMin: 1.0, outMax: 4.0), 2.5);
+        expect(8.5.map(inMax: 10), 0.85);
+        expect(5.map(inMax: 10, outMin: 1, outMax: 4), 2.5);
       });
     });
 

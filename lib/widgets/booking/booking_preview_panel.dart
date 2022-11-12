@@ -22,7 +22,7 @@ class BookingPreviewPanel extends StatelessWidget {
     final appLocalizations = AppLocalizations.of(context)!;
 
     return Padding(
-      padding: const EdgeInsets.all(4.0),
+      padding: const EdgeInsets.all(4),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -32,12 +32,12 @@ class BookingPreviewPanel extends StatelessWidget {
             onClose: onClose,
           ),
           _BookingPreviewPanelHeadline(booking: booking),
-          const SizedBox(height: 28.0),
+          const SizedBox(height: 28),
           BookingPreviewPanelRow(
             trailing: Icon(booking.status.icon),
             child: Text(booking.status.localized(appLocalizations)),
           ),
-          const SizedBox(height: 32.0),
+          const SizedBox(height: 32),
         ],
       ),
     );
@@ -59,11 +59,11 @@ class _BookingPreviewPanelHeadline extends StatelessWidget {
           : RecurringBooking.isRecurringBooking(booking)
               ? const Icon(Icons.repeat)
               : Container(
-                  width: 14.0,
-                  height: 14.0,
+                  width: 14,
+                  height: 14,
                   decoration: BoxDecoration(
                     color: theme.colorScheme.primary,
-                    borderRadius: const BorderRadius.all(Radius.circular(4.0)),
+                    borderRadius: const BorderRadius.all(Radius.circular(4)),
                   ),
                 ),
       headline: booking.description!,
@@ -71,7 +71,7 @@ class _BookingPreviewPanelHeadline extends StatelessWidget {
         children: [
           Text(DateFormat.MMMMEEEEd().format(booking.date!)),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            padding: const EdgeInsets.symmetric(horizontal: 8),
             child: Text(
               '·',
               style: TextStyle(color: theme.hintColor),

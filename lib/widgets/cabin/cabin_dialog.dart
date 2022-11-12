@@ -15,7 +15,7 @@ class CabinDialog extends StatelessWidget {
     return DataDialog(
       title: Text(AppLocalizations.of(context)!.cabin),
       content: SizedBox(
-        width: 250.0,
+        width: 250,
         child: CabinForm(
           cabin: cabin,
           newCabinNumber: newCabinNumber,

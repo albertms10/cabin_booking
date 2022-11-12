@@ -34,7 +34,7 @@ class BookingPreviewPanelActionBar extends StatelessWidget {
           booking: booking,
           onClose: onClose,
         ),
-        const SizedBox(width: 16.0),
+        const SizedBox(width: 16),
         _BookingPreviewIconButton(
           icon: Icons.close,
           onPressed: onClose,
@@ -64,8 +64,8 @@ class _BookingPreviewIconButton extends StatelessWidget {
       tooltip: tooltip,
       icon: Icon(icon),
       color: Theme.of(context).hintColor,
-      iconSize: 20.0,
-      splashRadius: 18.0,
+      iconSize: 20,
+      splashRadius: 18,
     );
   }
 }

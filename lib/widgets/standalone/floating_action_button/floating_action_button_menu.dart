@@ -58,7 +58,7 @@ class FloatingActionButtonMenu extends StatefulWidget {
   /// The speed of the animation.
   final int animationSpeed;
 
-  final tween = Tween<double>(begin: 0.0, end: 62.0);
+  final tween = Tween<double>(begin: 0, end: 62);
 
   /// The child of the main button, ignored if [animatedIcon] is non-null.
   final Widget? child;
@@ -69,7 +69,7 @@ class FloatingActionButtonMenu extends StatefulWidget {
     this.visible = true,
     this.backgroundColor,
     this.foregroundColor,
-    this.elevation = 6.0,
+    this.elevation = 6,
     this.overlayOpacity = 0.9,
     this.overlayColor,
     this.tooltip,
@@ -77,8 +77,8 @@ class FloatingActionButtonMenu extends StatefulWidget {
     this.heroTag,
     this.animatedIcon,
     this.animatedIconTheme,
-    this.marginBottom = 16.0,
-    this.marginRight = 14.0,
+    this.marginBottom = 16,
+    this.marginRight = 14,
     this.onOpen,
     this.onClose,
     this.closeManually = false,
@@ -185,10 +185,10 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
 
   Widget _renderOverlay() {
     return Positioned(
-      right: -16.0,
-      bottom: -16.0,
-      top: _open || !_animationCompleted ? 0.0 : null,
-      left: _open || !_animationCompleted ? 0.0 : null,
+      right: -16,
+      bottom: -16,
+      top: _open || !_animationCompleted ? 0 : null,
+      left: _open || !_animationCompleted ? 0 : null,
       child: GestureDetector(
         onTap: _toggleChildren,
         child: BackgroundOverlay(
@@ -202,15 +202,15 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
 
   Widget _renderButton() {
     return Positioned(
-      bottom: widget.marginBottom - 16.0,
-      right: widget.marginRight - 16.0,
+      bottom: widget.marginBottom - 16,
+      right: widget.marginRight - 16,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: List.of(_getChildrenList())
           ..add(
             Container(
-              margin: const EdgeInsets.only(top: 8.0, right: 2.0),
+              margin: const EdgeInsets.only(top: 8, right: 2),
               child: AnimatedFloatingButton(
                 visible: widget.visible,
                 tween: widget.tween,

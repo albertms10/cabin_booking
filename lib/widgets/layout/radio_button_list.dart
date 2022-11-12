@@ -41,7 +41,7 @@ class _RadioButtonListState extends State<RadioButtonList> {
             widget.reverse ? i-- : i++)
           Padding(
             padding:
-                EdgeInsets.only(bottom: i == widget._lastLoopIndex ? 0.0 : 4.0),
+                EdgeInsets.only(bottom: i == widget._lastLoopIndex ? 0 : 4),
             child: TextButton(
               style: ElevatedButton.styleFrom(
                 foregroundColor:
@@ -50,8 +50,8 @@ class _RadioButtonListState extends State<RadioButtonList> {
                     ? theme.colorScheme.secondaryContainer
                     : null,
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 24.0,
-                  vertical: 16.0,
+                  horizontal: 24,
+                  vertical: 16,
                 ),
               ),
               onPressed: () {

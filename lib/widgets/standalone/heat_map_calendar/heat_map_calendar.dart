@@ -54,8 +54,8 @@ class HeatMapCalendar extends StatelessWidget {
     required this.input,
     required this.colorThresholds,
     this.firstWeekDay = DateTime.sunday,
-    this.squareSize = 16.0,
-    this.space = 4.0,
+    this.squareSize = 16,
+    this.space = 4,
     this.onDayTap,
     this.dayValueWrapper,
     this.showLegend = false,
@@ -72,7 +72,7 @@ class HeatMapCalendar extends StatelessWidget {
   ///
   /// returns the number of columns that the widget should have
   int getColumnsToCreate(double maxWidth) {
-    assert(maxWidth > 2.0 * (squareSize + HeatMapCalendar.edgeSize));
+    assert(maxWidth > 2 * (squareSize + HeatMapCalendar.edgeSize));
 
     return maxWidth ~/ (squareSize + HeatMapCalendar.edgeSize);
   }
@@ -110,7 +110,7 @@ class HeatMapCalendar extends StatelessWidget {
             ),
             if (showLegend)
               Padding(
-                padding: const EdgeInsets.only(top: 16.0, right: 24.0),
+                padding: const EdgeInsets.only(top: 16, right: 24),
                 child: HeatMapLegend(
                   squareSize: squareSize,
                   space: space,

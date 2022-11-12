@@ -20,7 +20,7 @@ class BookingCard extends StatelessWidget {
     this.setPreventTimeTableScroll,
   });
 
-  double get height => booking.duration.inMinutes * kBookingHeightRatio - 16.0;
+  double get height => booking.duration.inMinutes * kBookingHeightRatio - 16;
 
   @override
   Widget build(BuildContext context) {
@@ -35,14 +35,13 @@ class BookingCard extends StatelessWidget {
           curve: Curves.easeInOutCubic,
           builder: (context, value, child) {
             return Card(
-              margin: const EdgeInsets.all(8.0),
+              margin: const EdgeInsets.all(8),
               shadowColor: isBeforeNow ? Colors.black38 : Colors.black87,
-              elevation: 0.0,
+              elevation: 0,
               shape: RoundedRectangleBorder(
-                borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+                borderRadius: const BorderRadius.all(Radius.circular(10)),
                 side: BorderSide(
-                  color:
-                      Colors.grey[300]!.withOpacity(isBeforeNow ? 0.41 : 1.0),
+                  color: Colors.grey[300]!.withOpacity(isBeforeNow ? 0.41 : 1),
                   width: 1.5,
                 ),
               ),
@@ -50,11 +49,11 @@ class BookingCard extends StatelessWidget {
                 height: height,
                 decoration: booking.isLocked
                     ? BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.0),
+                        borderRadius: BorderRadius.circular(10),
                         gradient: const LinearGradient(
                           begin: Alignment.topLeft,
                           end: Alignment(-0.4, -0.2),
-                          stops: [0.0, 0.5, 0.5, 1.0],
+                          stops: [0, 0.5, 0.5, 1],
                           colors: [
                             Color.fromARGB(16, 0, 0, 0),
                             Color.fromARGB(16, 0, 0, 0),
@@ -67,8 +66,8 @@ class BookingCard extends StatelessWidget {
                     : BoxDecoration(
                         color: Theme.of(context)
                             .cardColor
-                            .withOpacity(isBeforeNow ? 0.41 : 1.0),
-                        borderRadius: BorderRadius.circular(10.0),
+                            .withOpacity(isBeforeNow ? 0.41 : 1),
+                        borderRadius: BorderRadius.circular(10),
                       ),
                 child: _BookingCardInteractive(
                   cabin: cabin,
@@ -115,7 +114,7 @@ class _BookingCardInteractiveState extends State<_BookingCardInteractive> {
       type: MaterialType.transparency,
       child: InkWell(
         customBorder: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+          borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
         onTap: () {
           final renderBox = context.findRenderObject() as RenderBox?;
@@ -129,7 +128,7 @@ class _BookingCardInteractiveState extends State<_BookingCardInteractive> {
           );
         },
         child: Padding(
-          padding: const EdgeInsets.only(top: 8.0, right: 4.0, left: 10.0),
+          padding: const EdgeInsets.only(top: 8, right: 4, left: 10),
           child: _BookingCardInfo(
             cabin: widget.cabin,
             booking: widget.booking,
@@ -168,17 +167,17 @@ class _BookingCardInfo extends StatelessWidget {
                 message:
                     '${booking.recurringNumber}/${booking.recurringTotalTimes}',
                 child: Padding(
-                  padding: const EdgeInsets.only(right: 4.0),
+                  padding: const EdgeInsets.only(right: 4),
                   child: Icon(
                     Icons.repeat,
                     color: theme.hintColor,
-                    size: 16.0,
+                    size: 16,
                   ),
                 ),
               ),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.only(right: 28.0),
+                padding: const EdgeInsets.only(right: 28),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisSize: MainAxisSize.min,
@@ -189,19 +188,19 @@ class _BookingCardInfo extends StatelessWidget {
                           : '${booking.description} '
                               '(${appLocalizations.locked.toLowerCase()})',
                       style: TextStyle(
-                        fontSize: constraints.maxHeight > 20.0
-                            ? 14.0
+                        fontSize: constraints.maxHeight > 20
+                            ? 14
                             : constraints.maxHeight * 0.5,
                       ),
                       overflow: TextOverflow.ellipsis,
                       maxLines: 4,
                     ),
-                    if (constraints.maxHeight > 30.0)
+                    if (constraints.maxHeight > 30)
                       Text(
                         booking.timeRange,
                         style: theme.textTheme.caption?.copyWith(
-                          fontSize: constraints.maxHeight > 40.0
-                              ? 14.0
+                          fontSize: constraints.maxHeight > 40
+                              ? 14
                               : constraints.maxHeight * 0.4,
                         ),
                       ),

@@ -29,8 +29,8 @@ class TimeColumn extends StatelessWidget {
             for (var hour = start.hour; hour <= end.hour; hour++)
               Container(
                 width: kTimeColumnWidth,
-                height: kBookingHeightRatio * 60.0,
-                padding: const EdgeInsets.all(16.0),
+                height: kBookingHeightRatio * 60,
+                padding: const EdgeInsets.all(16),
                 alignment: Alignment.topCenter,
                 child: Text(
                   TimeOfDay(hour: hour, minute: 0).format(context),

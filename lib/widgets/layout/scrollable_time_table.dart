@@ -108,7 +108,7 @@ class _ScrollablePanelOverlayTimeTableState
                 Container(
                   height: kBookingHeaderHeight,
                   color: theme.dialogBackgroundColor,
-                  padding: const EdgeInsets.symmetric(vertical: 24.0),
+                  padding: const EdgeInsets.symmetric(vertical: 24),
                   child: Row(
                     children: [
                       for (final cabin in widget.cabins)
@@ -142,20 +142,20 @@ class _ScrollablePanelOverlayTimeTableState
               itemCount: 1,
               rowSeparatorWidget: const Divider(
                 color: Colors.black54,
-                height: 1.0,
-                thickness: 0.0,
+                height: 1,
+                thickness: 0,
               ),
               leftHandSideColBackgroundColor: theme.dialogBackgroundColor,
               rightHandSideColBackgroundColor: theme.dialogBackgroundColor,
               verticalScrollbarStyle: const ScrollbarStyle(
                 isAlwaysShown: true,
-                thickness: 4.0,
-                radius: Radius.circular(5.0),
+                thickness: 4,
+                radius: Radius.circular(5),
               ),
               horizontalScrollbarStyle: const ScrollbarStyle(
                 isAlwaysShown: true,
-                thickness: 4.0,
-                radius: Radius.circular(5.0),
+                thickness: 4,
+                radius: Radius.circular(5),
               ),
               refreshIndicator: const WaterDropHeader(),
             );

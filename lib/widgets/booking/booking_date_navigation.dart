@@ -8,7 +8,7 @@ class BookingDateNavigation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(16),
       color: Theme.of(context).dialogBackgroundColor,
       child: Row(
         children: const [

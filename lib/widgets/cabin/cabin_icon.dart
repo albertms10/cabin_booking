@@ -11,7 +11,7 @@ class CabinIcon extends StatelessWidget {
     this.progress,
   });
 
-  double get radius => 28.0;
+  double get radius => 28;
 
   bool get shouldShowProgress => progress != null;
 
@@ -47,10 +47,10 @@ class CabinIcon extends StatelessWidget {
         alignment: Alignment.center,
         children: [
           SizedBox(
-            width: radius * 2.0,
-            height: radius * 2.0,
+            width: radius * 2,
+            height: radius * 2,
             child: TweenAnimationBuilder<double>(
-              tween: Tween<double>(begin: 0.0, end: progress),
+              tween: Tween<double>(begin: 0, end: progress),
               duration: const Duration(milliseconds: 700),
               curve: Curves.easeOutCubic,
               builder: (context, value, child) {

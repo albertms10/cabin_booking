@@ -79,7 +79,6 @@ analyzer:
     implicit_dynamic_variable: ignore
     library_private_types_in_public_api: ignore
     prefer_asserts_with_message: ignore
-    prefer_int_literals: ignore
     public_member_api_docs: ignore
     sort_constructors_first: ignore
     unused_element: ignore

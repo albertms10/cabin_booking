@@ -20,7 +20,7 @@ class DurationFigureUnit extends StatelessWidget {
           value: hours,
           unit: 'h',
         ),
-        const SizedBox(width: 8.0),
+        const SizedBox(width: 8),
         if (minutes > 0)
           FigureUnit(
             value: minutes,

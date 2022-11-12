@@ -20,7 +20,7 @@ class DataTableToolbar extends StatelessWidget {
     final appLocalizations = AppLocalizations.of(context)!;
 
     return SizedBox(
-      height: 54.0,
+      height: 54,
       child: !shown
           ? null
           : AppBar(

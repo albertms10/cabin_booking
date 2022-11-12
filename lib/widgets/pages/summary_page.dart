@@ -35,12 +35,12 @@ class _SummaryPageState extends State<SummaryPage>
     final appLocalizations = AppLocalizations.of(context)!;
 
     return ListView(
-      padding: const EdgeInsets.all(32.0),
+      padding: const EdgeInsets.all(32),
       children: [
         Heading(appLocalizations.summary),
         Wrap(
-          spacing: 24.0,
-          runSpacing: 24.0,
+          spacing: 24,
+          runSpacing: 24,
           children: [
             _BookingsCountStatistics(
               onTap: () {
@@ -65,9 +65,9 @@ class _SummaryPageState extends State<SummaryPage>
             const _PopularTimesStatistics(),
           ],
         ),
-        const SizedBox(height: 32.0),
+        const SizedBox(height: 32),
         Heading(appLocalizations.bookings),
-        const SizedBox(height: 16.0),
+        const SizedBox(height: 16),
         BookingsHeatMapCalendar(
           onDayTap: () {
             widget.setNavigationPage?.call(AppPages.bookings);

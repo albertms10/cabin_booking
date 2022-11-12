@@ -22,7 +22,7 @@ class BookingPreviewPanelOverlay extends StatefulWidget {
   const BookingPreviewPanelOverlay({
     super.key,
     required this.builder,
-    this.width = 400.0,
+    this.width = 400,
   });
 
   @override
@@ -56,7 +56,7 @@ class _BookingPreviewPanelOverlayState
         ? -overlaySize.width
         : renderBoxSize.width;
 
-    return offset + Offset(dx, -5.0);
+    return offset + Offset(dx, -5);
   }
 
   void _showPreviewPanel(
@@ -100,7 +100,7 @@ class _BookingPreviewPanelOverlayState
                 offset: _desiredOffset(
                   offset: resolvedOffset,
                   screenSize: MediaQuery.of(context).size,
-                  overlaySize: Size(widget.width, 200.0),
+                  overlaySize: Size(widget.width, 200),
                   renderBoxSize: renderBox.size,
                 ),
                 child: _AnimatedOffsetBuilder(
@@ -109,9 +109,9 @@ class _BookingPreviewPanelOverlayState
                     return SlideTransition(
                       position: offset,
                       child: Card(
-                        elevation: 24.0,
+                        elevation: 24,
                         shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
                         ),
                         child: BookingPreviewPanel(
                           cabin: cabin,
@@ -185,12 +185,12 @@ class _AnimatedOffsetBuilderState extends State<_AnimatedOffsetBuilder>
   )..forward();
 
   late final Animation<double> _opacity =
-      Tween<double>(begin: 0.0, end: 1.0).animate(
+      Tween<double>(begin: 0, end: 1).animate(
     CurvedAnimation(parent: _controller, curve: widget.curve),
   );
 
   late final Animation<Offset> _offset = Tween<Offset>(
-    begin: const Offset(-0.03, 0.0),
+    begin: const Offset(-0.03, 0),
     end: Offset.zero,
   ).animate(
     CurvedAnimation(parent: _controller, curve: widget.curve),
