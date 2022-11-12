@@ -44,10 +44,11 @@ class _RadioButtonListState extends State<RadioButtonList> {
                 EdgeInsets.only(bottom: i == widget._lastLoopIndex ? 0.0 : 4.0),
             child: TextButton(
               style: ElevatedButton.styleFrom(
-                primary: _selectedIndex == i
+                foregroundColor:
+                    _selectedIndex == i ? Colors.white : theme.hintColor,
+                backgroundColor: _selectedIndex == i
                     ? theme.colorScheme.secondaryContainer
                     : null,
-                onPrimary: _selectedIndex == i ? Colors.white : theme.hintColor,
                 padding: const EdgeInsets.symmetric(
                   horizontal: 24.0,
                   vertical: 16.0,
