@@ -68,13 +68,13 @@ class HeatMapCalendar extends StatelessWidget {
     this.highlightOn,
   }) : assert(firstWeekDay >= 1 && firstWeekDay <= DateTime.daysPerWeek);
 
-  /// Calculates the right amount of columns to create based on [maxWidth]
+  /// Calculates the right amount of columns to create based on [maxWidth].
   ///
-  /// returns the number of columns that the widget should have
-  int getColumnsToCreate(double maxWidth) {
-    assert(maxWidth > 2 * (squareSize + HeatMapCalendar.edgeSize));
+  /// Returns the number of columns that the widget should have
+  int columnsToCreate(double maxWidth) {
+    assert(maxWidth > 2 * (squareSize + edgeSize));
 
-    return maxWidth ~/ (squareSize + HeatMapCalendar.edgeSize);
+    return maxWidth ~/ (squareSize + edgeSize);
   }
 
   @override
@@ -98,7 +98,7 @@ class HeatMapCalendar extends StatelessWidget {
                   input: input,
                   colorThresholds: colorThresholds,
                   firstWeekDay: firstWeekDay,
-                  columnsToCreate: getColumnsToCreate(constraints.maxWidth) - 1,
+                  columnsToCreate: columnsToCreate(constraints.maxWidth) - 1,
                   firstDate: firstDate,
                   lastDate: lastDate ?? DateTime.now(),
                   onDayTap: onDayTap,
