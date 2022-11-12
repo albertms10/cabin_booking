@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../item.dart';
@@ -60,7 +59,7 @@ class DateRangeItem extends Item with DateRanger {
       endDate == other.endDate;
 
   @override
-  int get hashCode => hashValues(startDate, endDate);
+  int get hashCode => Object.hash(startDate, endDate);
 
   @override
   int compareTo(covariant DateRangeItem other) =>
