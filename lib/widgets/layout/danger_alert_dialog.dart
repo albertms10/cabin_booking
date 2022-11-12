@@ -7,24 +7,23 @@ class DangerAlertDialog extends StatelessWidget {
   final String? okText;
 
   const DangerAlertDialog({
-    Key? key,
+    super.key,
     required this.title,
     required this.content,
     this.cancelText,
     this.okText,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     final materialLocalizations = MaterialLocalizations.of(context);
 
-    const buttonPadding =
-        EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0);
+    const buttonPadding = EdgeInsets.symmetric(horizontal: 20, vertical: 16);
 
     return AlertDialog(
       title: Text(title),
       content: Text(content),
-      actionsPadding: const EdgeInsets.all(8.0),
+      actionsPadding: const EdgeInsets.all(8),
       actions: [
         TextButton(
           style: TextButton.styleFrom(

@@ -21,13 +21,13 @@ class AnimatedChild extends AnimatedWidget {
   final String? heroTag;
 
   const AnimatedChild({
-    Key? key,
+    super.key,
     required Animation<double> animation,
     required this.tween,
     this.index,
     this.backgroundColor,
     this.foregroundColor,
-    this.elevation = 6.0,
+    this.elevation = 6,
     this.icon,
     this.label,
     this.labelStyle,
@@ -37,7 +37,7 @@ class AnimatedChild extends AnimatedWidget {
     this.toggleChildren,
     this.shape,
     this.heroTag,
-  }) : super(key: key, listenable: animation);
+  }) : super(listenable: animation);
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +58,7 @@ class AnimatedChild extends AnimatedWidget {
           child: Container(
             width: animation.value,
             height: tween.end,
-            padding: const EdgeInsets.symmetric(vertical: 10.0),
+            padding: const EdgeInsets.symmetric(vertical: 10),
             child: FloatingActionButton(
               heroTag: heroTag,
               onPressed: () {
@@ -68,13 +68,13 @@ class AnimatedChild extends AnimatedWidget {
               backgroundColor: backgroundColor ?? theme.dialogBackgroundColor,
               foregroundColor: foregroundColor ?? theme.colorScheme.secondary,
               elevation: elevation,
-              child: animation.value > 50.0
+              child: animation.value > 50
                   ? SizedBox(
                       width: animation.value,
                       height: animation.value,
                       child: Icon(
                         icon,
-                        size: animation.value / 3.0,
+                        size: animation.value / 3,
                       ),
                     )
                   : const SizedBox(),

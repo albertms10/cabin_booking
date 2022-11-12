@@ -21,33 +21,27 @@ class RecurringBooking extends Booking {
   int? _occurrences;
 
   RecurringBooking({
-    String? id,
-    String? description,
-    DateTime? date,
-    TimeOfDay? startTime,
-    TimeOfDay? endTime,
-    BookingStatus status = BookingStatus.pending,
-    bool isLocked = false,
-    String? cabinId,
+    super.id,
+    super.description,
+    super.date,
+    super.startTime,
+    super.endTime,
+    super.status,
+    super.isLocked,
+    super.cabinId,
     this.periodicity = Periodicity.weekly,
     this.repeatEvery = 1,
     DateTime? recurringEndDate,
     int? occurrences,
-  })  : assert((recurringEndDate == null) != (occurrences == null)),
+  })  : assert(
+          (recurringEndDate == null) != (occurrences == null),
+          'Either recurringEndDate, occurrences or none must be given, '
+          'but not both.',
+        ),
         _recurringEndDate = recurringEndDate,
-        _occurrences = occurrences,
-        super(
-          id: id,
-          description: description,
-          date: date,
-          startTime: startTime,
-          endTime: endTime,
-          status: status,
-          isLocked: isLocked,
-          cabinId: cabinId,
-        );
+        _occurrences = occurrences;
 
-  RecurringBooking.from(Map<String, dynamic> other)
+  RecurringBooking.from(super.other)
       : periodicity = Periodicity.values[other[_JsonFields.periodicity] as int],
         repeatEvery = other[_JsonFields.repeatEvery] as int,
         _recurringEndDate = other.containsKey(_JsonFields.recurringEndDate)
@@ -56,7 +50,7 @@ class RecurringBooking extends Booking {
         _occurrences = other.containsKey(_JsonFields.occurrences)
             ? other[_JsonFields.occurrences] as int?
             : null,
-        super.from(other);
+        super.from();
 
   RecurringBooking.fromBooking(
     Booking booking, {
@@ -64,7 +58,11 @@ class RecurringBooking extends Booking {
     this.repeatEvery = 1,
     DateTime? recurringEndDate,
     int? occurrences,
-  })  : assert((recurringEndDate == null) != (occurrences == null)),
+  })  : assert(
+          (recurringEndDate == null) != (occurrences == null),
+          'Either recurringEndDate, occurrences or none must be given, '
+          'but not both.',
+        ),
         _recurringEndDate = recurringEndDate,
         _occurrences = occurrences,
         super(
@@ -104,7 +102,7 @@ class RecurringBooking extends Booking {
   DateTime get recurringEndDate {
     if (_recurringEndDate != null) return _recurringEndDate!;
 
-    assert(_occurrences != null);
+    assert(_occurrences != null, '_occurrences must be non-null.');
 
     return date!.add(periodicityDuration * _occurrences!);
   }
@@ -117,7 +115,7 @@ class RecurringBooking extends Booking {
   int get occurrences {
     if (_occurrences != null) return _occurrences!;
 
-    assert(_recurringEndDate != null);
+    assert(_recurringEndDate != null, '_recurringEndDate must be non-null.');
 
     var count = 0;
     var runDate = date!;

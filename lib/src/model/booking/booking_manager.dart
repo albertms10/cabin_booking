@@ -24,10 +24,10 @@ class BookingManager with ChangeNotifier {
   BookingManager.from({
     required List<dynamic> bookings,
     required List<dynamic> recurringBookings,
-  })  : bookings = SplayTreeSet.from(
+  })  : bookings = SplayTreeSet.of(
           bookings.cast<Map<String, dynamic>>().map<Booking>(Booking.from),
         ),
-        recurringBookings = SplayTreeSet.from(
+        recurringBookings = SplayTreeSet.of(
           recurringBookings
               .cast<Map<String, dynamic>>()
               .map<RecurringBooking>(RecurringBooking.from),
@@ -50,12 +50,12 @@ class BookingManager with ChangeNotifier {
         ...generatedBookingsFromRecurring,
       });
 
-  Set<Booking> bookingsBetween(DateRanger dateRange) => SplayTreeSet.from(
+  Set<Booking> bookingsBetween(DateRanger dateRange) => SplayTreeSet.of(
         bookings.where((booking) => booking.isBetween(dateRange)),
       );
 
   Set<Booking> recurringBookingsBetween(DateRanger dateRange) =>
-      SplayTreeSet.from(
+      SplayTreeSet.of(
         generatedBookingsFromRecurring.where(
           (recurringBooking) => recurringBooking.isBetween(dateRange),
         ),
@@ -66,7 +66,7 @@ class BookingManager with ChangeNotifier {
         ...recurringBookingsBetween(dateRange),
       });
 
-  Set<Booking> bookingsOn(DateTime dateTime) => SplayTreeSet.from(
+  Set<Booking> bookingsOn(DateTime dateTime) => SplayTreeSet.of(
         bookings.where((booking) => booking.isOn(dateTime)),
       );
 
@@ -105,7 +105,11 @@ class BookingManager with ChangeNotifier {
   }
 
   Duration occupiedDuration({DateTime? dateTime, DateRanger? dateRange}) {
-    assert(!((dateTime != null) && (dateRange != null)));
+    if (dateTime != null && dateRange != null) {
+      throw ArgumentError(
+        'Either dateTime or dateRange must be given, but not both.',
+      );
+    }
 
     var runDuration = Duration.zero;
 
@@ -236,14 +240,14 @@ class BookingManager with ChangeNotifier {
     if (accumulatedTimeRangesOccupancy.isEmpty) return SplayTreeSet();
 
     final timeRangesSortedByDuration =
-        SplayTreeSet<MapEntry<TimeOfDay, Duration>>.from(
+        SplayTreeSet<MapEntry<TimeOfDay, Duration>>.of(
       accumulatedTimeRangesOccupancy.entries,
       (a, b) => a.value.compareTo(b.value),
     );
 
     final highestOccupancyDuration = timeRangesSortedByDuration.first.value;
 
-    return SplayTreeSet.from(
+    return SplayTreeSet.of(
       timeRangesSortedByDuration
           .where((timeRange) => timeRange.value == highestOccupancyDuration)
           .map<TimeOfDay>((timeRange) => timeRange.key),

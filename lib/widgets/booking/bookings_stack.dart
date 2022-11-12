@@ -15,12 +15,12 @@ class BookingsStack extends StatelessWidget {
   final SetPreventTimeTableScroll? setPreventTimeTableScroll;
 
   const BookingsStack({
-    Key? key,
+    super.key,
     required this.cabin,
     this.bookings = const <Booking>{},
     this.showPreviewPanel,
     this.setPreventTimeTableScroll,
-  }) : super(key: key);
+  });
 
   Key _emptyBookingSlotKey(DateTime dateTime, int index) => Key(
         '${dateTime.toIso8601String().split('T').first}'
@@ -42,14 +42,16 @@ class BookingsStack extends StatelessWidget {
       final isFirst = i == -1;
       final isLast = i == bookings.length - 1;
 
-      final booking = bookings.elementAt(i);
-      var currentBookingDate = isFirst ? startDateTime : booking.endDateTime;
+      var currentBookingDate =
+          isFirst ? startDateTime : bookings.elementAt(i).endDateTime;
       var nextBookingDateTime =
           isLast ? endDateTime : bookings.elementAt(i + 1).startDateTime;
 
       final duration = nextBookingDateTime.difference(currentBookingDate);
 
       if (!isFirst) {
+        final booking = bookings.elementAt(i);
+
         distributedBookings.add(
           SizedBox(
             width: double.infinity,

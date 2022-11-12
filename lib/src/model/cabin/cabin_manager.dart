@@ -162,7 +162,7 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
     required TimeOfDay endTime,
     Set<DateTime>? dates,
   }) {
-    if (cabins.isEmpty) return 0.0;
+    if (cabins.isEmpty) return 0;
 
     final percents = [
       for (final cabin in cabins)
@@ -381,7 +381,7 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
 
       final cabins = _parseCabins(content);
 
-      return cabins.isEmpty ? _defaultCabins : SplayTreeSet.from(cabins);
+      return cabins.isEmpty ? _defaultCabins : SplayTreeSet.of(cabins);
     } on Exception {
       return _defaultCabins;
     }

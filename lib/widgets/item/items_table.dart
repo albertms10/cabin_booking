@@ -33,7 +33,7 @@ class ItemsTable<T extends Item> extends StatefulWidget {
   final void Function(List<String>)? onRemovePressed;
 
   const ItemsTable({
-    Key? key,
+    super.key,
     this.itemTitle,
     this.itemIcon,
     this.itemHeaderLabel = 'Item',
@@ -47,10 +47,10 @@ class ItemsTable<T extends Item> extends StatefulWidget {
     this.onEmptyPressed,
     this.onRemoveTitle,
     this.onRemovePressed,
-  }) : super(key: key);
+  });
 
   @override
-  _ItemsTableState createState() => _ItemsTableState<T>();
+  State<ItemsTable<T>> createState() => _ItemsTableState<T>();
 }
 
 class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
@@ -145,9 +145,9 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
           key: PageStorageKey('${T}ListView'),
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 54.0),
+              padding: const EdgeInsets.only(top: 54),
               child: DataTable(
-                dataRowHeight: 82.0,
+                dataRowHeight: 82,
                 sortAscending: _sortAscending,
                 sortColumnIndex: _sortColumnIndex,
                 columns: [
@@ -156,8 +156,8 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
                       label: Flexible(
                         child: Padding(
                           padding: EdgeInsets.only(
-                            right: column.numeric ? 0.0 : 8.0,
-                            left: column.numeric ? 8.0 : 0.0,
+                            right: column.numeric ? 0 : 8,
+                            left: column.numeric ? 8 : 0,
                           ),
                           child: Text(
                             column.title,
@@ -202,7 +202,7 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
                                 widget.itemIcon,
                                 color: theme.colorScheme.secondary,
                               ),
-                              const SizedBox(width: 12.0),
+                              const SizedBox(width: 12),
                               Text(
                                 widget.itemTitle?.call(row) ?? '${row.item}',
                                 style: theme.textTheme.headline5,
@@ -227,7 +227,7 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
                         ),
                         DataCell(
                           Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
+                            padding: const EdgeInsets.only(left: 8),
                             child: WrappedChipList<List<TimeOfDay>>(
                               items: row.mostOccupiedTimeRanges.toList(),
                               maxChips: 1,

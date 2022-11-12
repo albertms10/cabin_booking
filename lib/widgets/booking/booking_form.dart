@@ -21,14 +21,14 @@ class BookingForm extends StatefulWidget {
   final void Function(bool) setIsRecurring;
 
   const BookingForm({
-    Key? key,
+    super.key,
     required this.booking,
     this.isRecurring = false,
     required this.setIsRecurring,
-  }) : super(key: key);
+  });
 
   @override
-  _BookingFormState createState() => _BookingFormState();
+  State<BookingForm> createState() => _BookingFormState();
 }
 
 class _BookingFormState extends State<BookingForm> {
@@ -95,7 +95,7 @@ class _BookingFormState extends State<BookingForm> {
               setState(() => _booking.cabinId = value);
             },
           ),
-          const SizedBox(height: 24.0),
+          const SizedBox(height: 24),
           TextFormField(
             initialValue: widget.booking.description,
             autofocus: true,
@@ -118,7 +118,7 @@ class _BookingFormState extends State<BookingForm> {
                   : appLocalizations.student,
             ),
           ),
-          const SizedBox(height: 16.0),
+          const SizedBox(height: 16),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -198,7 +198,7 @@ class _BookingFormState extends State<BookingForm> {
                   },
                 ),
               ),
-              const SizedBox(width: 16.0),
+              const SizedBox(width: 16),
               Expanded(
                 flex: 8,
                 child: Consumer<CabinManager>(
@@ -276,7 +276,7 @@ class _BookingFormState extends State<BookingForm> {
               ),
             ],
           ),
-          const SizedBox(height: 32.0),
+          const SizedBox(height: 32),
           ExpansionPanelList(
             expandedHeaderPadding: EdgeInsets.zero,
             expansionCallback: (index, isExpanded) {
@@ -286,7 +286,7 @@ class _BookingFormState extends State<BookingForm> {
               ExpansionPanel(
                 headerBuilder: (context, isExpanded) {
                   return Padding(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.all(16),
                     child: Text(
                       widget.isRecurring
                           ? appLocalizations.recurrence
@@ -298,7 +298,7 @@ class _BookingFormState extends State<BookingForm> {
                 isExpanded: widget.isRecurring,
                 canTapOnHeader: true,
                 body: Padding(
-                  padding: const EdgeInsets.only(top: 4.0, bottom: 8.0),
+                  padding: const EdgeInsets.only(top: 4, bottom: 8),
                   child: Column(
                     children: [
                       PeriodicityListTile(
@@ -308,7 +308,7 @@ class _BookingFormState extends State<BookingForm> {
                         },
                       ),
                       ListTile(
-                        minVerticalPadding: 24.0,
+                        minVerticalPadding: 24,
                         title: Text(appLocalizations.onDate),
                         selected: _recurringBookingMethod ==
                             RecurringBookingMethod.endDate,
@@ -321,7 +321,7 @@ class _BookingFormState extends State<BookingForm> {
                           },
                         ),
                         trailing: SizedBox(
-                          width: 154.0,
+                          width: 154,
                           child: DateFormField(
                             controller: _endDateController,
                             enabled: _recurringBookingMethod ==
@@ -345,7 +345,7 @@ class _BookingFormState extends State<BookingForm> {
                         ),
                         selected: _recurringBookingMethod ==
                             RecurringBookingMethod.occurrences,
-                        minVerticalPadding: 24.0,
+                        minVerticalPadding: 24,
                         leading: Radio<RecurringBookingMethod>(
                           value: RecurringBookingMethod.occurrences,
                           groupValue: _recurringBookingMethod,
@@ -355,11 +355,11 @@ class _BookingFormState extends State<BookingForm> {
                           },
                         ),
                         trailing: SizedBox(
-                          width: 154.0,
+                          width: 154,
                           child: Row(
                             children: [
                               SizedBox(
-                                width: 54.0,
+                                width: 54,
                                 child: TextFormField(
                                   controller: _occurrencesController,
                                   enabled: _recurringBookingMethod ==
@@ -386,7 +386,7 @@ class _BookingFormState extends State<BookingForm> {
                                   },
                                 ),
                               ),
-                              const SizedBox(width: 8.0),
+                              const SizedBox(width: 8),
                               Text(
                                 appLocalizations.nOccurrences(
                                   int.tryParse(_occurrencesController.text) ??
@@ -403,7 +403,7 @@ class _BookingFormState extends State<BookingForm> {
               ),
             ],
           ),
-          const SizedBox(height: 32.0),
+          const SizedBox(height: 32),
           SubmitButton(
             shouldAdd: widget.booking.description == null,
             onPressed: () {
@@ -438,7 +438,7 @@ class _BookingFormState extends State<BookingForm> {
           ),
           if (widget.booking.description != null)
             Padding(
-              padding: const EdgeInsets.only(top: 16.0),
+              padding: const EdgeInsets.only(top: 16),
               child: ItemInfo(
                 creationDateTime: widget.booking.creationDateTime,
                 modificationDateTime: widget.booking.modificationDateTime,

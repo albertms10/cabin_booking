@@ -11,11 +11,11 @@ class ActivityLineChart extends StatelessWidget {
   final String? tooltipMessage;
 
   const ActivityLineChart({
-    Key? key,
+    super.key,
     this.occupiedDurationPerWeek = const {},
     required this.dateRange,
     this.tooltipMessage,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +28,8 @@ class ActivityLineChart extends StatelessWidget {
         );
       },
       child: Container(
-        width: 250.0,
-        padding: const EdgeInsets.symmetric(vertical: 24.0),
+        width: 250,
+        padding: const EdgeInsets.symmetric(vertical: 24),
         child: DetailLineChart(
           minX: dateRange.startDate?.toDouble(),
           maxX: dateRange.endDate?.toDouble(),

@@ -5,10 +5,10 @@ class StatisticItem extends StatelessWidget {
   final Widget item;
 
   const StatisticItem({
-    Key? key,
+    super.key,
     this.label,
     required this.item,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class StatisticItem extends StatelessWidget {
       children: [
         if (label != null)
           Padding(
-            padding: const EdgeInsets.only(bottom: 8.0),
+            padding: const EdgeInsets.only(bottom: 8),
             child: Text(
               label!,
               style: Theme.of(context).textTheme.subtitle2,

@@ -23,7 +23,7 @@ class WeekColumns extends StatelessWidget {
   final bool Function(DateTime)? highlightOn;
 
   const WeekColumns({
-    Key? key,
+    super.key,
     required this.squareSize,
     required this.input,
     required this.colorThresholds,
@@ -32,17 +32,17 @@ class WeekColumns extends StatelessWidget {
     this.firstDate,
     required this.lastDate,
     this.onDayTap,
-    this.space = 4.0,
+    this.space = 4,
     this.dayValueWrapper,
     this.highlightToday = false,
     this.highlightOn,
-  }) : super(key: key);
+  });
 
   /// The main logic for generating a list of columns representing a week.
   ///
   /// Each column is a week with a [MonthLabel] and 7 [HeatMapDay] widgets
   List<Widget> buildWeekItems() {
-    final dateList = getCalendarDates(columnsToCreate);
+    final dateList = calendarDatesFromColumns(columnsToCreate);
 
     if (dateList.isEmpty) return [];
 
@@ -139,10 +139,10 @@ class WeekColumns extends StatelessWidget {
     return columns;
   }
 
-  /// Creates a list of all weeks based on given [columnsAmount].
-  List<DateTime> getCalendarDates(int columnsAmount) {
+  /// Creates a list of all weeks based on given [columnAmount].
+  List<DateTime> calendarDatesFromColumns(int columnAmount) {
     final firstDay =
-        firstDayOfCalendar(firstDayOfTheWeek(lastDate), columnsAmount);
+        firstDayOfCalendar(firstDayOfTheWeek(lastDate), columnAmount);
 
     return datesBetween(
       firstDate?.isAfter(firstDay) ?? false ? firstDate! : firstDay,

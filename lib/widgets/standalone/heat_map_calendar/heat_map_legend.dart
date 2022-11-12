@@ -12,7 +12,7 @@ class HeatMapLegend extends StatelessWidget {
   final String? moreLabel;
 
   const HeatMapLegend({
-    Key? key,
+    super.key,
     required this.squareSize,
     required this.space,
     required this.color,
@@ -20,8 +20,7 @@ class HeatMapLegend extends StatelessWidget {
     this.samples = 5,
     this.lessLabel,
     this.moreLabel,
-  })  : assert(samples > 2),
-        super(key: key);
+  }) : assert(samples > 2, 'samples must be greater than two.');
 
   Map<int, Color> get colorThresholds => {
         1: defaultColor,

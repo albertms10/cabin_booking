@@ -4,8 +4,7 @@ class CenteredIconMessage extends StatelessWidget {
   final IconData? icon;
   final String? message;
 
-  const CenteredIconMessage({Key? key, this.icon, this.message})
-      : super(key: key);
+  const CenteredIconMessage({super.key, this.icon, this.message});
 
   @override
   Widget build(BuildContext context) {
@@ -15,10 +14,10 @@ class CenteredIconMessage extends StatelessWidget {
         children: [
           Icon(
             icon,
-            size: 72.0,
+            size: 72,
             color: Colors.grey,
           ),
-          if (icon != null && message != null) const SizedBox(height: 24.0),
+          if (icon != null && message != null) const SizedBox(height: 24),
           if (message != null)
             Text(
               message!,
@@ -27,7 +26,7 @@ class CenteredIconMessage extends StatelessWidget {
                   .headline5
                   ?.copyWith(color: Colors.grey[600]),
             ),
-          if (icon != null || message != null) const SizedBox(height: 82.0),
+          if (icon != null || message != null) const SizedBox(height: 82),
         ],
       ),
     );

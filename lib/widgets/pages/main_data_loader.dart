@@ -7,10 +7,10 @@ import 'package:provider/provider.dart';
 class MainDataLoader extends StatefulWidget {
   final Widget child;
 
-  const MainDataLoader({Key? key, required this.child}) : super(key: key);
+  const MainDataLoader({super.key, required this.child});
 
   @override
-  _MainDataLoaderState createState() => _MainDataLoaderState();
+  State<MainDataLoader> createState() => _MainDataLoaderState();
 }
 
 class _MainDataLoaderState extends State<MainDataLoader> {
@@ -22,14 +22,14 @@ class _MainDataLoaderState extends State<MainDataLoader> {
       Provider.of<DayHandler>(context, listen: false).schoolYearManager
         ..addListener(_writeSchoolYearsAndShowSnackBar);
 
-  Future<void> _writeAndShowSnackBar(WritableManager manager) async {
+  Future<void> _writeAndShowSnackBar(WritableManager<dynamic> manager) async {
     final changesSaved = await manager.writeToFile();
 
     if (!mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         backgroundColor: Colors.transparent,
-        elevation: 0.0,
+        elevation: 0,
         behavior: SnackBarBehavior.floating,
         duration: Duration(milliseconds: changesSaved ? 1200 : 3000),
         content: SaveChangesSnackBarBody(changesSaved: changesSaved),

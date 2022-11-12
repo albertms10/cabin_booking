@@ -6,11 +6,11 @@ class MonthLabel extends StatelessWidget {
   final double space;
 
   const MonthLabel({
-    Key? key,
+    super.key,
     required this.text,
     required this.size,
-    this.space = 4.0,
-  }) : super(key: key);
+    this.space = 4,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class MonthLabel extends StatelessWidget {
         clipBehavior: Clip.none,
         children: [
           Positioned(
-            bottom: 0.0,
+            bottom: 0,
             child: Text(
               text,
               style: Theme.of(context).textTheme.caption,

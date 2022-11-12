@@ -12,11 +12,11 @@ class EmptyBookingSlot extends StatelessWidget {
   final DateTime endDateTime;
 
   const EmptyBookingSlot({
-    Key? key,
+    super.key,
     required this.cabin,
     required this.startDateTime,
     required this.endDateTime,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -82,12 +82,12 @@ class _EmptyBookingSlotActionable extends StatelessWidget {
   final int? preciseDuration;
 
   const _EmptyBookingSlotActionable({
-    Key? key,
+    super.key,
     required this.cabin,
     required this.startDateTime,
     required this.endDateTime,
     this.preciseDuration,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -97,14 +97,14 @@ class _EmptyBookingSlotActionable extends StatelessWidget {
         preciseDuration ?? endDateTime.difference(startDateTime).inMinutes;
 
     return Container(
-      margin: const EdgeInsets.all(8.0),
+      margin: const EdgeInsets.all(8),
       decoration: const BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(4.0)),
+        borderRadius: BorderRadius.all(Radius.circular(4)),
       ),
       child: Tooltip(
         message: '$duration min',
         child: InkWell(
-          borderRadius: const BorderRadius.all(Radius.circular(4.0)),
+          borderRadius: const BorderRadius.all(Radius.circular(4)),
           onTap: () {
             showNewBookingDialog(
               context: context,
@@ -119,7 +119,7 @@ class _EmptyBookingSlotActionable extends StatelessWidget {
           },
           child: Icon(
             Icons.add,
-            size: 18.0,
+            size: 18,
             color: Theme.of(context).hintColor,
           ),
         ),

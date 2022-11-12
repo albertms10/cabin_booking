@@ -47,8 +47,8 @@ class ConditionalWidgetWrap extends StatelessWidget {
     required this.child,
     required this.condition,
     required this.conditionalBuilder,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -8,7 +8,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 class BookingFloatingActionButton extends StatelessWidget {
-  const BookingFloatingActionButton({Key? key}) : super(key: key);
+  const BookingFloatingActionButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class BookingFloatingActionButton extends StatelessWidget {
         return FloatingActionButtonMenu(
           animatedIcon: AnimatedIcons.add_event,
           animatedIconTheme: IconThemeData(
-            size: 25.0,
+            size: 25,
             color: theme.colorScheme.onPrimary,
           ),
           label: Text(

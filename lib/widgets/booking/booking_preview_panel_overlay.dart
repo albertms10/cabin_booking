@@ -20,13 +20,13 @@ class BookingPreviewPanelOverlay extends StatefulWidget {
   final PanelOverlayBuilder builder;
 
   const BookingPreviewPanelOverlay({
-    Key? key,
+    super.key,
     required this.builder,
-    this.width = 400.0,
-  }) : super(key: key);
+    this.width = 400,
+  });
 
   @override
-  _BookingPreviewPanelOverlayState createState() =>
+  State<BookingPreviewPanelOverlay> createState() =>
       _BookingPreviewPanelOverlayState();
 }
 
@@ -56,7 +56,7 @@ class _BookingPreviewPanelOverlayState
         ? -overlaySize.width
         : renderBoxSize.width;
 
-    return offset + Offset(dx, -5.0);
+    return offset + Offset(dx, -5);
   }
 
   void _showPreviewPanel(
@@ -100,7 +100,7 @@ class _BookingPreviewPanelOverlayState
                 offset: _desiredOffset(
                   offset: resolvedOffset,
                   screenSize: MediaQuery.of(context).size,
-                  overlaySize: Size(widget.width, 200.0),
+                  overlaySize: Size(widget.width, 200),
                   renderBoxSize: renderBox.size,
                 ),
                 child: _AnimatedOffsetBuilder(
@@ -109,9 +109,9 @@ class _BookingPreviewPanelOverlayState
                     return SlideTransition(
                       position: offset,
                       child: Card(
-                        elevation: 24.0,
+                        elevation: 24,
                         shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
                         ),
                         child: BookingPreviewPanel(
                           cabin: cabin,
@@ -167,11 +167,11 @@ class _AnimatedOffsetBuilder extends StatefulWidget {
   final Widget Function(BuildContext, Animation<Offset>) builder;
 
   const _AnimatedOffsetBuilder({
-    Key? key,
+    super.key,
     required this.duration,
     this.curve = Curves.easeInOutCubic,
     required this.builder,
-  }) : super(key: key);
+  });
 
   @override
   _AnimatedOffsetBuilderState createState() => _AnimatedOffsetBuilderState();
@@ -185,12 +185,12 @@ class _AnimatedOffsetBuilderState extends State<_AnimatedOffsetBuilder>
   )..forward();
 
   late final Animation<double> _opacity =
-      Tween<double>(begin: 0.0, end: 1.0).animate(
+      Tween<double>(begin: 0, end: 1).animate(
     CurvedAnimation(parent: _controller, curve: widget.curve),
   );
 
   late final Animation<Offset> _offset = Tween<Offset>(
-    begin: const Offset(-0.03, 0.0),
+    begin: const Offset(-0.03, 0),
     end: Offset.zero,
   ).animate(
     CurvedAnimation(parent: _controller, curve: widget.curve),

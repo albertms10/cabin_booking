@@ -17,7 +17,7 @@ class DateFormField extends StatefulWidget {
   final bool skipValidation;
 
   const DateFormField({
-    Key? key,
+    super.key,
     required this.controller,
     this.labelText,
     this.autofocus = false,
@@ -28,10 +28,10 @@ class DateFormField extends StatefulWidget {
     this.onChanged,
     this.additionalValidator,
     this.skipValidation = false,
-  }) : super(key: key);
+  });
 
   @override
-  _DateFormFieldState createState() => _DateFormFieldState();
+  State<DateFormField> createState() => _DateFormFieldState();
 }
 
 class _DateFormFieldState extends State<DateFormField> {

@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 class BookingsHeatMapCalendar extends StatelessWidget {
   final VoidCallback? onDayTap;
 
-  const BookingsHeatMapCalendar({Key? key, this.onDayTap}) : super(key: key);
+  const BookingsHeatMapCalendar({super.key, this.onDayTap});
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +50,7 @@ class BookingsHeatMapCalendar extends StatelessWidget {
                 legendMoreLabel: appLocalizations.more,
               ),
             ),
-            const SizedBox(width: 16.0),
+            const SizedBox(width: 16),
             RadioButtonList(
               itemCount: dayHandler.schoolYearManager.schoolYears.length,
               itemBuilder: (context, index) {

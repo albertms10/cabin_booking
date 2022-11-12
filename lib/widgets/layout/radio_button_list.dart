@@ -8,13 +8,13 @@ class RadioButtonList extends StatefulWidget {
   final bool reverse;
 
   const RadioButtonList({
-    Key? key,
+    super.key,
     required this.itemCount,
     required this.itemBuilder,
     this.initialIndex,
     this.onChanged,
     this.reverse = false,
-  }) : super(key: key);
+  });
 
   int get _initialLoopIndex => reverse ? itemCount - 1 : 0;
 
@@ -24,7 +24,7 @@ class RadioButtonList extends StatefulWidget {
       reverse ? (index >= 0) : (index < itemCount);
 
   @override
-  _RadioButtonListState createState() => _RadioButtonListState();
+  State<RadioButtonList> createState() => _RadioButtonListState();
 }
 
 class _RadioButtonListState extends State<RadioButtonList> {
@@ -41,16 +41,17 @@ class _RadioButtonListState extends State<RadioButtonList> {
             widget.reverse ? i-- : i++)
           Padding(
             padding:
-                EdgeInsets.only(bottom: i == widget._lastLoopIndex ? 0.0 : 4.0),
+                EdgeInsets.only(bottom: i == widget._lastLoopIndex ? 0 : 4),
             child: TextButton(
               style: ElevatedButton.styleFrom(
-                primary: _selectedIndex == i
+                foregroundColor:
+                    _selectedIndex == i ? Colors.white : theme.hintColor,
+                backgroundColor: _selectedIndex == i
                     ? theme.colorScheme.secondaryContainer
                     : null,
-                onPrimary: _selectedIndex == i ? Colors.white : theme.hintColor,
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 24.0,
-                  vertical: 16.0,
+                  horizontal: 24,
+                  vertical: 16,
                 ),
               ),
               onPressed: () {

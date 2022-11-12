@@ -10,7 +10,7 @@ import 'package:horizontal_data_table/horizontal_data_table.dart';
 import 'package:provider/provider.dart';
 
 class ScrollableTimeTable extends StatelessWidget {
-  const ScrollableTimeTable({Key? key}) : super(key: key);
+  const ScrollableTimeTable({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class ScrollableTimeTable extends StatelessWidget {
     return Expanded(
       child: SizedBox(
         width: MediaQuery.of(context).size.width,
-        child: Container(
+        child: ColoredBox(
           color: theme.dialogBackgroundColor,
           child: Consumer2<DayHandler, CabinManager>(
             builder: (context, dayHandler, cabinManager, child) {
@@ -55,8 +55,8 @@ class _ScrollablePanelOverlayTimeTable extends StatefulWidget {
   const _ScrollablePanelOverlayTimeTable({
     required this.cabins,
     required this.dateTime,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   _ScrollablePanelOverlayTimeTableState createState() =>
@@ -108,7 +108,7 @@ class _ScrollablePanelOverlayTimeTableState
                 Container(
                   height: kBookingHeaderHeight,
                   color: theme.dialogBackgroundColor,
-                  padding: const EdgeInsets.symmetric(vertical: 24.0),
+                  padding: const EdgeInsets.symmetric(vertical: 24),
                   child: Row(
                     children: [
                       for (final cabin in widget.cabins)
@@ -142,20 +142,20 @@ class _ScrollablePanelOverlayTimeTableState
               itemCount: 1,
               rowSeparatorWidget: const Divider(
                 color: Colors.black54,
-                height: 1.0,
-                thickness: 0.0,
+                height: 1,
+                thickness: 0,
               ),
               leftHandSideColBackgroundColor: theme.dialogBackgroundColor,
               rightHandSideColBackgroundColor: theme.dialogBackgroundColor,
               verticalScrollbarStyle: const ScrollbarStyle(
                 isAlwaysShown: true,
-                thickness: 4.0,
-                radius: Radius.circular(5.0),
+                thickness: 4,
+                radius: Radius.circular(5),
               ),
               horizontalScrollbarStyle: const ScrollbarStyle(
                 isAlwaysShown: true,
-                thickness: 4.0,
-                radius: Radius.circular(5.0),
+                thickness: 4,
+                radius: Radius.circular(5),
               ),
               refreshIndicator: const WaterDropHeader(),
             );

@@ -8,19 +8,15 @@ class Holiday extends DateRangeItem {
   final HolidayKind kind;
 
   Holiday({
-    String? id,
-    DateTime? startDate,
-    DateTime? endDate,
+    super.id,
+    super.startDate,
+    super.endDate,
     this.kind = HolidayKind.festivity,
-  }) : super(
-          id: id,
-          startDate: startDate,
-          endDate: endDate,
-        );
+  });
 
-  Holiday.from(Map<String, dynamic> other)
+  Holiday.from(super.other)
       : kind = HolidayKind.values[other[_JsonFields.kind] as int],
-        super.from(other);
+        super.from();
 
   @override
   Map<String, dynamic> toJson() => {

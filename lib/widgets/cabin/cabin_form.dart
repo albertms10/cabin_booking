@@ -11,13 +11,13 @@ class CabinForm extends StatefulWidget {
   final int? newCabinNumber;
 
   const CabinForm({
-    Key? key,
+    super.key,
     required this.cabin,
     this.newCabinNumber,
-  }) : super(key: key);
+  });
 
   @override
-  _CabinFormState createState() => _CabinFormState();
+  State<CabinForm> createState() => _CabinFormState();
 }
 
 class _CabinFormState extends State<CabinForm> {
@@ -51,11 +51,11 @@ class _CabinFormState extends State<CabinForm> {
       child: Column(
         children: [
           CabinIcon(number: _cabin.number),
-          const SizedBox(height: 32.0),
+          const SizedBox(height: 32),
           ListTile(
             title: Text(appLocalizations.lecterns),
             trailing: SizedBox(
-              width: 80.0,
+              width: 80,
               child: TextFormField(
                 initialValue: '${_cabin.elements.lecterns}',
                 keyboardType: TextInputType.number,
@@ -69,11 +69,11 @@ class _CabinFormState extends State<CabinForm> {
               ),
             ),
           ),
-          const SizedBox(height: 16.0),
+          const SizedBox(height: 16),
           ListTile(
             title: Text(appLocalizations.chairs),
             trailing: SizedBox(
-              width: 80.0,
+              width: 80,
               child: TextFormField(
                 initialValue: '${_cabin.elements.chairs}',
                 keyboardType: TextInputType.number,
@@ -87,11 +87,11 @@ class _CabinFormState extends State<CabinForm> {
               ),
             ),
           ),
-          const SizedBox(height: 16.0),
+          const SizedBox(height: 16),
           ListTile(
             title: Text(appLocalizations.tables),
             trailing: SizedBox(
-              width: 80.0,
+              width: 80,
               child: TextFormField(
                 initialValue: '${_cabin.elements.tables}',
                 keyboardType: TextInputType.number,
@@ -105,7 +105,7 @@ class _CabinFormState extends State<CabinForm> {
               ),
             ),
           ),
-          const SizedBox(height: 32.0),
+          const SizedBox(height: 32),
           SubmitButton(
             shouldAdd: widget.newCabinNumber != null,
             onPressed: () {
@@ -118,7 +118,7 @@ class _CabinFormState extends State<CabinForm> {
           ),
           if (widget.newCabinNumber == null)
             Padding(
-              padding: const EdgeInsets.only(top: 16.0),
+              padding: const EdgeInsets.only(top: 16),
               child: ItemInfo(
                 creationDateTime: widget.cabin.creationDateTime,
                 modificationDateTime: widget.cabin.modificationDateTime,

@@ -9,10 +9,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
-  _HomePageState createState() => _HomePageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
@@ -63,7 +63,7 @@ class _HomePageState extends State<HomePage> {
       ];
 
   bool _isSmallDisplay(BuildContext context) =>
-      MediaQuery.of(context).size.width < 768.0;
+      MediaQuery.of(context).size.width < 768;
 
   @override
   Widget build(BuildContext context) {
@@ -113,7 +113,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                 ],
               ),
-              const VerticalDivider(thickness: 1.0, width: 1.0),
+              const VerticalDivider(thickness: 1, width: 1),
             ],
             Expanded(
               child: PageView(

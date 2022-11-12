@@ -9,10 +9,10 @@ import 'package:intl/intl.dart';
 class SchoolYearForm extends StatefulWidget {
   final SchoolYear schoolYear;
 
-  const SchoolYearForm({Key? key, required this.schoolYear}) : super(key: key);
+  const SchoolYearForm({super.key, required this.schoolYear});
 
   @override
-  _SchoolYearFormState createState() => _SchoolYearFormState();
+  State<SchoolYearForm> createState() => _SchoolYearFormState();
 }
 
 class _SchoolYearFormState extends State<SchoolYearForm> {
@@ -60,7 +60,7 @@ class _SchoolYearFormState extends State<SchoolYearForm> {
               style: Theme.of(context).textTheme.headline5,
             ),
           ),
-          const SizedBox(height: 32.0),
+          const SizedBox(height: 32),
           Row(
             children: [
               Expanded(
@@ -82,7 +82,7 @@ class _SchoolYearFormState extends State<SchoolYearForm> {
                   },
                 ),
               ),
-              const SizedBox(width: 12.0),
+              const SizedBox(width: 12),
               Expanded(
                 child: DateFormField(
                   controller: _endDateController,
@@ -103,7 +103,7 @@ class _SchoolYearFormState extends State<SchoolYearForm> {
               ),
             ],
           ),
-          const SizedBox(height: 16.0),
+          const SizedBox(height: 16),
           SubmitButton(
             onPressed: () {
               if (_formKey.currentState!.validate()) {
@@ -114,7 +114,7 @@ class _SchoolYearFormState extends State<SchoolYearForm> {
             },
             shouldAdd: widget.schoolYear.startDate == null,
           ),
-          const SizedBox(height: 16.0),
+          const SizedBox(height: 16),
           ItemInfo(
             creationDateTime: _schoolYear.creationDateTime,
             modificationDateTime: _schoolYear.modificationDateTime,

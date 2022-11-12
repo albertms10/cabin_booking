@@ -17,10 +17,10 @@ import 'package:provider/provider.dart';
 class SummaryPage extends StatefulWidget {
   final void Function(AppPages)? setNavigationPage;
 
-  const SummaryPage({Key? key, this.setNavigationPage}) : super(key: key);
+  const SummaryPage({super.key, this.setNavigationPage});
 
   @override
-  _SummaryPageState createState() => _SummaryPageState();
+  State<SummaryPage> createState() => _SummaryPageState();
 }
 
 class _SummaryPageState extends State<SummaryPage>
@@ -35,12 +35,12 @@ class _SummaryPageState extends State<SummaryPage>
     final appLocalizations = AppLocalizations.of(context)!;
 
     return ListView(
-      padding: const EdgeInsets.all(32.0),
+      padding: const EdgeInsets.all(32),
       children: [
         Heading(appLocalizations.summary),
         Wrap(
-          spacing: 24.0,
-          runSpacing: 24.0,
+          spacing: 24,
+          runSpacing: 24,
           children: [
             _BookingsCountStatistics(
               onTap: () {
@@ -65,9 +65,9 @@ class _SummaryPageState extends State<SummaryPage>
             const _PopularTimesStatistics(),
           ],
         ),
-        const SizedBox(height: 32.0),
+        const SizedBox(height: 32),
         Heading(appLocalizations.bookings),
-        const SizedBox(height: 16.0),
+        const SizedBox(height: 16),
         BookingsHeatMapCalendar(
           onDayTap: () {
             widget.setNavigationPage?.call(AppPages.bookings);
@@ -81,7 +81,7 @@ class _SummaryPageState extends State<SummaryPage>
 class _BookingsCountStatistics extends StatelessWidget {
   final VoidCallback? onTap;
 
-  const _BookingsCountStatistics({Key? key, this.onTap}) : super(key: key);
+  const _BookingsCountStatistics({super.key, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -120,7 +120,7 @@ class _BookingsCountStatistics extends StatelessWidget {
 class _CabinsCountStatistics extends StatelessWidget {
   final VoidCallback? onTap;
 
-  const _CabinsCountStatistics({Key? key, this.onTap}) : super(key: key);
+  const _CabinsCountStatistics({super.key, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -145,7 +145,7 @@ class _CabinsCountStatistics extends StatelessWidget {
 class _SchoolYearsStatistics extends StatelessWidget {
   final VoidCallback? onTap;
 
-  const _SchoolYearsStatistics({Key? key, this.onTap}) : super(key: key);
+  const _SchoolYearsStatistics({super.key, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -174,7 +174,7 @@ class _SchoolYearsStatistics extends StatelessWidget {
 class _MostBookedDayStatistics extends StatelessWidget {
   final VoidCallback? onTap;
 
-  const _MostBookedDayStatistics({Key? key, this.onTap}) : super(key: key);
+  const _MostBookedDayStatistics({super.key, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -206,7 +206,7 @@ class _MostBookedDayStatistics extends StatelessWidget {
 }
 
 class _PopularTimesStatistics extends StatelessWidget {
-  const _PopularTimesStatistics({Key? key}) : super(key: key);
+  const _PopularTimesStatistics({super.key});
 
   @override
   Widget build(BuildContext context) {

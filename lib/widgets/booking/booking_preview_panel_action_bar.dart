@@ -13,9 +13,9 @@ class BookingPreviewPanelActionBar extends StatelessWidget {
   const BookingPreviewPanelActionBar({
     required this.cabin,
     required this.booking,
-    Key? key,
+    super.key,
     this.onClose,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class BookingPreviewPanelActionBar extends StatelessWidget {
           booking: booking,
           onClose: onClose,
         ),
-        const SizedBox(width: 16.0),
+        const SizedBox(width: 16),
         _BookingPreviewIconButton(
           icon: Icons.close,
           onPressed: onClose,
@@ -51,11 +51,11 @@ class _BookingPreviewIconButton extends StatelessWidget {
   final IconData icon;
 
   const _BookingPreviewIconButton({
-    Key? key,
+    super.key,
     this.onPressed,
     this.tooltip,
     required this.icon,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -64,8 +64,8 @@ class _BookingPreviewIconButton extends StatelessWidget {
       tooltip: tooltip,
       icon: Icon(icon),
       color: Theme.of(context).hintColor,
-      iconSize: 20.0,
-      splashRadius: 18.0,
+      iconSize: 20,
+      splashRadius: 18,
     );
   }
 }
@@ -76,11 +76,11 @@ class _BookingPreviewEditIconButton extends StatelessWidget {
   final VoidCallback? onClose;
 
   const _BookingPreviewEditIconButton({
-    Key? key,
+    super.key,
     required this.cabin,
     required this.booking,
     this.onClose,
-  }) : super(key: key);
+  });
 
   Future<void> _onEdit(BuildContext context) async {
     final cabinManager = Provider.of<CabinManager>(context, listen: false);
@@ -144,11 +144,11 @@ class _BookingPreviewDeleteIconButton extends StatelessWidget {
   final VoidCallback? onClose;
 
   const _BookingPreviewDeleteIconButton({
-    Key? key,
+    super.key,
     required this.cabin,
     required this.booking,
     this.onClose,
-  }) : super(key: key);
+  });
 
   Future<void> _onDelete(BuildContext context) async {
     final appLocalizations = AppLocalizations.of(context)!;

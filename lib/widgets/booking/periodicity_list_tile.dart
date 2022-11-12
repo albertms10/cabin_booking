@@ -7,10 +7,10 @@ class PeriodicityListTile extends StatelessWidget {
   final void Function(Periodicity?)? onChanged;
 
   const PeriodicityListTile({
-    Key? key,
+    super.key,
     required this.value,
     this.onChanged,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +25,9 @@ class PeriodicityListTile extends StatelessWidget {
 
     return ListTile(
       title: Text(appLocalizations.repeats),
-      minVerticalPadding: 24.0,
+      minVerticalPadding: 24,
       trailing: SizedBox(
-        width: 182.0,
+        width: 182,
         child: DropdownButtonFormField(
           value: value,
           onChanged: onChanged,

@@ -4,8 +4,7 @@ class IconMenuItemContent extends StatelessWidget {
   final String text;
   final IconData? icon;
 
-  const IconMenuItemContent({Key? key, required this.text, this.icon})
-      : super(key: key);
+  const IconMenuItemContent({super.key, required this.text, this.icon});
 
   @override
   Widget build(BuildContext context) {
@@ -13,13 +12,13 @@ class IconMenuItemContent extends StatelessWidget {
       children: [
         Icon(
           icon,
-          size: 20.0,
+          size: 20,
           color: Theme.of(context).hintColor,
         ),
-        const SizedBox(width: 14.0),
+        const SizedBox(width: 14),
         Text(
           text,
-          style: const TextStyle(fontSize: 14.0),
+          style: const TextStyle(fontSize: 14),
         ),
       ],
     );

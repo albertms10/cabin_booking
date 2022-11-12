@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../item.dart';
@@ -17,20 +16,23 @@ class DateRangeItem extends Item with DateRanger {
   DateTime? startDate;
 
   DateRangeItem({
-    String? id,
+    super.id,
     DateTime? startDate,
     DateTime? endDate,
-  })  : assert(
-          startDate == null || endDate == null || endDate.isAfter(startDate),
-        ),
-        super(id: id) {
+  }) : assert(
+          startDate == null ||
+              endDate == null ||
+              endDate.isAfter(startDate) ||
+              endDate.isAtSameMomentAs(startDate),
+          'endDate must be at the same moment or after startDate.',
+        ) {
     endDate ??= startDate;
   }
 
-  DateRangeItem.from(Map<String, dynamic> other)
+  DateRangeItem.from(super.other)
       : startDate = DateTime.tryParse(other[_JsonFields.startDate] as String),
         endDate = DateTime.tryParse(other[_JsonFields.endDate] as String),
-        super.from(other);
+        super.from();
 
   @override
   Map<String, dynamic> toJson() => {
@@ -61,7 +63,7 @@ class DateRangeItem extends Item with DateRanger {
       endDate == other.endDate;
 
   @override
-  int get hashCode => hashValues(startDate, endDate);
+  int get hashCode => Object.hash(startDate, endDate);
 
   @override
   int compareTo(covariant DateRangeItem other) =>

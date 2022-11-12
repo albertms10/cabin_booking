@@ -7,10 +7,10 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class BookingDialog extends StatefulWidget {
   final Booking booking;
 
-  const BookingDialog({Key? key, required this.booking}) : super(key: key);
+  const BookingDialog({super.key, required this.booking});
 
   @override
-  _BookingDialogState createState() => _BookingDialogState();
+  State<BookingDialog> createState() => _BookingDialogState();
 }
 
 class _BookingDialogState extends State<BookingDialog> {
@@ -33,7 +33,7 @@ class _BookingDialogState extends State<BookingDialog> {
                 : appLocalizations.booking,
       ),
       content: SizedBox(
-        width: 320.0,
+        width: 320,
         child: BookingForm(
           booking: widget.booking,
           isRecurring: _isRecurring,

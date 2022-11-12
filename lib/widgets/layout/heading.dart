@@ -6,9 +6,9 @@ class Heading extends StatelessWidget {
 
   const Heading(
     this.heading, {
-    Key? key,
+    super.key,
     this.divider = true,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

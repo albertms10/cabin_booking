@@ -4,8 +4,7 @@ class FigureUnit extends StatelessWidget {
   final int value;
   final String unit;
 
-  const FigureUnit({Key? key, required this.value, required this.unit})
-      : super(key: key);
+  const FigureUnit({super.key, required this.value, required this.unit});
 
   @override
   Widget build(BuildContext context) {
@@ -19,11 +18,11 @@ class FigureUnit extends StatelessWidget {
           '$value',
           style: theme.textTheme.headline5,
         ),
-        const SizedBox(width: 2.0),
+        const SizedBox(width: 2),
         Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const SizedBox(height: 2.0),
+            const SizedBox(height: 2),
             Text(unit, style: theme.textTheme.subtitle2),
           ],
         ),

@@ -161,7 +161,7 @@ class SchoolYearManager extends WritableManager<Set<SchoolYear>>
 
       return schoolYears.isEmpty
           ? _defaultSchoolYears
-          : SplayTreeSet.from(schoolYears);
+          : SplayTreeSet.of(schoolYears);
     } on Exception {
       return _defaultSchoolYears;
     }

@@ -7,29 +7,29 @@ class Statistics extends StatelessWidget {
   final VoidCallback? onTap;
 
   const Statistics({
-    Key? key,
+    super.key,
     this.title,
     this.icon,
     this.items = const [],
     this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return Card(
       child: InkWell(
         onTap: onTap,
-        borderRadius: const BorderRadius.all(Radius.circular(4.0)),
+        borderRadius: const BorderRadius.all(Radius.circular(4)),
         child: Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.all(20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               if (icon != null || title != null)
                 _StatisticsHeading(title: title, icon: icon),
               Wrap(
-                spacing: 24.0,
-                runSpacing: 24.0,
+                spacing: 24,
+                runSpacing: 24,
                 children: items,
               ),
             ],
@@ -44,24 +44,24 @@ class _StatisticsHeading extends StatelessWidget {
   final String? title;
   final IconData? icon;
 
-  const _StatisticsHeading({Key? key, this.title, this.icon}) : super(key: key);
+  const _StatisticsHeading({super.key, this.title, this.icon});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
     return Padding(
-      padding: const EdgeInsets.only(bottom: 16.0),
+      padding: const EdgeInsets.only(bottom: 16),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         textBaseline: TextBaseline.ideographic,
         children: [
           if (icon != null)
             Padding(
-              padding: const EdgeInsets.only(right: 8.0),
+              padding: const EdgeInsets.only(right: 8),
               child: Icon(
                 icon,
-                size: 18.0,
+                size: 18,
                 color: theme.hintColor,
               ),
             ),

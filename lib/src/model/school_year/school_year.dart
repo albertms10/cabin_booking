@@ -13,25 +13,21 @@ class SchoolYear extends DateRangeItem {
   late Set<Holiday> holidays;
 
   SchoolYear({
-    String? id,
-    DateTime? startDate,
-    DateTime? endDate,
+    super.id,
+    super.startDate,
+    super.endDate,
     Set<Holiday>? holidays,
-  }) : super(
-          id: id,
-          startDate: startDate,
-          endDate: endDate,
-        ) {
+  }) {
     this.holidays = holidays ?? SplayTreeSet();
   }
 
-  SchoolYear.from(Map<String, dynamic> other)
-      : holidays = SplayTreeSet.from(
+  SchoolYear.from(super.other)
+      : holidays = SplayTreeSet.of(
           (other[_JsonFields.holidays] as List<dynamic>)
               .cast<Map<String, dynamic>>()
               .map<Holiday>(Holiday.from),
         ),
-        super.from(other);
+        super.from();
 
   @override
   Map<String, dynamic> toJson() => {

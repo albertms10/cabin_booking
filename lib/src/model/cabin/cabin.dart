@@ -23,20 +23,19 @@ class Cabin extends Item {
   final BookingManager _bookingManager;
 
   Cabin({
-    String? id,
+    super.id,
     this.number = 0,
     CabinElements? elements,
     Set<Booking>? bookings,
     Set<RecurringBooking>? recurringBookings,
-  })  : _bookingManager = BookingManager(
+  }) : _bookingManager = BookingManager(
           bookings: bookings,
           recurringBookings: recurringBookings,
-        ),
-        super(id: id) {
+        ) {
     this.elements = elements ?? CabinElements();
   }
 
-  Cabin.from(Map<String, dynamic> other)
+  Cabin.from(super.other)
       : number = other[_JsonFields.number] as int,
         elements = CabinElements.from(
           other[_JsonFields.elements] as Map<String, dynamic>,
@@ -46,7 +45,7 @@ class Cabin extends Item {
           recurringBookings:
               other[_JsonFields.recurringBookings] as List<dynamic>,
         ),
-        super.from(other);
+        super.from();
 
   @override
   Map<String, dynamic> toJson() => {

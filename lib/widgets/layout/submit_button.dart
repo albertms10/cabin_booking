@@ -5,8 +5,7 @@ class SubmitButton extends StatelessWidget {
   final bool shouldAdd;
   final VoidCallback? onPressed;
 
-  const SubmitButton({Key? key, this.shouldAdd = false, this.onPressed})
-      : super(key: key);
+  const SubmitButton({super.key, this.shouldAdd = false, this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +15,7 @@ class SubmitButton extends StatelessWidget {
         onPressed: onPressed,
         icon: shouldAdd ? const Icon(Icons.add) : const Icon(Icons.check),
         label: Container(
-          margin: const EdgeInsets.symmetric(vertical: 12.0),
+          margin: const EdgeInsets.symmetric(vertical: 12),
           child: Text(
             shouldAdd
                 ? AppLocalizations.of(context)!.add.toUpperCase()

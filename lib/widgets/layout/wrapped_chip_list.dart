@@ -8,11 +8,11 @@ class WrappedChipList<T> extends StatelessWidget {
   final int? maxChips;
 
   const WrappedChipList({
-    Key? key,
+    super.key,
     required this.items,
     required this.labelBuilder,
     this.maxChips,
-  }) : super(key: key);
+  });
 
   int get maxShown =>
       maxChips == null ? items.length : min(maxChips!, items.length);
@@ -20,8 +20,8 @@ class WrappedChipList<T> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Wrap(
-      spacing: 8.0,
-      runSpacing: 6.0,
+      spacing: 8,
+      runSpacing: 6,
       children: [
         for (var i = 0; i < maxShown; i++)
           Chip(
