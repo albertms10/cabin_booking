@@ -9,7 +9,7 @@ extension ColorExtension on Color {
     required int samples,
     double minOpacity = 0.2,
   }) {
-    assert(samples > 0);
+    assert(samples > 0, 'samples must be greater than zero.');
 
     final colorMap = SplayTreeMap<int, Color>.from({
       1: withOpacity(minOpacity),

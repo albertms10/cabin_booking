@@ -87,7 +87,7 @@ DateTime safeAdd(DateTime dateTime, Duration duration) {
 /// Creates a list of [DateTime], including all days
 /// between [startDate] and [finishDate]
 List<DateTime> datesBetween(DateTime startDate, DateTime finishDate) {
-  assert(startDate.isBefore(finishDate));
+  assert(finishDate.isAfter(startDate), 'finishDate must be after startDate.');
 
   final datesList = <DateTime>[];
   var aux = startDate;
