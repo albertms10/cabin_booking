@@ -6,10 +6,10 @@ class BookingPreviewPanelRow extends StatelessWidget {
   final Widget? child;
 
   const BookingPreviewPanelRow({
-    Key? key,
+    super.key,
     this.trailing,
     this.child,
-  }) : super(key: key);
+  });
 
   const factory BookingPreviewPanelRow.headline({
     Key? key,
@@ -33,11 +33,11 @@ class _BookingPreviewPanelRowHeadline extends BookingPreviewPanelRow {
   final String headline;
 
   const _BookingPreviewPanelRowHeadline({
-    Key? key,
-    Widget? trailing,
+    super.key,
+    super.trailing,
     required this.headline,
     Widget? description,
-  }) : super(key: key, trailing: trailing, child: description);
+  }) : super(child: description);
 
   @override
   Widget build(BuildContext context) {
@@ -84,10 +84,10 @@ class _BookingPreviewPanelRowTrailing extends StatelessWidget {
   final Widget? child;
 
   const _BookingPreviewPanelRowTrailing({
-    Key? key,
+    super.key,
     this.iconSize = 20.0,
     this.child,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

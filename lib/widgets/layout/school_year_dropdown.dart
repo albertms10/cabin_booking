@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class SchoolYearDropdown extends StatefulWidget {
-  const SchoolYearDropdown({Key? key}) : super(key: key);
+  const SchoolYearDropdown({super.key});
 
   @override
   _SchoolYearDropdownState createState() => _SchoolYearDropdownState();

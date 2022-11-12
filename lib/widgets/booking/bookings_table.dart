@@ -15,13 +15,13 @@ class BookingsTable extends StatelessWidget {
   final SetPreventTimeTableScroll? setPreventTimeTableScroll;
 
   const BookingsTable({
-    Key? key,
+    super.key,
     required this.cabins,
     required this.dateTime,
     this.showPreviewPanel,
     required this.stackWidth,
     this.setPreventTimeTableScroll,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

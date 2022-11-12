@@ -9,12 +9,12 @@ class DetailedFigure<T> extends StatelessWidget {
   final String? tooltipMessage;
 
   const DetailedFigure({
-    Key? key,
+    super.key,
     required this.figure,
     this.details = const [],
     this.detailsSeparator,
     this.tooltipMessage,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

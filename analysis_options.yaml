@@ -121,3 +121,4 @@ analyzer:
     prefer_int_literals: ignore
     public_member_api_docs: ignore
     sort_constructors_first: ignore
+    unused_element: ignore

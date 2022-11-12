@@ -5,8 +5,7 @@ class SubmitButton extends StatelessWidget {
   final bool shouldAdd;
   final VoidCallback? onPressed;
 
-  const SubmitButton({Key? key, this.shouldAdd = false, this.onPressed})
-      : super(key: key);
+  const SubmitButton({super.key, this.shouldAdd = false, this.onPressed});
 
   @override
   Widget build(BuildContext context) {

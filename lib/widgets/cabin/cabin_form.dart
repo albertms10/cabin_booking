@@ -11,10 +11,10 @@ class CabinForm extends StatefulWidget {
   final int? newCabinNumber;
 
   const CabinForm({
-    Key? key,
+    super.key,
     required this.cabin,
     this.newCabinNumber,
-  }) : super(key: key);
+  });
 
   @override
   _CabinFormState createState() => _CabinFormState();

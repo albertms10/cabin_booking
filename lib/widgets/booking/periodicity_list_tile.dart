@@ -7,10 +7,10 @@ class PeriodicityListTile extends StatelessWidget {
   final void Function(Periodicity?)? onChanged;
 
   const PeriodicityListTile({
-    Key? key,
+    super.key,
     required this.value,
     this.onChanged,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

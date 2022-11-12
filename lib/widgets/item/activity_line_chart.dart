@@ -11,11 +11,11 @@ class ActivityLineChart extends StatelessWidget {
   final String? tooltipMessage;
 
   const ActivityLineChart({
-    Key? key,
+    super.key,
     this.occupiedDurationPerWeek = const {},
     required this.dateRange,
     this.tooltipMessage,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

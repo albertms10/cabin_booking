@@ -17,20 +17,19 @@ class DateRangeItem extends Item with DateRanger {
   DateTime? startDate;
 
   DateRangeItem({
-    String? id,
+    super.id,
     DateTime? startDate,
     DateTime? endDate,
-  })  : assert(
+  }) : assert(
           startDate == null || endDate == null || endDate.isAfter(startDate),
-        ),
-        super(id: id) {
+        ) {
     endDate ??= startDate;
   }
 
-  DateRangeItem.from(Map<String, dynamic> other)
+  DateRangeItem.from(super.other)
       : startDate = DateTime.tryParse(other[_JsonFields.startDate] as String),
         endDate = DateTime.tryParse(other[_JsonFields.endDate] as String),
-        super.from(other);
+        super.from();
 
   @override
   Map<String, dynamic> toJson() => {

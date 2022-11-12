@@ -7,11 +7,11 @@ class AnimatedFloatingButtonLabel extends AnimatedWidget {
   final Animation<double> animation;
 
   const AnimatedFloatingButtonLabel({
-    Key? key,
+    super.key,
     this.label,
     required this.tween,
     required this.animation,
-  }) : super(key: key, listenable: animation);
+  }) : super(listenable: animation);
 
   @override
   Widget build(BuildContext context) {

@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 class MainDataLoader extends StatefulWidget {
   final Widget child;
 
-  const MainDataLoader({Key? key, required this.child}) : super(key: key);
+  const MainDataLoader({super.key, required this.child});
 
   @override
   _MainDataLoaderState createState() => _MainDataLoaderState();

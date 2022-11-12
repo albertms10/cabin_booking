@@ -21,7 +21,7 @@ class AnimatedFloatingButton extends StatelessWidget {
   final Widget? child;
 
   const AnimatedFloatingButton({
-    Key? key,
+    super.key,
     this.visible = true,
     required this.tween,
     required this.animation,
@@ -38,7 +38,7 @@ class AnimatedFloatingButton extends StatelessWidget {
     this.onLongPress,
     this.animationSpeed = 150,
     this.child,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

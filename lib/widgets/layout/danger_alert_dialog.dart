@@ -7,12 +7,12 @@ class DangerAlertDialog extends StatelessWidget {
   final String? okText;
 
   const DangerAlertDialog({
-    Key? key,
+    super.key,
     required this.title,
     required this.content,
     this.cancelText,
     this.okText,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

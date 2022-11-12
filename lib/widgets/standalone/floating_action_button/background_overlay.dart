@@ -5,17 +5,17 @@ class BackgroundOverlay extends AnimatedWidget {
   final double opacity;
 
   const BackgroundOverlay({
-    Key? key,
+    super.key,
     required Animation<double> animation,
     this.color,
     this.opacity = 0.9,
-  }) : super(key: key, listenable: animation);
+  }) : super(listenable: animation);
 
   @override
   Widget build(BuildContext context) {
     final animation = listenable as Animation<double>;
 
-    return Container(
+    return ColoredBox(
       color: (color ?? Theme.of(context).scaffoldBackgroundColor)
           .withOpacity(animation.value * opacity),
     );

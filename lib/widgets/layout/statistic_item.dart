@@ -5,10 +5,10 @@ class StatisticItem extends StatelessWidget {
   final Widget item;
 
   const StatisticItem({
-    Key? key,
+    super.key,
     this.label,
     required this.item,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
