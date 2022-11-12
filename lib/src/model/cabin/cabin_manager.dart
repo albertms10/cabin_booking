@@ -369,7 +369,7 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
 
       final cabins = _parseCabins(content);
 
-      return cabins.isEmpty ? _defaultCabins : SplayTreeSet.from(cabins);
+      return cabins.isEmpty ? _defaultCabins : SplayTreeSet.of(cabins);
     } on Exception {
       return _defaultCabins;
     }
