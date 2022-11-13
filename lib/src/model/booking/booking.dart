@@ -1,7 +1,4 @@
-import 'package:cabin_booking/constants.dart';
-import 'package:cabin_booking/utils/app_localizations_extension.dart';
 import 'package:cabin_booking/utils/date_time_extension.dart';
-import 'package:cabin_booking/utils/iterable_string_extension.dart';
 import 'package:cabin_booking/utils/time_of_day_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -156,85 +153,6 @@ class Booking extends Item {
   @override
   int compareTo(covariant Booking other) =>
       startDateTime.compareTo(other.startDateTime);
-
-  static List<RegExp> tokenExpressions(AppLocalizations appLocalizations) => [
-        RegExp('(?<startTime>$timeExpression)'),
-        RegExp(
-          '(?<startTime>$timeExpression)(?:.*?)(?<endTime>$timeExpression)',
-          dotAll: true,
-        ),
-        RegExp(
-          r'(?<durationValue1>\d+)\W*'
-          '(?<durationUnit1>${appLocalizations.timeUnits.union})',
-          caseSensitive: false,
-        ),
-        RegExp(
-          r'(?<durationValue1>\d+)\W*'
-          '(?<durationUnit1>${appLocalizations.timeUnits.union})'
-          r'(:?.*?)(?<durationValue2>\d+)\W*'
-          '(?<durationUnit2>${appLocalizations.timeUnits.union})',
-          dotAll: true,
-          caseSensitive: false,
-        ),
-        RegExp(
-          '(?<relativeDay>${appLocalizations.relativeDays.union})',
-          caseSensitive: false,
-        ),
-        // DateTime.
-      ];
-
-  factory Booking.fromTokens(
-    Map<String, String?> tokens,
-    AppLocalizations appLocalizations,
-  ) {
-    var startTime = TimeOfDayExtension.tryParse(tokens['startTime'] ?? '');
-
-    TimeOfDay? endTime;
-    if (tokens['endTime'] != null) {
-      endTime = TimeOfDayExtension.tryParse(tokens['endTime'] ?? '');
-    } else {
-      // `endTime` will be non-null only if `startTime` is provided.
-      final durationValue1 = int.tryParse(tokens['durationValue1'] ?? '');
-
-      final duration1 =
-          appLocalizations.minuteUnits.contains(tokens['durationUnit1'])
-              ? Duration(minutes: durationValue1 ?? 0)
-              : Duration(hours: durationValue1 ?? 0);
-
-      final durationValue2 = int.tryParse(tokens['durationValue2'] ?? '');
-
-      final duration2 =
-          appLocalizations.minuteUnits.contains(tokens['durationUnit2'])
-              ? Duration(minutes: durationValue2 ?? 0)
-              : Duration(hours: durationValue2 ?? 0);
-
-      final duration = duration1 + duration2;
-      endTime = startTime?.increment(
-        minutes:
-            (duration.inMinutes > 0 ? duration : defaultSlotDuration).inMinutes,
-      );
-
-      // Limit maximum endTime to 23:59.
-      if (startTime != null && endTime != null) {
-        if (endTime.difference(startTime).isNegative) {
-          endTime = const TimeOfDay(hour: 23, minute: 59);
-        }
-      }
-    }
-
-    final now = DateTime.now();
-    if (startTime == null || endTime == null) {
-      final nearestTimeOfDay = TimeOfDay.fromDateTime(now).roundToNearest(15);
-      startTime = nearestTimeOfDay;
-      endTime = nearestTimeOfDay.increment(hours: defaultSlotDuration.inHours);
-    }
-
-    return Booking(
-      date: now.dateOnly,
-      startTime: startTime,
-      endTime: endTime,
-    );
-  }
 }
 
 enum BookingStatus { pending, confirmed, cancelled }

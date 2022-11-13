@@ -35,20 +35,21 @@ class _JumpBarState extends State<JumpBar> {
   void _handleInputChange() {
     final appLocalizations = AppLocalizations.of(context)!;
 
+    // Cabin.
     final cabinTokens =
-        _controller.text.tokenize(Cabin.tokenExpressions(appLocalizations));
+        _controller.text.tokenize(TokenizedCabin.expressions(appLocalizations));
     final cabin = Provider.of<CabinManager>(context, listen: false)
-        .findCabinFromTokens(cabinTokens);
+        .findCabinFromTokenized(TokenizedCabin.fromTokens(cabinTokens));
 
-    final bookingTokens = {
-      ..._controller.text.tokenize(Booking.tokenExpressions(appLocalizations)),
-      ..._controller.text
-          .tokenize(RecurringBooking.tokenExpressions(appLocalizations)),
-    };
+    // Booking.
+    final bookingTokens = _controller.text
+        .tokenize(TokenizedBooking.expressions(appLocalizations));
+    final booking = TokenizedBooking.fromTokens(bookingTokens)
+        .toBooking(appLocalizations)
+        .copyWith(cabinId: cabin?.id);
 
     setState(() {
-      _suggestedBooking = Booking.fromTokens(bookingTokens, appLocalizations)
-          .copyWith(cabinId: cabin?.id);
+      _suggestedBooking = booking;
     });
   }
 

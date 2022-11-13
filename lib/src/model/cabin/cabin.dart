@@ -1,7 +1,4 @@
-import 'package:cabin_booking/utils/app_localizations_extension.dart';
-import 'package:cabin_booking/utils/iterable_string_extension.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../booking/booking.dart';
 import '../booking/booking_manager.dart';
@@ -178,12 +175,4 @@ class Cabin extends Item {
 
   @override
   int compareTo(covariant Cabin other) => number.compareTo(other.number);
-
-  static List<RegExp> tokenExpressions(AppLocalizations appLocalizations) => [
-        RegExp(
-          '(?:${appLocalizations.cabinTerms.union})'
-          r'\W*(?<cabinNumber>\d+)',
-          caseSensitive: false,
-        ),
-      ];
 }

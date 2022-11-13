@@ -12,6 +12,7 @@ import '../date/date_range.dart';
 import '../file/file_manager.dart';
 import '../file/writable_manager.dart';
 import 'cabin.dart';
+import 'tokenized_cabin.dart';
 
 Iterable<Cabin> _parseCabins(String jsonString) =>
     (json.decode(jsonString) as List<dynamic>)
@@ -364,8 +365,8 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
     if (notify) notifyListeners();
   }
 
-  Cabin? findCabinFromTokens(Map<String, String?> tokens) {
-    final cabinNumber = int.tryParse(tokens['cabinNumber'] ?? '');
+  Cabin? findCabinFromTokenized(TokenizedCabin tokenized) {
+    final cabinNumber = int.tryParse(tokenized.cabinNumber ?? '');
     if (cabinNumber == null) return null;
 
     return findCabinFromNumber(cabinNumber);

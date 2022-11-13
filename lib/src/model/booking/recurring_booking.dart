@@ -222,13 +222,6 @@ class RecurringBooking extends Booking {
 
   @override
   String toString() => '$occurrences × ${super.toString()}';
-
-  static List<RegExp> tokenExpressions(AppLocalizations appLocalizations) => [
-        RegExp(
-          '(?<periodicity>${appLocalizations.periodicityTerms.union})',
-          caseSensitive: false,
-        ),
-      ];
 }
 
 enum Periodicity { daily, weekly, monthly, annually }
