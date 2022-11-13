@@ -167,6 +167,23 @@ void main() {
       );
     });
 
+    group('.roundToNearest', () {
+      test('should round this TimeOfDay to the nearest n minute', () {
+        expect(
+          const TimeOfDay(hour: 9, minute: 23).roundToNearest(5),
+          const TimeOfDay(hour: 9, minute: 25),
+        );
+        expect(
+          const TimeOfDay(hour: 9, minute: 30).roundToNearest(10),
+          const TimeOfDay(hour: 9, minute: 30),
+        );
+        expect(
+          const TimeOfDay(hour: 9, minute: 53).roundToNearest(15),
+          const TimeOfDay(hour: 10, minute: 0),
+        );
+      });
+    });
+
     group('.format24Hour', () {
       test('should return a TimeOfDay in 24 hour format', () {
         expect(const TimeOfDay(hour: 0, minute: 0).format24Hour(), '00:00');

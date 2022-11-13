@@ -30,6 +30,15 @@ void main() {
       });
     });
 
+    group('.roundToNearest', () {
+      test('should round this num to the nearest n number.', () {
+        expect(17.roundToNearest(5), 15);
+        expect(18.roundToNearest(5), 20);
+        expect(30.roundToNearest(10), 30);
+        expect(101.roundToNearest(10), 100);
+      });
+    });
+
     group('.padLeft2', () {
       test(
         'should pad this [num] on the left with zeros '
