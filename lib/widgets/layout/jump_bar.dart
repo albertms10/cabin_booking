@@ -39,7 +39,6 @@ class _JumpBarState extends State<JumpBar> {
 
     final cabinTokens =
         _controller.text.tokenize(Cabin.tokenExpressions(appLocalizations));
-
     final cabin = Provider.of<CabinManager>(context, listen: false)
         .findCabinFromTokens(cabinTokens);
 

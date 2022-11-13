@@ -183,6 +183,7 @@ class Cabin extends Item {
         RegExp(
           '(?:${appLocalizations.cabinTerms.union})'
           r'\W*(?<cabinNumber>\d+)',
+          caseSensitive: false,
         ),
       ];
 }

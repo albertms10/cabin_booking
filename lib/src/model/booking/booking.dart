@@ -166,6 +166,7 @@ class Booking extends Item {
         RegExp(
           r'(?<durationValue1>\d+)\W*'
           '(?<durationUnit1>${appLocalizations.timeUnits.union})',
+          caseSensitive: false,
         ),
         RegExp(
           r'(?<durationValue1>\d+)\W*'
@@ -173,6 +174,7 @@ class Booking extends Item {
           r'(:?.*?)(?<durationValue2>\d+)\W*'
           '(?<durationUnit2>${appLocalizations.timeUnits.union})',
           dotAll: true,
+          caseSensitive: false,
         ),
         RegExp(
           '(?<relativeDay>${appLocalizations.relativeDays.union})',
