@@ -210,7 +210,7 @@ class Booking extends Item {
       final duration = duration1 + duration2;
       endTime = startTime?.increment(
         minutes:
-            (duration.inMinutes > 0 ? duration : kMaxSlotDuration).inMinutes,
+            (duration.inMinutes > 0 ? duration : defaultSlotDuration).inMinutes,
       );
 
       if (startTime != null && endTime != null) {
@@ -227,7 +227,7 @@ class Booking extends Item {
       startTime: startTime ?? TimeOfDay.fromDateTime(date),
       endTime: endTime ??
           TimeOfDay.fromDateTime(date)
-              .increment(hours: kMaxSlotDuration.inHours),
+              .increment(hours: defaultSlotDuration.inHours),
     );
   }
 }
