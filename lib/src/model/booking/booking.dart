@@ -203,21 +203,31 @@ class Booking extends Item {
 
     final startTime = TimeOfDayExtension.tryParse(tokens['startTime'] ?? '');
 
-    var endTime = startTime?.increment(
-      minutes: duration1.inMinutes + duration2.inMinutes,
-    );
+    TimeOfDay? endTime;
+    if (tokens['endTime'] != null) {
+      endTime = TimeOfDayExtension.tryParse(tokens['endTime'] ?? '');
+    } else {
+      final duration = duration1 + duration2;
+      endTime = startTime?.increment(
+        minutes:
+            (duration.inMinutes > 0 ? duration : kMaxSlotDuration).inMinutes,
+      );
 
-    if (startTime != null && endTime != null) {
-      if (endTime.difference(startTime).isNegative) {
-        print('negative');
-        endTime = const TimeOfDay(hour: 23, minute: 59);
+      if (startTime != null && endTime != null) {
+        if (endTime.difference(startTime).isNegative) {
+          endTime = const TimeOfDay(hour: 23, minute: 59);
+        }
       }
     }
 
+    final date = DateTime.now();
+
     return Booking(
-      date: DateTime.now(),
-      startTime: startTime,
-      endTime: TimeOfDayExtension.tryParse(tokens['endTime'] ?? '') ?? endTime,
+      date: date,
+      startTime: startTime ?? TimeOfDay.fromDateTime(date),
+      endTime: endTime ??
+          TimeOfDay.fromDateTime(date)
+              .increment(hours: kMaxSlotDuration.inHours),
     );
   }
 }
