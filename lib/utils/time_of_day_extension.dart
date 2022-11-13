@@ -65,7 +65,7 @@ extension TimeOfDayExtension on TimeOfDay {
     final hoursDelta = (totalMinutes / TimeOfDay.minutesPerHour).floor();
     final totalHours = hour + hours + hoursDelta;
 
-    return replacing(
+    return TimeOfDay(
       hour: totalHours % TimeOfDay.hoursPerDay,
       minute: totalMinutes % TimeOfDay.minutesPerHour,
     );
@@ -101,7 +101,7 @@ extension TimeOfDayExtension on TimeOfDay {
   TimeOfDay roundToNearest(int n) {
     final roundedMinute = minute.roundToNearest(n);
 
-    return replacing(
+    return TimeOfDay(
       hour: roundedMinute >= TimeOfDay.minutesPerHour ? hour + 1 : hour,
       minute: roundedMinute >= TimeOfDay.minutesPerHour ? 0 : roundedMinute,
     );
