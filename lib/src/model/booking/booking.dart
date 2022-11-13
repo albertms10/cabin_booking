@@ -187,7 +187,7 @@ class Booking extends Item {
     Map<String, String?> tokens,
     AppLocalizations appLocalizations,
   ) {
-    final startTime = TimeOfDayExtension.tryParse(tokens['startTime'] ?? '');
+    var startTime = TimeOfDayExtension.tryParse(tokens['startTime'] ?? '');
 
     TimeOfDay? endTime;
     if (tokens['endTime'] != null) {
@@ -223,14 +223,16 @@ class Booking extends Item {
     }
 
     final now = DateTime.now();
+    if (startTime == null || endTime == null) {
+      final nearestTimeOfDay = TimeOfDay.fromDateTime(now).roundToNearest(15);
+      startTime = nearestTimeOfDay;
+      endTime = nearestTimeOfDay.increment(hours: defaultSlotDuration.inHours);
+    }
 
     return Booking(
       date: now.dateOnly,
-      startTime: startTime ?? TimeOfDay.fromDateTime(now).roundToNearest(15),
-      endTime: endTime ??
-          TimeOfDay.fromDateTime(now)
-              .roundToNearest(15)
-              .increment(hours: defaultSlotDuration.inHours),
+      startTime: startTime,
+      endTime: endTime,
     );
   }
 }
