@@ -51,10 +51,7 @@ class BookingSearchResult extends StatelessWidget {
                     ? DateFormat.Hm().format(dateRange.endDate!)
                     : null;
 
-                return [
-                  startDate,
-                  endDate,
-                ].whereNotNull().join('–');
+                return [startDate, endDate].whereNotNull().join('–');
               },
             ),
           ],

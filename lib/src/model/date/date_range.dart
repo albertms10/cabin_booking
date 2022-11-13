@@ -7,12 +7,10 @@ class DateRange with DateRanger {
   @override
   DateTime? endDate;
 
-  DateRange({this.startDate, this.endDate}) {
-    if (startDate != null && endDate != null && endDate!.isBefore(startDate!)) {
-      endDate = startDate;
+  DateRange({this.startDate, DateTime? endDate}) {
+    if (startDate != null && endDate != null && !endDate.isBefore(startDate!)) {
+      this.endDate = endDate;
     }
-
-    endDate ??= startDate;
   }
 
   DateRange copyWith({
