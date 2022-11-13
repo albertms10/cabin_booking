@@ -1,4 +1,4 @@
-import 'package:cabin_booking/widgets/layout/jump_bar.dart';
+import 'package:cabin_booking/widgets/jump_bar/jump_bar.dart';
 import 'package:flutter/material.dart';
 
 /// An intent that is bound to [ShowSearchBarAction] to show the search bar in
