@@ -193,6 +193,7 @@ class Booking extends Item {
     if (tokens['endTime'] != null) {
       endTime = TimeOfDayExtension.tryParse(tokens['endTime'] ?? '');
     } else {
+      // `endTime` will be non-null only if `startTime` is provided.
       final durationValue1 = int.tryParse(tokens['durationValue1'] ?? '');
 
       final duration1 =
@@ -225,9 +226,10 @@ class Booking extends Item {
 
     return Booking(
       date: now.dateOnly,
-      startTime: startTime ?? TimeOfDay.fromDateTime(now),
+      startTime: startTime ?? TimeOfDay.fromDateTime(now).roundToNearest(15),
       endTime: endTime ??
           TimeOfDay.fromDateTime(now)
+              .roundToNearest(15)
               .increment(hours: defaultSlotDuration.inHours),
     );
   }
