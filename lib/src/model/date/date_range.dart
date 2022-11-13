@@ -7,16 +7,11 @@ class DateRange with DateRanger {
   @override
   DateTime? endDate;
 
-  DateRange({
-    this.startDate,
-    this.endDate,
-  }) : assert(
-          startDate == null ||
-              endDate == null ||
-              endDate.isAfter(startDate) ||
-              endDate.isAtSameMomentAs(startDate),
-          'endDate must be at the same moment or after startDate.',
-        ) {
+  DateRange({this.startDate, this.endDate}) {
+    if (startDate != null && endDate != null && endDate!.isBefore(startDate!)) {
+      endDate = startDate;
+    }
+
     endDate ??= startDate;
   }
 
