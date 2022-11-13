@@ -187,32 +187,33 @@ class Booking extends Item {
     Map<String, String?> tokens,
     AppLocalizations appLocalizations,
   ) {
-    final durationValue1 = int.tryParse(tokens['durationValue1'] ?? '');
-
-    final duration1 =
-        appLocalizations.minuteUnits.contains(tokens['durationUnit1'])
-            ? Duration(minutes: durationValue1 ?? 0)
-            : Duration(hours: durationValue1 ?? 0);
-
-    final durationValue2 = int.tryParse(tokens['durationValue2'] ?? '');
-
-    final duration2 =
-        appLocalizations.minuteUnits.contains(tokens['durationUnit2'])
-            ? Duration(minutes: durationValue2 ?? 0)
-            : Duration(hours: durationValue2 ?? 0);
-
     final startTime = TimeOfDayExtension.tryParse(tokens['startTime'] ?? '');
 
     TimeOfDay? endTime;
     if (tokens['endTime'] != null) {
       endTime = TimeOfDayExtension.tryParse(tokens['endTime'] ?? '');
     } else {
+      final durationValue1 = int.tryParse(tokens['durationValue1'] ?? '');
+
+      final duration1 =
+          appLocalizations.minuteUnits.contains(tokens['durationUnit1'])
+              ? Duration(minutes: durationValue1 ?? 0)
+              : Duration(hours: durationValue1 ?? 0);
+
+      final durationValue2 = int.tryParse(tokens['durationValue2'] ?? '');
+
+      final duration2 =
+          appLocalizations.minuteUnits.contains(tokens['durationUnit2'])
+              ? Duration(minutes: durationValue2 ?? 0)
+              : Duration(hours: durationValue2 ?? 0);
+
       final duration = duration1 + duration2;
       endTime = startTime?.increment(
         minutes:
             (duration.inMinutes > 0 ? duration : defaultSlotDuration).inMinutes,
       );
 
+      // Limit maximum endTime to 23:59.
       if (startTime != null && endTime != null) {
         if (endTime.difference(startTime).isNegative) {
           endTime = const TimeOfDay(hour: 23, minute: 59);
@@ -220,13 +221,13 @@ class Booking extends Item {
       }
     }
 
-    final date = DateTime.now();
+    final now = DateTime.now();
 
     return Booking(
-      date: date,
-      startTime: startTime ?? TimeOfDay.fromDateTime(date),
+      date: now.dateOnly,
+      startTime: startTime ?? TimeOfDay.fromDateTime(now),
       endTime: endTime ??
-          TimeOfDay.fromDateTime(date)
+          TimeOfDay.fromDateTime(now)
               .increment(hours: defaultSlotDuration.inHours),
     );
   }
