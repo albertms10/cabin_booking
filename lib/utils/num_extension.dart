@@ -39,6 +39,18 @@ extension NumExtension on num {
   /// ```
   num weekdayMod([num shift = 0]) => mod(DateTime.daysPerWeek, shift);
 
+  /// Rounds this [num] rounded to the nearest [n] number.
+  ///
+  /// Examples:
+  ///
+  /// ```dart
+  /// assert(17.roundToNearest(5) == 15);
+  /// assert(18.roundToNearest(5) == 20);
+  /// assert(30.roundToNearest(15) == 30);
+  /// assert(101.roundToNearest(10) == 100);
+  /// ```
+  int roundToNearest(int n) => (this / n).round() * n;
+
   /// Pads this [num] on the left with zeros if it is shorter than 2.
   ///
   /// ---

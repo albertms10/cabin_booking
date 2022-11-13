@@ -65,7 +65,7 @@ extension TimeOfDayExtension on TimeOfDay {
     final hoursDelta = (totalMinutes / TimeOfDay.minutesPerHour).floor();
     final totalHours = hour + hours + hoursDelta;
 
-    return replacing(
+    return TimeOfDay(
       hour: totalHours % TimeOfDay.hoursPerDay,
       minute: totalMinutes % TimeOfDay.minutesPerHour,
     );
@@ -87,6 +87,25 @@ extension TimeOfDayExtension on TimeOfDay {
         hours: hour - other.hour,
         minutes: minute - other.minute,
       );
+
+  /// Returns this [TimeOfDay] rounded to the nearest [n] number of minutes.
+  ///
+  /// Examples:
+  ///
+  /// ```dart
+  /// const now = TimeOfDay(hour: 9, minute: 54);
+  /// const rounded = TimeOfDay(hour: 10, minute: 0);
+  ///
+  /// assert(now.roundToNearest(15) == rounded);
+  /// ```
+  TimeOfDay roundToNearest(int n) {
+    final roundedMinute = minute.roundToNearest(n);
+
+    return TimeOfDay(
+      hour: roundedMinute >= TimeOfDay.minutesPerHour ? hour + 1 : hour,
+      minute: roundedMinute >= TimeOfDay.minutesPerHour ? 0 : roundedMinute,
+    );
+  }
 
   /// Returns the 24-hour formatted string representation of this [TimeOfDay],
   /// separated with ':'.
