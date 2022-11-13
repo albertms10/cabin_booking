@@ -155,9 +155,15 @@ class _BookingSearchResult extends StatelessWidget {
     final cabinManager = Provider.of<CabinManager>(context);
     final appLocalizations = AppLocalizations.of(context)!;
 
-    return Row(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Column(
+        _SearchResultLabel(
+          label: booking.description,
+          placeholder: appLocalizations.description,
+        ),
+        const SizedBox(height: 4),
+        Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _SearchResultLabel(
@@ -165,14 +171,9 @@ class _BookingSearchResult extends StatelessWidget {
                   ? '${appLocalizations.cabin} '
                       '${cabinManager.cabinFromId(booking.cabinId).number}'
                   : null,
+              placeholder: appLocalizations.cabin,
             ),
-            _SearchResultLabel(label: booking.description),
-          ],
-        ),
-        const SizedBox(width: 8),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+            const SizedBox(width: 12),
             _SearchResultLabel<DateRange>(
               label: booking.date != null
                   ? DateRange(
@@ -194,7 +195,6 @@ class _BookingSearchResult extends StatelessWidget {
                 ].whereNotNull().join('–');
               },
             ),
-            const _SearchResultLabel(label: 'Sense repetició'),
           ],
         ),
       ],
