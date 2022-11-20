@@ -3,46 +3,51 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CabinIcon extends StatelessWidget {
   final int number;
-  final double? progress;
+  final double radius;
 
-  const CabinIcon({
-    super.key,
-    required this.number,
-    this.progress,
-  });
+  const CabinIcon({super.key, required this.number, this.radius = 28});
 
-  double get radius => 28;
-
-  bool get shouldShowProgress => progress != null;
+  const factory CabinIcon.progress({
+    Key? key,
+    required int number,
+    double radius,
+    required double progress,
+  }) = _ProgressCabinIcon;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    final text = Text(
-      '$number',
-      style: theme.textTheme.headline5?.copyWith(
-        color: shouldShowProgress
-            ? theme.colorScheme.secondary
-            : theme.colorScheme.onSecondary,
+    return CircleAvatar(
+      radius: radius,
+      backgroundColor: theme.colorScheme.secondary,
+      child: _CabinIconText(
+        number: number,
+        color: theme.colorScheme.onSecondary,
       ),
-      textAlign: TextAlign.center,
     );
+  }
+}
 
-    // TODO(albertms10): split Widgets in different constructors:
-    //  CabinIcon(), CabinIcon.progress().
-    if (!shouldShowProgress) {
-      return CircleAvatar(
-        radius: radius,
-        backgroundColor: theme.colorScheme.secondary,
-        child: text,
-      );
-    }
+class _ProgressCabinIcon extends CabinIcon {
+  final double progress;
 
+  const _ProgressCabinIcon({
+    super.key,
+    required super.number,
+    super.radius = 28,
+    required this.progress,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     final appLocalizations = AppLocalizations.of(context)!;
 
+    final mainColor = theme.colorScheme.secondary;
+
     return Tooltip(
-      message: appLocalizations.nPercentOccupied((progress! * 100).ceil()),
+      message: appLocalizations.nPercentOccupied((progress * 100).ceil()),
       child: Stack(
         alignment: Alignment.center,
         children: [
@@ -56,15 +61,37 @@ class CabinIcon extends StatelessWidget {
               builder: (context, value, child) {
                 return CircularProgressIndicator(
                   value: value,
-                  backgroundColor:
-                      theme.colorScheme.secondary.withOpacity(0.25),
+                  backgroundColor: mainColor.withOpacity(0.25),
                 );
               },
             ),
           ),
-          text,
+          _CabinIconText(
+            number: number,
+            color: mainColor,
+          ),
         ],
       ),
+    );
+  }
+}
+
+class _CabinIconText extends StatelessWidget {
+  final int number;
+  final Color? color;
+
+  const _CabinIconText({super.key, required this.number, this.color});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Text(
+      '$number',
+      style: theme.textTheme.headline5?.copyWith(
+        color: theme.colorScheme.onSecondary,
+      ),
+      textAlign: TextAlign.center,
     );
   }
 }
