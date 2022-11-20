@@ -55,8 +55,8 @@ class Booking extends Item {
         _JsonFields.isLocked: isLocked,
       };
 
-  /// Alias for [startDateTime].
-  DateTime? get date => startDateTime;
+  /// Date only part of [startDateTime].
+  DateTime? get date => startDateTime?.dateOnly;
 
   TimeOfDay get startTime => TimeOfDay.fromDateTime(startDateTime!.toLocal());
 
