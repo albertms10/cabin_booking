@@ -50,8 +50,8 @@ class Booking extends Item {
   Map<String, dynamic> toJson() => {
         ...super.toJson(),
         _JsonFields.description: description,
-        _JsonFields.startDateTime: startDateTime?.toUtc().toIso8601String(),
-        _JsonFields.endDateTime: endDateTime?.toUtc().toIso8601String(),
+        _JsonFields.startDateTime: startDateTime?.toIso8601String(),
+        _JsonFields.endDateTime: endDateTime?.toIso8601String(),
         _JsonFields.isLocked: isLocked,
       };
 
