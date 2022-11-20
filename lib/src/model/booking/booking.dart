@@ -155,9 +155,15 @@ class Booking extends Item {
       startDateTime.compareTo(other.startDateTime);
 }
 
-enum BookingStatus { pending, confirmed, cancelled }
+enum BookingStatus {
+  pending(icon: Icons.help_outline),
+  confirmed(icon: Icons.check),
+  cancelled(icon: Icons.clear);
 
-extension LocalizedBookingStatus on BookingStatus {
+  const BookingStatus({required this.icon});
+
+  final IconData icon;
+
   String localized(AppLocalizations appLocalizations) {
     switch (this) {
       case BookingStatus.pending:
@@ -168,9 +174,7 @@ extension LocalizedBookingStatus on BookingStatus {
         return appLocalizations.cancelled;
     }
   }
-}
 
-extension LayoutBookingStatus on BookingStatus {
   Color color(ThemeData theme) {
     switch (this) {
       case BookingStatus.pending:
@@ -181,17 +185,6 @@ extension LayoutBookingStatus on BookingStatus {
             : Colors.greenAccent;
       case BookingStatus.cancelled:
         return Colors.redAccent;
-    }
-  }
-
-  IconData get icon {
-    switch (this) {
-      case BookingStatus.pending:
-        return Icons.help_outline;
-      case BookingStatus.confirmed:
-        return Icons.check;
-      case BookingStatus.cancelled:
-        return Icons.clear;
     }
   }
 }
