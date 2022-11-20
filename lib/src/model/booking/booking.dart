@@ -8,17 +8,15 @@ import '../item.dart';
 
 abstract class _JsonFields {
   static const description = 'de';
-  static const date = 'd';
-  static const startTime = 'st';
-  static const endTime = 'et';
+  static const startDateTime = 'sd';
+  static const endDateTime = 'ed';
   static const isLocked = 'il';
 }
 
 class Booking extends Item {
   String? description;
-  DateTime? date;
-  TimeOfDay? startTime;
-  TimeOfDay? endTime;
+  DateTime? startDateTime;
+  DateTime? endDateTime;
   bool isLocked;
   String? cabinId;
 
@@ -29,9 +27,8 @@ class Booking extends Item {
   Booking({
     super.id,
     this.description,
-    this.date,
-    this.startTime,
-    this.endTime,
+    this.startDateTime,
+    this.endDateTime,
     this.isLocked = false,
     this.cabinId,
     this.recurringBookingId,
@@ -41,11 +38,11 @@ class Booking extends Item {
 
   Booking.from(super.other)
       : description = other[_JsonFields.description] as String?,
-        date = DateTime.tryParse(other[_JsonFields.date] as String),
-        startTime =
-            TimeOfDayExtension.tryParse(other[_JsonFields.startTime] as String),
-        endTime =
-            TimeOfDayExtension.tryParse(other[_JsonFields.endTime] as String),
+        startDateTime = DateTime.tryParse(
+          other[_JsonFields.startDateTime] as String? ?? '',
+        ),
+        endDateTime =
+            DateTime.tryParse(other[_JsonFields.endDateTime] as String? ?? ''),
         isLocked = other[_JsonFields.isLocked] as bool,
         super.from();
 
@@ -53,22 +50,24 @@ class Booking extends Item {
   Map<String, dynamic> toJson() => {
         ...super.toJson(),
         _JsonFields.description: description,
-        _JsonFields.date: date?.toIso8601String().split('T').first,
-        _JsonFields.startTime: startTime?.format24Hour(),
-        _JsonFields.endTime: endTime?.format24Hour(),
+        _JsonFields.startDateTime: startDateTime?.toIso8601String(),
+        _JsonFields.endDateTime: endDateTime?.toIso8601String(),
         _JsonFields.isLocked: isLocked,
       };
 
-  DateTime get startDateTime => date!.addTimeOfDay(startTime);
+  /// Alias for [startDateTime].
+  DateTime? get date => startDateTime;
 
-  DateTime get endDateTime => date!.addTimeOfDay(endTime);
+  TimeOfDay get startTime => TimeOfDay.fromDateTime(startDateTime!);
 
-  Duration get duration => endDateTime.difference(startDateTime);
+  TimeOfDay get endTime => TimeOfDay.fromDateTime(endDateTime!);
+
+  Duration get duration => endDateTime!.difference(startDateTime!);
 
   Map<TimeOfDay, Duration> get hoursSpan {
     final timeRanges = <TimeOfDay, Duration>{};
 
-    var runTime = startTime!;
+    var runTime = startTime;
     var runDuration = Duration.zero;
 
     while (runDuration < duration) {
@@ -78,7 +77,7 @@ class Booking extends Item {
       );
 
       final nextTime =
-          endTime!.difference(nextHour).isNegative ? endTime! : nextHour;
+          endTime.difference(nextHour).isNegative ? endTime : nextHour;
       final currentDuration = nextTime.difference(runTime);
 
       runDuration += currentDuration;
@@ -93,35 +92,35 @@ class Booking extends Item {
     return timeRanges;
   }
 
-  String get timeRange => '${startTime?.format24Hour()}'
-      '–${endTime?.format24Hour()}';
+  String get timeRange => '${startTime.format24Hour()}'
+      '–${endTime.format24Hour()}';
 
-  String get dateTimeRange => '${DateFormat.yMd().format(date!)} $timeRange';
+  String get dateTimeRange =>
+      '${DateFormat.yMd().format(startDateTime!)} $timeRange';
 
-  bool isOn(DateTime dateTime) => date?.isSameDateAs(dateTime) ?? false;
+  bool isOn(DateTime dateTime) =>
+      startDateTime?.isSameDateAs(dateTime) ?? false;
 
-  bool isBetween(DateRanger dateRange) => dateRange.includes(startDateTime);
+  bool isBetween(DateRanger dateRange) => dateRange.includes(startDateTime!);
 
   bool collidesWith(Booking booking) =>
-      startDateTime.isBefore(booking.endDateTime) &&
-      endDateTime.isAfter(booking.startDateTime);
+      startDateTime!.isBefore(booking.endDateTime!) &&
+      endDateTime!.isAfter(booking.startDateTime!);
 
   @override
   Booking copyWith({
     String? id,
     String? description,
-    DateTime? date,
-    TimeOfDay? startTime,
-    TimeOfDay? endTime,
+    DateTime? startDateTime,
+    DateTime? endDateTime,
     bool? isLocked,
     String? cabinId,
   }) =>
       Booking(
         id: id ?? this.id,
         description: description ?? this.description,
-        date: date ?? this.date,
-        startTime: startTime ?? this.startTime,
-        endTime: endTime ?? this.endTime,
+        startDateTime: startDateTime ?? this.startDateTime,
+        endDateTime: endDateTime ?? this.endDateTime,
         isLocked: isLocked ?? this.isLocked,
         cabinId: cabinId ?? this.cabinId,
       );
@@ -129,9 +128,8 @@ class Booking extends Item {
   @override
   void replaceWith(covariant Booking item) {
     description = item.description;
-    date = item.date;
-    startTime = item.startTime;
-    endTime = item.endTime;
+    startDateTime = item.startDateTime;
+    endDateTime = item.endDateTime;
     isLocked = item.isLocked;
 
     super.replaceWith(item);
@@ -143,5 +141,5 @@ class Booking extends Item {
 
   @override
   int compareTo(covariant Booking other) =>
-      startDateTime.compareTo(other.startDateTime);
+      startDateTime!.compareTo(other.startDateTime!);
 }

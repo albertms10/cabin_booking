@@ -141,7 +141,8 @@ class _BookingFormState extends State<BookingForm> {
                           return appLocalizations.enterStartTime;
                         }
 
-                        _booking.startTime = parsedTimeOfDay;
+                        _booking.startDateTime = _booking.startDateTime!
+                            .addTimeOfDay(parsedTimeOfDay);
 
                         if (_startTime != parsedTimeOfDay) {
                           _startTime = parsedTimeOfDay;
@@ -187,8 +188,11 @@ class _BookingFormState extends State<BookingForm> {
                         });
                       },
                       onSaved: (value) {
-                        _booking.startTime =
+                        final timeOfDay =
                             TimeOfDayExtension.tryParse(value ?? '');
+                        if (timeOfDay == null) return;
+                        _booking.startDateTime =
+                            _booking.startDateTime!.addTimeOfDay(timeOfDay);
                       },
                       decoration: InputDecoration(
                         labelText: appLocalizations.start,
@@ -218,7 +222,8 @@ class _BookingFormState extends State<BookingForm> {
                           return appLocalizations.enterEndTime;
                         }
 
-                        _booking.endTime = parsedTimeOfDay;
+                        _booking.endDateTime =
+                            _booking.endDateTime!.addTimeOfDay(parsedTimeOfDay);
 
                         if (_endTime != parsedTimeOfDay) {
                           _endTime = parsedTimeOfDay;
@@ -264,8 +269,11 @@ class _BookingFormState extends State<BookingForm> {
                         });
                       },
                       onSaved: (value) {
-                        _booking.endTime =
+                        final timeOfDay =
                             TimeOfDayExtension.tryParse(value ?? '');
+                        if (timeOfDay == null) return;
+                        _booking.endDateTime =
+                            _booking.endDateTime!.addTimeOfDay(timeOfDay);
                       },
                       decoration: InputDecoration(
                         labelText: appLocalizations.end,

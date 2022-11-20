@@ -2,6 +2,7 @@ import 'package:cabin_booking/constants.dart';
 import 'package:cabin_booking/model.dart';
 import 'package:cabin_booking/utils/date_time_extension.dart';
 import 'package:cabin_booking/utils/dialog.dart';
+import 'package:cabin_booking/utils/time_of_day_extension.dart';
 import 'package:cabin_booking/widgets/standalone/floating_action_button/floating_action_button_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -33,10 +34,12 @@ class BookingFloatingActionButton extends StatelessWidget {
             showNewBookingDialog(
               context: context,
               booking: Booking(
-                date: dayHandler.dateTime.dateOnly,
-                startTime: kTimeTableStartTime,
-                endTime: kTimeTableStartTime.replacing(
-                  hour: (kTimeTableStartTime.hour + 1) % TimeOfDay.hoursPerDay,
+                startDateTime:
+                    dayHandler.dateTime.addTimeOfDay(kTimeTableStartTime),
+                endDateTime: dayHandler.dateTime.addTimeOfDay(
+                  kTimeTableStartTime.increment(
+                    minutes: defaultSlotDuration.inMinutes,
+                  ),
                 ),
                 cabinId: cabinManager.cabins.first.id,
               ),
@@ -54,11 +57,12 @@ class BookingFloatingActionButton extends StatelessWidget {
                 showNewBookingDialog(
                   context: context,
                   booking: RecurringBooking(
-                    date: dayHandler.dateTime.dateOnly,
-                    startTime: kTimeTableStartTime,
-                    endTime: kTimeTableStartTime.replacing(
-                      hour: (kTimeTableStartTime.hour + 1) %
-                          TimeOfDay.hoursPerDay,
+                    startDateTime:
+                        dayHandler.dateTime.addTimeOfDay(kTimeTableStartTime),
+                    endDateTime: dayHandler.dateTime.addTimeOfDay(
+                      kTimeTableStartTime.increment(
+                        minutes: defaultSlotDuration.inMinutes,
+                      ),
                     ),
                     occurrences: 1,
                     cabinId: cabinManager.cabins.first.id,
@@ -77,11 +81,12 @@ class BookingFloatingActionButton extends StatelessWidget {
                 showNewBookingDialog(
                   context: context,
                   booking: Booking(
-                    date: dayHandler.dateTime.dateOnly,
-                    startTime: kTimeTableStartTime,
-                    endTime: kTimeTableStartTime.replacing(
-                      hour: (kTimeTableStartTime.hour + 1) %
-                          TimeOfDay.hoursPerDay,
+                    startDateTime:
+                        dayHandler.dateTime.addTimeOfDay(kTimeTableStartTime),
+                    endDateTime: dayHandler.dateTime.addTimeOfDay(
+                      kTimeTableStartTime.increment(
+                        minutes: defaultSlotDuration.inMinutes,
+                      ),
                     ),
                     isLocked: true,
                     cabinId: cabinManager.cabins.first.id,

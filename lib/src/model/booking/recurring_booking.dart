@@ -1,5 +1,4 @@
 import 'package:collection/collection.dart' show IterableExtension;
-import 'package:flutter/material.dart';
 
 import 'booking.dart';
 
@@ -20,9 +19,8 @@ class RecurringBooking extends Booking {
   RecurringBooking({
     super.id,
     super.description,
-    super.date,
-    super.startTime,
-    super.endTime,
+    super.startDateTime,
+    super.endDateTime,
     super.isLocked,
     super.cabinId,
     this.periodicity = Periodicity.weekly,
@@ -64,9 +62,8 @@ class RecurringBooking extends Booking {
         super(
           id: booking.id,
           description: booking.description,
-          date: booking.date,
-          startTime: booking.startTime,
-          endTime: booking.endTime,
+          startDateTime: booking.startDateTime,
+          endDateTime: booking.endDateTime,
           isLocked: booking.isLocked,
           cabinId: booking.cabinId,
         );
@@ -130,9 +127,8 @@ class RecurringBooking extends Booking {
   Booking asBooking({bool linked = true}) => Booking(
         id: linked ? '$id-0' : (recurringBookingId ?? id),
         description: description,
-        date: date,
-        startTime: startTime,
-        endTime: endTime,
+        startDateTime: startDateTime,
+        endDateTime: endDateTime,
         isLocked: isLocked,
         cabinId: cabinId,
         recurringBookingId: linked ? id : null,
@@ -157,7 +153,10 @@ class RecurringBooking extends Booking {
       runDate = runDate.add(periodicityDuration);
 
       if (runDate.isBefore(recurringEndDate)) {
-        movedBooking = movedBooking.copyWith(date: runDate);
+        movedBooking = movedBooking.copyWith(
+          startDateTime: runDate,
+          endDateTime: runDate.add(duration),
+        );
         count++;
       }
     }
@@ -175,9 +174,8 @@ class RecurringBooking extends Booking {
   RecurringBooking copyWith({
     String? id,
     String? description,
-    DateTime? date,
-    TimeOfDay? startTime,
-    TimeOfDay? endTime,
+    DateTime? startDateTime,
+    DateTime? endDateTime,
     bool? isLocked,
     String? cabinId,
     Periodicity? periodicity,
@@ -188,9 +186,8 @@ class RecurringBooking extends Booking {
       RecurringBooking(
         id: id ?? this.id,
         description: description ?? this.description,
-        date: date ?? this.date,
-        startTime: startTime ?? this.startTime,
-        endTime: endTime ?? this.endTime,
+        startDateTime: startDateTime ?? this.startDateTime,
+        endDateTime: endDateTime ?? this.endDateTime,
         isLocked: isLocked ?? this.isLocked,
         cabinId: cabinId ?? this.cabinId,
         periodicity: periodicity ?? this.periodicity,

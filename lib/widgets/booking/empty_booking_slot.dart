@@ -1,6 +1,5 @@
 import 'package:cabin_booking/constants.dart';
 import 'package:cabin_booking/model.dart';
-import 'package:cabin_booking/utils/date_time_extension.dart';
 import 'package:cabin_booking/utils/dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -109,9 +108,8 @@ class _EmptyBookingSlotActionable extends StatelessWidget {
             showNewBookingDialog(
               context: context,
               booking: Booking(
-                date: startDateTime.dateOnly,
-                startTime: TimeOfDay.fromDateTime(startDateTime),
-                endTime: TimeOfDay.fromDateTime(endDateTime),
+                startDateTime: startDateTime,
+                endDateTime: endDateTime,
                 cabinId: cabin.id,
               ),
               cabinManager: cabinManager,
