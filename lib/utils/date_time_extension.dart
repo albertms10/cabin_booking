@@ -19,6 +19,17 @@ extension DateTimeExtension on DateTime {
 
   double toDouble() => millisecondsSinceEpoch / Duration.millisecondsPerDay;
 
+  /// Whether this [DateTime] refers to the same date as today.
+  bool get isToday => isSameDateAs(DateTime.now());
+
+  /// Whether this [DateTime] refers to the same date as yesterday.
+  bool get isYesterday =>
+      isSameDateAs(DateTime.now().subtract(const Duration(days: 1)));
+
+  /// Whether this [DateTime] refers to the same date as tomorrow.
+  bool get isTomorrow =>
+      isSameDateAs(DateTime.now().add(const Duration(days: 1)));
+
   String _formatRelativeDate(AppLocalizations appLocalizations) {
     final now = DateTime.now();
     if (isSameDateAs(now)) return appLocalizations.today;

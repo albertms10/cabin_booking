@@ -1,7 +1,5 @@
 import 'package:intl/intl.dart';
 
-/// The first element is an empty string,
-/// once Dart's DateTime counts months from 1 to 12
 final List<String> monthsLabels = [
   for (var i = 1; i <= DateTime.monthsPerYear; i++)
     DateFormat.MMM().format(DateTime(2020, i)),
@@ -33,11 +31,6 @@ DateTime firstDayOfCalendar(DateTime day, int columnsAmount) {
     day,
     Duration(days: DateTime.daysPerWeek * (columnsAmount - 1)),
   );
-}
-
-/// Sets a DateTime hours/minutes/seconds/microseconds/milliseconds to 0.
-DateTime removeTime(DateTime dateTime) {
-  return DateTime(dateTime.year, dateTime.month, dateTime.day);
 }
 
 /// Returns date without timezone info (UTC format).
@@ -99,6 +92,3 @@ List<DateTime> datesBetween(DateTime startDate, DateTime finishDate) {
 
   return datesList;
 }
-
-bool isOnSameDay(DateTime a, DateTime b) =>
-    a.year == b.year && a.month == b.month && a.day == b.day;
