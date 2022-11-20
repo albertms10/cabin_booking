@@ -43,9 +43,9 @@ class BookingsStack extends StatelessWidget {
       final isLast = i == bookings.length - 1;
 
       var currentBookingDate =
-          isFirst ? startDateTime : bookings.elementAt(i).endDateTime;
+          isFirst ? startDateTime : bookings.elementAt(i).endDateTime!;
       var nextBookingDateTime =
-          isLast ? endDateTime : bookings.elementAt(i + 1).startDateTime;
+          isLast ? endDateTime : bookings.elementAt(i + 1).startDateTime!;
 
       final duration = nextBookingDateTime.difference(currentBookingDate);
 

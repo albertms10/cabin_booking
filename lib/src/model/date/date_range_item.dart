@@ -66,6 +66,9 @@ class DateRangeItem extends Item with DateRanger {
   int get hashCode => Object.hash(startDate, endDate);
 
   @override
-  int compareTo(covariant DateRangeItem other) =>
-      startDate!.compareTo(other.startDate!);
+  int compareTo(covariant DateRangeItem other) {
+    if (startDate == null || other.startDate == null) return 0;
+
+    return startDate!.compareTo(other.startDate!);
+  }
 }
