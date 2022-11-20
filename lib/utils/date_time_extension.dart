@@ -31,14 +31,9 @@ extension DateTimeExtension on DateTime {
       isSameDateAs(DateTime.now().add(const Duration(days: 1)));
 
   String _formatRelativeDate(AppLocalizations appLocalizations) {
-    final now = DateTime.now();
-    if (isSameDateAs(now)) return appLocalizations.today;
-
-    final yesterday = now.subtract(const Duration(days: 1));
-    if (isSameDateAs(yesterday)) return appLocalizations.yesterday;
-
-    final tomorrow = now.add(const Duration(days: 1));
-    if (isSameDateAs(tomorrow)) return appLocalizations.tomorrow;
+    if (isToday) return appLocalizations.today;
+    if (isYesterday) return appLocalizations.yesterday;
+    if (isTomorrow) return appLocalizations.tomorrow;
 
     return DateFormat.yMMMEd().format(this);
   }
