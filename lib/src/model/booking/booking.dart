@@ -1,7 +1,6 @@
 import 'package:cabin_booking/utils/date_time_extension.dart';
 import 'package:cabin_booking/utils/time_of_day_extension.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 
 import '../date/date_range.dart';
@@ -12,7 +11,6 @@ abstract class _JsonFields {
   static const date = 'd';
   static const startTime = 'st';
   static const endTime = 'et';
-  static const status = 's';
   static const isLocked = 'il';
 }
 
@@ -21,7 +19,6 @@ class Booking extends Item {
   DateTime? date;
   TimeOfDay? startTime;
   TimeOfDay? endTime;
-  BookingStatus status;
   bool isLocked;
   String? cabinId;
 
@@ -35,7 +32,6 @@ class Booking extends Item {
     this.date,
     this.startTime,
     this.endTime,
-    this.status = BookingStatus.pending,
     this.isLocked = false,
     this.cabinId,
     this.recurringBookingId,
@@ -50,7 +46,6 @@ class Booking extends Item {
             TimeOfDayExtension.tryParse(other[_JsonFields.startTime] as String),
         endTime =
             TimeOfDayExtension.tryParse(other[_JsonFields.endTime] as String),
-        status = BookingStatus.values[other[_JsonFields.status] as int],
         isLocked = other[_JsonFields.isLocked] as bool,
         super.from();
 
@@ -61,7 +56,6 @@ class Booking extends Item {
         _JsonFields.date: date?.toIso8601String().split('T').first,
         _JsonFields.startTime: startTime?.format24Hour(),
         _JsonFields.endTime: endTime?.format24Hour(),
-        _JsonFields.status: status.index,
         _JsonFields.isLocked: isLocked,
       };
 
@@ -119,7 +113,6 @@ class Booking extends Item {
     DateTime? date,
     TimeOfDay? startTime,
     TimeOfDay? endTime,
-    BookingStatus? status,
     bool? isLocked,
     String? cabinId,
   }) =>
@@ -129,7 +122,6 @@ class Booking extends Item {
         date: date ?? this.date,
         startTime: startTime ?? this.startTime,
         endTime: endTime ?? this.endTime,
-        status: status ?? this.status,
         isLocked: isLocked ?? this.isLocked,
         cabinId: cabinId ?? this.cabinId,
       );
@@ -140,7 +132,6 @@ class Booking extends Item {
     date = item.date;
     startTime = item.startTime;
     endTime = item.endTime;
-    status = item.status;
     isLocked = item.isLocked;
 
     super.replaceWith(item);
@@ -153,38 +144,4 @@ class Booking extends Item {
   @override
   int compareTo(covariant Booking other) =>
       startDateTime.compareTo(other.startDateTime);
-}
-
-enum BookingStatus {
-  pending(icon: Icons.help_outline),
-  confirmed(icon: Icons.check),
-  cancelled(icon: Icons.clear);
-
-  const BookingStatus({required this.icon});
-
-  final IconData icon;
-
-  String localized(AppLocalizations appLocalizations) {
-    switch (this) {
-      case BookingStatus.pending:
-        return appLocalizations.pending;
-      case BookingStatus.confirmed:
-        return appLocalizations.confirmed;
-      case BookingStatus.cancelled:
-        return appLocalizations.cancelled;
-    }
-  }
-
-  Color color(ThemeData theme) {
-    switch (this) {
-      case BookingStatus.pending:
-        return theme.hintColor;
-      case BookingStatus.confirmed:
-        return theme.brightness == Brightness.light
-            ? Colors.greenAccent[700]!
-            : Colors.greenAccent;
-      case BookingStatus.cancelled:
-        return Colors.redAccent;
-    }
-  }
 }
