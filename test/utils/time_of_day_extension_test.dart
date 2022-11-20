@@ -181,6 +181,10 @@ void main() {
           const TimeOfDay(hour: 9, minute: 53).roundToNearest(15),
           const TimeOfDay(hour: 10, minute: 0),
         );
+        expect(
+          const TimeOfDay(hour: 23, minute: 57).roundToNearest(15),
+          const TimeOfDay(hour: 0, minute: 0),
+        );
       });
     });
 

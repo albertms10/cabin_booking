@@ -98,14 +98,9 @@ extension TimeOfDayExtension on TimeOfDay {
   ///
   /// assert(now.roundToNearest(15) == rounded);
   /// ```
-  TimeOfDay roundToNearest(int n) {
-    final roundedMinute = minute.roundToNearest(n);
-
-    return TimeOfDay(
-      hour: roundedMinute >= TimeOfDay.minutesPerHour ? hour + 1 : hour,
-      minute: roundedMinute >= TimeOfDay.minutesPerHour ? 0 : roundedMinute,
-    );
-  }
+  TimeOfDay roundToNearest(int n) => increment(
+        minutes: minute.roundToNearest(n) - minute,
+      );
 
   /// Returns the 24-hour formatted string representation of this [TimeOfDay],
   /// separated with ':'.
