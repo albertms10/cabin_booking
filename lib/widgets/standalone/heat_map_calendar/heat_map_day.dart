@@ -1,9 +1,9 @@
+import 'package:cabin_booking/utils/date_time_extension.dart';
 import 'package:cabin_booking/widgets/layout/conditional_widget_wrap.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import 'utils/map_int_color_extension.dart';
-import 'utils/time.dart';
 
 class HeatMapDay extends StatelessWidget {
   final int value;
@@ -36,7 +36,7 @@ class HeatMapDay extends StatelessWidget {
   BoxBorder? get containerBorder {
     if (date == null) return null;
 
-    if (highlightToday && isOnSameDay(date!, DateTime.now())) {
+    if (highlightToday && date!.isToday) {
       return const Border.fromBorderSide(
         BorderSide(color: Colors.orange, width: 2),
       );
