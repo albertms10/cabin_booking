@@ -148,9 +148,8 @@ class TokenizedBooking {
     }
 
     return Booking(
-      date: now.dateOnly,
-      startTime: startTime,
-      endTime: endTime,
+      startDateTime: now.addTimeOfDay(startTime),
+      endDateTime: now.addTimeOfDay(endTime),
     );
   }
 
