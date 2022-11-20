@@ -132,7 +132,7 @@ class SchoolYearManager extends WritableManager<Set<SchoolYear>>
     }
   }
 
-  Set<SchoolYear> get _defaultSchoolYears => SplayTreeSet.from({
+  Set<SchoolYear> get _defaultSchoolYears => SplayTreeSet.of({
         SchoolYear(
           startDate: DateTime(2018, DateTime.september, 3),
           endDate: DateTime(2019, DateTime.july, 26),
