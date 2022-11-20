@@ -42,7 +42,7 @@ abstract class Item implements Comparable<Item>, Serializable {
             creationDateTime.toUtc().toIso8601String(),
         if (modificationDateTime != null)
           _JsonFields.modificationDateTime:
-              modificationDateTime?.toIso8601String(),
+              modificationDateTime?.toUtc().toIso8601String(),
         _JsonFields.modificationCount: modificationCount,
       };
 
