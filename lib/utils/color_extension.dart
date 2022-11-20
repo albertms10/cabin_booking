@@ -11,7 +11,7 @@ extension ColorExtension on Color {
   }) {
     assert(samples > 0, 'samples must be greater than zero.');
 
-    final colorMap = SplayTreeMap<int, Color>.from({
+    final colorMap = SplayTreeMap<int, Color>.of({
       1: withOpacity(minOpacity),
     });
 

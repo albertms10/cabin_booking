@@ -45,7 +45,7 @@ class BookingManager with ChangeNotifier {
           ...recurringBooking.bookings,
       ];
 
-  Set<Booking> get allBookings => SplayTreeSet.from({
+  Set<Booking> get allBookings => SplayTreeSet.of({
         ...bookings,
         ...generatedBookingsFromRecurring,
       });
@@ -61,7 +61,7 @@ class BookingManager with ChangeNotifier {
         ),
       );
 
-  Set<Booking> allBookingsBetween(DateRanger dateRange) => SplayTreeSet.from({
+  Set<Booking> allBookingsBetween(DateRanger dateRange) => SplayTreeSet.of({
         ...bookingsBetween(dateRange),
         ...recurringBookingsBetween(dateRange),
       });
@@ -82,7 +82,7 @@ class BookingManager with ChangeNotifier {
     return filteredBookings;
   }
 
-  Set<Booking> allBookingsOn(DateTime dateTime) => SplayTreeSet.from({
+  Set<Booking> allBookingsOn(DateTime dateTime) => SplayTreeSet.of({
         ...bookingsOn(dateTime),
         ...recurringBookingsOn(dateTime),
       });
