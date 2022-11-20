@@ -92,9 +92,8 @@ class RecurringBooking extends Booking {
       ? RecurringBookingMethod.endDate
       : RecurringBookingMethod.occurrences;
 
-  Duration get periodicityDuration => Duration(
-        days: PeriodicityValues.periodicityInDays[periodicity]! * repeatEvery,
-      );
+  Duration get periodicityDuration =>
+      Duration(days: periodicity.days * repeatEvery);
 
   DateTime get recurringEndDate {
     if (_recurringEndDate != null) return _recurringEndDate!;
@@ -221,15 +220,15 @@ class RecurringBooking extends Booking {
   String toString() => '$occurrences × ${super.toString()}';
 }
 
-enum Periodicity { daily, weekly, monthly, annually }
+enum Periodicity {
+  daily(days: 1),
+  weekly(days: 7),
+  monthly(days: 30),
+  annually(days: 365);
 
-extension PeriodicityValues on Periodicity {
-  static const periodicityInDays = {
-    Periodicity.daily: 1,
-    Periodicity.weekly: 7,
-    Periodicity.monthly: 30,
-    Periodicity.annually: 365,
-  };
+  const Periodicity({required this.days});
+
+  final int days;
 }
 
 enum RecurringBookingMethod { endDate, occurrences }
