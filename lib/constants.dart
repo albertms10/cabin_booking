@@ -10,8 +10,9 @@ const kTimeTableStartTime = TimeOfDay(hour: 9, minute: 0);
 const kTimeTableEndTime = TimeOfDay(hour: 22, minute: 0);
 
 // Booking slot.
+const defaultSlotDuration = Duration(minutes: 60);
 const kMinSlotDuration = Duration(minutes: 20);
-const kMaxSlotDuration = Duration(minutes: 60);
+const kMaxSlotDuration = defaultSlotDuration;
 
 // Weekdays.
 const nonSchoolWeekdays = {DateTime.saturday, DateTime.sunday};
