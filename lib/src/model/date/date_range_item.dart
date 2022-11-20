@@ -17,8 +17,8 @@ class DateRangeItem extends Item with DateRanger {
 
   DateRangeItem({
     super.id,
-    DateTime? startDate,
-    DateTime? endDate,
+    this.startDate,
+    this.endDate,
   }) : assert(
           startDate == null ||
               endDate == null ||

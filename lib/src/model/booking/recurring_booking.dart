@@ -1,8 +1,4 @@
-import 'package:cabin_booking/utils/app_localizations_extension.dart';
-import 'package:cabin_booking/utils/iterable_string_extension.dart';
 import 'package:collection/collection.dart' show IterableExtension;
-import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'booking.dart';
 
@@ -23,10 +19,8 @@ class RecurringBooking extends Booking {
   RecurringBooking({
     super.id,
     super.description,
-    super.date,
-    super.startTime,
-    super.endTime,
-    super.status,
+    super.startDateTime,
+    super.endDateTime,
     super.isLocked,
     super.cabinId,
     this.periodicity = Periodicity.weekly,
@@ -68,10 +62,8 @@ class RecurringBooking extends Booking {
         super(
           id: booking.id,
           description: booking.description,
-          date: booking.date,
-          startTime: booking.startTime,
-          endTime: booking.endTime,
-          status: booking.status,
+          startDateTime: booking.startDateTime,
+          endDateTime: booking.endDateTime,
           isLocked: booking.isLocked,
           cabinId: booking.cabinId,
         );
@@ -95,9 +87,8 @@ class RecurringBooking extends Booking {
       ? RecurringBookingMethod.endDate
       : RecurringBookingMethod.occurrences;
 
-  Duration get periodicityDuration => Duration(
-        days: PeriodicityValues.periodicityInDays[periodicity]! * repeatEvery,
-      );
+  Duration get periodicityDuration =>
+      Duration(days: periodicity.days * repeatEvery);
 
   DateTime get recurringEndDate {
     if (_recurringEndDate != null) return _recurringEndDate!;
@@ -136,10 +127,8 @@ class RecurringBooking extends Booking {
   Booking asBooking({bool linked = true}) => Booking(
         id: linked ? '$id-0' : (recurringBookingId ?? id),
         description: description,
-        date: date,
-        startTime: startTime,
-        endTime: endTime,
-        status: status,
+        startDateTime: startDateTime,
+        endDateTime: endDateTime,
         isLocked: isLocked,
         cabinId: cabinId,
         recurringBookingId: linked ? id : null,
@@ -164,7 +153,10 @@ class RecurringBooking extends Booking {
       runDate = runDate.add(periodicityDuration);
 
       if (runDate.isBefore(recurringEndDate)) {
-        movedBooking = movedBooking.copyWith(date: runDate);
+        movedBooking = movedBooking.copyWith(
+          startDateTime: runDate,
+          endDateTime: runDate.add(duration),
+        );
         count++;
       }
     }
@@ -182,10 +174,8 @@ class RecurringBooking extends Booking {
   RecurringBooking copyWith({
     String? id,
     String? description,
-    DateTime? date,
-    TimeOfDay? startTime,
-    TimeOfDay? endTime,
-    BookingStatus? status,
+    DateTime? startDateTime,
+    DateTime? endDateTime,
     bool? isLocked,
     String? cabinId,
     Periodicity? periodicity,
@@ -196,10 +186,8 @@ class RecurringBooking extends Booking {
       RecurringBooking(
         id: id ?? this.id,
         description: description ?? this.description,
-        date: date ?? this.date,
-        startTime: startTime ?? this.startTime,
-        endTime: endTime ?? this.endTime,
-        status: status ?? this.status,
+        startDateTime: startDateTime ?? this.startDateTime,
+        endDateTime: endDateTime ?? this.endDateTime,
         isLocked: isLocked ?? this.isLocked,
         cabinId: cabinId ?? this.cabinId,
         periodicity: periodicity ?? this.periodicity,
@@ -224,15 +212,15 @@ class RecurringBooking extends Booking {
   String toString() => '$occurrences × ${super.toString()}';
 }
 
-enum Periodicity { daily, weekly, monthly, annually }
+enum Periodicity {
+  daily(days: 1),
+  weekly(days: 7),
+  monthly(days: 30),
+  annually(days: 365);
 
-extension PeriodicityValues on Periodicity {
-  static const periodicityInDays = {
-    Periodicity.daily: 1,
-    Periodicity.weekly: 7,
-    Periodicity.monthly: 30,
-    Periodicity.annually: 365,
-  };
+  const Periodicity({required this.days});
+
+  final int days;
 }
 
 enum RecurringBookingMethod { endDate, occurrences }

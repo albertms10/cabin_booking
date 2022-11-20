@@ -114,7 +114,7 @@ class _ScrollablePanelOverlayTimeTableState
                       for (final cabin in widget.cabins)
                         SizedBox(
                           width: bookingStackWidth,
-                          child: CabinIcon(
+                          child: CabinIcon.progress(
                             number: cabin.number,
                             progress: cabin.occupancyPercentOn(
                               widget.dateTime,
