@@ -64,7 +64,11 @@ extension IterableExtension<E> on Iterable<E> {
         return String.fromCharCodes(charCodes) as E;
       };
     } else if (nextValue == null) {
-      throw ArgumentError('Specify the nextValue callback');
+      throw ArgumentError.value(
+        nextValue,
+        'nextValue',
+        'nextValue is not specified',
+      );
     }
 
     var start = first;
