@@ -2,6 +2,7 @@ import 'package:cabin_booking/utils/time_of_day_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+/// DateTime extension.
 extension DateTimeExtension on DateTime {
   /// Returns a new [DateTime] with the date part only (ignoring the time part).
   ///

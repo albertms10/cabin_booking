@@ -1,6 +1,7 @@
 import 'package:cabin_booking/utils/num_extension.dart';
 import 'package:flutter/material.dart';
 
+/// TimeOfDay extension.
 extension TimeOfDayExtension on TimeOfDay {
   /// Constructs a new [TimeOfDay] instance based on [formattedString].
   ///

@@ -1,5 +1,6 @@
 import 'package:collection/collection.dart' show IterableExtension;
 
+/// Iterable extension.
 extension IterableExtension<E> on Iterable<E> {
   /// Returns a filtered this [Iterable] excluding falsy values.
   ///
