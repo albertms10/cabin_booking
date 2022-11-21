@@ -3,10 +3,12 @@ extension MapExtension<K, V> on Map<K, V> {
     Iterable<K> keys = const [],
     required V Function() ifAbsent,
   }) {
+    final map = Map<K, V>.of(this);
+
     for (final key in keys) {
-      update(key, (value) => value, ifAbsent: ifAbsent);
+      map.update(key, (value) => value, ifAbsent: ifAbsent);
     }
 
-    return this;
+    return map;
   }
 }
