@@ -1,3 +1,4 @@
+import 'color_extension_test.dart' as color_extension_test;
 import 'date_time_extension_test.dart' as date_time_extension_test;
 import 'iterable_extension_test.dart' as iterable_extension_test;
 import 'iterable_string_extension_test.dart' as iterable_string_extension_test;
@@ -7,6 +8,7 @@ import 'string_extension_test.dart' as string_extension_test;
 import 'time_of_day_extension_test.dart' as time_of_day_extension_test;
 
 void main() {
+  color_extension_test.main();
   date_time_extension_test.main();
   iterable_extension_test.main();
   iterable_string_extension_test.main();
