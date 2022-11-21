@@ -5,9 +5,7 @@ extension NumExtension on num {
   ///
   /// See [Gist by @marcschneider](https://gist.github.com/marcschneider/6991761).
   ///
-  /// ---
   /// Examples:
-  ///
   /// ```dart
   /// assert(8.5.map(inMax: 10) == 0.85);
   /// assert(5.map(inMax: 10, outMin: 1, outMax: 4) == 2.5);
@@ -18,9 +16,7 @@ extension NumExtension on num {
   /// Returns the euclidean modulo of this number by [other]
   /// with an optional [shift] applied to this [num].
   ///
-  /// ---
   /// Examples:
-  ///
   /// ```dart
   /// assert(12.mod(5) == 2);
   /// assert(9.mod(5, 1) == 0);
@@ -30,9 +26,7 @@ extension NumExtension on num {
   /// Returns the euclidean modulo of this number by [DateTime.daysPerWeek]
   /// with an optional [shift] applied to this [num].
   ///
-  /// ---
   /// Examples:
-  ///
   /// ```dart
   /// assert(7.weekdayMod() == 0);
   /// assert(8.weekdayMod(-1) == 0);
@@ -42,7 +36,6 @@ extension NumExtension on num {
   /// Rounds this [num] rounded to the nearest [n] number.
   ///
   /// Examples:
-  ///
   /// ```dart
   /// assert(17.roundToNearest(5) == 15);
   /// assert(18.roundToNearest(5) == 20);
@@ -53,9 +46,7 @@ extension NumExtension on num {
 
   /// Pads this [num] on the left with zeros if it is shorter than 2.
   ///
-  /// ---
   /// Examples:
-  ///
   /// ```dart
   /// assert((-1).pad2 == '01');
   /// assert(4.pad2 == '04');

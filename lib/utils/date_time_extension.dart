@@ -15,7 +15,7 @@ extension DateTimeExtension on DateTime {
   /// Returns a new [DateTime] replacing the time part with [timeOfDay].
   ///
   /// Example:
-  /// ```
+  /// ```dart
   /// final dateTime = DateTime(2021, 9, 7);
   /// const timeOfDay = TimeOfDay(hour: 21, minute: 30);
   /// assert(dateTime.addTimeOfDay(timeOfDay) == DateTime(2021, 9, 7, 21, 30));
@@ -25,11 +25,26 @@ extension DateTimeExtension on DateTime {
         ' ${(timeOfDay ?? TimeOfDay.now()).format24Hour()}',
       )!;
 
-  /// Whether this [DateTime] refers to the same date part as [other].
+  /// Whether this [DateTime] occurs on the same date as [other].
+  ///
+  /// Example:
+  /// ```dart
+  /// final start = DateTime(2021, 9, 7, 21, 30, 10);
+  /// final end = DateTime(2021, 9, 7, 10, 45, 40);
+  /// assert(start.isSameDateAs(end));
+  /// ```
   bool isSameDateAs(DateTime other) =>
       year == other.year && month == other.month && day == other.day;
 
   /// Returns the first day of the week of this [DateTime].
+  ///
+  /// Example:
+  /// ```dart
+  /// final berlinWallFell = DateTime.utc(1989, 11, 9);
+  /// final monday = DateTime.utc(1989, 11, 6);
+  /// assert(berlinWallFell.firstDayOfWeek == monday);
+  /// assert(berlinWallFell.firstDayOfWeek.weekday == DateTime.monday);
+  /// ```
   DateTime get firstDayOfWeek =>
       weekday == 1 ? this : subtract(Duration(days: weekday - 1));
 

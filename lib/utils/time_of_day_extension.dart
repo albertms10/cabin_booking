@@ -11,10 +11,14 @@ extension TimeOfDayExtension on TimeOfDay {
   ///
   /// Instead of throwing and immediately catching the [FormatException],
   /// instead use [tryParse] to handle a parsing error.
+  ///
   /// Example:
   /// ```dart
   /// final value = TimeOfDayExtension.tryParse(formattedString);
-  /// if (value == null) ... handle the problem
+  /// if (value == null) {
+  ///   // handle the problem
+  ///   // ...
+  /// }
   /// ```
   static TimeOfDay parse(String formattedString) {
     final particles = formattedString.split(RegExp('[:.]'));
@@ -76,6 +80,7 @@ extension TimeOfDayExtension on TimeOfDay {
   ///
   /// The returned [Duration] will be negative if [other] occurs after `this`.
   ///
+  /// Example:
   /// ```dart
   /// const morning = TimeOfDay(hour: 9, minute: 30);
   /// const evening = TimeOfDay(hour: 19, minute: 30);
@@ -91,7 +96,6 @@ extension TimeOfDayExtension on TimeOfDay {
   /// Returns this [TimeOfDay] rounded to the nearest [n] number of minutes.
   ///
   /// Examples:
-  ///
   /// ```dart
   /// const now = TimeOfDay(hour: 9, minute: 54);
   /// const rounded = TimeOfDay(hour: 10, minute: 0);
@@ -104,6 +108,12 @@ extension TimeOfDayExtension on TimeOfDay {
 
   /// Returns the 24-hour formatted string representation of this [TimeOfDay],
   /// separated with ':'.
+  ///
+  /// Examples:
+  /// ```dart
+  /// assert(const TimeOfDay(hour: 9, minute: 00).format24Hour() == '09:00');
+  /// assert(const TimeOfDay(hour: 17, minute: 14).format24Hour() == '17:14');
+  /// ```
   String format24Hour() => '${hour.padLeft2}:${minute.padLeft2}';
 
   // TODO(albertms10): remove when implemented in Flutter, https://github.com/flutter/flutter/pull/59981.
