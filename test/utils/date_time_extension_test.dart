@@ -58,6 +58,10 @@ void main() {
             DateTime(2021, 1, 10, 9, 30).firstDayOfWeek.weekday,
             DateTime(2021, 1, 4).weekday,
           );
+          expect(
+            DateTime.utc(1989, 11, 9).firstDayOfWeek,
+            DateTime.utc(1989, 11, 6),
+          );
         },
       );
 
