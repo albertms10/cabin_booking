@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// Map int to Color extension.
 extension MapIntColorExtension on Map<int, Color> {
   /// Returns the proper [Color] when the [threshold] is lower than or equal
   /// one of this Map [int] keys.

@@ -1,7 +1,14 @@
 import 'package:collection/collection.dart' show IterableExtension;
 
+/// Iterable extension.
 extension IterableExtension<E> on Iterable<E> {
-  /// Returns a filtered this Iterable excluding falsy values.
+  /// Returns a filtered this [Iterable] excluding falsy values.
+  ///
+  /// Example:
+  /// ```dart
+  /// const list = [true, false, 0, 1, 'Hello', 'world', '', null];
+  /// assert(list.whereTruthy() == const [true, 1, 'Hello', 'world']);
+  /// ```
   Iterable<E> whereTruthy() =>
       whereNot(const <dynamic>[false, 0, '', null].contains);
 
@@ -13,7 +20,9 @@ extension IterableExtension<E> on Iterable<E> {
   /// * if [E] is of type [String], it defaults to an increment of 1
   ///   of every [String.codeUnits].
   ///
-  /// ---
+  /// Throws an [ArgumentError] if no [nextValue] is specified for types other
+  /// than [num] or [String].
+  ///
   /// Examples:
   /// ```dart
   /// const inputNum = [1, 2, 3, 4, 5.0, 7, 8, 9, 11];
@@ -57,6 +66,7 @@ extension IterableExtension<E> on Iterable<E> {
     if (E == num || E == int || E == double) {
       nextValue ??= (current) => (current as num) + 1 as E;
     } else if (E == String) {
+      // False positive: the parameter has not been assigned yet.
       // ignore: parameter_assignments
       nextValue ??= (current) {
         final charCodes = (current as String).codeUnits.map((a) => a + 1);
