@@ -58,7 +58,7 @@ class _StatisticsHeading extends StatelessWidget {
         children: [
           if (icon != null)
             Padding(
-              padding: const EdgeInsets.only(right: 8),
+              padding: const EdgeInsetsDirectional.only(end: 8),
               child: Icon(
                 icon,
                 size: 18,

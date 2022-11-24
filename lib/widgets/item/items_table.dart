@@ -155,9 +155,9 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
                     DataColumn(
                       label: Flexible(
                         child: Padding(
-                          padding: EdgeInsets.only(
-                            right: column.numeric ? 0 : 8,
-                            left: column.numeric ? 8 : 0,
+                          padding: EdgeInsetsDirectional.only(
+                            start: column.numeric ? 8 : 0,
+                            end: column.numeric ? 0 : 8,
                           ),
                           child: Text(
                             column.title,
@@ -227,7 +227,7 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
                         ),
                         DataCell(
                           Padding(
-                            padding: const EdgeInsets.only(left: 8),
+                            padding: const EdgeInsetsDirectional.only(start: 8),
                             child: WrappedChipList<List<TimeOfDay>>(
                               items: row.mostOccupiedTimeRanges.toList(),
                               maxChips: 1,
