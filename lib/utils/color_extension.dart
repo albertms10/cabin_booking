@@ -11,7 +11,7 @@ extension ColorExtension on Color {
   /// An optional [minOpacity] value can be provided for the first opacity
   /// value in the Map.
   ///
-  /// Throws an [ArgumentError] if [samples] is not greater than zero.
+  /// Throws a [RangeError] if [samples] is not greater than zero.
   ///
   /// Example:
   /// ```dart
@@ -32,11 +32,7 @@ extension ColorExtension on Color {
     double minOpacity = 0.2,
   }) {
     if (samples <= 0) {
-      throw ArgumentError.value(
-        samples,
-        'samples',
-        'samples must be greater than zero',
-      );
+      throw RangeError.range(samples, 1, null, 'samples');
     }
 
     final colorMap = SplayTreeMap<int, Color>.of({
