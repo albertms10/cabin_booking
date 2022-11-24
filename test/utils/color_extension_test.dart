@@ -19,17 +19,13 @@ void main() {
         );
       });
 
-      test(
-        'should throw an ArgumentError if samples is not '
-        'greater than zero',
-        () {
-          const color = Colors.blue;
-          expect(
-            () => color.opacityThresholds(highestValue: 12, samples: -1),
-            throwsArgumentError,
-          );
-        },
-      );
+      test('should throw a RangeError if samples is not greater than zero', () {
+        const color = Colors.blue;
+        expect(
+          () => color.opacityThresholds(highestValue: 12, samples: -1),
+          throwsRangeError,
+        );
+      });
     });
   });
 }
