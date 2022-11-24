@@ -145,7 +145,7 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
           key: PageStorageKey('${T}ListView'),
           children: [
             Padding(
-              padding: const EdgeInsets.only(top: 54),
+              padding: const EdgeInsetsDirectional.only(top: 54),
               child: DataTable(
                 dataRowHeight: 82,
                 sortAscending: _sortAscending,

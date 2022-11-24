@@ -118,7 +118,7 @@ class _CabinFormState extends State<CabinForm> {
           ),
           if (widget.newCabinNumber == null)
             Padding(
-              padding: const EdgeInsets.only(top: 16),
+              padding: const EdgeInsetsDirectional.only(top: 16),
               child: ItemInfo(
                 creationDateTime: widget.cabin.creationDateTime,
                 modificationDateTime: widget.cabin.modificationDateTime,

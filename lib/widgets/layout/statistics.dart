@@ -51,7 +51,7 @@ class _StatisticsHeading extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Padding(
-      padding: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsetsDirectional.only(bottom: 16),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         textBaseline: TextBaseline.ideographic,

@@ -31,7 +31,7 @@ class TimeColumn extends StatelessWidget {
                 width: kTimeColumnWidth,
                 height: kBookingHeightRatio * 60,
                 padding: const EdgeInsets.all(16),
-                alignment: Alignment.topCenter,
+                alignment: AlignmentDirectional.topCenter,
                 child: Text(
                   TimeOfDay(hour: hour, minute: 0).format(context),
                   style: theme.textTheme.headline5

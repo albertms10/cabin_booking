@@ -40,8 +40,9 @@ class _RadioButtonListState extends State<RadioButtonList> {
             widget._loopCondition(i);
             widget.reverse ? i-- : i++)
           Padding(
-            padding:
-                EdgeInsets.only(bottom: i == widget._lastLoopIndex ? 0 : 4),
+            padding: EdgeInsetsDirectional.only(
+              bottom: i == widget._lastLoopIndex ? 0 : 4,
+            ),
             child: TextButton(
               style: ElevatedButton.styleFrom(
                 foregroundColor:

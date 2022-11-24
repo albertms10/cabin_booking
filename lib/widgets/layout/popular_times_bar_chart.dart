@@ -44,6 +44,7 @@ class PopularTimesBarChart extends StatelessWidget {
           gridData: FlGridData(show: false),
           borderData: FlBorderData(
             show: true,
+            // TODO(albertms10): use `BorderDirectional`, https://github.com/imaNNeoFighT/fl_chart/issues/1189.
             border: Border(
               bottom: BorderSide(color: theme.hintColor.withOpacity(0.25)),
             ),
