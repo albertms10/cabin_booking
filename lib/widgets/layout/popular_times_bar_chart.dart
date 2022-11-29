@@ -60,11 +60,12 @@ class PopularTimesBarChart extends StatelessWidget {
                     color: range.key.hour == DateTime.now().hour
                         ? highlightColor
                         : mainColor,
-                    // TODO(albertms10): use `BorderRadiusDirectional`, https://github.com/imaNNeoFighT/fl_chart/issues/1189.
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(4),
-                      topRight: Radius.circular(4),
-                    ),
+                    borderRadius: const BorderRadiusDirectional.only(
+                      topStart: Radius.circular(4),
+                      topEnd: Radius.circular(4),
+                    )
+                        // TODO(albertms10): remove `resolve` call when fixed in https://github.com/imaNNeoFighT/fl_chart/issues/1189.
+                        .resolve(Directionality.of(context)),
                   ),
                 ],
               ),
