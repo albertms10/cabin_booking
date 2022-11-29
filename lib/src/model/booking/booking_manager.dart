@@ -8,13 +8,14 @@ import 'package:flutter/material.dart';
 import '../date/date_range.dart';
 import 'booking.dart';
 import 'recurring_booking.dart';
+import 'single_booking.dart';
 
 class BookingManager with ChangeNotifier {
-  late Set<Booking> bookings;
+  late Set<SingleBooking> bookings;
   late Set<RecurringBooking> recurringBookings;
 
   BookingManager({
-    Set<Booking>? bookings,
+    Set<SingleBooking>? bookings,
     Set<RecurringBooking>? recurringBookings,
   }) {
     this.bookings = bookings ?? SplayTreeSet();
@@ -25,7 +26,9 @@ class BookingManager with ChangeNotifier {
     required List<dynamic> bookings,
     required List<dynamic> recurringBookings,
   })  : bookings = SplayTreeSet.of(
-          bookings.cast<Map<String, dynamic>>().map<Booking>(Booking.from),
+          bookings
+              .cast<Map<String, dynamic>>()
+              .map<SingleBooking>(SingleBooking.from),
         ),
         recurringBookings = SplayTreeSet.of(
           recurringBookings
@@ -33,45 +36,47 @@ class BookingManager with ChangeNotifier {
               .map<RecurringBooking>(RecurringBooking.from),
         );
 
-  List<Map<String, dynamic>> bookingsToJson() =>
+  List<Map<String, dynamic>> singleBookingsToJson() =>
       bookings.map((booking) => booking.toJson()).toList();
 
   List<Map<String, dynamic>> recurringBookingsToJson() => recurringBookings
       .map((recurringBooking) => recurringBooking.toJson())
       .toList();
 
-  List<Booking> get generatedBookingsFromRecurring => [
+  List<SingleBooking> get singleBookingsFromRecurring => [
         for (final recurringBooking in recurringBookings)
           ...recurringBooking.bookings,
       ];
 
-  Set<Booking> get allBookings => SplayTreeSet.of({
+  Set<SingleBooking> get allBookings => SplayTreeSet.of({
         ...bookings,
-        ...generatedBookingsFromRecurring,
+        ...singleBookingsFromRecurring,
       });
 
-  Set<Booking> bookingsBetween(DateRanger dateRange) => SplayTreeSet.of(
+  Set<SingleBooking> singleBookingsBetween(DateRanger dateRange) =>
+      SplayTreeSet.of(
         bookings.where((booking) => booking.isBetween(dateRange)),
       );
 
-  Set<Booking> recurringBookingsBetween(DateRanger dateRange) =>
+  Set<SingleBooking> recurringBookingsBetween(DateRanger dateRange) =>
       SplayTreeSet.of(
-        generatedBookingsFromRecurring.where(
+        singleBookingsFromRecurring.where(
           (recurringBooking) => recurringBooking.isBetween(dateRange),
         ),
       );
 
-  Set<Booking> allBookingsBetween(DateRanger dateRange) => SplayTreeSet.of({
-        ...bookingsBetween(dateRange),
+  Set<SingleBooking> allBookingsBetween(DateRanger dateRange) =>
+      SplayTreeSet.of({
+        ...singleBookingsBetween(dateRange),
         ...recurringBookingsBetween(dateRange),
       });
 
-  Set<Booking> bookingsOn(DateTime dateTime) => SplayTreeSet.of(
+  Set<SingleBooking> singleBookingsOn(DateTime dateTime) => SplayTreeSet.of(
         bookings.where((booking) => booking.isOn(dateTime)),
       );
 
-  Set<Booking> recurringBookingsOn(DateTime dateTime) {
-    final filteredBookings = SplayTreeSet<Booking>();
+  Set<SingleBooking> recurringBookingsOn(DateTime dateTime) {
+    final filteredBookings = SplayTreeSet<SingleBooking>();
 
     for (final recurringBooking in recurringBookings) {
       final booking = recurringBooking.bookingOn(dateTime);
@@ -82,8 +87,8 @@ class BookingManager with ChangeNotifier {
     return filteredBookings;
   }
 
-  Set<Booking> allBookingsOn(DateTime dateTime) => SplayTreeSet.of({
-        ...bookingsOn(dateTime),
+  Set<SingleBooking> allBookingsOn(DateTime dateTime) => SplayTreeSet.of({
+        ...singleBookingsOn(dateTime),
         ...recurringBookingsOn(dateTime),
       });
 
@@ -260,15 +265,15 @@ class BookingManager with ChangeNotifier {
         accumulatedTimeRangesOccupancy(dateRange),
       );
 
-  Booking bookingFromId(String id) =>
+  SingleBooking singleBookingFromId(String id) =>
       bookings.firstWhere((booking) => booking.id == id);
 
   RecurringBooking recurringBookingFromId(String? id) => recurringBookings
       .firstWhere((recurringBooking) => recurringBooking.id == id)
     ..recurringBookingId = id;
 
-  void addBooking(
-    Booking booking, {
+  void addSingleBooking(
+    SingleBooking booking, {
     bool notify = true,
   }) {
     bookings.add(booking);
@@ -285,8 +290,8 @@ class BookingManager with ChangeNotifier {
     if (notify) notifyListeners();
   }
 
-  void modifyBooking(
-    Booking booking, {
+  void modifySingleBooking(
+    SingleBooking booking, {
     bool notify = true,
   }) {
     bookings
@@ -312,7 +317,7 @@ class BookingManager with ChangeNotifier {
     if (notify) notifyListeners();
   }
 
-  void removeBookingById(
+  void removeSingleBookingById(
     String? id, {
     bool notify = true,
   }) {

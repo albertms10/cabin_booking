@@ -107,7 +107,7 @@ class _EmptyBookingSlotActionable extends StatelessWidget {
           onTap: () {
             showNewBookingDialog(
               context: context,
-              booking: Booking(
+              booking: SingleBooking(
                 startDateTime: startDateTime,
                 endDateTime: endDateTime,
                 cabinId: cabin.id,

@@ -106,19 +106,22 @@ class _BookingPreviewEditIconButton extends StatelessWidget {
           editedBooking as RecurringBooking,
         );
       } else {
-        cabinManager.changeBookingToRecurring(
+        cabinManager.changeSingleToRecurringBooking(
           cabin.id,
-          editedBooking as RecurringBooking,
+          editedBooking as SingleBooking,
         );
       }
     } else {
       if (RecurringBooking.isRecurringBooking(booking)) {
-        cabinManager.changeRecurringToBooking(
+        cabinManager.changeRecurringToSingleBooking(
           cabin.id,
-          editedBooking,
+          editedBooking as RecurringBooking,
         );
       } else {
-        cabinManager.modifyBooking(cabin.id, editedBooking);
+        cabinManager.modifySingleBooking(
+          cabin.id,
+          editedBooking as SingleBooking,
+        );
       }
     }
   }
@@ -171,7 +174,7 @@ class _BookingPreviewDeleteIconButton extends StatelessWidget {
         booking.recurringBookingId,
       );
     } else {
-      cabinManager.removeBookingById(cabin.id, booking.id);
+      cabinManager.removeSingleBookingById(cabin.id, booking.id);
     }
   }
 

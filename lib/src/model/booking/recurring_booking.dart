@@ -1,6 +1,7 @@
 import 'package:collection/collection.dart' show IterableExtension;
 
 import 'booking.dart';
+import 'single_booking.dart';
 
 abstract class _JsonFields {
   static const periodicity = 'p';
@@ -124,7 +125,7 @@ class RecurringBooking extends Booking {
     _recurringEndDate = null;
   }
 
-  Booking asBooking({bool linked = true}) => Booking(
+  SingleBooking asSingleBooking({bool linked = true}) => SingleBooking(
         id: linked ? '$id-0' : (recurringBookingId ?? id),
         description: description,
         startDateTime: startDateTime,
@@ -134,10 +135,10 @@ class RecurringBooking extends Booking {
         recurringBookingId: linked ? id : null,
       );
 
-  List<Booking> get bookings {
-    final runBookings = <Booking>[];
+  List<SingleBooking> get bookings {
+    final runBookings = <SingleBooking>[];
     var runDate = date!;
-    var movedBooking = asBooking();
+    var movedBooking = asSingleBooking();
 
     var count = 1;
 
@@ -164,7 +165,7 @@ class RecurringBooking extends Booking {
     return runBookings;
   }
 
-  Booking? bookingOn(DateTime dateTime) => bookings.firstWhereOrNull(
+  SingleBooking? bookingOn(DateTime dateTime) => bookings.firstWhereOrNull(
         (booking) => booking.isOn(dateTime),
       );
 

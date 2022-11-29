@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../booking/booking.dart';
 import '../booking/booking_manager.dart';
 import '../booking/recurring_booking.dart';
+import '../booking/single_booking.dart';
 import '../date/date_range.dart';
 import '../item.dart';
 import 'cabin_elements.dart';
@@ -23,7 +24,7 @@ class Cabin extends Item {
     super.id,
     this.number = 0,
     CabinElements? elements,
-    Set<Booking>? bookings,
+    Set<SingleBooking>? bookings,
     Set<RecurringBooking>? recurringBookings,
   }) : _bookingManager = BookingManager(
           bookings: bookings,
@@ -49,14 +50,14 @@ class Cabin extends Item {
         ...super.toJson(),
         _JsonFields.number: number,
         _JsonFields.elements: elements.toJson(),
-        _JsonFields.bookings: _bookingManager.bookingsToJson(),
+        _JsonFields.bookings: _bookingManager.singleBookingsToJson(),
         _JsonFields.recurringBookings:
             _bookingManager.recurringBookingsToJson(),
       };
 
   Cabin simplified() => Cabin(id: id, number: number);
 
-  Set<Booking> get bookings => _bookingManager.bookings;
+  Set<SingleBooking> get bookings => _bookingManager.bookings;
 
   Set<RecurringBooking> get recurringBookings =>
       _bookingManager.recurringBookings;
@@ -64,13 +65,13 @@ class Cabin extends Item {
   Set<Booking> get allBookings => _bookingManager.allBookings;
 
   Set<Booking> bookingsBetween(DateRanger dateRange) =>
-      _bookingManager.bookingsBetween(dateRange);
+      _bookingManager.singleBookingsBetween(dateRange);
 
   Set<Booking> recurringBookingsBetween(DateRanger dateRange) =>
       _bookingManager.recurringBookingsBetween(dateRange);
 
   List<Booking> get generatedBookingsFromRecurring =>
-      _bookingManager.generatedBookingsFromRecurring;
+      _bookingManager.singleBookingsFromRecurring;
 
   bool bookingsCollideWith(Booking booking) =>
       _bookingManager.bookingsCollideWith(booking);
@@ -139,24 +140,28 @@ class Cabin extends Item {
     super.replaceWith(item);
   }
 
-  void addBooking(Booking booking) => _bookingManager.addBooking(booking);
+  void addSingleBooking(SingleBooking booking) =>
+      _bookingManager.addSingleBooking(booking);
 
   void addRecurringBooking(RecurringBooking recurringBooking) =>
       _bookingManager.addRecurringBooking(recurringBooking);
 
-  void modifyBooking(Booking booking) => _bookingManager.modifyBooking(booking);
+  void modifySingleBooking(SingleBooking booking) =>
+      _bookingManager.modifySingleBooking(booking);
 
   void modifyRecurringBooking(RecurringBooking recurringBooking) =>
       _bookingManager.modifyRecurringBooking(recurringBooking);
 
-  void removeBookingById(String? id) => _bookingManager.removeBookingById(id);
+  void removeSingleBookingById(String? id) =>
+      _bookingManager.removeSingleBookingById(id);
 
   void removeRecurringBookingById(String? id) =>
       _bookingManager.removeRecurringBookingById(id);
 
   void emptyAllBookings() => _bookingManager.emptyAllBookings();
 
-  Booking bookingFromId(String id) => _bookingManager.bookingFromId(id);
+  SingleBooking singleBookingFromId(String id) =>
+      _bookingManager.singleBookingFromId(id);
 
   RecurringBooking recurringBookingFromId(String id) =>
       _bookingManager.recurringBookingFromId(id);
