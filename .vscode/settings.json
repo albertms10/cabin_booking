@@ -30,6 +30,9 @@
     "‘": true,
     "’": true
   },
+  "files.associations": {
+    "*.arb": "json"
+  },
   "files.insertFinalNewline": true,
   "files.trimFinalNewlines": true,
   "git.branchProtection": ["main"]
