@@ -306,7 +306,7 @@ class _BookingFormState extends State<BookingForm> {
                 isExpanded: widget.isRecurring,
                 canTapOnHeader: true,
                 body: Padding(
-                  padding: const EdgeInsets.only(top: 4, bottom: 8),
+                  padding: const EdgeInsetsDirectional.only(top: 4, bottom: 8),
                   child: Column(
                     children: [
                       PeriodicityListTile(
@@ -446,7 +446,7 @@ class _BookingFormState extends State<BookingForm> {
           ),
           if (widget.booking.description != null)
             Padding(
-              padding: const EdgeInsets.only(top: 16),
+              padding: const EdgeInsetsDirectional.only(top: 16),
               child: ItemInfo(
                 creationDateTime: widget.booking.creationDateTime,
                 modificationDateTime: widget.booking.modificationDateTime,

@@ -49,7 +49,7 @@ class _ProgressCabinIcon extends CabinIcon {
     return Tooltip(
       message: appLocalizations.nPercentOccupied((progress * 100).ceil()),
       child: Stack(
-        alignment: Alignment.center,
+        alignment: AlignmentDirectional.center,
         children: [
           SizedBox(
             width: radius * 2,

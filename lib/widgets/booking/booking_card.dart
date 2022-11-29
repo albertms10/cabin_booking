@@ -51,7 +51,7 @@ class BookingCard extends StatelessWidget {
                     ? BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         gradient: const LinearGradient(
-                          begin: Alignment.topLeft,
+                          begin: AlignmentDirectional.topStart,
                           end: Alignment(-0.4, -0.2),
                           stops: [0, 0.5, 0.5, 1],
                           colors: [
@@ -128,7 +128,7 @@ class _BookingCardInteractiveState extends State<_BookingCardInteractive> {
           );
         },
         child: Padding(
-          padding: const EdgeInsets.only(top: 8, right: 4, left: 10),
+          padding: const EdgeInsetsDirectional.only(top: 8, start: 10, end: 4),
           child: _BookingCardInfo(
             cabin: widget.cabin,
             booking: widget.booking,
@@ -167,7 +167,7 @@ class _BookingCardInfo extends StatelessWidget {
                 message:
                     '${booking.recurringNumber}/${booking.recurringTotalTimes}',
                 child: Padding(
-                  padding: const EdgeInsets.only(right: 4),
+                  padding: const EdgeInsetsDirectional.only(end: 4),
                   child: Icon(
                     Icons.repeat,
                     color: theme.hintColor,
@@ -177,7 +177,7 @@ class _BookingCardInfo extends StatelessWidget {
               ),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.only(right: 28),
+                padding: const EdgeInsetsDirectional.only(end: 28),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisSize: MainAxisSize.min,

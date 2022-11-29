@@ -20,7 +20,7 @@ class AnimatedFloatingButtonLabel extends AnimatedWidget {
     if (animation.value <= (tween.end ?? 0) * 0.5) return const SizedBox();
 
     return Container(
-      margin: const EdgeInsets.only(right: 18),
+      margin: const EdgeInsetsDirectional.only(end: 18),
       padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
       child: Opacity(
         opacity: animation.value
