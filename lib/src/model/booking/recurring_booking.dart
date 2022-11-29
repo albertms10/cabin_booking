@@ -29,7 +29,7 @@ class RecurringBooking extends Booking {
     int? occurrences,
   })  : assert(
           (recurringEndDate == null) != (occurrences == null),
-          'Either recurringEndDate, occurrences or none must be given, '
+          'Either recurringEndDate or occurrences must be given, '
           'but not both.',
         ),
         _recurringEndDate = recurringEndDate,
@@ -54,7 +54,7 @@ class RecurringBooking extends Booking {
     int? occurrences,
   })  : assert(
           (recurringEndDate == null) != (occurrences == null),
-          'Either recurringEndDate, occurrences or none must be given, '
+          'Either recurringEndDate or occurrences must be given, '
           'but not both.',
         ),
         _recurringEndDate = recurringEndDate,
