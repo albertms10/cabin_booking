@@ -25,6 +25,7 @@
 .pub-cache/
 .pub/
 /build/
+/lib/localization/untranslated_messages.txt
 
 # Coverage related
 /coverage/
