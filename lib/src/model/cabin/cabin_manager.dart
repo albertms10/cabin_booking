@@ -4,7 +4,6 @@ import 'dart:convert' show json;
 import 'package:cabin_booking/utils/time_of_day_extension.dart';
 import 'package:flutter/material.dart';
 
-import '../booking/booking.dart';
 import '../booking/booking_manager.dart';
 import '../booking/recurring_booking.dart';
 import '../booking/single_booking.dart';
