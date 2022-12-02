@@ -45,7 +45,7 @@ class _JumpBarState extends State<JumpBar> {
     final bookingTokens = _controller.text
         .tokenize(TokenizedBooking.expressions(appLocalizations));
     final booking = TokenizedBooking.fromTokens(bookingTokens)
-        .toBooking(appLocalizations)
+        .toSingleBooking(appLocalizations)
         .copyWith(cabinId: cabin?.id);
 
     setState(() {

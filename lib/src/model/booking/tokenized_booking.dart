@@ -7,7 +7,7 @@ import 'package:cabin_booking/utils/time_of_day_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import 'booking.dart';
+import 'single_booking.dart';
 
 @immutable
 class TokenizedBooking {
@@ -108,7 +108,7 @@ class TokenizedBooking {
         ),
       ];
 
-  Booking toBooking(AppLocalizations appLocalizations) {
+  SingleBooking toSingleBooking(AppLocalizations appLocalizations) {
     var startTime = TimeOfDayExtension.tryParse(this.startTime ?? '');
 
     TimeOfDay? endTime;
@@ -147,7 +147,7 @@ class TokenizedBooking {
       endTime = nearestTimeOfDay.increment(hours: defaultSlotDuration.inHours);
     }
 
-    return Booking(
+    return SingleBooking(
       startDateTime: now.addTimeOfDay(startTime),
       endDateTime: now.addTimeOfDay(endTime),
     );
