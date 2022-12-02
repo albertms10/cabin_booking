@@ -181,7 +181,7 @@ class RecurringBooking extends Booking {
     String? cabinId,
     Periodicity? periodicity,
     int? repeatEvery,
-    DateTime? endDate,
+    DateTime? recurringEndDate,
     int? occurrences,
   }) =>
       RecurringBooking(
@@ -193,11 +193,12 @@ class RecurringBooking extends Booking {
         cabinId: cabinId ?? this.cabinId,
         periodicity: periodicity ?? this.periodicity,
         repeatEvery: repeatEvery ?? this.repeatEvery,
-        recurringEndDate:
-            endDate != null && occurrences == null ? endDate : null,
-        occurrences: occurrences != null && endDate == null
+        recurringEndDate: recurringEndDate != null && occurrences == null
+            ? recurringEndDate
+            : _recurringEndDate,
+        occurrences: occurrences != null && recurringEndDate == null
             ? occurrences
-            : this.occurrences,
+            : _occurrences,
       );
 
   @override
