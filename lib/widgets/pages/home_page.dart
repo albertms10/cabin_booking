@@ -25,13 +25,13 @@ class _HomePageState extends State<HomePage> {
     SchoolYearFloatingActionButton(),
   ];
 
-  int get currentIndex =>
+  int get selectedIndex =>
       _pageController.hasClients && _pageController.page != null
           ? _pageController.page!.floor()
           : _pageController.initialPage;
 
   void _setNavigationIndex(int index) {
-    if (index == currentIndex) return;
+    if (index == selectedIndex) return;
 
     setState(() => _pageController.jumpToPage(index));
   }
@@ -81,16 +81,16 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-      floatingActionButton: _floatingActionButtons[currentIndex],
+      floatingActionButton: _floatingActionButtons[selectedIndex],
       bottomNavigationBar: isSmallDisplay
-          ? BottomNavigationBar(
-              currentIndex: currentIndex,
-              onTap: _setNavigationIndex,
-              items: [
+          ? NavigationBar(
+              selectedIndex: selectedIndex,
+              onDestinationSelected: _setNavigationIndex,
+              destinations: [
                 for (final page in pageDestinations)
-                  BottomNavigationBarItem(
+                  NavigationDestination(
                     icon: page.icon,
-                    activeIcon: page.selectedIcon,
+                    selectedIcon: page.selectedIcon,
                     label: page.label,
                   ),
               ],
@@ -101,15 +101,17 @@ class _HomePageState extends State<HomePage> {
           children: [
             if (!isSmallDisplay) ...[
               NavigationRail(
-                selectedIndex: currentIndex,
+                selectedIndex: selectedIndex,
                 onDestinationSelected: _setNavigationIndex,
-                labelType: NavigationRailLabelType.selected,
+                labelType: NavigationRailLabelType.all,
                 destinations: [
                   for (final page in pageDestinations)
                     NavigationRailDestination(
                       icon: page.icon,
                       selectedIcon: page.selectedIcon,
-                      label: Text(page.label ?? ''),
+                      label: Text(page.label),
+                      padding:
+                          const EdgeInsetsDirectional.only(top: 8, bottom: 4),
                     ),
                 ],
               ),
@@ -139,7 +141,11 @@ enum AppPages { summary, bookings, cabins, schoolYears }
 class _PageDestination {
   final Icon icon;
   final Icon? selectedIcon;
-  final String? label;
+  final String label;
 
-  _PageDestination({required this.icon, this.selectedIcon, this.label});
+  _PageDestination({
+    required this.icon,
+    this.selectedIcon,
+    required this.label,
+  });
 }
