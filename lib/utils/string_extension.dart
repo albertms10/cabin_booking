@@ -1,5 +1,6 @@
 import 'package:cabin_booking/utils/reg_exp_match_extension.dart';
 
+/// String extension.
 extension StringExtension on String {
   /// Returns a [Map] with all named groups that [expressions] match this
   /// [String].

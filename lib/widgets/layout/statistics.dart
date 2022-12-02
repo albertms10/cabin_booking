@@ -10,7 +10,7 @@ class Statistics extends StatelessWidget {
     super.key,
     this.title,
     this.icon,
-    this.items = const [],
+    required this.items,
     this.onTap,
   });
 
@@ -51,14 +51,14 @@ class _StatisticsHeading extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Padding(
-      padding: const EdgeInsets.only(bottom: 16),
+      padding: const EdgeInsetsDirectional.only(bottom: 16),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         textBaseline: TextBaseline.ideographic,
         children: [
           if (icon != null)
             Padding(
-              padding: const EdgeInsets.only(right: 8),
+              padding: const EdgeInsetsDirectional.only(end: 8),
               child: Icon(
                 icon,
                 size: 18,

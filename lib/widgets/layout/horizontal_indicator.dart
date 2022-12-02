@@ -19,7 +19,7 @@ class HorizontalIndicator extends StatelessWidget {
         SizedBox(
           height: verticalOffset,
           child: Container(
-            alignment: Alignment.bottomLeft,
+            alignment: AlignmentDirectional.bottomStart,
             padding: const EdgeInsets.all(8),
             child: label,
           ),

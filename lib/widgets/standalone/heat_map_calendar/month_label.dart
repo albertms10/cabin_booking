@@ -17,13 +17,14 @@ class MonthLabel extends StatelessWidget {
     return Container(
       height: size,
       width: size,
-      alignment: Alignment.bottomCenter,
-      padding: EdgeInsets.only(bottom: space),
+      alignment: AlignmentDirectional.bottomCenter,
+      padding: EdgeInsetsDirectional.only(bottom: space),
       child: Stack(
         fit: StackFit.expand,
         clipBehavior: Clip.none,
         children: [
-          Positioned(
+          Positioned.directional(
+            textDirection: Directionality.of(context),
             bottom: 0,
             child: Text(
               text,

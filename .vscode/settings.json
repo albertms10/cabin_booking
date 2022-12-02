@@ -1,4 +1,6 @@
 {
+  "cSpell.enabledLanguageIds": ["arb", "dart", "json", "yaml"],
+  "cSpell.language": "ca,en,es",
   "cSpell.words": [
     "autovalidate",
     "CODEOWNERS",
@@ -16,8 +18,22 @@
     "unawaited",
     "vsync"
   ],
+  "dart.flutterGenerateLocalizationsOnSave": "manual",
+  "debug.inlineValues": "on",
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true,
+    "source.organizeImports": true
+  },
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2,
   "editor.unicodeHighlight.allowedCharacters": {
     "‘": true,
     "’": true
-  }
+  },
+  "files.associations": {
+    "*.arb": "json"
+  },
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "git.branchProtection": ["main"]
 }

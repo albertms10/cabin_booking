@@ -19,11 +19,11 @@ class SaveChangesSnackBarBody extends StatelessWidget {
             elevation: 6,
             color: theme.snackBarTheme.backgroundColor,
             child: Padding(
-              padding: const EdgeInsets.only(
+              padding: const EdgeInsetsDirectional.only(
+                start: 12,
                 top: 12,
-                right: 18,
+                end: 18,
                 bottom: 12,
-                left: 12,
               ),
               child: Text(
                 changesSaved

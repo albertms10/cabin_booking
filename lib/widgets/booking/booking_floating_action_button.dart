@@ -33,7 +33,7 @@ class BookingFloatingActionButton extends StatelessWidget {
           onPressed: () {
             showNewBookingDialog(
               context: context,
-              booking: Booking(
+              booking: SingleBooking(
                 startDateTime:
                     dayHandler.dateTime.addTimeOfDay(kTimeTableStartTime),
                 endDateTime: dayHandler.dateTime.addTimeOfDay(
@@ -80,7 +80,7 @@ class BookingFloatingActionButton extends StatelessWidget {
               onTap: () {
                 showNewBookingDialog(
                   context: context,
-                  booking: Booking(
+                  booking: SingleBooking(
                     startDateTime:
                         dayHandler.dateTime.addTimeOfDay(kTimeTableStartTime),
                     endDateTime: dayHandler.dateTime.addTimeOfDay(

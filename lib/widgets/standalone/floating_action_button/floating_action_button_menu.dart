@@ -25,7 +25,7 @@ class FloatingActionButtonMenu extends StatefulWidget {
   final double elevation;
   final ShapeBorder shape;
 
-  final double marginRight;
+  final double marginEnd;
   final double marginBottom;
 
   /// The color of the background overlay.
@@ -65,7 +65,7 @@ class FloatingActionButtonMenu extends StatefulWidget {
 
   FloatingActionButtonMenu({
     super.key,
-    this.buttons = const [],
+    required this.buttons,
     this.visible = true,
     this.backgroundColor,
     this.foregroundColor,
@@ -78,7 +78,7 @@ class FloatingActionButtonMenu extends StatefulWidget {
     this.animatedIcon,
     this.animatedIconTheme,
     this.marginBottom = 16,
-    this.marginRight = 14,
+    this.marginEnd = 14,
     this.onOpen,
     this.onClose,
     this.closeManually = false,
@@ -184,11 +184,15 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
   }
 
   Widget _renderOverlay() {
-    return Positioned(
-      right: -16,
-      bottom: -16,
-      top: _open || !_animationCompleted ? 0 : null,
-      left: _open || !_animationCompleted ? 0 : null,
+    final start = _open || !_animationCompleted ? 0.0 : null;
+    const end = -16.0;
+
+    return Positioned.directional(
+      textDirection: Directionality.of(context),
+      start: start,
+      top: start,
+      end: end,
+      bottom: end,
       child: GestureDetector(
         onTap: _toggleChildren,
         child: BackgroundOverlay(
@@ -201,16 +205,17 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
   }
 
   Widget _renderButton() {
-    return Positioned(
+    return Positioned.directional(
+      textDirection: Directionality.of(context),
       bottom: widget.marginBottom - 16,
-      right: widget.marginRight - 16,
+      end: widget.marginEnd - 16,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: List.of(_getChildrenList())
           ..add(
             Container(
-              margin: const EdgeInsets.only(top: 8, right: 2),
+              margin: const EdgeInsetsDirectional.only(top: 8, end: 2),
               child: AnimatedFloatingButton(
                 visible: widget.visible,
                 tween: widget.tween,
@@ -250,7 +255,7 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
   @override
   Widget build(BuildContext context) {
     return Stack(
-      alignment: Alignment.bottomRight,
+      alignment: AlignmentDirectional.bottomEnd,
       fit: StackFit.expand,
       clipBehavior: Clip.none,
       children: [

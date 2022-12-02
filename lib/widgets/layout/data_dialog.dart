@@ -23,7 +23,8 @@ class DataDialog extends StatelessWidget {
           title,
         ],
       ),
-      contentPadding: const EdgeInsets.only(left: 24, right: 24, bottom: 24),
+      contentPadding:
+          const EdgeInsetsDirectional.only(start: 24, end: 24, bottom: 24),
       titlePadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 18),
       children: [content],
     );

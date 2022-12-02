@@ -11,7 +11,7 @@ class DetailedFigure<T> extends StatelessWidget {
   const DetailedFigure({
     super.key,
     required this.figure,
-    this.details = const [],
+    required this.details,
     this.detailsSeparator,
     this.tooltipMessage,
   });
@@ -39,7 +39,7 @@ class DetailedFigure<T> extends StatelessWidget {
           ),
           if (filteredDetails.length > 1)
             Padding(
-              padding: const EdgeInsets.only(left: 8),
+              padding: const EdgeInsetsDirectional.only(start: 8),
               child: Row(
                 children: [
                   for (var i = 0; i < filteredDetails.length; i++) ...[

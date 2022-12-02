@@ -1,5 +1,6 @@
 import 'package:collection/collection.dart' show IterableNullableExtension;
 
+/// RegExpMatch extension.
 extension RegExpMatchExtension on RegExpMatch {
   /// Returns a [Map] with all non-null named groups from this [RegExpMatch].
   ///

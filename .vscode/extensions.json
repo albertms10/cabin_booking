@@ -1,0 +1,13 @@
+{
+  "recommendations": [
+    "dart-code.dart-code",
+    "dart-code.flutter",
+    "esbenp.prettier-vscode",
+    "jeroen-meijer.pubspec-assist",
+    "localizely.flutter-intl",
+    "shardulm94.trailing-spaces",
+    "streetsidesoftware.code-spell-checker",
+    "streetsidesoftware.code-spell-checker-catalan",
+    "streetsidesoftware.code-spell-checker-spanish"
+  ]
+}
