@@ -19,7 +19,7 @@ class Statistics extends StatelessWidget {
     return Card(
       child: InkWell(
         onTap: onTap,
-        borderRadius: const BorderRadius.all(Radius.circular(4)),
+        borderRadius: const BorderRadius.all(Radius.circular(12)),
         child: Padding(
           padding: const EdgeInsets.all(20),
           child: Column(
