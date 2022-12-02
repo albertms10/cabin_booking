@@ -1,4 +1,5 @@
 import 'package:cabin_booking/model.dart';
+import 'package:cabin_booking/utils/dialog.dart';
 import 'package:cabin_booking/utils/string_extension.dart';
 import 'package:cabin_booking/widgets/jump_bar/booking_search_result.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +16,7 @@ class JumpBar extends StatefulWidget {
 class _JumpBarState extends State<JumpBar> {
   final TextEditingController _controller = TextEditingController();
 
-  Booking? _suggestedBooking;
+  SingleBooking? _suggestedBooking;
 
   List<int> get _items => const [1];
 
@@ -82,6 +83,21 @@ class _JumpBarState extends State<JumpBar> {
                       _JumpBarItem(
                         icon: Icons.auto_awesome,
                         child: BookingSearchResult(booking: _suggestedBooking!),
+                        onTap: () async {
+                          final cabinManager =
+                              Provider.of<CabinManager>(context, listen: false);
+
+                          Navigator.of(context).pop();
+
+                          return showNewBookingDialog(
+                            context: context,
+                            booking: _suggestedBooking!.copyWith(
+                              cabinId: _suggestedBooking!.cabinId ??
+                                  cabinManager.cabins.first.id,
+                            ),
+                            cabinManager: cabinManager,
+                          );
+                        },
                       ),
                     for (final _ in _items) const _JumpBarItem(),
                   ],
@@ -123,12 +139,14 @@ class _JumpBarItem extends StatelessWidget {
   final IconData? icon;
   final Widget? child;
   final bool enabled;
+  final VoidCallback? onTap;
 
   const _JumpBarItem({
     super.key,
     this.icon,
     this.child,
     this.enabled = true,
+    this.onTap,
   });
 
   @override
@@ -138,7 +156,7 @@ class _JumpBarItem extends StatelessWidget {
       title: child,
       selected: true,
       enabled: enabled,
-      onTap: () {},
+      onTap: onTap,
     );
   }
 }
