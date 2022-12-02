@@ -47,27 +47,43 @@ class RecurringBooking extends Booking {
             : null,
         super.from();
 
-  RecurringBooking.fromBooking(
+  factory RecurringBooking.fromBooking(
     Booking booking, {
-    this.periodicity = Periodicity.weekly,
-    this.repeatEvery = 1,
+    Periodicity? periodicity,
+    int? repeatEvery,
     DateTime? recurringEndDate,
     int? occurrences,
-  })  : assert(
-          (recurringEndDate == null) != (occurrences == null),
-          'Either recurringEndDate or occurrences must be given, '
-          'but not both.',
-        ),
-        _recurringEndDate = recurringEndDate,
-        _occurrences = occurrences,
-        super(
-          id: booking.id,
-          description: booking.description,
-          startDateTime: booking.startDateTime,
-          endDateTime: booking.endDateTime,
-          isLocked: booking.isLocked,
-          cabinId: booking.cabinId,
-        );
+  }) {
+    if (booking is RecurringBooking) {
+      return booking.copyWith(
+        periodicity: periodicity,
+        repeatEvery: repeatEvery,
+        recurringEndDate: recurringEndDate,
+        occurrences: occurrences,
+      );
+    } else {
+      periodicity ??= Periodicity.weekly;
+      repeatEvery ??= 1;
+    }
+    assert(
+      (recurringEndDate == null) != (occurrences == null),
+      'Either recurringEndDate or occurrences must be given, '
+      'but not both.',
+    );
+
+    return RecurringBooking(
+      id: booking.id,
+      description: booking.description,
+      startDateTime: booking.startDateTime,
+      endDateTime: booking.endDateTime,
+      isLocked: booking.isLocked,
+      cabinId: booking.cabinId,
+      periodicity: periodicity,
+      repeatEvery: repeatEvery,
+      recurringEndDate: recurringEndDate,
+      occurrences: occurrences,
+    );
+  }
 
   static bool isRecurringBooking(Booking? booking) =>
       booking is RecurringBooking || booking!.recurringBookingId != null;
