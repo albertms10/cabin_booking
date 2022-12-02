@@ -317,30 +317,22 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
 
   void changeRecurringToSingleBooking(
     String? cabinId,
-    Booking booking, {
+    SingleBooking booking, {
     bool notify = true,
   }) {
     removeRecurringBookingById(cabinId, booking.id, notify: false);
-    addSingleBooking(
-      cabinId,
-      SingleBooking.fromBooking(booking),
-      notify: false,
-    );
+    addSingleBooking(cabinId, booking, notify: false);
 
     if (notify) notifyListeners();
   }
 
   void changeSingleToRecurringBooking(
     String? cabinId,
-    Booking booking, {
+    RecurringBooking recurringBooking, {
     bool notify = true,
   }) {
-    removeSingleBookingById(cabinId, booking.id, notify: false);
-    addRecurringBooking(
-      cabinId,
-      RecurringBooking.fromBooking(booking),
-      notify: false,
-    );
+    removeSingleBookingById(cabinId, recurringBooking.id, notify: false);
+    addRecurringBooking(cabinId, recurringBooking, notify: false);
 
     if (notify) notifyListeners();
   }
