@@ -108,14 +108,14 @@ class _BookingPreviewEditIconButton extends StatelessWidget {
       } else {
         cabinManager.changeSingleToRecurringBooking(
           cabin.id,
-          editedBooking as SingleBooking,
+          editedBooking as RecurringBooking,
         );
       }
     } else {
       if (RecurringBooking.isRecurringBooking(booking)) {
         cabinManager.changeRecurringToSingleBooking(
           cabin.id,
-          editedBooking as RecurringBooking,
+          editedBooking as SingleBooking,
         );
       } else {
         cabinManager.modifySingleBooking(

@@ -15,6 +15,16 @@ class SingleBooking extends Booking {
 
   SingleBooking.from(super.other) : super.from();
 
+  SingleBooking.fromBooking(Booking booking)
+      : super(
+          id: booking.id,
+          description: booking.description,
+          startDateTime: booking.startDateTime,
+          endDateTime: booking.endDateTime,
+          isLocked: booking.isLocked,
+          cabinId: booking.cabinId,
+        );
+
   @override
   SingleBooking copyWith({
     String? id,

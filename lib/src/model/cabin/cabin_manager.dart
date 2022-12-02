@@ -4,6 +4,7 @@ import 'dart:convert' show json;
 import 'package:cabin_booking/utils/time_of_day_extension.dart';
 import 'package:flutter/material.dart';
 
+import '../booking/booking.dart';
 import '../booking/booking_manager.dart';
 import '../booking/recurring_booking.dart';
 import '../booking/single_booking.dart';
@@ -316,13 +317,13 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
 
   void changeRecurringToSingleBooking(
     String? cabinId,
-    RecurringBooking recurringBooking, {
+    Booking booking, {
     bool notify = true,
   }) {
-    removeRecurringBookingById(cabinId, recurringBooking.id, notify: false);
+    removeRecurringBookingById(cabinId, booking.id, notify: false);
     addSingleBooking(
       cabinId,
-      recurringBooking.asSingleBooking(),
+      SingleBooking.fromBooking(booking),
       notify: false,
     );
 
@@ -331,7 +332,7 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
 
   void changeSingleToRecurringBooking(
     String? cabinId,
-    SingleBooking booking, {
+    Booking booking, {
     bool notify = true,
   }) {
     removeSingleBookingById(cabinId, booking.id, notify: false);
