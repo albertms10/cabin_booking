@@ -3,6 +3,7 @@ library model;
 export 'src/model/booking/booking.dart';
 export 'src/model/booking/booking_manager.dart';
 export 'src/model/booking/recurring_booking.dart';
+export 'src/model/booking/single_booking.dart';
 export 'src/model/cabin/cabin.dart';
 export 'src/model/cabin/cabin_elements.dart';
 export 'src/model/cabin/cabin_manager.dart';

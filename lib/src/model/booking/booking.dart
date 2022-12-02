@@ -13,7 +13,7 @@ abstract class _JsonFields {
   static const isLocked = 'il';
 }
 
-class Booking extends Item {
+abstract class Booking extends Item {
   String? description;
   DateTime? startDateTime;
   DateTime? endDateTime;
@@ -106,24 +106,6 @@ class Booking extends Item {
   bool collidesWith(Booking booking) =>
       startDateTime!.isBefore(booking.endDateTime!) &&
       endDateTime!.isAfter(booking.startDateTime!);
-
-  @override
-  Booking copyWith({
-    String? id,
-    String? description,
-    DateTime? startDateTime,
-    DateTime? endDateTime,
-    bool? isLocked,
-    String? cabinId,
-  }) =>
-      Booking(
-        id: id ?? this.id,
-        description: description ?? this.description,
-        startDateTime: startDateTime ?? this.startDateTime,
-        endDateTime: endDateTime ?? this.endDateTime,
-        isLocked: isLocked ?? this.isLocked,
-        cabinId: cabinId ?? this.cabinId,
-      );
 
   @override
   void replaceWith(covariant Booking item) {

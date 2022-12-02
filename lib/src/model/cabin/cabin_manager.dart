@@ -4,9 +4,9 @@ import 'dart:convert' show json;
 import 'package:cabin_booking/utils/time_of_day_extension.dart';
 import 'package:flutter/material.dart';
 
-import '../booking/booking.dart';
 import '../booking/booking_manager.dart';
 import '../booking/recurring_booking.dart';
+import '../booking/single_booking.dart';
 import '../date/date_range.dart';
 import '../file/file_manager.dart';
 import '../file/writable_manager.dart';
@@ -241,12 +241,12 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
     if (notify) notifyListeners();
   }
 
-  void addBooking(
+  void addSingleBooking(
     String? cabinId,
-    Booking booking, {
+    SingleBooking booking, {
     bool notify = true,
   }) {
-    cabinFromId(booking.cabinId ?? cabinId).addBooking(booking);
+    cabinFromId(booking.cabinId ?? cabinId).addSingleBooking(booking);
 
     if (notify) notifyListeners();
   }
@@ -262,16 +262,16 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
     if (notify) notifyListeners();
   }
 
-  void modifyBooking(
+  void modifySingleBooking(
     String? cabinId,
-    Booking booking, {
+    SingleBooking booking, {
     bool notify = true,
   }) {
     if (booking.cabinId == null || booking.cabinId == cabinId) {
-      cabinFromId(cabinId).modifyBooking(booking);
+      cabinFromId(cabinId).modifySingleBooking(booking);
     } else {
-      cabinFromId(cabinId).removeBookingById(booking.id);
-      cabinFromId(booking.cabinId).addBooking(booking);
+      cabinFromId(cabinId).removeSingleBookingById(booking.id);
+      cabinFromId(booking.cabinId).addSingleBooking(booking);
     }
 
     if (notify) notifyListeners();
@@ -294,12 +294,12 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
     if (notify) notifyListeners();
   }
 
-  void removeBookingById(
+  void removeSingleBookingById(
     String? cabinId,
     String? bookingId, {
     bool notify = true,
   }) {
-    cabinFromId(cabinId).removeBookingById(bookingId);
+    cabinFromId(cabinId).removeSingleBookingById(bookingId);
 
     if (notify) notifyListeners();
   }
@@ -314,23 +314,23 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
     if (notify) notifyListeners();
   }
 
-  void changeRecurringToBooking(
+  void changeRecurringToSingleBooking(
     String? cabinId,
-    Booking booking, {
+    SingleBooking booking, {
     bool notify = true,
   }) {
     removeRecurringBookingById(cabinId, booking.id, notify: false);
-    addBooking(cabinId, booking, notify: false);
+    addSingleBooking(cabinId, booking, notify: false);
 
     if (notify) notifyListeners();
   }
 
-  void changeBookingToRecurring(
+  void changeSingleToRecurringBooking(
     String? cabinId,
     RecurringBooking recurringBooking, {
     bool notify = true,
   }) {
-    removeBookingById(cabinId, recurringBooking.id, notify: false);
+    removeSingleBookingById(cabinId, recurringBooking.id, notify: false);
     addRecurringBooking(cabinId, recurringBooking, notify: false);
 
     if (notify) notifyListeners();

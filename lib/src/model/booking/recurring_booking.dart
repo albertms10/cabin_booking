@@ -1,6 +1,7 @@
 import 'package:collection/collection.dart' show IterableExtension;
 
 import 'booking.dart';
+import 'single_booking.dart';
 
 abstract class _JsonFields {
   static const periodicity = 'p';
@@ -46,27 +47,43 @@ class RecurringBooking extends Booking {
             : null,
         super.from();
 
-  RecurringBooking.fromBooking(
+  factory RecurringBooking.fromBooking(
     Booking booking, {
-    this.periodicity = Periodicity.weekly,
-    this.repeatEvery = 1,
+    Periodicity? periodicity,
+    int? repeatEvery,
     DateTime? recurringEndDate,
     int? occurrences,
-  })  : assert(
-          (recurringEndDate == null) != (occurrences == null),
-          'Either recurringEndDate or occurrences must be given, '
-          'but not both.',
-        ),
-        _recurringEndDate = recurringEndDate,
-        _occurrences = occurrences,
-        super(
-          id: booking.id,
-          description: booking.description,
-          startDateTime: booking.startDateTime,
-          endDateTime: booking.endDateTime,
-          isLocked: booking.isLocked,
-          cabinId: booking.cabinId,
-        );
+  }) {
+    if (booking is RecurringBooking) {
+      return booking.copyWith(
+        periodicity: periodicity,
+        repeatEvery: repeatEvery,
+        recurringEndDate: recurringEndDate,
+        occurrences: occurrences,
+      );
+    } else {
+      periodicity ??= Periodicity.weekly;
+      repeatEvery ??= 1;
+    }
+    assert(
+      (recurringEndDate == null) != (occurrences == null),
+      'Either recurringEndDate or occurrences must be given, '
+      'but not both.',
+    );
+
+    return RecurringBooking(
+      id: booking.id,
+      description: booking.description,
+      startDateTime: booking.startDateTime,
+      endDateTime: booking.endDateTime,
+      isLocked: booking.isLocked,
+      cabinId: booking.cabinId,
+      periodicity: periodicity,
+      repeatEvery: repeatEvery,
+      recurringEndDate: recurringEndDate,
+      occurrences: occurrences,
+    );
+  }
 
   static bool isRecurringBooking(Booking? booking) =>
       booking is RecurringBooking || booking!.recurringBookingId != null;
@@ -124,7 +141,7 @@ class RecurringBooking extends Booking {
     _recurringEndDate = null;
   }
 
-  Booking asBooking({bool linked = true}) => Booking(
+  SingleBooking asSingleBooking({bool linked = true}) => SingleBooking(
         id: linked ? '$id-0' : (recurringBookingId ?? id),
         description: description,
         startDateTime: startDateTime,
@@ -134,10 +151,10 @@ class RecurringBooking extends Booking {
         recurringBookingId: linked ? id : null,
       );
 
-  List<Booking> get bookings {
-    final runBookings = <Booking>[];
+  List<SingleBooking> get bookings {
+    final runBookings = <SingleBooking>[];
     var runDate = date!;
-    var movedBooking = asBooking();
+    var movedBooking = asSingleBooking();
 
     var count = 1;
 
@@ -164,7 +181,7 @@ class RecurringBooking extends Booking {
     return runBookings;
   }
 
-  Booking? bookingOn(DateTime dateTime) => bookings.firstWhereOrNull(
+  SingleBooking? bookingOn(DateTime dateTime) => bookings.firstWhereOrNull(
         (booking) => booking.isOn(dateTime),
       );
 
@@ -180,7 +197,7 @@ class RecurringBooking extends Booking {
     String? cabinId,
     Periodicity? periodicity,
     int? repeatEvery,
-    DateTime? endDate,
+    DateTime? recurringEndDate,
     int? occurrences,
   }) =>
       RecurringBooking(
@@ -192,11 +209,12 @@ class RecurringBooking extends Booking {
         cabinId: cabinId ?? this.cabinId,
         periodicity: periodicity ?? this.periodicity,
         repeatEvery: repeatEvery ?? this.repeatEvery,
-        recurringEndDate:
-            endDate != null && occurrences == null ? endDate : null,
-        occurrences: occurrences != null && endDate == null
+        recurringEndDate: recurringEndDate != null && occurrences == null
+            ? recurringEndDate
+            : _recurringEndDate,
+        occurrences: occurrences != null && recurringEndDate == null
             ? occurrences
-            : this.occurrences,
+            : _occurrences,
       );
 
   @override
