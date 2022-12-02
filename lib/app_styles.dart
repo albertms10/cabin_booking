@@ -16,7 +16,7 @@ ThemeData lightTheme() {
   final primaryColorLight = primaryColor[300]!;
   final primaryColorDark = primaryColor[700]!;
 
-  return ThemeData.light().copyWith(
+  return ThemeData.light(useMaterial3: true).copyWith(
     primaryColor: primaryColor,
     primaryColorLight: primaryColorLight,
     primaryColorDark: primaryColorDark,
@@ -46,7 +46,7 @@ ThemeData darkTheme() {
   final primaryColorLight = primaryColor[100]!;
   final primaryColorDark = primaryColor[700]!;
 
-  return ThemeData.dark().copyWith(
+  return ThemeData.dark(useMaterial3: true).copyWith(
     primaryColor: primaryColor,
     primaryColorLight: primaryColorLight,
     primaryColorDark: primaryColorDark,
