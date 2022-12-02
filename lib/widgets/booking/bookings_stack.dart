@@ -17,7 +17,7 @@ class BookingsStack extends StatelessWidget {
   const BookingsStack({
     super.key,
     required this.cabin,
-    this.bookings = const <Booking>{},
+    required this.bookings,
     this.showPreviewPanel,
     this.setPreventTimeTableScroll,
   });
