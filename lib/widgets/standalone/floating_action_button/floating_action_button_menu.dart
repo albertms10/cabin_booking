@@ -65,7 +65,7 @@ class FloatingActionButtonMenu extends StatefulWidget {
 
   FloatingActionButtonMenu({
     super.key,
-    this.buttons = const [],
+    required this.buttons,
     this.visible = true,
     this.backgroundColor,
     this.foregroundColor,

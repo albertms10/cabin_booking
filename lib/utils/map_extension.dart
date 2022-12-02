@@ -15,7 +15,7 @@ extension MapExtension<K, V> on Map<K, V> {
   /// assert(filled == const {0: null, 1: true, 2: false, 5: null});
   /// ```
   Map<K, V> fillEmptyKeyValues({
-    Iterable<K> keys = const [],
+    required Iterable<K> keys,
     required V Function() ifAbsent,
   }) {
     final map = Map<K, V>.of(this);
