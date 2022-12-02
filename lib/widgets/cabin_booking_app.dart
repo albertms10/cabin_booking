@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:cabin_booking/app_styles.dart' as app_styles;
-import 'package:cabin_booking/services/show_search_bar_intent.dart';
+import 'package:cabin_booking/services/show_jump_bar_intent.dart';
 import 'package:cabin_booking/widgets/pages/home_page.dart';
 import 'package:cabin_booking/widgets/pages/main_data_loader.dart';
 import 'package:flutter/material.dart';
@@ -44,7 +44,7 @@ class _ActionableFocusedShortcuts extends StatelessWidget {
 
   const _ActionableFocusedShortcuts({super.key, required this.child});
 
-  LogicalKeySet get _searchBarLogicalKeySet => Platform.isMacOS
+  LogicalKeySet get _jumpBarLogicalKeySet => Platform.isMacOS
       ? LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.keyK)
       : LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyK);
 
@@ -52,11 +52,11 @@ class _ActionableFocusedShortcuts extends StatelessWidget {
   Widget build(BuildContext context) {
     return Shortcuts(
       shortcuts: {
-        _searchBarLogicalKeySet: const ShowSearchBarIntent(),
+        _jumpBarLogicalKeySet: const ShowJumpBarIntent(),
       },
       child: Actions(
         actions: {
-          ShowSearchBarIntent: ShowSearchBarAction(context),
+          ShowJumpBarIntent: ShowJumpBarAction(context),
         },
         child: Focus(
           autofocus: true,

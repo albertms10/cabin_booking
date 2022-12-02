@@ -28,7 +28,9 @@
   "add": "Add",
   "edit": "Edit",
   "previousDay": "Previous day",
+  "yesterday": "Yesterday",
   "today": "Today",
+  "tomorrow": "Tomorrow",
   "nextDay": "Next day",
   "start": "Start",
   "startDate": "Start date",
@@ -104,6 +106,10 @@
   "recurrence": "Recurrence",
   "doesNotRepeat": "Does not repeat",
   "repeats": "Repeats",
+  "everyDay": "Every day",
+  "everyWeek": "Every week",
+  "everyMonth": "Every month",
+  "everyYear": "Every year",
   "daily": "Daily",
   "weekly": "Weekly",
   "monthly": "Monthly",
@@ -153,5 +159,9 @@
   "popularTimes": "Popular times",
   "pending": "Pending",
   "confirmed": "Confirmed",
-  "cancelled": "Cancelled"
+  "cancelled": "Cancelled",
+  "hour": "hour",
+  "hours": "hours",
+  "minute": "minute",
+  "minutes": "minutes"
 }

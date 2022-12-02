@@ -2,6 +2,7 @@ import 'dart:collection' show SplayTreeMap, SplayTreeSet;
 import 'dart:convert' show json;
 
 import 'package:cabin_booking/utils/time_of_day_extension.dart';
+import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
 
 import '../booking/booking_manager.dart';
@@ -11,6 +12,7 @@ import '../date/date_range.dart';
 import '../file/file_manager.dart';
 import '../file/writable_manager.dart';
 import 'cabin.dart';
+import 'tokenized_cabin.dart';
 
 Iterable<Cabin> _parseCabins(String jsonString) =>
     (json.decode(jsonString) as List<dynamic>)
@@ -30,7 +32,11 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
   List<Map<String, dynamic>> cabinsToJson() =>
       cabins.map((cabin) => cabin.toJson()).toList();
 
+  // TODO(albertms10): use `singleWhereOrNull`.
   Cabin cabinFromId(String? id) => cabins.firstWhere((cabin) => cabin.id == id);
+
+  Cabin? findCabinFromNumber(int number) =>
+      cabins.singleWhereOrNull((cabin) => cabin.number == number);
 
   int get lastCabinNumber => cabins.isEmpty ? 0 : cabins.last.number;
 
@@ -334,6 +340,13 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
     addRecurringBooking(cabinId, recurringBooking, notify: false);
 
     if (notify) notifyListeners();
+  }
+
+  Cabin? findCabinFromTokenized(TokenizedCabin tokenized) {
+    final cabinNumber = int.tryParse(tokenized.cabinNumber ?? '');
+    if (cabinNumber == null) return null;
+
+    return findCabinFromNumber(cabinNumber);
   }
 
   Set<Cabin> get _defaultCabins => SplayTreeSet();
