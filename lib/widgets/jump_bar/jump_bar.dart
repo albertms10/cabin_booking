@@ -19,11 +19,11 @@ class _JumpBarState extends State<JumpBar> {
 
   List<int> get _items => const [1];
 
-  static const double _searchBarHeight = 48;
+  static const double _barHeight = 48;
   static const double _itemHeight = 64;
 
   double get _height =>
-      _searchBarHeight + _itemHeight + (_items.length * _itemHeight);
+      _barHeight + _itemHeight + (_items.length * _itemHeight);
 
   @override
   void initState() {
@@ -76,14 +76,14 @@ class _JumpBarState extends State<JumpBar> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    _SearchBarField(controller: _controller),
+                    _JumpBarField(controller: _controller),
                     if (_items.isNotEmpty) const Divider(height: 0),
                     if (_suggestedBooking != null)
-                      _SearchBarItem(
+                      _JumpBarItem(
                         icon: Icons.auto_awesome,
                         child: BookingSearchResult(booking: _suggestedBooking!),
                       ),
-                    for (final item in _items) const _SearchBarItem(),
+                    for (final _ in _items) const _JumpBarItem(),
                   ],
                 ),
               ),
@@ -95,10 +95,10 @@ class _JumpBarState extends State<JumpBar> {
   }
 }
 
-class _SearchBarField extends StatelessWidget {
+class _JumpBarField extends StatelessWidget {
   final TextEditingController? controller;
 
-  const _SearchBarField({super.key, this.controller});
+  const _JumpBarField({super.key, this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -119,12 +119,12 @@ class _SearchBarField extends StatelessWidget {
   }
 }
 
-class _SearchBarItem extends StatelessWidget {
+class _JumpBarItem extends StatelessWidget {
   final IconData? icon;
   final Widget? child;
   final bool enabled;
 
-  const _SearchBarItem({
+  const _JumpBarItem({
     super.key,
     this.icon,
     this.child,
