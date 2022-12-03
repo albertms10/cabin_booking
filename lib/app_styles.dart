@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 final ThemeData _baseThemeData = ThemeData(
   inputDecorationTheme: const InputDecorationTheme(
-    filled: true,
     errorMaxLines: 2,
+    filled: true,
     border: OutlineInputBorder(),
   ),
   tooltipTheme: const TooltipThemeData(
@@ -24,16 +24,16 @@ ThemeData lightTheme() {
       primary: primaryColor,
       primaryContainer: primaryColorLight,
       secondary: primaryColor,
-      secondaryContainer: primaryColorDark,
       onSecondary: Colors.white,
+      secondaryContainer: primaryColorDark,
     ),
     radioTheme: RadioThemeData(
       fillColor: _resolveSelectedMaterialState(primaryColor),
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       selectedIconTheme: IconThemeData(color: primaryColorDark),
-      selectedItemColor: primaryColorDark,
       unselectedIconTheme: const IconThemeData(color: Colors.grey),
+      selectedItemColor: primaryColorDark,
       unselectedItemColor: Colors.grey,
     ),
     inputDecorationTheme: _baseThemeData.inputDecorationTheme,
@@ -52,11 +52,11 @@ ThemeData darkTheme() {
     primaryColorDark: primaryColorDark,
     colorScheme: ColorScheme.dark(
       primary: primaryColor,
+      onPrimary: Colors.white,
       primaryContainer: primaryColorLight,
       secondary: primaryColor,
-      secondaryContainer: primaryColorDark,
-      onPrimary: Colors.white,
       onSecondary: Colors.white,
+      secondaryContainer: primaryColorDark,
     ),
     radioTheme: RadioThemeData(
       fillColor: _resolveSelectedMaterialState(primaryColor),
@@ -66,8 +66,8 @@ ThemeData darkTheme() {
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       selectedIconTheme: IconThemeData(color: primaryColorDark),
-      selectedItemColor: primaryColorDark,
       unselectedIconTheme: const IconThemeData(color: Colors.grey),
+      selectedItemColor: primaryColorDark,
       unselectedItemColor: Colors.grey,
     ),
     inputDecorationTheme: _baseThemeData.inputDecorationTheme,

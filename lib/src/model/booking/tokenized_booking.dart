@@ -99,8 +99,8 @@ class TokenizedBooking {
           '(?<durationUnit1>${appLocalizations.timeUnits.union})'
           r'(:?.*?)(?<durationValue2>\d+)\W*'
           '(?<durationUnit2>${appLocalizations.timeUnits.union})',
-          dotAll: true,
           caseSensitive: false,
+          dotAll: true,
         ),
         RegExp(
           '(?<periodicity>${appLocalizations.periodicityTerms.union})',

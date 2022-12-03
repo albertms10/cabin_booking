@@ -25,18 +25,18 @@ class HorizontalIndicator extends StatelessWidget {
           ),
         ),
         Container(
-          width: double.infinity,
-          height: 2,
           decoration: BoxDecoration(
             color: indicatorColor,
             boxShadow: const [
               BoxShadow(
                 color: Colors.black12,
-                blurRadius: 3,
                 offset: Offset(3, 4),
+                blurRadius: 3,
               ),
             ],
           ),
+          width: double.infinity,
+          height: 2,
         ),
       ],
     );

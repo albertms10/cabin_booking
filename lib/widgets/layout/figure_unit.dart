@@ -11,13 +11,10 @@ class FigureUnit extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          '$value',
-          style: theme.textTheme.headline5,
-        ),
+        Text('$value', style: theme.textTheme.headline5),
         const SizedBox(width: 2),
         Column(
           mainAxisSize: MainAxisSize.min,

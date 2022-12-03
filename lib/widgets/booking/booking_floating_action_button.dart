@@ -21,38 +21,13 @@ class BookingFloatingActionButton extends StatelessWidget {
         final appLocalizations = AppLocalizations.of(context)!;
 
         return FloatingActionButtonMenu(
-          animatedIcon: AnimatedIcons.add_event,
-          animatedIconTheme: IconThemeData(
-            size: 25,
-            color: theme.colorScheme.onPrimary,
-          ),
-          label: Text(
-            appLocalizations.booking,
-            style: theme.textTheme.subtitle2,
-          ),
-          onPressed: () {
-            showNewBookingDialog(
-              context: context,
-              booking: SingleBooking(
-                startDateTime:
-                    dayHandler.dateTime.addTimeOfDay(kTimeTableStartTime),
-                endDateTime: dayHandler.dateTime.addTimeOfDay(
-                  kTimeTableStartTime.increment(
-                    minutes: defaultSlotDuration.inMinutes,
-                  ),
-                ),
-                cabinId: cabinManager.cabins.first.id,
-              ),
-              cabinManager: cabinManager,
-            );
-          },
           buttons: [
             FloatingActionButtonMenuChild(
-              icon: Icons.repeat,
               label: Text(
                 appLocalizations.recurringBooking,
                 style: theme.textTheme.subtitle2,
               ),
+              icon: Icons.repeat,
               onTap: () {
                 showNewBookingDialog(
                   context: context,
@@ -64,19 +39,19 @@ class BookingFloatingActionButton extends StatelessWidget {
                         minutes: defaultSlotDuration.inMinutes,
                       ),
                     ),
-                    occurrences: 1,
                     cabinId: cabinManager.cabins.first.id,
+                    occurrences: 1,
                   ),
                   cabinManager: cabinManager,
                 );
               },
             ),
             FloatingActionButtonMenuChild(
-              icon: Icons.lock,
               label: Text(
                 appLocalizations.lockedRange,
                 style: theme.textTheme.subtitle2,
               ),
+              icon: Icons.lock,
               onTap: () {
                 showNewBookingDialog(
                   context: context,
@@ -96,6 +71,29 @@ class BookingFloatingActionButton extends StatelessWidget {
               },
             ),
           ],
+          label: Text(
+            appLocalizations.booking,
+            style: theme.textTheme.subtitle2,
+          ),
+          animatedIcon: AnimatedIcons.add_event,
+          animatedIconTheme:
+              IconThemeData(color: theme.colorScheme.onPrimary, size: 25),
+          onPressed: () {
+            showNewBookingDialog(
+              context: context,
+              booking: SingleBooking(
+                startDateTime:
+                    dayHandler.dateTime.addTimeOfDay(kTimeTableStartTime),
+                endDateTime: dayHandler.dateTime.addTimeOfDay(
+                  kTimeTableStartTime.increment(
+                    minutes: defaultSlotDuration.inMinutes,
+                  ),
+                ),
+                cabinId: cabinManager.cabins.first.id,
+              ),
+              cabinManager: cabinManager,
+            );
+          },
         );
       },
     );

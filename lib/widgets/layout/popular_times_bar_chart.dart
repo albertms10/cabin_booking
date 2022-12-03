@@ -14,15 +14,36 @@ class PopularTimesBarChart extends StatelessWidget {
     final highlightColor = theme.colorScheme.secondaryContainer;
 
     return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 4),
       width: 320,
       height: 120,
-      padding: const EdgeInsets.symmetric(horizontal: 4),
       child: BarChart(
         BarChartData(
+          barGroups: [
+            for (final range in timeRangesOccupancy.entries)
+              BarChartGroupData(
+                x: range.key.hour,
+                barRods: [
+                  BarChartRodData(
+                    toY: range.value.inMinutes.toDouble(),
+                    color: range.key.hour == DateTime.now().hour
+                        ? highlightColor
+                        : mainColor,
+                    width: 22,
+                    borderRadius: const BorderRadiusDirectional.only(
+                      topStart: Radius.circular(4),
+                      topEnd: Radius.circular(4),
+                    )
+                        // TODO(albertms10): remove `resolve` call when fixed in https://github.com/imaNNeoFighT/fl_chart/issues/1189.
+                        .resolve(Directionality.of(context)),
+                  ),
+                ],
+              ),
+          ],
           alignment: BarChartAlignment.spaceAround,
-          barTouchData: BarTouchData(enabled: false),
           titlesData: FlTitlesData(
             show: true,
+            leftTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
             topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
             rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
             bottomTitles: AxisTitles(
@@ -39,8 +60,8 @@ class PopularTimesBarChart extends StatelessWidget {
                 },
               ),
             ),
-            leftTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
           ),
+          barTouchData: BarTouchData(enabled: false),
           gridData: FlGridData(show: false),
           borderData: FlBorderData(
             show: true,
@@ -49,27 +70,6 @@ class PopularTimesBarChart extends StatelessWidget {
               bottom: BorderSide(color: theme.hintColor.withOpacity(0.25)),
             ),
           ),
-          barGroups: [
-            for (final range in timeRangesOccupancy.entries)
-              BarChartGroupData(
-                x: range.key.hour,
-                barRods: [
-                  BarChartRodData(
-                    toY: range.value.inMinutes.toDouble(),
-                    width: 22,
-                    color: range.key.hour == DateTime.now().hour
-                        ? highlightColor
-                        : mainColor,
-                    borderRadius: const BorderRadiusDirectional.only(
-                      topStart: Radius.circular(4),
-                      topEnd: Radius.circular(4),
-                    )
-                        // TODO(albertms10): remove `resolve` call when fixed in https://github.com/imaNNeoFighT/fl_chart/issues/1189.
-                        .resolve(Directionality.of(context)),
-                  ),
-                ],
-              ),
-          ],
         ),
       ),
     );

@@ -27,9 +27,9 @@ class ScrollableTimeTable extends StatelessWidget {
                 return Center(
                   child: Text(
                     AppLocalizations.of(context)!.noCabins,
-                    textAlign: TextAlign.center,
                     style: theme.textTheme.headline5
                         ?.copyWith(color: Colors.grey[600]),
+                    textAlign: TextAlign.center,
                   ),
                 );
               }
@@ -97,18 +97,12 @@ class _ScrollablePanelOverlayTimeTableState
               rightHandSideColumnWidth:
                   bookingStackWidth * widget.cabins.length,
               isFixedHeader: true,
-              scrollPhysics: _preventTimeTableScroll
-                  ? const NeverScrollableScrollPhysics()
-                  : null,
-              horizontalScrollPhysics: _preventTimeTableScroll
-                  ? const NeverScrollableScrollPhysics()
-                  : null,
               headerWidgets: [
                 const SizedBox(height: kBookingHeaderHeight),
                 Container(
-                  height: kBookingHeaderHeight,
-                  color: theme.dialogBackgroundColor,
                   padding: const EdgeInsets.symmetric(vertical: 24),
+                  color: theme.dialogBackgroundColor,
+                  height: kBookingHeaderHeight,
                   child: Row(
                     children: [
                       for (final cabin in widget.cabins)
@@ -141,9 +135,9 @@ class _ScrollablePanelOverlayTimeTableState
               },
               itemCount: 1,
               rowSeparatorWidget: const Divider(
-                color: Colors.black54,
                 height: 1,
                 thickness: 0,
+                color: Colors.black54,
               ),
               leftHandSideColBackgroundColor: theme.dialogBackgroundColor,
               rightHandSideColBackgroundColor: theme.dialogBackgroundColor,
@@ -158,6 +152,12 @@ class _ScrollablePanelOverlayTimeTableState
                 radius: Radius.circular(5),
               ),
               refreshIndicator: const WaterDropHeader(),
+              scrollPhysics: _preventTimeTableScroll
+                  ? const NeverScrollableScrollPhysics()
+                  : null,
+              horizontalScrollPhysics: _preventTimeTableScroll
+                  ? const NeverScrollableScrollPhysics()
+                  : null,
             );
           },
         );

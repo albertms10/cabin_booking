@@ -66,9 +66,12 @@ class _SchoolYearFormState extends State<SchoolYearForm> {
               Expanded(
                 child: DateFormField(
                   controller: _startDateController,
-                  initialDate: _schoolYear.startDate,
                   labelText: appLocalizations.startDate,
                   autofocus: true,
+                  initialDate: _schoolYear.startDate,
+                  onChanged: (date) {
+                    setState(() => _schoolYear.startDate = date);
+                  },
                   additionalValidator: (date) {
                     if (_schoolYear.endDate != null &&
                         date.isAfter(_schoolYear.endDate!)) {
@@ -77,17 +80,17 @@ class _SchoolYearFormState extends State<SchoolYearForm> {
 
                     return null;
                   },
-                  onChanged: (date) {
-                    setState(() => _schoolYear.startDate = date);
-                  },
                 ),
               ),
               const SizedBox(width: 12),
               Expanded(
                 child: DateFormField(
                   controller: _endDateController,
-                  initialDate: _schoolYear.endDate,
                   labelText: appLocalizations.endDate,
+                  initialDate: _schoolYear.endDate,
+                  onChanged: (date) {
+                    setState(() => _schoolYear.endDate = date);
+                  },
                   additionalValidator: (date) {
                     if (_schoolYear.startDate != null &&
                         date.isBefore(_schoolYear.startDate!)) {
@@ -96,15 +99,13 @@ class _SchoolYearFormState extends State<SchoolYearForm> {
 
                     return null;
                   },
-                  onChanged: (date) {
-                    setState(() => _schoolYear.endDate = date);
-                  },
                 ),
               ),
             ],
           ),
           const SizedBox(height: 16),
           SubmitButton(
+            shouldAdd: widget.schoolYear.startDate == null,
             onPressed: () {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
@@ -112,7 +113,6 @@ class _SchoolYearFormState extends State<SchoolYearForm> {
                 Navigator.of(context).pop<SchoolYear>(_schoolYear);
               }
             },
-            shouldAdd: widget.schoolYear.startDate == null,
           ),
           const SizedBox(height: 16),
           ItemInfo(

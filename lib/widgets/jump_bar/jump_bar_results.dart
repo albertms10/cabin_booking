@@ -26,7 +26,6 @@ class JumpBarResults extends StatelessWidget {
           JumpBarItem(
             icon: Icons.auto_awesome,
             selected: true,
-            child: BookingSearchResult(booking: suggestedBooking!),
             onTap: () async {
               final cabinManager =
                   Provider.of<CabinManager>(context, listen: false);
@@ -42,13 +41,14 @@ class JumpBarResults extends StatelessWidget {
                 cabinManager: cabinManager,
               );
             },
+            child: BookingSearchResult(booking: suggestedBooking!),
           ),
         if (searchedBookings != null)
           for (final booking in searchedBookings!)
             JumpBarItem(
               icon: Icons.event,
-              child: BookingSearchResult(booking: booking),
               onTap: () {},
+              child: BookingSearchResult(booking: booking),
             ),
       ],
     );

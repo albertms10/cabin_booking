@@ -12,20 +12,20 @@ class DataDialog extends StatelessWidget {
       title: Row(
         children: [
           IconButton(
-            icon: const Icon(Icons.arrow_back),
-            tooltip: MaterialLocalizations.of(context).backButtonTooltip,
+            splashRadius: 24,
             onPressed: () {
               Navigator.of(context).pop();
             },
-            splashRadius: 24,
+            tooltip: MaterialLocalizations.of(context).backButtonTooltip,
+            icon: const Icon(Icons.arrow_back),
           ),
           const SizedBox(width: 8),
           title,
         ],
       ),
+      titlePadding: const EdgeInsets.symmetric(vertical: 18, horizontal: 12),
       contentPadding:
           const EdgeInsetsDirectional.only(start: 24, end: 24, bottom: 24),
-      titlePadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 18),
       children: [content],
     );
   }

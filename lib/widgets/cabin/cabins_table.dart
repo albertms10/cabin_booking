@@ -24,23 +24,6 @@ class CabinsTable extends StatelessWidget {
         return ItemsTable<Cabin>(
           itemIcon: Icons.sensor_door,
           itemHeaderLabel: appLocalizations.cabin,
-          emptyMessage: appLocalizations.noCabinsMessage,
-          onEditPressed: (selectedRows) async {
-            final editedCabin = await showDialog<Cabin>(
-              context: context,
-              builder: (context) => CabinDialog(cabin: selectedRows.first.item),
-            );
-
-            if (editedCabin != null) {
-              cabinManager.modifyCabin(editedCabin);
-            }
-          },
-          onEmptyPressed: (selectedIds) =>
-              cabinManager.emptyCabinsByIds(selectedIds),
-          onEmptyTitle: appLocalizations.emptyCabinTitle,
-          onRemovePressed: (selectedIds) =>
-              cabinManager.removeCabinsByIds(selectedIds),
-          onRemoveTitle: appLocalizations.deleteCabinTitle,
           rows: [
             for (final cabin in cabinManager.cabins)
               ItemsTableRow<Cabin>(
@@ -70,6 +53,23 @@ class CabinsTable extends StatelessWidget {
                     .toSet(),
               ),
           ],
+          emptyMessage: appLocalizations.noCabinsMessage,
+          onEditPressed: (selectedRows) async {
+            final editedCabin = await showDialog<Cabin>(
+              context: context,
+              builder: (context) => CabinDialog(cabin: selectedRows.first.item),
+            );
+
+            if (editedCabin != null) {
+              cabinManager.modifyCabin(editedCabin);
+            }
+          },
+          onEmptyTitle: appLocalizations.emptyCabinTitle,
+          onEmptyPressed: (selectedIds) =>
+              cabinManager.emptyCabinsByIds(selectedIds),
+          onRemoveTitle: appLocalizations.deleteCabinTitle,
+          onRemovePressed: (selectedIds) =>
+              cabinManager.removeCabinsByIds(selectedIds),
         );
       },
     );

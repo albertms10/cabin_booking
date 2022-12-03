@@ -19,8 +19,8 @@ class CabinIcon extends StatelessWidget {
     final theme = Theme.of(context);
 
     return CircleAvatar(
-      radius: radius,
       backgroundColor: theme.colorScheme.secondary,
+      radius: radius,
       child: _CabinIconText(
         number: number,
         color: theme.colorScheme.onSecondary,

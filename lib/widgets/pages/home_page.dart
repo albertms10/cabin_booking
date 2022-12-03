@@ -80,34 +80,14 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text(
           appLocalizations.title,
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.onPrimary,
-          ),
+          style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
         ),
       ),
-      floatingActionButton: pageDestinations[currentIndex].floatingActionButton,
-      bottomNavigationBar: isSmallDisplay
-          ? BottomNavigationBar(
-              currentIndex: currentIndex,
-              onTap: _setNavigationIndex,
-              items: [
-                for (final page in pageDestinations)
-                  BottomNavigationBarItem(
-                    icon: page.icon,
-                    activeIcon: page.selectedIcon,
-                    label: page.label,
-                  ),
-              ],
-            )
-          : null,
       body: SafeArea(
         child: Row(
           children: [
             if (!isSmallDisplay) ...[
               NavigationRail(
-                selectedIndex: currentIndex,
-                onDestinationSelected: _setNavigationIndex,
-                labelType: NavigationRailLabelType.selected,
                 destinations: [
                   for (final page in pageDestinations)
                     NavigationRailDestination(
@@ -116,21 +96,37 @@ class _HomePageState extends State<HomePage> {
                       label: Text(page.label ?? ''),
                     ),
                 ],
+                selectedIndex: currentIndex,
+                onDestinationSelected: _setNavigationIndex,
+                labelType: NavigationRailLabelType.selected,
               ),
-              const VerticalDivider(thickness: 1, width: 1),
+              const VerticalDivider(width: 1, thickness: 1),
             ],
             Expanded(
               child: PageView(
                 controller: _pageController,
                 physics: const NeverScrollableScrollPhysics(),
-                children: [
-                  for (final page in pageDestinations) page.child,
-                ],
+                children: [for (final page in pageDestinations) page.child],
               ),
             ),
           ],
         ),
       ),
+      floatingActionButton: pageDestinations[currentIndex].floatingActionButton,
+      bottomNavigationBar: isSmallDisplay
+          ? BottomNavigationBar(
+              items: [
+                for (final page in pageDestinations)
+                  BottomNavigationBarItem(
+                    icon: page.icon,
+                    label: page.label,
+                    activeIcon: page.selectedIcon,
+                  ),
+              ],
+              onTap: _setNavigationIndex,
+              currentIndex: currentIndex,
+            )
+          : null,
     );
   }
 }

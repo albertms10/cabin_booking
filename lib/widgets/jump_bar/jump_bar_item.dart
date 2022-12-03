@@ -19,8 +19,8 @@ class JumpBarItem extends StatelessWidget {
     return ListTile(
       leading: Icon(icon),
       title: child,
-      selected: selected,
       onTap: onTap,
+      selected: selected,
     );
   }
 }

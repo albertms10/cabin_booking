@@ -147,9 +147,6 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
             Padding(
               padding: const EdgeInsetsDirectional.only(top: 54),
               child: DataTable(
-                dataRowHeight: 82,
-                sortAscending: _sortAscending,
-                sortColumnIndex: _sortColumnIndex,
                 columns: [
                   for (final column in columns)
                     DataColumn(
@@ -165,103 +162,99 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
                           ),
                         ),
                       ),
+                      tooltip: column.sortable
+                          ? '${appLocalizations.sortBy} ${column.title}'
+                          : null,
+                      numeric: column.numeric,
                       onSort: column.sortable
                           ? (columnIndex, ascending) {
                               onSortColumn(columnIndex, ascending: ascending);
                             }
                           : null,
-                      tooltip: column.sortable
-                          ? '${appLocalizations.sortBy} ${column.title}'
-                          : null,
-                      numeric: column.numeric,
                     ),
                 ],
-                rows: List<DataRow>.generate(
-                  widget.rows.length,
-                  (index) {
-                    final row = widget.rows[index];
+                sortColumnIndex: _sortColumnIndex,
+                sortAscending: _sortAscending,
+                dataRowHeight: 82,
+                rows: List<DataRow>.generate(widget.rows.length, (index) {
+                  final row = widget.rows[index];
 
-                    return DataRow(
-                      selected: _selectedIndices.contains(index),
-                      onSelectChanged: (selected) {
-                        if (selected == null) return;
-
-                        setState(() {
-                          selected
-                              ? _selectedIndices.add(index)
-                              : _selectedIndices.removeWhere(
-                                  (selectedIndex) => selectedIndex == index,
-                                );
-                        });
-                      },
-                      cells: [
-                        DataCell(
-                          Row(
-                            children: [
-                              Icon(
-                                widget.itemIcon,
-                                color: theme.colorScheme.secondary,
-                              ),
-                              const SizedBox(width: 12),
-                              Text(
-                                widget.itemTitle?.call(row) ?? '${row.item}',
-                                style: theme.textTheme.headline5,
-                              ),
-                            ],
-                          ),
-                        ),
-                        DataCell(
-                          DetailedFigure(
-                            figure:
-                                row.bookingsCount + row.recurringBookingsCount,
-                            details: [
-                              row.bookingsCount,
-                              row.recurringBookingsCount,
-                            ],
-                            tooltipMessage: '${appLocalizations.bookings}'
-                                ' + ${appLocalizations.recurringBookings}',
-                          ),
-                        ),
-                        DataCell(
-                          DurationFigureUnit(row.occupiedDuration),
-                        ),
-                        DataCell(
-                          Padding(
-                            padding: const EdgeInsetsDirectional.only(start: 8),
-                            child: WrappedChipList<List<TimeOfDay>>(
-                              items: row.mostOccupiedTimeRanges.toList(),
-                              maxChips: 1,
-                              labelBuilder: (context, timeRange) {
-                                return Text(
-                                  timeRange
-                                      .map((time) => time.format(context))
-                                      .join('–'),
-                                );
-                              },
+                  return DataRow(
+                    selected: _selectedIndices.contains(index),
+                    onSelectChanged: (selected) {
+                      if (selected == null) return;
+                      setState(() {
+                        selected
+                            ? _selectedIndices.add(index)
+                            : _selectedIndices.removeWhere(
+                                (selectedIndex) => selectedIndex == index,
+                              );
+                      });
+                    },
+                    cells: [
+                      DataCell(
+                        Row(
+                          children: [
+                            Icon(
+                              widget.itemIcon,
+                              color: theme.colorScheme.secondary,
                             ),
+                            const SizedBox(width: 12),
+                            Text(
+                              widget.itemTitle?.call(row) ?? '${row.item}',
+                              style: theme.textTheme.headline5,
+                            ),
+                          ],
+                        ),
+                      ),
+                      DataCell(
+                        DetailedFigure(
+                          figure:
+                              row.bookingsCount + row.recurringBookingsCount,
+                          details: [
+                            row.bookingsCount,
+                            row.recurringBookingsCount,
+                          ],
+                          tooltipMessage: '${appLocalizations.bookings}'
+                              ' + ${appLocalizations.recurringBookings}',
+                        ),
+                      ),
+                      DataCell(DurationFigureUnit(row.occupiedDuration)),
+                      DataCell(
+                        Padding(
+                          padding: const EdgeInsetsDirectional.only(start: 8),
+                          child: WrappedChipList<List<TimeOfDay>>(
+                            items: row.mostOccupiedTimeRanges.toList(),
+                            labelBuilder: (context, timeRange) {
+                              return Text(
+                                timeRange
+                                    .map((time) => time.format(context))
+                                    .join('–'),
+                              );
+                            },
+                            maxChips: 1,
                           ),
                         ),
-                        DataCell(
-                          ActivityLineChart(
-                            occupiedDurationPerWeek:
-                                row.occupiedDurationPerWeek,
-                            tooltipMessage: row.item is DateRanger
-                                ? null
-                                : appLocalizations.pastYearOfActivity,
-                            dateRange: row.item is DateRanger
-                                ? row.item as DateRanger
-                                : DateRange(
-                                    startDate: DateTime.now()
-                                        .subtract(const Duration(days: 365))
-                                        .firstDayOfWeek,
-                                    endDate: DateTime.now().firstDayOfWeek,
-                                  ),
-                          ),
+                      ),
+                      DataCell(
+                        ActivityLineChart(
+                          occupiedDurationPerWeek: row.occupiedDurationPerWeek,
+                          dateRange: row.item is DateRanger
+                              ? row.item as DateRanger
+                              : DateRange(
+                                  startDate: DateTime.now()
+                                      .subtract(const Duration(days: 365))
+                                      .firstDayOfWeek,
+                                  endDate: DateTime.now().firstDayOfWeek,
+                                ),
+                          tooltipMessage: row.item is DateRanger
+                              ? null
+                              : appLocalizations.pastYearOfActivity,
                         ),
-                      ],
-                    );
-                  },
-                ),
+                      ),
+                    ],
+                  );
+                }),
               ),
             ),
           ],
@@ -274,8 +267,8 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
             if (widget.shallEdit && _selectedRows.length == 1)
               IconButton(
                 onPressed: () => widget.onEditPressed?.call(_selectedRows),
-                icon: const Icon(Icons.edit),
                 tooltip: appLocalizations.edit,
+                icon: const Icon(Icons.edit),
               ),
             if (widget.shallEmpty)
               IconButton(
@@ -296,8 +289,8 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
 
                         widget.onEmptyPressed!(_selectedIds);
                       },
-                icon: const Icon(Icons.delete_outline),
                 tooltip: appLocalizations.empty,
+                icon: const Icon(Icons.delete_outline),
               ),
             if (widget.shallRemove)
               IconButton(
@@ -317,8 +310,8 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
 
                         widget.onRemovePressed!(_selectedIds);
                       },
-                icon: const Icon(Icons.delete),
                 tooltip: MaterialLocalizations.of(context).deleteButtonTooltip,
+                icon: const Icon(Icons.delete),
               ),
           ],
         ),

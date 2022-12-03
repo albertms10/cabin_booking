@@ -28,11 +28,11 @@ class _MainDataLoaderState extends State<MainDataLoader> {
     if (!mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
+        content: SaveChangesSnackBarBody(changesSaved: changesSaved),
         backgroundColor: Colors.transparent,
         elevation: 0,
         behavior: SnackBarBehavior.floating,
         duration: Duration(milliseconds: changesSaved ? 1200 : 3000),
-        content: SaveChangesSnackBarBody(changesSaved: changesSaved),
       ),
     );
   }
@@ -59,7 +59,6 @@ class _MainDataLoaderState extends State<MainDataLoader> {
       ]),
       initialData: const [],
       catchError: (context, error) => null,
-      child: widget.child,
       builder: (context, child) {
         final items = Provider.of<List<int>?>(context);
 
@@ -76,6 +75,7 @@ class _MainDataLoaderState extends State<MainDataLoader> {
 
         return child!;
       },
+      child: widget.child,
     );
   }
 }

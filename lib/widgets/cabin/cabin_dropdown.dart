@@ -14,8 +14,6 @@ class CabinDropdown extends StatelessWidget {
     return Consumer<CabinManager>(
       builder: (context, cabinManager, child) {
         return DropdownButtonFormField<String>(
-          value: value,
-          onChanged: onChanged,
           items: [
             for (final cabin in cabinManager.cabins)
               DropdownMenuItem(
@@ -25,6 +23,8 @@ class CabinDropdown extends StatelessWidget {
                 ),
               ),
           ],
+          value: value,
+          onChanged: onChanged,
           isExpanded: true,
         );
       },
