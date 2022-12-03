@@ -26,10 +26,10 @@ class _JumpBarState extends State<JumpBar> {
   static const double _itemHeight = 52;
   static const double _suggestedBookingsCount = 1;
 
-  double get _maxItems => _searchedBookings.length + _suggestedBookingsCount;
+  double get _totalItems => _searchedBookings.length + _suggestedBookingsCount;
 
   double get _height =>
-      (_maxItems * _itemHeight).clamp(_itemHeight, _maxHeight);
+      (_totalItems * _itemHeight).clamp(_itemHeight, _maxHeight);
 
   double get _maxHeight => _itemHeight * widget.maxVisibleItems;
 
