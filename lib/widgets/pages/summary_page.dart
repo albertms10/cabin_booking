@@ -15,7 +15,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class SummaryPage extends StatefulWidget {
-  final void Function(AppPages)? setNavigationPage;
+  final void Function(AppPage)? setNavigationPage;
 
   const SummaryPage({super.key, this.setNavigationPage});
 
@@ -44,22 +44,22 @@ class _SummaryPageState extends State<SummaryPage>
           children: [
             _BookingsCountStatistics(
               onTap: () {
-                widget.setNavigationPage?.call(AppPages.bookings);
+                widget.setNavigationPage?.call(AppPage.bookings);
               },
             ),
             _CabinsCountStatistics(
               onTap: () {
-                widget.setNavigationPage?.call(AppPages.cabins);
+                widget.setNavigationPage?.call(AppPage.cabins);
               },
             ),
             _SchoolYearsStatistics(
               onTap: () {
-                widget.setNavigationPage?.call(AppPages.schoolYears);
+                widget.setNavigationPage?.call(AppPage.schoolYears);
               },
             ),
             _MostBookedDayStatistics(
               onTap: () {
-                widget.setNavigationPage?.call(AppPages.bookings);
+                widget.setNavigationPage?.call(AppPage.bookings);
               },
             ),
             const _PopularTimesStatistics(),
@@ -70,7 +70,7 @@ class _SummaryPageState extends State<SummaryPage>
         const SizedBox(height: 16),
         BookingsHeatMapCalendar(
           onDayTap: () {
-            widget.setNavigationPage?.call(AppPages.bookings);
+            widget.setNavigationPage?.call(AppPage.bookings);
           },
         ),
       ],

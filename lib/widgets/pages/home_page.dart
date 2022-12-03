@@ -18,13 +18,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final PageController _pageController = PageController();
 
-  static const _floatingActionButtons = [
-    SizedBox(),
-    BookingFloatingActionButton(),
-    CabinFloatingActionButton(),
-    SchoolYearFloatingActionButton(),
-  ];
-
   int get currentIndex =>
       _pageController.hasClients && _pageController.page != null
           ? _pageController.page!.floor()
@@ -36,29 +29,40 @@ class _HomePageState extends State<HomePage> {
     setState(() => _pageController.jumpToPage(index));
   }
 
-  void _setNavigationPage(AppPages page) => _setNavigationIndex(page.index);
+  void _setNavigationPage(AppPage page) => _setNavigationIndex(page.index);
 
   List<_PageDestination> _pageDestinations(AppLocalizations appLocalizations) =>
       [
         _PageDestination(
+          appPage: AppPage.summary,
           icon: const Icon(Icons.home_outlined),
           selectedIcon: const Icon(Icons.home),
           label: appLocalizations.summary,
+          child: SummaryPage(setNavigationPage: _setNavigationPage),
         ),
         _PageDestination(
+          appPage: AppPage.bookings,
           icon: const Icon(Icons.event_outlined),
           selectedIcon: const Icon(Icons.event),
           label: appLocalizations.bookings,
+          floatingActionButton: const BookingFloatingActionButton(),
+          child: const BookingsPage(),
         ),
         _PageDestination(
+          appPage: AppPage.cabins,
           icon: const Icon(Icons.sensor_door_outlined),
           selectedIcon: const Icon(Icons.sensor_door),
           label: appLocalizations.cabins,
+          floatingActionButton: const CabinFloatingActionButton(),
+          child: const CabinsPage(),
         ),
         _PageDestination(
+          appPage: AppPage.schoolYears,
           icon: const Icon(Icons.school_outlined),
           selectedIcon: const Icon(Icons.school),
           label: appLocalizations.schoolYears,
+          floatingActionButton: const SchoolYearFloatingActionButton(),
+          child: const SchoolYearsPage(),
         ),
       ];
 
@@ -81,7 +85,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-      floatingActionButton: _floatingActionButtons[currentIndex],
+      floatingActionButton: pageDestinations[currentIndex].floatingActionButton,
       bottomNavigationBar: isSmallDisplay
           ? BottomNavigationBar(
               currentIndex: currentIndex,
@@ -120,10 +124,7 @@ class _HomePageState extends State<HomePage> {
                 controller: _pageController,
                 physics: const NeverScrollableScrollPhysics(),
                 children: [
-                  SummaryPage(setNavigationPage: _setNavigationPage),
-                  const BookingsPage(),
-                  const CabinsPage(),
-                  const SchoolYearsPage(),
+                  for (final page in pageDestinations) page.child,
                 ],
               ),
             ),
@@ -134,12 +135,22 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-enum AppPages { summary, bookings, cabins, schoolYears }
+enum AppPage { summary, bookings, cabins, schoolYears }
 
 class _PageDestination {
+  final AppPage appPage;
   final Icon icon;
   final Icon? selectedIcon;
   final String? label;
+  final Widget? floatingActionButton;
+  final Widget child;
 
-  _PageDestination({required this.icon, this.selectedIcon, this.label});
+  _PageDestination({
+    required this.appPage,
+    required this.icon,
+    this.selectedIcon,
+    this.label,
+    this.floatingActionButton,
+    required this.child,
+  });
 }
