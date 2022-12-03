@@ -5,6 +5,7 @@ import 'package:cabin_booking/utils/time_of_day_extension.dart';
 import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
 
+import '../booking/booking.dart';
 import '../booking/booking_manager.dart';
 import '../booking/recurring_booking.dart';
 import '../booking/single_booking.dart';
@@ -348,6 +349,16 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
 
     return findCabinFromNumber(cabinNumber);
   }
+
+  Set<Booking> searchBookings(String query, {int? perCabinLimit}) =>
+      SplayTreeSet.of(
+        [
+          for (final cabin in cabins)
+            ...cabin.searchBookings(query, limit: perCabinLimit),
+        ],
+        // Descending.
+        (a, b) => b.startDateTime!.compareTo(a.startDateTime!),
+      );
 
   Set<Cabin> get _defaultCabins => SplayTreeSet();
 

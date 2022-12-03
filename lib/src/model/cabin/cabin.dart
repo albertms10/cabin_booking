@@ -169,6 +169,11 @@ class Cabin extends Item {
   Set<Booking> allBookingsOn(DateTime dateTime) =>
       _bookingManager.allBookingsOn(dateTime);
 
+  Iterable<Booking> searchBookings(String query, {int? limit}) =>
+      _bookingManager
+          .searchBookings(query, limit: limit)
+          .map((booking) => booking.copyWith(cabinId: id));
+
   @override
   String toString() => '$number';
 
