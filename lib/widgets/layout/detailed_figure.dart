@@ -11,7 +11,7 @@ class DetailedFigure<T> extends StatelessWidget {
   const DetailedFigure({
     super.key,
     required this.figure,
-    this.details = const [],
+    required this.details,
     this.detailsSeparator,
     this.tooltipMessage,
   });

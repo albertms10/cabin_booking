@@ -23,9 +23,9 @@ class WeekDaysLabels extends StatelessWidget {
         for (var i = 0; i < DateTime.daysPerWeek; i++)
           if (i.isOdd)
             Container(
-              height: squareSize + space,
-              padding: EdgeInsetsDirectional.only(end: space),
               alignment: AlignmentDirectional.centerStart,
+              padding: EdgeInsetsDirectional.only(end: space),
+              height: squareSize + space,
               child: Text(
                 weekDaysLabels[i.weekdayMod(firstWeekDay - 1).toInt()],
                 style: Theme.of(context).textTheme.caption,

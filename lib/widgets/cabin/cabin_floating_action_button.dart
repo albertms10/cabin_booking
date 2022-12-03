@@ -10,6 +10,7 @@ class CabinFloatingActionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
+      tooltip: AppLocalizations.of(context)!.cabin,
       onPressed: () async {
         final cabinManager = Provider.of<CabinManager>(context, listen: false);
 
@@ -25,7 +26,6 @@ class CabinFloatingActionButton extends StatelessWidget {
           cabinManager.addCabin(newCabin);
         }
       },
-      tooltip: AppLocalizations.of(context)!.cabin,
       child: Icon(
         Icons.sensor_door_outlined,
         color: Theme.of(context).colorScheme.onPrimary,

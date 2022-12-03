@@ -28,18 +28,15 @@ class ActivityLineChart extends StatelessWidget {
         );
       },
       child: Container(
-        width: 250,
         padding: const EdgeInsets.symmetric(vertical: 24),
+        width: 250,
         child: DetailLineChart(
-          minX: dateRange.startDate?.toDouble(),
-          maxX: dateRange.endDate?.toDouble(),
           spots: [
             for (final entry in occupiedDurationPerWeek.entries)
-              FlSpot(
-                entry.key.toDouble(),
-                entry.value.inMinutes.toDouble(),
-              ),
+              FlSpot(entry.key.toDouble(), entry.value.inMinutes.toDouble()),
           ],
+          minX: dateRange.startDate?.toDouble(),
+          maxX: dateRange.endDate?.toDouble(),
         ),
       ),
     );

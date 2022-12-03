@@ -65,7 +65,7 @@ class FloatingActionButtonMenu extends StatefulWidget {
 
   FloatingActionButtonMenu({
     super.key,
-    this.buttons = const [],
+    required this.buttons,
     this.visible = true,
     this.backgroundColor,
     this.foregroundColor,
@@ -156,102 +156,6 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
     if (!newOpenValue) widget.onClose?.call();
   }
 
-  List<Widget> _getChildrenList() {
-    return widget.buttons.reversed.map((child) {
-      final index = widget.buttons.indexOf(child);
-
-      return AnimatedChild(
-        tween: widget.tween,
-        animation: _childAnimation,
-        index: index,
-        visible: _open,
-        backgroundColor: child.backgroundColor,
-        foregroundColor: child.foregroundColor,
-        elevation: child.elevation,
-        icon: child.icon,
-        label: child.label,
-        labelStyle: child.labelStyle,
-        labelBackgroundColor: child.labelBackgroundColor,
-        onTap: child.onTap,
-        toggleChildren: () {
-          if (!widget.closeManually) _toggleChildren();
-        },
-        shape: child.shape,
-        heroTag:
-            widget.heroTag != null ? '${widget.heroTag}-child-$index' : null,
-      );
-    }).toList();
-  }
-
-  Widget _renderOverlay() {
-    final start = _open || !_animationCompleted ? 0.0 : null;
-    const end = -16.0;
-
-    return Positioned.directional(
-      textDirection: Directionality.of(context),
-      start: start,
-      top: start,
-      end: end,
-      bottom: end,
-      child: GestureDetector(
-        onTap: _toggleChildren,
-        child: BackgroundOverlay(
-          animation: _controller,
-          color: widget.overlayColor,
-          opacity: widget.overlayOpacity,
-        ),
-      ),
-    );
-  }
-
-  Widget _renderButton() {
-    return Positioned.directional(
-      textDirection: Directionality.of(context),
-      bottom: widget.marginBottom - 16,
-      end: widget.marginEnd - 16,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: List.of(_getChildrenList())
-          ..add(
-            Container(
-              margin: const EdgeInsetsDirectional.only(top: 8, end: 2),
-              child: AnimatedFloatingButton(
-                visible: widget.visible,
-                tween: widget.tween,
-                animation: _childAnimation,
-                tooltip: widget.tooltip,
-                label: widget.label,
-                backgroundColor: widget.backgroundColor,
-                foregroundColor: widget.foregroundColor,
-                elevation: widget.elevation,
-                isOpen: _open,
-                onLongPress: _toggleChildren,
-                callback: _open && widget.onPressed != null
-                    ? () {
-                        widget.onPressed?.call();
-                        _toggleChildren();
-                      }
-                    : _toggleChildren,
-                heroTag: widget.heroTag,
-                shape: widget.shape,
-                curve: widget.curve,
-                animationSpeed: widget.animationSpeed,
-                child: widget.animatedIcon != null
-                    ? AnimatedIcon(
-                        icon: widget.animatedIcon!,
-                        progress: _controller,
-                        color: widget.animatedIconTheme?.color,
-                        size: widget.animatedIconTheme?.size,
-                      )
-                    : widget.child,
-              ),
-            ),
-          ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -259,9 +163,123 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
       fit: StackFit.expand,
       clipBehavior: Clip.none,
       children: [
-        if (!widget.closeManually) _renderOverlay(),
-        _renderButton(),
+        if (!widget.closeManually)
+          _FloatingActionButtonOverlay(
+            topStart: _open || !_animationCompleted ? 0.0 : null,
+            bottomEnd: -16,
+            color: widget.overlayColor,
+            opacity: widget.overlayOpacity,
+            animation: _controller,
+            onTap: _toggleChildren,
+          ),
+        Positioned.directional(
+          textDirection: Directionality.of(context),
+          end: widget.marginEnd - 16,
+          bottom: widget.marginBottom - 16,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: widget.buttons.reversed.map<Widget>((child) {
+              final index = widget.buttons.indexOf(child);
+
+              return AnimatedChild(
+                animation: _childAnimation,
+                tween: widget.tween,
+                index: index,
+                backgroundColor: child.backgroundColor,
+                foregroundColor: child.foregroundColor,
+                elevation: child.elevation,
+                icon: child.icon,
+                label: child.label,
+                labelStyle: child.labelStyle,
+                labelBackgroundColor: child.labelBackgroundColor,
+                visible: _open,
+                onTap: child.onTap,
+                toggleChildren: () {
+                  if (!widget.closeManually) _toggleChildren();
+                },
+                shape: child.shape,
+                heroTag: widget.heroTag != null
+                    ? '${widget.heroTag}-child-$index'
+                    : null,
+              );
+            }).toList()
+              ..add(
+                Container(
+                  margin: const EdgeInsetsDirectional.only(top: 8, end: 2),
+                  child: AnimatedFloatingButton(
+                    visible: widget.visible,
+                    tween: widget.tween,
+                    animation: _childAnimation,
+                    callback: _open && widget.onPressed != null
+                        ? () {
+                            widget.onPressed?.call();
+                            _toggleChildren();
+                          }
+                        : _toggleChildren,
+                    backgroundColor: widget.backgroundColor,
+                    foregroundColor: widget.foregroundColor,
+                    tooltip: widget.tooltip,
+                    label: widget.label,
+                    heroTag: widget.heroTag,
+                    elevation: widget.elevation,
+                    isOpen: _open,
+                    shape: widget.shape,
+                    curve: widget.curve,
+                    onLongPress: _toggleChildren,
+                    animationSpeed: widget.animationSpeed,
+                    child: widget.animatedIcon != null
+                        ? AnimatedIcon(
+                            icon: widget.animatedIcon!,
+                            progress: _controller,
+                            color: widget.animatedIconTheme?.color,
+                            size: widget.animatedIconTheme?.size,
+                          )
+                        : widget.child,
+                  ),
+                ),
+              ),
+          ),
+        ),
       ],
+    );
+  }
+}
+
+class _FloatingActionButtonOverlay extends StatelessWidget {
+  final double? topStart;
+  final double? bottomEnd;
+  final Color? color;
+  final double opacity;
+  final Animation<double> animation;
+  final VoidCallback? onTap;
+
+  const _FloatingActionButtonOverlay({
+    super.key,
+    this.topStart,
+    this.bottomEnd,
+    this.color,
+    this.opacity = 0.9,
+    required this.animation,
+    this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned.directional(
+      textDirection: Directionality.of(context),
+      start: topStart,
+      top: topStart,
+      end: bottomEnd,
+      bottom: bottomEnd,
+      child: GestureDetector(
+        onTap: onTap,
+        child: BackgroundOverlay(
+          animation: animation,
+          color: color,
+          opacity: opacity,
+        ),
+      ),
     );
   }
 }

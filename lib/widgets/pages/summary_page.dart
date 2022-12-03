@@ -15,7 +15,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class SummaryPage extends StatefulWidget {
-  final void Function(AppPages)? setNavigationPage;
+  final void Function(AppPage)? setNavigationPage;
 
   const SummaryPage({super.key, this.setNavigationPage});
 
@@ -44,22 +44,22 @@ class _SummaryPageState extends State<SummaryPage>
           children: [
             _BookingsCountStatistics(
               onTap: () {
-                widget.setNavigationPage?.call(AppPages.bookings);
+                widget.setNavigationPage?.call(AppPage.bookings);
               },
             ),
             _CabinsCountStatistics(
               onTap: () {
-                widget.setNavigationPage?.call(AppPages.cabins);
+                widget.setNavigationPage?.call(AppPage.cabins);
               },
             ),
             _SchoolYearsStatistics(
               onTap: () {
-                widget.setNavigationPage?.call(AppPages.schoolYears);
+                widget.setNavigationPage?.call(AppPage.schoolYears);
               },
             ),
             _MostBookedDayStatistics(
               onTap: () {
-                widget.setNavigationPage?.call(AppPages.bookings);
+                widget.setNavigationPage?.call(AppPage.bookings);
               },
             ),
             const _PopularTimesStatistics(),
@@ -70,7 +70,7 @@ class _SummaryPageState extends State<SummaryPage>
         const SizedBox(height: 16),
         BookingsHeatMapCalendar(
           onDayTap: () {
-            widget.setNavigationPage?.call(AppPages.bookings);
+            widget.setNavigationPage?.call(AppPage.bookings);
           },
         ),
       ],
@@ -92,7 +92,6 @@ class _BookingsCountStatistics extends StatelessWidget {
     return Statistics(
       title: appLocalizations.bookings,
       icon: Icons.event,
-      onTap: onTap,
       items: [
         StatisticItem(
           label: appLocalizations.total,
@@ -108,11 +107,10 @@ class _BookingsCountStatistics extends StatelessWidget {
         ),
         StatisticItem(
           label: appLocalizations.accumulatedTime,
-          item: DurationFigureUnit(
-            cabinManager.totalOccupiedDuration(),
-          ),
+          item: DurationFigureUnit(cabinManager.totalOccupiedDuration()),
         ),
       ],
+      onTap: onTap,
     );
   }
 }
@@ -131,13 +129,13 @@ class _CabinsCountStatistics extends StatelessWidget {
     return Statistics(
       title: appLocalizations.cabins,
       icon: Icons.sensor_door,
-      onTap: onTap,
       items: [
         StatisticSimpleItem(
           label: appLocalizations.total,
           value: cabinManager.cabins.length,
         ),
       ],
+      onTap: onTap,
     );
   }
 }
@@ -156,7 +154,6 @@ class _SchoolYearsStatistics extends StatelessWidget {
     return Statistics(
       title: appLocalizations.schoolYears,
       icon: Icons.school,
-      onTap: onTap,
       items: [
         StatisticSimpleItem(
           label: appLocalizations.total,
@@ -167,6 +164,7 @@ class _SchoolYearsStatistics extends StatelessWidget {
           value: dayHandler.schoolYearManager.totalWorkingDuration.inDays,
         ),
       ],
+      onTap: onTap,
     );
   }
 }
@@ -188,19 +186,20 @@ class _MostBookedDayStatistics extends StatelessWidget {
     return Statistics(
       title: appLocalizations.mostBookedDay,
       icon: Icons.calendar_today,
+      items: [
+        StatisticSimpleItem(
+          value: DateFormat.d()
+              .add_MMM()
+              .add_y()
+              .format(cabinManager.mostBookedDayEntry!.key),
+        ),
+      ],
       onTap: onTap == null
           ? null
           : () {
               dayHandler.dateTime = cabinManager.mostBookedDayEntry!.key;
               onTap!.call();
             },
-      items: [
-        StatisticSimpleItem(
-          value: DateFormat.d().add_MMM().add_y().format(
-                cabinManager.mostBookedDayEntry!.key,
-              ),
-        ),
-      ],
     );
   }
 }

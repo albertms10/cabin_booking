@@ -21,8 +21,8 @@ class StripedBackground extends StatelessWidget {
       children: [
         for (var i = 0; i < rowCount; i++)
           Container(
-            height: height,
             color: i.isEven ? null : const Color.fromARGB(8, 0, 0, 0),
+            height: height,
           ),
       ],
     );

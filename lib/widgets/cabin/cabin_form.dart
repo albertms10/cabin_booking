@@ -59,13 +59,11 @@ class _CabinFormState extends State<CabinForm> {
               child: TextFormField(
                 initialValue: '${_cabin.elements.lecterns}',
                 keyboardType: TextInputType.number,
-                inputFormatters: [
-                  FilteringTextInputFormatter.digitsOnly,
-                ],
-                validator: _validator,
                 onSaved: (lecterns) {
                   _cabin.elements.lecterns = int.tryParse(lecterns ?? '') ?? 0;
                 },
+                validator: _validator,
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
               ),
             ),
           ),
@@ -77,13 +75,11 @@ class _CabinFormState extends State<CabinForm> {
               child: TextFormField(
                 initialValue: '${_cabin.elements.chairs}',
                 keyboardType: TextInputType.number,
-                inputFormatters: [
-                  FilteringTextInputFormatter.digitsOnly,
-                ],
-                validator: _validator,
                 onSaved: (chairs) {
                   _cabin.elements.chairs = int.tryParse(chairs ?? '') ?? 0;
                 },
+                validator: _validator,
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
               ),
             ),
           ),
@@ -95,13 +91,11 @@ class _CabinFormState extends State<CabinForm> {
               child: TextFormField(
                 initialValue: '${_cabin.elements.tables}',
                 keyboardType: TextInputType.number,
-                inputFormatters: [
-                  FilteringTextInputFormatter.digitsOnly,
-                ],
-                validator: _validator,
                 onSaved: (tables) {
                   _cabin.elements.tables = int.tryParse(tables ?? '') ?? 0;
                 },
+                validator: _validator,
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
               ),
             ),
           ),

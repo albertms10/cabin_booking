@@ -14,39 +14,39 @@ class DayNavigation extends StatelessWidget {
     return Consumer<DayHandler>(
       builder: (context, dayHandler, child) {
         return Wrap(
-          crossAxisAlignment: WrapCrossAlignment.center,
           spacing: 8,
           runSpacing: 8,
+          crossAxisAlignment: WrapCrossAlignment.center,
           children: [
             TextButton(
+              onPressed: () => dayHandler.changeToNow(),
               style: TextButton.styleFrom(
                 padding: const EdgeInsets.symmetric(vertical: 16),
               ),
-              onPressed: () => dayHandler.changeToNow(),
               child: Text(appLocalizations.today),
             ),
             Material(
               type: MaterialType.transparency,
-              clipBehavior: Clip.antiAlias,
               shape: const CircleBorder(),
+              clipBehavior: Clip.antiAlias,
               child: IconButton(
                 onPressed: dayHandler.hasPreviousDay
                     ? () => dayHandler.changeToPreviousDay()
                     : null,
-                icon: const Icon(Icons.chevron_left),
                 tooltip: appLocalizations.previousDay,
+                icon: const Icon(Icons.chevron_left),
               ),
             ),
             Material(
               type: MaterialType.transparency,
-              clipBehavior: Clip.antiAlias,
               shape: const CircleBorder(),
+              clipBehavior: Clip.antiAlias,
               child: IconButton(
                 onPressed: dayHandler.hasNextDay
                     ? () => dayHandler.changeToNextDay()
                     : null,
-                icon: const Icon(Icons.chevron_right),
                 tooltip: appLocalizations.nextDay,
+                icon: const Icon(Icons.chevron_right),
               ),
             ),
             const SizedBox(width: 8),

@@ -108,6 +108,16 @@ abstract class Booking extends Item {
       endDateTime!.isAfter(booking.startDateTime!);
 
   @override
+  Booking copyWith({
+    String? id,
+    String? description,
+    DateTime? startDateTime,
+    DateTime? endDateTime,
+    bool? isLocked,
+    String? cabinId,
+  });
+
+  @override
   void replaceWith(covariant Booking item) {
     description = item.description;
     startDateTime = item.startDateTime;

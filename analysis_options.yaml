@@ -17,6 +17,8 @@ dart_code_metrics:
     - test/**
   rules:
     - always-remove-listener
+    - arguments-ordering:
+        child-last: true
     - avoid-border-all
     - avoid-collection-methods-with-unrelated-types
     - avoid-duplicate-exports

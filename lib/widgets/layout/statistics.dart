@@ -10,7 +10,7 @@ class Statistics extends StatelessWidget {
     super.key,
     this.title,
     this.icon,
-    this.items = const [],
+    required this.items,
     this.onTap,
   });
 

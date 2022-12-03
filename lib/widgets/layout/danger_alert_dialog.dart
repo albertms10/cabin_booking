@@ -18,20 +18,17 @@ class DangerAlertDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final materialLocalizations = MaterialLocalizations.of(context);
 
-    const buttonPadding = EdgeInsets.symmetric(horizontal: 20, vertical: 16);
+    const buttonPadding = EdgeInsets.symmetric(vertical: 16, horizontal: 20);
 
     return AlertDialog(
       title: Text(title),
       content: Text(content),
-      actionsPadding: const EdgeInsets.all(8),
       actions: [
         TextButton(
-          style: TextButton.styleFrom(
-            padding: buttonPadding,
-          ),
           onPressed: () {
             Navigator.of(context).pop(false);
           },
+          style: TextButton.styleFrom(padding: buttonPadding),
           child: Text(
             (cancelText ?? materialLocalizations.cancelButtonLabel)
                 .toUpperCase(),
@@ -42,7 +39,6 @@ class DangerAlertDialog extends StatelessWidget {
             Navigator.of(context).pop(true);
           },
           style: ButtonStyle(
-            padding: MaterialStateProperty.all(buttonPadding),
             overlayColor: MaterialStateProperty.resolveWith<Color?>((states) {
               if (states.contains(MaterialState.hovered)) {
                 return Colors.red.withOpacity(0.1);
@@ -52,6 +48,7 @@ class DangerAlertDialog extends StatelessWidget {
 
               return null;
             }),
+            padding: MaterialStateProperty.all(buttonPadding),
           ),
           child: Text(
             (okText ?? materialLocalizations.deleteButtonTooltip).toUpperCase(),
@@ -59,6 +56,7 @@ class DangerAlertDialog extends StatelessWidget {
           ),
         ),
       ],
+      actionsPadding: const EdgeInsets.all(8),
     );
   }
 }

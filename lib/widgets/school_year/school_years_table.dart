@@ -20,25 +20,6 @@ class SchoolYearsTable extends StatelessWidget {
         return ItemsTable<SchoolYear>(
           itemIcon: Icons.school,
           itemHeaderLabel: appLocalizations.schoolYear,
-          emptyMessage: appLocalizations.noSchoolYearsMessage,
-          shallEmpty: false,
-          onEditPressed: (selectedRows) async {
-            final selectedSchoolYear = selectedRows.first;
-
-            final editedSchoolYear = await showDialog<SchoolYear>(
-              context: context,
-              builder: (context) => SchoolYearDialog(
-                schoolYear: selectedSchoolYear.item,
-              ),
-            );
-
-            if (editedSchoolYear != null) {
-              dayHandler.schoolYearManager.modifySchoolYear(editedSchoolYear);
-            }
-          },
-          onRemoveTitle: appLocalizations.deleteSchoolYearTitle,
-          onRemovePressed: (selectedIds) =>
-              dayHandler.schoolYearManager.removeSchoolYearsByIds(selectedIds),
           rows: [
             for (final schoolYear in dayHandler.schoolYearManager.schoolYears)
               ItemsTableRow<SchoolYear>(
@@ -46,8 +27,9 @@ class SchoolYearsTable extends StatelessWidget {
                 bookingsCount: cabinManager.bookingsCountBetween(schoolYear),
                 recurringBookingsCount:
                     cabinManager.recurringBookingsCountBetween(schoolYear),
-                occupiedDuration:
-                    cabinManager.totalOccupiedDuration(dateRange: schoolYear),
+                occupiedDuration: cabinManager.totalOccupiedDuration(
+                  dateRange: schoolYear,
+                ),
                 occupiedDurationPerWeek: cabinManager
                     .occupiedDurationPerWeek(schoolYear)
                     .fillEmptyKeyValues(
@@ -65,6 +47,23 @@ class SchoolYearsTable extends StatelessWidget {
                     .toSet(),
               ),
           ],
+          emptyMessage: appLocalizations.noSchoolYearsMessage,
+          shallEmpty: false,
+          onEditPressed: (selectedRows) async {
+            final selectedSchoolYear = selectedRows.first;
+            final editedSchoolYear = await showDialog<SchoolYear>(
+              context: context,
+              builder: (context) =>
+                  SchoolYearDialog(schoolYear: selectedSchoolYear.item),
+            );
+
+            if (editedSchoolYear != null) {
+              dayHandler.schoolYearManager.modifySchoolYear(editedSchoolYear);
+            }
+          },
+          onRemoveTitle: appLocalizations.deleteSchoolYearTitle,
+          onRemovePressed: (selectedIds) =>
+              dayHandler.schoolYearManager.removeSchoolYearsByIds(selectedIds),
         );
       },
     );

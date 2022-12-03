@@ -96,14 +96,13 @@ class _EmptyBookingSlotActionable extends StatelessWidget {
         preciseDuration ?? endDateTime.difference(startDateTime).inMinutes;
 
     return Container(
-      margin: const EdgeInsets.all(8),
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(4)),
       ),
+      margin: const EdgeInsets.all(8),
       child: Tooltip(
         message: '$duration min',
         child: InkWell(
-          borderRadius: const BorderRadius.all(Radius.circular(4)),
           onTap: () {
             showNewBookingDialog(
               context: context,
@@ -115,11 +114,8 @@ class _EmptyBookingSlotActionable extends StatelessWidget {
               cabinManager: cabinManager,
             );
           },
-          child: Icon(
-            Icons.add,
-            size: 18,
-            color: Theme.of(context).hintColor,
-          ),
+          borderRadius: const BorderRadius.all(Radius.circular(4)),
+          child: Icon(Icons.add, size: 18, color: Theme.of(context).hintColor),
         ),
       ),
     );

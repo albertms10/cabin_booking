@@ -19,8 +19,8 @@ class CabinIcon extends StatelessWidget {
     final theme = Theme.of(context);
 
     return CircleAvatar(
-      radius: radius,
       backgroundColor: theme.colorScheme.secondary,
+      radius: radius,
       child: _CabinIconText(
         number: number,
         color: theme.colorScheme.onSecondary,
@@ -44,8 +44,6 @@ class _ProgressCabinIcon extends CabinIcon {
     final theme = Theme.of(context);
     final appLocalizations = AppLocalizations.of(context)!;
 
-    final mainColor = theme.colorScheme.secondary;
-
     return Tooltip(
       message: appLocalizations.nPercentOccupied((progress * 100).ceil()),
       child: Stack(
@@ -61,15 +59,13 @@ class _ProgressCabinIcon extends CabinIcon {
               builder: (context, value, child) {
                 return CircularProgressIndicator(
                   value: value,
-                  backgroundColor: mainColor.withOpacity(0.25),
+                  backgroundColor:
+                      theme.colorScheme.secondary.withOpacity(0.25),
                 );
               },
             ),
           ),
-          _CabinIconText(
-            number: number,
-            color: mainColor,
-          ),
+          _CabinIconText(number: number),
         ],
       ),
     );
@@ -88,9 +84,7 @@ class _CabinIconText extends StatelessWidget {
 
     return Text(
       '$number',
-      style: theme.textTheme.headline5?.copyWith(
-        color: theme.colorScheme.onSecondary,
-      ),
+      style: theme.textTheme.headline5?.copyWith(color: color),
       textAlign: TextAlign.center,
     );
   }

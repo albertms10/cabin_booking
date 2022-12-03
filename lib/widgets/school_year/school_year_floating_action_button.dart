@@ -10,6 +10,7 @@ class SchoolYearFloatingActionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
+      tooltip: AppLocalizations.of(context)!.schoolYear,
       onPressed: () async {
         final schoolYearManager =
             Provider.of<DayHandler>(context, listen: false).schoolYearManager;
@@ -23,7 +24,6 @@ class SchoolYearFloatingActionButton extends StatelessWidget {
           schoolYearManager.addSchoolYear(newSchoolYear);
         }
       },
-      tooltip: AppLocalizations.of(context)!.schoolYear,
       child: Icon(
         Icons.school_outlined,
         color: Theme.of(context).colorScheme.onPrimary,

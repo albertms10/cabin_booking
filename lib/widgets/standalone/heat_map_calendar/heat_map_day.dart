@@ -57,27 +57,27 @@ class HeatMapDay extends StatelessWidget {
       condition: showTooltip,
       conditionalBuilder: (child) {
         return Tooltip(
-          verticalOffset: 14,
           message: [
             valueWrapper?.call(value) ?? '$value',
             if (date != null) DateFormat.d().add_MMM().add_y().format(date!),
           ].join(' · '),
+          verticalOffset: 14,
           child: child,
         );
       },
       child: Padding(
         padding: EdgeInsets.all(space * 0.5),
         child: InkWell(
-          borderRadius: const BorderRadius.all(Radius.circular(2)),
           onTap: date == null ? null : () => onTap?.call(date!, value),
+          borderRadius: const BorderRadius.all(Radius.circular(2)),
           child: Container(
-            height: size,
-            width: size,
             decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(Radius.circular(2)),
               color: thresholds.colorFromThreshold(value, defaultColor),
               border: containerBorder,
+              borderRadius: const BorderRadius.all(Radius.circular(2)),
             ),
+            width: size,
+            height: size,
           ),
         ),
       ),

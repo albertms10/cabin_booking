@@ -35,31 +35,30 @@ class BookingCard extends StatelessWidget {
           curve: Curves.easeInOutCubic,
           builder: (context, value, child) {
             return Card(
-              margin: const EdgeInsets.all(8),
               shadowColor: isBeforeNow ? Colors.black38 : Colors.black87,
               elevation: 0,
               shape: RoundedRectangleBorder(
-                borderRadius: const BorderRadius.all(Radius.circular(10)),
                 side: BorderSide(
                   color: Colors.grey[300]!.withOpacity(isBeforeNow ? 0.41 : 1),
                   width: 1.5,
                 ),
+                borderRadius: const BorderRadius.all(Radius.circular(10)),
               ),
+              margin: const EdgeInsets.all(8),
               child: Container(
-                height: height,
                 decoration: booking.isLocked
                     ? BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         gradient: const LinearGradient(
                           begin: AlignmentDirectional.topStart,
                           end: Alignment(-0.4, -0.2),
-                          stops: [0, 0.5, 0.5, 1],
                           colors: [
                             Color.fromARGB(16, 0, 0, 0),
                             Color.fromARGB(16, 0, 0, 0),
                             Colors.white10,
                             Colors.white10,
                           ],
+                          stops: [0, 0.5, 0.5, 1],
                           tileMode: TileMode.repeated,
                         ),
                       )
@@ -69,6 +68,7 @@ class BookingCard extends StatelessWidget {
                             .withOpacity(isBeforeNow ? 0.41 : 1),
                         borderRadius: BorderRadius.circular(10),
                       ),
+                height: height,
                 child: _BookingCardInteractive(
                   cabin: cabin,
                   booking: booking,
@@ -113,13 +113,9 @@ class _BookingCardInteractiveState extends State<_BookingCardInteractive> {
     return Material(
       type: MaterialType.transparency,
       child: InkWell(
-        customBorder: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10)),
-        ),
         onTap: () {
           final renderBox = context.findRenderObject() as RenderBox?;
           if (renderBox == null) return;
-
           widget.showPreviewPanel?.call(
             widget.cabin,
             widget.booking,
@@ -127,8 +123,11 @@ class _BookingCardInteractiveState extends State<_BookingCardInteractive> {
             widget.setPreventTimeTableScroll,
           );
         },
+        customBorder: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+        ),
         child: Padding(
-          padding: const EdgeInsetsDirectional.only(top: 8, start: 10, end: 4),
+          padding: const EdgeInsetsDirectional.only(start: 10, top: 8, end: 4),
           child: _BookingCardInfo(
             cabin: widget.cabin,
             booking: widget.booking,
@@ -168,19 +167,15 @@ class _BookingCardInfo extends StatelessWidget {
                     '${booking.recurringNumber}/${booking.recurringTotalTimes}',
                 child: Padding(
                   padding: const EdgeInsetsDirectional.only(end: 4),
-                  child: Icon(
-                    Icons.repeat,
-                    color: theme.hintColor,
-                    size: 16,
-                  ),
+                  child: Icon(Icons.repeat, size: 16, color: theme.hintColor),
                 ),
               ),
             Expanded(
               child: Padding(
                 padding: const EdgeInsetsDirectional.only(end: 28),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Text(
                       !booking.isLocked

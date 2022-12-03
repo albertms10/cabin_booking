@@ -18,13 +18,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final PageController _pageController = PageController();
 
-  static const _floatingActionButtons = [
-    SizedBox(),
-    BookingFloatingActionButton(),
-    CabinFloatingActionButton(),
-    SchoolYearFloatingActionButton(),
-  ];
-
   int get selectedIndex =>
       _pageController.hasClients && _pageController.page != null
           ? _pageController.page!.floor()
@@ -36,29 +29,40 @@ class _HomePageState extends State<HomePage> {
     setState(() => _pageController.jumpToPage(index));
   }
 
-  void _setNavigationPage(AppPages page) => _setNavigationIndex(page.index);
+  void _setNavigationPage(AppPage page) => _setNavigationIndex(page.index);
 
   List<_PageDestination> _pageDestinations(AppLocalizations appLocalizations) =>
       [
         _PageDestination(
+          appPage: AppPage.summary,
           icon: const Icon(Icons.home_outlined),
           selectedIcon: const Icon(Icons.home),
           label: appLocalizations.summary,
+          child: SummaryPage(setNavigationPage: _setNavigationPage),
         ),
         _PageDestination(
+          appPage: AppPage.bookings,
           icon: const Icon(Icons.event_outlined),
           selectedIcon: const Icon(Icons.event),
           label: appLocalizations.bookings,
+          floatingActionButton: const BookingFloatingActionButton(),
+          child: const BookingsPage(),
         ),
         _PageDestination(
+          appPage: AppPage.cabins,
           icon: const Icon(Icons.sensor_door_outlined),
           selectedIcon: const Icon(Icons.sensor_door),
           label: appLocalizations.cabins,
+          floatingActionButton: const CabinFloatingActionButton(),
+          child: const CabinsPage(),
         ),
         _PageDestination(
+          appPage: AppPage.schoolYears,
           icon: const Icon(Icons.school_outlined),
           selectedIcon: const Icon(Icons.school),
           label: appLocalizations.schoolYears,
+          floatingActionButton: const SchoolYearFloatingActionButton(),
+          child: const SchoolYearsPage(),
         ),
       ];
 
@@ -76,16 +80,47 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text(
           appLocalizations.title,
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.onPrimary,
-          ),
+          style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
         ),
       ),
-      floatingActionButton: _floatingActionButtons[selectedIndex],
+      body: SafeArea(
+        child: Row(
+          children: [
+            if (!isSmallDisplay) ...[
+              NavigationRail(
+                destinations: [
+                  for (final page in pageDestinations)
+                    NavigationRailDestination(
+                      icon: page.icon,
+                      selectedIcon: page.selectedIcon,
+                      label: Text(page.label),
+                      padding: const EdgeInsetsDirectional.only(
+                        top: 8,
+                        bottom: 4,
+                      ),
+                    ),
+                ],
+                selectedIndex: selectedIndex,
+                onDestinationSelected: _setNavigationIndex,
+                labelType: NavigationRailLabelType.all,
+              ),
+              const VerticalDivider(width: 1, thickness: 1),
+            ],
+            Expanded(
+              child: PageView(
+                controller: _pageController,
+                physics: const NeverScrollableScrollPhysics(),
+                children: [for (final page in pageDestinations) page.child],
+              ),
+            ),
+          ],
+        ),
+      ),
+      floatingActionButton:
+          pageDestinations[selectedIndex].floatingActionButton,
       bottomNavigationBar: isSmallDisplay
           ? NavigationBar(
               selectedIndex: selectedIndex,
-              onDestinationSelected: _setNavigationIndex,
               destinations: [
                 for (final page in pageDestinations)
                   NavigationDestination(
@@ -94,58 +129,29 @@ class _HomePageState extends State<HomePage> {
                     label: page.label,
                   ),
               ],
+              onDestinationSelected: _setNavigationIndex,
             )
           : null,
-      body: SafeArea(
-        child: Row(
-          children: [
-            if (!isSmallDisplay) ...[
-              NavigationRail(
-                selectedIndex: selectedIndex,
-                onDestinationSelected: _setNavigationIndex,
-                labelType: NavigationRailLabelType.all,
-                destinations: [
-                  for (final page in pageDestinations)
-                    NavigationRailDestination(
-                      icon: page.icon,
-                      selectedIcon: page.selectedIcon,
-                      label: Text(page.label),
-                      padding:
-                          const EdgeInsetsDirectional.only(top: 8, bottom: 4),
-                    ),
-                ],
-              ),
-              const VerticalDivider(thickness: 1, width: 1),
-            ],
-            Expanded(
-              child: PageView(
-                controller: _pageController,
-                physics: const NeverScrollableScrollPhysics(),
-                children: [
-                  SummaryPage(setNavigationPage: _setNavigationPage),
-                  const BookingsPage(),
-                  const CabinsPage(),
-                  const SchoolYearsPage(),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }
 
-enum AppPages { summary, bookings, cabins, schoolYears }
+enum AppPage { summary, bookings, cabins, schoolYears }
 
 class _PageDestination {
+  final AppPage appPage;
   final Icon icon;
   final Icon? selectedIcon;
   final String label;
+  final Widget? floatingActionButton;
+  final Widget child;
 
   _PageDestination({
+    required this.appPage,
     required this.icon,
     this.selectedIcon,
     required this.label,
+    this.floatingActionButton,
+    required this.child,
   });
 }

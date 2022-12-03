@@ -15,10 +15,10 @@ class MonthLabel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: size,
-      width: size,
       alignment: AlignmentDirectional.bottomCenter,
       padding: EdgeInsetsDirectional.only(bottom: space),
+      width: size,
+      height: size,
       child: Stack(
         fit: StackFit.expand,
         clipBehavior: Clip.none,
@@ -26,10 +26,7 @@ class MonthLabel extends StatelessWidget {
           Positioned.directional(
             textDirection: Directionality.of(context),
             bottom: 0,
-            child: Text(
-              text,
-              style: Theme.of(context).textTheme.caption,
-            ),
+            child: Text(text, style: Theme.of(context).textTheme.caption),
           ),
         ],
       ),
