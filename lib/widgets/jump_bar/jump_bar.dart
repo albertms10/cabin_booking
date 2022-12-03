@@ -1,13 +1,15 @@
 import 'package:cabin_booking/model.dart';
-import 'package:cabin_booking/utils/dialog.dart';
 import 'package:cabin_booking/utils/string_extension.dart';
-import 'package:cabin_booking/widgets/jump_bar/booking_search_result.dart';
+import 'package:cabin_booking/widgets/jump_bar/jump_bar_field.dart';
+import 'package:cabin_booking/widgets/jump_bar/jump_bar_results.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 class JumpBar extends StatefulWidget {
-  const JumpBar({super.key});
+  final int maxVisibleItems;
+
+  const JumpBar({super.key, this.maxVisibleItems = 5});
 
   @override
   State<JumpBar> createState() => _JumpBarState();
@@ -18,13 +20,18 @@ class _JumpBarState extends State<JumpBar> {
 
   SingleBooking? _suggestedBooking;
 
-  List<int> get _items => const [1];
+  List<Booking> _searchedBookings = [];
 
   static const double _barHeight = 48;
-  static const double _itemHeight = 64;
+  static const double _itemHeight = 52;
+  static const double _suggestedBookingsCount = 1;
+
+  double get _totalItems => _searchedBookings.length + _suggestedBookingsCount;
+
+  double get _maxHeight => _itemHeight * widget.maxVisibleItems;
 
   double get _height =>
-      _barHeight + _itemHeight + (_items.length * _itemHeight);
+      (_totalItems * _itemHeight).clamp(_itemHeight, _maxHeight);
 
   @override
   void initState() {
@@ -49,8 +56,14 @@ class _JumpBarState extends State<JumpBar> {
         .toSingleBooking(appLocalizations)
         .copyWith(cabinId: cabin?.id);
 
+    final searchedBookings = Provider.of<CabinManager>(
+      context,
+      listen: false,
+    ).searchBookings(_controller.text, perCabinLimit: 5);
+
     setState(() {
       _suggestedBooking = booking;
+      _searchedBookings = searchedBookings.toList();
     });
   }
 
@@ -64,12 +77,12 @@ class _JumpBarState extends State<JumpBar> {
   Widget build(BuildContext context) {
     return Center(
       child: SizedBox(
-        height: 200,
+        height: _barHeight + _maxHeight,
         child: Column(
           children: [
             AnimatedContainer(
               duration: const Duration(milliseconds: 200),
-              height: _height,
+              height: _barHeight + _height,
               width: 360,
               child: Material(
                 borderRadius: const BorderRadius.all(Radius.circular(8)),
@@ -77,29 +90,16 @@ class _JumpBarState extends State<JumpBar> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    _JumpBarField(controller: _controller),
-                    if (_items.isNotEmpty) const Divider(height: 0),
-                    if (_suggestedBooking != null)
-                      _JumpBarItem(
-                        icon: Icons.auto_awesome,
-                        child: BookingSearchResult(booking: _suggestedBooking!),
-                        onTap: () async {
-                          final cabinManager =
-                              Provider.of<CabinManager>(context, listen: false);
-
-                          Navigator.of(context).pop();
-
-                          return showNewBookingDialog(
-                            context: context,
-                            booking: _suggestedBooking!.copyWith(
-                              cabinId: _suggestedBooking!.cabinId ??
-                                  cabinManager.cabins.first.id,
-                            ),
-                            cabinManager: cabinManager,
-                          );
-                        },
+                    JumpBarField(controller: _controller),
+                    if (_searchedBookings.isNotEmpty) const Divider(height: 0),
+                    SizedBox(
+                      height: _height,
+                      child: JumpBarResults(
+                        suggestedBooking: _suggestedBooking,
+                        searchedBookings: _searchedBookings,
+                        itemExtent: _itemHeight,
                       ),
-                    for (final _ in _items) const _JumpBarItem(),
+                    ),
                   ],
                 ),
               ),
@@ -107,56 +107,6 @@ class _JumpBarState extends State<JumpBar> {
           ],
         ),
       ),
-    );
-  }
-}
-
-class _JumpBarField extends StatelessWidget {
-  final TextEditingController? controller;
-
-  const _JumpBarField({super.key, this.controller});
-
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      controller: controller,
-      autofocus: true,
-      decoration: const InputDecoration(
-        hintText: 'Type a new booking',
-        filled: false,
-        border: InputBorder.none,
-        icon: Padding(
-          padding: EdgeInsetsDirectional.only(start: 12),
-          child: Icon(Icons.search),
-        ),
-        contentPadding: EdgeInsetsDirectional.only(end: 16),
-      ),
-    );
-  }
-}
-
-class _JumpBarItem extends StatelessWidget {
-  final IconData? icon;
-  final Widget? child;
-  final bool enabled;
-  final VoidCallback? onTap;
-
-  const _JumpBarItem({
-    super.key,
-    this.icon,
-    this.child,
-    this.enabled = true,
-    this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      leading: Icon(icon),
-      title: child,
-      selected: true,
-      enabled: enabled,
-      onTap: onTap,
     );
   }
 }
