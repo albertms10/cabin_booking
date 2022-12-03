@@ -59,6 +59,7 @@ class CabinsTable extends StatelessWidget {
               context: context,
               builder: (context) => CabinDialog(cabin: selectedRows.first.item),
             );
+
             if (editedCabin != null) {
               cabinManager.modifyCabin(editedCabin);
             }

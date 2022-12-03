@@ -14,10 +14,12 @@ class SchoolYearFloatingActionButton extends StatelessWidget {
       onPressed: () async {
         final schoolYearManager =
             Provider.of<DayHandler>(context, listen: false).schoolYearManager;
+
         final newSchoolYear = await showDialog<SchoolYear>(
           context: context,
           builder: (context) => SchoolYearDialog(schoolYear: SchoolYear()),
         );
+
         if (newSchoolYear != null) {
           schoolYearManager.addSchoolYear(newSchoolYear);
         }

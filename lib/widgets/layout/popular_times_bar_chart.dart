@@ -33,7 +33,9 @@ class PopularTimesBarChart extends StatelessWidget {
                     borderRadius: const BorderRadiusDirectional.only(
                       topStart: Radius.circular(4),
                       topEnd: Radius.circular(4),
-                    ).resolve(Directionality.of(context)),
+                    )
+                        // TODO(albertms10): remove `resolve` call when fixed in https://github.com/imaNNeoFighT/fl_chart/issues/1189.
+                        .resolve(Directionality.of(context)),
                   ),
                 ],
               ),
@@ -63,10 +65,9 @@ class PopularTimesBarChart extends StatelessWidget {
           gridData: FlGridData(show: false),
           borderData: FlBorderData(
             show: true,
+            // TODO(albertms10): use `BorderDirectional`, https://github.com/imaNNeoFighT/fl_chart/issues/1189.
             border: Border(
-              bottom: BorderSide(
-                color: theme.hintColor.withOpacity(0.25),
-              ),
+              bottom: BorderSide(color: theme.hintColor.withOpacity(0.25)),
             ),
           ),
         ),

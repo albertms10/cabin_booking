@@ -46,6 +46,7 @@ class _RadioButtonListState extends State<RadioButtonList> {
             child: TextButton(
               onPressed: () {
                 if (i == _selectedIndex) return;
+
                 setState(() => _selectedIndex = i);
                 widget.onChanged?.call(i);
               },

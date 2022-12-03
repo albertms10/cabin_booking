@@ -142,7 +142,9 @@ class _BookingFormState extends State<BookingForm> {
                               ? TimePickerEntryMode.input
                               : TimePickerEntryMode.dial,
                         );
+
                         if (time == null) return;
+
                         setState(() {
                           _startTime = time;
                           _startTimeController.text = time.format(context);

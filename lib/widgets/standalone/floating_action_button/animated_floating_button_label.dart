@@ -24,7 +24,10 @@ class AnimatedFloatingButtonLabel extends AnimatedWidget {
       margin: const EdgeInsetsDirectional.only(end: 18),
       child: Opacity(
         opacity: animation.value
-            .map(inMin: (tween.end ?? 0) * 0.5, inMax: tween.end ?? 0)
+            .map(
+              inMin: (tween.end ?? 0) * 0.5,
+              inMax: tween.end ?? 0,
+            )
             .toDouble(),
         child: label,
       ),
