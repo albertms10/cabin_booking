@@ -273,8 +273,8 @@ class BookingManager with ChangeNotifier {
       .firstWhere((recurringBooking) => recurringBooking.id == id)
     ..recurringBookingId = id;
 
-  Set<Booking> searchBookings(String query, {int? limit}) {
-    final results = <Booking>{};
+  List<Booking> searchBookings(String query, {int? limit}) {
+    final results = <Booking>[];
     for (final booking in allBookings) {
       if (query.matchesWith([booking.description])) {
         results.add(booking);
