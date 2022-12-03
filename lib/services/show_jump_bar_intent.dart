@@ -18,8 +18,8 @@ class ShowJumpBarAction extends Action<ShowJumpBarIntent> {
   Object? invoke(covariant ShowJumpBarIntent intent) {
     return showDialog<void>(
       context: context,
-      builder: (context) {
-        return const JumpBar();
+      builder: (dialogContext) {
+        return JumpBar(homePageContext: context);
       },
     );
   }
