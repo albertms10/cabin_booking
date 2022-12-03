@@ -12,10 +12,13 @@ class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  HomePageState createState() => HomePageState();
+
+  static HomePageState? of(BuildContext context) =>
+      context.findAncestorStateOfType<HomePageState>();
 }
 
-class _HomePageState extends State<HomePage> {
+class HomePageState extends State<HomePage> {
   final PageController _pageController = PageController();
 
   int get currentIndex =>
@@ -29,7 +32,7 @@ class _HomePageState extends State<HomePage> {
     setState(() => _pageController.jumpToPage(index));
   }
 
-  void _setNavigationPage(AppPage page) => _setNavigationIndex(page.index);
+  void setNavigationPage(AppPage page) => _setNavigationIndex(page.index);
 
   List<_PageDestination> _pageDestinations(AppLocalizations appLocalizations) =>
       [
@@ -38,7 +41,7 @@ class _HomePageState extends State<HomePage> {
           icon: const Icon(Icons.home_outlined),
           selectedIcon: const Icon(Icons.home),
           label: appLocalizations.summary,
-          child: SummaryPage(setNavigationPage: _setNavigationPage),
+          child: const SummaryPage(),
         ),
         _PageDestination(
           appPage: AppPage.bookings,

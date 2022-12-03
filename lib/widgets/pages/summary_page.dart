@@ -15,9 +15,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class SummaryPage extends StatefulWidget {
-  final void Function(AppPage)? setNavigationPage;
-
-  const SummaryPage({super.key, this.setNavigationPage});
+  const SummaryPage({super.key});
 
   @override
   State<SummaryPage> createState() => _SummaryPageState();
@@ -33,6 +31,7 @@ class _SummaryPageState extends State<SummaryPage>
     super.build(context);
 
     final appLocalizations = AppLocalizations.of(context)!;
+    final homePageState = HomePage.of(context);
 
     return ListView(
       padding: const EdgeInsets.all(32),
@@ -44,22 +43,22 @@ class _SummaryPageState extends State<SummaryPage>
           children: [
             _BookingsCountStatistics(
               onTap: () {
-                widget.setNavigationPage?.call(AppPage.bookings);
+                homePageState?.setNavigationPage(AppPage.bookings);
               },
             ),
             _CabinsCountStatistics(
               onTap: () {
-                widget.setNavigationPage?.call(AppPage.cabins);
+                homePageState?.setNavigationPage(AppPage.cabins);
               },
             ),
             _SchoolYearsStatistics(
               onTap: () {
-                widget.setNavigationPage?.call(AppPage.schoolYears);
+                homePageState?.setNavigationPage(AppPage.schoolYears);
               },
             ),
             _MostBookedDayStatistics(
               onTap: () {
-                widget.setNavigationPage?.call(AppPage.bookings);
+                homePageState?.setNavigationPage(AppPage.bookings);
               },
             ),
             const _PopularTimesStatistics(),
@@ -70,7 +69,7 @@ class _SummaryPageState extends State<SummaryPage>
         const SizedBox(height: 16),
         BookingsHeatMapCalendar(
           onDayTap: () {
-            widget.setNavigationPage?.call(AppPage.bookings);
+            homePageState?.setNavigationPage(AppPage.bookings);
           },
         ),
       ],
