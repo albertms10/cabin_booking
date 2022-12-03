@@ -16,8 +16,8 @@ class SaveChangesSnackBarBody extends StatelessWidget {
         const SizedBox(width: 72),
         Flexible(
           child: Card(
-            elevation: 6,
             color: theme.snackBarTheme.backgroundColor,
+            elevation: 6,
             child: Padding(
               padding: const EdgeInsetsDirectional.only(
                 start: 12,

@@ -59,8 +59,8 @@ class _BookingPreviewPanelRowHeadline extends BookingPreviewPanelRow {
           ),
           Expanded(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   headline,
@@ -99,8 +99,8 @@ class _BookingPreviewPanelRowTrailing extends StatelessWidget {
               height: iconSize,
               child: IconTheme.merge(
                 data: IconThemeData(
-                  size: iconSize,
                   color: Theme.of(context).hintColor,
+                  size: iconSize,
                 ),
                 child: Center(child: child),
               ),

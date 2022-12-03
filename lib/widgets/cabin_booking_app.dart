@@ -15,13 +15,9 @@ class CabinBookingApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      onGenerateTitle: (context) => AppLocalizations.of(context)!.title,
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
-      debugShowCheckedModeBanner: false,
-      scrollBehavior: const ScrollBehavior().copyWith(scrollbars: false),
-      theme: app_styles.lightTheme(),
-      darkTheme: app_styles.darkTheme(),
+      home: const _ActionableFocusedShortcuts(
+        child: MainDataLoader(child: HomePage()),
+      ),
       builder: (context, child) {
         Intl.defaultLocale = Localizations.localeOf(context).toLanguageTag();
 
@@ -30,11 +26,13 @@ class CabinBookingApp extends StatelessWidget {
           child: child!,
         );
       },
-      home: const _ActionableFocusedShortcuts(
-        child: MainDataLoader(
-          child: HomePage(),
-        ),
-      ),
+      onGenerateTitle: (context) => AppLocalizations.of(context)!.title,
+      theme: app_styles.lightTheme(),
+      darkTheme: app_styles.darkTheme(),
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      debugShowCheckedModeBanner: false,
+      scrollBehavior: const ScrollBehavior().copyWith(scrollbars: false),
     );
   }
 }

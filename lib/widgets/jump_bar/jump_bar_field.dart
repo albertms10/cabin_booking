@@ -12,17 +12,17 @@ class JumpBarField extends StatelessWidget {
 
     return TextFormField(
       controller: controller,
-      autofocus: true,
       decoration: InputDecoration(
-        hintText: appLocalizations.typeANewBooking,
-        filled: false,
-        border: InputBorder.none,
         icon: const Padding(
           padding: EdgeInsetsDirectional.only(start: 12),
           child: Icon(Icons.search),
         ),
+        hintText: appLocalizations.typeANewBooking,
         contentPadding: const EdgeInsetsDirectional.only(end: 16),
+        filled: false,
+        border: InputBorder.none,
       ),
+      autofocus: true,
     );
   }
 }

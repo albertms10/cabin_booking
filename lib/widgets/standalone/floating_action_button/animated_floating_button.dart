@@ -43,28 +43,28 @@ class AnimatedFloatingButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
-      curve: curve,
       margin: EdgeInsets.all(visible ? 0 : 28),
+      curve: curve,
       duration: Duration(milliseconds: animationSpeed),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           if (isOpen)
             AnimatedFloatingButtonLabel(
-              tween: tween,
               label: label,
+              tween: tween,
               animation: animation,
             ),
           GestureDetector(
             onLongPress: onLongPress,
             child: FloatingActionButton(
-              backgroundColor: backgroundColor,
-              foregroundColor: foregroundColor,
-              onPressed: callback,
               tooltip: tooltip,
+              foregroundColor: foregroundColor,
+              backgroundColor: backgroundColor,
               heroTag: heroTag,
               elevation: elevation,
               highlightElevation: elevation,
+              onPressed: callback,
               shape: shape,
               child: visible ? child : null,
             ),

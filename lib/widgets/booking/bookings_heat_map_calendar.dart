@@ -26,8 +26,6 @@ class BookingsHeatMapCalendar extends StatelessWidget {
             Expanded(
               child: HeatMapCalendar(
                 input: cabinManager.allCabinsBookingsCountPerDay,
-                dayValueWrapper: appLocalizations.nBookings,
-                showLegend: true,
                 colorThresholds: Theme.of(context)
                     .colorScheme
                     .secondary
@@ -36,18 +34,20 @@ class BookingsHeatMapCalendar extends StatelessWidget {
                       samples: 8,
                     ),
                 firstWeekDay: DateTime.monday,
-                firstDate: schoolYear?.startDate,
-                lastDate: schoolYear?.endDate,
-                highlightToday: true,
-                highlightOn: (date) => date.isSameDateAs(dayHandler.dateTime),
                 onDayTap: onDayTap == null
                     ? null
                     : (dateTime, value) {
                         dayHandler.dateTime = dateTime;
                         onDayTap!.call();
                       },
+                dayValueWrapper: appLocalizations.nBookings,
+                showLegend: true,
                 legendLessLabel: appLocalizations.less,
                 legendMoreLabel: appLocalizations.more,
+                firstDate: schoolYear?.startDate,
+                lastDate: schoolYear?.endDate,
+                highlightToday: true,
+                highlightOn: (date) => date.isSameDateAs(dayHandler.dateTime),
               ),
             ),
             const SizedBox(width: 16),

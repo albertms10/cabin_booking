@@ -44,6 +44,11 @@ class _RadioButtonListState extends State<RadioButtonList> {
               bottom: i == widget._lastLoopIndex ? 0 : 4,
             ),
             child: TextButton(
+              onPressed: () {
+                if (i == _selectedIndex) return;
+                setState(() => _selectedIndex = i);
+                widget.onChanged?.call(i);
+              },
               style: ElevatedButton.styleFrom(
                 foregroundColor:
                     _selectedIndex == i ? Colors.white : theme.hintColor,
@@ -51,16 +56,10 @@ class _RadioButtonListState extends State<RadioButtonList> {
                     ? theme.colorScheme.secondaryContainer
                     : null,
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 24,
                   vertical: 16,
+                  horizontal: 24,
                 ),
               ),
-              onPressed: () {
-                if (i == _selectedIndex) return;
-
-                setState(() => _selectedIndex = i);
-                widget.onChanged?.call(i);
-              },
               child: widget.itemBuilder(context, i),
             ),
           ),

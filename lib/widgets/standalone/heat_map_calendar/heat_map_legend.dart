@@ -46,8 +46,8 @@ class HeatMapLegend extends StatelessWidget {
             value: color.key,
             size: squareSize,
             space: space,
-            showTooltip: false,
             thresholds: colorThresholds,
+            showTooltip: false,
           ),
         SizedBox(width: space),
         Text(

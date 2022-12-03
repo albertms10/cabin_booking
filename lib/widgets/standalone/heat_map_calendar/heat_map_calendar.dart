@@ -100,7 +100,6 @@ class HeatMapCalendar extends StatelessWidget {
                 ),
                 WeekColumns(
                   squareSize: squareSize,
-                  space: space,
                   input: input,
                   colorThresholds: colorThresholds,
                   firstWeekDay: firstWeekDay,
@@ -108,6 +107,7 @@ class HeatMapCalendar extends StatelessWidget {
                   firstDate: firstDate,
                   lastDate: lastDate ?? DateTime.now(),
                   onDayTap: onDayTap,
+                  space: space,
                   dayValueWrapper: dayValueWrapper,
                   highlightToday: highlightToday,
                   highlightOn: highlightOn,

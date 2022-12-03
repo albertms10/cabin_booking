@@ -24,15 +24,15 @@ class DataTableToolbar extends StatelessWidget {
       child: !shown
           ? null
           : AppBar(
-              title: Text(appLocalizations.nSelected(selectedItems)),
-              centerTitle: false,
-              backgroundColor: Theme.of(context).primaryColorDark,
               leading: IconButton(
                 onPressed: onPressedLeading,
-                icon: const Icon(Icons.close),
                 tooltip: appLocalizations.cancelSelection,
+                icon: const Icon(Icons.close),
               ),
+              title: Text(appLocalizations.nSelected(selectedItems)),
               actions: actions,
+              backgroundColor: Theme.of(context).primaryColorDark,
+              centerTitle: false,
             ),
     );
   }

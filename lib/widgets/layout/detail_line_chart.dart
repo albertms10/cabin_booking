@@ -24,29 +24,27 @@ class DetailLineChart extends StatelessWidget {
 
     return LineChart(
       LineChartData(
+        lineBarsData: [
+          LineChartBarData(
+            spots: spots,
+            color: color,
+            barWidth: 2.5,
+            isCurved: true,
+            preventCurveOverShooting: true,
+            isStrokeCapRound: true,
+            belowBarData:
+                BarAreaData(show: true, color: color.withOpacity(0.3)),
+            dotData: FlDotData(show: false),
+          ),
+        ],
+        titlesData: FlTitlesData(show: false),
+        lineTouchData: LineTouchData(enabled: false),
+        gridData: FlGridData(show: false),
+        borderData: FlBorderData(show: false),
         minX: minX,
         maxX: maxX,
         minY: minY,
         maxY: maxY,
-        gridData: FlGridData(show: false),
-        titlesData: FlTitlesData(show: false),
-        borderData: FlBorderData(show: false),
-        lineTouchData: LineTouchData(enabled: false),
-        lineBarsData: [
-          LineChartBarData(
-            spots: spots,
-            isCurved: true,
-            preventCurveOverShooting: true,
-            color: color,
-            barWidth: 2.5,
-            isStrokeCapRound: true,
-            dotData: FlDotData(show: false),
-            belowBarData: BarAreaData(
-              show: true,
-              color: color.withOpacity(0.3),
-            ),
-          ),
-        ],
       ),
     );
   }

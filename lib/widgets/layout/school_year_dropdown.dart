@@ -35,6 +35,13 @@ class _SchoolYearDropdownState extends State<SchoolYearDropdown> {
     final schoolYears = dayHandler.schoolYearManager.schoolYears;
 
     return DropdownButton<int>(
+      items: [
+        for (var i = 0; i < schoolYears.length; i++)
+          DropdownMenuItem<int>(
+            value: i,
+            child: Text('${schoolYears.elementAt(i)}'),
+          ),
+      ],
       value: _currentIndex,
       onChanged: (index) {
         if (index == null) return;
@@ -45,13 +52,6 @@ class _SchoolYearDropdownState extends State<SchoolYearDropdown> {
         });
       },
       underline: const SizedBox(),
-      items: [
-        for (var i = 0; i < schoolYears.length; i++)
-          DropdownMenuItem<int>(
-            value: i,
-            child: Text('${schoolYears.elementAt(i)}'),
-          ),
-      ],
     );
   }
 }

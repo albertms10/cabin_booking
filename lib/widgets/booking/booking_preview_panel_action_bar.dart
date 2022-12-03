@@ -36,9 +36,9 @@ class BookingPreviewPanelActionBar extends StatelessWidget {
         ),
         const SizedBox(width: 16),
         _BookingPreviewIconButton(
-          icon: Icons.close,
           onPressed: onClose,
           tooltip: materialLocalizations.closeButtonTooltip,
+          icon: Icons.close,
         ),
       ],
     );
@@ -60,12 +60,12 @@ class _BookingPreviewIconButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
+      iconSize: 20,
+      splashRadius: 18,
+      color: Theme.of(context).hintColor,
       onPressed: onPressed,
       tooltip: tooltip,
       icon: Icon(icon),
-      color: Theme.of(context).hintColor,
-      iconSize: 20,
-      splashRadius: 18,
     );
   }
 }
@@ -131,12 +131,12 @@ class _BookingPreviewEditIconButton extends StatelessWidget {
     final appLocalizations = AppLocalizations.of(context)!;
 
     return _BookingPreviewIconButton(
-      icon: Icons.edit_outlined,
       onPressed: () async {
         onClose?.call();
         await _onEdit(context);
       },
       tooltip: appLocalizations.edit,
+      icon: Icons.edit_outlined,
     );
   }
 }
@@ -183,12 +183,12 @@ class _BookingPreviewDeleteIconButton extends StatelessWidget {
     final materialLocalizations = MaterialLocalizations.of(context);
 
     return _BookingPreviewIconButton(
-      icon: Icons.delete_outlined,
       onPressed: () async {
         onClose?.call();
         await _onDelete(context);
       },
       tooltip: materialLocalizations.deleteButtonTooltip,
+      icon: Icons.delete_outlined,
     );
   }
 }

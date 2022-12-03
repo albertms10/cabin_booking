@@ -81,12 +81,12 @@ class _JumpBarState extends State<JumpBar> {
         child: Column(
           children: [
             AnimatedContainer(
-              duration: const Duration(milliseconds: 200),
-              height: _barHeight + _height,
               width: 360,
+              height: _barHeight + _height,
+              duration: const Duration(milliseconds: 200),
               child: Material(
-                borderRadius: const BorderRadius.all(Radius.circular(8)),
                 elevation: 12,
+                borderRadius: const BorderRadius.all(Radius.circular(8)),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [

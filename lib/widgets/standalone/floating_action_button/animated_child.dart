@@ -48,34 +48,31 @@ class AnimatedChild extends AnimatedWidget {
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         AnimatedFloatingButtonLabel(
-          tween: tween,
           label: label,
+          tween: tween,
           animation: animation,
         ),
         SizedBox(
           width: tween.end,
           height: animation.value,
           child: Container(
+            padding: const EdgeInsets.symmetric(vertical: 10),
             width: animation.value,
             height: tween.end,
-            padding: const EdgeInsets.symmetric(vertical: 10),
             child: FloatingActionButton(
+              foregroundColor: foregroundColor ?? theme.colorScheme.secondary,
+              backgroundColor: backgroundColor ?? theme.dialogBackgroundColor,
               heroTag: heroTag,
+              elevation: elevation,
               onPressed: () {
                 onTap?.call();
                 toggleChildren?.call();
               },
-              backgroundColor: backgroundColor ?? theme.dialogBackgroundColor,
-              foregroundColor: foregroundColor ?? theme.colorScheme.secondary,
-              elevation: elevation,
               child: animation.value > 50
                   ? SizedBox(
                       width: animation.value,
                       height: animation.value,
-                      child: Icon(
-                        icon,
-                        size: animation.value / 3,
-                      ),
+                      child: Icon(icon, size: animation.value / 3),
                     )
                   : const SizedBox(),
             ),

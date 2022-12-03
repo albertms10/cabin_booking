@@ -76,10 +76,7 @@ class WeekColumns extends StatelessWidget {
           months.add(firstMonth);
 
           columnItems.add(
-            MonthLabel(
-              size: squareSize,
-              text: monthLabel,
-            ),
+            MonthLabel(text: monthLabel, size: squareSize),
           );
         } else {
           columnItems.add(
@@ -94,7 +91,7 @@ class WeekColumns extends StatelessWidget {
             columnItems.add(
               Padding(
                 padding: EdgeInsets.all(space * 0.5),
-                child: SizedBox(height: squareSize, width: squareSize),
+                child: SizedBox(width: squareSize, height: squareSize),
               ),
             );
 
@@ -109,9 +106,9 @@ class WeekColumns extends StatelessWidget {
         columnItems.add(
           HeatMapDay(
             value: input[currentDate] ?? 0,
-            thresholds: colorThresholds,
             size: squareSize,
             space: space,
+            thresholds: colorThresholds,
             date: currentDate,
             onTap: onDayTap,
             valueWrapper: dayValueWrapper,
@@ -154,8 +151,8 @@ class WeekColumns extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: buildWeekItems(),
       ),
     );

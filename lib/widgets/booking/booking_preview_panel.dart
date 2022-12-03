@@ -51,12 +51,12 @@ class _BookingPreviewPanelHeadline extends StatelessWidget {
           : RecurringBooking.isRecurringBooking(booking)
               ? const Icon(Icons.repeat)
               : Container(
-                  width: 14,
-                  height: 14,
                   decoration: BoxDecoration(
                     color: theme.colorScheme.primary,
                     borderRadius: const BorderRadius.all(Radius.circular(4)),
                   ),
+                  width: 14,
+                  height: 14,
                 ),
       headline: booking.description!,
       description: Row(

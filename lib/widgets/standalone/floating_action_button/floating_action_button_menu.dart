@@ -174,8 +174,8 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
           ),
         Positioned.directional(
           textDirection: Directionality.of(context),
-          bottom: widget.marginBottom - 16,
           end: widget.marginEnd - 16,
+          bottom: widget.marginBottom - 16,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.end,
@@ -183,10 +183,9 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
               final index = widget.buttons.indexOf(child);
 
               return AnimatedChild(
-                tween: widget.tween,
                 animation: _childAnimation,
+                tween: widget.tween,
                 index: index,
-                visible: _open,
                 backgroundColor: child.backgroundColor,
                 foregroundColor: child.foregroundColor,
                 elevation: child.elevation,
@@ -194,6 +193,7 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
                 label: child.label,
                 labelStyle: child.labelStyle,
                 labelBackgroundColor: child.labelBackgroundColor,
+                visible: _open,
                 onTap: child.onTap,
                 toggleChildren: () {
                   if (!widget.closeManually) _toggleChildren();
@@ -211,22 +211,22 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
                     visible: widget.visible,
                     tween: widget.tween,
                     animation: _childAnimation,
-                    tooltip: widget.tooltip,
-                    label: widget.label,
-                    backgroundColor: widget.backgroundColor,
-                    foregroundColor: widget.foregroundColor,
-                    elevation: widget.elevation,
-                    isOpen: _open,
-                    onLongPress: _toggleChildren,
                     callback: _open && widget.onPressed != null
                         ? () {
                             widget.onPressed?.call();
                             _toggleChildren();
                           }
                         : _toggleChildren,
+                    backgroundColor: widget.backgroundColor,
+                    foregroundColor: widget.foregroundColor,
+                    tooltip: widget.tooltip,
+                    label: widget.label,
                     heroTag: widget.heroTag,
+                    elevation: widget.elevation,
+                    isOpen: _open,
                     shape: widget.shape,
                     curve: widget.curve,
+                    onLongPress: _toggleChildren,
                     animationSpeed: widget.animationSpeed,
                     child: widget.animatedIcon != null
                         ? AnimatedIcon(

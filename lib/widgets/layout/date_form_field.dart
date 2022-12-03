@@ -59,10 +59,8 @@ class _DateFormFieldState extends State<DateFormField> {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: widget.controller,
-      autovalidateMode: AutovalidateMode.onUserInteraction,
-      autofocus: widget.autofocus,
       decoration: InputDecoration(labelText: widget.labelText),
-      enabled: widget.enabled,
+      autofocus: widget.autofocus,
       onChanged: (value) {
         final date = _tryParseDate(value);
         if (date == null ||
@@ -76,7 +74,9 @@ class _DateFormFieldState extends State<DateFormField> {
       },
       onTap: () async {
         if (_date != null &&
-            (_date!.isBefore(_firstDate) || _date!.isAfter(_lastDate))) return;
+            (_date!.isBefore(_firstDate) || _date!.isAfter(_lastDate))) {
+          return;
+        }
 
         final date = await showDatePicker(
           context: context,
@@ -114,6 +114,8 @@ class _DateFormFieldState extends State<DateFormField> {
 
         return widget.additionalValidator?.call(date);
       },
+      enabled: widget.enabled,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
     );
   }
 }
