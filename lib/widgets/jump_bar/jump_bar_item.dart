@@ -21,6 +21,7 @@ class JumpBarItem extends StatelessWidget {
       title: child,
       onTap: onTap,
       selected: selected,
+      minLeadingWidth: 32,
     );
   }
 }
