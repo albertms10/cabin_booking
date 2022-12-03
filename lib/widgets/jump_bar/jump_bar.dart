@@ -8,8 +8,13 @@ import 'package:provider/provider.dart';
 
 class JumpBar extends StatefulWidget {
   final int maxVisibleItems;
+  final BuildContext homePageContext;
 
-  const JumpBar({super.key, this.maxVisibleItems = 5});
+  const JumpBar({
+    super.key,
+    this.maxVisibleItems = 5,
+    required this.homePageContext,
+  });
 
   @override
   State<JumpBar> createState() => _JumpBarState();
@@ -102,6 +107,7 @@ class _JumpBarState extends State<JumpBar> {
                             suggestedBooking: _suggestedBooking,
                             searchedBookings: _searchedBookings,
                             itemExtent: _itemHeight,
+                            homePageContext: widget.homePageContext,
                           ),
                         ),
                       ],
