@@ -14,11 +14,11 @@ class JumpBarField extends StatelessWidget {
       controller: controller,
       decoration: InputDecoration(
         icon: const Padding(
-          padding: EdgeInsetsDirectional.only(start: 12),
+          padding: EdgeInsetsDirectional.only(start: 16, top: 2, end: 3),
           child: Icon(Icons.search),
         ),
         hintText: appLocalizations.typeANewBooking,
-        contentPadding: const EdgeInsetsDirectional.only(end: 16),
+        contentPadding: const EdgeInsetsDirectional.only(end: 24),
         filled: false,
         border: InputBorder.none,
       ),

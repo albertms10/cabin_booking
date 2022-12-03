@@ -80,29 +80,35 @@ class _JumpBarState extends State<JumpBar> {
         height: _barHeight + _maxHeight,
         child: Column(
           children: [
-            AnimatedContainer(
-              width: 360,
-              height: _barHeight + _height,
-              duration: const Duration(milliseconds: 200),
-              child: Material(
-                elevation: 12,
-                borderRadius: const BorderRadius.all(Radius.circular(8)),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    JumpBarField(controller: _controller),
-                    if (_searchedBookings.isNotEmpty) const Divider(height: 0),
-                    SizedBox(
-                      height: _height,
-                      child: JumpBarResults(
-                        suggestedBooking: _suggestedBooking,
-                        searchedBookings: _searchedBookings,
-                        itemExtent: _itemHeight,
-                      ),
+            TweenAnimationBuilder<double>(
+              tween: Tween<double>(begin: _height, end: _height),
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeInOutCubic,
+              builder: (context, height, child) {
+                return SizedBox(
+                  width: 360,
+                  height: _barHeight + height,
+                  child: Material(
+                    elevation: 12,
+                    borderRadius: const BorderRadius.all(Radius.circular(8)),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        JumpBarField(controller: _controller),
+                        const Divider(height: 0),
+                        SizedBox(
+                          height: height,
+                          child: JumpBarResults(
+                            suggestedBooking: _suggestedBooking,
+                            searchedBookings: _searchedBookings,
+                            itemExtent: _itemHeight,
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ),
+                  ),
+                );
+              },
             ),
           ],
         ),
