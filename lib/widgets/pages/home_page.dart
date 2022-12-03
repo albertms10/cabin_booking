@@ -1,5 +1,6 @@
 import 'package:cabin_booking/widgets/booking/booking_floating_action_button.dart';
 import 'package:cabin_booking/widgets/cabin/cabin_floating_action_button.dart';
+import 'package:cabin_booking/widgets/pages/actionable_focused_shortcuts.dart';
 import 'package:cabin_booking/widgets/pages/bookings_page.dart';
 import 'package:cabin_booking/widgets/pages/cabins_page.dart';
 import 'package:cabin_booking/widgets/pages/school_years_page.dart';
@@ -79,57 +80,60 @@ class HomePageState extends State<HomePage> {
     final isSmallDisplay = _isSmallDisplay(context);
     final pageDestinations = _pageDestinations(appLocalizations);
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          appLocalizations.title,
-          style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
+    return ActionableFocusedShortcuts(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            appLocalizations.title,
+            style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
+          ),
         ),
-      ),
-      body: SafeArea(
-        child: Row(
-          children: [
-            if (!isSmallDisplay) ...[
-              NavigationRail(
-                destinations: [
+        body: SafeArea(
+          child: Row(
+            children: [
+              if (!isSmallDisplay) ...[
+                NavigationRail(
+                  destinations: [
+                    for (final page in pageDestinations)
+                      NavigationRailDestination(
+                        icon: page.icon,
+                        selectedIcon: page.selectedIcon,
+                        label: Text(page.label ?? ''),
+                      ),
+                  ],
+                  selectedIndex: currentIndex,
+                  onDestinationSelected: _setNavigationIndex,
+                  labelType: NavigationRailLabelType.selected,
+                ),
+                const VerticalDivider(width: 1, thickness: 1),
+              ],
+              Expanded(
+                child: PageView(
+                  controller: _pageController,
+                  physics: const NeverScrollableScrollPhysics(),
+                  children: [for (final page in pageDestinations) page.child],
+                ),
+              ),
+            ],
+          ),
+        ),
+        floatingActionButton:
+            pageDestinations[currentIndex].floatingActionButton,
+        bottomNavigationBar: isSmallDisplay
+            ? BottomNavigationBar(
+                items: [
                   for (final page in pageDestinations)
-                    NavigationRailDestination(
+                    BottomNavigationBarItem(
                       icon: page.icon,
-                      selectedIcon: page.selectedIcon,
-                      label: Text(page.label ?? ''),
+                      label: page.label,
+                      activeIcon: page.selectedIcon,
                     ),
                 ],
-                selectedIndex: currentIndex,
-                onDestinationSelected: _setNavigationIndex,
-                labelType: NavigationRailLabelType.selected,
-              ),
-              const VerticalDivider(width: 1, thickness: 1),
-            ],
-            Expanded(
-              child: PageView(
-                controller: _pageController,
-                physics: const NeverScrollableScrollPhysics(),
-                children: [for (final page in pageDestinations) page.child],
-              ),
-            ),
-          ],
-        ),
+                onTap: _setNavigationIndex,
+                currentIndex: currentIndex,
+              )
+            : null,
       ),
-      floatingActionButton: pageDestinations[currentIndex].floatingActionButton,
-      bottomNavigationBar: isSmallDisplay
-          ? BottomNavigationBar(
-              items: [
-                for (final page in pageDestinations)
-                  BottomNavigationBarItem(
-                    icon: page.icon,
-                    label: page.label,
-                    activeIcon: page.selectedIcon,
-                  ),
-              ],
-              onTap: _setNavigationIndex,
-              currentIndex: currentIndex,
-            )
-          : null,
     );
   }
 }
