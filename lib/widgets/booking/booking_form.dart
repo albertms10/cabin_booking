@@ -54,10 +54,11 @@ class _BookingFormState extends State<BookingForm> {
   void initState() {
     super.initState();
 
-    if (_booking is RecurringBooking) {
-      _recurringBookingMethod = (_booking as RecurringBooking).method;
-      _periodicity = (_booking as RecurringBooking).periodicity;
-      _recurringEndDate = (_booking as RecurringBooking).recurringEndDate;
+    final booking = _booking;
+    if (booking is RecurringBooking) {
+      _recurringBookingMethod = booking.method;
+      _periodicity = booking.periodicity;
+      _recurringEndDate = booking.recurringEndDate;
 
       _endDateController.text = DateFormat.yMd().format(_recurringEndDate!);
     }
@@ -80,9 +81,9 @@ class _BookingFormState extends State<BookingForm> {
     _startTimeController.text = _startTime!.format(context);
     _endTimeController.text = _endTime!.format(context);
 
-    if (_booking is RecurringBooking) {
-      _occurrencesController.text =
-          (_booking as RecurringBooking).occurrences.toString();
+    final booking = _booking;
+    if (booking is RecurringBooking) {
+      _occurrencesController.text = '${booking.occurrences}';
     }
 
     return Form(
@@ -433,9 +434,9 @@ class _BookingFormState extends State<BookingForm> {
 
                   Navigator.of(context).pop<RecurringBooking>(recurringBooking);
                 } else {
-                  if (_booking is RecurringBooking) {
-                    _booking = (_booking as RecurringBooking)
-                        .asSingleBooking(linked: false);
+                  final booking = _booking;
+                  if (booking is RecurringBooking) {
+                    _booking = booking.asSingleBooking(linked: false);
                   }
 
                   Navigator.of(context).pop<Booking>(_booking);
