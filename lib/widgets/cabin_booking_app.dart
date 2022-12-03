@@ -1,11 +1,7 @@
-import 'dart:io';
-
 import 'package:cabin_booking/app_styles.dart' as app_styles;
-import 'package:cabin_booking/services/show_jump_bar_intent.dart';
 import 'package:cabin_booking/widgets/pages/home_page.dart';
 import 'package:cabin_booking/widgets/pages/main_data_loader.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 
@@ -15,9 +11,7 @@ class CabinBookingApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: const _ActionableFocusedShortcuts(
-        child: MainDataLoader(child: HomePage()),
-      ),
+      home: const MainDataLoader(child: HomePage()),
       builder: (context, child) {
         Intl.defaultLocale = Localizations.localeOf(context).toLanguageTag();
 
@@ -33,34 +27,6 @@ class CabinBookingApp extends StatelessWidget {
       supportedLocales: AppLocalizations.supportedLocales,
       debugShowCheckedModeBanner: false,
       scrollBehavior: const ScrollBehavior().copyWith(scrollbars: false),
-    );
-  }
-}
-
-class _ActionableFocusedShortcuts extends StatelessWidget {
-  final Widget child;
-
-  const _ActionableFocusedShortcuts({super.key, required this.child});
-
-  LogicalKeySet get _jumpBarLogicalKeySet => Platform.isMacOS
-      ? LogicalKeySet(LogicalKeyboardKey.meta, LogicalKeyboardKey.keyK)
-      : LogicalKeySet(LogicalKeyboardKey.control, LogicalKeyboardKey.keyK);
-
-  @override
-  Widget build(BuildContext context) {
-    return Shortcuts(
-      shortcuts: {
-        _jumpBarLogicalKeySet: const ShowJumpBarIntent(),
-      },
-      child: Actions(
-        actions: {
-          ShowJumpBarIntent: ShowJumpBarAction(context),
-        },
-        child: Focus(
-          autofocus: true,
-          child: child,
-        ),
-      ),
     );
   }
 }
