@@ -1,6 +1,7 @@
 import 'dart:collection' show SplayTreeMap, SplayTreeSet;
 
 import 'package:cabin_booking/utils/date_time_extension.dart';
+import 'package:cabin_booking/utils/string_extension.dart';
 import 'package:cabin_booking/utils/time_of_day_extension.dart';
 import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
@@ -271,6 +272,18 @@ class BookingManager with ChangeNotifier {
   RecurringBooking recurringBookingFromId(String? id) => recurringBookings
       .firstWhere((recurringBooking) => recurringBooking.id == id)
     ..recurringBookingId = id;
+
+  Set<Booking> searchBookings(String query, {int? limit}) {
+    final results = <Booking>{};
+    for (final booking in allBookings) {
+      if (query.matchesWith([booking.description])) {
+        results.add(booking);
+      }
+      if (limit != null && results.length >= limit) return results;
+    }
+
+    return results;
+  }
 
   void addSingleBooking(
     SingleBooking booking, {
