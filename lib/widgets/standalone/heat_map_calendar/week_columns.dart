@@ -91,7 +91,7 @@ class WeekColumns extends StatelessWidget {
             columnItems.add(
               Padding(
                 padding: EdgeInsets.all(space * 0.5),
-                child: SizedBox(width: squareSize, height: squareSize),
+                child: SizedBox.square(dimension: squareSize),
               ),
             );
 
