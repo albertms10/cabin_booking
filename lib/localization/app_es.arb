@@ -163,5 +163,6 @@
   "hour": "hora",
   "hours": "horas",
   "minute": "minuto",
-  "minutes": "minutos"
+  "minutes": "minutos",
+  "typeANewBooking": "Escribe una nueva reserva"
 }
