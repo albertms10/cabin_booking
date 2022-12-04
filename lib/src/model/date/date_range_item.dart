@@ -1,7 +1,7 @@
 import 'package:intl/intl.dart';
 
 import '../item.dart';
-import 'date_range.dart';
+import 'date_ranger.dart';
 
 abstract class _JsonFields {
   static const startDate = 'sd';

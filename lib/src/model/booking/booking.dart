@@ -3,7 +3,7 @@ import 'package:cabin_booking/utils/time_of_day_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../date/date_range.dart';
+import '../date/date_ranger.dart';
 import '../item.dart';
 
 abstract class _JsonFields {

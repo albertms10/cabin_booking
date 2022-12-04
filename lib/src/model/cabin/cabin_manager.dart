@@ -9,7 +9,7 @@ import '../booking/booking.dart';
 import '../booking/booking_manager.dart';
 import '../booking/recurring_booking.dart';
 import '../booking/single_booking.dart';
-import '../date/date_range.dart';
+import '../date/date_ranger.dart';
 import '../file/file_manager.dart';
 import '../file/writable_manager.dart';
 import 'cabin.dart';

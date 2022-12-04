@@ -1,0 +1,175 @@
+import 'package:cabin_booking/model.dart';
+import 'package:flutter_test/flutter_test.dart';
+
+void main() {
+  group('DateRanger', () {
+    group('.includes', () {
+      test(
+        'should return true when the DateTime is included in this DateRanger',
+        () {
+          final dateTime = DateTime(2022, 12, 4, 11, 30);
+          final dateRange = DateRange(
+            startDate: DateTime(2022, 12, 1, 9, 30),
+            endDate: DateTime(2022, 12, 31, 21, 30),
+          );
+          expect(dateRange.includes(dateTime), isTrue);
+
+          final startDateRange = DateRange(
+            startDate: DateTime(2022, 12, 1, 9, 30),
+          );
+          expect(startDateRange.includes(dateTime), isTrue);
+
+          final endDateRange = DateRange(
+            endDate: DateTime(2022, 12, 31, 21, 30),
+          );
+          expect(endDateRange.includes(dateTime), isTrue);
+        },
+      );
+
+      test(
+        'should return false when the DateTime is not included in this '
+        'DateRanger',
+        () {
+          final beforeDateTime = DateTime(2022, 12, 1, 8);
+          final afterDateTime = DateTime(2022, 12, 31, 21, 45);
+          final dateRange = DateRange(
+            startDate: DateTime(2022, 12, 1, 9, 30),
+            endDate: DateTime(2022, 12, 31, 21, 30),
+          );
+          expect(dateRange.includes(beforeDateTime), isFalse);
+          expect(dateRange.includes(afterDateTime), isFalse);
+
+          final startDateRange = DateRange(
+            startDate: DateTime(2022, 12, 1, 9, 30),
+          );
+          expect(startDateRange.includes(afterDateTime), isTrue);
+
+          final endDateRange = DateRange(
+            endDate: DateTime(2022, 12, 31, 21, 30),
+          );
+          expect(endDateRange.includes(beforeDateTime), isTrue);
+        },
+      );
+
+      test('should return true when this DateRanger is infinite', () {
+        final dateTime = DateTime(2022, 12, 4, 11, 30);
+        expect(DateRange.infinite.includes(dateTime), isTrue);
+      });
+    });
+
+    group('.isFinite', () {
+      test('should return true when this DateRanger is finite', () {
+        final dateRange = DateRange(
+          startDate: DateTime(2022, 12, 1, 9, 30),
+          endDate: DateTime(2022, 12, 31, 21, 30),
+        );
+        expect(dateRange.isFinite, isTrue);
+      });
+
+      test('should return false when this DateRanger is infinite', () {
+        expect(DateRange.infinite.isFinite, isFalse);
+
+        final startDateRange = DateRange(
+          startDate: DateTime(2022, 12, 1, 9, 30),
+        );
+        expect(startDateRange.isFinite, isFalse);
+
+        final endDateRange = DateRange(
+          endDate: DateTime(2022, 12, 31, 21, 30),
+        );
+        expect(endDateRange.isFinite, isFalse);
+      });
+    });
+
+    group('.isInfinite', () {
+      test('should return true when this DateRanger is infinite', () {
+        expect(DateRange.infinite.isInfinite, isTrue);
+
+        final startDateRange = DateRange(
+          startDate: DateTime(2022, 12, 1, 9, 30),
+        );
+        expect(startDateRange.isInfinite, isTrue);
+
+        final endDateRange = DateRange(
+          endDate: DateTime(2022, 12, 31, 21, 30),
+        );
+        expect(endDateRange.isInfinite, isTrue);
+      });
+
+      test('should return false when this DateRanger is finite', () {
+        final dateRange = DateRange(
+          startDate: DateTime(2022, 12, 1, 9, 30),
+          endDate: DateTime(2022, 12, 31, 21, 30),
+        );
+        expect(dateRange.isInfinite, isFalse);
+      });
+    });
+
+    group('.hasInfiniteStart', () {
+      test('should return true when this DateRanger has an infinite start', () {
+        expect(DateRange.infinite.hasInfiniteStart, isTrue);
+
+        final endDateRange = DateRange(
+          endDate: DateTime(2022, 12, 31, 21, 30),
+        );
+        expect(endDateRange.hasInfiniteStart, isTrue);
+      });
+
+      test('should return false when this DateRanger has a finite start', () {
+        final dateRange = DateRange(
+          startDate: DateTime(2022, 12, 1, 9, 30),
+          endDate: DateTime(2022, 12, 31, 21, 30),
+        );
+        expect(dateRange.hasInfiniteStart, isFalse);
+
+        final startDateRange = DateRange(
+          startDate: DateTime(2022, 12, 1, 9, 30),
+        );
+        expect(startDateRange.hasInfiniteStart, isFalse);
+      });
+    });
+
+    group('.hasInfiniteEnd', () {
+      test('should return true when this DateRanger has an infinite end', () {
+        expect(DateRange.infinite.hasInfiniteEnd, isTrue);
+
+        final startDateRange = DateRange(
+          startDate: DateTime(2022, 12, 1, 9, 30),
+        );
+        expect(startDateRange.hasInfiniteEnd, isTrue);
+      });
+
+      test('should return false when this DateRanger has a finite end', () {
+        final dateRange = DateRange(
+          startDate: DateTime(2022, 12, 1, 9, 30),
+          endDate: DateTime(2022, 12, 31, 21, 30),
+        );
+        expect(dateRange.hasInfiniteEnd, isFalse);
+
+        final endDateRange = DateRange(
+          endDate: DateTime(2022, 12, 31, 21, 30),
+        );
+        expect(endDateRange.hasInfiniteEnd, isFalse);
+      });
+    });
+
+    group('.dateTimeList', () {
+      test('should return a DateTime list included in this DateRanger', () {
+        final dateRange = DateRange.from(DateTime(2022, 12, 4));
+        expect(dateRange.dateTimeList(interval: const Duration(hours: 8)), [
+          DateTime(2022, 12, 4),
+          DateTime(2022, 12, 4, 8),
+          DateTime(2022, 12, 4, 16),
+          DateTime(2022, 12, 5),
+        ]);
+      });
+
+      test(
+        'should return an empty DateTime list if this DateRanger is infinite',
+        () {
+          expect(DateRange.infinite.dateTimeList(), const <DateTime>[]);
+        },
+      );
+    });
+  });
+}
