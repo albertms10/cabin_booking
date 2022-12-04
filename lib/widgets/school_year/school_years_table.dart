@@ -30,14 +30,14 @@ class SchoolYearsTable extends StatelessWidget {
                 occupiedDuration: cabinManager.totalOccupiedDuration(
                   dateRange: schoolYear,
                 ),
-                occupiedDurationPerWeek: cabinManager
-                    .occupiedDurationPerWeek(schoolYear)
-                    .fillEmptyKeyValues(
-                      keys: schoolYear.dateTimeList(
-                        interval: const Duration(days: DateTime.daysPerWeek),
+                occupiedDurationPerWeek:
+                    cabinManager.occupiedDurationPerWeek(schoolYear)
+                      ..fillEmptyKeyValues(
+                        keys: schoolYear.dateTimeList(
+                          interval: const Duration(days: DateTime.daysPerWeek),
+                        ),
+                        ifAbsent: () => Duration.zero,
                       ),
-                      ifAbsent: () => Duration.zero,
-                    ),
                 mostOccupiedTimeRanges: cabinManager
                     .mostOccupiedTimeRange(schoolYear)
                     .compactConsecutive(

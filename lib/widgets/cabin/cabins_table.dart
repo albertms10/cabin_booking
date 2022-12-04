@@ -32,18 +32,16 @@ class CabinsTable extends StatelessWidget {
                 recurringBookingsCount:
                     cabin.generatedBookingsFromRecurring.length,
                 occupiedDuration: cabin.occupiedDuration(),
-                occupiedDurationPerWeek: cabin
-                    .occupiedDurationPerWeek(
-                      DateRange(startDate: lastYear, endDate: now),
-                    )
-                    .fillEmptyKeyValues(
-                      keys: DateRanger.rangeDateTimeList(
-                        lastYear.firstDayOfWeek,
-                        now.firstDayOfWeek,
-                        interval: const Duration(days: DateTime.daysPerWeek),
-                      ),
-                      ifAbsent: () => Duration.zero,
+                occupiedDurationPerWeek: cabin.occupiedDurationPerWeek(
+                  DateRange(startDate: lastYear, endDate: now),
+                )..fillEmptyKeyValues(
+                    keys: DateRanger.rangeDateTimeList(
+                      lastYear.firstDayOfWeek,
+                      now.firstDayOfWeek,
+                      interval: const Duration(days: DateTime.daysPerWeek),
                     ),
+                    ifAbsent: () => Duration.zero,
+                  ),
                 mostOccupiedTimeRanges: cabin
                     .mostOccupiedTimeRange()
                     .compactConsecutive(
