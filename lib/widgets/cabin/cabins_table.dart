@@ -19,7 +19,10 @@ class CabinsTable extends StatelessWidget {
         final appLocalizations = AppLocalizations.of(context)!;
 
         final now = DateTime.now();
-        final lastYear = now.subtract(const Duration(days: 365));
+        final dateRange = DateRange(
+          startDate: now.subtract(const Duration(days: 365)),
+          endDate: now,
+        );
 
         return ItemsTable<Cabin>(
           itemIcon: Icons.sensor_door,
@@ -32,16 +35,14 @@ class CabinsTable extends StatelessWidget {
                 recurringBookingsCount:
                     cabin.generatedBookingsFromRecurring.length,
                 occupiedDuration: cabin.occupiedDuration(),
-                occupiedDurationPerWeek: cabin.occupiedDurationPerWeek(
-                  DateRange(startDate: lastYear, endDate: now),
-                )..fillEmptyKeyValues(
-                    keys: DateRanger.rangeDateTimeList(
-                      lastYear.firstDayOfWeek,
-                      now.firstDayOfWeek,
-                      interval: const Duration(days: DateTime.daysPerWeek),
-                    ),
-                    ifAbsent: () => Duration.zero,
-                  ),
+                occupiedDurationPerWeek:
+                    cabin.occupiedDurationPerWeek(dateRange)
+                      ..fillEmptyKeyValues(
+                        keys: dateRange.dateTimeList(
+                          interval: const Duration(days: DateTime.daysPerWeek),
+                        ),
+                        ifAbsent: () => Duration.zero,
+                      ),
                 mostOccupiedTimeRanges: cabin
                     .mostOccupiedTimeRange()
                     .compactConsecutive(
