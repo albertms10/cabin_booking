@@ -32,9 +32,9 @@ class BookingFloatingActionButton extends StatelessWidget {
                 showNewBookingDialog(
                   context: context,
                   booking: RecurringBooking(
-                    startDateTime:
+                    startDate:
                         dayHandler.dateTime.addTimeOfDay(kTimeTableStartTime),
-                    endDateTime: dayHandler.dateTime.addTimeOfDay(
+                    endDate: dayHandler.dateTime.addTimeOfDay(
                       kTimeTableStartTime.increment(
                         minutes: defaultSlotDuration.inMinutes,
                       ),
@@ -56,9 +56,9 @@ class BookingFloatingActionButton extends StatelessWidget {
                 showNewBookingDialog(
                   context: context,
                   booking: SingleBooking(
-                    startDateTime:
+                    startDate:
                         dayHandler.dateTime.addTimeOfDay(kTimeTableStartTime),
-                    endDateTime: dayHandler.dateTime.addTimeOfDay(
+                    endDate: dayHandler.dateTime.addTimeOfDay(
                       kTimeTableStartTime.increment(
                         minutes: defaultSlotDuration.inMinutes,
                       ),
@@ -82,9 +82,9 @@ class BookingFloatingActionButton extends StatelessWidget {
             showNewBookingDialog(
               context: context,
               booking: SingleBooking(
-                startDateTime:
+                startDate:
                     dayHandler.dateTime.addTimeOfDay(kTimeTableStartTime),
-                endDateTime: dayHandler.dateTime.addTimeOfDay(
+                endDate: dayHandler.dateTime.addTimeOfDay(
                   kTimeTableStartTime.increment(
                     minutes: defaultSlotDuration.inMinutes,
                   ),

@@ -61,7 +61,7 @@ class _BookingPreviewPanelHeadline extends StatelessWidget {
       headline: booking.description!,
       description: Row(
         children: [
-          Text(DateFormat.MMMMEEEEd().format(booking.date!)),
+          Text(DateFormat.MMMMEEEEd().format(booking.dateOnly!)),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8),
             child: Text(

@@ -155,8 +155,8 @@ class _BookingFormState extends State<BookingForm> {
                         final timeOfDay =
                             TimeOfDayExtension.tryParse(value ?? '');
                         if (timeOfDay == null) return;
-                        _booking.startDateTime =
-                            _booking.startDateTime!.addTimeOfDay(timeOfDay);
+                        _booking.startDate =
+                            _booking.startDate!.addTimeOfDay(timeOfDay);
                       },
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -170,21 +170,21 @@ class _BookingFormState extends State<BookingForm> {
                           return appLocalizations.enterStartTime;
                         }
 
-                        _booking.startDateTime = _booking.startDateTime!
-                            .addTimeOfDay(parsedTimeOfDay);
+                        _booking.startDate =
+                            _booking.startDate!.addTimeOfDay(parsedTimeOfDay);
 
                         if (_startTime != parsedTimeOfDay) {
                           _startTime = parsedTimeOfDay;
                         }
 
-                        final parsedDateTime =
-                            widget.booking.date!.addTimeOfDay(parsedTimeOfDay);
+                        final parsedDateTime = widget.booking.dateOnly!
+                            .addTimeOfDay(parsedTimeOfDay);
 
                         if (parsedDateTime.isAfter(
-                              widget.booking.date!.addTimeOfDay(_endTime),
+                              widget.booking.dateOnly!.addTimeOfDay(_endTime),
                             ) ||
                             parsedDateTime.isBefore(
-                              widget.booking.date!
+                              widget.booking.dateOnly!
                                   .addTimeOfDay(kTimeTableStartTime),
                             )) {
                           return appLocalizations.enterValidRange;
@@ -234,8 +234,8 @@ class _BookingFormState extends State<BookingForm> {
                         final timeOfDay =
                             TimeOfDayExtension.tryParse(value ?? '');
                         if (timeOfDay == null) return;
-                        _booking.endDateTime =
-                            _booking.endDateTime!.addTimeOfDay(timeOfDay);
+                        _booking.endDate =
+                            _booking.endDate!.addTimeOfDay(timeOfDay);
                       },
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -249,21 +249,21 @@ class _BookingFormState extends State<BookingForm> {
                           return appLocalizations.enterEndTime;
                         }
 
-                        _booking.endDateTime =
-                            _booking.endDateTime!.addTimeOfDay(parsedTimeOfDay);
+                        _booking.endDate =
+                            _booking.endDate!.addTimeOfDay(parsedTimeOfDay);
 
                         if (_endTime != parsedTimeOfDay) {
                           _endTime = parsedTimeOfDay;
                         }
 
-                        final parsedDateTime =
-                            widget.booking.date!.addTimeOfDay(parsedTimeOfDay);
+                        final parsedDateTime = widget.booking.dateOnly!
+                            .addTimeOfDay(parsedTimeOfDay);
 
                         if (parsedDateTime.isBefore(
-                              widget.booking.date!.addTimeOfDay(_startTime),
+                              widget.booking.dateOnly!.addTimeOfDay(_startTime),
                             ) ||
                             parsedDateTime.isAfter(
-                              widget.booking.date!
+                              widget.booking.dateOnly!
                                   .addTimeOfDay(kTimeTableEndTime),
                             )) {
                           return appLocalizations.enterValidRange;
