@@ -15,11 +15,13 @@ abstract class _JsonFields {
   static const recurringBookings = 'rb';
 }
 
+/// A cabin item.
 class Cabin extends Item {
   int number;
   late CabinElements elements;
   final BookingManager _bookingManager;
 
+  /// Creates a new [Cabin].
   Cabin({
     super.id,
     this.number = 0,
@@ -33,6 +35,7 @@ class Cabin extends Item {
     this.elements = elements ?? CabinElements();
   }
 
+  /// Creates a new [Cabin] from a JSON Map.
   Cabin.from(super.other)
       : number = other[_JsonFields.number] as int,
         elements = CabinElements.from(

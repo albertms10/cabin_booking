@@ -10,18 +10,28 @@ abstract class _JsonFields {
   static const modificationCount = 'mc';
 }
 
+/// An item.
 abstract class Item implements Comparable<Item>, Serializable {
+  /// The unique identifier of this [Item].
   late String id;
+
+  /// The creation UTC timestamp.
   final DateTime creationDateTime;
+
+  /// The last modification UTC timestamp.
   DateTime? modificationDateTime;
+
+  /// The number of times this [Item] has been modified.
   int modificationCount;
 
+  /// Creates a new [Item].
   Item({String? id})
       : creationDateTime = DateTime.now(),
         modificationCount = 0 {
     this.id = id ?? nanoid();
   }
 
+  /// Creates a new [Item] from a JSON Map.
   Item.from(Map<String, dynamic> other)
       : id = other[_JsonFields.id] as String,
         creationDateTime =
@@ -46,6 +56,8 @@ abstract class Item implements Comparable<Item>, Serializable {
         _JsonFields.modificationCount: modificationCount,
       };
 
+  /// Creates a copy of this [Item] but with the given fields replaced with the
+  /// new values.
   Item copyWith();
 
   void _modify() {

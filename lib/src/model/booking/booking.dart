@@ -13,17 +13,35 @@ abstract class _JsonFields {
   static const isLocked = 'il';
 }
 
-abstract class Booking extends Item {
+/// A booking item.
+abstract class Booking extends Item with DateRanger {
+  /// The description used to visually identify this [Booking].
   String? description;
+
+  /// When this [Booking] starts.
   DateTime? startDateTime;
+
+  /// When this [Booking] ends.
   DateTime? endDateTime;
+
+  /// Whether this [Booking] represents a locked time slot.
   bool isLocked;
+
+  /// The ID of the booked Cabin.
   String? cabinId;
 
+  /// The ID of the recurring booking, if this [Booking] is part of a series of
+  /// recurring bookings.
   String? recurringBookingId;
+
+  /// The occurrence number this [Booking] appears in the list of recurring
+  /// bookings. E.g., the 2nd occurrence out of 5.
   int? recurringNumber;
+
+  /// The total times the recurring booking occurs.
   int? recurringTotalTimes;
 
+  /// Creates a new [Booking].
   Booking({
     super.id,
     this.description,
@@ -36,6 +54,7 @@ abstract class Booking extends Item {
     this.recurringTotalTimes,
   });
 
+  /// Creates a new [Booking] from a JSON Map.
   Booking.from(super.other)
       : description = other[_JsonFields.description] as String?,
         startDateTime = DateTime.tryParse(
