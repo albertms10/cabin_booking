@@ -16,6 +16,7 @@ mixin DateRanger {
   /// Examples:
   /// ```dart
   /// assert(DateRange.today().includes(DateTime.now()));
+  /// assert(DateRange.infinite.includes(DateTime.now()));
   /// ```
   bool includes(DateTime dateTime) {
     if (hasInfiniteStart && hasInfiniteEnd) return true;
@@ -64,6 +65,15 @@ mixin DateRanger {
   bool get hasInfiniteEnd => endDate == null;
 
   /// The [Duration] of this [DateRanger].
+  ///
+  /// If this [DateRanger.isInfinite], returns [Duration.zero].
+  ///
+  /// Examples:
+  /// ```dart
+  /// const oneDay = Duration(days: 1);
+  /// assert(DateRange.today().duration == oneDay);
+  /// assert(DateRange.infinite.duration == Duration.zero);
+  /// ```
   Duration get duration {
     if (isInfinite) return Duration.zero;
 
@@ -93,6 +103,8 @@ mixin DateRanger {
 
   /// Returns a list of [DateTime]s included in this [DateRanger]
   /// every [interval].
+  ///
+  /// If this [DateRanger.isInfinite], returns an empty list.
   ///
   /// Example:
   /// ```dart

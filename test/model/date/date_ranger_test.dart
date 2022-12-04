@@ -153,6 +153,39 @@ void main() {
       });
     });
 
+    group('.duration', () {
+      test('should return the Duration of a finite DateRanger', () {
+        final hourDateRange = DateRange(
+          startDate: DateTime(2022, 12, 4, 9, 15),
+          endDate: DateTime(2022, 12, 4, 10, 15),
+        );
+        expect(hourDateRange.duration, const Duration(hours: 1));
+
+        final dayDateRange = DateRange.from(DateTime(2022, 12, 4));
+        expect(dayDateRange.duration, const Duration(days: 1));
+
+        final weekDateRange = DateRange(
+          startDate: DateTime(2022, 12, 27),
+          endDate: DateTime(2023, 1, 3),
+        );
+        expect(weekDateRange.duration, const Duration(days: 7));
+      });
+
+      test('should return a Duration of zero of an infinite DateRanger', () {
+        expect(DateRange.infinite.duration, Duration.zero);
+
+        final startDateRange = DateRange(
+          startDate: DateTime(2022, 12, 1, 9, 30),
+        );
+        expect(startDateRange.duration, Duration.zero);
+
+        final endDateRange = DateRange(
+          endDate: DateTime(2022, 12, 31, 21, 30),
+        );
+        expect(endDateRange.duration, Duration.zero);
+      });
+    });
+
     group('.dateTimeList', () {
       test('should return a DateTime list included in this DateRanger', () {
         final dateRange = DateRange.from(DateTime(2022, 12, 4));
