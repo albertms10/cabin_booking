@@ -40,7 +40,18 @@ extension DateTimeExtension on DateTime {
   bool isSameDateAs(DateTime other) =>
       year == other.year && month == other.month && day == other.day;
 
-  /// Returns the first day of the week of this [DateTime].
+  /// Returns the day of the week relative to this [DateTime].
+  ///
+  /// Example:
+  /// ```dart
+  /// final berlinWallFell = DateTime.utc(1989, 11, 9);
+  /// final sunday = DateTime.utc(1989, 11, 12);
+  /// assert(berlinWallFell.dayOfWeek(DateTime.sunday) == sunday);
+  /// ```
+  DateTime dayOfWeek(int dayOfWeek) =>
+      weekday == dayOfWeek ? this : add(Duration(days: dayOfWeek - weekday));
+
+  /// Returns the first day of the week relative to this [DateTime].
   ///
   /// Example:
   /// ```dart
@@ -49,8 +60,7 @@ extension DateTimeExtension on DateTime {
   /// assert(berlinWallFell.firstDayOfWeek == monday);
   /// assert(berlinWallFell.firstDayOfWeek.weekday == DateTime.monday);
   /// ```
-  DateTime get firstDayOfWeek =>
-      weekday == 1 ? this : subtract(Duration(days: weekday - 1));
+  DateTime get firstDayOfWeek => dayOfWeek(DateTime.monday);
 
   /// Returns a `double` representation of this [DateTime] based on the
   /// [millisecondsSinceEpoch] value.
