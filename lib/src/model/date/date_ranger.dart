@@ -1,3 +1,4 @@
+/// Adds date range operations between a [startDate] and an [endDate].
 mixin DateRanger {
   /// The start [DateTime] of this [DateRanger].
   ///
