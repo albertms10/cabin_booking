@@ -1,5 +1,4 @@
 import 'package:cabin_booking/model.dart';
-import 'package:cabin_booking/utils/date_time_extension.dart';
 import 'package:cabin_booking/utils/iterable_extension.dart';
 import 'package:cabin_booking/utils/map_extension.dart';
 import 'package:cabin_booking/utils/time_of_day_extension.dart';
@@ -23,6 +22,9 @@ class CabinsTable extends StatelessWidget {
           startDate: now.subtract(const Duration(days: 365)),
           endDate: now,
         );
+        final keysToFill = dateRange.dateTimeList(
+          interval: const Duration(days: DateTime.daysPerWeek),
+        );
 
         return ItemsTable<Cabin>(
           itemIcon: Icons.sensor_door,
@@ -38,9 +40,7 @@ class CabinsTable extends StatelessWidget {
                 occupiedDurationPerWeek:
                     cabin.occupiedDurationPerWeek(dateRange)
                       ..fillEmptyKeyValues(
-                        keys: dateRange.dateTimeList(
-                          interval: const Duration(days: DateTime.daysPerWeek),
-                        ),
+                        keys: keysToFill,
                         ifAbsent: () => Duration.zero,
                       ),
                 mostOccupiedTimeRanges: cabin
