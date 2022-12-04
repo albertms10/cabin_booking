@@ -12,6 +12,7 @@ export 'src/model/cabin/piano.dart';
 export 'src/model/cabin/tokenized_cabin.dart';
 export 'src/model/date/date_range.dart';
 export 'src/model/date/date_range_item.dart';
+export 'src/model/date/date_ranger.dart';
 export 'src/model/date/day_handler.dart';
 export 'src/model/date/holiday.dart';
 export 'src/model/file/file_manager.dart';
