@@ -49,29 +49,34 @@ void main() {
       });
     });
 
+    group('.dayOfWeek', () {
+      test('should return the day of the week relative to this DateTime', () {
+        expect(
+          DateTime(2021, 1, 8, 9, 30).dayOfWeek(DateTime.sunday),
+          DateTime(2021, 1, 10, 9, 30),
+        );
+        expect(
+          DateTime.utc(1989, 11, 9).dayOfWeek(DateTime.saturday),
+          DateTime.utc(1989, 11, 11),
+        );
+        expect(
+          DateTime.utc(1989, 11, 9).dayOfWeek(DateTime.monday),
+          DateTime.utc(1989, 11, 6),
+        );
+      });
+    });
+
     group('.firstDayOfWeek', () {
       test(
-        'should return the first day of the week relative to this DateTime, '
-        'whose weekday are the same',
-        () {
-          expect(
-            DateTime(2021, 1, 10, 9, 30).firstDayOfWeek.weekday,
-            DateTime(2021, 1, 4).weekday,
-          );
-          expect(
-            DateTime.utc(1989, 11, 9).firstDayOfWeek,
-            DateTime.utc(1989, 11, 6),
-          );
-        },
-      );
-
-      test(
-        'should return the first day of the week relative to this DateTime '
-        'while preserving time information',
+        'should return the first day of the week relative to this DateTime',
         () {
           expect(
             DateTime(2021, 1, 10, 9, 30).firstDayOfWeek,
             DateTime(2021, 1, 4, 9, 30),
+          );
+          expect(
+            DateTime.utc(1989, 11, 9).firstDayOfWeek,
+            DateTime.utc(1989, 11, 6),
           );
         },
       );
