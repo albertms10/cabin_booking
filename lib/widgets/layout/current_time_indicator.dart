@@ -18,14 +18,13 @@ class CurrentTimeIndicator extends StatelessWidget {
       builder: (context) {
         final dayHandler = Provider.of<DayHandler>(context);
 
-        final viewStartDateTime =
+        final viewStartDate =
             dayHandler.dateTime.addTimeOfDay(kTimeTableStartTime);
-        final viewEndDateTime =
-            dayHandler.dateTime.addTimeOfDay(kTimeTableEndTime);
+        final viewEndDate = dayHandler.dateTime.addTimeOfDay(kTimeTableEndTime);
 
         final now = DateTime.now();
-        final durationFromStart = now.difference(viewStartDateTime);
-        final durationFromEnd = now.difference(viewEndDateTime);
+        final durationFromStart = now.difference(viewStartDate);
+        final durationFromEnd = now.difference(viewEndDate);
 
         if (durationFromStart <= Duration.zero ||
             durationFromEnd >= const Duration(minutes: 15)) {

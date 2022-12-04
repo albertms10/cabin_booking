@@ -37,10 +37,10 @@ class BookingSearchResult extends StatelessWidget {
             ),
             const SizedBox(width: 12),
             SearchResultLabel<DateRange>(
-              label: booking.date != null
+              label: booking.dateOnly != null
                   ? DateRange(
-                      startDate: booking.startDateTime,
-                      endDate: booking.endDateTime,
+                      startDate: booking.startDate,
+                      endDate: booking.endDate,
                     )
                   : null,
               formatter: (dateRange) {

@@ -357,7 +357,7 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
             ...cabin.searchBookings(query, limit: perCabinLimit),
         ],
         // Descending.
-        (a, b) => b.startDateTime!.compareTo(a.startDateTime!),
+        (a, b) => b.startDate!.compareTo(a.startDate!),
       );
 
   Set<Cabin> get _defaultCabins => SplayTreeSet();

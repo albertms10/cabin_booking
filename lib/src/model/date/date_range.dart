@@ -37,11 +37,11 @@ class DateRange with DateRanger {
   /// assert(dateRange.endDate == DateTime(2022, 12, 5));
   /// ```
   factory DateRange.from(DateTime dateTime) {
-    final startDate = dateTime.dateOnly;
+    final startDateOnly = dateTime.dateOnly;
 
     return DateRange(
-      startDate: startDate,
-      endDate: startDate.add(const Duration(days: 1)),
+      startDate: startDateOnly,
+      endDate: startDateOnly.add(const Duration(days: 1)),
     );
   }
 
