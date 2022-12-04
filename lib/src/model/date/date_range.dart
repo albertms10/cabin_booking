@@ -20,6 +20,8 @@ class DateRange with DateRanger {
   /// includes all possible dates.
   static const infinite = DateRange();
 
+  /// Creates a copy of this [DateRange] but with the given fields replaced
+  /// with the new values.
   DateRange copyWith({DateTime? startDate, DateTime? endDate}) => DateRange(
         startDate: startDate ?? this.startDate,
         endDate: endDate ?? this.endDate,
