@@ -4,8 +4,8 @@ class SingleBooking extends Booking {
   SingleBooking({
     super.id,
     super.description,
-    super.startDateTime,
-    super.endDateTime,
+    super.startDate,
+    super.endDate,
     super.isLocked = false,
     super.cabinId,
     super.recurringBookingId,
@@ -19,8 +19,8 @@ class SingleBooking extends Booking {
       : super(
           id: booking.id,
           description: booking.description,
-          startDateTime: booking.startDateTime,
-          endDateTime: booking.endDateTime,
+          startDate: booking.startDate,
+          endDate: booking.endDate,
           isLocked: booking.isLocked,
           cabinId: booking.cabinId,
         );
@@ -29,16 +29,16 @@ class SingleBooking extends Booking {
   SingleBooking copyWith({
     String? id,
     String? description,
-    DateTime? startDateTime,
-    DateTime? endDateTime,
+    DateTime? startDate,
+    DateTime? endDate,
     bool? isLocked,
     String? cabinId,
   }) =>
       SingleBooking(
         id: id ?? super.id,
         description: description ?? this.description,
-        startDateTime: startDateTime ?? this.startDateTime,
-        endDateTime: endDateTime ?? this.endDateTime,
+        startDate: startDate ?? startDate,
+        endDate: endDate ?? endDate,
         isLocked: isLocked ?? this.isLocked,
         cabinId: cabinId ?? this.cabinId,
       );

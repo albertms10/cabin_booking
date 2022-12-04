@@ -94,9 +94,9 @@ class BookingManager with ChangeNotifier {
       });
 
   bool bookingsCollideWith(Booking booking) {
-    if (booking.date == null) return false;
+    if (booking.dateOnly == null) return false;
 
-    return allBookingsOn(booking.date!)
+    return allBookingsOn(booking.dateOnly!)
             .where(
               (comparingBooking) =>
                   (comparingBooking.recurringBookingId == null ||
@@ -178,11 +178,13 @@ class BookingManager with ChangeNotifier {
 
     for (final booking in bookingsList) {
       final shouldAddDate = dates.firstWhereOrNull(
-            (date) => booking.date != null && date.isSameDateAs(booking.date!),
+            (date) =>
+                booking.dateOnly != null &&
+                date.isSameDateAs(booking.dateOnly!),
           ) !=
           null;
 
-      if (!shouldAddDate) dates.add(booking.date!);
+      if (!shouldAddDate) dates.add(booking.dateOnly!);
     }
 
     return dates;
@@ -193,7 +195,7 @@ class BookingManager with ChangeNotifier {
 
     for (final booking in allBookings) {
       bookingsPerDay.update(
-        booking.date!,
+        booking.dateOnly!,
         (count) => count + 1,
         ifAbsent: () => 1,
       );
@@ -206,10 +208,10 @@ class BookingManager with ChangeNotifier {
     final bookingsPerDay = SplayTreeMap<DateTime, Duration>();
 
     for (final booking in allBookings) {
-      if (dateRange != null && !dateRange.includes(booking.date!)) continue;
+      if (dateRange != null && !dateRange.includes(booking.dateOnly!)) continue;
 
       bookingsPerDay.update(
-        booking.date!.firstDayOfWeek,
+        booking.dateOnly!.firstDayOfWeek,
         (duration) => duration + booking.duration,
         ifAbsent: () => booking.duration,
       );

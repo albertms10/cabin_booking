@@ -20,8 +20,8 @@ class RecurringBooking extends Booking {
   RecurringBooking({
     super.id,
     super.description,
-    super.startDateTime,
-    super.endDateTime,
+    super.startDate,
+    super.endDate,
     super.isLocked,
     super.cabinId,
     this.periodicity = Periodicity.weekly,
@@ -74,8 +74,8 @@ class RecurringBooking extends Booking {
     return RecurringBooking(
       id: booking.id,
       description: booking.description,
-      startDateTime: booking.startDateTime,
-      endDateTime: booking.endDateTime,
+      startDate: booking.startDate,
+      endDate: booking.endDate,
       isLocked: booking.isLocked,
       cabinId: booking.cabinId,
       periodicity: periodicity,
@@ -112,7 +112,7 @@ class RecurringBooking extends Booking {
 
     assert(_occurrences != null, '_occurrences must be non-null.');
 
-    return date!.add(periodicityDuration * _occurrences!);
+    return dateOnly!.add(periodicityDuration * _occurrences!);
   }
 
   set recurringEndDate(DateTime date) {
@@ -126,7 +126,7 @@ class RecurringBooking extends Booking {
     assert(_recurringEndDate != null, '_recurringEndDate must be non-null.');
 
     var count = 0;
-    var runDate = startDateTime!;
+    var runDate = startDate!;
 
     while (runDate.isBefore(_recurringEndDate!)) {
       runDate = runDate.add(periodicityDuration);
@@ -144,8 +144,8 @@ class RecurringBooking extends Booking {
   SingleBooking asSingleBooking({bool linked = true}) => SingleBooking(
         id: linked ? '$id-0' : (recurringBookingId ?? id),
         description: description,
-        startDateTime: startDateTime,
-        endDateTime: endDateTime,
+        startDate: startDate,
+        endDate: endDate,
         isLocked: isLocked,
         cabinId: cabinId,
         recurringBookingId: linked ? id : null,
@@ -153,7 +153,7 @@ class RecurringBooking extends Booking {
 
   List<SingleBooking> get bookings {
     final runBookings = <SingleBooking>[];
-    var runDate = startDateTime!;
+    var runDate = startDate!;
     var movedBooking = asSingleBooking();
 
     var count = 1;
@@ -171,8 +171,8 @@ class RecurringBooking extends Booking {
 
       if (runDate.isBefore(recurringEndDate)) {
         movedBooking = movedBooking.copyWith(
-          startDateTime: runDate,
-          endDateTime: runDate.add(duration),
+          startDate: runDate,
+          endDate: runDate.add(duration),
         );
         count++;
       }
@@ -191,8 +191,8 @@ class RecurringBooking extends Booking {
   RecurringBooking copyWith({
     String? id,
     String? description,
-    DateTime? startDateTime,
-    DateTime? endDateTime,
+    DateTime? startDate,
+    DateTime? endDate,
     bool? isLocked,
     String? cabinId,
     Periodicity? periodicity,
@@ -203,8 +203,8 @@ class RecurringBooking extends Booking {
       RecurringBooking(
         id: id ?? this.id,
         description: description ?? this.description,
-        startDateTime: startDateTime ?? this.startDateTime,
-        endDateTime: endDateTime ?? this.endDateTime,
+        startDate: startDate ?? startDate,
+        endDate: endDate ?? endDate,
         isLocked: isLocked ?? this.isLocked,
         cabinId: cabinId ?? this.cabinId,
         periodicity: periodicity ?? this.periodicity,

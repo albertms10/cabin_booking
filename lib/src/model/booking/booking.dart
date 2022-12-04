@@ -8,15 +8,20 @@ import '../item.dart';
 
 abstract class _JsonFields {
   static const description = 'de';
-  static const startDateTime = 'sd';
-  static const endDateTime = 'ed';
+  static const startDate = 'sd';
+  static const endDate = 'ed';
   static const isLocked = 'il';
 }
 
-abstract class Booking extends Item {
+abstract class Booking extends Item with DateRanger {
   String? description;
-  DateTime? startDateTime;
-  DateTime? endDateTime;
+
+  @override
+  DateTime? startDate;
+
+  @override
+  DateTime? endDate;
+
   bool isLocked;
   String? cabinId;
 
@@ -27,8 +32,8 @@ abstract class Booking extends Item {
   Booking({
     super.id,
     this.description,
-    this.startDateTime,
-    this.endDateTime,
+    this.startDate,
+    this.endDate,
     this.isLocked = false,
     this.cabinId,
     this.recurringBookingId,
@@ -38,11 +43,11 @@ abstract class Booking extends Item {
 
   Booking.from(super.other)
       : description = other[_JsonFields.description] as String?,
-        startDateTime = DateTime.tryParse(
-          other[_JsonFields.startDateTime] as String? ?? '',
+        startDate = DateTime.tryParse(
+          other[_JsonFields.startDate] as String? ?? '',
         ),
-        endDateTime =
-            DateTime.tryParse(other[_JsonFields.endDateTime] as String? ?? ''),
+        endDate =
+            DateTime.tryParse(other[_JsonFields.endDate] as String? ?? ''),
         isLocked = other[_JsonFields.isLocked] as bool,
         super.from();
 
@@ -50,19 +55,17 @@ abstract class Booking extends Item {
   Map<String, dynamic> toJson() => {
         ...super.toJson(),
         _JsonFields.description: description,
-        _JsonFields.startDateTime: startDateTime?.toUtc().toIso8601String(),
-        _JsonFields.endDateTime: endDateTime?.toUtc().toIso8601String(),
+        _JsonFields.startDate: startDate?.toUtc().toIso8601String(),
+        _JsonFields.endDate: endDate?.toUtc().toIso8601String(),
         _JsonFields.isLocked: isLocked,
       };
 
-  /// Date only part of [startDateTime].
-  DateTime? get date => startDateTime?.dateOnly;
+  /// Date only part of [startDate].
+  DateTime? get dateOnly => startDate?.dateOnly;
 
-  TimeOfDay get startTime => TimeOfDay.fromDateTime(startDateTime!.toLocal());
+  TimeOfDay get startTime => TimeOfDay.fromDateTime(startDate!.toLocal());
 
-  TimeOfDay get endTime => TimeOfDay.fromDateTime(endDateTime!.toLocal());
-
-  Duration get duration => endDateTime!.difference(startDateTime!);
+  TimeOfDay get endTime => TimeOfDay.fromDateTime(endDate!.toLocal());
 
   Map<TimeOfDay, Duration> get hoursSpan {
     final timeRanges = <TimeOfDay, Duration>{};
@@ -96,23 +99,22 @@ abstract class Booking extends Item {
       '–${endTime.format24Hour()}';
 
   String get dateTimeRange =>
-      '${DateFormat.yMd().format(startDateTime!)} $timeRange';
+      '${DateFormat.yMd().format(dateOnly!)} $timeRange';
 
-  bool isOn(DateTime dateTime) =>
-      startDateTime?.isSameDateAs(dateTime) ?? false;
+  bool isOn(DateTime dateTime) => dateOnly?.isSameDateAs(dateTime) ?? false;
 
-  bool isBetween(DateRanger dateRange) => dateRange.includes(startDateTime!);
+  bool isBetween(DateRanger dateRange) => dateRange.includes(startDate!);
 
   bool collidesWith(Booking booking) =>
-      startDateTime!.isBefore(booking.endDateTime!) &&
-      endDateTime!.isAfter(booking.startDateTime!);
+      startDate!.isBefore(booking.endDate!) &&
+      endDate!.isAfter(booking.startDate!);
 
   @override
   Booking copyWith({
     String? id,
     String? description,
-    DateTime? startDateTime,
-    DateTime? endDateTime,
+    DateTime? startDate,
+    DateTime? endDate,
     bool? isLocked,
     String? cabinId,
   });
@@ -120,8 +122,8 @@ abstract class Booking extends Item {
   @override
   void replaceWith(covariant Booking item) {
     description = item.description;
-    startDateTime = item.startDateTime;
-    endDateTime = item.endDateTime;
+    startDate = item.startDate;
+    endDate = item.endDate;
     isLocked = item.isLocked;
 
     super.replaceWith(item);
@@ -133,5 +135,5 @@ abstract class Booking extends Item {
 
   @override
   int compareTo(covariant Booking other) =>
-      startDateTime!.compareTo(other.startDateTime!);
+      startDate!.compareTo(other.startDate!);
 }

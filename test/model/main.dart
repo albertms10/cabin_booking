@@ -8,8 +8,8 @@ import 'date/date_ranger_test.dart' as date_ranger_test;
 void main() {
   cabin_elements_test.main();
   cabin_test.main();
-  tokenized_cabin_test.main();
   piano_test.main();
+  tokenized_cabin_test.main();
   date_range_test.main();
   date_ranger_test.main();
 }

@@ -51,7 +51,7 @@ class JumpBarResults extends StatelessWidget {
             JumpBarItem(
               icon: Icons.event,
               onTap: () {
-                dayHandler.dateTime = booking.startDateTime!;
+                dayHandler.dateTime = booking.startDate!;
                 Navigator.of(context).pop();
                 HomePage.of(homePageContext)
                     ?.setNavigationPage(AppPage.bookings);
