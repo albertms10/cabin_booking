@@ -7,8 +7,8 @@ void main() {
       test('should create a new Cabin from a JSON object', () {
         const rawCabin = {
           'id': 'cabin-id',
-          'cdt': '1969-07-20T20:18:04.000Z',
-          'mdt': '1969-07-20T20:18:04.000Z',
+          'cd': '1969-07-20T20:18:04.000Z',
+          'md': '1969-07-20T20:18:04.000Z',
           'mc': 1,
           'n': 1,
           'e': {
@@ -47,8 +47,8 @@ void main() {
         () {
           final rawCabin = {
             'id': 'cabin-id',
-            'cdt': '1969-07-20T20:18:04.000Z',
-            'mdt': '1969-07-20T20:18:04.000Z',
+            'cd': '1969-07-20T20:18:04.000Z',
+            'md': '1969-07-20T20:18:04.000Z',
             'mc': 1,
             'n': 1,
             'e': {

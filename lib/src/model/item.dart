@@ -5,8 +5,8 @@ import 'serializable.dart';
 
 abstract class _JsonFields {
   static const id = 'id';
-  static const creationDateTime = 'cdt';
-  static const modificationDateTime = 'mdt';
+  static const creationDateTime = 'cd';
+  static const modificationDateTime = 'md';
   static const modificationCount = 'mc';
 }
 
