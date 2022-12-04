@@ -10,7 +10,7 @@ void main() {
       });
     });
 
-    group('.addTimeOfDay', () {
+    group('.addTimeOfDay()', () {
       test('should return a new DateTime adding the TimeOfDay information', () {
         expect(
           DateTime(2021, 9, 7)
@@ -31,7 +31,7 @@ void main() {
       );
     });
 
-    group('.isSameDateAs', () {
+    group('.isSameDateAs()', () {
       test('should return true when the dates are the same', () {
         expect(
           DateTime(2021, 9, 7, 21, 30, 10)
@@ -49,7 +49,7 @@ void main() {
       });
     });
 
-    group('.dayOfWeek', () {
+    group('.dayOfWeek()', () {
       test('should return the day of the week relative to this DateTime', () {
         expect(
           DateTime(2021, 1, 8, 9, 30).dayOfWeek(DateTime.sunday),
@@ -82,7 +82,7 @@ void main() {
       );
     });
 
-    group('.toDouble', () {
+    group('.toDouble()', () {
       test('should return a double representation of this DateTime', () {
         expect(DateTime(2021, 1, 10, 9, 30).toDouble(), closeTo(18637.3, 0.1));
       });

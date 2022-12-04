@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('DateRange', () {
-    group('.from', () {
+    group('.from()', () {
       test('should construct a new DateRange from a DateTime', () {
         final dateTime = DateTime(2022, 12, 4, 19, 30);
         final dateRange = DateRange.from(dateTime);
@@ -12,7 +12,7 @@ void main() {
       });
     });
 
-    group('.copyWith', () {
+    group('.copyWith()', () {
       test('should create a copy of this DateRange', () {
         final dateRange = DateRange.today();
         expect(dateRange, dateRange.copyWith());

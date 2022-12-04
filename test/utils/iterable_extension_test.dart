@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('IterableExtension', () {
-    group('.whereTruthy', () {
+    group('.whereTruthy()', () {
       test('should return this Iterable excluding falsy values', () {
         expect(
           const [true, false, 0, 1, 'Hello', 'world', '', null].whereTruthy(),
@@ -13,7 +13,7 @@ void main() {
       });
     });
 
-    group('.compactConsecutive', () {
+    group('.compactConsecutive()', () {
       test('should throw an ArgumentError', () {
         expect(() => const [true].compactConsecutive(), throwsArgumentError);
         expect(() => [() {}].compactConsecutive(), throwsArgumentError);

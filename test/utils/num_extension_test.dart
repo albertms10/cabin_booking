@@ -3,14 +3,14 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('NumExtension', () {
-    group('.map', () {
+    group('.map()', () {
       test('should re-map a number from one range to another', () {
         expect(8.5.map(inMax: 10), 0.85);
         expect(5.map(inMax: 10, outMin: 1, outMax: 4), 2.5);
       });
     });
 
-    group('.mod', () {
+    group('.mod()', () {
       test('should return the mod value of this int', () {
         expect(12.mod(5), 2);
       });
@@ -20,7 +20,7 @@ void main() {
       });
     });
 
-    group('.weekdayMod', () {
+    group('.weekdayMod()', () {
       test('should return the weekday mod of this int', () {
         expect(7.weekdayMod(), 0);
       });
@@ -30,7 +30,7 @@ void main() {
       });
     });
 
-    group('.roundToNearest', () {
+    group('.roundToNearest()', () {
       test('should round this num to the nearest n number.', () {
         expect(17.roundToNearest(5), 15);
         expect(18.roundToNearest(5), 20);

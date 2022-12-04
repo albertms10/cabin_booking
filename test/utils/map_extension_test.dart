@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('MapExtension', () {
-    group('.fillEmptyKeyValues', () {
+    group('.fillEmptyKeyValues()', () {
       test('should return the same Map when no keys are provided', () {
         const map = <int, bool?>{1: true, 2: true};
         final filled = Map.of(map)
