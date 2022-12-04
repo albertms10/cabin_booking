@@ -217,13 +217,13 @@ class _PopularTimesStatistics extends StatelessWidget {
       icon: Icons.watch_later,
       items: [
         PopularTimesBarChart(
-          timeRangesOccupancy:
-              cabinManager.accumulatedTimeRangesOccupancy().fillEmptyKeyValues(
-            keys: [
-              for (var i = 9; i < 22; i++) TimeOfDay(hour: i, minute: 0),
-            ],
-            ifAbsent: () => Duration.zero,
-          ),
+          timeRangesOccupancy: cabinManager.accumulatedTimeRangesOccupancy()
+            ..fillEmptyKeyValues(
+              keys: [
+                for (var i = 9; i < 22; i++) TimeOfDay(hour: i, minute: 0),
+              ],
+              ifAbsent: () => Duration.zero,
+            ),
         ),
       ],
     );
