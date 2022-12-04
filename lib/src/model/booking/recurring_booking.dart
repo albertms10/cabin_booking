@@ -153,7 +153,7 @@ class RecurringBooking extends Booking {
 
   List<SingleBooking> get bookings {
     final runBookings = <SingleBooking>[];
-    var runDate = date!;
+    var runDate = startDateTime!;
     var movedBooking = asSingleBooking();
 
     var count = 1;
