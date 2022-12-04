@@ -4,7 +4,7 @@ import '../booking/booking.dart';
 import '../booking/booking_manager.dart';
 import '../booking/recurring_booking.dart';
 import '../booking/single_booking.dart';
-import '../date/date_range.dart';
+import '../date/date_ranger.dart';
 import '../item.dart';
 import 'cabin_elements.dart';
 

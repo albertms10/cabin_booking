@@ -6,7 +6,7 @@ import 'package:cabin_booking/utils/time_of_day_extension.dart';
 import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
 
-import '../date/date_range.dart';
+import '../date/date_ranger.dart';
 import 'booking.dart';
 import 'recurring_booking.dart';
 import 'single_booking.dart';
