@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('ColorExtension', () {
-    group('.opacityThresholds', () {
+    group('.opacityThresholds()', () {
       test('should return a valid threshold to color Map', () {
         const color = Colors.blue;
         const thresholds = {

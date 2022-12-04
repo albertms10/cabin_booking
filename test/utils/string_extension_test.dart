@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('StringExtension', () {
-    group('.tokenize', () {
+    group('.tokenize()', () {
       final expressions = [
         RegExp(r'(?<time>\d{1,2}[.:]\d{2})'),
         RegExp('(?<day>yesterday|today|tomorrow)', caseSensitive: false),
@@ -24,7 +24,7 @@ void main() {
       });
     });
 
-    group('.matchesWith', () {
+    group('.matchesWith()', () {
       test('should return true if any matcher matches this String', () {
         expect('m'.matchesWith(['ma', 'math', '', '34']), isTrue);
         expect('mAt'.matchesWith(['MaTCH']), isTrue);

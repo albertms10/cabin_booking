@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('DateRanger', () {
-    group('.includes', () {
+    group('.includes()', () {
       test(
         'should return true when the DateTime is included in this DateRanger',
         () {
@@ -186,7 +186,7 @@ void main() {
       });
     });
 
-    group('.dateTimeList', () {
+    group('.dateTimeList()', () {
       test('should return a DateTime list included in this DateRanger', () {
         final dateRange = DateRange.from(DateTime(2022, 12, 4));
         expect(dateRange.dateTimeList(interval: const Duration(hours: 8)), [
