@@ -20,9 +20,9 @@ class RecurringBooking extends Booking {
 
   RecurringBooking({
     super.id,
-    super.description,
     super.startDate,
     super.endDate,
+    super.description,
     super.isLocked,
     super.cabinId,
     this.periodicity = Periodicity.weekly,
@@ -74,9 +74,9 @@ class RecurringBooking extends Booking {
 
     return RecurringBooking(
       id: booking.id,
-      description: booking.description,
       startDate: booking.startDate,
       endDate: booking.endDate,
+      description: booking.description,
       isLocked: booking.isLocked,
       cabinId: booking.cabinId,
       periodicity: periodicity,
@@ -96,7 +96,7 @@ class RecurringBooking extends Booking {
         _JsonFields.repeatEvery: repeatEvery,
         if (method == RecurringBookingMethod.endDate)
           _JsonFields.recurringEndDate:
-              _recurringEndDate?.toIso8601String().split('T').first
+              _recurringEndDate?.toUtc().toIso8601String()
         else if (method == RecurringBookingMethod.occurrences)
           _JsonFields.occurrences: _occurrences,
       };
@@ -144,9 +144,9 @@ class RecurringBooking extends Booking {
 
   SingleBooking asSingleBooking({bool linked = true}) => SingleBooking(
         id: linked ? '$id-0' : (recurringBookingId ?? id),
-        description: description,
         startDate: startDate,
         endDate: endDate,
+        description: description,
         isLocked: isLocked,
         cabinId: cabinId,
         recurringBookingId: linked ? id : null,
@@ -191,9 +191,9 @@ class RecurringBooking extends Booking {
   @override
   RecurringBooking copyWith({
     String? id,
-    String? description,
     DateTime? startDate,
     DateTime? endDate,
+    String? description,
     bool? isLocked,
     String? cabinId,
     Periodicity? periodicity,
@@ -203,9 +203,9 @@ class RecurringBooking extends Booking {
   }) =>
       RecurringBooking(
         id: id ?? this.id,
-        description: description ?? this.description,
         startDate: startDate ?? startDate,
         endDate: endDate ?? endDate,
+        description: description ?? this.description,
         isLocked: isLocked ?? this.isLocked,
         cabinId: cabinId ?? this.cabinId,
         periodicity: periodicity ?? this.periodicity,

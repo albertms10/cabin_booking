@@ -2,26 +2,17 @@ import 'package:cabin_booking/utils/date_time_extension.dart';
 import 'package:cabin_booking/utils/time_of_day_extension.dart';
 import 'package:intl/intl.dart';
 
-import '../date/date_ranger.dart';
-import '../item.dart';
+import '../date/date_range_item.dart';
 
 abstract class _JsonFields {
   static const description = 'de';
-  static const startDate = 'sd';
-  static const endDate = 'ed';
   static const isLocked = 'il';
 }
 
 /// A booking item.
-abstract class Booking extends Item with DateRanger {
+abstract class Booking extends DateRangeItem {
   /// The description used to visually identify this [Booking].
   String? description;
-
-  @override
-  DateTime? startDate;
-
-  @override
-  DateTime? endDate;
 
   /// Whether this [Booking] represents a locked time slot.
   bool isLocked;
@@ -43,9 +34,9 @@ abstract class Booking extends Item with DateRanger {
   /// Creates a new [Booking].
   Booking({
     super.id,
+    super.startDate,
+    super.endDate,
     this.description,
-    this.startDate,
-    this.endDate,
     this.isLocked = false,
     this.cabinId,
     this.recurringBookingId,
@@ -56,11 +47,6 @@ abstract class Booking extends Item with DateRanger {
   /// Creates a new [Booking] from a JSON Map.
   Booking.from(super.other)
       : description = other[_JsonFields.description] as String?,
-        startDate = DateTime.tryParse(
-          other[_JsonFields.startDate] as String? ?? '',
-        ),
-        endDate =
-            DateTime.tryParse(other[_JsonFields.endDate] as String? ?? ''),
         isLocked = other[_JsonFields.isLocked] as bool,
         super.from();
 
@@ -68,8 +54,6 @@ abstract class Booking extends Item with DateRanger {
   Map<String, dynamic> toJson() => {
         ...super.toJson(),
         _JsonFields.description: description,
-        _JsonFields.startDate: startDate?.toUtc().toIso8601String(),
-        _JsonFields.endDate: endDate?.toUtc().toIso8601String(),
         _JsonFields.isLocked: isLocked,
       };
 
@@ -85,9 +69,9 @@ abstract class Booking extends Item with DateRanger {
   @override
   Booking copyWith({
     String? id,
-    String? description,
     DateTime? startDate,
     DateTime? endDate,
+    String? description,
     bool? isLocked,
     String? cabinId,
   });
