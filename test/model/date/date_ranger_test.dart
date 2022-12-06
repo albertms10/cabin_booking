@@ -1,8 +1,108 @@
 import 'package:cabin_booking/model.dart';
+import 'package:flutter/material.dart' show TimeOfDay;
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('DateRanger', () {
+    group('.startTime', () {
+      test('should return the start TimeOfDay', () {
+        final dateRange = DateRange(
+          startDate: DateTime(2022, 12, 1, 9, 30),
+          endDate: DateTime(2022, 12, 31, 21, 30),
+        );
+        expect(dateRange.startTime, const TimeOfDay(hour: 9, minute: 30));
+      });
+
+      test('should return null if the start date is infinite', () {
+        final endDateRange = DateRange(
+          endDate: DateTime(2022, 12, 31, 21, 30),
+        );
+        expect(endDateRange.startTime, isNull);
+        expect(DateRange.infinite.startTime, isNull);
+      });
+    });
+
+    group('.endTime', () {
+      test('should return the end TimeOfDay', () {
+        final dateRange = DateRange(
+          startDate: DateTime(2022, 12, 1, 9, 30),
+          endDate: DateTime(2022, 12, 31, 21, 30),
+        );
+        expect(dateRange.endTime, const TimeOfDay(hour: 21, minute: 30));
+      });
+
+      test('should return null if the end date is infinite', () {
+        final startDateRange = DateRange(
+          startDate: DateTime(2022, 12, 31, 9, 30),
+        );
+        expect(startDateRange.endTime, isNull);
+        expect(DateRange.infinite.endTime, isNull);
+      });
+    });
+
+    group('.isOn()', () {
+      test(
+        'should return true if this finite DateRanger happens on a DateTime',
+        () {
+          final dateTime = DateTime(2022, 12, 4);
+          final dateRange = DateRange(
+            startDate: DateTime(2022, 12, 4, 9, 45),
+            endDate: DateTime(2022, 12, 5, 21, 15),
+          );
+          expect(dateRange.isOn(dateTime), isTrue);
+        },
+      );
+
+      test(
+        'should return true if this infinite DateRanger happens on a DateTime',
+        () {
+          final dateTime = DateTime(2022, 12, 4);
+          expect(DateRange.infinite.isOn(dateTime), isTrue);
+
+          final dateRange = DateRange(
+            endDate: DateTime(2022, 12, 5, 21, 15),
+          );
+          expect(dateRange.isOn(dateTime), isTrue);
+
+          final dateRange2 = DateRange(
+            startDate: DateTime(2022, 12, 3, 9, 45),
+          );
+          expect(dateRange2.isOn(dateTime), isTrue);
+        },
+      );
+
+      test(
+        'should return false if this finite DateRanger does not happen on a '
+        'DateTime',
+        () {
+          final dateTime = DateTime(2022, 12, 3);
+          final dateRange = DateRange(
+            startDate: DateTime(2022, 12, 4, 9, 45),
+            endDate: DateTime(2022, 12, 5, 21, 15),
+          );
+          expect(dateRange.isOn(dateTime), isFalse);
+        },
+      );
+
+      test(
+        'should return false if this infinite DateRanger does not happen on a '
+        'DateTime',
+        () {
+          final dateTime = DateTime(2022, 12, 4);
+
+          final dateRange = DateRange(
+            startDate: DateTime(2022, 12, 5, 21, 15),
+          );
+          expect(dateRange.isOn(dateTime), isFalse);
+
+          final dateRange2 = DateRange(
+            endDate: DateTime(2022, 12, 3, 9, 45),
+          );
+          expect(dateRange2.isOn(dateTime), isFalse);
+        },
+      );
+    });
+
     group('.includes()', () {
       test(
         'should return true when the DateTime is included in this DateRanger',
@@ -55,6 +155,73 @@ void main() {
         final dateTime = DateTime(2022, 12, 4, 11, 30);
         expect(DateRange.infinite.includes(dateTime), isTrue);
       });
+    });
+
+    group('.overlapsWith()', () {
+      test(
+        'should return true if this finite DateRanger overlaps with another '
+        'finite DateRanger',
+        () {
+          final dateRange1 = DateRange(
+            startDate: DateTime(2022, 12, 4, 9, 15),
+            endDate: DateTime(2022, 12, 4, 12, 15),
+          );
+          final dateRange2 = DateRange(
+            startDate: DateTime(2022, 12, 4, 10, 15),
+            endDate: DateTime(2022, 12, 4, 11, 15),
+          );
+          expect(dateRange1.overlapsWith(dateRange2), isTrue);
+          expect(dateRange2.overlapsWith(dateRange1), isTrue);
+        },
+      );
+
+      test(
+        'should return true if this infinite DateRanger overlaps with another '
+        'infinite DateRanger',
+        () {
+          final dateRange1 = DateRange(
+            endDate: DateTime(2022, 12, 4, 12, 15),
+          );
+          final dateRange2 = DateRange(
+            startDate: DateTime(2022, 12, 4, 10, 15),
+          );
+          expect(dateRange1.overlapsWith(dateRange2), isTrue);
+          expect(dateRange2.overlapsWith(dateRange1), isTrue);
+
+          expect(DateRange.infinite.overlapsWith(DateRange.infinite), isTrue);
+          expect(DateRange.infinite.overlapsWith(dateRange1), isTrue);
+          expect(dateRange1.overlapsWith(DateRange.infinite), isTrue);
+          final dateRange3 = DateRange.from(DateTime(2022, 12, 4));
+          expect(DateRange.infinite.overlapsWith(dateRange3), isTrue);
+          expect(dateRange3.overlapsWith(DateRange.infinite), isTrue);
+        },
+      );
+
+      test(
+        'should return false if this finite DateRanger does not overlap with '
+        'another finite DateRanger',
+        () {
+          final dateRange1 = DateRange.from(DateTime(2022, 12, 4));
+          final dateRange2 = DateRange.from(DateTime(2022, 12, 5));
+          expect(dateRange1.overlapsWith(dateRange2), isFalse);
+          expect(dateRange2.overlapsWith(dateRange1), isFalse);
+        },
+      );
+
+      test(
+        'should return false if this infinite DateRanger does not overlap with '
+        'another infinite DateRanger',
+        () {
+          final dateRange1 = DateRange(
+            startDate: DateTime(2022, 12, 4, 12, 15),
+          );
+          final dateRange2 = DateRange(
+            endDate: DateTime(2022, 12, 4, 10, 15),
+          );
+          expect(dateRange1.overlapsWith(dateRange2), isFalse);
+          expect(dateRange2.overlapsWith(dateRange1), isFalse);
+        },
+      );
     });
 
     group('.isFinite', () {
@@ -171,7 +338,7 @@ void main() {
         expect(weekDateRange.duration, const Duration(days: 7));
       });
 
-      test('should return a Duration of zero of an infinite DateRanger', () {
+      test('should return a Duration of zero for an infinite DateRanger', () {
         expect(DateRange.infinite.duration, Duration.zero);
 
         final startDateRange = DateRange(
@@ -183,6 +350,43 @@ void main() {
           endDate: DateTime(2022, 12, 31, 21, 30),
         );
         expect(endDateRange.duration, Duration.zero);
+      });
+    });
+
+    group('.hoursSpan', () {
+      test('should return a Map of the time span of this DateRanger', () {
+        final dateRange = DateRange(
+          startDate: DateTime(2022, 12, 4, 9, 30),
+          endDate: DateTime(2022, 12, 4, 13, 15),
+        );
+        expect(dateRange.hoursSpan, {
+          const TimeOfDay(hour: 09, minute: 0): const Duration(minutes: 30),
+          const TimeOfDay(hour: 10, minute: 0): const Duration(hours: 1),
+          const TimeOfDay(hour: 11, minute: 0): const Duration(hours: 1),
+          const TimeOfDay(hour: 12, minute: 0): const Duration(hours: 1),
+          const TimeOfDay(hour: 13, minute: 0): const Duration(minutes: 15),
+        });
+      });
+
+      test('should return an empty Map for an instant DateRanger', () {
+        final dateTime = DateTime(2022, 12, 4);
+        final instantDateRange =
+            DateRange(startDate: dateTime, endDate: dateTime);
+        expect(instantDateRange.hoursSpan, <TimeOfDay, Duration>{});
+      });
+
+      test('should return an empty Map for an infinite DateRanger', () {
+        final startDateRange = DateRange(
+          startDate: DateTime(2022, 12, 1, 9, 30),
+        );
+        expect(startDateRange.hoursSpan, const <TimeOfDay, Duration>{});
+
+        final endDateRange = DateRange(
+          endDate: DateTime(2022, 12, 31, 21, 30),
+        );
+        expect(endDateRange.hoursSpan, const <TimeOfDay, Duration>{});
+
+        expect(DateRange.infinite.hoursSpan, const <TimeOfDay, Duration>{});
       });
     });
 
