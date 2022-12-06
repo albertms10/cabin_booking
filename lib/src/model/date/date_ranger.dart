@@ -15,11 +15,11 @@ mixin DateRanger {
   /// [startDate].
   DateTime? get endDate;
 
-  /// The time when this [DateRanger] starts.
+  /// The time this [DateRanger] starts.
   TimeOfDay? get startTime =>
       hasInfiniteStart ? null : TimeOfDay.fromDateTime(startDate!.toLocal());
 
-  /// The time when this [DateRanger] ends.
+  /// The time this [DateRanger] ends.
   TimeOfDay? get endTime =>
       hasInfiniteEnd ? null : TimeOfDay.fromDateTime(endDate!.toLocal());
 
