@@ -76,8 +76,8 @@ class Cabin extends Item {
   List<Booking> get generatedBookingsFromRecurring =>
       _bookingManager.singleBookingsFromRecurring;
 
-  bool bookingsCollideWith(Booking booking) =>
-      _bookingManager.bookingsCollideWith(booking);
+  bool bookingsOverlapWith(Booking booking) =>
+      _bookingManager.bookingsOverlapWith(booking);
 
   Duration occupiedDuration({DateTime? dateTime, DateRanger? dateRange}) =>
       _bookingManager.occupiedDuration(

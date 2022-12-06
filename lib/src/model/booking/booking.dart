@@ -1,6 +1,5 @@
 import 'package:cabin_booking/utils/date_time_extension.dart';
 import 'package:cabin_booking/utils/time_of_day_extension.dart';
-import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../date/date_ranger.dart';
@@ -77,51 +76,11 @@ abstract class Booking extends Item with DateRanger {
   /// Date only part of [startDate].
   DateTime? get dateOnly => startDate?.dateOnly;
 
-  TimeOfDay get startTime => TimeOfDay.fromDateTime(startDate!.toLocal());
-
-  TimeOfDay get endTime => TimeOfDay.fromDateTime(endDate!.toLocal());
-
-  Map<TimeOfDay, Duration> get hoursSpan {
-    final timeRanges = <TimeOfDay, Duration>{};
-
-    var runTime = startTime;
-    var runDuration = Duration.zero;
-
-    while (runDuration < duration) {
-      final nextHour = TimeOfDay(
-        hour: (runTime.hour + 1) % TimeOfDay.hoursPerDay,
-        minute: 0,
-      );
-
-      final nextTime =
-          endTime.difference(nextHour).isNegative ? endTime : nextHour;
-      final currentDuration = nextTime.difference(runTime);
-
-      runDuration += currentDuration;
-
-      timeRanges.addAll({
-        runTime.replacing(minute: 0): currentDuration,
-      });
-
-      runTime = nextTime;
-    }
-
-    return timeRanges;
-  }
-
-  String get timeRange => '${startTime.format24Hour()}'
-      '–${endTime.format24Hour()}';
+  String get timeRange => '${startTime!.format24Hour()}'
+      '–${endTime!.format24Hour()}';
 
   String get dateTimeRange =>
       '${DateFormat.yMd().format(dateOnly!)} $timeRange';
-
-  bool isOn(DateTime dateTime) => dateOnly?.isSameDateAs(dateTime) ?? false;
-
-  bool isBetween(DateRanger dateRange) => dateRange.includes(startDate!);
-
-  bool collidesWith(Booking booking) =>
-      startDate!.isBefore(booking.endDate!) &&
-      endDate!.isAfter(booking.startDate!);
 
   @override
   Booking copyWith({

@@ -56,13 +56,13 @@ class BookingManager with ChangeNotifier {
 
   Set<SingleBooking> singleBookingsBetween(DateRanger dateRange) =>
       SplayTreeSet.of(
-        bookings.where((booking) => booking.isBetween(dateRange)),
+        bookings.where((booking) => booking.overlapsWith(dateRange)),
       );
 
   Set<SingleBooking> recurringBookingsBetween(DateRanger dateRange) =>
       SplayTreeSet.of(
         singleBookingsFromRecurring.where(
-          (recurringBooking) => recurringBooking.isBetween(dateRange),
+          (recurringBooking) => recurringBooking.overlapsWith(dateRange),
         ),
       );
 
@@ -93,7 +93,7 @@ class BookingManager with ChangeNotifier {
         ...recurringBookingsOn(dateTime),
       });
 
-  bool bookingsCollideWith(Booking booking) {
+  bool bookingsOverlapWith(Booking booking) {
     if (booking.dateOnly == null) return false;
 
     return allBookingsOn(booking.dateOnly!)
@@ -105,7 +105,7 @@ class BookingManager with ChangeNotifier {
                   comparingBooking.id != booking.id,
             )
             .firstWhereOrNull(
-              (comparingBooking) => comparingBooking.collidesWith(booking),
+              (comparingBooking) => comparingBooking.overlapsWith(booking),
             ) !=
         null;
   }
