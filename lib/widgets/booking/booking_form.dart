@@ -192,7 +192,7 @@ class _BookingFormState extends State<BookingForm> {
 
                         if (cabinManager
                             .cabinFromId(_booking.cabinId)
-                            .bookingsCollideWith(_booking)) {
+                            .bookingsOverlapWith(_booking)) {
                           return appLocalizations.occupied;
                         }
 
@@ -271,7 +271,7 @@ class _BookingFormState extends State<BookingForm> {
 
                         if (cabinManager
                             .cabinFromId(_booking.cabinId)
-                            .bookingsCollideWith(_booking)) {
+                            .bookingsOverlapWith(_booking)) {
                           return appLocalizations.occupied;
                         }
 
