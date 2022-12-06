@@ -3,10 +3,10 @@ import 'booking.dart';
 class SingleBooking extends Booking {
   SingleBooking({
     super.id,
-    super.description,
     super.startDate,
     super.endDate,
-    super.isLocked = false,
+    super.description,
+    super.isLocked,
     super.cabinId,
     super.recurringBookingId,
     super.recurringNumber,
@@ -18,9 +18,9 @@ class SingleBooking extends Booking {
   SingleBooking.fromBooking(Booking booking)
       : super(
           id: booking.id,
-          description: booking.description,
           startDate: booking.startDate,
           endDate: booking.endDate,
+          description: booking.description,
           isLocked: booking.isLocked,
           cabinId: booking.cabinId,
         );
@@ -28,17 +28,17 @@ class SingleBooking extends Booking {
   @override
   SingleBooking copyWith({
     String? id,
-    String? description,
     DateTime? startDate,
     DateTime? endDate,
+    String? description,
     bool? isLocked,
     String? cabinId,
   }) =>
       SingleBooking(
         id: id ?? super.id,
-        description: description ?? this.description,
         startDate: startDate ?? startDate,
         endDate: endDate ?? endDate,
+        description: description ?? this.description,
         isLocked: isLocked ?? this.isLocked,
         cabinId: cabinId ?? this.cabinId,
       );
