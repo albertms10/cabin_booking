@@ -10,6 +10,7 @@ abstract class _JsonFields {
   static const occurrences = 'o';
 }
 
+/// A recurring booking item.
 class RecurringBooking extends Booking {
   Periodicity periodicity;
   int repeatEvery;

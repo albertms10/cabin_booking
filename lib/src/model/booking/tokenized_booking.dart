@@ -9,6 +9,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'single_booking.dart';
 
+/// A tokenized representation of a [Booking].
 @immutable
 class TokenizedBooking {
   /// One of [AppLocalizationsExtension.relativeDays].
@@ -58,6 +59,7 @@ class TokenizedBooking {
   /// One of [AppLocalizationsExtension.periodicityTerms].
   final String? periodicity;
 
+  /// Creates a new [TokenizedBooking] from the required tokens.
   const TokenizedBooking({
     this.relativeDay,
     this.startTime,
@@ -69,6 +71,7 @@ class TokenizedBooking {
     this.periodicity,
   });
 
+  /// Creates a new [TokenizedBooking] from a Map of tokens.
   TokenizedBooking.fromTokens(Map<String, String?> tokens)
       : relativeDay = tokens['relativeDay'],
         startTime = tokens['startTime'],
@@ -79,6 +82,8 @@ class TokenizedBooking {
         durationUnit2 = tokens['durationUnit2'],
         periodicity = tokens['periodicity'];
 
+  /// Regular expressions to obtain the required tokens to construct this
+  /// [TokenizedBooking].
   static List<RegExp> expressions(AppLocalizations appLocalizations) => [
         RegExp(
           '(?<relativeDay>${appLocalizations.relativeDays.union})',
@@ -108,6 +113,7 @@ class TokenizedBooking {
         ),
       ];
 
+  /// Creates a new [SingleBooking] from this [TokenizedBooking].
   SingleBooking toSingleBooking(AppLocalizations appLocalizations) {
     var startTime = TimeOfDayExtension.tryParse(this.startTime ?? '');
 

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 /// TimeOfDay extension.
 extension TimeOfDayExtension on TimeOfDay {
-  /// Constructs a new [TimeOfDay] instance based on [formattedString].
+  /// Creates a new [TimeOfDay] instance based on [formattedString].
   ///
   /// Throws a [FormatException] if the input string cannot be parsed.
   ///
@@ -38,7 +38,7 @@ extension TimeOfDayExtension on TimeOfDay {
     throw FormatException('Time out of range', formattedString);
   }
 
-  /// Constructs a new [TimeOfDay] instance based on [formattedString].
+  /// Creates a new [TimeOfDay] instance based on [formattedString].
   ///
   /// Works like [parse] except that this function returns `null` where [parse]
   /// would throw a [FormatException].

@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   group('DateRange', () {
     group('.from()', () {
-      test('should construct a new DateRange from a DateTime', () {
+      test('should create a new DateRange from a DateTime', () {
         final dateTime = DateTime(2022, 12, 4, 19, 30);
         final dateRange = DateRange.from(dateTime);
         expect(dateRange.startDate, DateTime(2022, 12, 4));
