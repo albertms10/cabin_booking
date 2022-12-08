@@ -23,6 +23,13 @@ class Holiday extends DateRangeItem {
         ...super.toJson(),
         _JsonFields.kind: kind.index,
       };
+
+  @override
+  bool operator ==(Object other) =>
+      super == other && other is Holiday && kind == other.kind;
+
+  @override
+  int get hashCode => Object.hash(super.hashCode, kind.hashCode);
 }
 
 enum HolidayKind { festivity, freeDisposal }

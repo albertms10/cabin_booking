@@ -58,12 +58,13 @@ class DateRangeItem extends Item with DateRanger {
 
   @override
   bool operator ==(Object other) =>
+      super == other &&
       other is DateRangeItem &&
       startDate == other.startDate &&
       endDate == other.endDate;
 
   @override
-  int get hashCode => Object.hash(startDate, endDate);
+  int get hashCode => Object.hash(super.hashCode, startDate, endDate);
 
   @override
   int compareTo(covariant DateRangeItem other) =>
