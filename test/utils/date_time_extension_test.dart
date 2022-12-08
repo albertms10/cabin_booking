@@ -5,9 +5,20 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   group('DateTimeExtension', () {
     group('.dateOnly', () {
-      test('should return only the date information of this DateTime', () {
-        expect(DateTime(2021, 9, 7, 21, 30, 10).dateOnly, DateTime(2021, 9, 7));
-      });
+      test(
+        'should return only the date information of this DateTime, keeping '
+        'UTC information',
+        () {
+          expect(
+            DateTime(2021, 9, 7, 21, 30, 10).dateOnly,
+            DateTime(2021, 9, 7),
+          );
+          expect(
+            DateTime.utc(2021, 9, 7, 21, 30, 10).dateOnly,
+            DateTime.utc(2021, 9, 7),
+          );
+        },
+      );
     });
 
     group('.addTimeOfDay()', () {
