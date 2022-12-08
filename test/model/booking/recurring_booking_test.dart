@@ -47,7 +47,7 @@ void main() {
             'il': false,
             'p': 1,
             're': 1,
-            'red': '2023-02-04T00:00:00.000Z',
+            'o': 4,
           };
           expect(
             RecurringBooking.from(rawRecurringBooking).toJson(),
