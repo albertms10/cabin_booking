@@ -4,14 +4,16 @@ import 'package:intl/intl.dart';
 
 /// DateTime extension.
 extension DateTimeExtension on DateTime {
-  /// Returns a new [DateTime] with the date part only (ignoring the time part).
+  /// Returns a new [DateTime] with the date part only (ignoring the time part)
+  /// while keeping UTC information.
   ///
   /// Example:
   /// ```dart
   /// final dateTime = DateTime(2021, 9, 7, 21, 30, 10);
   /// assert(dateTime.dateOnly == DateTime(2021, 9, 7));
   /// ```
-  DateTime get dateOnly => DateTime(year, month, day);
+  DateTime get dateOnly =>
+      (isUtc ? DateTime.utc : DateTime.new)(year, month, day);
 
   /// Returns a new [DateTime] replacing the time part with [timeOfDay].
   ///
@@ -25,8 +27,9 @@ extension DateTimeExtension on DateTime {
   /// ```
   DateTime addTimeOfDay([TimeOfDay? timeOfDay]) {
     timeOfDay ??= TimeOfDay.now();
+    final newDateTime = isUtc ? DateTime.utc : DateTime.new;
 
-    return DateTime(year, month, day, timeOfDay.hour, timeOfDay.minute);
+    return newDateTime(year, month, day, timeOfDay.hour, timeOfDay.minute);
   }
 
   /// Whether this [DateTime] occurs on the same date as [other].
