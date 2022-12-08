@@ -17,14 +17,12 @@ void main() {
 
     group('.toJson()', () {
       test('should return a JSON object representation of this Piano', () {
-        const piano = Piano(brand: 'Yamaha', model: 'C5');
         const rawPiano = {
           'b': 'Yamaha',
           'm': 'C5',
           'ie': false,
         };
-        expect(piano.toJson(), rawPiano);
-        expect(Piano.from(piano.toJson()), piano);
+        expect(Piano.from(rawPiano).toJson(), rawPiano);
       });
     });
   });

@@ -42,4 +42,8 @@ class SingleBooking extends Booking {
         isLocked: isLocked ?? this.isLocked,
         cabinId: cabinId ?? this.cabinId,
       );
+
+  @override
+  // ignore: hash_and_equals
+  bool operator ==(Object other) => super == other && other is SingleBooking;
 }

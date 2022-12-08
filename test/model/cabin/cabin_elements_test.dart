@@ -26,11 +26,6 @@ void main() {
       test(
         'should return a JSON object representation of this CabinElements',
         () {
-          final cabinElements = CabinElements(
-            pianos: const [Piano(brand: 'Yamaha', model: 'C5')],
-            lecterns: 2,
-            tables: 1,
-          );
           const rawCabinElements = {
             'p': [
               {'b': 'Yamaha', 'm': 'C5', 'ie': false},
@@ -39,8 +34,10 @@ void main() {
             'c': 0,
             't': 1,
           };
-          expect(cabinElements.toJson(), rawCabinElements);
-          expect(CabinElements.from(cabinElements.toJson()), cabinElements);
+          expect(
+            CabinElements.from(rawCabinElements).toJson(),
+            rawCabinElements,
+          );
         },
       );
     });

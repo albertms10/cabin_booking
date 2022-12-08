@@ -91,6 +91,12 @@ abstract class Booking extends DateRangeItem {
       [if (isLocked) '🔒', description, dateTimeRange].join(' ');
 
   @override
-  int compareTo(covariant Booking other) =>
-      startDate!.compareTo(other.startDate!);
+  bool operator ==(Object other) =>
+      super == other &&
+      other is Booking &&
+      description == other.description &&
+      isLocked == other.isLocked;
+
+  @override
+  int get hashCode => Object.hash(super.hashCode, description, isLocked);
 }
