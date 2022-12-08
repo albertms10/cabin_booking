@@ -6,7 +6,7 @@ import 'single_booking.dart';
 abstract class _JsonFields {
   static const periodicity = 'p';
   static const repeatEvery = 're';
-  static const recurringEndDate = 'edt';
+  static const recurringEndDate = 'red';
   static const occurrences = 'o';
 }
 
@@ -96,7 +96,7 @@ class RecurringBooking extends Booking {
         _JsonFields.repeatEvery: repeatEvery,
         if (method == RecurringBookingMethod.endDate)
           _JsonFields.recurringEndDate:
-              _recurringEndDate?.toIso8601String().split('T').first
+              _recurringEndDate?.toUtc().toIso8601String()
         else if (method == RecurringBookingMethod.occurrences)
           _JsonFields.occurrences: _occurrences,
       };
@@ -229,6 +229,24 @@ class RecurringBooking extends Booking {
 
   @override
   String toString() => '$occurrences × ${super.toString()}';
+
+  @override
+  bool operator ==(Object other) =>
+      super == other &&
+      other is RecurringBooking &&
+      periodicity == other.periodicity &&
+      repeatEvery == other.repeatEvery &&
+      _recurringEndDate == other._recurringEndDate &&
+      _occurrences == other._occurrences;
+
+  @override
+  int get hashCode => Object.hash(
+        super.hashCode,
+        periodicity,
+        repeatEvery,
+        _recurringEndDate,
+        _occurrences,
+      );
 }
 
 enum Periodicity {

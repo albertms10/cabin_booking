@@ -10,10 +10,10 @@ abstract class _JsonFields {
 
 class DateRangeItem extends Item with DateRanger {
   @override
-  DateTime? endDate;
+  DateTime? startDate;
 
   @override
-  DateTime? startDate;
+  DateTime? endDate;
 
   DateRangeItem({
     super.id,
