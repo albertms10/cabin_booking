@@ -1,9 +1,8 @@
 import 'package:cabin_booking/utils/date_time_extension.dart';
+import 'package:cabin_booking/utils/map_int_color_extension.dart';
 import 'package:cabin_booking/widgets/layout/conditional_widget_wrap.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
-import 'utils/map_int_color_extension.dart';
 
 class HeatMapDay extends StatelessWidget {
   final int value;
@@ -72,7 +71,7 @@ class HeatMapDay extends StatelessWidget {
           borderRadius: const BorderRadius.all(Radius.circular(2)),
           child: Container(
             decoration: BoxDecoration(
-              color: thresholds.colorFromThreshold(value, defaultColor),
+              color: thresholds.colorFromThreshold(value) ?? defaultColor,
               border: containerBorder,
               borderRadius: const BorderRadius.all(Radius.circular(2)),
             ),
