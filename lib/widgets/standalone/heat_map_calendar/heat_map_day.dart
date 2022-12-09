@@ -1,5 +1,4 @@
 import 'package:cabin_booking/utils/date_time_extension.dart';
-import 'package:cabin_booking/utils/map_int_color_extension.dart';
 import 'package:cabin_booking/widgets/layout/conditional_widget_wrap.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -8,8 +7,7 @@ class HeatMapDay extends StatelessWidget {
   final int value;
   final double? size;
   final double space;
-  final Map<int, Color> thresholds;
-  final Color defaultColor;
+  final Color color;
   final DateTime? date;
   final bool showTooltip;
   final void Function(DateTime, int)? onTap;
@@ -22,8 +20,7 @@ class HeatMapDay extends StatelessWidget {
     this.value = 0,
     this.size,
     this.space = 4,
-    this.thresholds = const {},
-    this.defaultColor = Colors.black12,
+    required this.color,
     this.date,
     this.showTooltip = true,
     this.onTap,
@@ -71,7 +68,7 @@ class HeatMapDay extends StatelessWidget {
           borderRadius: const BorderRadius.all(Radius.circular(2)),
           child: Container(
             decoration: BoxDecoration(
-              color: thresholds.colorFromThreshold(value) ?? defaultColor,
+              color: color,
               border: containerBorder,
               borderRadius: const BorderRadius.all(Radius.circular(2)),
             ),
