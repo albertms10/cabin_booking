@@ -39,6 +39,8 @@ class WeekColumns extends StatelessWidget {
     this.highlightOn,
   });
 
+  EdgeInsetsGeometry get padding => EdgeInsets.all(space * 0.5);
+
   /// The main logic for generating a list of columns representing a week.
   ///
   /// Each column is a week with a [MonthLabel] and 7 [HeatMapDay] widgets
@@ -91,7 +93,7 @@ class WeekColumns extends StatelessWidget {
           if (runWeekDayCount >= 0) {
             columnItems.add(
               Padding(
-                padding: EdgeInsets.all(space * 0.5),
+                padding: padding,
                 child: SizedBox.square(dimension: squareSize),
               ),
             );
@@ -111,7 +113,7 @@ class WeekColumns extends StatelessWidget {
           HeatMapDay(
             value: value,
             size: squareSize,
-            space: space,
+            padding: padding,
             color: color,
             date: currentDate,
             onTap: onDayTap,

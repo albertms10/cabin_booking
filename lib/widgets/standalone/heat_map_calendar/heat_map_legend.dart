@@ -41,7 +41,7 @@ class HeatMapLegend extends StatelessWidget {
           HeatMapDay(
             value: threshold,
             size: squareSize,
-            space: space,
+            padding: EdgeInsets.all(space * 0.5),
             color:
                 colorThresholds.colorFromThreshold(threshold) ?? Colors.black12,
             showTooltip: false,

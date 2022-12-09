@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 class HeatMapDay extends StatelessWidget {
   final int value;
   final double? size;
-  final double space;
+  final EdgeInsetsGeometry padding;
   final Color color;
   final DateTime? date;
   final bool showTooltip;
@@ -19,7 +19,7 @@ class HeatMapDay extends StatelessWidget {
     super.key,
     this.value = 0,
     this.size,
-    this.space = 4,
+    this.padding = const EdgeInsets.all(2),
     required this.color,
     this.date,
     this.showTooltip = true,
@@ -62,7 +62,7 @@ class HeatMapDay extends StatelessWidget {
         );
       },
       child: Padding(
-        padding: EdgeInsets.all(space * 0.5),
+        padding: padding,
         child: InkWell(
           onTap: date == null ? null : () => onTap?.call(date!, value),
           borderRadius: const BorderRadius.all(Radius.circular(2)),
