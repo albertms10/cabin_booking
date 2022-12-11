@@ -19,7 +19,7 @@ class DayNavigation extends StatelessWidget {
           crossAxisAlignment: WrapCrossAlignment.center,
           children: [
             TextButton(
-              onPressed: () => dayHandler.changeToNow(),
+              onPressed: dayHandler.changeToNow,
               style: TextButton.styleFrom(
                 padding: const EdgeInsets.symmetric(vertical: 16),
               ),
@@ -30,9 +30,7 @@ class DayNavigation extends StatelessWidget {
               shape: const CircleBorder(),
               clipBehavior: Clip.antiAlias,
               child: IconButton(
-                onPressed: dayHandler.hasPreviousDay
-                    ? () => dayHandler.changeToPreviousDay()
-                    : null,
+                onPressed: dayHandler.changeToPreviousDay,
                 tooltip: appLocalizations.previousDay,
                 icon: const Icon(Icons.chevron_left),
               ),
@@ -42,9 +40,7 @@ class DayNavigation extends StatelessWidget {
               shape: const CircleBorder(),
               clipBehavior: Clip.antiAlias,
               child: IconButton(
-                onPressed: dayHandler.hasNextDay
-                    ? () => dayHandler.changeToNextDay()
-                    : null,
+                onPressed: dayHandler.changeToNextDay,
                 tooltip: appLocalizations.nextDay,
                 icon: const Icon(Icons.chevron_right),
               ),

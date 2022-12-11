@@ -33,7 +33,7 @@ class DayHandler with ChangeNotifier {
 
   bool get dateTimeIsNonSchool =>
       nonSchoolWeekdays.contains(dateTime.weekday) ||
-      schoolYearManager.schoolYear!.isOnHolidays(dateTime);
+      (schoolYearManager.schoolYear?.isOnHolidays(dateTime) ?? false);
 
   void changeToNow() => dateTime = DateTime.now();
 
