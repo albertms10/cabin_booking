@@ -35,6 +35,9 @@ on:
 env:
   FLUTTER_SDK_VERSION: "3.3.8"
 
+permissions:
+  contents: read
+
 jobs:
   ios-build:
     name: iOS build
@@ -43,7 +46,7 @@ jobs:
     if: github.event.inputs.build_ios == 'true'
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@b56e6a3d768b11aef1d4c73977caf6413c0d74c8 # v3
         with:
           fetch-depth: "0"
 
@@ -53,13 +56,13 @@ jobs:
         run: echo "::set-output name=artifact::ios_release_$(git describe --tags)"
 
       - name: Cache dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@9b0c1fce7a93df8e3bb8926b0d6e9d89e92f20a7 # v3.0.11
         id: cache
         with:
           path: /Users/runner/hostedtoolcache/flutter
           key: ${{ runner.os }}-pubspec-${{ env.FLUTTER_SDK_VERSION }}-${{ hashFiles('**/pubspec.lock') }}
 
-      - uses: subosito/flutter-action@v2
+      - uses: subosito/flutter-action@dbf1fa04f4d2e52c33185153d06cdb5443aa189d # v2.8.0
         with:
           flutter-version: ${{ env.FLUTTER_SDK_VERSION }}
 
@@ -84,7 +87,7 @@ jobs:
           ARTIFACT_FILENAME: ${{ steps.filename.outputs.artifact }}
 
       - if: github.event.inputs.store_artifacts == 'true'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@83fd05a356d7e2593de66fc9913b3002723633cb # v3.1.1
         with:
           name: ${{ steps.filename.outputs.artifact }}
           path: build/ios/iphoneos/${{ steps.filename.outputs.artifact }}.tar.bz2
@@ -96,7 +99,7 @@ jobs:
     if: github.event.inputs.build_android == 'true'
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@b56e6a3d768b11aef1d4c73977caf6413c0d74c8 # v3
         with:
           fetch-depth: "0"
 
@@ -105,19 +108,19 @@ jobs:
         id: filename
         run: echo "::set-output name=artifact::android_release_$(git describe --tags)"
 
-      - uses: actions/setup-java@v3
+      - uses: actions/setup-java@c3ac5dd0ed8db40fedb61c32fbe677e6b355e94c # v3.8.0
         with:
           distribution: "temurin"
           java-version: 17
 
       - name: Cache dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@9b0c1fce7a93df8e3bb8926b0d6e9d89e92f20a7 # v3.0.11
         id: cache
         with:
           path: /opt/hostedtoolcache/flutter
           key: ${{ runner.os }}-pubspec-${{ env.FLUTTER_SDK_VERSION }}-${{ hashFiles('**/pubspec.lock') }}
 
-      - uses: subosito/flutter-action@v2
+      - uses: subosito/flutter-action@dbf1fa04f4d2e52c33185153d06cdb5443aa189d # v2.8.0
         with:
           flutter-version: ${{ env.FLUTTER_SDK_VERSION }}
 
@@ -141,7 +144,7 @@ jobs:
           ARTIFACT_FILENAME: ${{ steps.filename.outputs.artifact }}
 
       - if: github.event.inputs.store_artifacts == 'true'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@83fd05a356d7e2593de66fc9913b3002723633cb # v3.1.1
         with:
           name: ${{ steps.filename.outputs.artifact }}
           path: build/app/outputs/flutter-apk/${{ steps.filename.outputs.artifact }}.tar.bz2
@@ -153,7 +156,7 @@ jobs:
     if: github.event.inputs.build_macos == 'true'
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@b56e6a3d768b11aef1d4c73977caf6413c0d74c8 # v3
         with:
           fetch-depth: "0"
 
@@ -163,13 +166,13 @@ jobs:
         run: echo "::set-output name=artifact::macos_release_$(git describe --tags)"
 
       - name: Cache dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@9b0c1fce7a93df8e3bb8926b0d6e9d89e92f20a7 # v3.0.11
         id: cache
         with:
           path: /Users/runner/hostedtoolcache/flutter
           key: ${{ runner.os }}-pubspec-${{ env.FLUTTER_SDK_VERSION }}-${{ hashFiles('**/pubspec.lock') }}
 
-      - uses: subosito/flutter-action@v2
+      - uses: subosito/flutter-action@dbf1fa04f4d2e52c33185153d06cdb5443aa189d # v2.8.0
         with:
           flutter-version: ${{ env.FLUTTER_SDK_VERSION }}
 
@@ -196,7 +199,7 @@ jobs:
           ARTIFACT_FILENAME: ${{ steps.filename.outputs.artifact }}
 
       - if: github.event.inputs.store_artifacts == 'true'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@83fd05a356d7e2593de66fc9913b3002723633cb # v3.1.1
         with:
           name: ${{ steps.filename.outputs.artifact }}
           path: build/macos/Build/Products/Release/${{ steps.filename.outputs.artifact }}.tar.bz2
@@ -208,7 +211,7 @@ jobs:
     if: github.event.inputs.build_windows == 'true'
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@b56e6a3d768b11aef1d4c73977caf6413c0d74c8 # v3
         with:
           fetch-depth: "0"
 
@@ -224,7 +227,7 @@ jobs:
           path: /opt/hostedtoolcache/flutter
           key: ${{ runner.os }}-pubspec-${{ env.FLUTTER_SDK_VERSION }}-${{ hashFiles('**/pubspec.lock') }}
 
-      - uses: subosito/flutter-action@v2
+      - uses: subosito/flutter-action@dbf1fa04f4d2e52c33185153d06cdb5443aa189d # v2.8.0
         with:
           flutter-version: ${{ env.FLUTTER_SDK_VERSION }}
 
@@ -242,7 +245,7 @@ jobs:
           ARTIFACT_FILENAME: ${{ steps.filename.outputs.artifact }}
 
       - if: github.event.inputs.store_artifacts == 'true'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@83fd05a356d7e2593de66fc9913b3002723633cb # v3.1.1
         with:
           name: ${{ steps.filename.outputs.artifact }}
           path: build/windows/runner/${{ steps.filename.outputs.artifact }}.tar.gz
