@@ -1,17 +1,19 @@
-import 'date_range_item.dart';
+import 'package:flutter/foundation.dart' show immutable;
+
+import 'date_range.dart';
 
 abstract class _JsonFields {
   static const kind = 'k';
 }
 
-class Holiday extends DateRangeItem {
+@immutable
+class Holiday extends DateRange {
   final HolidayKind kind;
 
-  Holiday({
-    super.id,
+  const Holiday({
     super.startDate,
     super.endDate,
-    this.kind = HolidayKind.festivity,
+    required this.kind,
   });
 
   Holiday.from(super.other)
