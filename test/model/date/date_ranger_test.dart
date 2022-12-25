@@ -191,7 +191,7 @@ void main() {
           expect(DateRange.infinite.overlapsWith(DateRange.infinite), isTrue);
           expect(DateRange.infinite.overlapsWith(dateRange1), isTrue);
           expect(dateRange1.overlapsWith(DateRange.infinite), isTrue);
-          final dateRange3 = DateRange.from(DateTime(2022, 12, 4));
+          final dateRange3 = DateRange.fromDate(DateTime(2022, 12, 4));
           expect(DateRange.infinite.overlapsWith(dateRange3), isTrue);
           expect(dateRange3.overlapsWith(DateRange.infinite), isTrue);
         },
@@ -201,8 +201,8 @@ void main() {
         'should return false if this finite DateRanger does not overlap with '
         'another finite DateRanger',
         () {
-          final dateRange1 = DateRange.from(DateTime(2022, 12, 4));
-          final dateRange2 = DateRange.from(DateTime(2022, 12, 5));
+          final dateRange1 = DateRange.fromDate(DateTime(2022, 12, 4));
+          final dateRange2 = DateRange.fromDate(DateTime(2022, 12, 5));
           expect(dateRange1.overlapsWith(dateRange2), isFalse);
           expect(dateRange2.overlapsWith(dateRange1), isFalse);
         },
@@ -328,7 +328,7 @@ void main() {
         );
         expect(hourDateRange.duration, const Duration(hours: 1));
 
-        final dayDateRange = DateRange.from(DateTime(2022, 12, 4));
+        final dayDateRange = DateRange.fromDate(DateTime(2022, 12, 4));
         expect(dayDateRange.duration, const Duration(days: 1));
 
         final weekDateRange = DateRange(
@@ -392,7 +392,7 @@ void main() {
 
     group('.dateTimeList()', () {
       test('should return a DateTime list included in this DateRanger', () {
-        final dateRange = DateRange.from(DateTime(2022, 12, 4));
+        final dateRange = DateRange.fromDate(DateTime(2022, 12, 4));
         expect(dateRange.dateTimeList(interval: const Duration(hours: 8)), [
           DateTime(2022, 12, 4),
           DateTime(2022, 12, 4, 8),

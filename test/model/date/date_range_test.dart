@@ -71,10 +71,10 @@ void main() {
       });
     });
 
-    group('.from()', () {
+    group('.fromDate()', () {
       test('should create a new DateRange from a DateTime', () {
         final dateTime = DateTime(2022, 12, 4, 19, 30);
-        final dateRange = DateRange.from(dateTime);
+        final dateRange = DateRange.fromDate(dateTime);
         expect(dateRange.startDate, DateTime(2022, 12, 4));
         expect(dateRange.endDate, DateTime(2022, 12, 5));
       });

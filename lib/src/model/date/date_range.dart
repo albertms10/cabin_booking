@@ -49,11 +49,11 @@ class DateRange with DateRanger implements Comparable<DateRange>, Serializable {
   /// Example:
   /// ```dart
   /// final dateTime = DateTime(2022, 12, 4, 19, 30);
-  /// final dateRange = DateRange.from(dateTime);
+  /// final dateRange = DateRange.fromDate(dateTime);
   /// assert(dateRange.startDate == DateTime(2022, 12, 4));
   /// assert(dateRange.endDate == DateTime(2022, 12, 5));
   /// ```
-  factory DateRange.from(DateTime dateTime) {
+  factory DateRange.fromDate(DateTime dateTime) {
     final startDateOnly = dateTime.dateOnly;
 
     return DateRange(
@@ -63,7 +63,7 @@ class DateRange with DateRanger implements Comparable<DateRange>, Serializable {
   }
 
   /// Creates a new [DateRange] that lasts the whole day of today.
-  factory DateRange.today() => DateRange.from(DateTime.now());
+  factory DateRange.today() => DateRange.fromDate(DateTime.now());
 
   @override
   String toString() => '$startDate - $endDate';
