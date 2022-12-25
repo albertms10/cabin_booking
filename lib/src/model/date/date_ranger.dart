@@ -11,7 +11,7 @@ mixin DateRanger {
 
   /// The start [DateTime] of this [DateRanger].
   ///
-  /// If null, represents a [DateRanger] including all dates starting from
+  /// If null, it represents a [DateRanger] including all dates starting from
   /// [startDate].
   DateTime? get endDate;
 

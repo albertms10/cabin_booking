@@ -2,11 +2,17 @@ import 'package:cabin_booking/utils/date_time_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../serializable.dart';
 import 'date_ranger.dart';
+
+abstract class _JsonFields {
+  static const startDate = 'sd';
+  static const endDate = 'ed';
+}
 
 /// A representation of the range between two [DateTime] objects.
 @immutable
-class DateRange with DateRanger {
+class DateRange with DateRanger implements Comparable<DateRange>, Serializable {
   @override
   final DateTime? startDate;
 
@@ -19,6 +25,16 @@ class DateRange with DateRanger {
   /// A [DateRange] with no start nor end dates, representing a range that
   /// includes all possible dates.
   static const infinite = DateRange();
+
+  DateRange.fromJson(Map<String, dynamic> other)
+      : startDate = DateTime.tryParse(other[_JsonFields.startDate] as String),
+        endDate = DateTime.tryParse(other[_JsonFields.endDate] as String);
+
+  @override
+  Map<String, dynamic> toJson() => {
+        _JsonFields.startDate: startDate?.toUtc().toIso8601String(),
+        _JsonFields.endDate: endDate?.toUtc().toIso8601String(),
+      };
 
   /// Creates a copy of this [DateRange] but with the given fields replaced
   /// with the new values.
@@ -60,4 +76,8 @@ class DateRange with DateRanger {
 
   @override
   int get hashCode => Object.hash(startDate, endDate);
+
+  @override
+  int compareTo(covariant DateRange other) =>
+      startDate!.compareTo(other.startDate!);
 }
