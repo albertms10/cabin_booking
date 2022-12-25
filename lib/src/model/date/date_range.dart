@@ -1,6 +1,5 @@
 import 'package:cabin_booking/utils/date_time_extension.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 import '../serializable.dart';
 import 'date_ranger.dart';
@@ -67,8 +66,7 @@ class DateRange with DateRanger implements Comparable<DateRange>, Serializable {
   factory DateRange.today() => DateRange.from(DateTime.now());
 
   @override
-  String toString() => '${DateFormat.yMd().format(startDate!)}'
-      ' - ${DateFormat.yMd().format(endDate!)}';
+  String toString() => '$startDate - $endDate';
 
   @override
   bool operator ==(Object other) =>

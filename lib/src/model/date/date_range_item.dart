@@ -1,5 +1,3 @@
-import 'package:intl/intl.dart';
-
 import '../item.dart';
 import 'date_ranger.dart';
 
@@ -51,10 +49,6 @@ class DateRangeItem extends Item with DateRanger {
         startDate: startDate ?? this.startDate,
         endDate: endDate ?? this.endDate,
       );
-
-  @override
-  String toString() => '${DateFormat.yMd().format(startDate!)}'
-      ' - ${DateFormat.yMd().format(endDate!)}';
 
   @override
   bool operator ==(Object other) =>
