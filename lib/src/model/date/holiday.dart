@@ -16,9 +16,9 @@ class Holiday extends DateRange {
     required this.kind,
   });
 
-  Holiday.from(super.other)
+  Holiday.fromJson(super.other)
       : kind = HolidayKind.values[other[_JsonFields.kind] as int],
-        super.from();
+        super.fromJson();
 
   @override
   Map<String, dynamic> toJson() => {

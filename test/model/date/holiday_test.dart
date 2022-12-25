@@ -3,14 +3,14 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('Holiday', () {
-    group('.from()', () {
+    group('.fromJson()', () {
       test('should create a new Holiday from a JSON object', () {
         const rawHoliday = {
           'sd': '2022-09-11T00:00:00.000Z',
           'ed': '2022-09-12T00:00:00.000Z',
           'k': 0,
         };
-        final holiday = Holiday.from(rawHoliday);
+        final holiday = Holiday.fromJson(rawHoliday);
         expect(
           holiday,
           Holiday(
@@ -29,7 +29,7 @@ void main() {
           'ed': '2022-11-01T00:00:00.000Z',
           'k': 1,
         };
-        expect(Holiday.from(rawHoliday).toJson(), rawHoliday);
+        expect(Holiday.fromJson(rawHoliday).toJson(), rawHoliday);
       });
     });
   });
