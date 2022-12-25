@@ -7,9 +7,9 @@ import 'package:provider/provider.dart';
 import 'package:timer_builder/timer_builder.dart';
 
 class CurrentTimeIndicator extends StatelessWidget {
-  final bool hideText;
+  final bool hideLabel;
 
-  const CurrentTimeIndicator({super.key, this.hideText = false});
+  const CurrentTimeIndicator({super.key, this.hideLabel = false});
 
   @override
   Widget build(BuildContext context) {
@@ -35,13 +35,15 @@ class CurrentTimeIndicator extends StatelessWidget {
           verticalOffset: durationFromStart.inMicroseconds /
               Duration.microsecondsPerMinute *
               kBookingHeightRatio,
-          label: Text(
-            hideText ? '' : TimeOfDay.fromDateTime(now).format(context),
-            style: TextStyle(
-              color: Colors.red[400],
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+          label: hideLabel
+              ? null
+              : Text(
+                  TimeOfDay.fromDateTime(now).format(context),
+                  style: TextStyle(
+                    color: Colors.red[400],
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
           indicatorColor: Colors.red[400],
         );
       },

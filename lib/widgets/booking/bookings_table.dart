@@ -49,7 +49,7 @@ class BookingsTable extends StatelessWidget {
                 ),
             ],
           ),
-          const CurrentTimeIndicator(hideText: true),
+          const CurrentTimeIndicator(hideLabel: true),
         ],
       ),
     );
