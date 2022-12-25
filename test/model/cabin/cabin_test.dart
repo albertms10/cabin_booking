@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('Cabin', () {
-    group('.from()', () {
+    group('.fromJson()', () {
       test('should create a new Cabin from a JSON object', () {
         const rawCabin = {
           'id': 'cabin-id',
@@ -23,7 +23,7 @@ void main() {
           'rb': <Map<String, dynamic>>[],
         };
         const pianos = [Piano(brand: 'Yamaha', model: 'C5')];
-        final cabin = Cabin.from(rawCabin);
+        final cabin = Cabin.fromJson(rawCabin);
         expect(
           cabin,
           Cabin(
@@ -62,7 +62,7 @@ void main() {
             'b': <Map<String, dynamic>>[],
             'rb': <Map<String, dynamic>>[],
           };
-          expect(Cabin.from(rawCabin).toJson(), rawCabin);
+          expect(Cabin.fromJson(rawCabin).toJson(), rawCabin);
         },
       );
     });

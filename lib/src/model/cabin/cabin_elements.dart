@@ -26,10 +26,10 @@ class CabinElements implements Serializable {
   });
 
   /// Creates a new [CabinElements] from a JSON Map.
-  CabinElements.from(Map<String, dynamic> other)
+  CabinElements.fromJson(Map<String, dynamic> other)
       : pianos = (other[_JsonFields.pianos] as List<dynamic>)
             .cast<Map<String, dynamic>>()
-            .map(Piano.from)
+            .map(Piano.fromJson)
             .toList(),
         lecterns = other[_JsonFields.lecterns] as int,
         chairs = other[_JsonFields.chairs] as int,

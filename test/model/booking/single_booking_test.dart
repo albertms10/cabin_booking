@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('SingleBooking', () {
-    group('.from()', () {
+    group('.fromJson()', () {
       test('should create a new SingleBooking from a JSON object', () {
         const rawSingleBooking = {
           'id': 'booking-id',
@@ -15,7 +15,7 @@ void main() {
           'de': 'Student',
           'il': true,
         };
-        final singleBooking = SingleBooking.from(rawSingleBooking);
+        final singleBooking = SingleBooking.fromJson(rawSingleBooking);
         expect(
           singleBooking,
           SingleBooking(
@@ -44,7 +44,7 @@ void main() {
             'il': false,
           };
           expect(
-            SingleBooking.from(rawSingleBooking).toJson(),
+            SingleBooking.fromJson(rawSingleBooking).toJson(),
             rawSingleBooking,
           );
         },

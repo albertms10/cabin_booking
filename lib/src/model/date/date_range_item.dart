@@ -29,10 +29,10 @@ class DateRangeItem extends Item with DateRanger {
     endDate ??= startDate;
   }
 
-  DateRangeItem.from(super.other)
+  DateRangeItem.fromJson(super.other)
       : startDate = DateTime.tryParse(other[_JsonFields.startDate] as String),
         endDate = DateTime.tryParse(other[_JsonFields.endDate] as String),
-        super.from();
+        super.fromJson();
 
   @override
   Map<String, dynamic> toJson() => {

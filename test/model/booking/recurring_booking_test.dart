@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('RecurringBooking', () {
-    group('.from()', () {
+    group('.fromJson()', () {
       test('should create a new RecurringBooking from a JSON object', () {
         const rawRecurringBooking = {
           'id': 'booking-id',
@@ -18,7 +18,7 @@ void main() {
           're': 1,
           'red': '2023-02-04T00:00:00.000Z',
         };
-        final recurringBooking = RecurringBooking.from(rawRecurringBooking);
+        final recurringBooking = RecurringBooking.fromJson(rawRecurringBooking);
         expect(
           recurringBooking,
           RecurringBooking(
@@ -51,7 +51,7 @@ void main() {
             'red': '2023-02-04T00:00:00.000Z',
           };
           expect(
-            RecurringBooking.from(rawRecurringBooking).toJson(),
+            RecurringBooking.fromJson(rawRecurringBooking).toJson(),
             rawRecurringBooking,
           );
         },
@@ -75,7 +75,7 @@ void main() {
             'o': 4,
           };
           expect(
-            RecurringBooking.from(rawRecurringBooking).toJson(),
+            RecurringBooking.fromJson(rawRecurringBooking).toJson(),
             rawRecurringBooking,
           );
         },

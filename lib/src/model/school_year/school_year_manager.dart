@@ -10,7 +10,7 @@ import 'school_year.dart';
 Iterable<SchoolYear> _parseSchoolYears(String jsonString) =>
     (json.decode(jsonString) as List<dynamic>)
         .cast<Map<String, dynamic>>()
-        .map(SchoolYear.from);
+        .map(SchoolYear.fromJson);
 
 class SchoolYearManager extends WritableManager<Set<SchoolYear>>
     with ChangeNotifier {
