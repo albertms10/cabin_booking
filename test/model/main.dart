@@ -7,6 +7,7 @@ import 'cabin/tokenized_cabin_test.dart' as tokenized_cabin_test;
 import 'date/date_range_test.dart' as date_range_test;
 import 'date/date_ranger_test.dart' as date_ranger_test;
 import 'date/holiday_test.dart' as holiday_test;
+import 'school_year/school_year_test.dart' as school_year_test;
 
 void main() {
   recurring_booking_test.main();
@@ -18,4 +19,5 @@ void main() {
   date_range_test.main();
   date_ranger_test.main();
   holiday_test.main();
+  school_year_test.main();
 }
