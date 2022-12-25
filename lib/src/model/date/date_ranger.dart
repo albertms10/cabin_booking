@@ -213,7 +213,7 @@ mixin DateRanger {
   /// Example:
   /// ```dart
   /// const interval = Duration(hours: 8);
-  /// final dateRange = DateRange.from(DateTime(2022, 12, 4));
+  /// final dateRange = DateRange.fromDate(DateTime(2022, 12, 4));
   /// final dates = [
   ///   DateTime(2022, 12, 4),
   ///   DateTime(2022, 12, 4, 8),
