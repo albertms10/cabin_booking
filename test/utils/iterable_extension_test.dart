@@ -17,15 +17,18 @@ void main() {
       test('should throw an ArgumentError', () {
         expect(() => const [true].compactConsecutive(), throwsArgumentError);
         expect(() => [() {}].compactConsecutive(), throwsArgumentError);
-        expect(() => [<bool>[]].compactConsecutive(), throwsArgumentError);
         expect(
-          () => [
+          () => const [<bool>[]].compactConsecutive(),
+          throwsArgumentError,
+        );
+        expect(
+          () => const [
             {''},
           ].compactConsecutive(),
           throwsArgumentError,
         );
         expect(
-          () => [
+          () => const [
             {'': ''},
           ].compactConsecutive(),
           throwsArgumentError,
