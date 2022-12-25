@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('CabinElements', () {
-    group('.from()', () {
+    group('.fromJson()', () {
       test('should create a new CabinElements from a JSON object', () {
         const rawCabinElements = {
           'p': [
@@ -14,7 +14,7 @@ void main() {
           't': 1,
         };
         const pianos = [Piano(brand: 'Yamaha', model: 'C5')];
-        final cabinElements = CabinElements.from(rawCabinElements);
+        final cabinElements = CabinElements.fromJson(rawCabinElements);
         expect(
           cabinElements,
           CabinElements(pianos: pianos, lecterns: 2, tables: 1),
@@ -35,7 +35,7 @@ void main() {
             't': 1,
           };
           expect(
-            CabinElements.from(rawCabinElements).toJson(),
+            CabinElements.fromJson(rawCabinElements).toJson(),
             rawCabinElements,
           );
         },

@@ -37,7 +37,7 @@ class RecurringBooking extends Booking {
         _recurringEndDate = recurringEndDate,
         _occurrences = occurrences;
 
-  RecurringBooking.from(super.other)
+  RecurringBooking.fromJson(super.other)
       : periodicity = Periodicity.values[other[_JsonFields.periodicity] as int],
         repeatEvery = other[_JsonFields.repeatEvery] as int,
         _recurringEndDate = other.containsKey(_JsonFields.recurringEndDate)
@@ -46,7 +46,7 @@ class RecurringBooking extends Booking {
         _occurrences = other.containsKey(_JsonFields.occurrences)
             ? other[_JsonFields.occurrences] as int?
             : null,
-        super.from();
+        super.fromJson();
 
   factory RecurringBooking.fromBooking(
     Booking booking, {

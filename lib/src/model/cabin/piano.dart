@@ -23,7 +23,7 @@ class Piano implements Serializable {
   });
 
   /// Creates a new [Piano] from a JSON Map.
-  Piano.from(Map<String, dynamic> other)
+  Piano.fromJson(Map<String, dynamic> other)
       : brand = other[_JsonFields.brand] as String?,
         model = other[_JsonFields.model] as String?,
         isElectronic = other[_JsonFields.isElectronic] as bool;

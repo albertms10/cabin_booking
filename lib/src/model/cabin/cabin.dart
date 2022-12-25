@@ -36,17 +36,17 @@ class Cabin extends Item {
   }
 
   /// Creates a new [Cabin] from a JSON Map.
-  Cabin.from(super.other)
+  Cabin.fromJson(super.other)
       : number = other[_JsonFields.number] as int,
-        elements = CabinElements.from(
+        elements = CabinElements.fromJson(
           other[_JsonFields.elements] as Map<String, dynamic>,
         ),
-        _bookingManager = BookingManager.from(
+        _bookingManager = BookingManager.fromJson(
           bookings: other[_JsonFields.bookings] as List<dynamic>,
           recurringBookings:
               other[_JsonFields.recurringBookings] as List<dynamic>,
         ),
-        super.from();
+        super.fromJson();
 
   @override
   Map<String, dynamic> toJson() => {

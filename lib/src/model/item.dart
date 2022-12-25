@@ -32,7 +32,7 @@ abstract class Item implements Comparable<Item>, Serializable {
   }
 
   /// Creates a new [Item] from a JSON Map.
-  Item.from(Map<String, dynamic> other)
+  Item.fromJson(Map<String, dynamic> other)
       : id = other[_JsonFields.id] as String,
         creationDateTime =
             DateTime.tryParse(other[_JsonFields.creationDateTime] as String)!,

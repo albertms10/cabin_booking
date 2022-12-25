@@ -45,10 +45,10 @@ abstract class Booking extends DateRangeItem {
   });
 
   /// Creates a new [Booking] from a JSON Map.
-  Booking.from(super.other)
+  Booking.fromJson(super.other)
       : description = other[_JsonFields.description] as String?,
         isLocked = other[_JsonFields.isLocked] as bool,
-        super.from();
+        super.fromJson();
 
   @override
   Map<String, dynamic> toJson() => {

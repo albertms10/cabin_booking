@@ -13,7 +13,7 @@ class SingleBooking extends Booking {
     super.recurringTotalTimes,
   });
 
-  SingleBooking.from(super.other) : super.from();
+  SingleBooking.fromJson(super.other) : super.fromJson();
 
   SingleBooking.fromBooking(Booking booking)
       : super(

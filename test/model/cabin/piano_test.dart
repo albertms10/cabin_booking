@@ -3,14 +3,14 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('Piano', () {
-    group('.from()', () {
+    group('.fromJson()', () {
       test('should create a new Piano from a JSON object', () {
         const rawPiano = {
           'b': 'Yamaha',
           'm': 'C5',
           'ie': false,
         };
-        final piano = Piano.from(rawPiano);
+        final piano = Piano.fromJson(rawPiano);
         expect(piano, const Piano(brand: 'Yamaha', model: 'C5'));
       });
     });
@@ -22,7 +22,7 @@ void main() {
           'm': 'C5',
           'ie': false,
         };
-        expect(Piano.from(rawPiano).toJson(), rawPiano);
+        expect(Piano.fromJson(rawPiano).toJson(), rawPiano);
       });
     });
   });

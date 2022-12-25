@@ -18,7 +18,7 @@ import 'tokenized_cabin.dart';
 Iterable<Cabin> _parseCabins(String jsonString) =>
     (json.decode(jsonString) as List<dynamic>)
         .cast<Map<String, dynamic>>()
-        .map(Cabin.from);
+        .map(Cabin.fromJson);
 
 class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
   late Set<Cabin> cabins;

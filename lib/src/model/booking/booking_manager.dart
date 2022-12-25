@@ -23,18 +23,18 @@ class BookingManager with ChangeNotifier {
     this.recurringBookings = recurringBookings ?? SplayTreeSet();
   }
 
-  BookingManager.from({
+  BookingManager.fromJson({
     required List<dynamic> bookings,
     required List<dynamic> recurringBookings,
   })  : bookings = SplayTreeSet.of(
           bookings
               .cast<Map<String, dynamic>>()
-              .map<SingleBooking>(SingleBooking.from),
+              .map<SingleBooking>(SingleBooking.fromJson),
         ),
         recurringBookings = SplayTreeSet.of(
           recurringBookings
               .cast<Map<String, dynamic>>()
-              .map<RecurringBooking>(RecurringBooking.from),
+              .map<RecurringBooking>(RecurringBooking.fromJson),
         );
 
   List<Map<String, dynamic>> singleBookingsToJson() =>
