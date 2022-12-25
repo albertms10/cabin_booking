@@ -27,8 +27,10 @@ class DateRange with DateRanger implements Comparable<DateRange>, Serializable {
   static const infinite = DateRange();
 
   DateRange.fromJson(Map<String, dynamic> other)
-      : startDate = DateTime.tryParse(other[_JsonFields.startDate] as String),
-        endDate = DateTime.tryParse(other[_JsonFields.endDate] as String);
+      : startDate =
+            DateTime.tryParse(other[_JsonFields.startDate] as String? ?? ''),
+        endDate =
+            DateTime.tryParse(other[_JsonFields.endDate] as String? ?? '');
 
   @override
   Map<String, dynamic> toJson() => {
