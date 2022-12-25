@@ -20,7 +20,9 @@ dart_code_metrics:
     - arguments-ordering:
         child-last: true
     - avoid-border-all
+    - avoid-cascade-after-if-null
     - avoid-collection-methods-with-unrelated-types
+    - avoid-double-slash-imports
     - avoid-duplicate-exports
     - avoid-global-state
     - avoid-missing-enum-constant-in-map
@@ -30,6 +32,7 @@ dart_code_metrics:
     - avoid-returning-widgets
     - avoid-shrink-wrap-in-lists
     - avoid-throw-in-catch-block
+    - avoid-unnecessary-conditionals
     - avoid-unnecessary-setstate
     - avoid-unnecessary-type-assertions
     - avoid-unnecessary-type-casts
@@ -40,6 +43,7 @@ dart_code_metrics:
     - double-literal-format
     - format-comment
   # - member-ordering
+    - missing-test-assertion
     - newline-before-return
     - no-boolean-literal-compare
     - no-equal-then-else
@@ -76,7 +80,7 @@ analyzer:
     public_member_api_docs: ignore
     unused_element: ignore # See https://github.com/dart-lang/sdk/issues/49025
 
-  # Style decisions
+    # Style decisions
     always_put_required_named_parameters_first: ignore
     always_use_package_imports: ignore
     sort_constructors_first: ignore
