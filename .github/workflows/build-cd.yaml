@@ -33,7 +33,7 @@ on:
         type: boolean
 
 env:
-  FLUTTER_SDK_VERSION: "3.3.8"
+  FLUTTER_SDK_VERSION: "3.3.10"
 
 permissions:
   contents: read
