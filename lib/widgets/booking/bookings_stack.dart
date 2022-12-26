@@ -33,8 +33,9 @@ class BookingsStack extends StatelessWidget {
 
     final dayHandler = Provider.of<DayHandler>(context);
 
-    final startDate = dayHandler.dateTime.addTimeOfDay(kTimeTableStartTime);
-    final endDate = dayHandler.dateTime.addTimeOfDay(kTimeTableEndTime);
+    final startDate =
+        dayHandler.dateTime.addLocalTimeOfDay(kTimeTableStartTime);
+    final endDate = dayHandler.dateTime.addLocalTimeOfDay(kTimeTableEndTime);
 
     var slotCount = 0;
 

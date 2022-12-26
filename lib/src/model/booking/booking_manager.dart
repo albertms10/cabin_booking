@@ -138,8 +138,8 @@ class BookingManager with ChangeNotifier {
     required TimeOfDay endTime,
   }) {
     final fallbackDateTime = dateTime ?? DateTime.now();
-    final startDate = fallbackDateTime.addTimeOfDay(startTime);
-    final endDate = fallbackDateTime.addTimeOfDay(endTime);
+    final startDate = fallbackDateTime.addLocalTimeOfDay(startTime);
+    final endDate = fallbackDateTime.addLocalTimeOfDay(endTime);
 
     final maxViewDuration = endDate.difference(startDate);
 
