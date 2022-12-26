@@ -8,9 +8,8 @@ class SingleBooking extends Booking {
     super.description,
     super.isLocked,
     super.cabinId,
-    super.recurringBookingId,
+    super.recurringBooking,
     super.recurringNumber,
-    super.recurringTotalTimes,
   });
 
   SingleBooking.fromJson(super.other) : super.fromJson();

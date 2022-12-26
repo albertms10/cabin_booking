@@ -163,8 +163,8 @@ class _BookingCardInfo extends StatelessWidget {
           children: [
             if (isRecurring)
               Tooltip(
-                message:
-                    '${booking.recurringNumber}/${booking.recurringTotalTimes}',
+                message: '${booking.recurringNumber}/'
+                    '${booking.recurringBooking?.occurrences}',
                 child: Padding(
                   padding: const EdgeInsetsDirectional.only(end: 4),
                   child: Icon(Icons.repeat, size: 16, color: theme.hintColor),

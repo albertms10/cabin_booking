@@ -3,6 +3,7 @@ import 'package:cabin_booking/utils/time_of_day_extension.dart';
 import 'package:intl/intl.dart';
 
 import '../date/date_range_item.dart';
+import 'recurring_booking.dart';
 
 abstract class _JsonFields {
   static const description = 'de';
@@ -20,16 +21,13 @@ abstract class Booking extends DateRangeItem {
   /// The ID of the booked Cabin.
   String? cabinId;
 
-  /// The ID of the recurring booking, if this [Booking] is part of a series of
+  /// The [RecurringBooking] reference, if this [Booking] is part of a series of
   /// recurring bookings.
-  String? recurringBookingId;
+  RecurringBooking? recurringBooking;
 
   /// The occurrence number this [Booking] appears in the list of recurring
   /// bookings. E.g., the 2nd occurrence out of 5.
   int? recurringNumber;
-
-  /// The total times the recurring booking occurs.
-  int? recurringTotalTimes;
 
   /// Creates a new [Booking].
   Booking({
@@ -39,9 +37,8 @@ abstract class Booking extends DateRangeItem {
     this.description,
     this.isLocked = false,
     this.cabinId,
-    this.recurringBookingId,
+    this.recurringBooking,
     this.recurringNumber,
-    this.recurringTotalTimes,
   });
 
   /// Creates a new [Booking] from a JSON Map.
