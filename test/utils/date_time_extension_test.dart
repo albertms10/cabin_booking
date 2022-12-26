@@ -21,25 +21,21 @@ void main() {
       );
     });
 
-    group('.addTimeOfDay()', () {
-      test('should return a new DateTime adding the TimeOfDay information', () {
+    group('.addLocalTimeOfDay()', () {
+      test('should return a new DateTime replacing the time part', () {
+        final dateTime = DateTime(2021, 9, 7, 8, 15);
         expect(
-          DateTime(2021, 9, 7)
-              .addTimeOfDay(const TimeOfDay(hour: 21, minute: 30)),
+          dateTime.addLocalTimeOfDay(const TimeOfDay(hour: 21, minute: 30)),
           DateTime(2021, 9, 7, 21, 30),
         );
-      });
 
-      test(
-        'should return a new DateTime replacing the TimeOfDay information',
-        () {
-          expect(
-            DateTime(2021, 9, 7, 8, 15)
-                .addTimeOfDay(const TimeOfDay(hour: 21, minute: 30)),
-            DateTime(2021, 9, 7, 21, 30),
-          );
-        },
-      );
+        expect(
+          dateTime
+              .toUtc()
+              .addLocalTimeOfDay(const TimeOfDay(hour: 21, minute: 30)),
+          DateTime.utc(2021, 9, 7, 21, 30).subtract(dateTime.timeZoneOffset),
+        );
+      });
     });
 
     group('.isSameDateAs()', () {

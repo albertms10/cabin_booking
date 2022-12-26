@@ -19,8 +19,9 @@ class CurrentTimeIndicator extends StatelessWidget {
         final dayHandler = Provider.of<DayHandler>(context);
 
         final viewStartDate =
-            dayHandler.dateTime.addTimeOfDay(kTimeTableStartTime);
-        final viewEndDate = dayHandler.dateTime.addTimeOfDay(kTimeTableEndTime);
+            dayHandler.dateTime.addLocalTimeOfDay(kTimeTableStartTime);
+        final viewEndDate =
+            dayHandler.dateTime.addLocalTimeOfDay(kTimeTableEndTime);
 
         final now = DateTime.now();
         final durationFromStart = now.difference(viewStartDate);

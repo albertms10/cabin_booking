@@ -17,19 +17,17 @@ extension DateTimeExtension on DateTime {
 
   /// Returns a new [DateTime] replacing the time part with [timeOfDay].
   ///
-  /// Defaults to [TimeOfDay.now()].
-  ///
   /// Example:
   /// ```dart
   /// final dateTime = DateTime(2021, 9, 7);
-  /// const timeOfDay = TimeOfDay(hour: 21, minute: 30);
-  /// assert(dateTime.addTimeOfDay(timeOfDay) == DateTime(2021, 9, 7, 21, 30));
+  /// const time = TimeOfDay(hour: 21, minute: 30);
+  /// assert(dateTime.addLocalTimeOfDay(time) == DateTime(2021, 9, 7, 21, 30));
   /// ```
-  DateTime addTimeOfDay([TimeOfDay? timeOfDay]) {
-    timeOfDay ??= TimeOfDay.now();
-    final newDateTime = isUtc ? DateTime.utc : DateTime.new;
+  DateTime addLocalTimeOfDay(TimeOfDay timeOfDay) {
+    final dateTime =
+        DateTime(year, month, day, timeOfDay.hour, timeOfDay.minute);
 
-    return newDateTime(year, month, day, timeOfDay.hour, timeOfDay.minute);
+    return isUtc ? dateTime.toUtc() : dateTime;
   }
 
   /// Whether this [DateTime] occurs on the same date as [other].
