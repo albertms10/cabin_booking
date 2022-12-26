@@ -99,9 +99,9 @@ class BookingManager with ChangeNotifier {
     return allBookingsOn(booking.dateOnly!)
             .where(
               (comparingBooking) =>
-                  (comparingBooking.recurringBookingId == null ||
-                      comparingBooking.recurringBookingId !=
-                          booking.recurringBookingId) &&
+                  (comparingBooking.recurringBooking?.id == null ||
+                      comparingBooking.recurringBooking?.id !=
+                          booking.recurringBooking?.id) &&
                   comparingBooking.id != booking.id,
             )
             .firstWhereOrNull(
@@ -272,8 +272,7 @@ class BookingManager with ChangeNotifier {
       bookings.firstWhere((booking) => booking.id == id);
 
   RecurringBooking recurringBookingFromId(String? id) => recurringBookings
-      .firstWhere((recurringBooking) => recurringBooking.id == id)
-    ..recurringBookingId = id;
+      .firstWhere((recurringBooking) => recurringBooking.id == id);
 
   List<Booking> searchBookings(String query, {int? limit}) {
     final results = <Booking>[];
@@ -323,7 +322,7 @@ class BookingManager with ChangeNotifier {
     recurringBookings
         .firstWhere(
           (comparingRecurringBooking) =>
-              recurringBooking.recurringBookingId ==
+              recurringBooking.recurringBooking.id ==
                   comparingRecurringBooking.id ||
               recurringBooking.id == comparingRecurringBooking.id,
         )

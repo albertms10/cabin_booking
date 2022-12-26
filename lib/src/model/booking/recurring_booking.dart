@@ -86,8 +86,13 @@ class RecurringBooking extends Booking {
     );
   }
 
+  /// Override getter from [Booking] to prevent a circular reference to this
+  /// [RecurringBooking] at instantiation.
+  @override
+  RecurringBooking get recurringBooking => this;
+
   static bool isRecurringBooking(Booking? booking) =>
-      booking is RecurringBooking || booking!.recurringBookingId != null;
+      booking is RecurringBooking || booking!.recurringBooking?.id != null;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -143,13 +148,13 @@ class RecurringBooking extends Booking {
   }
 
   SingleBooking asSingleBooking({bool linked = true}) => SingleBooking(
-        id: linked ? '$id-0' : (recurringBookingId ?? id),
+        id: linked ? '$id-0' : id,
         startDate: startDate,
         endDate: endDate,
         description: description,
         isLocked: isLocked,
         cabinId: cabinId,
-        recurringBookingId: linked ? id : null,
+        recurringBooking: linked ? this : null,
       );
 
   List<SingleBooking> get bookings {
@@ -163,9 +168,8 @@ class RecurringBooking extends Booking {
       runBookings.add(
         movedBooking
           ..id = '$id-$count'
-          ..recurringBookingId = id
-          ..recurringNumber = count
-          ..recurringTotalTimes = occurrences,
+          ..recurringBooking = this
+          ..recurringNumber = count,
       );
 
       runDate = runDate.add(periodicityDuration);

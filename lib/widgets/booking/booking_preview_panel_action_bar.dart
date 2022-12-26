@@ -88,11 +88,9 @@ class _BookingPreviewEditIconButton extends StatelessWidget {
     final editedBooking = await showDialog<Booking>(
       context: context,
       builder: (context) => BookingDialog(
-        booking: (booking.recurringBookingId == null
-            ? booking
-            : cabinManager
-                .cabinFromId(cabin.id)
-                .recurringBookingFromId(booking.recurringBookingId!))
+        booking: (booking.recurringBooking != null
+            ? booking.recurringBooking!
+            : booking)
           ..cabinId = cabin.id,
       ),
     );
@@ -171,7 +169,7 @@ class _BookingPreviewDeleteIconButton extends StatelessWidget {
     if (RecurringBooking.isRecurringBooking(booking)) {
       cabinManager.removeRecurringBookingById(
         cabin.id,
-        booking.recurringBookingId,
+        booking.recurringBooking?.id,
       );
     } else {
       cabinManager.removeSingleBookingById(cabin.id, booking.id);
