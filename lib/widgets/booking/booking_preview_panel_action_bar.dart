@@ -91,7 +91,7 @@ class _BookingPreviewEditIconButton extends StatelessWidget {
         booking: (booking.recurringBooking != null
             ? booking.recurringBooking!
             : booking)
-          ..cabinId = cabin.id,
+          ..cabin = cabin,
       ),
     );
 

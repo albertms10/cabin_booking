@@ -38,8 +38,7 @@ class JumpBarResults extends StatelessWidget {
               return showNewBookingDialog(
                 context: context,
                 booking: suggestedBooking!.copyWith(
-                  cabinId:
-                      suggestedBooking!.cabinId ?? cabinManager.cabins.first.id,
+                  cabin: suggestedBooking!.cabin ?? cabinManager.cabins.first,
                 ),
                 cabinManager: cabinManager,
               );

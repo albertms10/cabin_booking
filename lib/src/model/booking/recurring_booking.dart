@@ -1,5 +1,6 @@
 import 'package:collection/collection.dart' show IterableExtension;
 
+import '../cabin/cabin.dart';
 import 'booking.dart';
 import 'single_booking.dart';
 
@@ -24,7 +25,7 @@ class RecurringBooking extends Booking {
     super.endDate,
     super.description,
     super.isLocked,
-    super.cabinId,
+    super.cabin,
     this.periodicity = Periodicity.weekly,
     this.repeatEvery = 1,
     DateTime? recurringEndDate,
@@ -78,7 +79,7 @@ class RecurringBooking extends Booking {
       endDate: booking.endDate,
       description: booking.description,
       isLocked: booking.isLocked,
-      cabinId: booking.cabinId,
+      cabin: booking.cabin,
       periodicity: periodicity,
       repeatEvery: repeatEvery,
       recurringEndDate: recurringEndDate,
@@ -153,7 +154,7 @@ class RecurringBooking extends Booking {
         endDate: endDate,
         description: description,
         isLocked: isLocked,
-        cabinId: cabinId,
+        cabin: cabin,
         recurringBooking: linked ? this : null,
       );
 
@@ -199,7 +200,7 @@ class RecurringBooking extends Booking {
     DateTime? endDate,
     String? description,
     bool? isLocked,
-    String? cabinId,
+    Cabin? cabin,
     Periodicity? periodicity,
     int? repeatEvery,
     DateTime? recurringEndDate,
@@ -211,7 +212,7 @@ class RecurringBooking extends Booking {
         endDate: endDate ?? this.endDate,
         description: description ?? this.description,
         isLocked: isLocked ?? this.isLocked,
-        cabinId: cabinId ?? this.cabinId,
+        cabin: cabin ?? this.cabin,
         periodicity: periodicity ?? this.periodicity,
         repeatEvery: repeatEvery ?? this.repeatEvery,
         recurringEndDate: recurringEndDate != null && occurrences == null

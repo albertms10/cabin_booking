@@ -175,7 +175,7 @@ class Cabin extends Item {
   Iterable<Booking> searchBookings(String query, {int? limit}) =>
       _bookingManager
           .searchBookings(query, limit: limit)
-          .map((booking) => booking.copyWith(cabinId: id));
+          .map((booking) => booking.copyWith(cabin: this));
 
   @override
   String toString() => '$number';

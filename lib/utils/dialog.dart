@@ -15,11 +15,11 @@ Future<void> showNewBookingDialog({
 
   if (newBooking != null) {
     if (newBooking is RecurringBooking) {
-      return cabinManager.addRecurringBooking(newBooking.cabinId, newBooking);
+      return cabinManager.addRecurringBooking(newBooking.cabin?.id, newBooking);
     }
 
     if (newBooking is SingleBooking) {
-      return cabinManager.addSingleBooking(newBooking.cabinId, newBooking);
+      return cabinManager.addSingleBooking(newBooking.cabin?.id, newBooking);
     }
   }
 }

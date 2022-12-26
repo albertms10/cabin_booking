@@ -1,3 +1,4 @@
+import '../cabin/cabin.dart';
 import 'booking.dart';
 
 class SingleBooking extends Booking {
@@ -7,7 +8,7 @@ class SingleBooking extends Booking {
     super.endDate,
     super.description,
     super.isLocked,
-    super.cabinId,
+    super.cabin,
     super.recurringBooking,
     super.recurringNumber,
   });
@@ -21,7 +22,7 @@ class SingleBooking extends Booking {
           endDate: booking.endDate,
           description: booking.description,
           isLocked: booking.isLocked,
-          cabinId: booking.cabinId,
+          cabin: booking.cabin,
         );
 
   @override
@@ -31,7 +32,7 @@ class SingleBooking extends Booking {
     DateTime? endDate,
     String? description,
     bool? isLocked,
-    String? cabinId,
+    Cabin? cabin,
   }) =>
       SingleBooking(
         id: id ?? super.id,
@@ -39,7 +40,7 @@ class SingleBooking extends Booking {
         endDate: endDate ?? endDate,
         description: description ?? this.description,
         isLocked: isLocked ?? this.isLocked,
-        cabinId: cabinId ?? this.cabinId,
+        cabin: cabin ?? this.cabin,
       );
 
   @override

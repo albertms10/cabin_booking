@@ -2,6 +2,7 @@ import 'package:cabin_booking/utils/date_time_extension.dart';
 import 'package:cabin_booking/utils/time_of_day_extension.dart';
 import 'package:intl/intl.dart';
 
+import '../cabin/cabin.dart';
 import '../date/date_range_item.dart';
 import 'recurring_booking.dart';
 
@@ -18,8 +19,8 @@ abstract class Booking extends DateRangeItem {
   /// Whether this [Booking] represents a locked time slot.
   bool isLocked;
 
-  /// The ID of the booked Cabin.
-  String? cabinId;
+  /// The [Cabin] reference.
+  Cabin? cabin;
 
   /// The [RecurringBooking] reference, if this [Booking] is part of a series of
   /// recurring bookings.
@@ -36,7 +37,7 @@ abstract class Booking extends DateRangeItem {
     super.endDate,
     this.description,
     this.isLocked = false,
-    this.cabinId,
+    this.cabin,
     this.recurringBooking,
     this.recurringNumber,
   });
@@ -70,7 +71,7 @@ abstract class Booking extends DateRangeItem {
     DateTime? endDate,
     String? description,
     bool? isLocked,
-    String? cabinId,
+    Cabin? cabin,
   });
 
   @override

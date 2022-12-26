@@ -39,7 +39,7 @@ class BookingFloatingActionButton extends StatelessWidget {
                         minutes: defaultSlotDuration.inMinutes,
                       ),
                     ),
-                    cabinId: cabinManager.cabins.first.id,
+                    cabin: cabinManager.cabins.first,
                     occurrences: 1,
                   ),
                   cabinManager: cabinManager,
@@ -64,7 +64,7 @@ class BookingFloatingActionButton extends StatelessWidget {
                       ),
                     ),
                     isLocked: true,
-                    cabinId: cabinManager.cabins.first.id,
+                    cabin: cabinManager.cabins.first,
                   ),
                   cabinManager: cabinManager,
                 );
@@ -89,7 +89,7 @@ class BookingFloatingActionButton extends StatelessWidget {
                     minutes: defaultSlotDuration.inMinutes,
                   ),
                 ),
-                cabinId: cabinManager.cabins.first.id,
+                cabin: cabinManager.cabins.first,
               ),
               cabinManager: cabinManager,
             );
