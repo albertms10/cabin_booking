@@ -89,9 +89,9 @@ class _BookingPreviewEditIconButton extends StatelessWidget {
       context: context,
       builder: (context) => BookingDialog(
         booking: (booking.recurringBooking != null
-            ? booking.recurringBooking!
-            : booking)
-          ..cabinId = cabin.id,
+                ? booking.recurringBooking!
+                : booking)
+            .copyWith(cabinId: cabin.id),
       ),
     );
 
