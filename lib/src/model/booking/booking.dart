@@ -19,7 +19,7 @@ abstract class Booking extends DateRangeItem {
   /// Whether this [Booking] represents a locked time slot.
   bool isLocked;
 
-  /// The [Cabin] reference.
+  /// The reference of the booked [Cabin].
   Cabin? cabin;
 
   /// The [RecurringBooking] reference, if this [Booking] is part of a series of
