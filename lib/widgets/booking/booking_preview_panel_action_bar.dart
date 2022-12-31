@@ -85,13 +85,11 @@ class _BookingPreviewEditIconButton extends StatelessWidget {
   Future<void> _onEdit(BuildContext context) async {
     final cabinManager = Provider.of<CabinManager>(context, listen: false);
 
+    final initialBooking = booking.recurringBooking ?? booking;
     final editedBooking = await showDialog<Booking>(
       context: context,
       builder: (context) => BookingDialog(
-        booking: (booking.recurringBooking != null
-                ? booking.recurringBooking!
-                : booking)
-            .copyWith(cabin: cabin),
+        booking: initialBooking.copyWith(cabin: cabin),
       ),
     );
 
