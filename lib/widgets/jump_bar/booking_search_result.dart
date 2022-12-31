@@ -29,9 +29,9 @@ class BookingSearchResult extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SearchResultLabel(
-              label: booking.cabinId != null
+              label: booking.cabin != null
                   ? '${appLocalizations.cabin} '
-                      '${cabinManager.cabinFromId(booking.cabinId).number}'
+                      '${cabinManager.cabinFromId(booking.cabin?.id).number}'
                   : null,
               placeholder: appLocalizations.cabin,
             ),

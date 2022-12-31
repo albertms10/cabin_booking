@@ -108,7 +108,7 @@ class _EmptyBookingSlotActionable extends StatelessWidget {
               booking: SingleBooking(
                 startDate: startDate,
                 endDate: endDate,
-                cabinId: cabin.id,
+                cabin: cabin,
               ),
               cabinManager: cabinManager,
             );

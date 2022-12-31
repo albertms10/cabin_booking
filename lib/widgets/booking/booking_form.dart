@@ -91,9 +91,10 @@ class _BookingFormState extends State<BookingForm> {
       child: Column(
         children: [
           CabinDropdown(
-            value: _booking.cabinId!,
+            value: _booking.cabin!.id,
             onChanged: (value) {
-              setState(() => _booking.cabinId = value);
+              if (value == null) return;
+              setState(() => _booking.cabin?.id = value);
             },
           ),
           const SizedBox(height: 24),
@@ -193,7 +194,7 @@ class _BookingFormState extends State<BookingForm> {
                         }
 
                         if (cabinManager
-                            .cabinFromId(_booking.cabinId)
+                            .cabinFromId(_booking.cabin?.id)
                             .bookingsOverlapWith(_booking)) {
                           return appLocalizations.occupied;
                         }
@@ -274,7 +275,7 @@ class _BookingFormState extends State<BookingForm> {
                         }
 
                         if (cabinManager
-                            .cabinFromId(_booking.cabinId)
+                            .cabinFromId(_booking.cabin?.id)
                             .bookingsOverlapWith(_booking)) {
                           return appLocalizations.occupied;
                         }

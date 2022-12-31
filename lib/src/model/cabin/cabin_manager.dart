@@ -253,7 +253,7 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
     SingleBooking booking, {
     bool notify = true,
   }) {
-    cabinFromId(booking.cabinId ?? cabinId).addSingleBooking(booking);
+    cabinFromId(booking.cabin?.id ?? cabinId).addSingleBooking(booking);
 
     if (notify) notifyListeners();
   }
@@ -263,7 +263,7 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
     RecurringBooking recurringBooking, {
     bool notify = true,
   }) {
-    cabinFromId(recurringBooking.cabinId ?? cabinId)
+    cabinFromId(recurringBooking.cabin?.id ?? cabinId)
         .addRecurringBooking(recurringBooking);
 
     if (notify) notifyListeners();
@@ -274,11 +274,11 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
     SingleBooking booking, {
     bool notify = true,
   }) {
-    if (booking.cabinId == null || booking.cabinId == cabinId) {
+    if (booking.cabin?.id == null || booking.cabin?.id == cabinId) {
       cabinFromId(cabinId).modifySingleBooking(booking);
     } else {
       cabinFromId(cabinId).removeSingleBookingById(booking.id);
-      cabinFromId(booking.cabinId).addSingleBooking(booking);
+      cabinFromId(booking.cabin?.id).addSingleBooking(booking);
     }
 
     if (notify) notifyListeners();
@@ -289,12 +289,12 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
     RecurringBooking recurringBooking, {
     bool notify = true,
   }) {
-    if (recurringBooking.cabinId == null ||
-        recurringBooking.cabinId == cabinId) {
+    if (recurringBooking.cabin?.id == null ||
+        recurringBooking.cabin?.id == cabinId) {
       cabinFromId(cabinId).modifyRecurringBooking(recurringBooking);
     } else {
       cabinFromId(cabinId).removeRecurringBookingById(recurringBooking.id);
-      cabinFromId(recurringBooking.cabinId)
+      cabinFromId(recurringBooking.cabin?.id)
           .addRecurringBooking(recurringBooking);
     }
 
