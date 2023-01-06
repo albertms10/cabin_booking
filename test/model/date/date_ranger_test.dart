@@ -356,7 +356,7 @@ void main() {
     group('.textualDateTime()', () {
       test(
         'should return a textual range representation of a finite '
-        'DateRange with the same year',
+        'DateRanger with the same year',
         () {
           final dateRange = DateRange(
             startDate: DateTime(2022, 12, 1, 9, 30),
@@ -388,7 +388,7 @@ void main() {
 
       test(
         'should return a textual range representation of a finite '
-        'DateRange with the same year and day',
+        'DateRanger with the same year and day',
         () {
           final dateRange = DateRange(
             startDate: DateTime(2022, 12, 1, 9, 30),
@@ -433,11 +433,11 @@ void main() {
 
       test(
         'should return a textual range representation of a finite '
-        'DateRange with different years',
+        'DateRanger with different years',
         () {
           final dateRange = DateRange(
-            startDate: DateTime.utc(2022, 12, 1, 8, 30),
-            endDate: DateTime.utc(2023, 1, 12, 20, 30),
+            startDate: DateTime(2022, 12, 1, 9, 30),
+            endDate: DateTime(2023, 1, 12, 21, 30),
           );
           expect(
             dateRange.textualDateTime(referenceDateTime: DateTime(2022)),
@@ -461,7 +461,7 @@ void main() {
 
       test(
         'should return a textual range representation of an infinite '
-        'DateRange',
+        'DateRanger',
         () {
           expect(DateRange.infinite.textualDateTime(), 'null – null');
 
@@ -485,7 +485,7 @@ void main() {
     });
 
     group('.textualTime', () {
-      test('should return the textual time range of a finite DateRange', () {
+      test('should return the textual time range of a finite DateRanger', () {
         final dateRange = DateRange(
           startDate: DateTime(2022, 12, 1, 9, 30),
           endDate: DateTime(2022, 12, 1, 21, 30),
@@ -499,18 +499,39 @@ void main() {
         expect(multiYearDateRange.textualTime, '09:30–21:30');
       });
 
-      test('should return the textual time range of an infinite DateRange', () {
-        expect(DateRange.infinite.textualTime, 'null – null');
-        final dateRange = DateRange(
-          startDate: DateTime(2022, 12, 1, 9, 30),
-        );
-        expect(dateRange.textualTime, '09:30 – null');
+      test(
+        'should return the textual local time range of a UTC DateRanger',
+        () {
+          final dateRange = DateRange(
+            startDate: DateTime.utc(2022, 12, 1, 9, 30),
+            endDate: DateTime.utc(2022, 12, 1, 21, 45),
+          );
+          final startDate = dateRange.startDate!.toLocal();
+          final endDate = dateRange.endDate!.toLocal();
+          String padTime(int time) => '$time'.padLeft(2, '0');
+          expect(
+            dateRange.textualTime,
+            '${padTime(startDate.hour)}:${padTime(startDate.minute)}–'
+            '${padTime(endDate.hour)}:${padTime(endDate.minute)}',
+          );
+        },
+      );
 
-        final multiYearDateRange = DateRange(
-          endDate: DateTime(2023, 1, 12, 21, 30),
-        );
-        expect(multiYearDateRange.textualTime, 'null – 21:30');
-      });
+      test(
+        'should return the textual time range of an infinite DateRanger',
+        () {
+          expect(DateRange.infinite.textualTime, 'null – null');
+          final dateRange = DateRange(
+            startDate: DateTime(2022, 12, 1, 9, 30),
+          );
+          expect(dateRange.textualTime, '09:30 – null');
+
+          final multiYearDateRange = DateRange(
+            endDate: DateTime(2023, 1, 12, 21, 30),
+          );
+          expect(multiYearDateRange.textualTime, 'null – 21:30');
+        },
+      );
     });
 
     group('.hoursSpan', () {
