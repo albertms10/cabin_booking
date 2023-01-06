@@ -69,7 +69,7 @@ class _BookingPreviewPanelHeadline extends StatelessWidget {
               style: TextStyle(color: theme.hintColor),
             ),
           ),
-          Text(booking.timeRange),
+          Text(booking.textualTime),
         ],
       ),
     );

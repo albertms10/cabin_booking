@@ -1,6 +1,4 @@
 import 'package:cabin_booking/utils/date_time_extension.dart';
-import 'package:cabin_booking/utils/time_of_day_extension.dart';
-import 'package:intl/intl.dart';
 
 import '../cabin/cabin.dart';
 import '../date/date_range_item.dart';
@@ -58,12 +56,6 @@ abstract class Booking extends DateRangeItem {
   /// Date only part of [startDate].
   DateTime? get dateOnly => startDate?.dateOnly;
 
-  String get timeRange => '${startTime!.format24Hour()}'
-      '–${endTime!.format24Hour()}';
-
-  String get dateTimeRange =>
-      '${DateFormat.yMd().format(dateOnly!)} $timeRange';
-
   @override
   Booking copyWith({
     String? id,
@@ -86,7 +78,7 @@ abstract class Booking extends DateRangeItem {
 
   @override
   String toString() =>
-      [if (isLocked) '🔒', description, dateTimeRange].join(' ');
+      [if (isLocked) '🔒', description, textualDateTime].join(' ');
 
   @override
   bool operator ==(Object other) =>
