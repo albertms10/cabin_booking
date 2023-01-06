@@ -13,8 +13,8 @@ class CabinsTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<CabinManager>(
-      builder: (context, cabinManager, child) {
+    return Consumer<CabinCollection>(
+      builder: (context, cabinCollection, child) {
         final appLocalizations = AppLocalizations.of(context)!;
 
         final now = DateTime.now();
@@ -30,7 +30,7 @@ class CabinsTable extends StatelessWidget {
           itemIcon: Icons.sensor_door,
           itemHeaderLabel: appLocalizations.cabin,
           rows: [
-            for (final cabin in cabinManager.cabins)
+            for (final cabin in cabinCollection.cabins)
               ItemsTableRow<Cabin>(
                 item: cabin,
                 bookingsCount: cabin.bookings.length,
@@ -60,15 +60,15 @@ class CabinsTable extends StatelessWidget {
             );
 
             if (editedCabin != null) {
-              cabinManager.modifyCabin(editedCabin);
+              cabinCollection.modifyCabin(editedCabin);
             }
           },
           onEmptyTitle: appLocalizations.emptyCabinTitle,
           onEmptyPressed: (selectedIds) =>
-              cabinManager.emptyCabinsByIds(selectedIds),
+              cabinCollection.emptyCabinsByIds(selectedIds),
           onRemoveTitle: appLocalizations.deleteCabinTitle,
           onRemovePressed: (selectedIds) =>
-              cabinManager.removeCabinsByIds(selectedIds),
+              cabinCollection.removeCabinsByIds(selectedIds),
         );
       },
     );

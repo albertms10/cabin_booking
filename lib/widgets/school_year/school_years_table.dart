@@ -13,32 +13,33 @@ class SchoolYearsTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer2<DayHandler, CabinManager>(
-      builder: (context, dayHandler, cabinManager, child) {
+    return Consumer2<DayHandler, CabinCollection>(
+      builder: (context, dayHandler, cabinCollection, child) {
         final appLocalizations = AppLocalizations.of(context)!;
 
         return ItemsTable<SchoolYear>(
           itemIcon: Icons.school,
           itemHeaderLabel: appLocalizations.schoolYear,
           rows: [
-            for (final schoolYear in dayHandler.schoolYearManager.schoolYears)
+            for (final schoolYear
+                in dayHandler.schoolYearCollection.schoolYears)
               ItemsTableRow<SchoolYear>(
                 item: schoolYear,
-                bookingsCount: cabinManager.bookingsCountBetween(schoolYear),
+                bookingsCount: cabinCollection.bookingsCountBetween(schoolYear),
                 recurringBookingsCount:
-                    cabinManager.recurringBookingsCountBetween(schoolYear),
-                occupiedDuration: cabinManager.totalOccupiedDuration(
+                    cabinCollection.recurringBookingsCountBetween(schoolYear),
+                occupiedDuration: cabinCollection.totalOccupiedDuration(
                   dateRange: schoolYear,
                 ),
                 occupiedDurationPerWeek:
-                    cabinManager.occupiedDurationPerWeek(schoolYear)
+                    cabinCollection.occupiedDurationPerWeek(schoolYear)
                       ..fillEmptyKeyValues(
                         keys: schoolYear.dateTimeList(
                           interval: const Duration(days: DateTime.daysPerWeek),
                         ),
                         ifAbsent: () => Duration.zero,
                       ),
-                mostOccupiedTimeRanges: cabinManager
+                mostOccupiedTimeRanges: cabinCollection
                     .mostOccupiedTimeRange(schoolYear)
                     .compactConsecutive(
                       nextValue: (timeOfDay) => timeOfDay.increment(hours: 1),
@@ -58,12 +59,13 @@ class SchoolYearsTable extends StatelessWidget {
             );
 
             if (editedSchoolYear != null) {
-              dayHandler.schoolYearManager.modifySchoolYear(editedSchoolYear);
+              dayHandler.schoolYearCollection
+                  .modifySchoolYear(editedSchoolYear);
             }
           },
           onRemoveTitle: appLocalizations.deleteSchoolYearTitle,
-          onRemovePressed: (selectedIds) =>
-              dayHandler.schoolYearManager.removeSchoolYearsByIds(selectedIds),
+          onRemovePressed: (selectedIds) => dayHandler.schoolYearCollection
+              .removeSchoolYearsByIds(selectedIds),
         );
       },
     );

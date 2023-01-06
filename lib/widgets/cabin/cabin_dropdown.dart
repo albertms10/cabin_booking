@@ -11,11 +11,11 @@ class CabinDropdown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<CabinManager>(
-      builder: (context, cabinManager, child) {
+    return Consumer<CabinCollection>(
+      builder: (context, cabinCollection, child) {
         return DropdownButtonFormField<String>(
           items: [
-            for (final cabin in cabinManager.cabins)
+            for (final cabin in cabinCollection.cabins)
               DropdownMenuItem(
                 value: cabin.id,
                 child: Text(

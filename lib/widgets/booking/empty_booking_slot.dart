@@ -90,7 +90,8 @@ class _EmptyBookingSlotActionable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cabinManager = Provider.of<CabinManager>(context, listen: false);
+    final cabinCollection =
+        Provider.of<CabinCollection>(context, listen: false);
 
     final duration = preciseDuration ?? endDate.difference(startDate).inMinutes;
 
@@ -110,7 +111,7 @@ class _EmptyBookingSlotActionable extends StatelessWidget {
                 endDate: endDate,
                 cabin: cabin,
               ),
-              cabinManager: cabinManager,
+              cabinCollection: cabinCollection,
             );
           },
           borderRadius: const BorderRadius.all(Radius.circular(4)),

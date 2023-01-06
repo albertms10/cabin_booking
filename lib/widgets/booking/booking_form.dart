@@ -126,8 +126,8 @@ class _BookingFormState extends State<BookingForm> {
             children: [
               Expanded(
                 flex: 10,
-                child: Consumer<CabinManager>(
-                  builder: (context, cabinManager, child) {
+                child: Consumer<CabinCollection>(
+                  builder: (context, cabinCollection, child) {
                     return TextFormField(
                       controller: _startTimeController,
                       decoration: InputDecoration(
@@ -193,7 +193,7 @@ class _BookingFormState extends State<BookingForm> {
                           return appLocalizations.enterValidRange;
                         }
 
-                        if (cabinManager
+                        if (cabinCollection
                             .cabinFromId(_booking.cabin?.id)
                             .bookingsOverlapWith(_booking)) {
                           return appLocalizations.occupied;
@@ -209,8 +209,8 @@ class _BookingFormState extends State<BookingForm> {
               const SizedBox(width: 16),
               Expanded(
                 flex: 8,
-                child: Consumer<CabinManager>(
-                  builder: (context, cabinManager, child) {
+                child: Consumer<CabinCollection>(
+                  builder: (context, cabinCollection, child) {
                     return TextFormField(
                       controller: _endTimeController,
                       decoration:
@@ -274,7 +274,7 @@ class _BookingFormState extends State<BookingForm> {
                           return appLocalizations.enterValidRange;
                         }
 
-                        if (cabinManager
+                        if (cabinCollection
                             .cabinFromId(_booking.cabin?.id)
                             .bookingsOverlapWith(_booking)) {
                           return appLocalizations.occupied;

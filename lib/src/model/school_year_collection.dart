@@ -3,25 +3,25 @@ import 'dart:convert' show json;
 
 import 'package:flutter/foundation.dart';
 
-import '../file/file_manager.dart';
-import '../file/writable_manager.dart';
-import 'school_year.dart';
+import 'file/file_manager.dart';
+import 'file/writable_manager.dart';
+import 'school_year/school_year.dart';
 
 Iterable<SchoolYear> _parseSchoolYears(String jsonString) =>
     (json.decode(jsonString) as List<dynamic>)
         .cast<Map<String, dynamic>>()
         .map(SchoolYear.fromJson);
 
-class SchoolYearManager extends WritableManager<Set<SchoolYear>>
+class SchoolYearCollection extends WritableManager<Set<SchoolYear>>
     with ChangeNotifier {
   late Set<SchoolYear> schoolYears;
   int? _schoolYearIndex;
 
   final VoidCallback? notifyExternalListeners;
 
-  SchoolYearManager({
+  SchoolYearCollection({
     Set<SchoolYear>? schoolYears,
-    String fileName = 'school_year_manager',
+    String fileName = 'school_years',
     this.notifyExternalListeners,
   }) : super(fileName) {
     this.schoolYears = schoolYears ?? SplayTreeSet();

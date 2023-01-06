@@ -14,7 +14,7 @@ class BookingSearchResult extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cabinManager = Provider.of<CabinManager>(context);
+    final cabinCollection = Provider.of<CabinCollection>(context);
     final appLocalizations = AppLocalizations.of(context)!;
 
     return Column(
@@ -31,7 +31,7 @@ class BookingSearchResult extends StatelessWidget {
             SearchResultLabel(
               label: booking.cabin != null
                   ? '${appLocalizations.cabin} '
-                      '${cabinManager.cabinFromId(booking.cabin?.id).number}'
+                      '${cabinCollection.cabinFromId(booking.cabin?.id).number}'
                   : null,
               placeholder: appLocalizations.cabin,
             ),

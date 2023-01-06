@@ -51,7 +51,7 @@ class _JumpBarState extends State<JumpBar> {
     // Cabin.
     final cabinTokens =
         _controller.text.tokenize(TokenizedCabin.expressions(appLocalizations));
-    final cabin = Provider.of<CabinManager>(context, listen: false)
+    final cabin = Provider.of<CabinCollection>(context, listen: false)
         .findCabinFromTokenized(TokenizedCabin.fromTokens(cabinTokens));
 
     // Booking.
@@ -61,7 +61,7 @@ class _JumpBarState extends State<JumpBar> {
         .toSingleBooking(appLocalizations)
         .copyWith(cabin: cabin);
 
-    final searchedBookings = Provider.of<CabinManager>(
+    final searchedBookings = Provider.of<CabinCollection>(
       context,
       listen: false,
     ).searchBookings(_controller.text, perCabinLimit: 5);

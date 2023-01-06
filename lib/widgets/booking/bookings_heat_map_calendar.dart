@@ -16,23 +16,22 @@ class BookingsHeatMapCalendar extends StatelessWidget {
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
 
-    return Consumer2<DayHandler, CabinManager>(
-      builder: (context, dayHandler, cabinManager, child) {
-        final schoolYear = dayHandler.schoolYearManager.schoolYear;
+    return Consumer2<DayHandler, CabinCollection>(
+      builder: (context, dayHandler, cabinCollection, child) {
+        final schoolYear = dayHandler.schoolYearCollection.schoolYear;
 
         return Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
               child: HeatMapCalendar(
-                input: cabinManager.allCabinsBookingsCountPerDay,
-                colorThresholds: Theme.of(context)
-                    .colorScheme
-                    .secondary
-                    .opacityThresholds(
-                      highestValue: cabinManager.mostBookedDayEntry?.value ?? 1,
-                      samples: 8,
-                    ),
+                input: cabinCollection.allCabinsBookingsCountPerDay,
+                colorThresholds:
+                    Theme.of(context).colorScheme.secondary.opacityThresholds(
+                          highestValue:
+                              cabinCollection.mostBookedDayEntry?.value ?? 1,
+                          samples: 8,
+                        ),
                 firstWeekDay: DateTime.monday,
                 onDayTap: onDayTap == null
                     ? null
@@ -52,15 +51,15 @@ class BookingsHeatMapCalendar extends StatelessWidget {
             ),
             const SizedBox(width: 16),
             RadioButtonList(
-              itemCount: dayHandler.schoolYearManager.schoolYears.length,
+              itemCount: dayHandler.schoolYearCollection.schoolYears.length,
               itemBuilder: (context, index) {
                 return Text(
-                  dayHandler.schoolYearManager.schoolYears
+                  dayHandler.schoolYearCollection.schoolYears
                       .elementAt(index)
                       .toString(),
                 );
               },
-              initialIndex: dayHandler.schoolYearManager.schoolYearIndex,
+              initialIndex: dayHandler.schoolYearCollection.schoolYearIndex,
               onChanged: (index) => dayHandler.schoolYearIndex = index,
               reverse: true,
             ),

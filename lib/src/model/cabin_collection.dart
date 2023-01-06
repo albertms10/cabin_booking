@@ -5,28 +5,26 @@ import 'package:cabin_booking/utils/time_of_day_extension.dart';
 import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
 
-import '../booking/booking.dart';
-import '../booking/booking_manager.dart';
-import '../booking/recurring_booking.dart';
-import '../booking/single_booking.dart';
-import '../date/date_ranger.dart';
-import '../file/file_manager.dart';
-import '../file/writable_manager.dart';
-import 'cabin.dart';
-import 'tokenized_cabin.dart';
+import 'booking/booking.dart';
+import 'booking/recurring_booking.dart';
+import 'booking/single_booking.dart';
+import 'booking_collection.dart';
+import 'cabin/cabin.dart';
+import 'cabin/tokenized_cabin.dart';
+import 'date/date_ranger.dart';
+import 'file/file_manager.dart';
+import 'file/writable_manager.dart';
 
 Iterable<Cabin> _parseCabins(String jsonString) =>
     (json.decode(jsonString) as List<dynamic>)
         .cast<Map<String, dynamic>>()
         .map(Cabin.fromJson);
 
-class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
+class CabinCollection extends WritableManager<Set<Cabin>> with ChangeNotifier {
   late Set<Cabin> cabins;
 
-  CabinManager({
-    Set<Cabin>? cabins,
-    String fileName = 'cabin_manager',
-  }) : super(fileName) {
+  CabinCollection({Set<Cabin>? cabins, String fileName = 'cabins'})
+      : super(fileName) {
     this.cabins = cabins ?? SplayTreeSet();
   }
 
@@ -94,7 +92,7 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
   }
 
   Set<TimeOfDay> mostOccupiedTimeRange([DateRanger? dateRange]) =>
-      BookingManager.mostOccupiedTimeRangeFromAccumulated(
+      BookingCollection.mostOccupiedTimeRangeFromAccumulated(
         accumulatedTimeRangesOccupancy(dateRange),
       );
 

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../booking/booking.dart';
-import '../booking/booking_manager.dart';
 import '../booking/recurring_booking.dart';
 import '../booking/single_booking.dart';
+import '../booking_collection.dart';
 import '../date/date_ranger.dart';
 import '../item.dart';
 import 'cabin_elements.dart';
@@ -19,7 +19,7 @@ abstract class _JsonFields {
 class Cabin extends Item {
   int number;
   late CabinElements elements;
-  final BookingManager _bookingManager;
+  final BookingCollection _bookingCollection;
 
   /// Creates a new [Cabin].
   Cabin({
@@ -28,7 +28,7 @@ class Cabin extends Item {
     CabinElements? elements,
     Set<SingleBooking>? bookings,
     Set<RecurringBooking>? recurringBookings,
-  }) : _bookingManager = BookingManager(
+  }) : _bookingCollection = BookingCollection(
           bookings: bookings,
           recurringBookings: recurringBookings,
         ) {
@@ -41,7 +41,7 @@ class Cabin extends Item {
         elements = CabinElements.fromJson(
           other[_JsonFields.elements] as Map<String, dynamic>,
         ),
-        _bookingManager = BookingManager.fromJson(
+        _bookingCollection = BookingCollection.fromJson(
           bookings: other[_JsonFields.bookings] as List<dynamic>,
           recurringBookings:
               other[_JsonFields.recurringBookings] as List<dynamic>,
@@ -53,34 +53,34 @@ class Cabin extends Item {
         ...super.toJson(),
         _JsonFields.number: number,
         _JsonFields.elements: elements.toJson(),
-        _JsonFields.bookings: _bookingManager.singleBookingsToJson(),
+        _JsonFields.bookings: _bookingCollection.singleBookingsToJson(),
         _JsonFields.recurringBookings:
-            _bookingManager.recurringBookingsToJson(),
+            _bookingCollection.recurringBookingsToJson(),
       };
 
   Cabin simplified() => Cabin(id: id, number: number);
 
-  Set<SingleBooking> get bookings => _bookingManager.bookings;
+  Set<SingleBooking> get bookings => _bookingCollection.bookings;
 
   Set<RecurringBooking> get recurringBookings =>
-      _bookingManager.recurringBookings;
+      _bookingCollection.recurringBookings;
 
-  Set<Booking> get allBookings => _bookingManager.allBookings;
+  Set<Booking> get allBookings => _bookingCollection.allBookings;
 
   Set<Booking> bookingsBetween(DateRanger dateRange) =>
-      _bookingManager.singleBookingsBetween(dateRange);
+      _bookingCollection.singleBookingsBetween(dateRange);
 
   Set<Booking> recurringBookingsBetween(DateRanger dateRange) =>
-      _bookingManager.recurringBookingsBetween(dateRange);
+      _bookingCollection.recurringBookingsBetween(dateRange);
 
   List<Booking> get generatedBookingsFromRecurring =>
-      _bookingManager.singleBookingsFromRecurring;
+      _bookingCollection.singleBookingsFromRecurring;
 
   bool bookingsOverlapWith(Booking booking) =>
-      _bookingManager.bookingsOverlapWith(booking);
+      _bookingCollection.bookingsOverlapWith(booking);
 
   Duration occupiedDuration({DateTime? dateTime, DateRanger? dateRange}) =>
-      _bookingManager.occupiedDuration(
+      _bookingCollection.occupiedDuration(
         dateTime: dateTime,
         dateRange: dateRange,
       );
@@ -90,27 +90,27 @@ class Cabin extends Item {
     required TimeOfDay startTime,
     required TimeOfDay endTime,
   }) =>
-      _bookingManager.occupancyPercentOn(
+      _bookingCollection.occupancyPercentOn(
         dateTime,
         startTime: startTime,
         endTime: endTime,
       );
 
   Set<DateTime> datesWithBookings([DateRanger? dateRange]) =>
-      _bookingManager.datesWithBookings(dateRange);
+      _bookingCollection.datesWithBookings(dateRange);
 
   Map<DateTime, int> get allBookingsCountPerDay =>
-      _bookingManager.allBookingsCountPerDay;
+      _bookingCollection.allBookingsCountPerDay;
 
   Map<DateTime, Duration> occupiedDurationPerWeek([DateRanger? dateRange]) =>
-      _bookingManager.occupiedDurationPerWeek(dateRange);
+      _bookingCollection.occupiedDurationPerWeek(dateRange);
 
   double occupancyPercent({
     required TimeOfDay startTime,
     required TimeOfDay endTime,
     Set<DateTime>? dates,
   }) =>
-      _bookingManager.occupancyPercent(
+      _bookingCollection.occupancyPercent(
         startTime: startTime,
         endTime: endTime,
         dates: dates,
@@ -119,10 +119,10 @@ class Cabin extends Item {
   Map<TimeOfDay, Duration> accumulatedTimeRangesOccupancy([
     DateRanger? dateRange,
   ]) =>
-      _bookingManager.accumulatedTimeRangesOccupancy(dateRange);
+      _bookingCollection.accumulatedTimeRangesOccupancy(dateRange);
 
   Set<TimeOfDay> mostOccupiedTimeRange([DateRanger? dateRange]) =>
-      _bookingManager.mostOccupiedTimeRange(dateRange);
+      _bookingCollection.mostOccupiedTimeRange(dateRange);
 
   @override
   Cabin copyWith({
@@ -144,36 +144,36 @@ class Cabin extends Item {
   }
 
   void addSingleBooking(SingleBooking booking) =>
-      _bookingManager.addSingleBooking(booking);
+      _bookingCollection.addSingleBooking(booking);
 
   void addRecurringBooking(RecurringBooking recurringBooking) =>
-      _bookingManager.addRecurringBooking(recurringBooking);
+      _bookingCollection.addRecurringBooking(recurringBooking);
 
   void modifySingleBooking(SingleBooking booking) =>
-      _bookingManager.modifySingleBooking(booking);
+      _bookingCollection.modifySingleBooking(booking);
 
   void modifyRecurringBooking(RecurringBooking recurringBooking) =>
-      _bookingManager.modifyRecurringBooking(recurringBooking);
+      _bookingCollection.modifyRecurringBooking(recurringBooking);
 
   void removeSingleBookingById(String? id) =>
-      _bookingManager.removeSingleBookingById(id);
+      _bookingCollection.removeSingleBookingById(id);
 
   void removeRecurringBookingById(String? id) =>
-      _bookingManager.removeRecurringBookingById(id);
+      _bookingCollection.removeRecurringBookingById(id);
 
-  void emptyAllBookings() => _bookingManager.emptyAllBookings();
+  void emptyAllBookings() => _bookingCollection.emptyAllBookings();
 
   SingleBooking singleBookingFromId(String id) =>
-      _bookingManager.singleBookingFromId(id);
+      _bookingCollection.singleBookingFromId(id);
 
   RecurringBooking recurringBookingFromId(String id) =>
-      _bookingManager.recurringBookingFromId(id);
+      _bookingCollection.recurringBookingFromId(id);
 
   Set<Booking> allBookingsOn(DateTime dateTime) =>
-      _bookingManager.allBookingsOn(dateTime);
+      _bookingCollection.allBookingsOn(dateTime);
 
   Iterable<Booking> searchBookings(String query, {int? limit}) =>
-      _bookingManager
+      _bookingCollection
           .searchBookings(query, limit: limit)
           .map((booking) => booking.copyWith(cabin: this));
 
