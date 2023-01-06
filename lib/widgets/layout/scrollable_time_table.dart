@@ -21,9 +21,9 @@ class ScrollableTimeTable extends StatelessWidget {
         width: MediaQuery.of(context).size.width,
         child: ColoredBox(
           color: theme.dialogBackgroundColor,
-          child: Consumer2<DayHandler, CabinManager>(
-            builder: (context, dayHandler, cabinManager, child) {
-              if (cabinManager.cabins.isEmpty) {
+          child: Consumer2<DayHandler, CabinCollection>(
+            builder: (context, dayHandler, cabinCollection, child) {
+              if (cabinCollection.cabins.isEmpty) {
                 return Center(
                   child: Text(
                     AppLocalizations.of(context)!.noCabins,
@@ -35,7 +35,7 @@ class ScrollableTimeTable extends StatelessWidget {
               }
 
               return _ScrollablePanelOverlayTimeTable(
-                cabins: cabinManager.cabins,
+                cabins: cabinCollection.cabins,
                 dateTime: dayHandler.dateTime,
               );
             },

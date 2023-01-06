@@ -86,7 +86,7 @@ class _BookingsCountStatistics extends StatelessWidget {
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
 
-    final cabinManager = Provider.of<CabinManager>(context);
+    final cabinCollection = Provider.of<CabinCollection>(context);
 
     return Statistics(
       title: appLocalizations.bookings,
@@ -95,10 +95,10 @@ class _BookingsCountStatistics extends StatelessWidget {
         StatisticItem(
           label: appLocalizations.total,
           item: DetailedFigure(
-            figure: cabinManager.allBookingsCount,
+            figure: cabinCollection.allBookingsCount,
             details: [
-              cabinManager.bookingsCount,
-              cabinManager.recurringBookingsCount,
+              cabinCollection.bookingsCount,
+              cabinCollection.recurringBookingsCount,
             ],
             tooltipMessage: '${appLocalizations.bookings}'
                 ' + ${appLocalizations.recurringBookings}',
@@ -106,7 +106,7 @@ class _BookingsCountStatistics extends StatelessWidget {
         ),
         StatisticItem(
           label: appLocalizations.accumulatedTime,
-          item: DurationFigureUnit(cabinManager.totalOccupiedDuration()),
+          item: DurationFigureUnit(cabinCollection.totalOccupiedDuration()),
         ),
       ],
       onTap: onTap,
@@ -123,7 +123,7 @@ class _CabinsCountStatistics extends StatelessWidget {
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
 
-    final cabinManager = Provider.of<CabinManager>(context);
+    final cabinCollection = Provider.of<CabinCollection>(context);
 
     return Statistics(
       title: appLocalizations.cabins,
@@ -131,7 +131,7 @@ class _CabinsCountStatistics extends StatelessWidget {
       items: [
         StatisticSimpleItem(
           label: appLocalizations.total,
-          value: cabinManager.cabins.length,
+          value: cabinCollection.cabins.length,
         ),
       ],
       onTap: onTap,
@@ -156,11 +156,11 @@ class _SchoolYearsStatistics extends StatelessWidget {
       items: [
         StatisticSimpleItem(
           label: appLocalizations.total,
-          value: dayHandler.schoolYearManager.schoolYears.length,
+          value: dayHandler.schoolYearCollection.schoolYears.length,
         ),
         StatisticSimpleItem(
           label: appLocalizations.workingDays,
-          value: dayHandler.schoolYearManager.totalWorkingDuration.inDays,
+          value: dayHandler.schoolYearCollection.totalWorkingDuration.inDays,
         ),
       ],
       onTap: onTap,
@@ -177,8 +177,8 @@ class _MostBookedDayStatistics extends StatelessWidget {
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
 
-    final cabinManager = Provider.of<CabinManager>(context);
-    if (cabinManager.mostBookedDayEntry == null) return const SizedBox();
+    final cabinCollection = Provider.of<CabinCollection>(context);
+    if (cabinCollection.mostBookedDayEntry == null) return const SizedBox();
 
     final dayHandler = Provider.of<DayHandler>(context);
 
@@ -190,13 +190,13 @@ class _MostBookedDayStatistics extends StatelessWidget {
           value: DateFormat.d()
               .add_MMM()
               .add_y()
-              .format(cabinManager.mostBookedDayEntry!.key),
+              .format(cabinCollection.mostBookedDayEntry!.key),
         ),
       ],
       onTap: onTap == null
           ? null
           : () {
-              dayHandler.dateTime = cabinManager.mostBookedDayEntry!.key;
+              dayHandler.dateTime = cabinCollection.mostBookedDayEntry!.key;
               onTap!.call();
             },
     );
@@ -210,14 +210,14 @@ class _PopularTimesStatistics extends StatelessWidget {
   Widget build(BuildContext context) {
     final appLocalizations = AppLocalizations.of(context)!;
 
-    final cabinManager = Provider.of<CabinManager>(context);
+    final cabinCollection = Provider.of<CabinCollection>(context);
 
     return Statistics(
       title: appLocalizations.popularTimes,
       icon: Icons.watch_later,
       items: [
         PopularTimesBarChart(
-          timeRangesOccupancy: cabinManager.accumulatedTimeRangesOccupancy()
+          timeRangesOccupancy: cabinCollection.accumulatedTimeRangesOccupancy()
             ..fillEmptyKeyValues(
               keys: [
                 for (var i = 9; i < 22; i++) TimeOfDay(hour: i, minute: 0),

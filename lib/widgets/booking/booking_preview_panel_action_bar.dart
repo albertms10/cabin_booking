@@ -83,7 +83,8 @@ class _BookingPreviewEditIconButton extends StatelessWidget {
   });
 
   Future<void> _onEdit(BuildContext context) async {
-    final cabinManager = Provider.of<CabinManager>(context, listen: false);
+    final cabinCollection =
+        Provider.of<CabinCollection>(context, listen: false);
 
     final initialBooking = booking.recurringBooking ?? booking;
     final editedBooking = await showDialog<Booking>(
@@ -97,24 +98,24 @@ class _BookingPreviewEditIconButton extends StatelessWidget {
 
     if (RecurringBooking.isRecurringBooking(editedBooking)) {
       if (RecurringBooking.isRecurringBooking(booking)) {
-        cabinManager.modifyRecurringBooking(
+        cabinCollection.modifyRecurringBooking(
           cabin.id,
           editedBooking as RecurringBooking,
         );
       } else {
-        cabinManager.changeSingleToRecurringBooking(
+        cabinCollection.changeSingleToRecurringBooking(
           cabin.id,
           editedBooking as RecurringBooking,
         );
       }
     } else {
       if (RecurringBooking.isRecurringBooking(booking)) {
-        cabinManager.changeRecurringToSingleBooking(
+        cabinCollection.changeRecurringToSingleBooking(
           cabin.id,
           editedBooking as SingleBooking,
         );
       } else {
-        cabinManager.modifySingleBooking(
+        cabinCollection.modifySingleBooking(
           cabin.id,
           editedBooking as SingleBooking,
         );
@@ -152,7 +153,8 @@ class _BookingPreviewDeleteIconButton extends StatelessWidget {
   Future<void> _onDelete(BuildContext context) async {
     final appLocalizations = AppLocalizations.of(context)!;
 
-    final cabinManager = Provider.of<CabinManager>(context, listen: false);
+    final cabinCollection =
+        Provider.of<CabinCollection>(context, listen: false);
 
     final shallDelete = await showDialog<bool>(
       context: context,
@@ -165,12 +167,12 @@ class _BookingPreviewDeleteIconButton extends StatelessWidget {
     if (shallDelete == null || !shallDelete) return;
 
     if (RecurringBooking.isRecurringBooking(booking)) {
-      cabinManager.removeRecurringBookingById(
+      cabinCollection.removeRecurringBookingById(
         cabin.id,
         booking.recurringBooking?.id,
       );
     } else {
-      cabinManager.removeSingleBookingById(cabin.id, booking.id);
+      cabinCollection.removeSingleBookingById(cabin.id, booking.id);
     }
   }
 

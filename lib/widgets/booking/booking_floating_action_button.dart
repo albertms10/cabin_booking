@@ -13,9 +13,9 @@ class BookingFloatingActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer2<DayHandler, CabinManager>(
-      builder: (context, dayHandler, cabinManager, child) {
-        if (cabinManager.cabins.isEmpty) return const SizedBox();
+    return Consumer2<DayHandler, CabinCollection>(
+      builder: (context, dayHandler, cabinCollection, child) {
+        if (cabinCollection.cabins.isEmpty) return const SizedBox();
 
         final theme = Theme.of(context);
         final appLocalizations = AppLocalizations.of(context)!;
@@ -39,10 +39,10 @@ class BookingFloatingActionButton extends StatelessWidget {
                         minutes: defaultSlotDuration.inMinutes,
                       ),
                     ),
-                    cabin: cabinManager.cabins.first,
+                    cabin: cabinCollection.cabins.first,
                     occurrences: 1,
                   ),
-                  cabinManager: cabinManager,
+                  cabinCollection: cabinCollection,
                 );
               },
             ),
@@ -64,9 +64,9 @@ class BookingFloatingActionButton extends StatelessWidget {
                       ),
                     ),
                     isLocked: true,
-                    cabin: cabinManager.cabins.first,
+                    cabin: cabinCollection.cabins.first,
                   ),
-                  cabinManager: cabinManager,
+                  cabinCollection: cabinCollection,
                 );
               },
             ),
@@ -89,9 +89,9 @@ class BookingFloatingActionButton extends StatelessWidget {
                     minutes: defaultSlotDuration.inMinutes,
                   ),
                 ),
-                cabin: cabinManager.cabins.first,
+                cabin: cabinCollection.cabins.first,
               ),
-              cabinManager: cabinManager,
+              cabinCollection: cabinCollection,
             );
           },
         );

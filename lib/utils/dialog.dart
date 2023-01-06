@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 Future<void> showNewBookingDialog({
   required BuildContext context,
   required Booking booking,
-  required CabinManager cabinManager,
+  required CabinCollection cabinCollection,
 }) async {
   final newBooking = await showDialog<Booking>(
     context: context,
@@ -15,11 +15,14 @@ Future<void> showNewBookingDialog({
 
   if (newBooking != null) {
     if (newBooking is RecurringBooking) {
-      return cabinManager.addRecurringBooking(newBooking.cabin?.id, newBooking);
+      return cabinCollection.addRecurringBooking(
+        newBooking.cabin?.id,
+        newBooking,
+      );
     }
 
     if (newBooking is SingleBooking) {
-      return cabinManager.addSingleBooking(newBooking.cabin?.id, newBooking);
+      return cabinCollection.addSingleBooking(newBooking.cabin?.id, newBooking);
     }
   }
 }

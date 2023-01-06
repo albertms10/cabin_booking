@@ -1,16 +1,16 @@
 import 'package:cabin_booking/constants.dart';
 import 'package:flutter/material.dart';
 
-import '../school_year/school_year_manager.dart';
+import '../school_year_collection.dart';
 
 class DayHandler with ChangeNotifier {
   late DateTime _dateTime;
-  late SchoolYearManager schoolYearManager;
+  late SchoolYearCollection schoolYearCollection;
 
-  DayHandler([SchoolYearManager? schoolYearManager]) {
+  DayHandler([SchoolYearCollection? schoolYearCollection]) {
     _dateTime = DateTime.now();
-    this.schoolYearManager = schoolYearManager ??
-        SchoolYearManager(notifyExternalListeners: notifyListeners);
+    this.schoolYearCollection = schoolYearCollection ??
+        SchoolYearCollection(notifyExternalListeners: notifyListeners);
   }
 
   DateTime get dateTime => _dateTime;
@@ -18,22 +18,22 @@ class DayHandler with ChangeNotifier {
   set dateTime(DateTime dateTime) {
     _dateTime = dateTime;
 
-    schoolYearManager.changeToSchoolYearFrom(dateTime);
+    schoolYearCollection.changeToSchoolYearFrom(dateTime);
 
     notifyListeners();
   }
 
   bool get hasPreviousDay =>
-      schoolYearManager.schoolYears.isNotEmpty &&
-      _dateTime.isAfter(schoolYearManager.schoolYears.first.startDate!);
+      schoolYearCollection.schoolYears.isNotEmpty &&
+      _dateTime.isAfter(schoolYearCollection.schoolYears.first.startDate!);
 
   bool get hasNextDay =>
-      schoolYearManager.schoolYears.isNotEmpty &&
-      _dateTime.isBefore(schoolYearManager.schoolYears.last.endDate!);
+      schoolYearCollection.schoolYears.isNotEmpty &&
+      _dateTime.isBefore(schoolYearCollection.schoolYears.last.endDate!);
 
   bool get dateTimeIsNonSchool =>
       nonSchoolWeekdays.contains(dateTime.weekday) ||
-      (schoolYearManager.schoolYear?.isOnHolidays(dateTime) ?? false);
+      (schoolYearCollection.schoolYear?.isOnHolidays(dateTime) ?? false);
 
   void changeToNow() => dateTime = DateTime.now();
 
@@ -42,16 +42,16 @@ class DayHandler with ChangeNotifier {
   void changeToPreviousDay() =>
       dateTime = _dateTime.subtract(const Duration(days: 1));
 
-  int? get schoolYearIndex => schoolYearManager.schoolYearIndex;
+  int? get schoolYearIndex => schoolYearCollection.schoolYearIndex;
 
   set schoolYearIndex(int? index) {
-    schoolYearManager.schoolYearIndex = index;
+    schoolYearCollection.schoolYearIndex = index;
 
-    if (!schoolYearManager.schoolYear!.includes(_dateTime)) {
-      if (schoolYearManager.schoolYear!.includes(DateTime.now())) {
+    if (!schoolYearCollection.schoolYear!.includes(_dateTime)) {
+      if (schoolYearCollection.schoolYear!.includes(DateTime.now())) {
         changeToNow();
       } else {
-        _dateTime = schoolYearManager.schoolYear!.startDate!;
+        _dateTime = schoolYearCollection.schoolYear!.startDate!;
       }
 
       notifyListeners();

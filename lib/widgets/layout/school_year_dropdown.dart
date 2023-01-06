@@ -13,7 +13,7 @@ class _SchoolYearDropdownState extends State<SchoolYearDropdown> {
   late final DayHandler _dayHandler =
       Provider.of<DayHandler>(context, listen: false)
         ..addListener(_setSchoolYearState);
-  late int? _currentIndex = _dayHandler.schoolYearManager.schoolYearIndex;
+  late int? _currentIndex = _dayHandler.schoolYearCollection.schoolYearIndex;
 
   @override
   void dispose() {
@@ -24,7 +24,7 @@ class _SchoolYearDropdownState extends State<SchoolYearDropdown> {
 
   void _setSchoolYearState() {
     setState(() {
-      _currentIndex = _dayHandler.schoolYearManager.schoolYearIndex;
+      _currentIndex = _dayHandler.schoolYearCollection.schoolYearIndex;
     });
   }
 
@@ -32,7 +32,7 @@ class _SchoolYearDropdownState extends State<SchoolYearDropdown> {
   Widget build(BuildContext context) {
     final dayHandler = Provider.of<DayHandler>(context);
 
-    final schoolYears = dayHandler.schoolYearManager.schoolYears;
+    final schoolYears = dayHandler.schoolYearCollection.schoolYears;
 
     return DropdownButton<int>(
       items: [

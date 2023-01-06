@@ -22,7 +22,8 @@ class JumpBarResults extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cabinManager = Provider.of<CabinManager>(context, listen: false);
+    final cabinCollection =
+        Provider.of<CabinCollection>(context, listen: false);
     final dayHandler = Provider.of<DayHandler>(context, listen: false);
 
     return ListView(
@@ -38,9 +39,10 @@ class JumpBarResults extends StatelessWidget {
               return showNewBookingDialog(
                 context: context,
                 booking: suggestedBooking!.copyWith(
-                  cabin: suggestedBooking!.cabin ?? cabinManager.cabins.first,
+                  cabin:
+                      suggestedBooking!.cabin ?? cabinCollection.cabins.first,
                 ),
-                cabinManager: cabinManager,
+                cabinCollection: cabinCollection,
               );
             },
             child: BookingSearchResult(booking: suggestedBooking!),

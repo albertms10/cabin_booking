@@ -12,8 +12,9 @@ class SchoolYearFloatingActionButton extends StatelessWidget {
     return FloatingActionButton(
       tooltip: AppLocalizations.of(context)!.schoolYear,
       onPressed: () async {
-        final schoolYearManager =
-            Provider.of<DayHandler>(context, listen: false).schoolYearManager;
+        final schoolYearCollection =
+            Provider.of<DayHandler>(context, listen: false)
+                .schoolYearCollection;
 
         final newSchoolYear = await showDialog<SchoolYear>(
           context: context,
@@ -21,7 +22,7 @@ class SchoolYearFloatingActionButton extends StatelessWidget {
         );
 
         if (newSchoolYear != null) {
-          schoolYearManager.addSchoolYear(newSchoolYear);
+          schoolYearCollection.addSchoolYear(newSchoolYear);
         }
       },
       child: Icon(

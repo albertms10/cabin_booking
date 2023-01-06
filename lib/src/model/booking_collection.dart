@@ -6,16 +6,16 @@ import 'package:cabin_booking/utils/time_of_day_extension.dart';
 import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
 
-import '../date/date_ranger.dart';
-import 'booking.dart';
-import 'recurring_booking.dart';
-import 'single_booking.dart';
+import 'booking/booking.dart';
+import 'booking/recurring_booking.dart';
+import 'booking/single_booking.dart';
+import 'date/date_ranger.dart';
 
-class BookingManager with ChangeNotifier {
+class BookingCollection with ChangeNotifier {
   late Set<SingleBooking> bookings;
   late Set<RecurringBooking> recurringBookings;
 
-  BookingManager({
+  BookingCollection({
     Set<SingleBooking>? bookings,
     Set<RecurringBooking>? recurringBookings,
   }) {
@@ -23,7 +23,7 @@ class BookingManager with ChangeNotifier {
     this.recurringBookings = recurringBookings ?? SplayTreeSet();
   }
 
-  BookingManager.fromJson({
+  BookingCollection.fromJson({
     required List<dynamic> bookings,
     required List<dynamic> recurringBookings,
   })  : bookings = SplayTreeSet.of(
