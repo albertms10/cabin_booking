@@ -78,7 +78,7 @@ abstract class Booking extends DateRangeItem {
 
   @override
   String toString() =>
-      [if (isLocked) '🔒', description, textualDateTime].join(' ');
+      [if (isLocked) '🔒', description, textualDateTime()].join(' ');
 
   @override
   bool operator ==(Object other) =>
