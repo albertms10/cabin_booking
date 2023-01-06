@@ -353,6 +353,187 @@ void main() {
       });
     });
 
+    group('.textualDateTime()', () {
+      test(
+        'should return a textual range representation of a finite '
+        'DateRanger with the same year',
+        () {
+          final dateRange = DateRange(
+            startDate: DateTime(2022, 12, 1, 9, 30),
+            endDate: DateTime(2022, 12, 31, 21, 30),
+          );
+          expect(
+            dateRange.textualDateTime(referenceDateTime: DateTime(2022)),
+            'December 1 09:30 – December 31 21:30',
+          );
+          expect(
+            dateRange.textualDateTime(referenceDateTime: DateTime(2023)),
+            'December 1, 2022 09:30 – December 31 21:30',
+          );
+          expect(
+            dateRange.textualDateTime(referenceDateTime: DateTime(2023)),
+            dateRange.textualDateTime(referenceDateTime: DateTime(2021)),
+          );
+          expect(
+            dateRange.textualDateTime(
+              referenceDateTime: DateTime(2023),
+              fullDateFormat: (format) => format.add_yMMMMEEEEd(),
+              monthDayFormat: (format) => format.add_LLL().add_d(),
+              timeFormat: (format) => format.add_Hms(),
+            ),
+            'Thursday, December 1, 2022 09:30:00 – Dec 31 21:30:00',
+          );
+        },
+      );
+
+      test(
+        'should return a textual range representation of a finite '
+        'DateRanger with the same year and day',
+        () {
+          final dateRange = DateRange(
+            startDate: DateTime(2022, 12, 1, 9, 30),
+            endDate: DateTime(2022, 12, 1, 21, 30),
+          );
+          expect(
+            dateRange.textualDateTime(referenceDateTime: DateTime(2022)),
+            'December 1 09:30–21:30',
+          );
+          expect(
+            dateRange.textualDateTime(referenceDateTime: DateTime(2023)),
+            'December 1, 2022 09:30–21:30',
+          );
+          expect(
+            dateRange.textualDateTime(referenceDateTime: DateTime(2023)),
+            dateRange.textualDateTime(referenceDateTime: DateTime(2021)),
+          );
+          expect(
+            dateRange.textualDateTime(
+              referenceDateTime: DateTime(2022),
+              monthDayFormat: (format) => format.add_d().add_LLL(),
+              timeFormat: (format) => format.add_Hms(),
+            ),
+            '1 Dec 09:30:00–21:30:00',
+          );
+          expect(
+            dateRange.textualDateTime(
+              referenceDateTime: DateTime(2022),
+              monthDayFormat: (format) => format.add_MMMMEEEEd(),
+            ),
+            'Thursday, December 1 09:30–21:30',
+          );
+          expect(
+            dateRange.textualDateTime(
+              referenceDateTime: DateTime(2023),
+              fullDateFormat: (format) => format.add_yMMMMEEEEd(),
+            ),
+            'Thursday, December 1, 2022 09:30–21:30',
+          );
+        },
+      );
+
+      test(
+        'should return a textual range representation of a finite '
+        'DateRanger with different years',
+        () {
+          final dateRange = DateRange(
+            startDate: DateTime(2022, 12, 1, 9, 30),
+            endDate: DateTime(2023, 1, 12, 21, 30),
+          );
+          expect(
+            dateRange.textualDateTime(referenceDateTime: DateTime(2022)),
+            'December 1, 2022 09:30 – January 12, 2023 21:30',
+          );
+          expect(
+            dateRange.textualDateTime(
+              fullDateFormat: (format) => format.add_yMd(),
+            ),
+            '12/1/2022 09:30 – 1/12/2023 21:30',
+          );
+          expect(
+            dateRange.textualDateTime(
+              fullDateFormat: (format) => format.add_yMMMMEEEEd(),
+            ),
+            'Thursday, December 1, 2022 09:30 – '
+            'Thursday, January 12, 2023 21:30',
+          );
+        },
+      );
+
+      test(
+        'should return a textual range representation of an infinite '
+        'DateRanger',
+        () {
+          expect(DateRange.infinite.textualDateTime(), 'null – null');
+
+          final startDateRange = DateRange(
+            startDate: DateTime(2022, 12, 1, 9, 30),
+          );
+          expect(
+            startDateRange.textualDateTime(),
+            'December 1, 2022 09:30 – null',
+          );
+
+          final endDateRange = DateRange(
+            endDate: DateTime(2022, 12, 31, 21, 30),
+          );
+          expect(
+            endDateRange.textualDateTime(),
+            'null – December 31, 2022 21:30',
+          );
+        },
+      );
+    });
+
+    group('.textualTime', () {
+      test('should return the textual time range of a finite DateRanger', () {
+        final dateRange = DateRange(
+          startDate: DateTime(2022, 12, 1, 9, 30),
+          endDate: DateTime(2022, 12, 1, 21, 30),
+        );
+        expect(dateRange.textualTime, '09:30–21:30');
+
+        final multiYearDateRange = DateRange(
+          startDate: DateTime(2022, 12, 1, 9, 30),
+          endDate: DateTime(2023, 1, 12, 21, 30),
+        );
+        expect(multiYearDateRange.textualTime, '09:30–21:30');
+      });
+
+      test(
+        'should return the textual local time range of a UTC DateRanger',
+        () {
+          final dateRange = DateRange(
+            startDate: DateTime.utc(2022, 12, 1, 9, 30),
+            endDate: DateTime.utc(2022, 12, 1, 21, 45),
+          );
+          final startDate = dateRange.startDate!.toLocal();
+          final endDate = dateRange.endDate!.toLocal();
+          String padTime(int time) => '$time'.padLeft(2, '0');
+          expect(
+            dateRange.textualTime,
+            '${padTime(startDate.hour)}:${padTime(startDate.minute)}–'
+            '${padTime(endDate.hour)}:${padTime(endDate.minute)}',
+          );
+        },
+      );
+
+      test(
+        'should return the textual time range of an infinite DateRanger',
+        () {
+          expect(DateRange.infinite.textualTime, 'null – null');
+          final dateRange = DateRange(
+            startDate: DateTime(2022, 12, 1, 9, 30),
+          );
+          expect(dateRange.textualTime, '09:30 – null');
+
+          final multiYearDateRange = DateRange(
+            endDate: DateTime(2023, 1, 12, 21, 30),
+          );
+          expect(multiYearDateRange.textualTime, 'null – 21:30');
+        },
+      );
+    });
+
     group('.hoursSpan', () {
       test('should return a Map of the time span of this DateRanger', () {
         final dateRange = DateRange(
