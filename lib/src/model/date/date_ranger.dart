@@ -1,6 +1,9 @@
 import 'package:cabin_booking/utils/date_time_extension.dart';
 import 'package:cabin_booking/utils/time_of_day_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
+typedef DateFormatter = DateFormat Function(DateFormat);
 
 /// Adds date range operations between a [startDate] and an [endDate].
 mixin DateRanger {
@@ -139,6 +142,97 @@ mixin DateRanger {
 
     return endDate!.difference(startDate!);
   }
+
+  /// Returns the formatted date and time range of this [DateRanger].
+  ///
+  /// By default, [referenceDateTime] is set to [DateTime.now()] to whether
+  /// show or hide the matching year.
+  ///
+  /// Example:
+  /// ```dart
+  /// final dateRange = DateRange(
+  ///   startDate: DateTime(2022, 12, 1, 9, 30),
+  ///   endDate: DateTime(2022, 12, 1, 21, 30),
+  /// );
+  /// final textualDateTime = dateRange.textualDateTime(
+  ///   referenceDateTime: DateTime(2022),
+  /// );
+  /// assert(textualDateTime == '1 December 9:30–21:30');
+  /// ```
+  ///
+  /// Date format may also be overridden as desired:
+  ///
+  /// ```dart
+  /// final dateRange = DateRange(
+  ///   startDate: DateTime(2022, 12, 1, 9, 30),
+  ///   endDate: DateTime(2022, 12, 31, 21, 30),
+  /// );
+  /// final formatted = dateRange.textualDateTime(
+  ///   referenceDateTime: DateTime(2023),
+  ///   fullDateFormat: (format) => format.add_yMMMEd(),
+  ///   monthDayFormat: (format) => format.add_LLL().add_d(),
+  ///   timeFormat: (format) => format.add_Hms(),
+  /// );
+  /// assert(formatted == 'Thu, Dec 1, 2022 09:30:00 – Dec 31 21:30:00');
+  /// ```
+  String textualDateTime({
+    DateTime? referenceDateTime,
+    DateFormatter? timeFormat,
+    DateFormatter? monthDayFormat,
+    DateFormatter? fullDateFormat,
+  }) {
+    if (hasInfiniteStart && hasInfiniteEnd) return _formatTextualDateTime();
+
+    timeFormat ??= (format) => format.add_Hm();
+    fullDateFormat ??= (format) => format.add_yMMMMd();
+    final formatFull = timeFormat(fullDateFormat(DateFormat()));
+
+    if (startDate?.year != endDate?.year) {
+      return _formatTextualDateTime(start: formatFull, end: formatFull);
+    }
+
+    referenceDateTime ??= DateTime.now();
+    monthDayFormat ??= (format) => format.add_MMMMd();
+    final formatNoYear = timeFormat(monthDayFormat(DateFormat()));
+    final formatTimeOnly = timeFormat(DateFormat());
+
+    return _formatTextualDateTime(
+      start:
+          startDate?.year == referenceDateTime.year ? formatNoYear : formatFull,
+      end: startDate!.isSameDateAs(endDate!) ? formatTimeOnly : formatNoYear,
+    );
+  }
+
+  String _formatTextualDateTime({
+    DateFormat? start,
+    DateFormat? end,
+    String separator = '–',
+  }) {
+    final formattedStartDate =
+        startDate != null ? start?.format(startDate!) : null;
+    final formattedEndDate = endDate != null ? end?.format(endDate!) : null;
+    final shouldWhitespace = formattedStartDate == null ||
+        (formattedEndDate?.contains(RegExp(r'\s')) ?? true);
+
+    return '$formattedStartDate'
+        '${shouldWhitespace ? ' $separator ' : separator}'
+        '$formattedEndDate';
+  }
+
+  /// Returns the formatted time range of this [DateRanger].
+  ///
+  /// Example:
+  /// ```dart
+  /// final dateRange = DateRange(
+  ///   startDate: DateTime(2022, 12, 1, 9, 30),
+  ///   endDate: DateTime(2022, 12, 1, 21, 30),
+  /// );
+  /// assert(dateRange.timeRange == '9:30–21:30');
+  /// ```
+  String get textualTime => textualDateTime(
+        monthDayFormat: (format) => format,
+        fullDateFormat: (format) => format,
+      );
 
   /// The time span of this [DateRanger] in hours.
   ///
