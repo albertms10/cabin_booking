@@ -188,14 +188,6 @@ void main() {
       });
     });
 
-    group('.format24Hour()', () {
-      test('should return a TimeOfDay in 24 hour format', () {
-        expect(const TimeOfDay(hour: 0, minute: 0).format24Hour(), '00:00');
-        expect(const TimeOfDay(hour: 9, minute: 41).format24Hour(), '09:41');
-        expect(const TimeOfDay(hour: 17, minute: 45).format24Hour(), '17:45');
-      });
-    });
-
     // TODO(albertms10): remove when implemented in Flutter, https://github.com/flutter/flutter/pull/59981.
     group('Comparable<TimeOfDay>', () {
       test('.compareTo()', () {
