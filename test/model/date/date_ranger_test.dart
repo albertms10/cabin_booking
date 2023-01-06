@@ -436,8 +436,8 @@ void main() {
         'DateRange with different years',
         () {
           final dateRange = DateRange(
-            startDate: DateTime(2022, 12, 1, 9, 30),
-            endDate: DateTime(2023, 1, 12, 21, 30),
+            startDate: DateTime.utc(2022, 12, 1, 8, 30),
+            endDate: DateTime.utc(2023, 1, 12, 20, 30),
           );
           expect(
             dateRange.textualDateTime(referenceDateTime: DateTime(2022)),

@@ -143,7 +143,7 @@ mixin DateRanger {
     return endDate!.difference(startDate!);
   }
 
-  /// Returns the formatted date and time range of this [DateRanger].
+  /// Returns the formatted local date and time range of this [DateRanger].
   ///
   /// By default, [referenceDateTime] is set to [DateTime.now()] to whether
   /// show or hide the matching year.
@@ -208,9 +208,8 @@ mixin DateRanger {
     DateFormat? end,
     String separator = '–',
   }) {
-    final formattedStartDate =
-        startDate != null ? start?.format(startDate!) : null;
-    final formattedEndDate = endDate != null ? end?.format(endDate!) : null;
+    final formattedStartDate = _formatLocalDateTime(startDate, start);
+    final formattedEndDate = _formatLocalDateTime(endDate, end);
     final shouldWhitespace = formattedStartDate == null ||
         (formattedEndDate?.contains(RegExp(r'\s')) ?? true);
 
@@ -219,7 +218,10 @@ mixin DateRanger {
         '$formattedEndDate';
   }
 
-  /// Returns the formatted time range of this [DateRanger].
+  String? _formatLocalDateTime(DateTime? dateTime, DateFormat? dateFormat) =>
+      dateTime != null ? dateFormat?.format(dateTime.toLocal()) : null;
+
+  /// Returns the formatted local time range of this [DateRanger].
   ///
   /// Example:
   /// ```dart
