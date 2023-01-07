@@ -77,8 +77,12 @@ abstract class Booking extends DateRangeItem {
   }
 
   @override
-  String toString() =>
-      [if (isLocked) '🔒', description, textualDateTime()].join(' ');
+  String toString() => [
+        if (isLocked) '🔒',
+        description,
+        // A reference DateTime with year 0 will always show the year textually.
+        textualDateTime(referenceDateTime: DateTime(0)),
+      ].join(' ');
 
   @override
   bool operator ==(Object other) =>
