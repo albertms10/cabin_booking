@@ -50,5 +50,29 @@ void main() {
         },
       );
     });
+
+    group('.toString()', () {
+      test('should return a string representation of a SingleBooking', () {
+        final booking = SingleBooking(
+          startDate: DateTime(2022, 12, 4, 9),
+          endDate: DateTime(2022, 12, 4, 10, 30),
+          description: 'Booked slot',
+        );
+        expect(booking.toString(), 'Booked slot December 4, 2022 09:00–10:30');
+      });
+
+      test(
+        'should return a string representation of a locked SingleBooking',
+        () {
+          final booking = SingleBooking(
+            startDate: DateTime(2023, 1, 12, 21, 15),
+            endDate: DateTime(2023, 1, 12, 22),
+            description: 'Slot',
+            isLocked: true,
+          );
+          expect(booking.toString(), '🔒 Slot January 12, 2023 21:15–22:00');
+        },
+      );
+    });
   });
 }
