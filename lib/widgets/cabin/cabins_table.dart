@@ -33,17 +33,17 @@ class CabinsTable extends StatelessWidget {
             for (final cabin in cabinCollection.cabins)
               ItemsTableRow<Cabin>(
                 item: cabin,
-                bookingsCount: cabin.bookings.length,
+                bookingsCount: cabin.bookingCollection.bookings.length,
                 recurringBookingsCount:
-                    cabin.generatedBookingsFromRecurring.length,
-                occupiedDuration: cabin.occupiedDuration(),
+                    cabin.bookingCollection.singleBookingsFromRecurring.length,
+                occupiedDuration: cabin.bookingCollection.occupiedDuration(),
                 occupiedDurationPerWeek:
-                    cabin.occupiedDurationPerWeek(dateRange)
+                    cabin.bookingCollection.occupiedDurationPerWeek(dateRange)
                       ..fillEmptyKeyValues(
                         keys: keysToFill,
                         ifAbsent: () => Duration.zero,
                       ),
-                mostOccupiedTimeRanges: cabin
+                mostOccupiedTimeRanges: cabin.bookingCollection
                     .mostOccupiedTimeRange()
                     .compactConsecutive(
                       nextValue: (timeOfDay) => timeOfDay.increment(hours: 1),

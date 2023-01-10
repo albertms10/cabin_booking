@@ -129,8 +129,11 @@ void main() {
           expect(copiedCabin.id, 'copied-cabin');
           expect(copiedCabin.number, 2);
           expect(copiedCabin.elements, newCabinElements);
-          expect(copiedCabin.bookings, newBookings);
-          expect(copiedCabin.recurringBookings, newRecurringBookings);
+          expect(copiedCabin.bookingCollection.bookings, newBookings);
+          expect(
+            copiedCabin.bookingCollection.recurringBookings,
+            newRecurringBookings,
+          );
         },
       );
     });
