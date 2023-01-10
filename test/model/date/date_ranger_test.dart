@@ -57,8 +57,6 @@ void main() {
         'should return true if this infinite DateRanger happens on a DateTime',
         () {
           final dateTime = DateTime(2022, 12, 4);
-          expect(DateRange.infinite.isOn(dateTime), isTrue);
-
           final dateRange = DateRange(
             endDate: DateTime(2022, 12, 5, 21, 15),
           );
@@ -68,6 +66,8 @@ void main() {
             startDate: DateTime(2022, 12, 3, 9, 45),
           );
           expect(dateRange2.isOn(dateTime), isTrue);
+
+          expect(DateRange.infinite.isOn(dateTime), isTrue);
         },
       );
 
@@ -234,8 +234,6 @@ void main() {
       });
 
       test('should return false when this DateRanger is infinite', () {
-        expect(DateRange.infinite.isFinite, isFalse);
-
         final startDateRange = DateRange(
           startDate: DateTime(2022, 12, 1, 9, 30),
         );
@@ -245,13 +243,13 @@ void main() {
           endDate: DateTime(2022, 12, 31, 21, 30),
         );
         expect(endDateRange.isFinite, isFalse);
+
+        expect(DateRange.infinite.isFinite, isFalse);
       });
     });
 
     group('.isInfinite', () {
       test('should return true when this DateRanger is infinite', () {
-        expect(DateRange.infinite.isInfinite, isTrue);
-
         final startDateRange = DateRange(
           startDate: DateTime(2022, 12, 1, 9, 30),
         );
@@ -261,6 +259,8 @@ void main() {
           endDate: DateTime(2022, 12, 31, 21, 30),
         );
         expect(endDateRange.isInfinite, isTrue);
+
+        expect(DateRange.infinite.isInfinite, isTrue);
       });
 
       test('should return false when this DateRanger is finite', () {
@@ -274,12 +274,12 @@ void main() {
 
     group('.hasInfiniteStart', () {
       test('should return true when this DateRanger has an infinite start', () {
-        expect(DateRange.infinite.hasInfiniteStart, isTrue);
-
         final endDateRange = DateRange(
           endDate: DateTime(2022, 12, 31, 21, 30),
         );
         expect(endDateRange.hasInfiniteStart, isTrue);
+
+        expect(DateRange.infinite.hasInfiniteStart, isTrue);
       });
 
       test('should return false when this DateRanger has a finite start', () {
@@ -298,12 +298,12 @@ void main() {
 
     group('.hasInfiniteEnd', () {
       test('should return true when this DateRanger has an infinite end', () {
-        expect(DateRange.infinite.hasInfiniteEnd, isTrue);
-
         final startDateRange = DateRange(
           startDate: DateTime(2022, 12, 1, 9, 30),
         );
         expect(startDateRange.hasInfiniteEnd, isTrue);
+
+        expect(DateRange.infinite.hasInfiniteEnd, isTrue);
       });
 
       test('should return false when this DateRanger has a finite end', () {
@@ -339,8 +339,6 @@ void main() {
       });
 
       test('should return a Duration of zero for an infinite DateRanger', () {
-        expect(DateRange.infinite.duration, Duration.zero);
-
         final startDateRange = DateRange(
           startDate: DateTime(2022, 12, 1, 9, 30),
         );
@@ -350,6 +348,8 @@ void main() {
           endDate: DateTime(2022, 12, 31, 21, 30),
         );
         expect(endDateRange.duration, Duration.zero);
+
+        expect(DateRange.infinite.duration, Duration.zero);
       });
     });
 
@@ -463,8 +463,6 @@ void main() {
         'should return a textual range representation of an infinite '
         'DateRanger',
         () {
-          expect(DateRange.infinite.textualDateTime(), 'null – null');
-
           final startDateRange = DateRange(
             startDate: DateTime(2022, 12, 1, 9, 30),
           );
@@ -480,6 +478,8 @@ void main() {
             endDateRange.textualDateTime(),
             'null – December 31, 2022 21:30',
           );
+
+          expect(DateRange.infinite.textualDateTime(), 'null – null');
         },
       );
     });
@@ -520,7 +520,6 @@ void main() {
       test(
         'should return the textual time range of an infinite DateRanger',
         () {
-          expect(DateRange.infinite.textualTime, 'null – null');
           final dateRange = DateRange(
             startDate: DateTime(2022, 12, 1, 9, 30),
           );
@@ -530,6 +529,8 @@ void main() {
             endDate: DateTime(2023, 1, 12, 21, 30),
           );
           expect(multiYearDateRange.textualTime, 'null – 21:30');
+
+          expect(DateRange.infinite.textualTime, 'null – null');
         },
       );
     });
@@ -553,7 +554,7 @@ void main() {
         final dateTime = DateTime(2022, 12, 4);
         final instantDateRange =
             DateRange(startDate: dateTime, endDate: dateTime);
-        expect(instantDateRange.hoursSpan, <TimeOfDay, Duration>{});
+        expect(instantDateRange.hoursSpan, const <TimeOfDay, Duration>{});
       });
 
       test('should return an empty Map for an infinite DateRanger', () {

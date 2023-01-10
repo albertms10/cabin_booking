@@ -126,13 +126,18 @@ class Cabin extends Item {
 
   @override
   Cabin copyWith({
+    String? id,
     int? number,
     CabinElements? elements,
+    Set<SingleBooking>? bookings,
+    Set<RecurringBooking>? recurringBookings,
   }) =>
       Cabin(
-        id: id,
+        id: id ?? this.id,
         number: number ?? this.number,
         elements: elements ?? this.elements,
+        bookings: bookings ?? this.bookings,
+        recurringBookings: recurringBookings ?? this.recurringBookings,
       );
 
   @override

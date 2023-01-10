@@ -215,12 +215,10 @@ class RecurringBooking extends Booking {
         cabin: cabin ?? this.cabin,
         periodicity: periodicity ?? this.periodicity,
         repeatEvery: repeatEvery ?? this.repeatEvery,
-        recurringEndDate: recurringEndDate != null && occurrences == null
-            ? recurringEndDate
-            : _recurringEndDate,
-        occurrences: occurrences != null && recurringEndDate == null
-            ? occurrences
-            : _occurrences,
+        recurringEndDate: recurringEndDate ??
+            (occurrences != null ? null : _recurringEndDate),
+        occurrences:
+            occurrences ?? (recurringEndDate != null ? null : _occurrences),
       );
 
   @override

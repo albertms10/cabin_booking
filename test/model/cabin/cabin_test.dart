@@ -22,7 +22,6 @@ void main() {
           'b': <Map<String, dynamic>>[],
           'rb': <Map<String, dynamic>>[],
         };
-        const pianos = [Piano(brand: 'Yamaha', model: 'C5')];
         final cabin = Cabin.fromJson(rawCabin);
         expect(
           cabin,
@@ -30,7 +29,7 @@ void main() {
             id: 'cabin-id',
             number: 1,
             elements: CabinElements(
-              pianos: pianos,
+              pianos: const [Piano(brand: 'Yamaha', model: 'C5')],
               lecterns: 2,
               tables: 1,
             ),
@@ -45,7 +44,7 @@ void main() {
       test(
         'should return a JSON object representation of this Cabin',
         () {
-          final rawCabin = {
+          const rawCabin = {
             'id': 'cabin-id',
             'cd': '1969-07-20T20:18:04.000Z',
             'md': '1969-07-20T20:18:04.000Z',
@@ -63,6 +62,75 @@ void main() {
             'rb': <Map<String, dynamic>>[],
           };
           expect(Cabin.fromJson(rawCabin).toJson(), rawCabin);
+        },
+      );
+    });
+
+    group('.copyWith()', () {
+      test('should return a new copy of this Cabin', () {
+        final cabin = Cabin(
+          id: 'cabin-id',
+          number: 1,
+          elements: CabinElements(
+            pianos: const [Piano(brand: 'Yamaha', model: 'C5')],
+            lecterns: 2,
+            tables: 1,
+          ),
+          bookings: {
+            SingleBooking(id: 'booking-id'),
+          },
+          recurringBookings: {
+            RecurringBooking(id: 'recurring-booking-id', occurrences: 1),
+          },
+        );
+        expect(cabin, cabin.copyWith());
+        expect(identical(cabin, cabin.copyWith()), isFalse);
+        expect(identical(cabin.copyWith(), cabin.copyWith()), isFalse);
+      });
+
+      test(
+        'should return a new copy of this Cabin with overridden '
+        'properties',
+        () {
+          final cabin = Cabin(
+            id: 'cabin-id',
+            number: 1,
+            elements: CabinElements(
+              pianos: const [Piano(brand: 'Yamaha', model: 'C5')],
+              lecterns: 2,
+              tables: 1,
+            ),
+            bookings: {
+              SingleBooking(id: 'booking-id'),
+            },
+            recurringBookings: {
+              RecurringBooking(id: 'recurring-booking-id', occurrences: 1),
+            },
+          );
+          final newCabinElements = CabinElements(
+            pianos: const [Piano(brand: 'Bösendorfer', model: 'Imperial')],
+            lecterns: 1,
+            tables: 3,
+          );
+          final newBookings = {
+            SingleBooking(id: 'booking-id-1'),
+            SingleBooking(id: 'booking-id-2'),
+          };
+          final newRecurringBookings = {
+            RecurringBooking(id: 'recurring-booking-id-1', occurrences: 2),
+          };
+          final copiedCabin = cabin.copyWith(
+            id: 'copied-cabin',
+            number: 2,
+            elements: newCabinElements,
+            bookings: newBookings,
+            recurringBookings: newRecurringBookings,
+          );
+          expect(copiedCabin.id, 'copied-cabin');
+          expect(copiedCabin.number, 2);
+          expect(copiedCabin.elements, newCabinElements);
+          expect(copiedCabin.bookings, newBookings);
+          expect(copiedCabin.recurringBookings, newRecurringBookings);
         },
       );
     });
