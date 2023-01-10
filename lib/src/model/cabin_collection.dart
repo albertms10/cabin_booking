@@ -41,14 +41,16 @@ class CabinCollection extends WritableManager<Set<Cabin>> with ChangeNotifier {
 
   Set<DateTime> allCabinsDatesWithBookings([DateRanger? dateRange]) =>
       SplayTreeSet.of({
-        for (final cabin in cabins) ...cabin.datesWithBookings(dateRange),
+        for (final cabin in cabins)
+          ...cabin.bookingCollection.datesWithBookings(dateRange),
       });
 
   Map<DateTime, int> get allCabinsBookingsCountPerDay {
     final bookingsPerDay = <DateTime, int>{};
 
     for (final cabin in cabins) {
-      for (final bookingsCount in cabin.allBookingsCountPerDay.entries) {
+      for (final bookingsCount
+          in cabin.bookingCollection.allBookingsCountPerDay.entries) {
         bookingsPerDay.update(
           bookingsCount.key,
           (count) => count + bookingsCount.value,
@@ -77,7 +79,7 @@ class CabinCollection extends WritableManager<Set<Cabin>> with ChangeNotifier {
 
     for (final cabin in cabins) {
       final accumulatedTimeRanges =
-          cabin.accumulatedTimeRangesOccupancy(dateRange);
+          cabin.bookingCollection.accumulatedTimeRangesOccupancy(dateRange);
 
       for (final bookingTimeRange in accumulatedTimeRanges.entries) {
         timeRanges.update(
@@ -120,7 +122,7 @@ class CabinCollection extends WritableManager<Set<Cabin>> with ChangeNotifier {
     var count = 0;
 
     for (final cabin in cabins) {
-      count += cabin.generatedBookingsFromRecurring.length;
+      count += cabin.bookingCollection.singleBookingsFromRecurring.length;
     }
 
     return count;
@@ -130,7 +132,7 @@ class CabinCollection extends WritableManager<Set<Cabin>> with ChangeNotifier {
     var duration = Duration.zero;
 
     for (final cabin in cabins) {
-      duration += cabin.occupiedDuration(
+      duration += cabin.bookingCollection.occupiedDuration(
         dateTime: dateTime,
         dateRange: dateRange,
       );
@@ -143,7 +145,8 @@ class CabinCollection extends WritableManager<Set<Cabin>> with ChangeNotifier {
     final bookingsPerDay = SplayTreeMap<DateTime, Duration>();
 
     for (final cabin in cabins) {
-      final occupiedDuration = cabin.occupiedDurationPerWeek(dateRange);
+      final occupiedDuration =
+          cabin.bookingCollection.occupiedDurationPerWeek(dateRange);
 
       for (final durationPerWeek in occupiedDuration.entries) {
         bookingsPerDay.update(
@@ -166,7 +169,7 @@ class CabinCollection extends WritableManager<Set<Cabin>> with ChangeNotifier {
 
     final percents = [
       for (final cabin in cabins)
-        cabin.occupancyPercent(
+        cabin.bookingCollection.occupancyPercent(
           startTime: startTime,
           endTime: endTime,
           dates: dates,
@@ -181,7 +184,7 @@ class CabinCollection extends WritableManager<Set<Cabin>> with ChangeNotifier {
     var count = 0;
 
     for (final cabin in cabins) {
-      count += cabin.bookingsBetween(dateRange).length;
+      count += cabin.bookingCollection.singleBookingsBetween(dateRange).length;
     }
 
     return count;
@@ -191,7 +194,8 @@ class CabinCollection extends WritableManager<Set<Cabin>> with ChangeNotifier {
     var count = 0;
 
     for (final cabin in cabins) {
-      count += cabin.recurringBookingsBetween(dateRange).length;
+      count +=
+          cabin.bookingCollection.recurringBookingsBetween(dateRange).length;
     }
 
     return count;
@@ -232,7 +236,7 @@ class CabinCollection extends WritableManager<Set<Cabin>> with ChangeNotifier {
   }) {
     cabins
         .where((cabin) => ids.contains(cabin.id))
-        .forEach((cabin) => cabin.emptyAllBookings());
+        .forEach((cabin) => cabin.bookingCollection.emptyAllBookings());
 
     if (notify) notifyListeners();
   }
@@ -251,7 +255,9 @@ class CabinCollection extends WritableManager<Set<Cabin>> with ChangeNotifier {
     SingleBooking booking, {
     bool notify = true,
   }) {
-    cabinFromId(booking.cabin?.id ?? cabinId).addSingleBooking(booking);
+    cabinFromId(booking.cabin?.id ?? cabinId)
+        .bookingCollection
+        .addSingleBooking(booking);
 
     if (notify) notifyListeners();
   }
@@ -262,6 +268,7 @@ class CabinCollection extends WritableManager<Set<Cabin>> with ChangeNotifier {
     bool notify = true,
   }) {
     cabinFromId(recurringBooking.cabin?.id ?? cabinId)
+        .bookingCollection
         .addRecurringBooking(recurringBooking);
 
     if (notify) notifyListeners();
@@ -273,10 +280,14 @@ class CabinCollection extends WritableManager<Set<Cabin>> with ChangeNotifier {
     bool notify = true,
   }) {
     if (booking.cabin?.id == null || booking.cabin?.id == cabinId) {
-      cabinFromId(cabinId).modifySingleBooking(booking);
+      cabinFromId(cabinId).bookingCollection.modifySingleBooking(booking);
     } else {
-      cabinFromId(cabinId).removeSingleBookingById(booking.id);
-      cabinFromId(booking.cabin?.id).addSingleBooking(booking);
+      cabinFromId(cabinId)
+          .bookingCollection
+          .removeSingleBookingById(booking.id);
+      cabinFromId(booking.cabin?.id)
+          .bookingCollection
+          .addSingleBooking(booking);
     }
 
     if (notify) notifyListeners();
@@ -289,10 +300,15 @@ class CabinCollection extends WritableManager<Set<Cabin>> with ChangeNotifier {
   }) {
     if (recurringBooking.cabin?.id == null ||
         recurringBooking.cabin?.id == cabinId) {
-      cabinFromId(cabinId).modifyRecurringBooking(recurringBooking);
+      cabinFromId(cabinId)
+          .bookingCollection
+          .modifyRecurringBooking(recurringBooking);
     } else {
-      cabinFromId(cabinId).removeRecurringBookingById(recurringBooking.id);
+      cabinFromId(cabinId)
+          .bookingCollection
+          .removeRecurringBookingById(recurringBooking.id);
       cabinFromId(recurringBooking.cabin?.id)
+          .bookingCollection
           .addRecurringBooking(recurringBooking);
     }
 
@@ -304,7 +320,7 @@ class CabinCollection extends WritableManager<Set<Cabin>> with ChangeNotifier {
     String? bookingId, {
     bool notify = true,
   }) {
-    cabinFromId(cabinId).removeSingleBookingById(bookingId);
+    cabinFromId(cabinId).bookingCollection.removeSingleBookingById(bookingId);
 
     if (notify) notifyListeners();
   }
@@ -314,7 +330,9 @@ class CabinCollection extends WritableManager<Set<Cabin>> with ChangeNotifier {
     String? bookingId, {
     bool notify = true,
   }) {
-    cabinFromId(cabinId).removeRecurringBookingById(bookingId);
+    cabinFromId(cabinId)
+        .bookingCollection
+        .removeRecurringBookingById(bookingId);
 
     if (notify) notifyListeners();
   }
