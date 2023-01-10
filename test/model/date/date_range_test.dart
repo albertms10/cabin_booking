@@ -85,6 +85,7 @@ void main() {
         final dateRange = DateRange.today();
         expect(dateRange, dateRange.copyWith());
         expect(identical(dateRange, dateRange.copyWith()), isFalse);
+        expect(identical(dateRange.copyWith(), dateRange.copyWith()), isFalse);
         expect(DateRange.infinite, DateRange.infinite.copyWith());
       });
 
