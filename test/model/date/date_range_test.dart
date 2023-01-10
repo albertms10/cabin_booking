@@ -84,9 +84,8 @@ void main() {
       test('should create a copy of this DateRange', () {
         final dateRange = DateRange.today();
         expect(dateRange, dateRange.copyWith());
-
-        const infiniteDateRange = DateRange.infinite;
-        expect(infiniteDateRange, infiniteDateRange.copyWith());
+        expect(identical(dateRange, dateRange.copyWith()), isFalse);
+        expect(DateRange.infinite, DateRange.infinite.copyWith());
       });
 
       test('should create a copy of this DateRange replacing old values', () {

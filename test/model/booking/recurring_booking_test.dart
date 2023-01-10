@@ -81,5 +81,84 @@ void main() {
         },
       );
     });
+
+    group('.copyWith()', () {
+      test('should return a new copy of this RecurringBooking', () {
+        final booking = RecurringBooking(
+          startDate: DateTime.utc(2022, 12, 4, 9),
+          endDate: DateTime.utc(2022, 12, 4, 10, 30),
+          description: 'Booked slot',
+          isLocked: true,
+          periodicity: Periodicity.daily,
+          repeatEvery: 2,
+          occurrences: 4,
+        );
+        expect(booking, booking.copyWith());
+        expect(identical(booking, booking.copyWith()), isFalse);
+        expect(identical(booking.copyWith(), booking.copyWith()), isFalse);
+      });
+
+      test(
+        'should return a new copy of this RecurringBooking with overridden '
+        'properties (recurringEndDate to occurrences)',
+        () {
+          final booking = RecurringBooking(
+            startDate: DateTime(2022, 12, 4, 9),
+            endDate: DateTime(2022, 12, 4, 10, 30),
+            description: 'Booked slot',
+            recurringEndDate: DateTime(2022, 12, 31),
+          );
+          final copiedBooking = booking.copyWith(
+            id: 'copied-booking',
+            startDate: DateTime.utc(2023, 1, 1, 9),
+            endDate: DateTime.utc(2023, 1, 1, 10),
+            description: 'John Appleseed',
+            isLocked: true,
+            periodicity: Periodicity.daily,
+            repeatEvery: 3,
+            occurrences: 6,
+          );
+          expect(copiedBooking.id, 'copied-booking');
+          expect(copiedBooking.startDate, DateTime.utc(2023, 1, 1, 9));
+          expect(copiedBooking.endDate, DateTime.utc(2023, 1, 1, 10));
+          expect(copiedBooking.description, 'John Appleseed');
+          expect(copiedBooking.isLocked, isTrue);
+          expect(copiedBooking.periodicity, Periodicity.daily);
+          expect(copiedBooking.repeatEvery, 3);
+          expect(copiedBooking.occurrences, 6);
+        },
+      );
+
+      test(
+        'should return a new copy of this RecurringBooking with overridden '
+        'properties (occurrences to recurringEndDate)',
+        () {
+          final booking = RecurringBooking(
+            startDate: DateTime(2022, 12, 4, 9),
+            endDate: DateTime(2022, 12, 4, 10, 30),
+            description: 'Booked slot',
+            occurrences: 6,
+          );
+          final copiedBooking = booking.copyWith(
+            id: 'copied-booking',
+            startDate: DateTime.utc(2023, 1, 1, 9),
+            endDate: DateTime.utc(2023, 1, 1, 10),
+            description: 'John Appleseed',
+            isLocked: true,
+            periodicity: Periodicity.daily,
+            repeatEvery: 3,
+            recurringEndDate: DateTime.utc(2022, 12, 31),
+          );
+          expect(copiedBooking.id, 'copied-booking');
+          expect(copiedBooking.startDate, DateTime.utc(2023, 1, 1, 9));
+          expect(copiedBooking.endDate, DateTime.utc(2023, 1, 1, 10));
+          expect(copiedBooking.description, 'John Appleseed');
+          expect(copiedBooking.isLocked, isTrue);
+          expect(copiedBooking.periodicity, Periodicity.daily);
+          expect(copiedBooking.repeatEvery, 3);
+          expect(copiedBooking.recurringEndDate, DateTime.utc(2022, 12, 31));
+        },
+      );
+    });
   });
 }

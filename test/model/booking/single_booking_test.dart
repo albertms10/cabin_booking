@@ -51,6 +51,45 @@ void main() {
       );
     });
 
+    group('.copyWith()', () {
+      test('should return a new copy of this SingleBooking', () {
+        final booking = SingleBooking(
+          startDate: DateTime(2022, 12, 4, 9),
+          endDate: DateTime(2022, 12, 4, 10, 30),
+          description: 'Booked slot',
+          isLocked: true,
+        );
+        expect(booking, booking.copyWith());
+        expect(identical(booking, booking.copyWith()), isFalse);
+        expect(identical(booking.copyWith(), booking.copyWith()), isFalse);
+      });
+
+      test(
+        'should return a new copy of this SingleBooking with overridden '
+        'properties',
+        () {
+          final booking = SingleBooking(
+            startDate: DateTime.utc(2022, 12, 4, 9),
+            endDate: DateTime.utc(2022, 12, 4, 10, 30),
+            description: 'Booked slot',
+            isLocked: true,
+          );
+          final copiedBooking = booking.copyWith(
+            id: 'copied-booking',
+            startDate: DateTime(2023, 1, 1, 9),
+            endDate: DateTime(2023, 1, 1, 10),
+            description: 'John Appleseed',
+            isLocked: false,
+          );
+          expect(copiedBooking.id, 'copied-booking');
+          expect(copiedBooking.startDate, DateTime(2023, 1, 1, 9));
+          expect(copiedBooking.endDate, DateTime(2023, 1, 1, 10));
+          expect(copiedBooking.description, 'John Appleseed');
+          expect(copiedBooking.isLocked, isFalse);
+        },
+      );
+    });
+
     group('.toString()', () {
       test('should return a string representation of a SingleBooking', () {
         final booking = SingleBooking(
