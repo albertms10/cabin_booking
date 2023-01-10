@@ -57,13 +57,6 @@ class Cabin extends Item {
 
   Cabin simplified() => Cabin(id: id, number: number);
 
-  Set<SingleBooking> get bookings => bookingCollection.bookings;
-
-  Set<RecurringBooking> get recurringBookings =>
-      bookingCollection.recurringBookings;
-
-  Set<Booking> get allBookings => bookingCollection.allBookings;
-
   @override
   Cabin copyWith({
     String? id,
@@ -76,8 +69,9 @@ class Cabin extends Item {
         id: id ?? this.id,
         number: number ?? this.number,
         elements: elements ?? this.elements,
-        bookings: bookings ?? this.bookings,
-        recurringBookings: recurringBookings ?? this.recurringBookings,
+        bookings: bookings ?? bookingCollection.bookings,
+        recurringBookings:
+            recurringBookings ?? bookingCollection.recurringBookings,
       );
 
   @override

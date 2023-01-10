@@ -102,7 +102,7 @@ class CabinCollection extends WritableManager<Set<Cabin>> with ChangeNotifier {
     var count = 0;
 
     for (final cabin in cabins) {
-      count += cabin.allBookings.length;
+      count += cabin.bookingCollection.allBookings.length;
     }
 
     return count;
@@ -112,7 +112,7 @@ class CabinCollection extends WritableManager<Set<Cabin>> with ChangeNotifier {
     var count = 0;
 
     for (final cabin in cabins) {
-      count += cabin.bookings.length;
+      count += cabin.bookingCollection.bookings.length;
     }
 
     return count;
