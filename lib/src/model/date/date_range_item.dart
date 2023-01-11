@@ -41,14 +41,18 @@ class DateRangeItem extends Item with DateRanger {
 
   @override
   DateRangeItem copyWith({
+    String? id,
     DateTime? startDate,
     DateTime? endDate,
   }) =>
       DateRangeItem(
-        id: id,
+        id: id ?? this.id,
         startDate: startDate ?? this.startDate,
         endDate: endDate ?? this.endDate,
       );
+
+  @override
+  String toString() => '$startDate - $endDate';
 
   @override
   bool operator ==(Object other) =>
