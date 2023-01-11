@@ -103,16 +103,16 @@ void main() {
     group('.toString()', () {
       test('should return the string representation of this DateRange', () {
         final dateRange = DateRange(
-          startDate: DateTime(2022, 9, 11),
+          startDate: DateTime.utc(2022, 9, 11),
           endDate: DateTime(2023, 6, 23),
         );
         expect(
           dateRange.toString(),
-          '2022-09-11 00:00:00.000 - 2023-06-23 00:00:00.000',
+          '2022-09-11 00:00:00.000Z - 2023-06-23 00:00:00.000',
         );
 
-        final startDateRange = DateRange(startDate: DateTime.utc(2022, 9, 11));
-        expect(startDateRange.toString(), '2022-09-11 00:00:00.000Z - null');
+        final startDateRange = DateRange(startDate: DateTime(2022, 9, 11));
+        expect(startDateRange.toString(), '2022-09-11 00:00:00.000 - null');
 
         final endDateRange = DateRange(endDate: DateTime.utc(2023, 6, 23));
         expect(endDateRange.toString(), 'null - 2023-06-23 00:00:00.000Z');
