@@ -1,6 +1,4 @@
 import '../booking/booking.dart';
-import '../booking/recurring_booking.dart';
-import '../booking/single_booking.dart';
 import '../booking_collection.dart';
 import '../item.dart';
 import 'cabin_elements.dart';
@@ -23,14 +21,9 @@ class Cabin extends Item {
     super.id,
     this.number = 0,
     CabinElements? elements,
-    Set<SingleBooking>? bookings,
-    Set<RecurringBooking>? recurringBookings,
-  }) : bookingCollection = BookingCollection(
-          bookings: bookings,
-          recurringBookings: recurringBookings,
-        ) {
-    this.elements = elements ?? CabinElements();
-  }
+    BookingCollection? bookingCollection,
+  })  : elements = elements ?? CabinElements(),
+        bookingCollection = bookingCollection ?? BookingCollection();
 
   /// Creates a new [Cabin] from a JSON Map.
   Cabin.fromJson(super.other)
@@ -62,16 +55,13 @@ class Cabin extends Item {
     String? id,
     int? number,
     CabinElements? elements,
-    Set<SingleBooking>? bookings,
-    Set<RecurringBooking>? recurringBookings,
+    BookingCollection? bookingCollection,
   }) =>
       Cabin(
         id: id ?? this.id,
         number: number ?? this.number,
         elements: elements ?? this.elements,
-        bookings: bookings ?? bookingCollection.bookings,
-        recurringBookings:
-            recurringBookings ?? bookingCollection.recurringBookings,
+        bookingCollection: bookingCollection ?? this.bookingCollection,
       );
 
   @override
