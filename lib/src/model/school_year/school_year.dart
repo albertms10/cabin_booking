@@ -1,7 +1,5 @@
 import 'dart:collection' show SplayTreeSet;
 
-import 'package:intl/intl.dart';
-
 import '../date/date_range_item.dart';
 import '../date/holiday.dart';
 
@@ -65,18 +63,10 @@ class SchoolYear extends DateRangeItem {
   }
 
   @override
-  String toString() {
-    final bothExist = startDate != null && endDate != null;
-    final isSameYear = bothExist && startDate!.year == endDate!.year;
-
-    final startYear =
-        startDate != null ? DateFormat.y().format(startDate!) : '';
-
-    final endYear =
-        endDate != null && !isSameYear ? DateFormat.y().format(endDate!) : '';
-
-    return '$startYear'
-        '${bothExist && !isSameYear ? '–' : ''}'
-        '$endYear';
-  }
+  String toString() => textualDateTime(
+        referenceDateTime: DateTime(0),
+        fullDateFormat: (format) => format.add_y(),
+        monthDayFormat: (format) => format.add_y(),
+        timeFormat: (format) => format,
+      );
 }
