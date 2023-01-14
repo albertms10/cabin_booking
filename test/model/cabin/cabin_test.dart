@@ -33,8 +33,10 @@ void main() {
               lecterns: 2,
               tables: 1,
             ),
-            bookings: {},
-            recurringBookings: {},
+            bookingCollection: BookingCollection(
+              bookings: {},
+              recurringBookings: {},
+            ),
           ),
         );
       });
@@ -76,12 +78,14 @@ void main() {
             lecterns: 2,
             tables: 1,
           ),
-          bookings: {
-            SingleBooking(id: 'booking-id'),
-          },
-          recurringBookings: {
-            RecurringBooking(id: 'recurring-booking-id', occurrences: 1),
-          },
+          bookingCollection: BookingCollection(
+            bookings: {
+              SingleBooking(id: 'booking-id'),
+            },
+            recurringBookings: {
+              RecurringBooking(id: 'recurring-booking-id', occurrences: 1),
+            },
+          ),
         );
         expect(cabin, cabin.copyWith());
         expect(identical(cabin, cabin.copyWith()), isFalse);
@@ -100,40 +104,39 @@ void main() {
               lecterns: 2,
               tables: 1,
             ),
-            bookings: {
-              SingleBooking(id: 'booking-id'),
-            },
-            recurringBookings: {
-              RecurringBooking(id: 'recurring-booking-id', occurrences: 1),
-            },
+            bookingCollection: BookingCollection(
+              bookings: {
+                SingleBooking(id: 'booking-id'),
+              },
+              recurringBookings: {
+                RecurringBooking(id: 'recurring-booking-id', occurrences: 1),
+              },
+            ),
           );
           final newCabinElements = CabinElements(
             pianos: const [Piano(brand: 'Bösendorfer', model: 'Imperial')],
             lecterns: 1,
             tables: 3,
           );
-          final newBookings = {
-            SingleBooking(id: 'booking-id-1'),
-            SingleBooking(id: 'booking-id-2'),
-          };
-          final newRecurringBookings = {
-            RecurringBooking(id: 'recurring-booking-id-1', occurrences: 2),
-          };
+          final newBookingCollection = BookingCollection(
+            bookings: {
+              SingleBooking(id: 'booking-id-1'),
+              SingleBooking(id: 'booking-id-2'),
+            },
+            recurringBookings: {
+              RecurringBooking(id: 'recurring-booking-id-1', occurrences: 2),
+            },
+          );
           final copiedCabin = cabin.copyWith(
             id: 'copied-cabin',
             number: 2,
             elements: newCabinElements,
-            bookings: newBookings,
-            recurringBookings: newRecurringBookings,
+            bookingCollection: newBookingCollection,
           );
           expect(copiedCabin.id, 'copied-cabin');
           expect(copiedCabin.number, 2);
           expect(copiedCabin.elements, newCabinElements);
-          expect(copiedCabin.bookingCollection.bookings, newBookings);
-          expect(
-            copiedCabin.bookingCollection.recurringBookings,
-            newRecurringBookings,
-          );
+          expect(copiedCabin.bookingCollection, newBookingCollection);
         },
       );
     });
