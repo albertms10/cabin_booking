@@ -107,21 +107,21 @@ void main() {
       test(
         'should return true when the DateTime is included in this DateRanger',
         () {
-          final dateTime = DateTime(2022, 12, 4, 11, 30);
+          final startDateTime = DateTime(2022, 12, 1, 9, 30);
+          final endDateTime = DateTime(2022, 12, 31, 21, 30);
           final dateRange = DateRange(
-            startDate: DateTime(2022, 12, 1, 9, 30),
-            endDate: DateTime(2022, 12, 31, 21, 30),
+            startDate: startDateTime,
+            endDate: endDateTime,
           );
+          expect(dateRange.includes(startDateTime), isTrue);
+          expect(dateRange.includes(endDateTime), isFalse);
+          final dateTime = DateTime(2022, 12, 4, 11, 30);
           expect(dateRange.includes(dateTime), isTrue);
 
-          final startDateRange = DateRange(
-            startDate: DateTime(2022, 12, 1, 9, 30),
-          );
+          final startDateRange = DateRange(startDate: startDateTime);
           expect(startDateRange.includes(dateTime), isTrue);
 
-          final endDateRange = DateRange(
-            endDate: DateTime(2022, 12, 31, 21, 30),
-          );
+          final endDateRange = DateRange(endDate: endDateTime);
           expect(endDateRange.includes(dateTime), isTrue);
         },
       );
