@@ -101,8 +101,6 @@ class _BookingCardInteractive extends StatefulWidget {
     this.setPreventTimeTableScroll,
   });
 
-  bool get isRecurring => RecurringBooking.isRecurringBooking(booking);
-
   @override
   _BookingCardInteractiveState createState() => _BookingCardInteractiveState();
 }
@@ -131,7 +129,6 @@ class _BookingCardInteractiveState extends State<_BookingCardInteractive> {
           child: _BookingCardInfo(
             cabin: widget.cabin,
             booking: widget.booking,
-            isRecurring: widget.isRecurring,
           ),
         ),
       ),
@@ -142,13 +139,11 @@ class _BookingCardInteractiveState extends State<_BookingCardInteractive> {
 class _BookingCardInfo extends StatelessWidget {
   final Cabin cabin;
   final Booking booking;
-  final bool isRecurring;
 
   const _BookingCardInfo({
     super.key,
     required this.cabin,
     required this.booking,
-    this.isRecurring = false,
   });
 
   @override
@@ -161,14 +156,9 @@ class _BookingCardInfo extends StatelessWidget {
         return Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (isRecurring)
-              Tooltip(
-                message: '${booking.recurringNumber}/'
-                    '${booking.recurringBooking?.occurrences}',
-                child: Padding(
-                  padding: const EdgeInsetsDirectional.only(end: 4),
-                  child: Icon(Icons.repeat, size: 16, color: theme.hintColor),
-                ),
+            if (booking is RecurringBookingOccurrence)
+              _BookingCardRecurringIcon(
+                booking: booking as RecurringBookingOccurrence,
               ),
             Expanded(
               child: Padding(
@@ -206,6 +196,26 @@ class _BookingCardInfo extends StatelessWidget {
           ],
         );
       },
+    );
+  }
+}
+
+class _BookingCardRecurringIcon extends StatelessWidget {
+  final RecurringBookingOccurrence booking;
+
+  const _BookingCardRecurringIcon({super.key, required this.booking});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Tooltip(
+      message:
+          '${booking.recurringNumber}/${booking.recurringBooking?.occurrences}',
+      child: Padding(
+        padding: const EdgeInsetsDirectional.only(end: 4),
+        child: Icon(Icons.repeat, size: 16, color: theme.hintColor),
+      ),
     );
   }
 }

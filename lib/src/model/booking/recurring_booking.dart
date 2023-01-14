@@ -2,7 +2,7 @@ import 'package:collection/collection.dart' show IterableExtension;
 
 import '../cabin/cabin.dart';
 import 'booking.dart';
-import 'single_booking.dart';
+import 'recurring_booking_occurrence.dart';
 
 abstract class _JsonFields {
   static const periodicity = 'p';
@@ -89,11 +89,10 @@ class RecurringBooking extends Booking {
 
   /// Override getter from [Booking] to prevent a circular reference to this
   /// [RecurringBooking] at instantiation.
-  @override
   RecurringBooking get recurringBooking => this;
 
   static bool isRecurringBooking(Booking? booking) =>
-      booking is RecurringBooking || booking!.recurringBooking?.id != null;
+      booking is RecurringBooking || booking is RecurringBookingOccurrence;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -148,7 +147,8 @@ class RecurringBooking extends Booking {
     _recurringEndDate = null;
   }
 
-  SingleBooking asSingleBooking({bool linked = true}) => SingleBooking(
+  RecurringBookingOccurrence asSingleBooking({bool linked = true}) =>
+      RecurringBookingOccurrence(
         id: linked ? '$id-0' : id,
         startDate: startDate,
         endDate: endDate,
@@ -158,8 +158,8 @@ class RecurringBooking extends Booking {
         recurringBooking: linked ? this : null,
       );
 
-  List<SingleBooking> get bookings {
-    final runBookings = <SingleBooking>[];
+  List<RecurringBookingOccurrence> get bookings {
+    final runBookings = <RecurringBookingOccurrence>[];
     var runDate = startDate!;
     var movedBooking = asSingleBooking();
 
@@ -187,7 +187,8 @@ class RecurringBooking extends Booking {
     return runBookings;
   }
 
-  SingleBooking? bookingOn(DateTime dateTime) => bookings.firstWhereOrNull(
+  RecurringBookingOccurrence? bookingOn(DateTime dateTime) =>
+      bookings.firstWhereOrNull(
         (booking) => booking.isOn(dateTime),
       );
 

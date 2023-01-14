@@ -2,6 +2,7 @@ library model;
 
 export 'src/model/booking/booking.dart';
 export 'src/model/booking/recurring_booking.dart';
+export 'src/model/booking/recurring_booking_occurrence.dart';
 export 'src/model/booking/single_booking.dart';
 export 'src/model/booking/tokenized_booking.dart';
 export 'src/model/booking_collection.dart';

@@ -86,11 +86,17 @@ class _BookingPreviewEditIconButton extends StatelessWidget {
     final cabinCollection =
         Provider.of<CabinCollection>(context, listen: false);
 
-    final initialBooking = booking.recurringBooking ?? booking;
+    final bookingToEdit = booking is RecurringBooking
+        ? cabinCollection
+            .cabinFromId(cabin.id)
+            .bookingCollection
+            .recurringBookingFromId(booking.id)
+        : booking;
+
     final editedBooking = await showDialog<Booking>(
       context: context,
       builder: (context) => BookingDialog(
-        booking: initialBooking.copyWith(cabin: cabin),
+        booking: bookingToEdit..cabin = cabin,
       ),
     );
 
@@ -166,10 +172,10 @@ class _BookingPreviewDeleteIconButton extends StatelessWidget {
 
     if (shallDelete == null || !shallDelete) return;
 
-    if (RecurringBooking.isRecurringBooking(booking)) {
+    if (booking is RecurringBookingOccurrence) {
       cabinCollection.removeRecurringBookingById(
         cabin.id,
-        booking.recurringBooking?.id,
+        (booking as RecurringBookingOccurrence).recurringBooking?.id,
       );
     } else {
       cabinCollection.removeSingleBookingById(cabin.id, booking.id);
