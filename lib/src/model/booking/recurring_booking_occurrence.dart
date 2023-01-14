@@ -1,8 +1,9 @@
 import '../cabin/cabin.dart';
 import 'booking.dart';
 import 'recurring_booking.dart';
+import 'single_booking.dart';
 
-class RecurringBookingOccurrence extends Booking {
+class RecurringBookingOccurrence extends SingleBooking {
   /// The [RecurringBooking] reference, if this [Booking] is part of a series of
   /// recurring bookings.
   RecurringBooking? recurringBooking;
@@ -23,16 +24,6 @@ class RecurringBookingOccurrence extends Booking {
   });
 
   RecurringBookingOccurrence.fromJson(super.other) : super.fromJson();
-
-  RecurringBookingOccurrence.fromBooking(Booking booking)
-      : super(
-          id: booking.id,
-          startDate: booking.startDate,
-          endDate: booking.endDate,
-          description: booking.description,
-          isLocked: booking.isLocked,
-          cabin: booking.cabin,
-        );
 
   @override
   RecurringBookingOccurrence copyWith({
