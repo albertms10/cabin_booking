@@ -6,8 +6,6 @@ import 'cabin_elements.dart';
 abstract class _JsonFields {
   static const number = 'n';
   static const elements = 'e';
-  static const bookings = 'b';
-  static const recurringBookings = 'rb';
 }
 
 /// A cabin item.
@@ -31,11 +29,7 @@ class Cabin extends Item {
         elements = CabinElements.fromJson(
           other[_JsonFields.elements] as Map<String, dynamic>,
         ),
-        bookingCollection = BookingCollection.fromJson(
-          bookings: other[_JsonFields.bookings] as List<dynamic>,
-          recurringBookings:
-              other[_JsonFields.recurringBookings] as List<dynamic>,
-        ),
+        bookingCollection = BookingCollection.fromJson(other),
         super.fromJson();
 
   @override
@@ -43,9 +37,7 @@ class Cabin extends Item {
         ...super.toJson(),
         _JsonFields.number: number,
         _JsonFields.elements: elements.toJson(),
-        _JsonFields.bookings: bookingCollection.singleBookingsToJson(),
-        _JsonFields.recurringBookings:
-            bookingCollection.recurringBookingsToJson(),
+        ...bookingCollection.toJson(),
       };
 
   Cabin simplified() => Cabin(id: id, number: number);
