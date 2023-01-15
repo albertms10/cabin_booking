@@ -35,7 +35,7 @@ class SingleBooking extends Booking {
     Cabin? cabin,
   }) =>
       SingleBooking(
-        id: id ?? super.id,
+        id: id ?? this.id,
         startDate: startDate ?? this.startDate,
         endDate: endDate ?? this.endDate,
         description: description ?? this.description,

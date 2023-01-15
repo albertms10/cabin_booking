@@ -22,9 +22,8 @@ void main() {
           'b': <Map<String, dynamic>>[],
           'rb': <Map<String, dynamic>>[],
         };
-        final cabin = Cabin.fromJson(rawCabin);
         expect(
-          cabin,
+          Cabin.fromJson(rawCabin),
           Cabin(
             id: 'cabin-id',
             number: 1,

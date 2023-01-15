@@ -15,9 +15,8 @@ void main() {
           'de': 'Student',
           'il': true,
         };
-        final singleBooking = SingleBooking.fromJson(rawSingleBooking);
         expect(
-          singleBooking,
+          SingleBooking.fromJson(rawSingleBooking),
           SingleBooking(
             id: 'booking-id',
             startDate: DateTime.utc(2022, 12, 4, 9),

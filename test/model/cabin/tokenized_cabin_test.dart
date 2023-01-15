@@ -8,8 +8,10 @@ void main() {
         const cabinTokens = {
           'cabinNumber': '1',
         };
-        final tokenizedCabin = TokenizedCabin.fromTokens(cabinTokens);
-        expect(tokenizedCabin, const TokenizedCabin(cabinNumber: '1'));
+        expect(
+          TokenizedCabin.fromTokens(cabinTokens),
+          const TokenizedCabin(cabinNumber: '1'),
+        );
       });
     });
 

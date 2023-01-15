@@ -10,8 +10,10 @@ void main() {
           'm': 'C5',
           'ie': false,
         };
-        final piano = Piano.fromJson(rawPiano);
-        expect(piano, const Piano(brand: 'Yamaha', model: 'C5'));
+        expect(
+          Piano.fromJson(rawPiano),
+          const Piano(brand: 'Yamaha', model: 'C5'),
+        );
       });
     });
 
