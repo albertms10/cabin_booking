@@ -13,7 +13,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
 
 class BookingForm extends StatefulWidget {
   final Booking booking;
@@ -77,7 +76,6 @@ class _BookingFormState extends State<BookingForm> {
 
   @override
   Widget build(BuildContext context) {
-    final cabinCollection = Provider.of<CabinCollection>(context);
     final appLocalizations = AppLocalizations.of(context)!;
 
     _startTimeController.text = _startTime!.format(context);
@@ -88,10 +86,9 @@ class _BookingFormState extends State<BookingForm> {
       child: Column(
         children: [
           CabinDropdown(
-            value: _booking.cabin!.id,
-            onChanged: (value) {
-              if (value == null) return;
-              final cabin = cabinCollection.cabinFromId(value);
+            cabin: _booking.cabin!,
+            onChanged: (cabin) {
+              if (cabin == null) return;
               setState(() => _booking.cabin = cabin);
             },
           ),
