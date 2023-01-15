@@ -23,8 +23,8 @@ class SchoolYearCollection extends WritableManager<Set<SchoolYear>>
     Set<SchoolYear>? schoolYears,
     String fileName = 'school_years',
     this.notifyExternalListeners,
-  }) : super(fileName) {
-    this.schoolYears = schoolYears ?? SplayTreeSet();
+  })  : schoolYears = schoolYears ?? SplayTreeSet(),
+        super(fileName) {
     schoolYearIndex = _currentSchoolYearIndex;
   }
 

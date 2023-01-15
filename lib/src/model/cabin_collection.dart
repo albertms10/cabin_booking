@@ -24,9 +24,8 @@ class CabinCollection extends WritableManager<Set<Cabin>> with ChangeNotifier {
   late Set<Cabin> cabins;
 
   CabinCollection({Set<Cabin>? cabins, String fileName = 'cabins'})
-      : super(fileName) {
-    this.cabins = cabins ?? SplayTreeSet();
-  }
+      : cabins = cabins ?? SplayTreeSet(),
+        super(fileName);
 
   List<Map<String, dynamic>> cabinsToJson() =>
       cabins.map((cabin) => cabin.toJson()).toList();
