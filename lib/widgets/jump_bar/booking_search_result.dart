@@ -5,7 +5,6 @@ import 'package:collection/collection.dart' show IterableNullableExtension;
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
 
 class BookingSearchResult extends StatelessWidget {
   final Booking booking;
@@ -14,7 +13,6 @@ class BookingSearchResult extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cabinCollection = Provider.of<CabinCollection>(context);
     final appLocalizations = AppLocalizations.of(context)!;
 
     return Column(
@@ -30,8 +28,7 @@ class BookingSearchResult extends StatelessWidget {
           children: [
             SearchResultLabel(
               label: booking.cabin != null
-                  ? '${appLocalizations.cabin} '
-                      '${cabinCollection.cabinFromId(booking.cabin?.id).number}'
+                  ? '${appLocalizations.cabin} ${booking.cabin?.number}'
                   : null,
               placeholder: appLocalizations.cabin,
             ),

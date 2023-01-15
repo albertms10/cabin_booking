@@ -269,9 +269,6 @@ class BookingCollection with ChangeNotifier {
   SingleBooking singleBookingFromId(String id) =>
       bookings.firstWhere((booking) => booking.id == id);
 
-  RecurringBooking recurringBookingFromId(String? id) => recurringBookings
-      .firstWhere((recurringBooking) => recurringBooking.id == id);
-
   List<Booking> searchBookings(String query, {int? limit}) {
     final results = <Booking>[];
     for (final booking in allBookings) {
@@ -306,9 +303,7 @@ class BookingCollection with ChangeNotifier {
     SingleBooking booking, {
     bool notify = true,
   }) {
-    bookings
-        .firstWhere((comparingBooking) => comparingBooking.id == booking.id)
-        .replaceWith(booking);
+    singleBookingFromId(booking.id).replaceWith(booking);
 
     if (notify) notifyListeners();
   }
@@ -342,9 +337,8 @@ class BookingCollection with ChangeNotifier {
     String? id, {
     bool notify = true,
   }) {
-    recurringBookings.removeWhere(
-      (comparingRecurringBooking) => comparingRecurringBooking.id == id,
-    );
+    recurringBookings
+        .removeWhere((recurringBooking) => recurringBooking.id == id);
 
     if (notify) notifyListeners();
   }
