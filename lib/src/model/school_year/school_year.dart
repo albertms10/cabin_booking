@@ -8,16 +8,14 @@ abstract class _JsonFields {
 }
 
 class SchoolYear extends DateRangeItem {
-  late Set<Holiday> holidays;
+  final Set<Holiday> holidays;
 
   SchoolYear({
     super.id,
     super.startDate,
     super.endDate,
     Set<Holiday>? holidays,
-  }) {
-    this.holidays = holidays ?? SplayTreeSet();
-  }
+  }) : holidays = holidays ?? SplayTreeSet();
 
   SchoolYear.fromJson(super.other)
       : holidays = SplayTreeSet.of(

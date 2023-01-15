@@ -18,10 +18,8 @@ class BookingCollection with ChangeNotifier {
   BookingCollection({
     Set<SingleBooking>? bookings,
     Set<RecurringBooking>? recurringBookings,
-  }) {
-    this.bookings = bookings ?? SplayTreeSet();
-    this.recurringBookings = recurringBookings ?? SplayTreeSet();
-  }
+  })  : bookings = bookings ?? SplayTreeSet(),
+        recurringBookings = recurringBookings ?? SplayTreeSet();
 
   BookingCollection.fromJson({
     required List<dynamic> bookings,
