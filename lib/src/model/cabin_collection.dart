@@ -14,20 +14,24 @@ import 'cabin/tokenized_cabin.dart';
 import 'date/date_ranger.dart';
 import 'file/file_manager.dart';
 import 'file/writable_manager.dart';
+import 'serializable.dart';
 
 Iterable<Cabin> _parseCabins(String jsonString) =>
     (json.decode(jsonString) as List<dynamic>)
         .cast<Map<String, dynamic>>()
         .map(Cabin.fromJson);
 
-class CabinCollection extends WritableManager<Set<Cabin>> with ChangeNotifier {
+class CabinCollection extends WritableManager<Set<Cabin>>
+    with ChangeNotifier
+    implements SerializableList {
   late Set<Cabin> cabins;
 
   CabinCollection({Set<Cabin>? cabins, String fileName = 'cabins'})
       : cabins = cabins ?? SplayTreeSet(),
         super(fileName);
 
-  List<Map<String, dynamic>> cabinsToJson() =>
+  @override
+  List<Map<String, dynamic>> toJson() =>
       cabins.map((cabin) => cabin.toJson()).toList();
 
   // TODO(albertms10): use `singleWhereOrNull`.
@@ -406,7 +410,7 @@ class CabinCollection extends WritableManager<Set<Cabin>> with ChangeNotifier {
       final file = await fileManager.localFile(fileName);
 
       await file.writeAsCompressedString(
-        json.encode(cabinsToJson()),
+        json.encode(toJson()),
       );
 
       return true;
