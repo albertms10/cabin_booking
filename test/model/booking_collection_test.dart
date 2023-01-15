@@ -6,7 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   group('BookingCollection', () {
     group('.fromJson()', () {
-      test('should create a new BookingCollection from two JSON arrays', () {
+      test('should create a new BookingCollection from a JSON object', () {
         const rawBookingCollection = {
           'b': [
             {
