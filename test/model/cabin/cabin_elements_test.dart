@@ -14,9 +14,8 @@ void main() {
           't': 1,
         };
         const pianos = [Piano(brand: 'Yamaha', model: 'C5')];
-        final cabinElements = CabinElements.fromJson(rawCabinElements);
         expect(
-          cabinElements,
+          CabinElements.fromJson(rawCabinElements),
           CabinElements(pianos: pianos, lecterns: 2, tables: 1),
         );
       });

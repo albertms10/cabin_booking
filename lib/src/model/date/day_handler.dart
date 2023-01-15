@@ -7,8 +7,8 @@ class DayHandler with ChangeNotifier {
   late DateTime _dateTime;
   late SchoolYearCollection schoolYearCollection;
 
-  DayHandler([SchoolYearCollection? schoolYearCollection]) {
-    _dateTime = DateTime.now();
+  DayHandler([SchoolYearCollection? schoolYearCollection])
+      : _dateTime = DateTime.now() {
     this.schoolYearCollection = schoolYearCollection ??
         SchoolYearCollection(notifyExternalListeners: notifyListeners);
   }

@@ -26,10 +26,9 @@ abstract class Item implements Comparable<Item>, Serializable {
 
   /// Creates a new [Item].
   Item({String? id})
-      : creationDateTime = DateTime.now(),
-        modificationCount = 0 {
-    this.id = id ?? nanoid();
-  }
+      : id = id ?? nanoid(),
+        creationDateTime = DateTime.now(),
+        modificationCount = 0;
 
   /// Creates a new [Item] from a JSON Map.
   Item.fromJson(Map<String, dynamic> other)

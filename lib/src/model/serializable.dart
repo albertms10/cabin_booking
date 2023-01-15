@@ -6,3 +6,10 @@ mixin Serializable {
   @mustCallSuper
   Map<String, dynamic> toJson();
 }
+
+/// Contract with the required methods to JSON-serialize an array of objects.
+mixin SerializableList {
+  /// Returns a serialized JSON representation of this object array instance.
+  @mustCallSuper
+  List<Map<String, dynamic>> toJson();
+}

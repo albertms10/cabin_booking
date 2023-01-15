@@ -45,7 +45,8 @@ mixin DateRanger {
     return false;
   }
 
-  /// Whether [dateTime] is included in this [DateRanger].
+  /// Whether [dateTime] is included in this [DateRanger], including the
+  /// [startDate] but excluding the [endDate] instant: `[startDate, endDate)`.
   ///
   /// Examples:
   /// ```dart
@@ -55,9 +56,14 @@ mixin DateRanger {
   bool includes(DateTime dateTime) {
     if (hasInfiniteStart && hasInfiniteEnd) return true;
     if (hasInfiniteStart) return endDate!.isAfter(dateTime);
-    if (hasInfiniteEnd) return startDate!.isBefore(dateTime);
+    if (hasInfiniteEnd) {
+      return startDate!.isAtSameMomentAs(dateTime) ||
+          startDate!.isBefore(dateTime);
+    }
 
-    return startDate!.isBefore(dateTime) && endDate!.isAfter(dateTime);
+    return (startDate!.isAtSameMomentAs(dateTime) ||
+            startDate!.isBefore(dateTime)) &&
+        endDate!.isAfter(dateTime);
   }
 
   /// Whether this [DateRanger] overlaps with another [DateRanger].

@@ -3,7 +3,7 @@ import 'dart:collection' show SplayTreeMap, SplayTreeSet;
 import 'package:cabin_booking/utils/date_time_extension.dart';
 import 'package:cabin_booking/utils/string_extension.dart';
 import 'package:cabin_booking/utils/time_of_day_extension.dart';
-import 'package:collection/collection.dart' show IterableExtension;
+import 'package:collection/collection.dart' show IterableExtension, SetEquality;
 import 'package:flutter/material.dart';
 
 import 'booking/booking.dart';
@@ -11,39 +11,43 @@ import 'booking/recurring_booking.dart';
 import 'booking/recurring_booking_occurrence.dart';
 import 'booking/single_booking.dart';
 import 'date/date_ranger.dart';
+import 'serializable.dart';
 
-class BookingCollection with ChangeNotifier {
+abstract class _JsonFields {
+  static const bookings = 'b';
+  static const recurringBookings = 'rb';
+}
+
+class BookingCollection with ChangeNotifier implements Serializable {
   late Set<SingleBooking> bookings;
   late Set<RecurringBooking> recurringBookings;
 
   BookingCollection({
     Set<SingleBooking>? bookings,
     Set<RecurringBooking>? recurringBookings,
-  }) {
-    this.bookings = bookings ?? SplayTreeSet();
-    this.recurringBookings = recurringBookings ?? SplayTreeSet();
-  }
+  })  : bookings = bookings ?? SplayTreeSet(),
+        recurringBookings = recurringBookings ?? SplayTreeSet();
 
-  BookingCollection.fromJson({
-    required List<dynamic> bookings,
-    required List<dynamic> recurringBookings,
-  })  : bookings = SplayTreeSet.of(
-          bookings
+  BookingCollection.fromJson(Map<String, dynamic> other)
+      : bookings = SplayTreeSet.of(
+          (other[_JsonFields.bookings] as List<dynamic>)
               .cast<Map<String, dynamic>>()
               .map<SingleBooking>(SingleBooking.fromJson),
         ),
         recurringBookings = SplayTreeSet.of(
-          recurringBookings
+          (other[_JsonFields.recurringBookings] as List<dynamic>)
               .cast<Map<String, dynamic>>()
               .map<RecurringBooking>(RecurringBooking.fromJson),
         );
 
-  List<Map<String, dynamic>> singleBookingsToJson() =>
-      bookings.map((booking) => booking.toJson()).toList();
-
-  List<Map<String, dynamic>> recurringBookingsToJson() => recurringBookings
-      .map((recurringBooking) => recurringBooking.toJson())
-      .toList();
+  @override
+  Map<String, dynamic> toJson() => {
+        _JsonFields.bookings:
+            bookings.map((booking) => booking.toJson()).toList(),
+        _JsonFields.recurringBookings: recurringBookings
+            .map((recurringBooking) => recurringBooking.toJson())
+            .toList(),
+      };
 
   List<RecurringBookingOccurrence> get singleBookingsFromRecurring => [
         for (final recurringBooking in recurringBookings)
@@ -274,9 +278,6 @@ class BookingCollection with ChangeNotifier {
   SingleBooking singleBookingFromId(String id) =>
       bookings.firstWhere((booking) => booking.id == id);
 
-  RecurringBooking recurringBookingFromId(String? id) => recurringBookings
-      .firstWhere((recurringBooking) => recurringBooking.id == id);
-
   List<Booking> searchBookings(String query, {int? limit}) {
     final results = <Booking>[];
     for (final booking in allBookings) {
@@ -311,9 +312,7 @@ class BookingCollection with ChangeNotifier {
     SingleBooking booking, {
     bool notify = true,
   }) {
-    bookings
-        .firstWhere((comparingBooking) => comparingBooking.id == booking.id)
-        .replaceWith(booking);
+    singleBookingFromId(booking.id).replaceWith(booking);
 
     if (notify) notifyListeners();
   }
@@ -347,9 +346,8 @@ class BookingCollection with ChangeNotifier {
     String? id, {
     bool notify = true,
   }) {
-    recurringBookings.removeWhere(
-      (comparingRecurringBooking) => comparingRecurringBooking.id == id,
-    );
+    recurringBookings
+        .removeWhere((recurringBooking) => recurringBooking.id == id);
 
     if (notify) notifyListeners();
   }
@@ -360,4 +358,17 @@ class BookingCollection with ChangeNotifier {
 
     if (notify) notifyListeners();
   }
+
+  @override
+  bool operator ==(Object other) =>
+      other is BookingCollection &&
+      const SetEquality<SingleBooking>().equals(bookings, other.bookings) &&
+      const SetEquality<RecurringBooking>()
+          .equals(recurringBookings, other.recurringBookings);
+
+  @override
+  int get hashCode => Object.hash(
+        Object.hashAllUnordered(bookings),
+        Object.hashAllUnordered(recurringBookings),
+      );
 }

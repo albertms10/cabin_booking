@@ -18,9 +18,8 @@ void main() {
           're': 1,
           'red': '2023-02-04T00:00:00.000Z',
         };
-        final recurringBooking = RecurringBooking.fromJson(rawRecurringBooking);
         expect(
-          recurringBooking,
+          RecurringBooking.fromJson(rawRecurringBooking),
           RecurringBooking(
             id: 'booking-id',
             startDate: DateTime.utc(2022, 12, 4, 9),

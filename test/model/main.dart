@@ -1,5 +1,6 @@
 import 'booking/recurring_booking_test.dart' as recurring_booking_test;
 import 'booking/single_booking_test.dart' as single_booking_test;
+import 'booking_collection_test.dart' as booking_collection_test;
 import 'cabin/cabin_elements_test.dart' as cabin_elements_test;
 import 'cabin/cabin_test.dart' as cabin_test;
 import 'cabin/piano_test.dart' as piano_test;
@@ -13,6 +14,7 @@ import 'school_year/school_year_test.dart' as school_year_test;
 void main() {
   recurring_booking_test.main();
   single_booking_test.main();
+  booking_collection_test.main();
   cabin_elements_test.main();
   cabin_test.main();
   piano_test.main();

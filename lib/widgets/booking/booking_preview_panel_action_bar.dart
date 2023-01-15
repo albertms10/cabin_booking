@@ -87,10 +87,7 @@ class _BookingPreviewEditIconButton extends StatelessWidget {
         Provider.of<CabinCollection>(context, listen: false);
 
     final bookingToEdit = booking is RecurringBooking
-        ? cabinCollection
-            .cabinFromId(cabin.id)
-            .bookingCollection
-            .recurringBookingFromId(booking.id)
+        ? (booking as RecurringBooking).recurringBooking
         : booking;
 
     final editedBooking = await showDialog<Booking>(
