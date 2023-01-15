@@ -10,9 +10,8 @@ void main() {
           'ed': '2022-09-12T00:00:00.000Z',
           'k': 0,
         };
-        final holiday = Holiday.fromJson(rawHoliday);
         expect(
-          holiday,
+          Holiday.fromJson(rawHoliday),
           Holiday(
             startDate: DateTime.utc(2022, 9, 11),
             endDate: DateTime.utc(2022, 9, 12),
