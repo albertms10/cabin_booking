@@ -61,6 +61,7 @@ class _BookingFormState extends State<BookingForm> {
       _recurringEndDate = booking.recurringEndDate;
 
       _endDateController.text = DateFormat.yMd().format(_recurringEndDate!);
+      _occurrencesController.text = '${booking.occurrences}';
     }
   }
 
@@ -76,15 +77,11 @@ class _BookingFormState extends State<BookingForm> {
 
   @override
   Widget build(BuildContext context) {
+    final cabinCollection = Provider.of<CabinCollection>(context);
     final appLocalizations = AppLocalizations.of(context)!;
 
     _startTimeController.text = _startTime!.format(context);
     _endTimeController.text = _endTime!.format(context);
-
-    final booking = _booking;
-    if (booking is RecurringBooking) {
-      _occurrencesController.text = '${booking.occurrences}';
-    }
 
     return Form(
       key: _formKey,
@@ -94,7 +91,8 @@ class _BookingFormState extends State<BookingForm> {
             value: _booking.cabin!.id,
             onChanged: (value) {
               if (value == null) return;
-              setState(() => _booking.cabin?.id = value);
+              final cabin = cabinCollection.cabinFromId(value);
+              setState(() => _booking.cabin = cabin);
             },
           ),
           const SizedBox(height: 24),
@@ -126,167 +124,152 @@ class _BookingFormState extends State<BookingForm> {
             children: [
               Expanded(
                 flex: 10,
-                child: Consumer<CabinCollection>(
-                  builder: (context, cabinCollection, child) {
-                    return TextFormField(
-                      controller: _startTimeController,
-                      decoration: InputDecoration(
-                        icon: const Icon(Icons.schedule),
-                        labelText: appLocalizations.start,
-                      ),
-                      onTap: () async {
-                        final time = await showTimePicker(
-                          context: context,
-                          initialTime: _startTime!,
-                          initialEntryMode: Platform.isMacOS ||
-                                  Platform.isWindows ||
-                                  Platform.isLinux
-                              ? TimePickerEntryMode.input
-                              : TimePickerEntryMode.dial,
-                        );
-
-                        if (time == null) return;
-
-                        setState(() {
-                          _startTime = time;
-                          _startTimeController.text = time.format(context);
-                        });
-                      },
-                      onSaved: (value) {
-                        final timeOfDay =
-                            TimeOfDayExtension.tryParse(value ?? '');
-                        if (timeOfDay == null) return;
-                        _booking.startDate =
-                            _booking.startDate!.addLocalTimeOfDay(timeOfDay);
-                      },
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return appLocalizations.enterStartTime;
-                        }
-
-                        final parsedTimeOfDay =
-                            TimeOfDayExtension.tryParse(value);
-
-                        if (parsedTimeOfDay == null) {
-                          return appLocalizations.enterStartTime;
-                        }
-
-                        _booking.startDate = _booking.startDate!
-                            .addLocalTimeOfDay(parsedTimeOfDay);
-
-                        if (_startTime != parsedTimeOfDay) {
-                          _startTime = parsedTimeOfDay;
-                        }
-
-                        final parsedDateTime = widget.booking.dateOnly!
-                            .addLocalTimeOfDay(parsedTimeOfDay);
-
-                        if (parsedDateTime.isAfter(
-                              widget.booking.dateOnly!.addLocalTimeOfDay(
-                                _endTime ?? TimeOfDay.now(),
-                              ),
-                            ) ||
-                            parsedDateTime.isBefore(
-                              widget.booking.dateOnly!
-                                  .addLocalTimeOfDay(kTimeTableStartTime),
-                            )) {
-                          return appLocalizations.enterValidRange;
-                        }
-
-                        if (cabinCollection
-                            .cabinFromId(_booking.cabin?.id)
-                            .bookingCollection
-                            .bookingsOverlapWith(_booking)) {
-                          return appLocalizations.occupied;
-                        }
-
-                        return null;
-                      },
-                      autovalidateMode: AutovalidateMode.always,
+                child: TextFormField(
+                  controller: _startTimeController,
+                  decoration: InputDecoration(
+                    icon: const Icon(Icons.schedule),
+                    labelText: appLocalizations.start,
+                  ),
+                  onTap: () async {
+                    final time = await showTimePicker(
+                      context: context,
+                      initialTime: _startTime!,
+                      initialEntryMode: Platform.isMacOS ||
+                              Platform.isWindows ||
+                              Platform.isLinux
+                          ? TimePickerEntryMode.input
+                          : TimePickerEntryMode.dial,
                     );
+
+                    if (time == null) return;
+
+                    setState(() {
+                      _startTime = time;
+                      _startTimeController.text = time.format(context);
+                    });
                   },
+                  onSaved: (value) {
+                    final timeOfDay = TimeOfDayExtension.tryParse(value ?? '');
+                    if (timeOfDay == null) return;
+                    _booking.startDate =
+                        _booking.startDate!.addLocalTimeOfDay(timeOfDay);
+                  },
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return appLocalizations.enterStartTime;
+                    }
+
+                    final parsedTimeOfDay = TimeOfDayExtension.tryParse(value);
+
+                    if (parsedTimeOfDay == null) {
+                      return appLocalizations.enterStartTime;
+                    }
+
+                    _booking.startDate =
+                        _booking.startDate!.addLocalTimeOfDay(parsedTimeOfDay);
+
+                    if (_startTime != parsedTimeOfDay) {
+                      _startTime = parsedTimeOfDay;
+                    }
+
+                    final parsedDateTime = widget.booking.dateOnly!
+                        .addLocalTimeOfDay(parsedTimeOfDay);
+
+                    if (parsedDateTime.isAfter(
+                          widget.booking.dateOnly!.addLocalTimeOfDay(
+                            _endTime ?? TimeOfDay.now(),
+                          ),
+                        ) ||
+                        parsedDateTime.isBefore(
+                          widget.booking.dateOnly!
+                              .addLocalTimeOfDay(kTimeTableStartTime),
+                        )) {
+                      return appLocalizations.enterValidRange;
+                    }
+
+                    if (_booking.cabin?.bookingCollection
+                            .bookingsOverlapWith(_booking) ??
+                        false) {
+                      return appLocalizations.occupied;
+                    }
+
+                    return null;
+                  },
+                  autovalidateMode: AutovalidateMode.always,
                 ),
               ),
               const SizedBox(width: 16),
               Expanded(
                 flex: 8,
-                child: Consumer<CabinCollection>(
-                  builder: (context, cabinCollection, child) {
-                    return TextFormField(
-                      controller: _endTimeController,
-                      decoration:
-                          InputDecoration(labelText: appLocalizations.end),
-                      onTap: () async {
-                        final time = await showTimePicker(
-                          context: context,
-                          initialTime: _endTime!,
-                          initialEntryMode: Platform.isMacOS ||
-                                  Platform.isWindows ||
-                                  Platform.isLinux
-                              ? TimePickerEntryMode.input
-                              : TimePickerEntryMode.dial,
-                        );
-
-                        if (time == null) return;
-
-                        setState(() {
-                          _endTime = time;
-                          _endTimeController.text = time.format(context);
-                        });
-                      },
-                      onSaved: (value) {
-                        final timeOfDay =
-                            TimeOfDayExtension.tryParse(value ?? '');
-                        if (timeOfDay == null) return;
-                        _booking.endDate =
-                            _booking.endDate!.addLocalTimeOfDay(timeOfDay);
-                      },
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return appLocalizations.enterEndTime;
-                        }
-
-                        final parsedTimeOfDay =
-                            TimeOfDayExtension.tryParse(value);
-
-                        if (parsedTimeOfDay == null) {
-                          return appLocalizations.enterEndTime;
-                        }
-
-                        _booking.endDate = _booking.endDate!
-                            .addLocalTimeOfDay(parsedTimeOfDay);
-
-                        if (_endTime != parsedTimeOfDay) {
-                          _endTime = parsedTimeOfDay;
-                        }
-
-                        final parsedDateTime = widget.booking.dateOnly!
-                            .addLocalTimeOfDay(parsedTimeOfDay);
-
-                        if (parsedDateTime.isBefore(
-                              widget.booking.dateOnly!.addLocalTimeOfDay(
-                                _startTime ?? TimeOfDay.now(),
-                              ),
-                            ) ||
-                            parsedDateTime.isAfter(
-                              widget.booking.dateOnly!
-                                  .addLocalTimeOfDay(kTimeTableEndTime),
-                            )) {
-                          return appLocalizations.enterValidRange;
-                        }
-
-                        if (cabinCollection
-                            .cabinFromId(_booking.cabin?.id)
-                            .bookingCollection
-                            .bookingsOverlapWith(_booking)) {
-                          return appLocalizations.occupied;
-                        }
-
-                        return null;
-                      },
-                      autovalidateMode: AutovalidateMode.always,
+                child: TextFormField(
+                  controller: _endTimeController,
+                  decoration: InputDecoration(labelText: appLocalizations.end),
+                  onTap: () async {
+                    final time = await showTimePicker(
+                      context: context,
+                      initialTime: _endTime!,
+                      initialEntryMode: Platform.isMacOS ||
+                              Platform.isWindows ||
+                              Platform.isLinux
+                          ? TimePickerEntryMode.input
+                          : TimePickerEntryMode.dial,
                     );
+
+                    if (time == null) return;
+
+                    setState(() {
+                      _endTime = time;
+                      _endTimeController.text = time.format(context);
+                    });
                   },
+                  onSaved: (value) {
+                    final timeOfDay = TimeOfDayExtension.tryParse(value ?? '');
+                    if (timeOfDay == null) return;
+                    _booking.endDate =
+                        _booking.endDate!.addLocalTimeOfDay(timeOfDay);
+                  },
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return appLocalizations.enterEndTime;
+                    }
+
+                    final parsedTimeOfDay = TimeOfDayExtension.tryParse(value);
+
+                    if (parsedTimeOfDay == null) {
+                      return appLocalizations.enterEndTime;
+                    }
+
+                    _booking.endDate =
+                        _booking.endDate!.addLocalTimeOfDay(parsedTimeOfDay);
+
+                    if (_endTime != parsedTimeOfDay) {
+                      _endTime = parsedTimeOfDay;
+                    }
+
+                    final parsedDateTime = widget.booking.dateOnly!
+                        .addLocalTimeOfDay(parsedTimeOfDay);
+
+                    if (parsedDateTime.isBefore(
+                          widget.booking.dateOnly!.addLocalTimeOfDay(
+                            _startTime ?? TimeOfDay.now(),
+                          ),
+                        ) ||
+                        parsedDateTime.isAfter(
+                          widget.booking.dateOnly!
+                              .addLocalTimeOfDay(kTimeTableEndTime),
+                        )) {
+                      return appLocalizations.enterValidRange;
+                    }
+
+                    if (_booking.cabin?.bookingCollection
+                            .bookingsOverlapWith(_booking) ??
+                        false) {
+                      return appLocalizations.occupied;
+                    }
+
+                    return null;
+                  },
+                  autovalidateMode: AutovalidateMode.always,
                 ),
               ),
             ],
