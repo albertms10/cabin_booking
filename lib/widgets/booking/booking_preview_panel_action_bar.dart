@@ -96,7 +96,7 @@ class _BookingPreviewEditIconButton extends StatelessWidget {
     final editedBooking = await showDialog<Booking>(
       context: context,
       builder: (context) => BookingDialog(
-        booking: bookingToEdit..cabin = cabin,
+        booking: bookingToEdit.copyWith(cabin: cabin),
       ),
     );
 
