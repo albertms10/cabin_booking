@@ -64,13 +64,14 @@ class _BookingPreviewPanelOverlayState
     _lastBookingId = booking.id;
     setPreventTimeTableScroll?.call(value: true);
 
+    final resolvedOffset = _resolvedOffsetFromContext(context, renderBox);
     _overlayEntry = OverlayEntry(
       builder: (context) {
         return _PreviewPanel(
           cabin: cabin,
           booking: booking,
           width: widget.width,
-          offset: _resolvedOffsetFromContext(context, renderBox),
+          offset: resolvedOffset,
           layerLink: _layerLink,
           renderBox: renderBox,
           onWillPop: () => _hidePreviewPanel(
