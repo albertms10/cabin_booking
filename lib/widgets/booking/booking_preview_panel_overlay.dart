@@ -39,7 +39,6 @@ class _BookingPreviewPanelOverlayState
 
   Offset _resolvedOffsetFromContext(BuildContext context, RenderBox renderBox) {
     final offset = renderBox.localToGlobal(Offset.zero);
-
     final containerRenderBox = context.findRenderObject()! as RenderBox;
     final containerOffset = containerRenderBox.localToGlobal(Offset.zero);
 
@@ -80,8 +79,7 @@ class _BookingPreviewPanelOverlayState
         );
       },
     );
-
-    Overlay.of(context)?.insert(_overlayEntry!);
+    Overlay.of(context).insert(_overlayEntry!);
   }
 
   void _hidePreviewPanel({
