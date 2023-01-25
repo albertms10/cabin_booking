@@ -23,7 +23,7 @@ class CenteredIconMessage extends StatelessWidget {
               message!,
               style: Theme.of(context)
                   .textTheme
-                  .headline5
+                  .headlineSmall
                   ?.copyWith(color: Colors.grey[600]),
             ),
           if (icon != null || message != null) const SizedBox(height: 82),

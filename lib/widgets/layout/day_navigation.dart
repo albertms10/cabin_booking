@@ -82,7 +82,7 @@ class _WeekDateTime extends StatelessWidget {
           children: [
             Text(
               DateFormat.EEEE().format(dateTime),
-              style: theme.textTheme.headline5,
+              style: theme.textTheme.headlineSmall,
             ),
             if (isNonSchoolDay)
               Chip(
@@ -93,7 +93,7 @@ class _WeekDateTime extends StatelessWidget {
         ),
         Text(
           DateFormat.yMMMMd().format(dateTime),
-          style: theme.textTheme.subtitle2?.copyWith(color: theme.hintColor),
+          style: theme.textTheme.titleSmall?.copyWith(color: theme.hintColor),
         ),
       ],
     );

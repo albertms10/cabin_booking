@@ -27,7 +27,7 @@ class ScrollableTimeTable extends StatelessWidget {
                 return Center(
                   child: Text(
                     AppLocalizations.of(context)!.noCabins,
-                    style: theme.textTheme.headline5
+                    style: theme.textTheme.headlineSmall
                         ?.copyWith(color: Colors.grey[600]),
                     textAlign: TextAlign.center,
                   ),

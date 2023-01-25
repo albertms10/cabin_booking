@@ -84,7 +84,7 @@ class _CabinIconText extends StatelessWidget {
 
     return Text(
       '$number',
-      style: theme.textTheme.headline5?.copyWith(color: color),
+      style: theme.textTheme.headlineSmall?.copyWith(color: color),
       textAlign: TextAlign.center,
     );
   }

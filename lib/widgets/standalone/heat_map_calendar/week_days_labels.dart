@@ -28,7 +28,7 @@ class WeekDaysLabels extends StatelessWidget {
               height: squareSize + space,
               child: Text(
                 weekDaysLabels[i.weekdayMod(firstWeekDay - 1).toInt()],
-                style: Theme.of(context).textTheme.caption,
+                style: Theme.of(context).textTheme.bodySmall,
               ),
             )
           else

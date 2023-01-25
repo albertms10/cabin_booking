@@ -52,7 +52,7 @@ class DangerAlertDialog extends StatelessWidget {
           ),
           child: Text(
             (okText ?? materialLocalizations.deleteButtonTooltip).toUpperCase(),
-            style: TextStyle(color: Theme.of(context).errorColor),
+            style: TextStyle(color: Theme.of(context).colorScheme.error),
           ),
         ),
       ],

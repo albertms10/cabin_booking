@@ -28,7 +28,7 @@ class ItemInfo extends StatelessWidget {
               creationDateTime!.day,
               dateFormat.format(creationDateTime!.toLocal()),
             ),
-            style: theme.textTheme.caption,
+            style: theme.textTheme.bodySmall,
           ),
         if (modificationDateTime != null)
           Text(
@@ -36,12 +36,12 @@ class ItemInfo extends StatelessWidget {
               modificationDateTime!.day,
               dateFormat.format(modificationDateTime!.toLocal()),
             ),
-            style: theme.textTheme.caption,
+            style: theme.textTheme.bodySmall,
           ),
         if (modificationCount > 1)
           Text(
             appLocalizations.nModifications(modificationCount),
-            style: theme.textTheme.caption,
+            style: theme.textTheme.bodySmall,
           ),
       ],
     );

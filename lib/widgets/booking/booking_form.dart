@@ -286,7 +286,7 @@ class _BookingFormState extends State<BookingForm> {
                       widget.isRecurring
                           ? appLocalizations.recurrence
                           : appLocalizations.doesNotRepeat,
-                      style: Theme.of(context).textTheme.subtitle1,
+                      style: Theme.of(context).textTheme.titleMedium,
                     ),
                   );
                 },

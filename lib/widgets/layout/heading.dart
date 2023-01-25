@@ -19,7 +19,7 @@ class Heading extends StatelessWidget {
       children: [
         Text(
           heading,
-          style: theme.textTheme.headline5?.copyWith(
+          style: theme.textTheme.headlineSmall?.copyWith(
             color: theme.colorScheme.onSurface.withOpacity(0.8),
           ),
         ),

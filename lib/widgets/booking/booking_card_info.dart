@@ -57,7 +57,7 @@ class BookingCardInfo extends StatelessWidget {
                       if (constraints.maxHeight > 30)
                         Text(
                           booking.textualTime,
-                          style: theme.textTheme.caption?.copyWith(
+                          style: theme.textTheme.bodySmall?.copyWith(
                             fontSize: constraints.maxHeight > 40
                                 ? 14
                                 : constraints.maxHeight * 0.4,
