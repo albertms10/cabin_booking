@@ -35,7 +35,7 @@ class DetailedFigure<T> extends StatelessWidget {
         children: [
           Text(
             '$figure',
-            style: theme.textTheme.headline5,
+            style: theme.textTheme.headlineSmall,
           ),
           if (filteredDetails.length > 1)
             Padding(

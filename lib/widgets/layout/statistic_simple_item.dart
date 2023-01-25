@@ -17,7 +17,7 @@ class StatisticSimpleItem<T> extends StatelessWidget {
       label: label,
       item: Text(
         '$value',
-        style: Theme.of(context).textTheme.headline5,
+        style: Theme.of(context).textTheme.headlineSmall,
       ),
     );
   }

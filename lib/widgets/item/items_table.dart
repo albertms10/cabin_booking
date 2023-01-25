@@ -202,7 +202,7 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
                             const SizedBox(width: 12),
                             Text(
                               widget.itemTitle?.call(row) ?? '${row.item}',
-                              style: theme.textTheme.headline5,
+                              style: theme.textTheme.headlineSmall,
                             ),
                           ],
                         ),

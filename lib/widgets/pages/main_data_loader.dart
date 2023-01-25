@@ -66,7 +66,7 @@ class _MainDataLoaderState extends State<MainDataLoader> {
           return Center(
             child: Text(
               AppLocalizations.of(context)!.dataCouldNotBeLoaded,
-              style: Theme.of(context).textTheme.headline4,
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
           );
         } else if (items.isEmpty) {

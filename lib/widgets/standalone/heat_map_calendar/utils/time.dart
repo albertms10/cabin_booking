@@ -11,7 +11,7 @@ final List<String> weekDaysLabels = [
 ];
 
 /// Obtains the first day of the current week,
-/// based on user's current day
+/// based on user's current day.
 DateTime firstDayOfTheWeek(DateTime today) {
   return safeSubtract(
     today,
@@ -62,7 +62,7 @@ DateTime addTZ(DateTime dateTime) {
 }
 
 /// Subtract duration without timezone.
-/// That prevents from problems with time shift if DST changed
+/// That prevents from problems with time shift if DST changed.
 DateTime safeSubtract(DateTime dateTime, Duration duration) {
   final add = removeTZ(dateTime).subtract(duration);
 
@@ -70,7 +70,7 @@ DateTime safeSubtract(DateTime dateTime, Duration duration) {
 }
 
 /// Add duration without timezone.
-/// That prevents from problems with time shift if DST changed
+/// That prevents from problems with time shift if DST changed.
 DateTime safeAdd(DateTime dateTime, Duration duration) {
   final add = removeTZ(dateTime).add(duration);
 
@@ -78,7 +78,7 @@ DateTime safeAdd(DateTime dateTime, Duration duration) {
 }
 
 /// Creates a list of [DateTime], including all days
-/// between [startDate] and [finishDate]
+/// between [startDate] and [finishDate].
 List<DateTime> datesBetween(DateTime startDate, DateTime finishDate) {
   assert(finishDate.isAfter(startDate), 'finishDate must be after startDate.');
 

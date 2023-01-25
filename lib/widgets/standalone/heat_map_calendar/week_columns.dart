@@ -43,7 +43,7 @@ class WeekColumns extends StatelessWidget {
 
   /// The main logic for generating a list of columns representing a week.
   ///
-  /// Each column is a week with a [MonthLabel] and 7 [HeatMapDay] widgets
+  /// Each column is a week with a [MonthLabel] and 7 [HeatMapDay] Widgets.
   List<Widget> buildWeekItems() {
     final dateList = calendarDatesFromColumns(columnsToCreate);
 

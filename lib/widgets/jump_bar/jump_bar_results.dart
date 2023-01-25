@@ -36,7 +36,7 @@ class JumpBarResults extends StatelessWidget {
             onTap: () async {
               Navigator.of(context).pop();
 
-              return showNewBookingDialog(
+              await showNewBookingDialog(
                 context: context,
                 booking: suggestedBooking!.copyWith(
                   cabin:

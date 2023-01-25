@@ -20,7 +20,7 @@ class StatisticItem extends StatelessWidget {
             padding: const EdgeInsetsDirectional.only(bottom: 8),
             child: Text(
               label!,
-              style: Theme.of(context).textTheme.subtitle2,
+              style: Theme.of(context).textTheme.titleSmall,
             ),
           ),
         item,

@@ -1,16 +1,16 @@
 name: cabin_booking
 description: An app for booking cabins.
-version: 0.5.0
+version: 0.9.0
 publish_to: none
 
 repository: https://github.com/albertms10/cabin_booking.git
 
 environment:
-  sdk: ">=2.18.0 <3.0.0"
-  flutter: ^3.3.0
+  sdk: ">=2.19.0 <3.0.0"
+  flutter: ^3.7.0
 
 dependencies:
-  collection: ^1.16.0
+  collection: ^1.17.0
   cupertino_icons: ^1.0.5
   fl_chart: ^0.55.2
   flutter:
@@ -18,9 +18,9 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   horizontal_data_table: ^4.1.4
-  intl: ^0.17.0
+  intl: any
   nanoid: ^1.0.0
-  path_provider: ^2.0.11
+  path_provider: ^2.0.12
   provider: ^6.0.5
   timer_builder: ^2.0.0
   window_size:
@@ -29,7 +29,7 @@ dependencies:
       path: plugins/window_size
 
 dev_dependencies:
-  dart_code_metrics: ^5.3.0
+  dart_code_metrics: ^5.5.0
   flutter_test:
     sdk: flutter
   very_good_analysis: ^3.1.0
