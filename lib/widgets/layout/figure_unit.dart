@@ -14,13 +14,13 @@ class FigureUnit extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('$value', style: theme.textTheme.headline5),
+        Text('$value', style: theme.textTheme.headlineSmall),
         const SizedBox(width: 2),
         Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             const SizedBox(height: 2),
-            Text(unit, style: theme.textTheme.subtitle2),
+            Text(unit, style: theme.textTheme.titleSmall),
           ],
         ),
       ],

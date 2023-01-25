@@ -25,7 +25,7 @@ class BookingFloatingActionButton extends StatelessWidget {
             FloatingActionButtonMenuChild(
               label: Text(
                 appLocalizations.recurringBooking,
-                style: theme.textTheme.subtitle2,
+                style: theme.textTheme.titleSmall,
               ),
               icon: Icons.repeat,
               onTap: () {
@@ -49,7 +49,7 @@ class BookingFloatingActionButton extends StatelessWidget {
             FloatingActionButtonMenuChild(
               label: Text(
                 appLocalizations.lockedRange,
-                style: theme.textTheme.subtitle2,
+                style: theme.textTheme.titleSmall,
               ),
               icon: Icons.lock,
               onTap: () {
@@ -73,11 +73,11 @@ class BookingFloatingActionButton extends StatelessWidget {
           ],
           label: Text(
             appLocalizations.booking,
-            style: theme.textTheme.subtitle2,
+            style: theme.textTheme.titleSmall,
           ),
           animatedIcon: AnimatedIcons.add_event,
           animatedIconTheme:
-              IconThemeData(color: theme.colorScheme.onPrimary, size: 25),
+              IconThemeData(size: 25, color: theme.colorScheme.onPrimary),
           onPressed: () {
             showNewBookingDialog(
               context: context,

@@ -66,6 +66,7 @@ extension IterableExtension<E> on Iterable<E> {
     if (E == num || E == int || E == double) {
       nextValue ??= (current) => (current as num) + 1 as E;
     } else if (E == String) {
+      // ignore: format-comment
       // False positive: the parameter has not been assigned yet.
       // ignore: parameter_assignments
       nextValue ??= (current) {

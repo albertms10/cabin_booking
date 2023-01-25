@@ -34,7 +34,7 @@ class TimeColumn extends StatelessWidget {
                 height: kBookingHeightRatio * 60,
                 child: Text(
                   TimeOfDay(hour: hour, minute: 0).format(context),
-                  style: theme.textTheme.headline5
+                  style: theme.textTheme.headlineSmall
                       ?.copyWith(color: theme.hintColor),
                 ),
               ),

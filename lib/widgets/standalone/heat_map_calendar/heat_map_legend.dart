@@ -34,7 +34,7 @@ class HeatMapLegend extends StatelessWidget {
       children: [
         Text(
           lessLabel ?? 'Less',
-          style: theme.textTheme.caption,
+          style: theme.textTheme.bodySmall,
         ),
         SizedBox(width: space),
         for (var threshold = 0; threshold < samples; threshold++)
@@ -49,7 +49,7 @@ class HeatMapLegend extends StatelessWidget {
         SizedBox(width: space),
         Text(
           moreLabel ?? 'More',
-          style: theme.textTheme.caption,
+          style: theme.textTheme.bodySmall,
         ),
       ],
     );
