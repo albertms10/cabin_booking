@@ -44,7 +44,16 @@ class RecurringBookingOccurrence extends SingleBooking {
       );
 
   @override
-  // ignore: hash_and_equals
   bool operator ==(Object other) =>
-      super == other && other is RecurringBookingOccurrence;
+      super == other &&
+      other is RecurringBookingOccurrence &&
+      recurringBooking == other.recurringBooking &&
+      recurringNumber == other.recurringNumber;
+
+  @override
+  int get hashCode => Object.hash(
+        super.hashCode,
+        recurringBooking,
+        recurringNumber,
+      );
 }
