@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 
-abstract class Serializable {
-  // ignore: avoid_unused_constructor_parameters
-  Serializable.from(Map<String, dynamic> other);
-
+/// Contract with the required methods to JSON-serialize an object.
+mixin Serializable {
+  /// Returns a serialized JSON representation of this object instance.
   @mustCallSuper
   Map<String, dynamic> toJson();
+}
+
+/// Contract with the required methods to JSON-serialize an array of objects.
+mixin SerializableList {
+  /// Returns a serialized JSON representation of this object array instance.
+  @mustCallSuper
+  List<Map<String, dynamic>> toJson();
 }

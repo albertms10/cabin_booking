@@ -1,5 +1,4 @@
 import 'package:cabin_booking/model.dart';
-import 'package:cabin_booking/utils/date_time_extension.dart';
 import 'package:cabin_booking/utils/iterable_extension.dart';
 import 'package:cabin_booking/utils/map_extension.dart';
 import 'package:cabin_booking/utils/time_of_day_extension.dart';
@@ -14,37 +13,37 @@ class CabinsTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<CabinManager>(
-      builder: (context, cabinManager, child) {
+    return Consumer<CabinCollection>(
+      builder: (context, cabinCollection, child) {
         final appLocalizations = AppLocalizations.of(context)!;
 
         final now = DateTime.now();
-        final lastYear = now.subtract(const Duration(days: 365));
+        final dateRange = DateRange(
+          startDate: now.subtract(const Duration(days: 365)),
+          endDate: now,
+        );
+        final keysToFill = dateRange.dateTimeList(
+          interval: const Duration(days: DateTime.daysPerWeek),
+        );
 
         return ItemsTable<Cabin>(
           itemIcon: Icons.sensor_door,
           itemHeaderLabel: appLocalizations.cabin,
           rows: [
-            for (final cabin in cabinManager.cabins)
+            for (final cabin in cabinCollection.cabins)
               ItemsTableRow<Cabin>(
                 item: cabin,
-                bookingsCount: cabin.bookings.length,
+                bookingsCount: cabin.bookingCollection.bookings.length,
                 recurringBookingsCount:
-                    cabin.generatedBookingsFromRecurring.length,
-                occupiedDuration: cabin.occupiedDuration(),
-                occupiedDurationPerWeek: cabin
-                    .occupiedDurationPerWeek(
-                      DateRange(startDate: lastYear, endDate: now),
-                    )
-                    .fillEmptyKeyValues(
-                      keys: DateRanger.rangeDateTimeList(
-                        lastYear.firstDayOfWeek,
-                        now.firstDayOfWeek,
-                        interval: const Duration(days: DateTime.daysPerWeek),
+                    cabin.bookingCollection.singleBookingsFromRecurring.length,
+                occupiedDuration: cabin.bookingCollection.occupiedDuration(),
+                occupiedDurationPerWeek:
+                    cabin.bookingCollection.occupiedDurationPerWeek(dateRange)
+                      ..fillEmptyKeyValues(
+                        keys: keysToFill,
+                        ifAbsent: () => Duration.zero,
                       ),
-                      ifAbsent: () => Duration.zero,
-                    ),
-                mostOccupiedTimeRanges: cabin
+                mostOccupiedTimeRanges: cabin.bookingCollection
                     .mostOccupiedTimeRange()
                     .compactConsecutive(
                       nextValue: (timeOfDay) => timeOfDay.increment(hours: 1),
@@ -61,15 +60,15 @@ class CabinsTable extends StatelessWidget {
             );
 
             if (editedCabin != null) {
-              cabinManager.modifyCabin(editedCabin);
+              cabinCollection.modifyCabin(editedCabin);
             }
           },
           onEmptyTitle: appLocalizations.emptyCabinTitle,
           onEmptyPressed: (selectedIds) =>
-              cabinManager.emptyCabinsByIds(selectedIds),
+              cabinCollection.emptyCabinsByIds(selectedIds),
           onRemoveTitle: appLocalizations.deleteCabinTitle,
           onRemovePressed: (selectedIds) =>
-              cabinManager.removeCabinsByIds(selectedIds),
+              cabinCollection.removeCabinsByIds(selectedIds),
         );
       },
     );

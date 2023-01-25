@@ -33,8 +33,9 @@ class BookingsStack extends StatelessWidget {
 
     final dayHandler = Provider.of<DayHandler>(context);
 
-    final startDateTime = dayHandler.dateTime.addTimeOfDay(kTimeTableStartTime);
-    final endDateTime = dayHandler.dateTime.addTimeOfDay(kTimeTableEndTime);
+    final startDate =
+        dayHandler.dateTime.addLocalTimeOfDay(kTimeTableStartTime);
+    final endDate = dayHandler.dateTime.addLocalTimeOfDay(kTimeTableEndTime);
 
     var slotCount = 0;
 
@@ -43,9 +44,9 @@ class BookingsStack extends StatelessWidget {
       final isLast = i == bookings.length - 1;
 
       var currentBookingDate =
-          isFirst ? startDateTime : bookings.elementAt(i).endDateTime!;
+          isFirst ? startDate : bookings.elementAt(i).endDate!;
       var nextBookingDateTime =
-          isLast ? endDateTime : bookings.elementAt(i + 1).startDateTime!;
+          isLast ? endDate : bookings.elementAt(i + 1).startDate!;
 
       final duration = nextBookingDateTime.difference(currentBookingDate);
 
@@ -84,8 +85,8 @@ class BookingsStack extends StatelessWidget {
             EmptyBookingSlot(
               key: _emptyBookingSlotKey(currentBookingDate, slotCount++),
               cabin: cabin,
-              startDateTime: currentBookingDate,
-              endDateTime: nextBookingDateTime,
+              startDate: currentBookingDate,
+              endDate: nextBookingDateTime,
             ),
           );
 
@@ -100,8 +101,8 @@ class BookingsStack extends StatelessWidget {
           EmptyBookingSlot(
             key: _emptyBookingSlotKey(currentBookingDate, slotCount++),
             cabin: cabin,
-            startDateTime: currentBookingDate,
-            endDateTime: nextBookingDateTime,
+            startDate: currentBookingDate,
+            endDate: nextBookingDateTime,
           ),
         );
 

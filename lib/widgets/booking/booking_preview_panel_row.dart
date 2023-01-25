@@ -66,7 +66,7 @@ class _BookingPreviewPanelRowHeadline extends BookingPreviewPanelRow {
                   headline,
                   style: Theme.of(context)
                       .textTheme
-                      .headline5
+                      .headlineSmall
                       ?.copyWith(fontWeight: FontWeight.w300),
                 ),
                 const SizedBox(height: 4),
@@ -99,8 +99,8 @@ class _BookingPreviewPanelRowTrailing extends StatelessWidget {
               height: iconSize,
               child: IconTheme.merge(
                 data: IconThemeData(
-                  color: Theme.of(context).hintColor,
                   size: iconSize,
+                  color: Theme.of(context).hintColor,
                 ),
                 child: Center(child: child),
               ),

@@ -73,7 +73,7 @@
   "mostOccupiedTimeRange": "Horari més ocupat",
   "mostBookedDay": "Dia amb més reserves",
   "onDate": "El dia",
-  "after": "{n, plural, =1 {Després d’} =11 {Després d’} other {Després de }}",
+  "after": "{n, plural, =1 {Després d’} other {Després de }}",
   "@after": {
     "placeholders": {
       "n": {
@@ -118,7 +118,7 @@
   "lecterns": "Faristols",
   "chairs": "Cadires",
   "tables": "Taules",
-  "createdOn": "{day, plural, =1 {Creat l’{date}} =11 {Creat l’{date}} other {Creat el {date}}}",
+  "createdOn": "{day, plural, =1 {Creat l’{date}} other {Creat el {date}}}",
   "@createdOn": {
     "placeholders": {
       "day": {
@@ -130,7 +130,7 @@
       }
     }
   },
-  "modifiedOn": "{day, plural, =1 {Modificat l’{date}} =11 {Modificat l’{date}} other {Modificat el {date}}}",
+  "modifiedOn": "{day, plural, =1 {Modificat l’{date}} other {Modificat el {date}}}",
   "@modifiedOn": {
     "placeholders": {
       "day": {

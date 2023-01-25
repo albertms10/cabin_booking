@@ -3,46 +3,50 @@ import 'dart:collection' show SplayTreeMap, SplayTreeSet;
 import 'package:cabin_booking/utils/date_time_extension.dart';
 import 'package:cabin_booking/utils/string_extension.dart';
 import 'package:cabin_booking/utils/time_of_day_extension.dart';
-import 'package:collection/collection.dart' show IterableExtension;
+import 'package:collection/collection.dart' show IterableExtension, SetEquality;
 import 'package:flutter/material.dart';
 
-import '../date/date_range.dart';
-import 'booking.dart';
-import 'recurring_booking.dart';
-import 'single_booking.dart';
+import 'booking/booking.dart';
+import 'booking/recurring_booking.dart';
+import 'booking/single_booking.dart';
+import 'date/date_ranger.dart';
+import 'serializable.dart';
 
-class BookingManager with ChangeNotifier {
+abstract class _JsonFields {
+  static const bookings = 'b';
+  static const recurringBookings = 'rb';
+}
+
+class BookingCollection with ChangeNotifier implements Serializable {
   late Set<SingleBooking> bookings;
   late Set<RecurringBooking> recurringBookings;
 
-  BookingManager({
+  BookingCollection({
     Set<SingleBooking>? bookings,
     Set<RecurringBooking>? recurringBookings,
-  }) {
-    this.bookings = bookings ?? SplayTreeSet();
-    this.recurringBookings = recurringBookings ?? SplayTreeSet();
-  }
+  })  : bookings = bookings ?? SplayTreeSet(),
+        recurringBookings = recurringBookings ?? SplayTreeSet();
 
-  BookingManager.from({
-    required List<dynamic> bookings,
-    required List<dynamic> recurringBookings,
-  })  : bookings = SplayTreeSet.of(
-          bookings
+  BookingCollection.fromJson(Map<String, dynamic> other)
+      : bookings = SplayTreeSet.of(
+          (other[_JsonFields.bookings] as List<dynamic>)
               .cast<Map<String, dynamic>>()
-              .map<SingleBooking>(SingleBooking.from),
+              .map<SingleBooking>(SingleBooking.fromJson),
         ),
         recurringBookings = SplayTreeSet.of(
-          recurringBookings
+          (other[_JsonFields.recurringBookings] as List<dynamic>)
               .cast<Map<String, dynamic>>()
-              .map<RecurringBooking>(RecurringBooking.from),
+              .map<RecurringBooking>(RecurringBooking.fromJson),
         );
 
-  List<Map<String, dynamic>> singleBookingsToJson() =>
-      bookings.map((booking) => booking.toJson()).toList();
-
-  List<Map<String, dynamic>> recurringBookingsToJson() => recurringBookings
-      .map((recurringBooking) => recurringBooking.toJson())
-      .toList();
+  @override
+  Map<String, dynamic> toJson() => {
+        _JsonFields.bookings:
+            bookings.map((booking) => booking.toJson()).toList(),
+        _JsonFields.recurringBookings: recurringBookings
+            .map((recurringBooking) => recurringBooking.toJson())
+            .toList(),
+      };
 
   List<SingleBooking> get singleBookingsFromRecurring => [
         for (final recurringBooking in recurringBookings)
@@ -56,13 +60,13 @@ class BookingManager with ChangeNotifier {
 
   Set<SingleBooking> singleBookingsBetween(DateRanger dateRange) =>
       SplayTreeSet.of(
-        bookings.where((booking) => booking.isBetween(dateRange)),
+        bookings.where((booking) => booking.overlapsWith(dateRange)),
       );
 
   Set<SingleBooking> recurringBookingsBetween(DateRanger dateRange) =>
       SplayTreeSet.of(
         singleBookingsFromRecurring.where(
-          (recurringBooking) => recurringBooking.isBetween(dateRange),
+          (recurringBooking) => recurringBooking.overlapsWith(dateRange),
         ),
       );
 
@@ -93,19 +97,19 @@ class BookingManager with ChangeNotifier {
         ...recurringBookingsOn(dateTime),
       });
 
-  bool bookingsCollideWith(Booking booking) {
-    if (booking.date == null) return false;
+  bool bookingsOverlapWith(Booking booking) {
+    if (booking.dateOnly == null) return false;
 
-    return allBookingsOn(booking.date!)
+    return allBookingsOn(booking.dateOnly!)
             .where(
               (comparingBooking) =>
-                  (comparingBooking.recurringBookingId == null ||
-                      comparingBooking.recurringBookingId !=
-                          booking.recurringBookingId) &&
+                  (comparingBooking.recurringBooking?.id == null ||
+                      comparingBooking.recurringBooking?.id !=
+                          booking.recurringBooking?.id) &&
                   comparingBooking.id != booking.id,
             )
             .firstWhereOrNull(
-              (comparingBooking) => comparingBooking.collidesWith(booking),
+              (comparingBooking) => comparingBooking.overlapsWith(booking),
             ) !=
         null;
   }
@@ -138,8 +142,8 @@ class BookingManager with ChangeNotifier {
     required TimeOfDay endTime,
   }) {
     final fallbackDateTime = dateTime ?? DateTime.now();
-    final startDate = fallbackDateTime.addTimeOfDay(startTime);
-    final endDate = fallbackDateTime.addTimeOfDay(endTime);
+    final startDate = fallbackDateTime.addLocalTimeOfDay(startTime);
+    final endDate = fallbackDateTime.addLocalTimeOfDay(endTime);
 
     final maxViewDuration = endDate.difference(startDate);
 
@@ -178,11 +182,13 @@ class BookingManager with ChangeNotifier {
 
     for (final booking in bookingsList) {
       final shouldAddDate = dates.firstWhereOrNull(
-            (date) => booking.date != null && date.isSameDateAs(booking.date!),
+            (date) =>
+                booking.dateOnly != null &&
+                date.isSameDateAs(booking.dateOnly!),
           ) !=
           null;
 
-      if (!shouldAddDate) dates.add(booking.date!);
+      if (!shouldAddDate) dates.add(booking.dateOnly!);
     }
 
     return dates;
@@ -193,7 +199,7 @@ class BookingManager with ChangeNotifier {
 
     for (final booking in allBookings) {
       bookingsPerDay.update(
-        booking.date!,
+        booking.dateOnly!,
         (count) => count + 1,
         ifAbsent: () => 1,
       );
@@ -206,10 +212,10 @@ class BookingManager with ChangeNotifier {
     final bookingsPerDay = SplayTreeMap<DateTime, Duration>();
 
     for (final booking in allBookings) {
-      if (dateRange != null && !dateRange.includes(booking.date!)) continue;
+      if (dateRange != null && !dateRange.includes(booking.dateOnly!)) continue;
 
       bookingsPerDay.update(
-        booking.date!.firstDayOfWeek,
+        booking.dateOnly!.firstDayOfWeek,
         (duration) => duration + booking.duration,
         ifAbsent: () => booking.duration,
       );
@@ -269,10 +275,6 @@ class BookingManager with ChangeNotifier {
   SingleBooking singleBookingFromId(String id) =>
       bookings.firstWhere((booking) => booking.id == id);
 
-  RecurringBooking recurringBookingFromId(String? id) => recurringBookings
-      .firstWhere((recurringBooking) => recurringBooking.id == id)
-    ..recurringBookingId = id;
-
   List<Booking> searchBookings(String query, {int? limit}) {
     final results = <Booking>[];
     for (final booking in allBookings) {
@@ -307,9 +309,7 @@ class BookingManager with ChangeNotifier {
     SingleBooking booking, {
     bool notify = true,
   }) {
-    bookings
-        .firstWhere((comparingBooking) => comparingBooking.id == booking.id)
-        .replaceWith(booking);
+    singleBookingFromId(booking.id).replaceWith(booking);
 
     if (notify) notifyListeners();
   }
@@ -321,7 +321,7 @@ class BookingManager with ChangeNotifier {
     recurringBookings
         .firstWhere(
           (comparingRecurringBooking) =>
-              recurringBooking.recurringBookingId ==
+              recurringBooking.recurringBooking.id ==
                   comparingRecurringBooking.id ||
               recurringBooking.id == comparingRecurringBooking.id,
         )
@@ -343,9 +343,8 @@ class BookingManager with ChangeNotifier {
     String? id, {
     bool notify = true,
   }) {
-    recurringBookings.removeWhere(
-      (comparingRecurringBooking) => comparingRecurringBooking.id == id,
-    );
+    recurringBookings
+        .removeWhere((recurringBooking) => recurringBooking.id == id);
 
     if (notify) notifyListeners();
   }
@@ -356,4 +355,17 @@ class BookingManager with ChangeNotifier {
 
     if (notify) notifyListeners();
   }
+
+  @override
+  bool operator ==(Object other) =>
+      other is BookingCollection &&
+      const SetEquality<SingleBooking>().equals(bookings, other.bookings) &&
+      const SetEquality<RecurringBooking>()
+          .equals(recurringBookings, other.recurringBookings);
+
+  @override
+  int get hashCode => Object.hash(
+        Object.hashAllUnordered(bookings),
+        Object.hashAllUnordered(recurringBookings),
+      );
 }

@@ -5,7 +5,6 @@ import 'package:collection/collection.dart' show IterableNullableExtension;
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
 
 class BookingSearchResult extends StatelessWidget {
   final Booking booking;
@@ -14,7 +13,6 @@ class BookingSearchResult extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cabinManager = Provider.of<CabinManager>(context);
     final appLocalizations = AppLocalizations.of(context)!;
 
     return Column(
@@ -29,18 +27,17 @@ class BookingSearchResult extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SearchResultLabel(
-              label: booking.cabinId != null
-                  ? '${appLocalizations.cabin} '
-                      '${cabinManager.cabinFromId(booking.cabinId).number}'
+              label: booking.cabin != null
+                  ? '${appLocalizations.cabin} ${booking.cabin?.number}'
                   : null,
               placeholder: appLocalizations.cabin,
             ),
             const SizedBox(width: 12),
             SearchResultLabel<DateRange>(
-              label: booking.date != null
+              label: booking.dateOnly != null
                   ? DateRange(
-                      startDate: booking.startDateTime,
-                      endDate: booking.endDateTime,
+                      startDate: booking.startDate,
+                      endDate: booking.endDate,
                     )
                   : null,
               formatter: (dateRange) {

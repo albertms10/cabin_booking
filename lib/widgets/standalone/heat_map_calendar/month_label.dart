@@ -26,7 +26,7 @@ class MonthLabel extends StatelessWidget {
           Positioned.directional(
             textDirection: Directionality.of(context),
             bottom: 0,
-            child: Text(text, style: Theme.of(context).textTheme.caption),
+            child: Text(text, style: Theme.of(context).textTheme.bodySmall),
           ),
         ],
       ),

@@ -1,7 +1,5 @@
 import 'dart:collection' show SplayTreeSet;
 
-import 'package:intl/intl.dart';
-
 import '../date/date_range_item.dart';
 import '../date/holiday.dart';
 
@@ -10,24 +8,22 @@ abstract class _JsonFields {
 }
 
 class SchoolYear extends DateRangeItem {
-  late Set<Holiday> holidays;
+  final Set<Holiday> holidays;
 
   SchoolYear({
     super.id,
     super.startDate,
     super.endDate,
     Set<Holiday>? holidays,
-  }) {
-    this.holidays = holidays ?? SplayTreeSet();
-  }
+  }) : holidays = holidays ?? SplayTreeSet();
 
-  SchoolYear.from(super.other)
+  SchoolYear.fromJson(super.other)
       : holidays = SplayTreeSet.of(
           (other[_JsonFields.holidays] as List<dynamic>)
               .cast<Map<String, dynamic>>()
-              .map<Holiday>(Holiday.from),
+              .map<Holiday>(Holiday.fromJson),
         ),
-        super.from();
+        super.fromJson();
 
   @override
   Map<String, dynamic> toJson() => {
@@ -65,18 +61,10 @@ class SchoolYear extends DateRangeItem {
   }
 
   @override
-  String toString() {
-    final bothExist = startDate != null && endDate != null;
-    final isSameYear = bothExist && startDate!.year == endDate!.year;
-
-    final startYear =
-        startDate != null ? DateFormat.y().format(startDate!) : '';
-
-    final endYear =
-        endDate != null && !isSameYear ? DateFormat.y().format(endDate!) : '';
-
-    return '$startYear'
-        '${bothExist && !isSameYear ? '–' : ''}'
-        '$endYear';
-  }
+  String toString() => textualDateTime(
+        referenceDateTime: DateTime(0),
+        fullDateFormat: (format) => format.add_y(),
+        monthDayFormat: (format) => format.add_y(),
+        timeFormat: (format) => format,
+      );
 }

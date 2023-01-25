@@ -5,33 +5,40 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   group('DateTimeExtension', () {
     group('.dateOnly', () {
-      test('should return only the date information of this DateTime', () {
-        expect(DateTime(2021, 9, 7, 21, 30, 10).dateOnly, DateTime(2021, 9, 7));
-      });
-    });
-
-    group('.addTimeOfDay', () {
-      test('should return a new DateTime adding the TimeOfDay information', () {
-        expect(
-          DateTime(2021, 9, 7)
-              .addTimeOfDay(const TimeOfDay(hour: 21, minute: 30)),
-          DateTime(2021, 9, 7, 21, 30),
-        );
-      });
-
       test(
-        'should return a new DateTime replacing the TimeOfDay information',
+        'should return only the date information of this DateTime, keeping '
+        'UTC information',
         () {
           expect(
-            DateTime(2021, 9, 7, 8, 15)
-                .addTimeOfDay(const TimeOfDay(hour: 21, minute: 30)),
-            DateTime(2021, 9, 7, 21, 30),
+            DateTime(2021, 9, 7, 21, 30, 10).dateOnly,
+            DateTime(2021, 9, 7),
+          );
+          expect(
+            DateTime.utc(2021, 9, 7, 21, 30, 10).dateOnly,
+            DateTime.utc(2021, 9, 7),
           );
         },
       );
     });
 
-    group('.isSameDateAs', () {
+    group('.addLocalTimeOfDay()', () {
+      test('should return a new DateTime replacing the time part', () {
+        final dateTime = DateTime(2021, 9, 7, 8, 15);
+        expect(
+          dateTime.addLocalTimeOfDay(const TimeOfDay(hour: 21, minute: 30)),
+          DateTime(2021, 9, 7, 21, 30),
+        );
+
+        expect(
+          dateTime
+              .toUtc()
+              .addLocalTimeOfDay(const TimeOfDay(hour: 21, minute: 30)),
+          DateTime.utc(2021, 9, 7, 21, 30).subtract(dateTime.timeZoneOffset),
+        );
+      });
+    });
+
+    group('.isSameDateAs()', () {
       test('should return true when the dates are the same', () {
         expect(
           DateTime(2021, 9, 7, 21, 30, 10)
@@ -49,14 +56,30 @@ void main() {
       });
     });
 
+    group('.dayOfWeek()', () {
+      test('should return the day of the week relative to this DateTime', () {
+        expect(
+          DateTime(2021, 1, 8, 9, 30).dayOfWeek(DateTime.sunday),
+          DateTime(2021, 1, 10, 9, 30),
+        );
+        expect(
+          DateTime.utc(1989, 11, 9).dayOfWeek(DateTime.saturday),
+          DateTime.utc(1989, 11, 11),
+        );
+        expect(
+          DateTime.utc(1989, 11, 9).dayOfWeek(DateTime.monday),
+          DateTime.utc(1989, 11, 6),
+        );
+      });
+    });
+
     group('.firstDayOfWeek', () {
       test(
-        'should return the first day of the week relative to this DateTime, '
-        'whose weekday are the same',
+        'should return the first day of the week relative to this DateTime',
         () {
           expect(
-            DateTime(2021, 1, 10, 9, 30).firstDayOfWeek.weekday,
-            DateTime(2021, 1, 4).weekday,
+            DateTime(2021, 1, 10, 9, 30).firstDayOfWeek,
+            DateTime(2021, 1, 4, 9, 30),
           );
           expect(
             DateTime.utc(1989, 11, 9).firstDayOfWeek,
@@ -64,20 +87,9 @@ void main() {
           );
         },
       );
-
-      test(
-        'should return the first day of the week relative to this DateTime '
-        'while preserving time information',
-        () {
-          expect(
-            DateTime(2021, 1, 10, 9, 30).firstDayOfWeek,
-            DateTime(2021, 1, 4, 9, 30),
-          );
-        },
-      );
     });
 
-    group('.toDouble', () {
+    group('.toDouble()', () {
       test('should return a double representation of this DateTime', () {
         expect(DateTime(2021, 1, 10, 9, 30).toDouble(), closeTo(18637.3, 0.1));
       });

@@ -1,5 +1,6 @@
 import 'package:cabin_booking/widgets/booking/booking_floating_action_button.dart';
 import 'package:cabin_booking/widgets/cabin/cabin_floating_action_button.dart';
+import 'package:cabin_booking/widgets/pages/actionable_focused_shortcuts.dart';
 import 'package:cabin_booking/widgets/pages/bookings_page.dart';
 import 'package:cabin_booking/widgets/pages/cabins_page.dart';
 import 'package:cabin_booking/widgets/pages/school_years_page.dart';
@@ -12,10 +13,13 @@ class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  HomePageState createState() => HomePageState();
+
+  static HomePageState? of(BuildContext context) =>
+      context.findAncestorStateOfType<HomePageState>();
 }
 
-class _HomePageState extends State<HomePage> {
+class HomePageState extends State<HomePage> {
   final PageController _pageController = PageController();
 
   int get selectedIndex =>
@@ -29,7 +33,7 @@ class _HomePageState extends State<HomePage> {
     setState(() => _pageController.jumpToPage(index));
   }
 
-  void _setNavigationPage(AppPage page) => _setNavigationIndex(page.index);
+  void setNavigationPage(AppPage page) => _setNavigationIndex(page.index);
 
   List<_PageDestination> _pageDestinations(AppLocalizations appLocalizations) =>
       [
@@ -38,7 +42,7 @@ class _HomePageState extends State<HomePage> {
           icon: const Icon(Icons.home_outlined),
           selectedIcon: const Icon(Icons.home),
           label: appLocalizations.summary,
-          child: SummaryPage(setNavigationPage: _setNavigationPage),
+          child: const SummaryPage(),
         ),
         _PageDestination(
           appPage: AppPage.bookings,
@@ -76,62 +80,64 @@ class _HomePageState extends State<HomePage> {
     final isSmallDisplay = _isSmallDisplay(context);
     final pageDestinations = _pageDestinations(appLocalizations);
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          appLocalizations.title,
-          style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
+    return ActionableFocusedShortcuts(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            appLocalizations.title,
+            style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
+          ),
         ),
-      ),
-      body: SafeArea(
-        child: Row(
-          children: [
-            if (!isSmallDisplay) ...[
-              NavigationRail(
+        body: SafeArea(
+          child: Row(
+            children: [
+              if (!isSmallDisplay) ...[
+                NavigationRail(
+                  destinations: [
+                    for (final page in pageDestinations)
+                      NavigationRailDestination(
+                        icon: page.icon,
+                        selectedIcon: page.selectedIcon,
+                        label: Text(page.label),
+                        padding: const EdgeInsetsDirectional.only(
+                          top: 8,
+                          bottom: 4,
+                        ),
+                      ),
+                  ],
+                  selectedIndex: selectedIndex,
+                  onDestinationSelected: _setNavigationIndex,
+                  labelType: NavigationRailLabelType.all,
+                ),
+                const VerticalDivider(width: 1, thickness: 1),
+              ],
+              Expanded(
+                child: PageView(
+                  controller: _pageController,
+                  physics: const NeverScrollableScrollPhysics(),
+                  children: [for (final page in pageDestinations) page.child],
+                ),
+              ),
+            ],
+          ),
+        ),
+        floatingActionButton:
+            pageDestinations[selectedIndex].floatingActionButton,
+        bottomNavigationBar: isSmallDisplay
+            ? NavigationBar(
+                selectedIndex: selectedIndex,
                 destinations: [
                   for (final page in pageDestinations)
-                    NavigationRailDestination(
+                    NavigationDestination(
                       icon: page.icon,
                       selectedIcon: page.selectedIcon,
-                      label: Text(page.label),
-                      padding: const EdgeInsetsDirectional.only(
-                        top: 8,
-                        bottom: 4,
-                      ),
+                      label: page.label,
                     ),
                 ],
-                selectedIndex: selectedIndex,
                 onDestinationSelected: _setNavigationIndex,
-                labelType: NavigationRailLabelType.all,
-              ),
-              const VerticalDivider(width: 1, thickness: 1),
-            ],
-            Expanded(
-              child: PageView(
-                controller: _pageController,
-                physics: const NeverScrollableScrollPhysics(),
-                children: [for (final page in pageDestinations) page.child],
-              ),
-            ),
-          ],
-        ),
+              )
+            : null,
       ),
-      floatingActionButton:
-          pageDestinations[selectedIndex].floatingActionButton,
-      bottomNavigationBar: isSmallDisplay
-          ? NavigationBar(
-              selectedIndex: selectedIndex,
-              destinations: [
-                for (final page in pageDestinations)
-                  NavigationDestination(
-                    icon: page.icon,
-                    selectedIcon: page.selectedIcon,
-                    label: page.label,
-                  ),
-              ],
-              onDestinationSelected: _setNavigationIndex,
-            )
-          : null,
     );
   }
 }

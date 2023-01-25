@@ -14,12 +14,12 @@ class MainDataLoader extends StatefulWidget {
 }
 
 class _MainDataLoaderState extends State<MainDataLoader> {
-  late final CabinManager _cabinManager =
-      Provider.of<CabinManager>(context, listen: false)
+  late final CabinCollection _cabinCollection =
+      Provider.of<CabinCollection>(context, listen: false)
         ..addListener(_writeCabinsAndShowSnackBar);
 
-  late final SchoolYearManager _schoolYearManager =
-      Provider.of<DayHandler>(context, listen: false).schoolYearManager
+  late final SchoolYearCollection _schoolYearCollection =
+      Provider.of<DayHandler>(context, listen: false).schoolYearCollection
         ..addListener(_writeSchoolYearsAndShowSnackBar);
 
   Future<void> _writeAndShowSnackBar(WritableManager<dynamic> manager) async {
@@ -37,15 +37,15 @@ class _MainDataLoaderState extends State<MainDataLoader> {
     );
   }
 
-  void _writeCabinsAndShowSnackBar() => _writeAndShowSnackBar(_cabinManager);
+  void _writeCabinsAndShowSnackBar() => _writeAndShowSnackBar(_cabinCollection);
 
   void _writeSchoolYearsAndShowSnackBar() =>
-      _writeAndShowSnackBar(_schoolYearManager);
+      _writeAndShowSnackBar(_schoolYearCollection);
 
   @override
   void dispose() {
-    _cabinManager.removeListener(_writeCabinsAndShowSnackBar);
-    _schoolYearManager.removeListener(_writeSchoolYearsAndShowSnackBar);
+    _cabinCollection.removeListener(_writeCabinsAndShowSnackBar);
+    _schoolYearCollection.removeListener(_writeSchoolYearsAndShowSnackBar);
 
     super.dispose();
   }
@@ -54,8 +54,8 @@ class _MainDataLoaderState extends State<MainDataLoader> {
   Widget build(BuildContext context) {
     return FutureProvider<List<int>?>(
       create: (context) => Future.wait([
-        _cabinManager.loadFromFile(),
-        _schoolYearManager.loadFromFile(),
+        _cabinCollection.loadFromFile(),
+        _schoolYearCollection.loadFromFile(),
       ]),
       initialData: const [],
       catchError: (context, error) => null,
@@ -66,7 +66,7 @@ class _MainDataLoaderState extends State<MainDataLoader> {
           return Center(
             child: Text(
               AppLocalizations.of(context)!.dataCouldNotBeLoaded,
-              style: Theme.of(context).textTheme.headline4,
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
           );
         } else if (items.isEmpty) {

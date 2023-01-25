@@ -21,13 +21,13 @@ class ScrollableTimeTable extends StatelessWidget {
         width: MediaQuery.of(context).size.width,
         child: ColoredBox(
           color: theme.dialogBackgroundColor,
-          child: Consumer2<DayHandler, CabinManager>(
-            builder: (context, dayHandler, cabinManager, child) {
-              if (cabinManager.cabins.isEmpty) {
+          child: Consumer2<DayHandler, CabinCollection>(
+            builder: (context, dayHandler, cabinCollection, child) {
+              if (cabinCollection.cabins.isEmpty) {
                 return Center(
                   child: Text(
                     AppLocalizations.of(context)!.noCabins,
-                    style: theme.textTheme.headline5
+                    style: theme.textTheme.headlineSmall
                         ?.copyWith(color: Colors.grey[600]),
                     textAlign: TextAlign.center,
                   ),
@@ -35,7 +35,7 @@ class ScrollableTimeTable extends StatelessWidget {
               }
 
               return _ScrollablePanelOverlayTimeTable(
-                cabins: cabinManager.cabins,
+                cabins: cabinCollection.cabins,
                 dateTime: dayHandler.dateTime,
               );
             },
@@ -110,7 +110,8 @@ class _ScrollablePanelOverlayTimeTableState
                           width: bookingStackWidth,
                           child: CabinIcon.progress(
                             number: cabin.number,
-                            progress: cabin.occupancyPercentOn(
+                            progress:
+                                cabin.bookingCollection.occupancyPercentOn(
                               widget.dateTime,
                               startTime: kTimeTableStartTime,
                               endTime: kTimeTableEndTime,

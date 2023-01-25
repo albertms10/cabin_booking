@@ -1,7 +1,5 @@
-import 'package:intl/intl.dart';
-
 import '../item.dart';
-import 'date_range.dart';
+import 'date_ranger.dart';
 
 abstract class _JsonFields {
   static const startDate = 'sd';
@@ -10,10 +8,10 @@ abstract class _JsonFields {
 
 class DateRangeItem extends Item with DateRanger {
   @override
-  DateTime? endDate;
+  DateTime? startDate;
 
   @override
-  DateTime? startDate;
+  DateTime? endDate;
 
   DateRangeItem({
     super.id,
@@ -29,41 +27,42 @@ class DateRangeItem extends Item with DateRanger {
     endDate ??= startDate;
   }
 
-  DateRangeItem.from(super.other)
+  DateRangeItem.fromJson(super.other)
       : startDate = DateTime.tryParse(other[_JsonFields.startDate] as String),
         endDate = DateTime.tryParse(other[_JsonFields.endDate] as String),
-        super.from();
+        super.fromJson();
 
   @override
   Map<String, dynamic> toJson() => {
         ...super.toJson(),
-        _JsonFields.startDate: startDate?.toIso8601String().split('T').first,
-        _JsonFields.endDate: endDate?.toIso8601String().split('T').first,
+        _JsonFields.startDate: startDate?.toUtc().toIso8601String(),
+        _JsonFields.endDate: endDate?.toUtc().toIso8601String(),
       };
 
   @override
   DateRangeItem copyWith({
+    String? id,
     DateTime? startDate,
     DateTime? endDate,
   }) =>
       DateRangeItem(
-        id: id,
+        id: id ?? this.id,
         startDate: startDate ?? this.startDate,
         endDate: endDate ?? this.endDate,
       );
 
   @override
-  String toString() => '${DateFormat.yMd().format(startDate!)}'
-      ' - ${DateFormat.yMd().format(endDate!)}';
+  String toString() => '$startDate - $endDate';
 
   @override
   bool operator ==(Object other) =>
+      super == other &&
       other is DateRangeItem &&
       startDate == other.startDate &&
       endDate == other.endDate;
 
   @override
-  int get hashCode => Object.hash(startDate, endDate);
+  int get hashCode => Object.hash(super.hashCode, startDate, endDate);
 
   @override
   int compareTo(covariant DateRangeItem other) =>

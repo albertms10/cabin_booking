@@ -13,9 +13,9 @@ class BookingFloatingActionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer2<DayHandler, CabinManager>(
-      builder: (context, dayHandler, cabinManager, child) {
-        if (cabinManager.cabins.isEmpty) return const SizedBox();
+    return Consumer2<DayHandler, CabinCollection>(
+      builder: (context, dayHandler, cabinCollection, child) {
+        if (cabinCollection.cabins.isEmpty) return const SizedBox();
 
         final theme = Theme.of(context);
         final appLocalizations = AppLocalizations.of(context)!;
@@ -25,73 +25,73 @@ class BookingFloatingActionButton extends StatelessWidget {
             FloatingActionButtonMenuChild(
               label: Text(
                 appLocalizations.recurringBooking,
-                style: theme.textTheme.subtitle2,
+                style: theme.textTheme.titleSmall,
               ),
               icon: Icons.repeat,
               onTap: () {
                 showNewBookingDialog(
                   context: context,
                   booking: RecurringBooking(
-                    startDateTime:
-                        dayHandler.dateTime.addTimeOfDay(kTimeTableStartTime),
-                    endDateTime: dayHandler.dateTime.addTimeOfDay(
+                    startDate: dayHandler.dateTime
+                        .addLocalTimeOfDay(kTimeTableStartTime),
+                    endDate: dayHandler.dateTime.addLocalTimeOfDay(
                       kTimeTableStartTime.increment(
                         minutes: defaultSlotDuration.inMinutes,
                       ),
                     ),
-                    cabinId: cabinManager.cabins.first.id,
+                    cabin: cabinCollection.cabins.first,
                     occurrences: 1,
                   ),
-                  cabinManager: cabinManager,
+                  cabinCollection: cabinCollection,
                 );
               },
             ),
             FloatingActionButtonMenuChild(
               label: Text(
                 appLocalizations.lockedRange,
-                style: theme.textTheme.subtitle2,
+                style: theme.textTheme.titleSmall,
               ),
               icon: Icons.lock,
               onTap: () {
                 showNewBookingDialog(
                   context: context,
                   booking: SingleBooking(
-                    startDateTime:
-                        dayHandler.dateTime.addTimeOfDay(kTimeTableStartTime),
-                    endDateTime: dayHandler.dateTime.addTimeOfDay(
+                    startDate: dayHandler.dateTime
+                        .addLocalTimeOfDay(kTimeTableStartTime),
+                    endDate: dayHandler.dateTime.addLocalTimeOfDay(
                       kTimeTableStartTime.increment(
                         minutes: defaultSlotDuration.inMinutes,
                       ),
                     ),
                     isLocked: true,
-                    cabinId: cabinManager.cabins.first.id,
+                    cabin: cabinCollection.cabins.first,
                   ),
-                  cabinManager: cabinManager,
+                  cabinCollection: cabinCollection,
                 );
               },
             ),
           ],
           label: Text(
             appLocalizations.booking,
-            style: theme.textTheme.subtitle2,
+            style: theme.textTheme.titleSmall,
           ),
           animatedIcon: AnimatedIcons.add_event,
           animatedIconTheme:
-              IconThemeData(color: theme.colorScheme.onPrimary, size: 25),
+              IconThemeData(size: 25, color: theme.colorScheme.onPrimary),
           onPressed: () {
             showNewBookingDialog(
               context: context,
               booking: SingleBooking(
-                startDateTime:
-                    dayHandler.dateTime.addTimeOfDay(kTimeTableStartTime),
-                endDateTime: dayHandler.dateTime.addTimeOfDay(
+                startDate:
+                    dayHandler.dateTime.addLocalTimeOfDay(kTimeTableStartTime),
+                endDate: dayHandler.dateTime.addLocalTimeOfDay(
                   kTimeTableStartTime.increment(
                     minutes: defaultSlotDuration.inMinutes,
                   ),
                 ),
-                cabinId: cabinManager.cabins.first.id,
+                cabin: cabinCollection.cabins.first,
               ),
-              cabinManager: cabinManager,
+              cabinCollection: cabinCollection,
             );
           },
         );

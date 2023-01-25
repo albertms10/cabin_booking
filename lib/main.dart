@@ -17,7 +17,7 @@ void main() {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => DayHandler()),
-        ChangeNotifierProvider(create: (context) => CabinManager()),
+        ChangeNotifierProvider(create: (context) => CabinCollection()),
       ],
       child: const CabinBookingApp(),
     ),

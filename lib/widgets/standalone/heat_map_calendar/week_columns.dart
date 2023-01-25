@@ -1,5 +1,6 @@
 // ignore_for_file: avoid-returning-widgets
 
+import 'package:cabin_booking/utils/map_int_color_extension.dart';
 import 'package:cabin_booking/utils/num_extension.dart';
 import 'package:flutter/material.dart';
 
@@ -38,9 +39,11 @@ class WeekColumns extends StatelessWidget {
     this.highlightOn,
   });
 
+  EdgeInsetsGeometry get padding => EdgeInsets.all(space * 0.5);
+
   /// The main logic for generating a list of columns representing a week.
   ///
-  /// Each column is a week with a [MonthLabel] and 7 [HeatMapDay] widgets
+  /// Each column is a week with a [MonthLabel] and 7 [HeatMapDay] Widgets.
   List<Widget> buildWeekItems() {
     final dateList = calendarDatesFromColumns(columnsToCreate);
 
@@ -90,7 +93,7 @@ class WeekColumns extends StatelessWidget {
           if (runWeekDayCount >= 0) {
             columnItems.add(
               Padding(
-                padding: EdgeInsets.all(space * 0.5),
+                padding: padding,
                 child: SizedBox.square(dimension: squareSize),
               ),
             );
@@ -103,12 +106,15 @@ class WeekColumns extends StatelessWidget {
 
         dateList.removeAt(0);
 
+        final value = input[currentDate] ?? 0;
+        final color =
+            colorThresholds.colorFromThreshold(value) ?? Colors.black12;
         columnItems.add(
           HeatMapDay(
-            value: input[currentDate] ?? 0,
+            value: value,
             size: squareSize,
-            space: space,
-            thresholds: colorThresholds,
+            padding: padding,
+            color: color,
             date: currentDate,
             onTap: onDayTap,
             valueWrapper: dayValueWrapper,

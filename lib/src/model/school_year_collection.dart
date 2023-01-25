@@ -3,28 +3,28 @@ import 'dart:convert' show json;
 
 import 'package:flutter/foundation.dart';
 
-import '../file/file_manager.dart';
-import '../file/writable_manager.dart';
-import 'school_year.dart';
+import 'file/file_manager.dart';
+import 'file/writable_manager.dart';
+import 'school_year/school_year.dart';
 
 Iterable<SchoolYear> _parseSchoolYears(String jsonString) =>
     (json.decode(jsonString) as List<dynamic>)
         .cast<Map<String, dynamic>>()
-        .map(SchoolYear.from);
+        .map(SchoolYear.fromJson);
 
-class SchoolYearManager extends WritableManager<Set<SchoolYear>>
+class SchoolYearCollection extends WritableManager<Set<SchoolYear>>
     with ChangeNotifier {
   late Set<SchoolYear> schoolYears;
   int? _schoolYearIndex;
 
   final VoidCallback? notifyExternalListeners;
 
-  SchoolYearManager({
+  SchoolYearCollection({
     Set<SchoolYear>? schoolYears,
-    String fileName = 'school_year_manager',
+    String fileName = 'school_years',
     this.notifyExternalListeners,
-  }) : super(fileName) {
-    this.schoolYears = schoolYears ?? SplayTreeSet();
+  })  : schoolYears = schoolYears ?? SplayTreeSet(),
+        super(fileName) {
     schoolYearIndex = _currentSchoolYearIndex;
   }
 
@@ -134,20 +134,20 @@ class SchoolYearManager extends WritableManager<Set<SchoolYear>>
 
   Set<SchoolYear> get _defaultSchoolYears => SplayTreeSet.of({
         SchoolYear(
-          startDate: DateTime(2018, DateTime.september, 3),
-          endDate: DateTime(2019, DateTime.july, 26),
+          startDate: DateTime.utc(2018, DateTime.september, 3),
+          endDate: DateTime.utc(2019, DateTime.july, 26),
         ),
         SchoolYear(
-          startDate: DateTime(2019, DateTime.september, 2),
-          endDate: DateTime(2020, DateTime.july, 25),
+          startDate: DateTime.utc(2019, DateTime.september, 2),
+          endDate: DateTime.utc(2020, DateTime.july, 25),
         ),
         SchoolYear(
-          startDate: DateTime(2020, DateTime.september),
-          endDate: DateTime(2021, DateTime.july, 24),
+          startDate: DateTime.utc(2020, DateTime.september),
+          endDate: DateTime.utc(2021, DateTime.july, 24),
         ),
         SchoolYear(
-          startDate: DateTime(2021, DateTime.august, 31),
-          endDate: DateTime(2022, DateTime.july, 23),
+          startDate: DateTime.utc(2021, DateTime.august, 31),
+          endDate: DateTime.utc(2022, DateTime.july, 23),
         ),
       });
 

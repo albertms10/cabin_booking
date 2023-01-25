@@ -39,24 +39,10 @@ class _BookingPreviewPanelOverlayState
 
   Offset _resolvedOffsetFromContext(BuildContext context, RenderBox renderBox) {
     final offset = renderBox.localToGlobal(Offset.zero);
-
     final containerRenderBox = context.findRenderObject()! as RenderBox;
     final containerOffset = containerRenderBox.localToGlobal(Offset.zero);
 
     return offset - containerOffset;
-  }
-
-  Offset _desiredOffset({
-    required Offset offset,
-    required Size screenSize,
-    required Size overlaySize,
-    required Size renderBoxSize,
-  }) {
-    final dx = offset.dx > screenSize.width * 0.5
-        ? -overlaySize.width
-        : renderBoxSize.width;
-
-    return offset + Offset(dx, -5);
   }
 
   void _showPreviewPanel(
@@ -75,66 +61,25 @@ class _BookingPreviewPanelOverlayState
     }
 
     _lastBookingId = booking.id;
-
-    final resolvedOffset = _resolvedOffsetFromContext(context, renderBox);
-
     setPreventTimeTableScroll?.call(value: true);
 
+    final resolvedOffset = _resolvedOffsetFromContext(context, renderBox);
     _overlayEntry = OverlayEntry(
       builder: (context) {
-        return Stack(
-          children: [
-            GestureDetector(
-              onTap: () {
-                _hidePreviewPanel(
-                  setPreventTimeTableScroll: setPreventTimeTableScroll,
-                );
-              },
-              behavior: HitTestBehavior.translucent,
-            ),
-            Positioned(
-              width: widget.width,
-              child: CompositedTransformFollower(
-                link: _layerLink,
-                showWhenUnlinked: false,
-                offset: _desiredOffset(
-                  offset: resolvedOffset,
-                  screenSize: MediaQuery.of(context).size,
-                  overlaySize: Size(widget.width, 200),
-                  renderBoxSize: renderBox.size,
-                ),
-                child: _AnimatedOffsetBuilder(
-                  duration: const Duration(milliseconds: 200),
-                  builder: (context, offset) {
-                    return SlideTransition(
-                      position: offset,
-                      child: Card(
-                        elevation: 24,
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                        ),
-                        child: BookingPreviewPanel(
-                          cabin: cabin,
-                          booking: booking,
-                          onClose: () {
-                            _hidePreviewPanel(
-                              setPreventTimeTableScroll:
-                                  setPreventTimeTableScroll,
-                            );
-                          },
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ),
-          ],
+        return _PreviewPanel(
+          cabin: cabin,
+          booking: booking,
+          width: widget.width,
+          offset: resolvedOffset,
+          layerLink: _layerLink,
+          renderBox: renderBox,
+          onWillPop: () => _hidePreviewPanel(
+            setPreventTimeTableScroll: setPreventTimeTableScroll,
+          ),
         );
       },
     );
-
-    Overlay.of(context)?.insert(_overlayEntry!);
+    Overlay.of(context).insert(_overlayEntry!);
   }
 
   void _hidePreviewPanel({
@@ -142,12 +87,10 @@ class _BookingPreviewPanelOverlayState
     SetPreventTimeTableScroll? setPreventTimeTableScroll,
   }) {
     if (_overlayEntry == null) return;
-
     if (resetPrevious) {
       _lastBookingId = null;
       setPreventTimeTableScroll?.call(value: false);
     }
-
     _overlayEntry!.remove();
     _overlayEntry = null;
   }
@@ -157,6 +100,84 @@ class _BookingPreviewPanelOverlayState
     return CompositedTransformTarget(
       link: _layerLink,
       child: widget.builder(context, _showPreviewPanel),
+    );
+  }
+}
+
+class _PreviewPanel extends StatelessWidget {
+  final Cabin cabin;
+  final Booking booking;
+  final double width;
+  final Offset offset;
+  final LayerLink layerLink;
+  final RenderBox renderBox;
+  final VoidCallback? onWillPop;
+
+  const _PreviewPanel({
+    super.key,
+    required this.cabin,
+    required this.booking,
+    required this.width,
+    required this.offset,
+    required this.layerLink,
+    required this.renderBox,
+    this.onWillPop,
+  });
+
+  Offset _desiredOffset({
+    required Offset offset,
+    required Size screenSize,
+    required Size overlaySize,
+    required Size renderBoxSize,
+  }) {
+    final dx = offset.dx > screenSize.width * 0.5
+        ? -overlaySize.width
+        : renderBoxSize.width;
+
+    return offset + Offset(dx, -5);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        GestureDetector(
+          onTap: onWillPop,
+          behavior: HitTestBehavior.translucent,
+        ),
+        Positioned(
+          width: width,
+          child: CompositedTransformFollower(
+            link: layerLink,
+            showWhenUnlinked: false,
+            offset: _desiredOffset(
+              offset: offset,
+              screenSize: MediaQuery.of(context).size,
+              overlaySize: Size(width, 200),
+              renderBoxSize: renderBox.size,
+            ),
+            child: _AnimatedOffsetBuilder(
+              duration: const Duration(milliseconds: 200),
+              builder: (context, offset) {
+                return SlideTransition(
+                  position: offset,
+                  child: Card(
+                    elevation: 24,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                    ),
+                    child: BookingPreviewPanel(
+                      cabin: cabin,
+                      booking: booking,
+                      onClose: onWillPop,
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

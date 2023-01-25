@@ -7,14 +7,14 @@ import 'package:timer_builder/timer_builder.dart';
 
 class EmptyBookingSlot extends StatelessWidget {
   final Cabin cabin;
-  final DateTime startDateTime;
-  final DateTime endDateTime;
+  final DateTime startDate;
+  final DateTime endDate;
 
   const EmptyBookingSlot({
     super.key,
     required this.cabin,
-    required this.startDateTime,
-    required this.endDateTime,
+    required this.startDate,
+    required this.endDate,
   });
 
   @override
@@ -24,13 +24,13 @@ class EmptyBookingSlot extends StatelessWidget {
       builder: (context) {
         final now = DateTime.now();
 
-        final fullDuration = endDateTime.difference(startDateTime);
+        final fullDuration = endDate.difference(startDate);
 
-        final startToNowDuration = now.difference(startDateTime);
-        final startsBeforeNow = now.compareTo(startDateTime) > 0;
+        final startToNowDuration = now.difference(startDate);
+        final startsBeforeNow = now.compareTo(startDate) > 0;
 
-        final endToNowDuration = endDateTime.difference(now);
-        final endsAfterNow = endDateTime.compareTo(now) > 0;
+        final endToNowDuration = endDate.difference(now);
+        final endsAfterNow = endDate.compareTo(now) > 0;
 
         final duration =
             startsBeforeNow && endsAfterNow ? endToNowDuration : fullDuration;
@@ -56,12 +56,12 @@ class EmptyBookingSlot extends StatelessWidget {
                   width: double.infinity,
                   height: value,
                   child: duration.compareTo(kMinSlotDuration) < 0 ||
-                          endDateTime.compareTo(now) < 0
+                          endDate.compareTo(now) < 0
                       ? null
                       : _EmptyBookingSlotActionable(
                           cabin: cabin,
-                          startDateTime: startsBeforeNow ? now : startDateTime,
-                          endDateTime: endDateTime,
+                          startDate: startsBeforeNow ? now : startDate,
+                          endDate: endDate,
                           preciseDuration: preciseDuration,
                         ),
                 );
@@ -76,24 +76,24 @@ class EmptyBookingSlot extends StatelessWidget {
 
 class _EmptyBookingSlotActionable extends StatelessWidget {
   final Cabin cabin;
-  final DateTime startDateTime;
-  final DateTime endDateTime;
+  final DateTime startDate;
+  final DateTime endDate;
   final int? preciseDuration;
 
   const _EmptyBookingSlotActionable({
     super.key,
     required this.cabin,
-    required this.startDateTime,
-    required this.endDateTime,
+    required this.startDate,
+    required this.endDate,
     this.preciseDuration,
   });
 
   @override
   Widget build(BuildContext context) {
-    final cabinManager = Provider.of<CabinManager>(context, listen: false);
+    final cabinCollection =
+        Provider.of<CabinCollection>(context, listen: false);
 
-    final duration =
-        preciseDuration ?? endDateTime.difference(startDateTime).inMinutes;
+    final duration = preciseDuration ?? endDate.difference(startDate).inMinutes;
 
     return Container(
       decoration: const BoxDecoration(
@@ -107,11 +107,11 @@ class _EmptyBookingSlotActionable extends StatelessWidget {
             showNewBookingDialog(
               context: context,
               booking: SingleBooking(
-                startDateTime: startDateTime,
-                endDateTime: endDateTime,
-                cabinId: cabin.id,
+                startDate: startDate,
+                endDate: endDate,
+                cabin: cabin,
               ),
-              cabinManager: cabinManager,
+              cabinCollection: cabinCollection,
             );
           },
           borderRadius: const BorderRadius.all(Radius.circular(4)),

@@ -73,7 +73,7 @@ class HeatMapCalendar extends StatelessWidget {
 
   /// Calculates the right amount of columns to create based on [maxWidth].
   ///
-  /// Returns the number of columns that the widget should have
+  /// Returns the number of columns that the widget should have.
   int columnsToCreate(double maxWidth) {
     assert(
       maxWidth > 2 * (squareSize + edgeSize),

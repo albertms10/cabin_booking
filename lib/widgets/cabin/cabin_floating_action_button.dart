@@ -12,18 +12,19 @@ class CabinFloatingActionButton extends StatelessWidget {
     return FloatingActionButton(
       tooltip: AppLocalizations.of(context)!.cabin,
       onPressed: () async {
-        final cabinManager = Provider.of<CabinManager>(context, listen: false);
+        final cabinCollection =
+            Provider.of<CabinCollection>(context, listen: false);
 
         final newCabin = await showDialog<Cabin>(
           context: context,
           builder: (context) => CabinDialog(
             cabin: Cabin(),
-            newCabinNumber: cabinManager.lastCabinNumber + 1,
+            newCabinNumber: cabinCollection.lastCabinNumber + 1,
           ),
         );
 
         if (newCabin != null) {
-          cabinManager.addCabin(newCabin);
+          cabinCollection.addCabin(newCabin);
         }
       },
       child: Icon(

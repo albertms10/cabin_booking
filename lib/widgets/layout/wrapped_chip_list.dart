@@ -31,7 +31,7 @@ class WrappedChipList<T> extends StatelessWidget {
           Chip(
             label: Text(
               '+${items.length - maxShown}',
-              style: Theme.of(context).textTheme.overline,
+              style: Theme.of(context).textTheme.labelSmall,
             ),
           ),
       ],

@@ -68,7 +68,7 @@ class _StatisticsHeading extends StatelessWidget {
           if (title != null)
             Text(
               title!,
-              style: theme.textTheme.subtitle1,
+              style: theme.textTheme.titleMedium,
             ),
         ],
       ),

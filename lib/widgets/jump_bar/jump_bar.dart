@@ -8,8 +8,13 @@ import 'package:provider/provider.dart';
 
 class JumpBar extends StatefulWidget {
   final int maxVisibleItems;
+  final BuildContext homePageContext;
 
-  const JumpBar({super.key, this.maxVisibleItems = 5});
+  const JumpBar({
+    super.key,
+    this.maxVisibleItems = 5,
+    required this.homePageContext,
+  });
 
   @override
   State<JumpBar> createState() => _JumpBarState();
@@ -46,7 +51,7 @@ class _JumpBarState extends State<JumpBar> {
     // Cabin.
     final cabinTokens =
         _controller.text.tokenize(TokenizedCabin.expressions(appLocalizations));
-    final cabin = Provider.of<CabinManager>(context, listen: false)
+    final cabin = Provider.of<CabinCollection>(context, listen: false)
         .findCabinFromTokenized(TokenizedCabin.fromTokens(cabinTokens));
 
     // Booking.
@@ -54,9 +59,9 @@ class _JumpBarState extends State<JumpBar> {
         .tokenize(TokenizedBooking.expressions(appLocalizations));
     final booking = TokenizedBooking.fromTokens(bookingTokens)
         .toSingleBooking(appLocalizations)
-        .copyWith(cabinId: cabin?.id);
+        .copyWith(cabin: cabin);
 
-    final searchedBookings = Provider.of<CabinManager>(
+    final searchedBookings = Provider.of<CabinCollection>(
       context,
       listen: false,
     ).searchBookings(_controller.text, perCabinLimit: 5);
@@ -102,6 +107,7 @@ class _JumpBarState extends State<JumpBar> {
                             suggestedBooking: _suggestedBooking,
                             searchedBookings: _searchedBookings,
                             itemExtent: _itemHeight,
+                            homePageContext: widget.homePageContext,
                           ),
                         ),
                       ],

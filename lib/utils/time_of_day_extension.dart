@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 /// TimeOfDay extension.
 extension TimeOfDayExtension on TimeOfDay {
-  /// Constructs a new [TimeOfDay] instance based on [formattedString].
+  /// Creates a new [TimeOfDay] instance based on [formattedString].
   ///
   /// Throws a [FormatException] if the input string cannot be parsed.
   ///
@@ -38,7 +38,7 @@ extension TimeOfDayExtension on TimeOfDay {
     throw FormatException('Time out of range', formattedString);
   }
 
-  /// Constructs a new [TimeOfDay] instance based on [formattedString].
+  /// Creates a new [TimeOfDay] instance based on [formattedString].
   ///
   /// Works like [parse] except that this function returns `null` where [parse]
   /// would throw a [FormatException].
@@ -106,16 +106,6 @@ extension TimeOfDayExtension on TimeOfDay {
   TimeOfDay roundToNearest(int n) => increment(
         minutes: minute.roundToNearest(n) - minute,
       );
-
-  /// Returns the 24-hour formatted string representation of this [TimeOfDay],
-  /// separated with ':'.
-  ///
-  /// Examples:
-  /// ```dart
-  /// assert(const TimeOfDay(hour: 9, minute: 00).format24Hour() == '09:00');
-  /// assert(const TimeOfDay(hour: 17, minute: 14).format24Hour() == '17:14');
-  /// ```
-  String format24Hour() => '${hour.padLeft2}:${minute.padLeft2}';
 
   // TODO(albertms10): remove when implemented in Flutter, https://github.com/flutter/flutter/pull/59981.
   static int compare(TimeOfDay a, TimeOfDay b) => a.compareTo(b);

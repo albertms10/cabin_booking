@@ -1,15 +1,17 @@
 import 'package:collection/collection.dart' show IterableExtension;
 
+import '../cabin/cabin.dart';
 import 'booking.dart';
 import 'single_booking.dart';
 
 abstract class _JsonFields {
   static const periodicity = 'p';
   static const repeatEvery = 're';
-  static const recurringEndDate = 'edt';
+  static const recurringEndDate = 'red';
   static const occurrences = 'o';
 }
 
+/// A recurring booking item.
 class RecurringBooking extends Booking {
   Periodicity periodicity;
   int repeatEvery;
@@ -19,11 +21,11 @@ class RecurringBooking extends Booking {
 
   RecurringBooking({
     super.id,
+    super.startDate,
+    super.endDate,
     super.description,
-    super.startDateTime,
-    super.endDateTime,
     super.isLocked,
-    super.cabinId,
+    super.cabin,
     this.periodicity = Periodicity.weekly,
     this.repeatEvery = 1,
     DateTime? recurringEndDate,
@@ -36,7 +38,7 @@ class RecurringBooking extends Booking {
         _recurringEndDate = recurringEndDate,
         _occurrences = occurrences;
 
-  RecurringBooking.from(super.other)
+  RecurringBooking.fromJson(super.other)
       : periodicity = Periodicity.values[other[_JsonFields.periodicity] as int],
         repeatEvery = other[_JsonFields.repeatEvery] as int,
         _recurringEndDate = other.containsKey(_JsonFields.recurringEndDate)
@@ -45,7 +47,7 @@ class RecurringBooking extends Booking {
         _occurrences = other.containsKey(_JsonFields.occurrences)
             ? other[_JsonFields.occurrences] as int?
             : null,
-        super.from();
+        super.fromJson();
 
   factory RecurringBooking.fromBooking(
     Booking booking, {
@@ -73,11 +75,11 @@ class RecurringBooking extends Booking {
 
     return RecurringBooking(
       id: booking.id,
+      startDate: booking.startDate,
+      endDate: booking.endDate,
       description: booking.description,
-      startDateTime: booking.startDateTime,
-      endDateTime: booking.endDateTime,
       isLocked: booking.isLocked,
-      cabinId: booking.cabinId,
+      cabin: booking.cabin,
       periodicity: periodicity,
       repeatEvery: repeatEvery,
       recurringEndDate: recurringEndDate,
@@ -85,8 +87,13 @@ class RecurringBooking extends Booking {
     );
   }
 
+  /// Override getter from [Booking] to prevent a circular reference to this
+  /// [RecurringBooking] at instantiation.
+  @override
+  RecurringBooking get recurringBooking => this;
+
   static bool isRecurringBooking(Booking? booking) =>
-      booking is RecurringBooking || booking!.recurringBookingId != null;
+      booking is RecurringBooking || booking!.recurringBooking?.id != null;
 
   @override
   Map<String, dynamic> toJson() => {
@@ -95,7 +102,7 @@ class RecurringBooking extends Booking {
         _JsonFields.repeatEvery: repeatEvery,
         if (method == RecurringBookingMethod.endDate)
           _JsonFields.recurringEndDate:
-              _recurringEndDate?.toIso8601String().split('T').first
+              _recurringEndDate?.toUtc().toIso8601String()
         else if (method == RecurringBookingMethod.occurrences)
           _JsonFields.occurrences: _occurrences,
       };
@@ -112,7 +119,7 @@ class RecurringBooking extends Booking {
 
     assert(_occurrences != null, '_occurrences must be non-null.');
 
-    return date!.add(periodicityDuration * _occurrences!);
+    return dateOnly!.add(periodicityDuration * _occurrences!);
   }
 
   set recurringEndDate(DateTime date) {
@@ -126,7 +133,7 @@ class RecurringBooking extends Booking {
     assert(_recurringEndDate != null, '_recurringEndDate must be non-null.');
 
     var count = 0;
-    var runDate = date!;
+    var runDate = startDate!;
 
     while (runDate.isBefore(_recurringEndDate!)) {
       runDate = runDate.add(periodicityDuration);
@@ -142,18 +149,18 @@ class RecurringBooking extends Booking {
   }
 
   SingleBooking asSingleBooking({bool linked = true}) => SingleBooking(
-        id: linked ? '$id-0' : (recurringBookingId ?? id),
+        id: linked ? '$id-0' : id,
+        startDate: startDate,
+        endDate: endDate,
         description: description,
-        startDateTime: startDateTime,
-        endDateTime: endDateTime,
         isLocked: isLocked,
-        cabinId: cabinId,
-        recurringBookingId: linked ? id : null,
+        cabin: cabin,
+        recurringBooking: linked ? this : null,
       );
 
   List<SingleBooking> get bookings {
     final runBookings = <SingleBooking>[];
-    var runDate = date!;
+    var runDate = startDate!;
     var movedBooking = asSingleBooking();
 
     var count = 1;
@@ -162,17 +169,16 @@ class RecurringBooking extends Booking {
       runBookings.add(
         movedBooking
           ..id = '$id-$count'
-          ..recurringBookingId = id
-          ..recurringNumber = count
-          ..recurringTotalTimes = occurrences,
+          ..recurringBooking = this
+          ..recurringNumber = count,
       );
 
       runDate = runDate.add(periodicityDuration);
 
       if (runDate.isBefore(recurringEndDate)) {
         movedBooking = movedBooking.copyWith(
-          startDateTime: runDate,
-          endDateTime: runDate.add(duration),
+          startDate: runDate,
+          endDate: runDate.add(duration),
         );
         count++;
       }
@@ -190,11 +196,11 @@ class RecurringBooking extends Booking {
   @override
   RecurringBooking copyWith({
     String? id,
+    DateTime? startDate,
+    DateTime? endDate,
     String? description,
-    DateTime? startDateTime,
-    DateTime? endDateTime,
     bool? isLocked,
-    String? cabinId,
+    Cabin? cabin,
     Periodicity? periodicity,
     int? repeatEvery,
     DateTime? recurringEndDate,
@@ -202,19 +208,17 @@ class RecurringBooking extends Booking {
   }) =>
       RecurringBooking(
         id: id ?? this.id,
+        startDate: startDate ?? this.startDate,
+        endDate: endDate ?? this.endDate,
         description: description ?? this.description,
-        startDateTime: startDateTime ?? this.startDateTime,
-        endDateTime: endDateTime ?? this.endDateTime,
         isLocked: isLocked ?? this.isLocked,
-        cabinId: cabinId ?? this.cabinId,
+        cabin: cabin ?? this.cabin,
         periodicity: periodicity ?? this.periodicity,
         repeatEvery: repeatEvery ?? this.repeatEvery,
-        recurringEndDate: recurringEndDate != null && occurrences == null
-            ? recurringEndDate
-            : _recurringEndDate,
-        occurrences: occurrences != null && recurringEndDate == null
-            ? occurrences
-            : _occurrences,
+        recurringEndDate: recurringEndDate ??
+            (occurrences != null ? null : _recurringEndDate),
+        occurrences:
+            occurrences ?? (recurringEndDate != null ? null : _occurrences),
       );
 
   @override
@@ -228,6 +232,24 @@ class RecurringBooking extends Booking {
 
   @override
   String toString() => '$occurrences × ${super.toString()}';
+
+  @override
+  bool operator ==(Object other) =>
+      super == other &&
+      other is RecurringBooking &&
+      periodicity == other.periodicity &&
+      repeatEvery == other.repeatEvery &&
+      _recurringEndDate == other._recurringEndDate &&
+      _occurrences == other._occurrences;
+
+  @override
+  int get hashCode => Object.hash(
+        super.hashCode,
+        periodicity,
+        repeatEvery,
+        _recurringEndDate,
+        _occurrences,
+      );
 }
 
 enum Periodicity {

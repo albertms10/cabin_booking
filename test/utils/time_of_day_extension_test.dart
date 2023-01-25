@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('TimeOfDayExtension', () {
-    group('.parse', () {
+    group('.parse()', () {
       test('should throw a FormatException on invalid formatted string', () {
         expect(() => TimeOfDayExtension.parse(''), throwsFormatException);
         expect(() => TimeOfDayExtension.parse('bad'), throwsFormatException);
@@ -33,7 +33,7 @@ void main() {
       });
     });
 
-    group('.tryParse', () {
+    group('.tryParse()', () {
       test('should throw a FormatException on invalid formatted string', () {
         expect(TimeOfDayExtension.tryParse(''), isNull);
         expect(TimeOfDayExtension.tryParse('bad'), isNull);
@@ -59,7 +59,7 @@ void main() {
       });
     });
 
-    group('.increment', () {
+    group('.increment()', () {
       test('should return a TimeOfDay incremented by hours', () {
         expect(
           const TimeOfDay(hour: 10, minute: 30).increment(hours: 1),
@@ -116,7 +116,7 @@ void main() {
       });
     });
 
-    group('.difference', () {
+    group('.difference()', () {
       test(
         'should return the duration between two TimeOfDay objects '
         'when other occurs before this',
@@ -167,7 +167,7 @@ void main() {
       );
     });
 
-    group('.roundToNearest', () {
+    group('.roundToNearest()', () {
       test('should round this TimeOfDay to the nearest n minute', () {
         expect(
           const TimeOfDay(hour: 9, minute: 23).roundToNearest(5),
@@ -188,17 +188,9 @@ void main() {
       });
     });
 
-    group('.format24Hour', () {
-      test('should return a TimeOfDay in 24 hour format', () {
-        expect(const TimeOfDay(hour: 0, minute: 0).format24Hour(), '00:00');
-        expect(const TimeOfDay(hour: 9, minute: 41).format24Hour(), '09:41');
-        expect(const TimeOfDay(hour: 17, minute: 45).format24Hour(), '17:45');
-      });
-    });
-
     // TODO(albertms10): remove when implemented in Flutter, https://github.com/flutter/flutter/pull/59981.
     group('Comparable<TimeOfDay>', () {
-      test('.compareTo', () {
+      test('.compareTo()', () {
         expect(
           [
             const TimeOfDay(hour: 12, minute: 0),

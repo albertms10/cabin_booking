@@ -5,32 +5,33 @@ import 'package:cabin_booking/utils/time_of_day_extension.dart';
 import 'package:collection/collection.dart' show IterableExtension;
 import 'package:flutter/material.dart';
 
-import '../booking/booking.dart';
-import '../booking/booking_manager.dart';
-import '../booking/recurring_booking.dart';
-import '../booking/single_booking.dart';
-import '../date/date_range.dart';
-import '../file/file_manager.dart';
-import '../file/writable_manager.dart';
-import 'cabin.dart';
-import 'tokenized_cabin.dart';
+import 'booking/booking.dart';
+import 'booking/recurring_booking.dart';
+import 'booking/single_booking.dart';
+import 'booking_collection.dart';
+import 'cabin/cabin.dart';
+import 'cabin/tokenized_cabin.dart';
+import 'date/date_ranger.dart';
+import 'file/file_manager.dart';
+import 'file/writable_manager.dart';
+import 'serializable.dart';
 
 Iterable<Cabin> _parseCabins(String jsonString) =>
     (json.decode(jsonString) as List<dynamic>)
         .cast<Map<String, dynamic>>()
-        .map(Cabin.from);
+        .map(Cabin.fromJson);
 
-class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
+class CabinCollection extends WritableManager<Set<Cabin>>
+    with ChangeNotifier
+    implements SerializableList {
   late Set<Cabin> cabins;
 
-  CabinManager({
-    Set<Cabin>? cabins,
-    String fileName = 'cabin_manager',
-  }) : super(fileName) {
-    this.cabins = cabins ?? SplayTreeSet();
-  }
+  CabinCollection({Set<Cabin>? cabins, String fileName = 'cabins'})
+      : cabins = cabins ?? SplayTreeSet(),
+        super(fileName);
 
-  List<Map<String, dynamic>> cabinsToJson() =>
+  @override
+  List<Map<String, dynamic>> toJson() =>
       cabins.map((cabin) => cabin.toJson()).toList();
 
   // TODO(albertms10): use `singleWhereOrNull`.
@@ -43,14 +44,16 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
 
   Set<DateTime> allCabinsDatesWithBookings([DateRanger? dateRange]) =>
       SplayTreeSet.of({
-        for (final cabin in cabins) ...cabin.datesWithBookings(dateRange),
+        for (final cabin in cabins)
+          ...cabin.bookingCollection.datesWithBookings(dateRange),
       });
 
   Map<DateTime, int> get allCabinsBookingsCountPerDay {
     final bookingsPerDay = <DateTime, int>{};
 
     for (final cabin in cabins) {
-      for (final bookingsCount in cabin.allBookingsCountPerDay.entries) {
+      for (final bookingsCount
+          in cabin.bookingCollection.allBookingsCountPerDay.entries) {
         bookingsPerDay.update(
           bookingsCount.key,
           (count) => count + bookingsCount.value,
@@ -79,7 +82,7 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
 
     for (final cabin in cabins) {
       final accumulatedTimeRanges =
-          cabin.accumulatedTimeRangesOccupancy(dateRange);
+          cabin.bookingCollection.accumulatedTimeRangesOccupancy(dateRange);
 
       for (final bookingTimeRange in accumulatedTimeRanges.entries) {
         timeRanges.update(
@@ -94,7 +97,7 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
   }
 
   Set<TimeOfDay> mostOccupiedTimeRange([DateRanger? dateRange]) =>
-      BookingManager.mostOccupiedTimeRangeFromAccumulated(
+      BookingCollection.mostOccupiedTimeRangeFromAccumulated(
         accumulatedTimeRangesOccupancy(dateRange),
       );
 
@@ -102,7 +105,7 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
     var count = 0;
 
     for (final cabin in cabins) {
-      count += cabin.allBookings.length;
+      count += cabin.bookingCollection.allBookings.length;
     }
 
     return count;
@@ -112,7 +115,7 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
     var count = 0;
 
     for (final cabin in cabins) {
-      count += cabin.bookings.length;
+      count += cabin.bookingCollection.bookings.length;
     }
 
     return count;
@@ -122,7 +125,7 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
     var count = 0;
 
     for (final cabin in cabins) {
-      count += cabin.generatedBookingsFromRecurring.length;
+      count += cabin.bookingCollection.singleBookingsFromRecurring.length;
     }
 
     return count;
@@ -132,7 +135,7 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
     var duration = Duration.zero;
 
     for (final cabin in cabins) {
-      duration += cabin.occupiedDuration(
+      duration += cabin.bookingCollection.occupiedDuration(
         dateTime: dateTime,
         dateRange: dateRange,
       );
@@ -145,7 +148,8 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
     final bookingsPerDay = SplayTreeMap<DateTime, Duration>();
 
     for (final cabin in cabins) {
-      final occupiedDuration = cabin.occupiedDurationPerWeek(dateRange);
+      final occupiedDuration =
+          cabin.bookingCollection.occupiedDurationPerWeek(dateRange);
 
       for (final durationPerWeek in occupiedDuration.entries) {
         bookingsPerDay.update(
@@ -168,7 +172,7 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
 
     final percents = [
       for (final cabin in cabins)
-        cabin.occupancyPercent(
+        cabin.bookingCollection.occupancyPercent(
           startTime: startTime,
           endTime: endTime,
           dates: dates,
@@ -183,7 +187,7 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
     var count = 0;
 
     for (final cabin in cabins) {
-      count += cabin.bookingsBetween(dateRange).length;
+      count += cabin.bookingCollection.singleBookingsBetween(dateRange).length;
     }
 
     return count;
@@ -193,7 +197,8 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
     var count = 0;
 
     for (final cabin in cabins) {
-      count += cabin.recurringBookingsBetween(dateRange).length;
+      count +=
+          cabin.bookingCollection.recurringBookingsBetween(dateRange).length;
     }
 
     return count;
@@ -234,7 +239,7 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
   }) {
     cabins
         .where((cabin) => ids.contains(cabin.id))
-        .forEach((cabin) => cabin.emptyAllBookings());
+        .forEach((cabin) => cabin.bookingCollection.emptyAllBookings());
 
     if (notify) notifyListeners();
   }
@@ -253,7 +258,9 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
     SingleBooking booking, {
     bool notify = true,
   }) {
-    cabinFromId(booking.cabinId ?? cabinId).addSingleBooking(booking);
+    cabinFromId(booking.cabin?.id ?? cabinId)
+        .bookingCollection
+        .addSingleBooking(booking);
 
     if (notify) notifyListeners();
   }
@@ -263,7 +270,8 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
     RecurringBooking recurringBooking, {
     bool notify = true,
   }) {
-    cabinFromId(recurringBooking.cabinId ?? cabinId)
+    cabinFromId(recurringBooking.cabin?.id ?? cabinId)
+        .bookingCollection
         .addRecurringBooking(recurringBooking);
 
     if (notify) notifyListeners();
@@ -274,11 +282,15 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
     SingleBooking booking, {
     bool notify = true,
   }) {
-    if (booking.cabinId == null || booking.cabinId == cabinId) {
-      cabinFromId(cabinId).modifySingleBooking(booking);
+    if (booking.cabin?.id == null || booking.cabin?.id == cabinId) {
+      cabinFromId(cabinId).bookingCollection.modifySingleBooking(booking);
     } else {
-      cabinFromId(cabinId).removeSingleBookingById(booking.id);
-      cabinFromId(booking.cabinId).addSingleBooking(booking);
+      cabinFromId(cabinId)
+          .bookingCollection
+          .removeSingleBookingById(booking.id);
+      cabinFromId(booking.cabin?.id)
+          .bookingCollection
+          .addSingleBooking(booking);
     }
 
     if (notify) notifyListeners();
@@ -289,12 +301,17 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
     RecurringBooking recurringBooking, {
     bool notify = true,
   }) {
-    if (recurringBooking.cabinId == null ||
-        recurringBooking.cabinId == cabinId) {
-      cabinFromId(cabinId).modifyRecurringBooking(recurringBooking);
+    if (recurringBooking.cabin?.id == null ||
+        recurringBooking.cabin?.id == cabinId) {
+      cabinFromId(cabinId)
+          .bookingCollection
+          .modifyRecurringBooking(recurringBooking);
     } else {
-      cabinFromId(cabinId).removeRecurringBookingById(recurringBooking.id);
-      cabinFromId(recurringBooking.cabinId)
+      cabinFromId(cabinId)
+          .bookingCollection
+          .removeRecurringBookingById(recurringBooking.id);
+      cabinFromId(recurringBooking.cabin?.id)
+          .bookingCollection
           .addRecurringBooking(recurringBooking);
     }
 
@@ -306,7 +323,7 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
     String? bookingId, {
     bool notify = true,
   }) {
-    cabinFromId(cabinId).removeSingleBookingById(bookingId);
+    cabinFromId(cabinId).bookingCollection.removeSingleBookingById(bookingId);
 
     if (notify) notifyListeners();
   }
@@ -316,7 +333,9 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
     String? bookingId, {
     bool notify = true,
   }) {
-    cabinFromId(cabinId).removeRecurringBookingById(bookingId);
+    cabinFromId(cabinId)
+        .bookingCollection
+        .removeRecurringBookingById(bookingId);
 
     if (notify) notifyListeners();
   }
@@ -357,7 +376,7 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
             ...cabin.searchBookings(query, limit: perCabinLimit),
         ],
         // Descending.
-        (a, b) => b.startDateTime!.compareTo(a.startDateTime!),
+        (a, b) => b.startDate!.compareTo(a.startDate!),
       );
 
   Set<Cabin> get _defaultCabins => SplayTreeSet();
@@ -391,7 +410,7 @@ class CabinManager extends WritableManager<Set<Cabin>> with ChangeNotifier {
       final file = await fileManager.localFile(fileName);
 
       await file.writeAsCompressedString(
-        json.encode(cabinsToJson()),
+        json.encode(toJson()),
       );
 
       return true;

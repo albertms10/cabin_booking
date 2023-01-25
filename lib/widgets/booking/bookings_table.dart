@@ -42,14 +42,14 @@ class BookingsTable extends StatelessWidget {
                   child: BookingsStack(
                     key: Key('${cabin.number}'),
                     cabin: cabin.simplified(),
-                    bookings: cabin.allBookingsOn(dateTime),
+                    bookings: cabin.bookingCollection.allBookingsOn(dateTime),
                     showPreviewPanel: showPreviewPanel,
                     setPreventTimeTableScroll: setPreventTimeTableScroll,
                   ),
                 ),
             ],
           ),
-          const CurrentTimeIndicator(hideText: true),
+          const CurrentTimeIndicator(hideLabel: true),
         ],
       ),
     );
