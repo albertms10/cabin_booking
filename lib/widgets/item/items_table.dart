@@ -239,7 +239,7 @@ class _ItemsTableState<T extends Item> extends State<ItemsTable<T>> {
                       DataCell(
                         ActivityLineChart(
                           occupiedDurationPerWeek: row.occupiedDurationPerWeek,
-                          dateRange: row.item is DateRanger
+                          dateRanger: row.item is DateRanger
                               ? row.item as DateRanger
                               : DateRange(
                                   startDate: DateTime.now()
