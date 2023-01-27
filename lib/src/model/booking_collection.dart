@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'booking/booking.dart';
 import 'booking/recurring_booking.dart';
 import 'booking/single_booking.dart';
+import 'date/date_range.dart';
 import 'date/date_ranger.dart';
 import 'serializable.dart';
 
@@ -114,21 +115,11 @@ class BookingCollection with ChangeNotifier implements Serializable {
         null;
   }
 
-  Duration occupiedDuration({DateTime? dateTime, DateRanger? dateRange}) {
-    if (dateTime != null && dateRange != null) {
-      throw ArgumentError(
-        'Either dateTime or dateRange must be given, but not both.',
-      );
-    }
+  Duration occupiedDuration([DateRanger? dateRanger]) {
+    final bookingsList =
+        dateRanger != null ? allBookingsBetween(dateRanger) : allBookings;
 
     var runDuration = Duration.zero;
-
-    final bookingsList = dateTime != null
-        ? allBookingsOn(dateTime)
-        : dateRange != null
-            ? allBookingsBetween(dateRange)
-            : allBookings;
-
     for (final booking in bookingsList) {
       runDuration += booking.duration;
     }
@@ -136,19 +127,11 @@ class BookingCollection with ChangeNotifier implements Serializable {
     return runDuration;
   }
 
-  double occupancyPercentOn(
-    DateTime? dateTime, {
-    required TimeOfDay startTime,
-    required TimeOfDay endTime,
-  }) {
-    final fallbackDateTime = dateTime ?? DateTime.now();
-    final startDate = fallbackDateTime.addLocalTimeOfDay(startTime);
-    final endDate = fallbackDateTime.addLocalTimeOfDay(endTime);
+  double occupancyPercentOn([DateRanger? dateRanger]) {
+    dateRanger ??= DateRange.today();
 
-    final maxViewDuration = endDate.difference(startDate);
-
-    return occupiedDuration(dateTime: fallbackDateTime).inMicroseconds /
-        maxViewDuration.inMicroseconds;
+    return occupiedDuration(dateRanger).inMicroseconds /
+        dateRanger.duration.inMicroseconds;
   }
 
   double occupancyPercent({
@@ -158,15 +141,14 @@ class BookingCollection with ChangeNotifier implements Serializable {
   }) {
     var runPercent = 0.0;
     var count = 0;
-
     for (final dateTime in dates ?? datesWithBookings()) {
       count++;
 
-      final currentPercent = occupancyPercentOn(
-        dateTime,
-        startTime: startTime,
-        endTime: endTime,
+      final dateRanger = DateRange(
+        startDate: dateTime.addLocalTimeOfDay(startTime),
+        endDate: dateTime.addLocalTimeOfDay(endTime),
       );
+      final currentPercent = occupancyPercentOn(dateRanger);
 
       runPercent += (currentPercent - runPercent) / count;
     }

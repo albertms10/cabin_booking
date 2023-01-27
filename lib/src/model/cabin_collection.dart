@@ -131,14 +131,10 @@ class CabinCollection extends WritableManager<Set<Cabin>>
     return count;
   }
 
-  Duration totalOccupiedDuration({DateTime? dateTime, DateRanger? dateRange}) {
+  Duration totalOccupiedDuration([DateRanger? dateRanger]) {
     var duration = Duration.zero;
-
     for (final cabin in cabins) {
-      duration += cabin.bookingCollection.occupiedDuration(
-        dateTime: dateTime,
-        dateRange: dateRange,
-      );
+      duration += cabin.bookingCollection.occupiedDuration(dateRanger);
     }
 
     return duration;
