@@ -1,5 +1,5 @@
 import 'package:cabin_booking/model.dart';
-import 'package:cabin_booking/utils/date_time_extension.dart';
+import 'package:cabin_booking/utils/app_localizations_extension.dart';
 import 'package:cabin_booking/widgets/jump_bar/search_result_label.dart';
 import 'package:collection/collection.dart' show IterableNullableExtension;
 import 'package:flutter/material.dart';
@@ -41,8 +41,9 @@ class BookingSearchResult extends StatelessWidget {
                     )
                   : null,
               formatter: (dateRange) {
-                final startDate =
-                    dateRange.startDate?.formatRelative(appLocalizations);
+                final startDate = dateRange.startDate == null
+                    ? null
+                    : appLocalizations.formatRelative(dateRange.startDate!);
 
                 final endDate = dateRange.endDate != null
                     ? DateFormat.Hm().format(dateRange.endDate!)

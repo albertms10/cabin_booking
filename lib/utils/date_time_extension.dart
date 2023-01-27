@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:intl/intl.dart';
 
 /// DateTime extension.
 extension DateTimeExtension on DateTime {
@@ -77,31 +75,4 @@ extension DateTimeExtension on DateTime {
   /// Whether this [DateTime] refers to the same date as tomorrow.
   bool get isTomorrow =>
       isSameDateAs(DateTime.now().add(const Duration(days: 1)));
-
-  String _formatRelativeDate(AppLocalizations appLocalizations) {
-    if (isToday) return appLocalizations.today;
-    if (isYesterday) return appLocalizations.yesterday;
-    if (isTomorrow) return appLocalizations.tomorrow;
-
-    return DateFormat.yMMMEd().format(this);
-  }
-
-  String _formatRelativeTime() => DateFormat.Hm().format(this);
-
-  /// Returns a relatively formatted [String] from this [DateTime].
-  ///
-  /// Example:
-  /// ```dart
-  /// final today = DateTime.now();
-  /// assert(today.formatRelative(appLocalizations) == 'Today, 09:00');
-  ///
-  /// final yesterday = today.subtract(const Duration(days: 1));
-  /// assert(yesterday.formatRelative(appLocalizations) == 'Yesterday, 09:00');
-  /// ```
-  String formatRelative(AppLocalizations appLocalizations) {
-    final date = _formatRelativeDate(appLocalizations);
-    final time = _formatRelativeTime();
-
-    return [date, time].join(', ');
-  }
 }
