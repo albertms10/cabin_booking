@@ -2,7 +2,6 @@ import 'package:cabin_booking/utils/date_time_extension.dart';
 
 import '../cabin/cabin.dart';
 import '../date/date_range_item.dart';
-import 'recurring_booking.dart';
 
 abstract class _JsonFields {
   static const description = 'de';
@@ -20,14 +19,6 @@ abstract class Booking extends DateRangeItem {
   /// The reference of the booked [Cabin].
   Cabin? cabin;
 
-  /// The [RecurringBooking] reference, if this [Booking] is part of a series of
-  /// recurring bookings.
-  RecurringBooking? recurringBooking;
-
-  /// The occurrence number this [Booking] appears in the list of recurring
-  /// bookings. E.g., the 2nd occurrence out of 5.
-  int? recurringNumber;
-
   /// Creates a new [Booking].
   Booking({
     super.id,
@@ -36,8 +27,6 @@ abstract class Booking extends DateRangeItem {
     this.description,
     this.isLocked = false,
     this.cabin,
-    this.recurringBooking,
-    this.recurringNumber,
   });
 
   /// Creates a new [Booking] from a JSON Map.

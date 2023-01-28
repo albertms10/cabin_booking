@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 
 import 'booking/booking.dart';
 import 'booking/recurring_booking.dart';
+import 'booking/recurring_booking_occurrence.dart';
 import 'booking/single_booking.dart';
 import 'date/date_ranger.dart';
 import 'serializable.dart';
@@ -48,12 +49,12 @@ class BookingCollection with ChangeNotifier implements Serializable {
             .toList(),
       };
 
-  List<SingleBooking> get singleBookingsFromRecurring => [
+  List<RecurringBookingOccurrence> get singleBookingsFromRecurring => [
         for (final recurringBooking in recurringBookings)
           ...recurringBooking.bookings,
       ];
 
-  Set<SingleBooking> get allBookings => SplayTreeSet.of({
+  Set<Booking> get allBookings => SplayTreeSet.of({
         ...bookings,
         ...singleBookingsFromRecurring,
       });
@@ -63,15 +64,16 @@ class BookingCollection with ChangeNotifier implements Serializable {
         bookings.where((booking) => booking.overlapsWith(dateRange)),
       );
 
-  Set<SingleBooking> recurringBookingsBetween(DateRanger dateRange) =>
+  Set<RecurringBookingOccurrence> recurringBookingsBetween(
+    DateRanger dateRange,
+  ) =>
       SplayTreeSet.of(
         singleBookingsFromRecurring.where(
           (recurringBooking) => recurringBooking.overlapsWith(dateRange),
         ),
       );
 
-  Set<SingleBooking> allBookingsBetween(DateRanger dateRange) =>
-      SplayTreeSet.of({
+  Set<Booking> allBookingsBetween(DateRanger dateRange) => SplayTreeSet.of({
         ...singleBookingsBetween(dateRange),
         ...recurringBookingsBetween(dateRange),
       });
@@ -80,8 +82,8 @@ class BookingCollection with ChangeNotifier implements Serializable {
         bookings.where((booking) => booking.isOn(dateTime)),
       );
 
-  Set<SingleBooking> recurringBookingsOn(DateTime dateTime) {
-    final filteredBookings = SplayTreeSet<SingleBooking>();
+  Set<RecurringBookingOccurrence> recurringBookingsOn(DateTime dateTime) {
+    final filteredBookings = SplayTreeSet<RecurringBookingOccurrence>();
 
     for (final recurringBooking in recurringBookings) {
       final booking = recurringBooking.bookingOn(dateTime);
@@ -92,7 +94,7 @@ class BookingCollection with ChangeNotifier implements Serializable {
     return filteredBookings;
   }
 
-  Set<SingleBooking> allBookingsOn(DateTime dateTime) => SplayTreeSet.of({
+  Set<Booking> allBookingsOn(DateTime dateTime) => SplayTreeSet.of({
         ...singleBookingsOn(dateTime),
         ...recurringBookingsOn(dateTime),
       });
@@ -103,7 +105,8 @@ class BookingCollection with ChangeNotifier implements Serializable {
     return allBookingsOn(booking.dateOnly!)
             .where(
               (comparingBooking) =>
-                  (comparingBooking.recurringBooking?.id == null ||
+                  (comparingBooking is! RecurringBookingOccurrence ||
+                      booking is! RecurringBookingOccurrence ||
                       comparingBooking.recurringBooking?.id !=
                           booking.recurringBooking?.id) &&
                   comparingBooking.id != booking.id,

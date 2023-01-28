@@ -25,14 +25,9 @@ class BookingCardInfo extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              if (RecurringBooking.isRecurringBooking(booking))
-                Tooltip(
-                  message: '${booking.recurringNumber}/'
-                      '${booking.recurringBooking?.occurrences}',
-                  child: Padding(
-                    padding: const EdgeInsetsDirectional.only(end: 4),
-                    child: Icon(Icons.repeat, size: 16, color: theme.hintColor),
-                  ),
+              if (booking is RecurringBookingOccurrence)
+                _BookingCardRecurringIcon(
+                  booking: booking as RecurringBookingOccurrence,
                 ),
               Expanded(
                 child: Padding(
@@ -70,6 +65,26 @@ class BookingCardInfo extends StatelessWidget {
             ],
           );
         },
+      ),
+    );
+  }
+}
+
+class _BookingCardRecurringIcon extends StatelessWidget {
+  final RecurringBookingOccurrence booking;
+
+  const _BookingCardRecurringIcon({super.key, required this.booking});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Tooltip(
+      message:
+          '${booking.recurringNumber}/${booking.recurringBooking?.occurrences}',
+      child: Padding(
+        padding: const EdgeInsetsDirectional.only(end: 4),
+        child: Icon(Icons.repeat, size: 16, color: theme.hintColor),
       ),
     );
   }
