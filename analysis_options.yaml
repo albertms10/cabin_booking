@@ -70,6 +70,7 @@ dart_code_metrics:
     - prefer-trailing-comma
     - prefer-single-widget-per-file:
         ignore-private-widgets: true
+    - use-setstate-synchronously
   anti-patterns:
     - long-parameter-list
 
