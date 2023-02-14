@@ -224,6 +224,30 @@ void main() {
       );
     });
 
+    group('.overlappingDurationWith()', () {
+      test(
+        'should return the overlapping duration with another DateRanger',
+        () {
+          final dateRange1 = DateRange(
+            startDate: DateTime(2022, 12, 4, 9, 15),
+            endDate: DateTime(2022, 12, 4, 12, 15),
+          );
+          final dateRange2 = DateRange(
+            startDate: DateTime(2022, 12, 4, 10, 15),
+            endDate: DateTime(2022, 12, 4, 11, 15),
+          );
+          expect(
+            dateRange1.overlappingDurationWith(dateRange2),
+            const Duration(hours: 1),
+          );
+          expect(
+            dateRange1.overlappingDurationWith(dateRange2),
+            dateRange2.overlappingDurationWith(dateRange1),
+          );
+        },
+      );
+    });
+
     group('.isFinite', () {
       test('should return true when this DateRanger is finite', () {
         final dateRange = DateRange(
