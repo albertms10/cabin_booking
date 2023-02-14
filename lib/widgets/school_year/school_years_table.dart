@@ -28,9 +28,8 @@ class SchoolYearsTable extends StatelessWidget {
                 bookingsCount: cabinCollection.bookingsCountBetween(schoolYear),
                 recurringBookingsCount:
                     cabinCollection.recurringBookingsCountBetween(schoolYear),
-                occupiedDuration: cabinCollection.totalOccupiedDuration(
-                  dateRange: schoolYear,
-                ),
+                occupiedDuration:
+                    cabinCollection.totalOccupiedDuration(schoolYear),
                 occupiedDurationPerWeek:
                     cabinCollection.occupiedDurationPerWeek(schoolYear)
                       ..fillEmptyKeyValues(

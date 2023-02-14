@@ -1,5 +1,6 @@
 import 'package:cabin_booking/constants.dart';
 import 'package:cabin_booking/model.dart';
+import 'package:cabin_booking/utils/date_time_extension.dart';
 import 'package:cabin_booking/widgets/booking/booking_preview_panel_overlay.dart';
 import 'package:cabin_booking/widgets/booking/bookings_table.dart';
 import 'package:cabin_booking/widgets/cabin/cabin_icon.dart';
@@ -86,6 +87,11 @@ class _ScrollablePanelOverlayTimeTableState
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
+    final dateRange = DateRange(
+      startDate: widget.dateTime.addLocalTimeOfDay(kTimeTableStartTime),
+      endDate: widget.dateTime.addLocalTimeOfDay(kTimeTableEndTime),
+    );
+
     return LayoutBuilder(
       builder: (context, constraints) {
         final bookingStackWidth = _stackWidth(constraints.maxWidth);
@@ -110,12 +116,8 @@ class _ScrollablePanelOverlayTimeTableState
                           width: bookingStackWidth,
                           child: CabinIcon.progress(
                             number: cabin.number,
-                            progress:
-                                cabin.bookingCollection.occupancyPercentOn(
-                              widget.dateTime,
-                              startTime: kTimeTableStartTime,
-                              endTime: kTimeTableEndTime,
-                            ),
+                            progress: cabin.bookingCollection
+                                .occupancyPercentOn(dateRange),
                           ),
                         ),
                     ],
