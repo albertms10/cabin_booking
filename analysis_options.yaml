@@ -41,7 +41,9 @@ dart_code_metrics:
     - avoid-wrapping-in-padding
     - binary-expression-operand-order
     - double-literal-format
-    - format-comment
+    - format-comment:
+        ignored-patterns:
+          - ^coverage.*
   # - member-ordering
     - missing-test-assertion
     - newline-before-return
