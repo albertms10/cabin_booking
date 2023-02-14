@@ -326,21 +326,21 @@ void main() {
 
     group('.duration', () {
       test('should return the Duration of a finite DateRanger', () {
-        final DateRanger hourDateRange = DateRange(
+        final DateRanger hourDateRanger = DateRange(
           startDate: DateTime(2022, 12, 4, 9, 15),
           endDate: DateTime(2022, 12, 4, 10, 15),
         );
-        expect(hourDateRange.duration, const Duration(hours: 1));
+        expect(hourDateRanger.duration, const Duration(hours: 1));
 
-        final DateRanger dayDateRange =
+        final DateRanger dayDateRanger =
             DateRange.fromDate(DateTime(2022, 12, 4));
-        expect(dayDateRange.duration, const Duration(days: 1));
+        expect(dayDateRanger.duration, const Duration(days: 1));
 
-        final DateRanger weekDateRange = DateRange(
+        final DateRanger weekDateRanger = DateRange(
           startDate: DateTime(2022, 12, 27),
           endDate: DateTime(2023, 1, 3),
         );
-        expect(weekDateRange.duration, const Duration(days: 7));
+        expect(weekDateRanger.duration, const Duration(days: 7));
       });
 
       test('should return a Duration of zero for an infinite DateRanger', () {
@@ -497,11 +497,11 @@ void main() {
         );
         expect(dateRanger.textualTime, '09:30–21:30');
 
-        final DateRanger multiYearDateRange = DateRange(
+        final DateRanger multiYearDateRanger = DateRange(
           startDate: DateTime(2022, 12, 1, 9, 30),
           endDate: DateTime(2023, 1, 12, 21, 30),
         );
-        expect(multiYearDateRange.textualTime, '09:30–21:30');
+        expect(multiYearDateRanger.textualTime, '09:30–21:30');
       });
 
       test(
@@ -530,10 +530,10 @@ void main() {
           );
           expect(dateRanger.textualTime, '09:30 – null');
 
-          final DateRanger multiYearDateRange = DateRange(
+          final DateRanger multiYearDateRanger = DateRange(
             endDate: DateTime(2023, 1, 12, 21, 30),
           );
-          expect(multiYearDateRange.textualTime, 'null – 21:30');
+          expect(multiYearDateRanger.textualTime, 'null – 21:30');
 
           expect(DateRange.infinite.textualTime, 'null – null');
         },
@@ -557,9 +557,9 @@ void main() {
 
       test('should return an empty Map for an instant DateRanger', () {
         final dateTime = DateTime(2022, 12, 4);
-        final DateRanger instantDateRange =
+        final DateRanger instantDateRanger =
             DateRange(startDate: dateTime, endDate: dateTime);
-        expect(instantDateRange.hoursSpan, const <TimeOfDay, Duration>{});
+        expect(instantDateRanger.hoursSpan, const <TimeOfDay, Duration>{});
       });
 
       test('should return an empty Map for an infinite DateRanger', () {
