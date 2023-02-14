@@ -85,6 +85,7 @@ class _DateFormFieldState extends State<DateFormField> {
 
         if (date == null) return;
 
+        if (!mounted) return;
         setState(() {
           _date = date;
           widget.controller.text = DateFormat.yMd().format(date);
