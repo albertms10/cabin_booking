@@ -1,7 +1,6 @@
 import 'dart:collection';
 
 import 'package:cabin_booking/model.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -137,9 +136,11 @@ void main() {
           final emptyBookingCollection = BookingCollection();
           expect(emptyBookingCollection.occupiedDuration(), Duration.zero);
           expect(
-            emptyBookingCollection.occupiedDuration(
-              dateRange: DateRange.today(),
-            ),
+            emptyBookingCollection.occupiedDuration(DateRange.infinite),
+            Duration.zero,
+          );
+          expect(
+            emptyBookingCollection.occupiedDuration(DateRange.today()),
             Duration.zero,
           );
         },
@@ -175,18 +176,18 @@ void main() {
         const totalDuration = Duration(hours: 16);
         expect(bookingCollection.occupiedDuration(), totalDuration);
         expect(
-          bookingCollection.occupiedDuration(dateRange: DateRange.infinite),
+          bookingCollection.occupiedDuration(DateRange.infinite),
           totalDuration,
         );
         expect(
           bookingCollection.occupiedDuration(
-            dateTime: DateTime.utc(2022, 12, 4),
+            DateRange.fromDate(DateTime.utc(2022, 12, 4)),
           ),
           const Duration(hours: 1, minutes: 30),
         );
         expect(
           bookingCollection.occupiedDuration(
-            dateRange: DateRange(
+            DateRange(
               startDate: DateTime.utc(2022, 12, 5, 20, 30),
               endDate: DateTime.utc(2022, 12, 5, 21),
             ),
@@ -203,12 +204,9 @@ void main() {
         'BookingCollection',
         () {
           final emptyBookingCollection = BookingCollection();
+          expect(emptyBookingCollection.occupancyPercentOn(), 0);
           expect(
-            emptyBookingCollection.occupancyPercentOn(
-              DateTime.now(),
-              startTime: const TimeOfDay(hour: 9, minute: 0),
-              endTime: const TimeOfDay(hour: 10, minute: 0),
-            ),
+            emptyBookingCollection.occupancyPercentOn(DateRange.today()),
             0,
           );
         },
@@ -246,17 +244,16 @@ void main() {
           );
           expect(
             bookingCollection.occupancyPercentOn(
-              DateTime.utc(2022, 12, 4),
-              startTime: const TimeOfDay(hour: 0, minute: 0),
-              endTime: const TimeOfDay(hour: 23, minute: 59),
+              DateRange.fromDate(DateTime.utc(2022, 12, 4)),
             ),
             closeTo(0.063, 0.001),
           );
           expect(
             bookingCollection.occupancyPercentOn(
-              DateTime.utc(2022, 12, 5),
-              startTime: const TimeOfDay(hour: 20, minute: 30),
-              endTime: const TimeOfDay(hour: 21, minute: 0),
+              DateRange(
+                startDate: DateTime.utc(2022, 12, 5, 20, 30),
+                endDate: DateTime.utc(2022, 12, 5, 21),
+              ),
             ),
             // TODO(albertms10): fix out of bounds ratio.
             2,
