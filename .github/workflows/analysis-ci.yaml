@@ -42,7 +42,7 @@ on:
     types: [published]
 
 env:
-  FLUTTER_SDK_VERSION: "3.7.0"
+  FLUTTER_SDK_VERSION: "3.7.3"
 
 permissions:
   contents: read
