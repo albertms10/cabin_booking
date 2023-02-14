@@ -18,6 +18,7 @@
     "unawaited",
     "vsync"
   ],
+  "cSpell.ignoreWords": ["inclusive"],
   "dart.flutterGenerateLocalizationsOnSave": "manual",
   "debug.inlineValues": "on",
   "editor.codeActionsOnSave": {

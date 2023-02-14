@@ -42,7 +42,7 @@ on:
     types: [published]
 
 env:
-  FLUTTER_SDK_VERSION: "3.7.0"
+  FLUTTER_SDK_VERSION: "3.7.3"
 
 permissions:
   contents: read
@@ -61,7 +61,7 @@ jobs:
       - uses: actions/checkout@b56e6a3d768b11aef1d4c73977caf6413c0d74c8 # v3
 
       - name: Cache dependencies
-        uses: actions/cache@58c146cc91c5b9e778e71775dfe9bf1442ad9a12 # v3.2.3
+        uses: actions/cache@6998d139ddd3e68c71e9e398d8e40b71a2f39812 # v3.2.5
         id: cache
         with:
           path: /opt/hostedtoolcache/flutter

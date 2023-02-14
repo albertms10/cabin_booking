@@ -12,12 +12,12 @@ environment:
 dependencies:
   collection: ^1.17.0
   cupertino_icons: ^1.0.5
-  fl_chart: ^0.55.2
+  fl_chart: ^0.60.0
   flutter:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  horizontal_data_table: ^4.1.4
+  horizontal_data_table: ^4.1.4+1
   intl: any
   nanoid: ^1.0.0
   path_provider: ^2.0.12
@@ -29,10 +29,10 @@ dependencies:
       path: plugins/window_size
 
 dev_dependencies:
-  dart_code_metrics: ^5.5.0
+  dart_code_metrics: ^5.6.0
   flutter_test:
     sdk: flutter
-  very_good_analysis: ^3.1.0
+  very_good_analysis: ^4.0.0+1
 
 flutter:
   generate: true

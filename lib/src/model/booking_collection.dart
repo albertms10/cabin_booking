@@ -134,28 +134,6 @@ class BookingCollection with ChangeNotifier implements Serializable {
         dateRanger.duration.inMicroseconds;
   }
 
-  double occupancyPercent({
-    required TimeOfDay startTime,
-    required TimeOfDay endTime,
-    Set<DateTime>? dates,
-  }) {
-    var runPercent = 0.0;
-    var count = 0;
-    for (final dateTime in dates ?? datesWithBookings()) {
-      count++;
-
-      final dateRanger = DateRange(
-        startDate: dateTime.addLocalTimeOfDay(startTime),
-        endDate: dateTime.addLocalTimeOfDay(endTime),
-      );
-      final currentPercent = occupancyPercentOn(dateRanger);
-
-      runPercent += (currentPercent - runPercent) / count;
-    }
-
-    return runPercent;
-  }
-
   Set<DateTime> datesWithBookings([DateRanger? dateRange]) {
     final dates = SplayTreeSet<DateTime>();
 
@@ -337,6 +315,9 @@ class BookingCollection with ChangeNotifier implements Serializable {
 
     if (notify) notifyListeners();
   }
+
+  @override
+  String toString() => '$bookings\n$recurringBookings';
 
   @override
   bool operator ==(Object other) =>

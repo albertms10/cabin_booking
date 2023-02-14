@@ -140,6 +140,7 @@ class _BookingFormState extends State<BookingForm> {
 
                     if (time == null) return;
 
+                    if (!mounted) return;
                     setState(() {
                       _startTime = time;
                       _startTimeController.text = time.format(context);
@@ -214,6 +215,7 @@ class _BookingFormState extends State<BookingForm> {
 
                     if (time == null) return;
 
+                    if (!mounted) return;
                     setState(() {
                       _endTime = time;
                       _endTimeController.text = time.format(context);
