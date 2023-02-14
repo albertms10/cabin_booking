@@ -125,14 +125,10 @@ class CabinCollection extends WritableManager<Set<Cabin>>
     return count;
   }
 
-  Duration totalOccupiedDuration({DateTime? dateTime, DateRanger? dateRange}) {
+  Duration totalOccupiedDuration([DateRanger? dateRanger]) {
     var duration = Duration.zero;
-
     for (final cabin in cabins) {
-      duration += cabin.bookingCollection.occupiedDuration(
-        dateTime: dateTime,
-        dateRange: dateRange,
-      );
+      duration += cabin.bookingCollection.occupiedDuration(dateRanger);
     }
 
     return duration;
@@ -153,26 +149,6 @@ class CabinCollection extends WritableManager<Set<Cabin>>
     }
 
     return bookingsPerDay;
-  }
-
-  double occupancyPercent({
-    required TimeOfDay startTime,
-    required TimeOfDay endTime,
-    Set<DateTime>? dates,
-  }) {
-    if (cabins.isEmpty) return 0;
-
-    final percents = [
-      for (final cabin in cabins)
-        cabin.bookingCollection.occupancyPercent(
-          startTime: startTime,
-          endTime: endTime,
-          dates: dates,
-        ),
-    ];
-
-    return percents.reduce((value, element) => value + element) /
-        percents.length;
   }
 
   int bookingsCountBetween(DateRanger dateRanger) {

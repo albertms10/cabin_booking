@@ -1,3 +1,4 @@
+/// The model library.
 library model;
 
 export 'src/model/booking/booking.dart';

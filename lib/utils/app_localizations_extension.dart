@@ -1,5 +1,5 @@
-// ignore: format-comment
 // coverage:ignore-file
+
 import 'package:cabin_booking/utils/date_time_extension.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';

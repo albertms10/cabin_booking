@@ -41,7 +41,9 @@ dart_code_metrics:
     - avoid-wrapping-in-padding
     - binary-expression-operand-order
     - double-literal-format
-    - format-comment
+    - format-comment:
+        ignored-patterns:
+          - ^coverage.*
   # - member-ordering
     - missing-test-assertion
     - newline-before-return
@@ -68,6 +70,7 @@ dart_code_metrics:
     - prefer-trailing-comma
     - prefer-single-widget-per-file:
         ignore-private-widgets: true
+    - use-setstate-synchronously
   anti-patterns:
     - long-parameter-list
 
