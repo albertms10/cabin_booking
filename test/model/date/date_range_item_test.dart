@@ -46,13 +46,16 @@ void main() {
 
     group('.copyWith()', () {
       test('should create a copy of this DateRangeItem', () {
-        final dateRange = DateRangeItem(
+        final dateRangeItem = DateRangeItem(
           startDate: DateTime.utc(2022, 9, 11),
           endDate: DateTime.utc(2023, 6, 23),
         );
-        expect(dateRange, dateRange.copyWith());
-        expect(identical(dateRange, dateRange.copyWith()), isFalse);
-        expect(identical(dateRange.copyWith(), dateRange.copyWith()), isFalse);
+        expect(dateRangeItem, dateRangeItem.copyWith());
+        expect(identical(dateRangeItem, dateRangeItem.copyWith()), isFalse);
+        expect(
+          identical(dateRangeItem.copyWith(), dateRangeItem.copyWith()),
+          isFalse,
+        );
       });
 
       test(
@@ -60,13 +63,13 @@ void main() {
         () {
           final startDate = DateTime(2022, 12, 4);
           final endDate = DateTime(2022, 12, 5);
-          final dateRange = DateRangeItem(
+          final dateRangeItem = DateRangeItem(
             id: 'date-range-item-id',
             startDate: startDate,
             endDate: endDate,
           );
           expect(
-            dateRange,
+            dateRangeItem,
             DateRangeItem(
               id: 'date-range-item-id',
               startDate: DateTime.utc(2022, 9, 11),

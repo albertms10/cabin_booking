@@ -59,22 +59,22 @@ class BookingCollection with ChangeNotifier implements Serializable {
         ...singleBookingsFromRecurring,
       });
 
-  Set<SingleBooking> singleBookingsBetween(DateRanger dateRange) =>
+  Set<SingleBooking> singleBookingsBetween(DateRanger dateRanger) =>
       SplayTreeSet.of(
-        bookings.where((booking) => booking.overlapsWith(dateRange)),
+        bookings.where((booking) => booking.overlapsWith(dateRanger)),
       );
 
-  Set<SingleBooking> recurringBookingsBetween(DateRanger dateRange) =>
+  Set<SingleBooking> recurringBookingsBetween(DateRanger dateRanger) =>
       SplayTreeSet.of(
         singleBookingsFromRecurring.where(
-          (recurringBooking) => recurringBooking.overlapsWith(dateRange),
+          (recurringBooking) => recurringBooking.overlapsWith(dateRanger),
         ),
       );
 
-  Set<SingleBooking> allBookingsBetween(DateRanger dateRange) =>
+  Set<SingleBooking> allBookingsBetween(DateRanger dateRanger) =>
       SplayTreeSet.of({
-        ...singleBookingsBetween(dateRange),
-        ...recurringBookingsBetween(dateRange),
+        ...singleBookingsBetween(dateRanger),
+        ...recurringBookingsBetween(dateRanger),
       });
 
   Set<SingleBooking> singleBookingsOn(DateTime dateTime) => SplayTreeSet.of(
@@ -83,7 +83,6 @@ class BookingCollection with ChangeNotifier implements Serializable {
 
   Set<SingleBooking> recurringBookingsOn(DateTime dateTime) {
     final filteredBookings = SplayTreeSet<SingleBooking>();
-
     for (final recurringBooking in recurringBookings) {
       final booking = recurringBooking.bookingOn(dateTime);
 
@@ -134,11 +133,10 @@ class BookingCollection with ChangeNotifier implements Serializable {
         dateRanger.duration.inMicroseconds;
   }
 
-  Set<DateTime> datesWithBookings([DateRanger? dateRange]) {
+  Set<DateTime> datesWithBookings([DateRanger? dateRanger]) {
     final dates = SplayTreeSet<DateTime>();
-
     final bookingsList =
-        dateRange != null ? allBookingsBetween(dateRange) : allBookings;
+        dateRanger != null ? allBookingsBetween(dateRanger) : allBookings;
 
     for (final booking in bookingsList) {
       final shouldAddDate = dates.firstWhereOrNull(
@@ -156,7 +154,6 @@ class BookingCollection with ChangeNotifier implements Serializable {
 
   Map<DateTime, int> get allBookingsCountPerDay {
     final bookingsPerDay = SplayTreeMap<DateTime, int>();
-
     for (final booking in allBookings) {
       bookingsPerDay.update(
         booking.dateOnly!,
@@ -168,11 +165,12 @@ class BookingCollection with ChangeNotifier implements Serializable {
     return bookingsPerDay;
   }
 
-  Map<DateTime, Duration> occupiedDurationPerWeek([DateRanger? dateRange]) {
+  Map<DateTime, Duration> occupiedDurationPerWeek([DateRanger? dateRanger]) {
     final bookingsPerDay = SplayTreeMap<DateTime, Duration>();
-
     for (final booking in allBookings) {
-      if (dateRange != null && !dateRange.includes(booking.dateOnly!)) continue;
+      if (dateRanger != null && !dateRanger.includes(booking.dateOnly!)) {
+        continue;
+      }
 
       bookingsPerDay.update(
         booking.dateOnly!.firstDayOfWeek,
@@ -185,14 +183,13 @@ class BookingCollection with ChangeNotifier implements Serializable {
   }
 
   Map<TimeOfDay, Duration> accumulatedTimeRangesOccupancy([
-    DateRanger? dateRange,
+    DateRanger? dateRanger,
   ]) {
     final timeRanges =
         SplayTreeMap<TimeOfDay, Duration>(TimeOfDayExtension.compare);
 
     final bookingsSet =
-        dateRange != null ? allBookingsBetween(dateRange) : allBookings;
-
+        dateRanger != null ? allBookingsBetween(dateRanger) : allBookings;
     for (final booking in bookingsSet) {
       for (final bookingTimeRange in booking.hoursSpan.entries) {
         timeRanges.update(
@@ -216,7 +213,6 @@ class BookingCollection with ChangeNotifier implements Serializable {
       accumulatedTimeRangesOccupancy.entries,
       (a, b) => a.value.compareTo(b.value),
     );
-
     final highestOccupancyDuration = timeRangesSortedByDuration.first.value;
 
     return SplayTreeSet.of(
@@ -227,9 +223,9 @@ class BookingCollection with ChangeNotifier implements Serializable {
     );
   }
 
-  Set<TimeOfDay> mostOccupiedTimeRange([DateRanger? dateRange]) =>
+  Set<TimeOfDay> mostOccupiedTimeRange([DateRanger? dateRanger]) =>
       mostOccupiedTimeRangeFromAccumulated(
-        accumulatedTimeRangesOccupancy(dateRange),
+        accumulatedTimeRangesOccupancy(dateRanger),
       );
 
   SingleBooking singleBookingFromId(String id) =>
