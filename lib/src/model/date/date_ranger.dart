@@ -119,12 +119,21 @@ mixin DateRanger {
   /// ```
   Duration overlappingDurationWith(DateRanger other) {
     if (hasInfiniteStart && hasInfiniteEnd ||
-        other.hasInfiniteStart && other.hasInfiniteEnd) return Duration.zero;
+        other.hasInfiniteStart && other.hasInfiniteEnd) {
+      if (isFinite) return duration;
+      if (other.isFinite) return other.duration;
+
+      return Duration.zero;
+    }
     if (hasInfiniteStart && !other.hasInfiniteStart) {
-      return endDate!.difference(other.startDate!);
+      final difference = endDate!.difference(other.startDate!);
+
+      return difference.isNegative ? Duration.zero : difference;
     }
     if (hasInfiniteEnd && !other.hasInfiniteEnd) {
-      return startDate!.difference(other.endDate!);
+      final difference = other.endDate!.difference(startDate!);
+
+      return difference.isNegative ? Duration.zero : difference;
     }
     if (startDate!.isBefore(other.endDate!) &&
         endDate!.isAfter(other.startDate!)) {
