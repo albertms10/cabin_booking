@@ -136,7 +136,7 @@ void main() {
           final emptyBookingCollection = BookingCollection();
           expect(emptyBookingCollection.occupiedDuration(), Duration.zero);
           expect(
-            emptyBookingCollection.occupiedDuration(DateRange.infinite),
+            emptyBookingCollection.occupiedDuration(),
             Duration.zero,
           );
           expect(
@@ -152,7 +152,7 @@ void main() {
             SingleBooking(
               id: 'booking-1-id',
               startDate: DateTime.utc(2022, 12, 4, 9),
-              endDate: DateTime.utc(2022, 12, 4, 10, 30),
+              endDate: DateTime.utc(2022, 12, 4, 9, 30),
               description: 'Student 1',
               isLocked: true,
             ),
@@ -166,19 +166,15 @@ void main() {
           recurringBookings: SplayTreeSet.of({
             RecurringBooking(
               id: 'recurring-booking-id',
-              startDate: DateTime.utc(2022, 12, 6, 9),
-              endDate: DateTime.utc(2022, 12, 6, 10, 30),
+              startDate: DateTime.utc(2022, 12, 4, 9, 30),
+              endDate: DateTime.utc(2022, 12, 4, 10, 30),
               description: 'Student 3',
               recurringEndDate: DateTime.utc(2023, 2, 4),
             ),
           }),
         );
-        const totalDuration = Duration(hours: 16);
+        const totalDuration = Duration(hours: 10, minutes: 30);
         expect(bookingCollection.occupiedDuration(), totalDuration);
-        expect(
-          bookingCollection.occupiedDuration(DateRange.infinite),
-          totalDuration,
-        );
         expect(
           bookingCollection.occupiedDuration(
             DateRange.fromDate(DateTime.utc(2022, 12, 4)),
@@ -192,8 +188,7 @@ void main() {
               endDate: DateTime.utc(2022, 12, 5, 21),
             ),
           ),
-          // TODO(albertms10): should be 30 minutes.
-          const Duration(hours: 1),
+          const Duration(minutes: 30),
         );
       });
     });
@@ -221,7 +216,7 @@ void main() {
               SingleBooking(
                 id: 'booking-1-id',
                 startDate: DateTime.utc(2022, 12, 4, 9),
-                endDate: DateTime.utc(2022, 12, 4, 10, 30),
+                endDate: DateTime.utc(2022, 12, 4, 9, 30),
                 description: 'Student 1',
                 isLocked: true,
               ),
@@ -235,8 +230,8 @@ void main() {
             recurringBookings: SplayTreeSet.of({
               RecurringBooking(
                 id: 'recurring-booking-id',
-                startDate: DateTime.utc(2022, 12, 6, 9),
-                endDate: DateTime.utc(2022, 12, 6, 10, 30),
+                startDate: DateTime.utc(2022, 12, 4, 9, 30),
+                endDate: DateTime.utc(2022, 12, 4, 10, 30),
                 description: 'Student 3',
                 recurringEndDate: DateTime.utc(2023, 2, 4),
               ),
@@ -246,7 +241,7 @@ void main() {
             bookingCollection.occupancyPercentOn(
               DateRange.fromDate(DateTime.utc(2022, 12, 4)),
             ),
-            closeTo(0.063, 0.001),
+            0.0625,
           );
           expect(
             bookingCollection.occupancyPercentOn(
@@ -255,8 +250,7 @@ void main() {
                 endDate: DateTime.utc(2022, 12, 5, 21),
               ),
             ),
-            // TODO(albertms10): fix out of bounds ratio.
-            2,
+            1,
           );
         },
       );

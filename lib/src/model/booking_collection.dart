@@ -114,18 +114,63 @@ class BookingCollection with ChangeNotifier implements Serializable {
         null;
   }
 
-  Duration occupiedDuration([DateRanger? dateRanger]) {
-    final bookingsList =
-        dateRanger != null ? allBookingsBetween(dateRanger) : allBookings;
-
+  /// Returns the occupied [Duration] in a [dateRanger].
+  ///
+  /// Example:
+  /// ```dart
+  /// final bookingCollection = BookingCollection(
+  ///   bookings: {
+  ///     SingleBooking(
+  ///       startDate: DateTime.utc(2022, 12, 4, 9),
+  ///       endDate: DateTime.utc(2022, 12, 4, 9, 30),
+  ///     ),
+  ///   },
+  ///   recurringBookings: {
+  ///     RecurringBooking(
+  ///       startDate: DateTime.utc(2022, 12, 4, 9, 30),
+  ///       endDate: DateTime.utc(2022, 12, 4, 10, 30),
+  ///       recurringEndDate: DateTime.utc(2023, 2, 4),
+  ///     ),
+  ///   },
+  /// );
+  /// final occupiedDuration = bookingCollection.occupiedDuration(
+  ///   DateRange.fromDate(DateTime.utc(2022, 12, 4)),
+  /// );
+  /// assert(occupiedDuration == const Duration(hours: 1, minutes: 30));
+  /// ```
+  Duration occupiedDuration([DateRanger dateRanger = DateRange.infinite]) {
     var runDuration = Duration.zero;
-    for (final booking in bookingsList) {
-      runDuration += booking.duration;
+    for (final booking in allBookings) {
+      runDuration += booking.overlappingDurationWith(dateRanger);
     }
 
     return runDuration;
   }
 
+  /// Returns the occupancy percent in a [dateRanger].
+  ///
+  /// Example:
+  /// ```dart
+  /// final bookingCollection = BookingCollection(
+  ///   bookings: {
+  ///     SingleBooking(
+  ///       startDate: DateTime.utc(2022, 12, 4, 9),
+  ///       endDate: DateTime.utc(2022, 12, 4, 9, 30),
+  ///     ),
+  ///   },
+  ///   recurringBookings: {
+  ///     RecurringBooking(
+  ///       startDate: DateTime.utc(2022, 12, 4, 9, 30),
+  ///       endDate: DateTime.utc(2022, 12, 4, 10),
+  ///       recurringEndDate: DateTime.utc(2023, 2, 4),
+  ///     ),
+  ///   },
+  /// );
+  /// final occupancyPercent = bookingCollection.occupancyPercentOn(
+  ///   DateRange.fromDate(DateTime.utc(2022, 12, 4)),
+  /// );
+  /// assert(occupancyPercent == 0.0625); // 6.25%
+  /// ```
   double occupancyPercentOn([DateRanger? dateRanger]) {
     dateRanger ??= DateRange.today();
 
