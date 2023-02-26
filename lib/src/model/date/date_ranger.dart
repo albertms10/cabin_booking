@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cabin_booking/utils/date_time_extension.dart';
 import 'package:cabin_booking/utils/time_of_day_extension.dart';
 import 'package:flutter/material.dart';
@@ -66,7 +68,7 @@ mixin DateRanger {
         endDate!.isAfter(dateTime);
   }
 
-  /// Whether this [DateRanger] overlaps with another [DateRanger].
+  /// Whether this [DateRanger] overlaps with [other].
   ///
   /// Example:
   /// ```dart
@@ -93,6 +95,55 @@ mixin DateRanger {
 
     return startDate!.isBefore(other.endDate!) &&
         endDate!.isAfter(other.startDate!);
+  }
+
+  /// Returns the overlapping [Duration] with [other]. The operation is
+  /// commutative, returning the same result in both directions.
+  ///
+  /// Example:
+  /// ```dart
+  /// final dateRange1 = DateRange(
+  ///   startDate: DateTime(2022, 12, 4, 9, 15),
+  ///   endDate: DateTime(2022, 12, 4, 12, 15),
+  /// );
+  /// final dateRange2 = DateRange(
+  ///   startDate: DateTime(2022, 12, 4, 10, 15),
+  ///   endDate: DateTime(2022, 12, 4, 11, 15),
+  /// );
+  ///
+  /// final duration1 = dateRange1.overlappingDurationWith(dateRange2);
+  /// assert(duration1 == const Duration(hours: 1));
+  ///
+  /// final duration2 = dateRange2.overlappingDurationWith(dateRange1);
+  /// assert(duration1 == duration2);
+  /// ```
+  Duration overlappingDurationWith(DateRanger other) {
+    if (hasInfiniteStart && hasInfiniteEnd ||
+        other.hasInfiniteStart && other.hasInfiniteEnd) {
+      if (isFinite) return duration;
+      if (other.isFinite) return other.duration;
+
+      return Duration.zero;
+    }
+    if (hasInfiniteStart && !other.hasInfiniteStart) {
+      final difference = endDate!.difference(other.startDate!);
+
+      return difference.isNegative ? Duration.zero : difference;
+    }
+    if (hasInfiniteEnd && !other.hasInfiniteEnd) {
+      final difference = other.endDate!.difference(startDate!);
+
+      return difference.isNegative ? Duration.zero : difference;
+    }
+    if (startDate!.isBefore(other.endDate!) &&
+        endDate!.isAfter(other.startDate!)) {
+      return Duration(
+        milliseconds:
+            min<int>(duration.inMilliseconds, other.duration.inMilliseconds),
+      );
+    }
+
+    return Duration.zero;
   }
 
   /// Whether this [DateRanger] has [startDate] and [endDate] values.

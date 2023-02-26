@@ -228,6 +228,97 @@ void main() {
       );
     });
 
+    group('.overlappingDurationWith()', () {
+      test(
+        'should return the inner overlapping Duration with another DateRanger',
+        () {
+          final DateRanger dateRanger1 = DateRange(
+            startDate: DateTime(2022, 12, 4, 9, 15),
+            endDate: DateTime(2022, 12, 4, 12, 15),
+          );
+          final DateRanger dateRanger2 = DateRange(
+            startDate: DateTime(2022, 12, 4, 10),
+            endDate: DateTime(2022, 12, 4, 11),
+          );
+          expect(
+            dateRanger1.overlappingDurationWith(dateRanger2),
+            const Duration(hours: 1),
+          );
+          expect(
+            dateRanger2.overlappingDurationWith(dateRanger1),
+            const Duration(hours: 1),
+          );
+        },
+      );
+
+      test(
+        'should return the overlapping Duration between infinite DateRangers',
+        () {
+          final dateRange1 = DateRange(
+            endDate: DateTime(2022, 12, 4, 12, 15),
+          );
+          final dateRange2 = DateRange(
+            startDate: DateTime(2022, 12, 4, 10, 15),
+          );
+          expect(
+            dateRange1.overlappingDurationWith(dateRange2),
+            const Duration(hours: 2),
+          );
+          expect(
+            dateRange2.overlappingDurationWith(dateRange1),
+            const Duration(hours: 2),
+          );
+          expect(
+            DateRange.infinite.overlappingDurationWith(DateRange.infinite),
+            Duration.zero,
+          );
+          expect(
+            DateRange.infinite.overlappingDurationWith(dateRange1),
+            Duration.zero,
+          );
+          expect(
+            dateRange1.overlappingDurationWith(DateRange.infinite),
+            Duration.zero,
+          );
+          final dateRange3 = DateRange.fromDate(DateTime(2022, 12, 4));
+          expect(
+            DateRange.infinite.overlappingDurationWith(dateRange3),
+            const Duration(days: 1),
+          );
+          expect(
+            dateRange3.overlappingDurationWith(DateRange.infinite),
+            const Duration(days: 1),
+          );
+        },
+      );
+
+      test(
+        'should return a Duration of zero if this finite DateRanger does not '
+        'overlap with another finite DateRanger',
+        () {
+          final dateRange1 = DateRange.fromDate(DateTime(2022, 12, 4));
+          final dateRange2 = DateRange.fromDate(DateTime(2022, 12, 5));
+          expect(dateRange1.overlappingDurationWith(dateRange2), Duration.zero);
+          expect(dateRange2.overlappingDurationWith(dateRange1), Duration.zero);
+        },
+      );
+
+      test(
+        'should return a Duration of zero if this infinite DateRanger does not '
+        'overlap with another infinite DateRanger',
+        () {
+          final dateRange1 = DateRange(
+            startDate: DateTime(2022, 12, 4, 12, 15),
+          );
+          final dateRange2 = DateRange(
+            endDate: DateTime(2022, 12, 4, 10, 15),
+          );
+          expect(dateRange1.overlappingDurationWith(dateRange2), Duration.zero);
+          expect(dateRange2.overlappingDurationWith(dateRange1), Duration.zero);
+        },
+      );
+    });
+
     group('.isFinite', () {
       test('should return true when this DateRanger is finite', () {
         final DateRanger dateRanger = DateRange(
