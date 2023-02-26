@@ -11,6 +11,7 @@ import 'booking/single_booking.dart';
 import 'booking_collection.dart';
 import 'cabin/cabin.dart';
 import 'cabin/tokenized_cabin.dart';
+import 'date/date_range.dart';
 import 'date/date_ranger.dart';
 import 'file/file_manager.dart';
 import 'file/writable_manager.dart';
@@ -125,7 +126,7 @@ class CabinCollection extends WritableManager<Set<Cabin>>
     return count;
   }
 
-  Duration totalOccupiedDuration([DateRanger? dateRanger]) {
+  Duration totalOccupiedDuration([DateRanger dateRanger = DateRange.infinite]) {
     var duration = Duration.zero;
     for (final cabin in cabins) {
       duration += cabin.bookingCollection.occupiedDuration(dateRanger);

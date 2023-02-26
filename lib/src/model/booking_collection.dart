@@ -114,13 +114,10 @@ class BookingCollection with ChangeNotifier implements Serializable {
         null;
   }
 
-  Duration occupiedDuration([DateRanger? dateRanger]) {
-    final bookingsList =
-        dateRanger != null ? allBookingsBetween(dateRanger) : allBookings;
-
+  Duration occupiedDuration([DateRanger dateRanger = DateRange.infinite]) {
     var runDuration = Duration.zero;
-    for (final booking in bookingsList) {
-      runDuration += booking.duration;
+    for (final booking in allBookings) {
+      runDuration += booking.overlappingDurationWith(dateRanger);
     }
 
     return runDuration;
