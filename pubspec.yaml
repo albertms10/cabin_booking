@@ -12,15 +12,15 @@ environment:
 dependencies:
   collection: ^1.17.0
   cupertino_icons: ^1.0.5
-  fl_chart: ^0.60.0
+  fl_chart: ^0.61.0
   flutter:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  horizontal_data_table: ^4.1.4+1
+  horizontal_data_table: ^4.1.5
   intl: any
   nanoid: ^1.0.0
-  path_provider: ^2.0.12
+  path_provider: ^2.0.13
   provider: ^6.0.5
   timer_builder: ^2.0.0
   window_size:
