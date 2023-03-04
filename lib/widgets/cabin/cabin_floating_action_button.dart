@@ -27,10 +27,7 @@ class CabinFloatingActionButton extends StatelessWidget {
           cabinCollection.addCabin(newCabin);
         }
       },
-      child: Icon(
-        Icons.sensor_door_outlined,
-        color: Theme.of(context).colorScheme.onPrimary,
-      ),
+      child: const Icon(Icons.sensor_door_outlined),
     );
   }
 }

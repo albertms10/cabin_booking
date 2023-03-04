@@ -83,10 +83,7 @@ class HomePageState extends State<HomePage> {
     return ActionableFocusedShortcuts(
       child: Scaffold(
         appBar: AppBar(
-          title: Text(
-            appLocalizations.title,
-            style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
-          ),
+          title: Text(appLocalizations.title),
         ),
         body: SafeArea(
           child: Row(

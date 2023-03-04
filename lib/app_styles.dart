@@ -20,22 +20,7 @@ ThemeData lightTheme() {
     primaryColor: primaryColor,
     primaryColorLight: primaryColorLight,
     primaryColorDark: primaryColorDark,
-    colorScheme: ColorScheme.light(
-      primary: primaryColor,
-      primaryContainer: primaryColorLight,
-      secondary: primaryColor,
-      onSecondary: Colors.white,
-      secondaryContainer: primaryColorDark,
-    ),
-    radioTheme: RadioThemeData(
-      fillColor: _resolveSelectedMaterialState(primaryColor),
-    ),
-    bottomNavigationBarTheme: BottomNavigationBarThemeData(
-      selectedIconTheme: IconThemeData(color: primaryColorDark),
-      unselectedIconTheme: const IconThemeData(color: Colors.grey),
-      selectedItemColor: primaryColorDark,
-      unselectedItemColor: Colors.grey,
-    ),
+    colorScheme: ColorScheme.fromSeed(seedColor: primaryColor),
     inputDecorationTheme: _baseThemeData.inputDecorationTheme,
     tooltipTheme: _baseThemeData.tooltipTheme,
   );
@@ -50,37 +35,11 @@ ThemeData darkTheme() {
     primaryColor: primaryColor,
     primaryColorLight: primaryColorLight,
     primaryColorDark: primaryColorDark,
-    colorScheme: ColorScheme.dark(
-      primary: primaryColor,
-      onPrimary: Colors.white,
-      primaryContainer: primaryColorLight,
-      secondary: primaryColor,
-      onSecondary: Colors.white,
-      secondaryContainer: primaryColorDark,
-    ),
-    radioTheme: RadioThemeData(
-      fillColor: _resolveSelectedMaterialState(primaryColor),
-    ),
-    floatingActionButtonTheme: FloatingActionButtonThemeData(
-      backgroundColor: primaryColorDark,
-    ),
-    bottomNavigationBarTheme: BottomNavigationBarThemeData(
-      selectedIconTheme: IconThemeData(color: primaryColorDark),
-      unselectedIconTheme: const IconThemeData(color: Colors.grey),
-      selectedItemColor: primaryColorDark,
-      unselectedItemColor: Colors.grey,
+    colorScheme: ColorScheme.fromSeed(
+      seedColor: primaryColor,
+      brightness: Brightness.dark,
     ),
     inputDecorationTheme: _baseThemeData.inputDecorationTheme,
     tooltipTheme: _baseThemeData.tooltipTheme,
   );
-}
-
-MaterialStateProperty<Color?> _resolveSelectedMaterialState(
-  Color color,
-) {
-  return MaterialStateProperty.resolveWith((states) {
-    if (states.contains(MaterialState.selected)) return color;
-
-    return null;
-  });
 }
