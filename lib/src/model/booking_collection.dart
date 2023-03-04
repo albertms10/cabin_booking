@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'booking/booking.dart';
 import 'booking/recurring_booking.dart';
 import 'booking/single_booking.dart';
+import 'date/date_range.dart';
 import 'date/date_ranger.dart';
 import 'serializable.dart';
 
@@ -58,22 +59,22 @@ class BookingCollection with ChangeNotifier implements Serializable {
         ...singleBookingsFromRecurring,
       });
 
-  Set<SingleBooking> singleBookingsBetween(DateRanger dateRange) =>
+  Set<SingleBooking> singleBookingsBetween(DateRanger dateRanger) =>
       SplayTreeSet.of(
-        bookings.where((booking) => booking.overlapsWith(dateRange)),
+        bookings.where((booking) => booking.overlapsWith(dateRanger)),
       );
 
-  Set<SingleBooking> recurringBookingsBetween(DateRanger dateRange) =>
+  Set<SingleBooking> recurringBookingsBetween(DateRanger dateRanger) =>
       SplayTreeSet.of(
         singleBookingsFromRecurring.where(
-          (recurringBooking) => recurringBooking.overlapsWith(dateRange),
+          (recurringBooking) => recurringBooking.overlapsWith(dateRanger),
         ),
       );
 
-  Set<SingleBooking> allBookingsBetween(DateRanger dateRange) =>
+  Set<SingleBooking> allBookingsBetween(DateRanger dateRanger) =>
       SplayTreeSet.of({
-        ...singleBookingsBetween(dateRange),
-        ...recurringBookingsBetween(dateRange),
+        ...singleBookingsBetween(dateRanger),
+        ...recurringBookingsBetween(dateRanger),
       });
 
   Set<SingleBooking> singleBookingsOn(DateTime dateTime) => SplayTreeSet.of(
@@ -82,7 +83,6 @@ class BookingCollection with ChangeNotifier implements Serializable {
 
   Set<SingleBooking> recurringBookingsOn(DateTime dateTime) {
     final filteredBookings = SplayTreeSet<SingleBooking>();
-
     for (final recurringBooking in recurringBookings) {
       final booking = recurringBooking.bookingOn(dateTime);
 
@@ -114,71 +114,74 @@ class BookingCollection with ChangeNotifier implements Serializable {
         null;
   }
 
-  Duration occupiedDuration({DateTime? dateTime, DateRanger? dateRange}) {
-    if (dateTime != null && dateRange != null) {
-      throw ArgumentError(
-        'Either dateTime or dateRange must be given, but not both.',
-      );
-    }
-
+  /// Returns the occupied [Duration] in a [dateRanger].
+  ///
+  /// Example:
+  /// ```dart
+  /// final bookingCollection = BookingCollection(
+  ///   bookings: {
+  ///     SingleBooking(
+  ///       startDate: DateTime.utc(2022, 12, 4, 9),
+  ///       endDate: DateTime.utc(2022, 12, 4, 9, 30),
+  ///     ),
+  ///   },
+  ///   recurringBookings: {
+  ///     RecurringBooking(
+  ///       startDate: DateTime.utc(2022, 12, 4, 9, 30),
+  ///       endDate: DateTime.utc(2022, 12, 4, 10, 30),
+  ///       recurringEndDate: DateTime.utc(2023, 2, 4),
+  ///     ),
+  ///   },
+  /// );
+  /// final occupiedDuration = bookingCollection.occupiedDuration(
+  ///   DateRange.fromDate(DateTime.utc(2022, 12, 4)),
+  /// );
+  /// assert(occupiedDuration == const Duration(hours: 1, minutes: 30));
+  /// ```
+  Duration occupiedDuration([DateRanger dateRanger = DateRange.infinite]) {
     var runDuration = Duration.zero;
-
-    final bookingsList = dateTime != null
-        ? allBookingsOn(dateTime)
-        : dateRange != null
-            ? allBookingsBetween(dateRange)
-            : allBookings;
-
-    for (final booking in bookingsList) {
-      runDuration += booking.duration;
+    for (final booking in allBookings) {
+      runDuration += booking.overlappingDurationWith(dateRanger);
     }
 
     return runDuration;
   }
 
-  double occupancyPercentOn(
-    DateTime? dateTime, {
-    required TimeOfDay startTime,
-    required TimeOfDay endTime,
-  }) {
-    final fallbackDateTime = dateTime ?? DateTime.now();
-    final startDate = fallbackDateTime.addLocalTimeOfDay(startTime);
-    final endDate = fallbackDateTime.addLocalTimeOfDay(endTime);
+  /// Returns the occupancy percent in a [dateRanger].
+  ///
+  /// Example:
+  /// ```dart
+  /// final bookingCollection = BookingCollection(
+  ///   bookings: {
+  ///     SingleBooking(
+  ///       startDate: DateTime.utc(2022, 12, 4, 9),
+  ///       endDate: DateTime.utc(2022, 12, 4, 9, 30),
+  ///     ),
+  ///   },
+  ///   recurringBookings: {
+  ///     RecurringBooking(
+  ///       startDate: DateTime.utc(2022, 12, 4, 9, 30),
+  ///       endDate: DateTime.utc(2022, 12, 4, 10),
+  ///       recurringEndDate: DateTime.utc(2023, 2, 4),
+  ///     ),
+  ///   },
+  /// );
+  /// final occupancyPercent = bookingCollection.occupancyPercentOn(
+  ///   DateRange.fromDate(DateTime.utc(2022, 12, 4)),
+  /// );
+  /// assert(occupancyPercent == 0.0625); // 6.25%
+  /// ```
+  double occupancyPercentOn([DateRanger? dateRanger]) {
+    dateRanger ??= DateRange.today();
 
-    final maxViewDuration = endDate.difference(startDate);
-
-    return occupiedDuration(dateTime: fallbackDateTime).inMicroseconds /
-        maxViewDuration.inMicroseconds;
+    return occupiedDuration(dateRanger).inMicroseconds /
+        dateRanger.duration.inMicroseconds;
   }
 
-  double occupancyPercent({
-    required TimeOfDay startTime,
-    required TimeOfDay endTime,
-    Set<DateTime>? dates,
-  }) {
-    var runPercent = 0.0;
-    var count = 0;
-
-    for (final dateTime in dates ?? datesWithBookings()) {
-      count++;
-
-      final currentPercent = occupancyPercentOn(
-        dateTime,
-        startTime: startTime,
-        endTime: endTime,
-      );
-
-      runPercent += (currentPercent - runPercent) / count;
-    }
-
-    return runPercent;
-  }
-
-  Set<DateTime> datesWithBookings([DateRanger? dateRange]) {
+  Set<DateTime> datesWithBookings([DateRanger? dateRanger]) {
     final dates = SplayTreeSet<DateTime>();
-
     final bookingsList =
-        dateRange != null ? allBookingsBetween(dateRange) : allBookings;
+        dateRanger != null ? allBookingsBetween(dateRanger) : allBookings;
 
     for (final booking in bookingsList) {
       final shouldAddDate = dates.firstWhereOrNull(
@@ -196,7 +199,6 @@ class BookingCollection with ChangeNotifier implements Serializable {
 
   Map<DateTime, int> get allBookingsCountPerDay {
     final bookingsPerDay = SplayTreeMap<DateTime, int>();
-
     for (final booking in allBookings) {
       bookingsPerDay.update(
         booking.dateOnly!,
@@ -208,11 +210,12 @@ class BookingCollection with ChangeNotifier implements Serializable {
     return bookingsPerDay;
   }
 
-  Map<DateTime, Duration> occupiedDurationPerWeek([DateRanger? dateRange]) {
+  Map<DateTime, Duration> occupiedDurationPerWeek([DateRanger? dateRanger]) {
     final bookingsPerDay = SplayTreeMap<DateTime, Duration>();
-
     for (final booking in allBookings) {
-      if (dateRange != null && !dateRange.includes(booking.dateOnly!)) continue;
+      if (dateRanger != null && !dateRanger.includes(booking.dateOnly!)) {
+        continue;
+      }
 
       bookingsPerDay.update(
         booking.dateOnly!.firstDayOfWeek,
@@ -225,14 +228,13 @@ class BookingCollection with ChangeNotifier implements Serializable {
   }
 
   Map<TimeOfDay, Duration> accumulatedTimeRangesOccupancy([
-    DateRanger? dateRange,
+    DateRanger? dateRanger,
   ]) {
     final timeRanges =
         SplayTreeMap<TimeOfDay, Duration>(TimeOfDayExtension.compare);
 
     final bookingsSet =
-        dateRange != null ? allBookingsBetween(dateRange) : allBookings;
-
+        dateRanger != null ? allBookingsBetween(dateRanger) : allBookings;
     for (final booking in bookingsSet) {
       for (final bookingTimeRange in booking.hoursSpan.entries) {
         timeRanges.update(
@@ -256,7 +258,6 @@ class BookingCollection with ChangeNotifier implements Serializable {
       accumulatedTimeRangesOccupancy.entries,
       (a, b) => a.value.compareTo(b.value),
     );
-
     final highestOccupancyDuration = timeRangesSortedByDuration.first.value;
 
     return SplayTreeSet.of(
@@ -267,9 +268,9 @@ class BookingCollection with ChangeNotifier implements Serializable {
     );
   }
 
-  Set<TimeOfDay> mostOccupiedTimeRange([DateRanger? dateRange]) =>
+  Set<TimeOfDay> mostOccupiedTimeRange([DateRanger? dateRanger]) =>
       mostOccupiedTimeRangeFromAccumulated(
-        accumulatedTimeRangesOccupancy(dateRange),
+        accumulatedTimeRangesOccupancy(dateRanger),
       );
 
   SingleBooking singleBookingFromId(String id) =>
@@ -355,6 +356,9 @@ class BookingCollection with ChangeNotifier implements Serializable {
 
     if (notify) notifyListeners();
   }
+
+  @override
+  String toString() => '$bookings\n$recurringBookings';
 
   @override
   bool operator ==(Object other) =>

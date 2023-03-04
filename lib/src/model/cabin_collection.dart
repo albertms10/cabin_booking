@@ -11,6 +11,7 @@ import 'booking/single_booking.dart';
 import 'booking_collection.dart';
 import 'cabin/cabin.dart';
 import 'cabin/tokenized_cabin.dart';
+import 'date/date_range.dart';
 import 'date/date_ranger.dart';
 import 'file/file_manager.dart';
 import 'file/writable_manager.dart';
@@ -42,15 +43,14 @@ class CabinCollection extends WritableManager<Set<Cabin>>
 
   int get lastCabinNumber => cabins.isEmpty ? 0 : cabins.last.number;
 
-  Set<DateTime> allCabinsDatesWithBookings([DateRanger? dateRange]) =>
+  Set<DateTime> allCabinsDatesWithBookings([DateRanger? dateRanger]) =>
       SplayTreeSet.of({
         for (final cabin in cabins)
-          ...cabin.bookingCollection.datesWithBookings(dateRange),
+          ...cabin.bookingCollection.datesWithBookings(dateRanger),
       });
 
   Map<DateTime, int> get allCabinsBookingsCountPerDay {
     final bookingsPerDay = <DateTime, int>{};
-
     for (final cabin in cabins) {
       for (final bookingsCount
           in cabin.bookingCollection.allBookingsCountPerDay.entries) {
@@ -75,15 +75,13 @@ class CabinCollection extends WritableManager<Set<Cabin>>
   }
 
   Map<TimeOfDay, Duration> accumulatedTimeRangesOccupancy([
-    DateRanger? dateRange,
+    DateRanger? dateRanger,
   ]) {
     final timeRanges =
         SplayTreeMap<TimeOfDay, Duration>(TimeOfDayExtension.compare);
-
     for (final cabin in cabins) {
       final accumulatedTimeRanges =
-          cabin.bookingCollection.accumulatedTimeRangesOccupancy(dateRange);
-
+          cabin.bookingCollection.accumulatedTimeRangesOccupancy(dateRanger);
       for (final bookingTimeRange in accumulatedTimeRanges.entries) {
         timeRanges.update(
           bookingTimeRange.key,
@@ -96,14 +94,13 @@ class CabinCollection extends WritableManager<Set<Cabin>>
     return timeRanges;
   }
 
-  Set<TimeOfDay> mostOccupiedTimeRange([DateRanger? dateRange]) =>
+  Set<TimeOfDay> mostOccupiedTimeRange([DateRanger? dateRanger]) =>
       BookingCollection.mostOccupiedTimeRangeFromAccumulated(
-        accumulatedTimeRangesOccupancy(dateRange),
+        accumulatedTimeRangesOccupancy(dateRanger),
       );
 
   int get allBookingsCount {
     var count = 0;
-
     for (final cabin in cabins) {
       count += cabin.bookingCollection.allBookings.length;
     }
@@ -113,7 +110,6 @@ class CabinCollection extends WritableManager<Set<Cabin>>
 
   int get bookingsCount {
     var count = 0;
-
     for (final cabin in cabins) {
       count += cabin.bookingCollection.bookings.length;
     }
@@ -123,7 +119,6 @@ class CabinCollection extends WritableManager<Set<Cabin>>
 
   int get recurringBookingsCount {
     var count = 0;
-
     for (final cabin in cabins) {
       count += cabin.bookingCollection.singleBookingsFromRecurring.length;
     }
@@ -131,26 +126,20 @@ class CabinCollection extends WritableManager<Set<Cabin>>
     return count;
   }
 
-  Duration totalOccupiedDuration({DateTime? dateTime, DateRanger? dateRange}) {
+  Duration totalOccupiedDuration([DateRanger dateRanger = DateRange.infinite]) {
     var duration = Duration.zero;
-
     for (final cabin in cabins) {
-      duration += cabin.bookingCollection.occupiedDuration(
-        dateTime: dateTime,
-        dateRange: dateRange,
-      );
+      duration += cabin.bookingCollection.occupiedDuration(dateRanger);
     }
 
     return duration;
   }
 
-  Map<DateTime, Duration> occupiedDurationPerWeek([DateRanger? dateRange]) {
+  Map<DateTime, Duration> occupiedDurationPerWeek([DateRanger? dateRanger]) {
     final bookingsPerDay = SplayTreeMap<DateTime, Duration>();
-
     for (final cabin in cabins) {
       final occupiedDuration =
-          cabin.bookingCollection.occupiedDurationPerWeek(dateRange);
-
+          cabin.bookingCollection.occupiedDurationPerWeek(dateRanger);
       for (final durationPerWeek in occupiedDuration.entries) {
         bookingsPerDay.update(
           durationPerWeek.key,
@@ -163,42 +152,20 @@ class CabinCollection extends WritableManager<Set<Cabin>>
     return bookingsPerDay;
   }
 
-  double occupancyPercent({
-    required TimeOfDay startTime,
-    required TimeOfDay endTime,
-    Set<DateTime>? dates,
-  }) {
-    if (cabins.isEmpty) return 0;
-
-    final percents = [
-      for (final cabin in cabins)
-        cabin.bookingCollection.occupancyPercent(
-          startTime: startTime,
-          endTime: endTime,
-          dates: dates,
-        ),
-    ];
-
-    return percents.reduce((value, element) => value + element) /
-        percents.length;
-  }
-
-  int bookingsCountBetween(DateRanger dateRange) {
+  int bookingsCountBetween(DateRanger dateRanger) {
     var count = 0;
-
     for (final cabin in cabins) {
-      count += cabin.bookingCollection.singleBookingsBetween(dateRange).length;
+      count += cabin.bookingCollection.singleBookingsBetween(dateRanger).length;
     }
 
     return count;
   }
 
-  int recurringBookingsCountBetween(DateRanger dateRange) {
+  int recurringBookingsCountBetween(DateRanger dateRanger) {
     var count = 0;
-
     for (final cabin in cabins) {
       count +=
-          cabin.bookingCollection.recurringBookingsBetween(dateRange).length;
+          cabin.bookingCollection.recurringBookingsBetween(dateRanger).length;
     }
 
     return count;
