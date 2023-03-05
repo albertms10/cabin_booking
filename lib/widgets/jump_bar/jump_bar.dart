@@ -1,3 +1,4 @@
+import 'package:cabin_booking/app_styles.dart';
 import 'package:cabin_booking/model.dart';
 import 'package:cabin_booking/utils/string_extension.dart';
 import 'package:cabin_booking/widgets/jump_bar/jump_bar_field.dart';
@@ -95,7 +96,7 @@ class _JumpBarState extends State<JumpBar> {
                   height: _barHeight + height,
                   child: Material(
                     elevation: 12,
-                    borderRadius: const BorderRadius.all(Radius.circular(8)),
+                    borderRadius: borderRadiusLarge,
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [

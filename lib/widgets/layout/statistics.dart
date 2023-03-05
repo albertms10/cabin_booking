@@ -1,3 +1,4 @@
+import 'package:cabin_booking/app_styles.dart';
 import 'package:flutter/material.dart';
 
 class Statistics extends StatelessWidget {
@@ -19,7 +20,7 @@ class Statistics extends StatelessWidget {
     return Card(
       child: InkWell(
         onTap: onTap,
-        borderRadius: const BorderRadius.all(Radius.circular(12)),
+        borderRadius: borderRadiusLarge,
         child: Padding(
           padding: const EdgeInsets.all(20),
           child: Column(

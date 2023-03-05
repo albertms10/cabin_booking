@@ -1,3 +1,4 @@
+import 'package:cabin_booking/app_styles.dart';
 import 'package:cabin_booking/constants.dart';
 import 'package:cabin_booking/model.dart';
 import 'package:cabin_booking/widgets/booking/booking_card_info.dart';
@@ -86,7 +87,7 @@ class _BookingCardInteractive extends StatelessWidget {
           );
         },
         customBorder: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10)),
+          borderRadius: borderRadiusLarge,
         ),
         child: child,
       ),

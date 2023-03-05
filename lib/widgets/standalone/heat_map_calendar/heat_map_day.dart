@@ -1,3 +1,4 @@
+import 'package:cabin_booking/app_styles.dart';
 import 'package:cabin_booking/utils/date_time_extension.dart';
 import 'package:cabin_booking/widgets/layout/conditional_widget_wrap.dart';
 import 'package:flutter/material.dart';
@@ -65,12 +66,12 @@ class HeatMapDay extends StatelessWidget {
         padding: padding,
         child: InkWell(
           onTap: date == null ? null : () => onTap?.call(date!, value),
-          borderRadius: const BorderRadius.all(Radius.circular(2)),
+          borderRadius: borderRadiusTiny,
           child: Container(
             decoration: BoxDecoration(
               color: color,
               border: containerBorder,
-              borderRadius: const BorderRadius.all(Radius.circular(2)),
+              borderRadius: borderRadiusTiny,
             ),
             width: size,
             height: size,
