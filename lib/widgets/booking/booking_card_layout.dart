@@ -1,3 +1,4 @@
+import 'package:cabin_booking/app_styles.dart';
 import 'package:cabin_booking/src/model/booking/booking.dart';
 import 'package:flutter/material.dart';
 
@@ -31,14 +32,14 @@ class BookingCardLayout extends StatelessWidget {
           color: Colors.grey[300]!.withOpacity(isBeforeNow ? 0.41 : 1),
           width: 1.5,
         ),
-        borderRadius: const BorderRadius.all(Radius.circular(10)),
+        borderRadius: borderRadiusLarge,
       ),
       margin: const EdgeInsets.all(outerInset),
       child: Container(
         decoration: booking.isLocked
-            ? BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                gradient: const LinearGradient(
+            ? const BoxDecoration(
+                borderRadius: borderRadiusLarge,
+                gradient: LinearGradient(
                   begin: AlignmentDirectional.topStart,
                   end: Alignment(-0.4, -0.2),
                   colors: [
@@ -55,7 +56,7 @@ class BookingCardLayout extends StatelessWidget {
                 color: Theme.of(context)
                     .cardColor
                     .withOpacity(isBeforeNow ? 0.41 : 1),
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: borderRadiusLarge,
               ),
         width: width,
         height: height,

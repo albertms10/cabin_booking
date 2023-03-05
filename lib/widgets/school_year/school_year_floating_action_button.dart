@@ -25,10 +25,7 @@ class SchoolYearFloatingActionButton extends StatelessWidget {
           schoolYearCollection.addSchoolYear(newSchoolYear);
         }
       },
-      child: Icon(
-        Icons.school_outlined,
-        color: Theme.of(context).colorScheme.onPrimary,
-      ),
+      child: const Icon(Icons.school_outlined),
     );
   }
 }

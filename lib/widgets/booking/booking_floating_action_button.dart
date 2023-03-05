@@ -76,8 +76,7 @@ class BookingFloatingActionButton extends StatelessWidget {
             style: theme.textTheme.titleSmall,
           ),
           animatedIcon: AnimatedIcons.add_event,
-          animatedIconTheme:
-              IconThemeData(size: 25, color: theme.colorScheme.onPrimary),
+          animatedIconTheme: const IconThemeData(size: 25),
           onPressed: () {
             showNewBookingDialog(
               context: context,

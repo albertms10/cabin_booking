@@ -120,7 +120,7 @@ class HeatMapCalendar extends StatelessWidget {
                 child: HeatMapLegend(
                   squareSize: squareSize,
                   space: space,
-                  color: Theme.of(context).colorScheme.secondary,
+                  color: Theme.of(context).colorScheme.primary,
                   samples: legendSamples,
                   lessLabel: legendLessLabel,
                   moreLabel: legendMoreLabel,

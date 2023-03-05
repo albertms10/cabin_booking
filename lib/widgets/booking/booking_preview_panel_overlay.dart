@@ -1,3 +1,4 @@
+import 'package:cabin_booking/app_styles.dart';
 import 'package:cabin_booking/model.dart';
 import 'package:cabin_booking/widgets/booking/booking_preview_panel.dart';
 import 'package:cabin_booking/widgets/layout/scrollable_time_table.dart';
@@ -164,7 +165,7 @@ class _PreviewPanel extends StatelessWidget {
                   child: Card(
                     elevation: 24,
                     shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      borderRadius: borderRadiusLarge,
                     ),
                     child: BookingPreviewPanel(
                       cabin: cabin,

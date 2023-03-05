@@ -15,7 +15,6 @@ class AnimatedFloatingButton extends StatelessWidget {
   final String? heroTag;
   final double elevation;
   final bool isOpen;
-  final ShapeBorder shape;
   final Curve curve;
   final int animationSpeed;
   final Widget? child;
@@ -33,7 +32,6 @@ class AnimatedFloatingButton extends StatelessWidget {
     this.heroTag,
     this.elevation = 6,
     this.isOpen = false,
-    this.shape = const CircleBorder(),
     this.curve = Curves.easeOutCubic,
     this.onLongPress,
     this.animationSpeed = 150,
@@ -65,7 +63,6 @@ class AnimatedFloatingButton extends StatelessWidget {
               elevation: elevation,
               highlightElevation: elevation,
               onPressed: callback,
-              shape: shape,
               child: visible ? child : null,
             ),
           ),

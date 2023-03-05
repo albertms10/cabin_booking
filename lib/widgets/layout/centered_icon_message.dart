@@ -8,6 +8,8 @@ class CenteredIconMessage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -15,16 +17,14 @@ class CenteredIconMessage extends StatelessWidget {
           Icon(
             icon,
             size: 72,
-            color: Colors.grey,
+            color: theme.hintColor,
           ),
           if (icon != null && message != null) const SizedBox(height: 24),
           if (message != null)
             Text(
               message!,
-              style: Theme.of(context)
-                  .textTheme
-                  .headlineSmall
-                  ?.copyWith(color: Colors.grey[600]),
+              style: theme.textTheme.headlineSmall
+                  ?.copyWith(color: theme.hintColor),
             ),
           if (icon != null || message != null) const SizedBox(height: 82),
         ],

@@ -1,3 +1,4 @@
+import 'package:cabin_booking/app_styles.dart';
 import 'package:cabin_booking/constants.dart';
 import 'package:cabin_booking/model.dart';
 import 'package:cabin_booking/utils/dialog.dart';
@@ -96,9 +97,7 @@ class _EmptyBookingSlotActionable extends StatelessWidget {
     final duration = preciseDuration ?? endDate.difference(startDate).inMinutes;
 
     return Container(
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(4)),
-      ),
+      decoration: const BoxDecoration(borderRadius: borderRadiusLarge),
       margin: const EdgeInsets.all(8),
       child: Tooltip(
         message: '$duration min',
@@ -114,7 +113,7 @@ class _EmptyBookingSlotActionable extends StatelessWidget {
               cabinCollection: cabinCollection,
             );
           },
-          borderRadius: const BorderRadius.all(Radius.circular(4)),
+          borderRadius: borderRadiusLarge,
           child: Icon(Icons.add, size: 18, color: Theme.of(context).hintColor),
         ),
       ),

@@ -17,6 +17,7 @@ class DataTableToolbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     final appLocalizations = AppLocalizations.of(context)!;
 
     return SizedBox(
@@ -31,7 +32,8 @@ class DataTableToolbar extends StatelessWidget {
               ),
               title: Text(appLocalizations.nSelected(selectedItems)),
               actions: actions,
-              backgroundColor: Theme.of(context).primaryColorDark,
+              backgroundColor: theme.colorScheme.primary,
+              foregroundColor: theme.colorScheme.onPrimary,
               centerTitle: false,
             ),
     );

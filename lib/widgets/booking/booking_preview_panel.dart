@@ -1,3 +1,4 @@
+import 'package:cabin_booking/app_styles.dart';
 import 'package:cabin_booking/model.dart';
 import 'package:cabin_booking/widgets/booking/booking_preview_panel_action_bar.dart';
 import 'package:cabin_booking/widgets/booking/booking_preview_panel_row.dart';
@@ -53,7 +54,7 @@ class _BookingPreviewPanelHeadline extends StatelessWidget {
               : Container(
                   decoration: BoxDecoration(
                     color: theme.colorScheme.primary,
-                    borderRadius: const BorderRadius.all(Radius.circular(4)),
+                    borderRadius: borderRadiusSmall,
                   ),
                   width: 14,
                   height: 14,

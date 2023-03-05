@@ -17,7 +17,6 @@ class AnimatedChild extends AnimatedWidget {
   final bool visible;
   final VoidCallback? onTap;
   final VoidCallback? toggleChildren;
-  final ShapeBorder? shape;
   final String? heroTag;
 
   const AnimatedChild({
@@ -35,7 +34,6 @@ class AnimatedChild extends AnimatedWidget {
     this.visible = false,
     this.onTap,
     this.toggleChildren,
-    this.shape,
     this.heroTag,
   }) : super(listenable: animation);
 
