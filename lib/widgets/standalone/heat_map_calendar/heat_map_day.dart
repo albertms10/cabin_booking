@@ -8,7 +8,7 @@ class HeatMapDay extends StatelessWidget {
   final int value;
   final double? size;
   final EdgeInsetsGeometry padding;
-  final Color color;
+  final Color? color;
   final DateTime? date;
   final bool showTooltip;
   final void Function(DateTime, int)? onTap;
@@ -21,7 +21,7 @@ class HeatMapDay extends StatelessWidget {
     this.value = 0,
     this.size,
     this.padding = const EdgeInsets.all(2),
-    required this.color,
+    this.color,
     this.date,
     this.showTooltip = true,
     this.onTap,
@@ -69,7 +69,7 @@ class HeatMapDay extends StatelessWidget {
           borderRadius: borderRadiusTiny,
           child: Container(
             decoration: BoxDecoration(
-              color: color,
+              color: color ?? Theme.of(context).hintColor.withOpacity(0.1),
               border: containerBorder,
               borderRadius: borderRadiusTiny,
             ),

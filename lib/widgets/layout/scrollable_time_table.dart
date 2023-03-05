@@ -137,11 +137,7 @@ class _ScrollablePanelOverlayTimeTableState
                 );
               },
               itemCount: 1,
-              rowSeparatorWidget: const Divider(
-                height: 1,
-                thickness: 0,
-                color: Colors.black54,
-              ),
+              elevation: 2.5,
               leftHandSideColBackgroundColor: theme.dialogBackgroundColor,
               rightHandSideColBackgroundColor: theme.dialogBackgroundColor,
               verticalScrollbarStyle: const ScrollbarStyle(
