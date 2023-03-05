@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+const borderRadiusLarge = BorderRadius.all(Radius.circular(12));
+const borderRadiusSmall = BorderRadius.all(Radius.circular(4));
+
 final _baseThemeData = ThemeData(
   inputDecorationTheme: const InputDecorationTheme(
     errorMaxLines: 2,
@@ -10,9 +13,6 @@ final _baseThemeData = ThemeData(
     waitDuration: Duration(milliseconds: 200),
   ),
 );
-
-const borderRadiusLarge = BorderRadius.all(Radius.circular(12));
-const borderRadiusTiny = BorderRadius.all(Radius.circular(2));
 
 ThemeData lightTheme() {
   const primaryColor = Colors.blue;

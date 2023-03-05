@@ -66,12 +66,12 @@ class HeatMapDay extends StatelessWidget {
         padding: padding,
         child: InkWell(
           onTap: date == null ? null : () => onTap?.call(date!, value),
-          borderRadius: borderRadiusTiny,
+          borderRadius: borderRadiusSmall,
           child: Container(
             decoration: BoxDecoration(
               color: color ?? Theme.of(context).hintColor.withOpacity(0.1),
               border: containerBorder,
-              borderRadius: borderRadiusTiny,
+              borderRadius: borderRadiusSmall,
             ),
             width: size,
             height: size,
