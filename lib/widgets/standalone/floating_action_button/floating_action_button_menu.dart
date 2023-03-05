@@ -23,7 +23,6 @@ class FloatingActionButtonMenu extends StatefulWidget {
   final Color? backgroundColor;
   final Color? foregroundColor;
   final double elevation;
-  final ShapeBorder shape;
 
   final double marginEnd;
   final double marginBottom;
@@ -82,7 +81,6 @@ class FloatingActionButtonMenu extends StatefulWidget {
     this.onOpen,
     this.onClose,
     this.closeManually = false,
-    this.shape = const CircleBorder(),
     this.curve = Curves.easeInOutCubic,
     this.onPressed,
     this.animationSpeed = 150,
@@ -198,7 +196,6 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
                 toggleChildren: () {
                   if (!widget.closeManually) _toggleChildren();
                 },
-                shape: child.shape,
                 heroTag: widget.heroTag != null
                     ? '${widget.heroTag}-child-$index'
                     : null,
@@ -224,7 +221,6 @@ class _FloatingActionButtonMenuState extends State<FloatingActionButtonMenu>
                     heroTag: widget.heroTag,
                     elevation: widget.elevation,
                     isOpen: _open,
-                    shape: widget.shape,
                     curve: widget.curve,
                     onLongPress: _toggleChildren,
                     animationSpeed: widget.animationSpeed,
@@ -295,7 +291,6 @@ class FloatingActionButtonMenuChild {
   final Color? foregroundColor;
   final double? elevation;
   final VoidCallback? onTap;
-  final ShapeBorder? shape;
 
   const FloatingActionButtonMenuChild({
     this.label,
@@ -306,6 +301,5 @@ class FloatingActionButtonMenuChild {
     this.foregroundColor,
     this.elevation,
     this.onTap,
-    this.shape,
   });
 }
