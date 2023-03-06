@@ -1,8 +1,8 @@
 import 'package:cabin_booking/constants.dart';
 import 'package:cabin_booking/model.dart';
 import 'package:cabin_booking/utils/date_time_extension.dart';
-import 'package:cabin_booking/widgets/booking/booking_card.dart';
 import 'package:cabin_booking/widgets/booking/booking_preview_panel_overlay.dart';
+import 'package:cabin_booking/widgets/booking/draggable_booking_card.dart';
 import 'package:cabin_booking/widgets/booking/empty_booking_slot.dart';
 import 'package:cabin_booking/widgets/layout/scrollable_time_table.dart';
 import 'package:flutter/material.dart';
@@ -52,17 +52,12 @@ class BookingsStack extends StatelessWidget {
 
       if (!isFirst) {
         final booking = bookings.elementAt(i);
-
         distributedBookings.add(
-          SizedBox(
-            width: double.infinity,
-            child: BookingCard(
-              key: Key(booking.id),
-              cabin: cabin,
-              booking: booking,
-              showPreviewPanel: showPreviewPanel,
-              setPreventTimeTableScroll: setPreventTimeTableScroll,
-            ),
+          DraggableBookingCard(
+            cabin: cabin,
+            booking: booking,
+            showPreviewPanel: showPreviewPanel,
+            setPreventTimeTableScroll: setPreventTimeTableScroll,
           ),
         );
       }
