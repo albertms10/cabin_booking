@@ -10,7 +10,7 @@ environment:
   flutter: ^3.7.0
 
 dependencies:
-  collection: ^1.17.0
+  collection: any
   cupertino_icons: ^1.0.5
   fl_chart: ^0.61.0
   flutter:
@@ -20,7 +20,7 @@ dependencies:
   horizontal_data_table: ^4.1.5
   intl: any
   nanoid: ^1.0.0
-  path_provider: ^2.0.13
+  path_provider: ^2.0.14
   provider: ^6.0.5
   timer_builder: ^2.0.0
   window_size:
@@ -29,7 +29,7 @@ dependencies:
       path: plugins/window_size
 
 dev_dependencies:
-  dart_code_metrics: ^5.6.0
+  dart_code_metrics: ^5.7.0
   flutter_test:
     sdk: flutter
   very_good_analysis: ^4.0.0+1
