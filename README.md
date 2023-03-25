@@ -4,6 +4,7 @@
 ![GitHub release](https://img.shields.io/github/v/release/albertms10/cabin_booking?include_prereleases&sort=semver)
 [![Coverage Status](https://coveralls.io/repos/github/albertms10/cabin_booking/badge.svg?branch=main)](https://coveralls.io/github/albertms10/cabin_booking?branch=main)
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/albertms10/cabin_booking/badge)](https://api.securityscorecards.dev/projects/github.com/albertms10/cabin_booking)
+[![OpenSSF Best Practices](https://bestpractices.coreinfrastructure.org/projects/7157/badge)](https://bestpractices.coreinfrastructure.org/projects/7157)
 [![style: very good analysis](https://img.shields.io/badge/style-very_good_analysis-B22C89.svg)](https://pub.dev/packages/very_good_analysis)
 
 A multiplatform app for cabin booking
