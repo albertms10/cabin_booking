@@ -3,40 +3,42 @@ name: Analysis CI
 on:
   push:
     branches: [main]
-    paths-ignore:
-      - ".github/dependabot.yaml"
-      - ".github/workflows/build-cd.yaml"
-      - ".github/workflows/scorecards-analysis.yaml"
-      - ".vscode/**"
-      - "android/**"
-      - "docs/**"
-      - "ios/**"
-      - "macos/**"
-      - "windows/**"
-      - "**.md"
-      - ".gitattributes"
-      - ".gitignore"
-      - "CODEOWNERS"
-      - "LICENSE"
+  # Ignore paths with no code to analyze.
+  # Disabled for OpenSSF scoring purposes (all commit pushes MUST be analyzed).
+  # paths-ignore:
+  #   - ".github/dependabot.yaml"
+  #   - ".github/workflows/build-cd.yaml"
+  #   - ".github/workflows/scorecards-analysis.yaml"
+  #   - ".vscode/**"
+  #   - "android/**"
+  #   - "docs/**"
+  #   - "ios/**"
+  #   - "macos/**"
+  #   - "windows/**"
+  #   - "**.md"
+  #   - ".gitattributes"
+  #   - ".gitignore"
+  #   - "CODEOWNERS"
+  #   - "LICENSE"
 
   pull_request:
     branches: [main]
     types: [opened, synchronize, ready_for_review, reopened]
-    paths-ignore:
-      - ".github/dependabot.yaml"
-      - ".github/workflows/build-cd.yaml"
-      - ".github/workflows/scorecards-analysis.yaml"
-      - ".vscode/**"
-      - "android/**"
-      - "docs/**"
-      - "ios/**"
-      - "macos/**"
-      - "windows/**"
-      - "**.md"
-      - ".gitattributes"
-      - ".gitignore"
-      - "CODEOWNERS"
-      - "LICENSE"
+  # paths-ignore:
+  #   - ".github/dependabot.yaml"
+  #   - ".github/workflows/build-cd.yaml"
+  #   - ".github/workflows/scorecards-analysis.yaml"
+  #   - ".vscode/**"
+  #   - "android/**"
+  #   - "docs/**"
+  #   - "ios/**"
+  #   - "macos/**"
+  #   - "windows/**"
+  #   - "**.md"
+  #   - ".gitattributes"
+  #   - ".gitignore"
+  #   - "CODEOWNERS"
+  #   - "LICENSE"
 
   release:
     types: [published]
