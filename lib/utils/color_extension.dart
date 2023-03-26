@@ -17,7 +17,7 @@ extension ColorExtension on Color {
   /// ```dart
   /// const color = Colors.blue;
   /// const thresholds = {
-  ///   1: Color(0x332196f3),
+  ///   1: Color(0x002196f3),
   ///   4: Color(0x552196f3),
   ///   8: Color(0xaa2196f3),
   ///   12: Color(0xff2196f3),
