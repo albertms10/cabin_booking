@@ -31,8 +31,11 @@ extension ColorExtension on Color {
     required int samples,
     double minOpacity = 0.2,
   }) {
-    if (samples <= 0) {
+    if (samples < 1) {
       throw RangeError.range(samples, 1, null, 'samples');
+    }
+    if (minOpacity < 0 || minOpacity >= 1) {
+      throw RangeError.range(minOpacity, 0, 1, 'minOpacity');
     }
 
     final colorMap = SplayTreeMap<int, Color>.of({
@@ -44,10 +47,17 @@ extension ColorExtension on Color {
 
       if (currentValue <= 1) continue;
 
-      final colorValue = currentValue.map(inMax: highestValue).toDouble();
+      final colorValue =
+          currentValue.map(inMax: highestValue, outMin: minOpacity).toDouble();
 
       if (!colorMap.containsKey(currentValue)) {
-        colorMap.addAll({currentValue: withOpacity(colorValue)});
+        colorMap.addAll({
+          currentValue: withOpacity(
+            // In some edge cases, `colorValue` might be slightly greater than 1
+            // due to a practically negligible error in the `num.map` operation.
+            colorValue >= 1 ? 1 : colorValue,
+          ),
+        });
       }
     }
 
