@@ -26,8 +26,11 @@ class HeatMapLegend extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    final colorThresholds =
-        color.opacityThresholds(highestValue: samples, samples: samples - 1);
+    final colorThresholds = color.opacityThresholds(
+      highestValue: samples,
+      samples: samples - 1,
+      minOpacity: 0.2,
+    );
 
     return Row(
       mainAxisSize: MainAxisSize.min,

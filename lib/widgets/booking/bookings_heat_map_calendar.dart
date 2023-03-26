@@ -31,6 +31,7 @@ class BookingsHeatMapCalendar extends StatelessWidget {
                           highestValue:
                               cabinCollection.mostBookedDayEntry?.value ?? 1,
                           samples: 8,
+                          minOpacity: 0.2,
                         ),
                 firstWeekDay: DateTime.monday,
                 onDayTap: onDayTap == null

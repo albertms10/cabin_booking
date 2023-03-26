@@ -29,7 +29,7 @@ extension ColorExtension on Color {
   Map<int, Color> opacityThresholds({
     required int highestValue,
     required int samples,
-    double minOpacity = 0.2,
+    double minOpacity = 0,
   }) {
     if (samples < 1) {
       throw RangeError.range(samples, 1, null, 'samples');
