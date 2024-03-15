@@ -87,7 +87,7 @@ jobs:
           ARTIFACT_FILENAME: ${{ steps.filename.outputs.artifact }}
 
       - if: github.event.inputs.store_artifacts == 'true'
-        uses: actions/upload-artifact@1eb3cb2b3e0f29609092a73eb033bb759a334595 # v4.1.0
+        uses: actions/upload-artifact@5d5d22a31266ced268874388b861e4b58bb5c2f3 # v4.3.1
         with:
           name: ${{ steps.filename.outputs.artifact }}
           path: build/ios/iphoneos/${{ steps.filename.outputs.artifact }}.tar.bz2
@@ -144,7 +144,7 @@ jobs:
           ARTIFACT_FILENAME: ${{ steps.filename.outputs.artifact }}
 
       - if: github.event.inputs.store_artifacts == 'true'
-        uses: actions/upload-artifact@1eb3cb2b3e0f29609092a73eb033bb759a334595 # v4.1.0
+        uses: actions/upload-artifact@5d5d22a31266ced268874388b861e4b58bb5c2f3 # v4.3.1
         with:
           name: ${{ steps.filename.outputs.artifact }}
           path: build/app/outputs/flutter-apk/${{ steps.filename.outputs.artifact }}.tar.bz2
@@ -199,7 +199,7 @@ jobs:
           ARTIFACT_FILENAME: ${{ steps.filename.outputs.artifact }}
 
       - if: github.event.inputs.store_artifacts == 'true'
-        uses: actions/upload-artifact@1eb3cb2b3e0f29609092a73eb033bb759a334595 # v4.1.0
+        uses: actions/upload-artifact@5d5d22a31266ced268874388b861e4b58bb5c2f3 # v4.3.1
         with:
           name: ${{ steps.filename.outputs.artifact }}
           path: build/macos/Build/Products/Release/${{ steps.filename.outputs.artifact }}.tar.bz2
@@ -245,7 +245,7 @@ jobs:
           ARTIFACT_FILENAME: ${{ steps.filename.outputs.artifact }}
 
       - if: github.event.inputs.store_artifacts == 'true'
-        uses: actions/upload-artifact@1eb3cb2b3e0f29609092a73eb033bb759a334595 # v4.1.0
+        uses: actions/upload-artifact@5d5d22a31266ced268874388b861e4b58bb5c2f3 # v4.3.1
         with:
           name: ${{ steps.filename.outputs.artifact }}
           path: build/windows/runner/${{ steps.filename.outputs.artifact }}.tar.gz
