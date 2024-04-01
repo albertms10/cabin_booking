@@ -69,7 +69,7 @@ jobs:
           path: /opt/hostedtoolcache/flutter
           key: ${{ runner.os }}-pubspec-${{ env.FLUTTER_SDK_VERSION }}-${{ hashFiles('**/pubspec.lock') }}
 
-      - uses: subosito/flutter-action@62f096cacda5168a3bd7b95793373be14fa4fbaf # v2.13.0
+      - uses: subosito/flutter-action@3d804929922b667a63a229bc59037807f969e885 # v2.15.0
         with:
           flutter-version: ${{ env.FLUTTER_SDK_VERSION }}
 
