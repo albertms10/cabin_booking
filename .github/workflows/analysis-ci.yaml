@@ -89,7 +89,7 @@ jobs:
         run: flutter test test/main.dart --no-pub --coverage
 
       - name: Upload Coveralls
-        uses: coverallsapp/github-action@3dfc5567390f6fa9267c0ee9c251e4c8c3f18949 # 2.2.3
+        uses: coverallsapp/github-action@643bc377ffa44ace6394b2b5d0d3950076de9f63 # 2.3.0
         continue-on-error: true
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
