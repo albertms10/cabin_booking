@@ -44,10 +44,10 @@ class WeekColumns extends StatelessWidget {
   /// The main logic for generating a list of columns representing a week.
   ///
   /// Each column is a week with a [MonthLabel] and 7 [HeatMapDay] Widgets.
-  List<Widget> buildWeekItems() {
+  List<Widget> buildWeekItems(BuildContext context) {
     final dateList = calendarDatesFromColumns(columnsToCreate);
 
-    if (dateList.isEmpty) return [];
+    if (dateList.isEmpty) return <Widget>[];
 
     final totalWeeks = (dateList.length / DateTime.daysPerWeek).ceil();
     final amount = dateList.length + totalWeeks + dateList.first.weekday;
@@ -78,13 +78,9 @@ class WeekColumns extends StatelessWidget {
           monthLabel = monthsLabels[firstMonth - 1];
           months.add(firstMonth);
 
-          columnItems.add(
-            MonthLabel(text: monthLabel, size: squareSize),
-          );
+          columnItems.add(MonthLabel(text: monthLabel, size: squareSize));
         } else {
-          columnItems.add(
-            SizedBox(height: squareSize),
-          );
+          columnItems.add(SizedBox(height: squareSize));
         }
       } else {
         if (isFirstColumn) {
@@ -106,15 +102,13 @@ class WeekColumns extends StatelessWidget {
 
         dateList.removeAt(0);
 
-        final value = input[currentDate] ?? 0;
-        final color =
-            colorThresholds.colorFromThreshold(value) ?? Colors.black12;
+        final threshold = input[currentDate] ?? 0;
         columnItems.add(
           HeatMapDay(
-            value: value,
+            value: threshold,
             size: squareSize,
             padding: padding,
-            color: color,
+            color: colorThresholds.colorFromThreshold(threshold),
             date: currentDate,
             onTap: onDayTap,
             valueWrapper: dayValueWrapper,
@@ -124,9 +118,7 @@ class WeekColumns extends StatelessWidget {
         );
 
         if (columnItems.length == HeatMapCalendar.columnCount) {
-          columns.add(
-            Column(children: columnItems),
-          );
+          columns.add(Column(children: columnItems));
 
           columnItems = <Widget>[];
         }
@@ -134,9 +126,7 @@ class WeekColumns extends StatelessWidget {
     }
 
     if (columnItems.isNotEmpty) {
-      columns.add(
-        Column(children: columnItems),
-      );
+      columns.add(Column(children: columnItems));
     }
 
     return columns;
@@ -159,7 +149,7 @@ class WeekColumns extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: buildWeekItems(),
+        children: buildWeekItems(context),
       ),
     );
   }

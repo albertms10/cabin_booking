@@ -22,13 +22,13 @@ class HomePage extends StatefulWidget {
 class HomePageState extends State<HomePage> {
   final PageController _pageController = PageController();
 
-  int get currentIndex =>
+  int get selectedIndex =>
       _pageController.hasClients && _pageController.page != null
           ? _pageController.page!.floor()
           : _pageController.initialPage;
 
   void _setNavigationIndex(int index) {
-    if (index == currentIndex) return;
+    if (index == selectedIndex) return;
 
     setState(() => _pageController.jumpToPage(index));
   }
@@ -83,10 +83,7 @@ class HomePageState extends State<HomePage> {
     return ActionableFocusedShortcuts(
       child: Scaffold(
         appBar: AppBar(
-          title: Text(
-            appLocalizations.title,
-            style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
-          ),
+          title: Text(appLocalizations.title),
         ),
         body: SafeArea(
           child: Row(
@@ -98,12 +95,16 @@ class HomePageState extends State<HomePage> {
                       NavigationRailDestination(
                         icon: page.icon,
                         selectedIcon: page.selectedIcon,
-                        label: Text(page.label ?? ''),
+                        label: Text(page.label),
+                        padding: const EdgeInsetsDirectional.only(
+                          top: 8,
+                          bottom: 4,
+                        ),
                       ),
                   ],
-                  selectedIndex: currentIndex,
+                  selectedIndex: selectedIndex,
                   onDestinationSelected: _setNavigationIndex,
-                  labelType: NavigationRailLabelType.selected,
+                  labelType: NavigationRailLabelType.all,
                 ),
                 const VerticalDivider(width: 1, thickness: 1),
               ],
@@ -118,19 +119,19 @@ class HomePageState extends State<HomePage> {
           ),
         ),
         floatingActionButton:
-            pageDestinations[currentIndex].floatingActionButton,
+            pageDestinations[selectedIndex].floatingActionButton,
         bottomNavigationBar: isSmallDisplay
-            ? BottomNavigationBar(
-                items: [
+            ? NavigationBar(
+                selectedIndex: selectedIndex,
+                destinations: [
                   for (final page in pageDestinations)
-                    BottomNavigationBarItem(
+                    NavigationDestination(
                       icon: page.icon,
+                      selectedIcon: page.selectedIcon,
                       label: page.label,
-                      activeIcon: page.selectedIcon,
                     ),
                 ],
-                onTap: _setNavigationIndex,
-                currentIndex: currentIndex,
+                onDestinationSelected: _setNavigationIndex,
               )
             : null,
       ),
@@ -144,7 +145,7 @@ class _PageDestination {
   final AppPage appPage;
   final Icon icon;
   final Icon? selectedIcon;
-  final String? label;
+  final String label;
   final Widget? floatingActionButton;
   final Widget child;
 
@@ -152,7 +153,7 @@ class _PageDestination {
     required this.appPage,
     required this.icon,
     this.selectedIcon,
-    this.label,
+    required this.label,
     this.floatingActionButton,
     required this.child,
   });

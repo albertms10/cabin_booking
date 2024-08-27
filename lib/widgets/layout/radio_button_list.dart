@@ -51,11 +51,11 @@ class _RadioButtonListState extends State<RadioButtonList> {
                 widget.onChanged?.call(i);
               },
               style: ElevatedButton.styleFrom(
-                foregroundColor:
-                    _selectedIndex == i ? Colors.white : theme.hintColor,
-                backgroundColor: _selectedIndex == i
-                    ? theme.colorScheme.secondaryContainer
-                    : null,
+                foregroundColor: _selectedIndex == i
+                    ? theme.colorScheme.onPrimary
+                    : theme.hintColor,
+                backgroundColor:
+                    _selectedIndex == i ? theme.colorScheme.primary : null,
                 padding: const EdgeInsets.symmetric(
                   vertical: 16,
                   horizontal: 24,

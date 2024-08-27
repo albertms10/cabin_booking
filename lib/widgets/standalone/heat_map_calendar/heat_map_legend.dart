@@ -45,8 +45,7 @@ class HeatMapLegend extends StatelessWidget {
             value: threshold,
             size: squareSize,
             padding: EdgeInsets.all(space * 0.5),
-            color:
-                colorThresholds.colorFromThreshold(threshold) ?? Colors.black12,
+            color: colorThresholds.colorFromThreshold(threshold),
             showTooltip: false,
           ),
         SizedBox(width: space),

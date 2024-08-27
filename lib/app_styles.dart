@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
-final ThemeData _baseThemeData = ThemeData(
+const borderRadiusLarge = BorderRadius.all(Radius.circular(12));
+const borderRadiusSmall = BorderRadius.all(Radius.circular(4));
+
+final _baseThemeData = ThemeData(
   inputDecorationTheme: const InputDecorationTheme(
     errorMaxLines: 2,
     filled: true,
@@ -13,29 +16,9 @@ final ThemeData _baseThemeData = ThemeData(
 
 ThemeData lightTheme() {
   const primaryColor = Colors.blue;
-  final primaryColorLight = primaryColor[300]!;
-  final primaryColorDark = primaryColor[700]!;
 
-  return ThemeData.light().copyWith(
-    primaryColor: primaryColor,
-    primaryColorLight: primaryColorLight,
-    primaryColorDark: primaryColorDark,
-    colorScheme: ColorScheme.light(
-      primary: primaryColor,
-      primaryContainer: primaryColorLight,
-      secondary: primaryColor,
-      onSecondary: Colors.white,
-      secondaryContainer: primaryColorDark,
-    ),
-    radioTheme: RadioThemeData(
-      fillColor: _resolveSelectedMaterialState(primaryColor),
-    ),
-    bottomNavigationBarTheme: BottomNavigationBarThemeData(
-      selectedIconTheme: IconThemeData(color: primaryColorDark),
-      unselectedIconTheme: const IconThemeData(color: Colors.grey),
-      selectedItemColor: primaryColorDark,
-      unselectedItemColor: Colors.grey,
-    ),
+  return ThemeData.light(useMaterial3: true).copyWith(
+    colorScheme: ColorScheme.fromSeed(seedColor: primaryColor),
     inputDecorationTheme: _baseThemeData.inputDecorationTheme,
     tooltipTheme: _baseThemeData.tooltipTheme,
   );
@@ -43,44 +26,13 @@ ThemeData lightTheme() {
 
 ThemeData darkTheme() {
   const primaryColor = Colors.lightBlueAccent;
-  final primaryColorLight = primaryColor[100]!;
-  final primaryColorDark = primaryColor[700]!;
 
-  return ThemeData.dark().copyWith(
-    primaryColor: primaryColor,
-    primaryColorLight: primaryColorLight,
-    primaryColorDark: primaryColorDark,
-    colorScheme: ColorScheme.dark(
-      primary: primaryColor,
-      onPrimary: Colors.white,
-      primaryContainer: primaryColorLight,
-      secondary: primaryColor,
-      onSecondary: Colors.white,
-      secondaryContainer: primaryColorDark,
-    ),
-    radioTheme: RadioThemeData(
-      fillColor: _resolveSelectedMaterialState(primaryColor),
-    ),
-    floatingActionButtonTheme: FloatingActionButtonThemeData(
-      backgroundColor: primaryColorDark,
-    ),
-    bottomNavigationBarTheme: BottomNavigationBarThemeData(
-      selectedIconTheme: IconThemeData(color: primaryColorDark),
-      unselectedIconTheme: const IconThemeData(color: Colors.grey),
-      selectedItemColor: primaryColorDark,
-      unselectedItemColor: Colors.grey,
+  return ThemeData.dark(useMaterial3: true).copyWith(
+    colorScheme: ColorScheme.fromSeed(
+      seedColor: primaryColor,
+      brightness: Brightness.dark,
     ),
     inputDecorationTheme: _baseThemeData.inputDecorationTheme,
     tooltipTheme: _baseThemeData.tooltipTheme,
   );
-}
-
-MaterialStateProperty<Color?> _resolveSelectedMaterialState(
-  Color color,
-) {
-  return MaterialStateProperty.resolveWith((states) {
-    if (states.contains(MaterialState.selected)) return color;
-
-    return null;
-  });
 }
