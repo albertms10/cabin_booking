@@ -63,7 +63,7 @@ jobs:
       - uses: actions/checkout@b56e6a3d768b11aef1d4c73977caf6413c0d74c8 # v3
 
       - name: Cache dependencies
-        uses: actions/cache@13aacd865c20de90d75de3b17ebe84f7a17d57d2 # v4.0.0
+        uses: actions/cache@2cdf405574d6ef1f33a1d12acccd3ae82f47b3f2 # v4.1.0
         id: cache
         with:
           path: /opt/hostedtoolcache/flutter
